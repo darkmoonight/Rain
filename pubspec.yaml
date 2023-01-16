@@ -11,12 +11,35 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  get: ^4.6.5
+  dio: ^4.0.6
+  intl: ^0.18.0
+  iconsax: ^0.0.8
+  shimmer: ^2.0.0
+  weather_icons: ^3.0.0
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.16
+  flutter_launcher_icons: ^0.11.0
+
+flutter_icons:
+  android: true
+  image_path: "assets/icons/icon.png"
+  adaptive_icon_background: "#182224"
+  adaptive_icon_foreground: "assets/icons/icon.png"
+
+flutter_native_splash:
+  color: "#182224"
+  image: "assets/icons/splash.png"
 
 flutter:
+  generate: false
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
