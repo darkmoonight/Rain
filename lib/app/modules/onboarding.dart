@@ -27,8 +27,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     'assets/images/weather.png',
                     scale: 2,
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Text(
-                    'Weather\n Application',
+                    'name'.tr,
                     style: context.theme.textTheme.headline1
                         ?.copyWith(fontSize: 28),
                     textAlign: TextAlign.center,
@@ -39,7 +42,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
-                      'Weather app that provides real-time forecasts, current conditions, and hourly, daily and weekly forecasts for any location.',
+                      'description'.tr,
                       style: context.theme.primaryTextTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
@@ -50,7 +53,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: MyTextButton(
-                buttonName: 'Get Started',
+                buttonName: 'start'.tr,
                 onTap: () async {
                   settings.onboard = true;
                   isar.writeTxn(() async => isar.settings.put(settings));
