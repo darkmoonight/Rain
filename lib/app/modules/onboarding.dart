@@ -31,16 +31,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     height: 20,
                   ),
                   Text(
-                    'name'.tr,
+                    'Rain - ${'name'.tr}',
                     style: context.theme.textTheme.headline1
                         ?.copyWith(fontSize: 28),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.85,
                     child: Text(
                       'description'.tr,
                       style: context.theme.primaryTextTheme.headline5,

@@ -25,6 +25,7 @@ dependencies:
   isar_flutter_libs: ^3.0.5
   flutter_screenutil: ^5.6.0
   flutter_easyloading: ^3.0.5
+  custom_navigation_bar: ^0.8.2
 
 dev_dependencies:
   flutter_test:
