@@ -107,8 +107,115 @@ class _WeatherPageState extends State<WeatherPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 15),
                 Container(
+                  height: 130,
+                  margin: const EdgeInsets.symmetric(vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          context.theme.backgroundColor,
+                          context.theme.primaryColor
+                        ],
+                      ),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(20))),
+                  child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    separatorBuilder: (BuildContext context, int index) {
+                      return VerticalDivider(
+                        width: 30,
+                        color: context.theme.unselectedWidgetColor,
+                        indent: 40,
+                        endIndent: 40,
+                      );
+                    },
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    itemBuilder: (ctx, i) => Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          '00:00',
+                          style: context.theme.primaryTextTheme.subtitle1,
+                        ),
+                        Image.asset(
+                          'assets/images/snow_2d.png',
+                          scale: 5,
+                        ),
+                        Text(
+                          '-2.6°',
+                          style: context.theme.textTheme.headline3,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 355,
+                  margin: const EdgeInsets.only(bottom: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          context.theme.backgroundColor,
+                          context.theme.primaryColor
+                        ],
+                      ),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(20))),
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 7,
+                    itemBuilder: (ctx, i) => Container(
+                      margin: const EdgeInsets.symmetric(vertical: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            DateFormat.EEEE('${locale?.languageCode}')
+                                .format(DateTime.now()),
+                            style: context.theme.primaryTextTheme.subtitle1
+                                ?.copyWith(fontSize: 16),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                'assets/images/sunny_2d.png',
+                                scale: 5,
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                'Солнечно',
+                                style: context.theme.primaryTextTheme.subtitle1
+                                    ?.copyWith(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '1.4°',
+                                style: context.theme.textTheme.headline3
+                                    ?.copyWith(fontSize: 16),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                '-5.6°',
+                                style: context.theme.primaryTextTheme.subtitle1
+                                    ?.copyWith(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 15),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
                   decoration: BoxDecoration(
@@ -169,51 +276,6 @@ class _WeatherPageState extends State<WeatherPage> {
                           imageName: 'assets/images/water.png',
                           value: '0.1мм',
                           desc: 'Дождь',
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 130,
-                  margin: const EdgeInsets.symmetric(vertical: 15),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          context.theme.backgroundColor,
-                          context.theme.primaryColor
-                        ],
-                      ),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (BuildContext context, int index) {
-                      return VerticalDivider(
-                        width: 30,
-                        color: context.theme.unselectedWidgetColor,
-                        indent: 40,
-                        endIndent: 40,
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 10,
-                    itemBuilder: (ctx, i) => Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          '00:00',
-                          style: context.theme.primaryTextTheme.subtitle1,
-                        ),
-                        Image.asset(
-                          'assets/images/snow_2d.png',
-                          scale: 5,
-                        ),
-                        Text(
-                          '-2.6°',
-                          style: context.theme.textTheme.headline3,
                         ),
                       ],
                     ),
