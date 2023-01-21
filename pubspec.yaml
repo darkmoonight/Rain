@@ -21,11 +21,9 @@ dependencies:
   shimmer: ^2.0.0
   flutter_glow: ^0.2.0
   path_provider: ^2.0.11
-  cupertino_icons: ^1.0.2
   isar_flutter_libs: ^3.0.5
   flutter_screenutil: ^5.6.0
   flutter_easyloading: ^3.0.5
-  custom_navigation_bar: ^0.8.2
 
 dev_dependencies:
   flutter_test:

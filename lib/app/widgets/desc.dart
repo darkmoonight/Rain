@@ -14,23 +14,27 @@ class DescWeather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          imageName,
-          scale: 20,
-        ),
-        const SizedBox(height: 5),
-        Text(
-          value,
-          style: context.theme.textTheme.headline3,
-        ),
-        Text(
-          desc,
-          style: context.theme.primaryTextTheme.subtitle1,
-        ),
-      ],
+    return SizedBox(
+      height: 70,
+      width: 75,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            imageName,
+            scale: 20,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            value,
+            style: context.theme.textTheme.headline3,
+          ),
+          Text(
+            desc,
+            style: context.theme.primaryTextTheme.subtitle1,
+          ),
+        ],
+      ),
     );
   }
 }

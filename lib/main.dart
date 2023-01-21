@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
+import 'package:rain/app/modules/weather.dart';
 import 'package:rain/theme/theme.dart';
 import 'app/data/weather.dart';
 import 'l10n/translation.dart';
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: settings.onboard == false
               ? const OnboardingPage()
-              : const HomePage(),
+              : const WeatherPage(),
           builder: EasyLoading.init(),
         );
       },
