@@ -8,7 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
 import 'package:rain/theme/theme.dart';
-
 import 'app/data/weather.dart';
 import 'l10n/translation.dart';
 import 'theme/theme_controller.dart';

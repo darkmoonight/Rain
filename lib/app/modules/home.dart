@@ -1,5 +1,6 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/modules/favorite.dart';
@@ -23,6 +24,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: context.theme.bottomAppBarColor,
+      ),
+    );
     return Scaffold(
       backgroundColor: context.theme.scaffoldBackgroundColor,
       body: Obx(
@@ -43,12 +49,10 @@ class _HomePageState extends State<HomePage> {
             highlightColor: Colors.transparent,
           ),
           child: CustomNavigationBar(
-            backgroundColor: context.theme.primaryColor,
+            backgroundColor: context.theme.bottomAppBarColor,
             strokeColor: const Color(0x300c18fb),
             onTap: (int index) => changeTabIndex(index),
             currentIndex: tabIndex.value,
-            iconSize: 24,
-            elevation: 0,
             items: [
               CustomNavigationBarItem(icon: const Icon(Iconsax.cloud)),
               CustomNavigationBarItem(

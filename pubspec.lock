@@ -237,6 +237,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.5"
+  flutter_glow:
+    dependency: "direct main"
+    description:
+      name: flutter_glow
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -684,13 +691,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  weather_icons:
-    dependency: "direct main"
-    description:
-      name: weather_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   web_socket_channel:
     dependency: transitive
     description:

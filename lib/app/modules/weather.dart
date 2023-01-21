@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_icons/weather_icons.dart';
+import 'package:rain/app/modules/all_days.dart';
+import 'package:rain/app/widgets/desc.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -17,144 +19,128 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                GestureDetector(
+                  onTap: () {},
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Сегодня, ${DateFormat.yMMMd('${locale?.languageCode}').format(
-                          DateTime.now(),
-                        )}',
-                        style: context.theme.primaryTextTheme.subtitle1,
+                      const Icon(
+                        Iconsax.location,
+                        size: 16,
                       ),
-                      const SizedBox(height: 5),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Iconsax.location,
-                              size: 18,
-                            ),
-                            const SizedBox(width: 3),
-                            Text(
-                              'Ростов-на-Дону, Россия',
-                              style: context.theme.textTheme.headline6,
-                            ),
-                            const SizedBox(width: 3),
-                            const Icon(
-                              Iconsax.arrow_down_1,
-                              size: 16,
-                            ),
-                          ],
-                        ),
+                      const SizedBox(width: 3),
+                      Text(
+                        'Ростов-на-Дону, Россия',
+                        style: context.theme.textTheme.headline6,
+                      ),
+                      const SizedBox(width: 3),
+                      const Icon(
+                        Icons.arrow_drop_down_outlined,
+                        size: 16,
                       ),
                     ],
                   ),
                 ),
                 IconButton(
+                  alignment: Alignment.centerRight,
                   onPressed: () {},
-                  icon: const Icon(Iconsax.gps),
+                  icon: const Icon(Iconsax.sun_1),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                 ),
               ],
             ),
-            const SizedBox(height: 25),
-            Image.asset(
-              'assets/images/raining.png',
-              scale: 2.4,
-            ),
-            const SizedBox(height: 15),
-            Text(
-              'Дождь',
-              style: context.theme.textTheme.subtitle2?.copyWith(fontSize: 20),
-            ),
-            const SizedBox(height: 15),
-            Text(
-              '23°',
-              style: context.theme.textTheme.headline1
-                  ?.copyWith(fontSize: 48, fontWeight: FontWeight.w800),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              decoration: BoxDecoration(
-                  color: context.theme.primaryColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(20))),
-              child: Wrap(
-                spacing: 30,
+            SizedBox(
+              height: 350,
+              child: Stack(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(WeatherIcons.raindrop),
-                      const SizedBox(height: 5),
-                      Text(
-                        '62%',
-                        style: context.theme.textTheme.headline3,
+                  const Image(
+                    image: AssetImage('assets/images/rainy.png'),
+                    fit: BoxFit.fill,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          GlowText(
+                            '23',
+                            style: context.theme.textTheme.headline1?.copyWith(
+                              fontSize: 90,
+                              fontWeight: FontWeight.w800,
+                              height: 0.1,
+                            ),
+                            blurRadius: 2,
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            'Дождь',
+                            style: context.theme.textTheme.headline6
+                                ?.copyWith(fontSize: 20),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            DateFormat.MMMMEEEEd('${locale?.languageCode}')
+                                .format(
+                              DateTime.now(),
+                            ),
+                            style: context.theme.primaryTextTheme.subtitle1,
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Влажность',
-                        style: context.theme.primaryTextTheme.subtitle1,
-                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 15),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      context.theme.backgroundColor,
+                      context.theme.primaryColor
                     ],
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(WeatherIcons.strong_wind),
-                      const SizedBox(height: 5),
-                      Text(
-                        '7км/ч',
-                        style: context.theme.textTheme.headline3,
-                      ),
-                      Text(
-                        'Ветер',
-                        style: context.theme.primaryTextTheme.subtitle1,
-                      ),
-                    ],
+                  borderRadius: const BorderRadius.all(Radius.circular(25))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  DescWeather(
+                    imageName: 'assets/images/humidity.png',
+                    value: '62%',
+                    desc: 'Влажность',
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(WeatherIcons.rain),
-                      const SizedBox(height: 5),
-                      Text(
-                        '30%',
-                        style: context.theme.textTheme.headline3,
-                      ),
-                      Text(
-                        'Дождь',
-                        style: context.theme.primaryTextTheme.subtitle1,
-                      ),
-                    ],
+                  DescWeather(
+                    imageName: 'assets/images/wind.png',
+                    value: '7 км/ч',
+                    desc: 'Ветер',
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(WeatherIcons.windy),
-                      const SizedBox(height: 5),
-                      Text(
-                        '50%',
-                        style: context.theme.textTheme.headline3,
-                      ),
-                      Text(
-                        'Видимость',
-                        style: context.theme.primaryTextTheme.subtitle1,
-                      ),
-                    ],
+                  DescWeather(
+                    imageName: 'assets/images/foggy.png',
+                    value: '14 км',
+                    desc: 'Видимость',
+                  ),
+                  DescWeather(
+                    imageName: 'assets/images/hot.png',
+                    value: '19°',
+                    desc: 'Ощущается',
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 15),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -163,20 +149,38 @@ class _WeatherPageState extends State<WeatherPage> {
                     style: context.theme.textTheme.headline3,
                   ),
                   GestureDetector(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        Text(
-                          '7 дней',
-                          style: context.theme.primaryTextTheme.subtitle1
-                              ?.copyWith(fontSize: 16),
-                        ),
-                        Icon(
-                          Iconsax.arrow_right_3,
-                          size: 12,
-                          color: Colors.grey[600],
-                        ),
-                      ],
+                    onTap: () {
+                      Get.to(
+                        () => const AllDaysPage(),
+                        transition: Transition.rightToLeft,
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              context.theme.backgroundColor,
+                              context.theme.primaryColor
+                            ],
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
+                      child: Row(
+                        children: [
+                          Text(
+                            '7 дней',
+                            style: context.theme.primaryTextTheme.subtitle1
+                                ?.copyWith(fontSize: 16),
+                          ),
+                          Icon(
+                            Iconsax.arrow_right_3,
+                            size: 12,
+                            color: Colors.grey[600],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -186,31 +190,34 @@ class _WeatherPageState extends State<WeatherPage> {
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(width: 10);
+                  return const SizedBox(width: 12);
                 },
                 scrollDirection: Axis.horizontal,
                 itemCount: 10,
                 itemBuilder: (ctx, i) => Container(
-                  margin: const EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   decoration: BoxDecoration(
-                      color: context.theme.primaryColor,
+                      gradient: LinearGradient(
+                        colors: [
+                          context.theme.backgroundColor,
+                          context.theme.primaryColor
+                        ],
+                      ),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20))),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
                         '10:00',
-                        style: context.theme.primaryTextTheme.headline4,
+                        style: context.theme.primaryTextTheme.subtitle1,
                       ),
-                      const SizedBox(height: 5),
                       Image.asset(
-                        'assets/images/raining.png',
-                        scale: 15,
+                        'assets/images/snow_2d.png',
+                        scale: 5,
                       ),
-                      const SizedBox(height: 5),
                       Text(
                         '19°',
                         style: context.theme.textTheme.headline3,
