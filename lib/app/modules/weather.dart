@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/desc.dart';
+import 'package:rain/app/widgets/weather_7days.dart';
+import 'package:rain/app/widgets/weather_today.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -27,39 +28,40 @@ class _WeatherPageState extends State<WeatherPage> {
             },
             child: ListView(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Iconsax.location,
-                            size: 16,
-                          ),
-                          const SizedBox(width: 3),
-                          Text(
-                            'Ростов-на-Дону, Россия',
-                            style: context.theme.textTheme.headline6,
-                          ),
-                          const SizedBox(width: 3),
-                          const Icon(
-                            Icons.arrow_drop_down_outlined,
-                            size: 16,
-                          ),
-                        ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/map.png',
+                              scale: 35,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              'Ростов-на-Дону, Россия',
+                              style: context.theme.textTheme.headline6,
+                            ),
+                            const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              size: 16,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      alignment: Alignment.centerRight,
-                      onPressed: () {},
-                      icon: const Icon(Iconsax.sun_1),
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                    ),
-                  ],
+                      GestureDetector(
+                        onTap: () {},
+                        child: Image.asset(
+                          'assets/images/01d.png',
+                          scale: 5,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 350,
@@ -132,85 +134,11 @@ class _WeatherPageState extends State<WeatherPage> {
                       );
                     },
                     scrollDirection: Axis.horizontal,
-                    itemCount: 10,
-                    itemBuilder: (ctx, i) => Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          '00:00',
-                          style: context.theme.primaryTextTheme.subtitle1,
-                        ),
-                        Image.asset(
-                          'assets/images/snow_2d.png',
-                          scale: 5,
-                        ),
-                        Text(
-                          '-2.6°',
-                          style: context.theme.textTheme.headline3,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 355,
-                  margin: const EdgeInsets.only(bottom: 15),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          context.theme.backgroundColor,
-                          context.theme.primaryColor
-                        ],
-                      ),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: 7,
-                    itemBuilder: (ctx, i) => Container(
-                      margin: const EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            DateFormat.EEEE('${locale?.languageCode}')
-                                .format(DateTime.now()),
-                            style: context.theme.primaryTextTheme.subtitle1
-                                ?.copyWith(fontSize: 16),
-                          ),
-                          Row(
-                            children: [
-                              Image.asset(
-                                'assets/images/sunny_2d.png',
-                                scale: 5,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                'Солнечно',
-                                style: context.theme.primaryTextTheme.subtitle1
-                                    ?.copyWith(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '1.4°',
-                                style: context.theme.textTheme.headline3
-                                    ?.copyWith(fontSize: 16),
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                '-5.6°',
-                                style: context.theme.primaryTextTheme.subtitle1
-                                    ?.copyWith(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    itemCount: 24,
+                    itemBuilder: (ctx, i) => const WeatherToday(
+                      time: '00:00',
+                      weather: 'assets/images/sunny_2d.png',
+                      degree: '-2.6',
                     ),
                   ),
                 ),
@@ -278,6 +206,32 @@ class _WeatherPageState extends State<WeatherPage> {
                           desc: 'Дождь',
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 355,
+                  margin: const EdgeInsets.only(bottom: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          context.theme.backgroundColor,
+                          context.theme.primaryColor
+                        ],
+                      ),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(20))),
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 7,
+                    itemBuilder: (ctx, i) => Weather7Days(
+                      locale: locale!,
+                      image: 'assets/images/sunny_2d.png',
+                      weather: 'Грозы',
+                      minDegree: '1.4°',
+                      maxDegree: '-5.3°',
                     ),
                   ),
                 ),

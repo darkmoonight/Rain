@@ -17,7 +17,6 @@ dependencies:
   dio: ^4.0.6
   isar: ^3.0.5
   intl: ^0.17.0
-  iconsax: ^0.0.8
   shimmer: ^2.0.0
   flutter_glow: ^0.2.0
   path_provider: ^2.0.11
