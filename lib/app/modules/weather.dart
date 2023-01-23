@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/weather_7days.dart';
 import 'package:rain/app/widgets/weather_today.dart';
+import 'package:rain/theme/theme_controller.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -15,6 +16,8 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   final locale = Get.locale;
+  final themeController = Get.put(ThemeController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,40 +31,50 @@ class _WeatherPageState extends State<WeatherPage> {
             },
             child: ListView(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/map.png',
-                              scale: 35,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              'Ростов-на-Дону, Россия',
-                              style: context.theme.textTheme.headline6,
-                            ),
-                            const Icon(
-                              Icons.arrow_drop_down_outlined,
-                              size: 16,
-                            ),
-                          ],
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/map.png',
+                            scale: 35,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            'Ростов-на-Дону, Россия',
+                            style: context.theme.textTheme.headline6,
+                          ),
+                          const Icon(
+                            Icons.arrow_drop_down_outlined,
+                            size: 16,
+                          ),
+                        ],
                       ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Image.asset(
-                          'assets/images/01d.png',
-                          scale: 5,
-                        ),
+                    ),
+                    IconButton(
+                      alignment: Alignment.centerRight,
+                      onPressed: () {
+                        if (Get.isDarkMode) {
+                          themeController.changeThemeMode(ThemeMode.light);
+                          themeController.saveTheme(false);
+                        } else {
+                          themeController.changeThemeMode(ThemeMode.dark);
+                          themeController.saveTheme(true);
+                        }
+                      },
+                      icon: Image.asset(
+                        Get.isDarkMode
+                            ? 'assets/images/01d.png'
+                            : 'assets/images/01n.png',
+                        scale: 5,
                       ),
-                    ],
-                  ),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 350,
