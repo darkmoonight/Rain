@@ -45,7 +45,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           const SizedBox(width: 5),
                           Text(
                             'Ростов-на-Дону, Россия',
-                            style: context.theme.textTheme.headline6,
+                            style: context.theme.textTheme.labelLarge,
                           ),
                           const Icon(
                             Icons.arrow_drop_down_outlined,
@@ -93,19 +93,18 @@ class _WeatherPageState extends State<WeatherPage> {
                             children: [
                               GlowText(
                                 '-2.6',
-                                style:
-                                    context.theme.textTheme.headline1?.copyWith(
+                                style: context.theme.textTheme.displayLarge
+                                    ?.copyWith(
                                   fontSize: 90,
                                   fontWeight: FontWeight.w800,
-                                  height: 0.1,
+                                  height: 0.7,
                                 ),
                                 blurRadius: 2,
                               ),
                               const SizedBox(height: 15),
                               Text(
                                 'Солнечно',
-                                style: context.theme.textTheme.headline6
-                                    ?.copyWith(fontSize: 20),
+                                style: context.theme.textTheme.titleLarge,
                               ),
                               const SizedBox(height: 5),
                               Text(
@@ -113,7 +112,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                     .format(
                                   DateTime.now(),
                                 ),
-                                style: context.theme.primaryTextTheme.subtitle1,
+                                style: context.theme.textTheme.labelLarge,
                               ),
                             ],
                           ),
@@ -128,12 +127,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          context.theme.backgroundColor,
-                          context.theme.primaryColor
-                        ],
-                      ),
+                      color: context.theme.colorScheme.primaryContainer,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20))),
                   child: ListView.separated(
@@ -160,12 +154,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          context.theme.backgroundColor,
-                          context.theme.primaryColor
-                        ],
-                      ),
+                      color: context.theme.colorScheme.primaryContainer,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(25))),
                   child: Center(
@@ -228,12 +217,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          context.theme.backgroundColor,
-                          context.theme.primaryColor
-                        ],
-                      ),
+                      color: context.theme.colorScheme.primaryContainer,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20))),
                   child: ListView.builder(

@@ -19,7 +19,7 @@ class WeatherToday extends StatelessWidget {
       children: [
         Text(
           time,
-          style: context.theme.primaryTextTheme.subtitle1,
+          style: context.theme.textTheme.labelLarge,
         ),
         Image.asset(
           weather,
@@ -27,7 +27,7 @@ class WeatherToday extends StatelessWidget {
         ),
         Text(
           degree,
-          style: context.theme.textTheme.headline3,
+          style: context.theme.textTheme.titleMedium,
         ),
       ],
     );

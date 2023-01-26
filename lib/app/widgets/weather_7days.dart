@@ -26,8 +26,7 @@ class Weather7Days extends StatelessWidget {
         children: [
           Text(
             DateFormat.EEEE(locale.languageCode).format(DateTime.now()),
-            style: context.theme.primaryTextTheme.subtitle1
-                ?.copyWith(fontSize: 16),
+            style: context.theme.textTheme.labelLarge,
           ),
           Row(
             children: [
@@ -38,8 +37,7 @@ class Weather7Days extends StatelessWidget {
               const SizedBox(width: 5),
               Text(
                 weather,
-                style: context.theme.primaryTextTheme.subtitle1
-                    ?.copyWith(fontSize: 16),
+                style: context.theme.textTheme.labelLarge,
               ),
             ],
           ),
@@ -47,14 +45,12 @@ class Weather7Days extends StatelessWidget {
             children: [
               Text(
                 minDegree,
-                style:
-                    context.theme.textTheme.headline3?.copyWith(fontSize: 16),
+                style: context.theme.textTheme.labelLarge,
               ),
               const SizedBox(width: 5),
               Text(
                 minDegree,
-                style: context.theme.primaryTextTheme.subtitle1
-                    ?.copyWith(fontSize: 16),
+                style: context.theme.textTheme.bodyMedium,
               ),
             ],
           ),

@@ -7,7 +7,6 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/modules/onboarding.dart';
 import 'package:rain/app/modules/weather.dart';
-import 'package:rain/theme/theme.dart';
 import 'app/data/weather.dart';
 import 'l10n/translation.dart';
 import 'theme/theme_controller.dart';
@@ -42,8 +41,16 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          theme: RainTheme.lightTheme,
-          darkTheme: RainTheme.darkTheme,
+          theme: ThemeData(
+            useMaterial3: true,
+            brightness: Brightness.light,
+            colorSchemeSeed: Colors.lightBlueAccent,
+          ),
+          darkTheme: ThemeData(
+            useMaterial3: true,
+            brightness: Brightness.dark,
+            colorSchemeSeed: Colors.lightBlueAccent,
+          ),
           themeMode: themeController.theme,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,

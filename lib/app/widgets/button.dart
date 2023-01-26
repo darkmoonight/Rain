@@ -7,12 +7,10 @@ class MyTextButton extends StatelessWidget {
     required this.buttonName,
     required this.onTap,
     required this.bgColor,
-    required this.textColor,
   });
   final String buttonName;
   final Function() onTap;
   final Color bgColor;
-  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class MyTextButton extends StatelessWidget {
         onPressed: onTap,
         child: Text(
           buttonName,
-          style: context.theme.textTheme.headline6?.copyWith(color: textColor),
+          style: context.theme.textTheme.titleMedium,
         ),
       ),
     );

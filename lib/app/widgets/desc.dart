@@ -27,11 +27,11 @@ class DescWeather extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             value,
-            style: context.theme.textTheme.headline3,
+            style: context.theme.textTheme.labelLarge,
           ),
           Text(
             desc,
-            style: context.theme.primaryTextTheme.subtitle1,
+            style: context.theme.textTheme.bodySmall,
           ),
         ],
       ),
