@@ -50,7 +50,9 @@ class Weather7Days extends StatelessWidget {
               const SizedBox(width: 5),
               Text(
                 minDegree,
-                style: context.theme.textTheme.bodyMedium,
+                style: context.theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.grey,
+                ),
               ),
             ],
           ),

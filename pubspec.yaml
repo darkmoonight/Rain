@@ -18,10 +18,10 @@ dependencies:
   isar: ^3.0.5
   intl: ^0.17.0
   shimmer: ^2.0.0
+  iconsax: ^0.0.8
   flutter_glow: ^0.2.0
   path_provider: ^2.0.11
   isar_flutter_libs: ^3.0.5
-  flutter_screenutil: ^5.6.0
   flutter_easyloading: ^3.0.5
 
 dev_dependencies:

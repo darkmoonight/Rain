@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/weather_7days.dart';
@@ -20,6 +21,16 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   Widget build(BuildContext context) {
+    final MaterialStateProperty<Icon?> thumbIcon =
+        MaterialStateProperty.resolveWith<Icon?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return const Icon(Iconsax.moon5);
+        }
+        return const Icon(Iconsax.sun_15);
+      },
+    );
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -54,26 +65,23 @@ class _WeatherPageState extends State<WeatherPage> {
                         ],
                       ),
                     ),
-                    IconButton(
+                    Transform.scale(
                       alignment: Alignment.centerRight,
-                      onPressed: () {
-                        if (Get.isDarkMode) {
-                          themeController.changeThemeMode(ThemeMode.light);
-                          themeController.saveTheme(false);
-                        } else {
-                          themeController.changeThemeMode(ThemeMode.dark);
-                          themeController.saveTheme(true);
-                        }
-                      },
-                      icon: Image.asset(
-                        Get.isDarkMode
-                            ? 'assets/images/01d.png'
-                            : 'assets/images/01n.png',
-                        scale: 5,
+                      scale: 0.8,
+                      child: Switch(
+                        thumbIcon: thumbIcon,
+                        value: Get.isDarkMode,
+                        onChanged: (_) {
+                          if (Get.isDarkMode) {
+                            themeController.changeThemeMode(ThemeMode.light);
+                            themeController.saveTheme(false);
+                          } else {
+                            themeController.changeThemeMode(ThemeMode.dark);
+                            themeController.saveTheme(true);
+                          }
+                        },
                       ),
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                    ),
+                    )
                   ],
                 ),
                 SizedBox(

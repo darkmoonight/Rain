@@ -291,14 +291,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.16"
-  flutter_screenutil:
-    dependency: "direct main"
-    description:
-      name: flutter_screenutil
-      sha256: "154a1abec9f047d9cdaf71856163315d9d7def5167409361a7f13a5bcd650017"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.6.0"
   flutter_spinkit:
     dependency: transitive
     description:
@@ -373,6 +365,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  iconsax:
+    dependency: "direct main"
+    description:
+      name: iconsax
+      sha256: fb0144c61f41f3f8a385fadc27783ea9f5359670be885ed7f35cef32565d5228
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.8"
   image:
     dependency: transitive
     description:
