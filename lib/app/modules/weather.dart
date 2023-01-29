@@ -67,7 +67,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     ),
                     Transform.scale(
                       alignment: Alignment.centerRight,
-                      scale: 0.8,
+                      scale: 0.7,
                       child: Switch(
                         thumbIcon: thumbIcon,
                         value: Get.isDarkMode,
@@ -81,7 +81,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           }
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -100,14 +100,13 @@ class _WeatherPageState extends State<WeatherPage> {
                           child: Column(
                             children: [
                               GlowText(
-                                '-2.6',
+                                '4',
                                 style: context.theme.textTheme.displayLarge
                                     ?.copyWith(
                                   fontSize: 90,
                                   fontWeight: FontWeight.w800,
                                   height: 0.7,
                                 ),
-                                blurRadius: 2,
                               ),
                               const SizedBox(height: 15),
                               Text(
@@ -120,7 +119,10 @@ class _WeatherPageState extends State<WeatherPage> {
                                     .format(
                                   DateTime.now(),
                                 ),
-                                style: context.theme.textTheme.labelLarge,
+                                style: context.theme.textTheme.labelLarge
+                                    ?.copyWith(
+                                  color: Colors.grey,
+                                ),
                               ),
                             ],
                           ),
@@ -233,10 +235,12 @@ class _WeatherPageState extends State<WeatherPage> {
                     itemCount: 7,
                     itemBuilder: (ctx, i) => Weather7Days(
                       locale: locale!,
+                      date: DateFormat.EEEE(locale?.languageCode)
+                          .format(DateTime.now().add(Duration(days: i + 1))),
                       image: 'assets/images/sunny_2d.png',
-                      weather: 'Грозы',
-                      minDegree: '1.4°',
-                      maxDegree: '-5.3°',
+                      weather: 'Облачно',
+                      minDegree: '-13.4°',
+                      maxDegree: '-57.3°',
                     ),
                   ),
                 ),
