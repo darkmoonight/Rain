@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-Weather7Days weather7DaysFromJson(String str) =>
-    Weather7Days.fromJson(json.decode(str));
+Weather7DaysApi weather7DaysFromJson(String str) =>
+    Weather7DaysApi.fromJson(json.decode(str));
 
-String weather7DaysToJson(Weather7Days data) => json.encode(data.toJson());
+String weather7DaysToJson(Weather7DaysApi data) => json.encode(data.toJson());
 
-class Weather7Days {
-  Weather7Days({
+class Weather7DaysApi {
+  Weather7DaysApi({
     required this.latitude,
     required this.longitude,
     required this.generationtimeMs,
@@ -24,11 +24,12 @@ class Weather7Days {
   int utcOffsetSeconds;
   String timezone;
   String timezoneAbbreviation;
-  int elevation;
+  double elevation;
   DailyUnits dailyUnits;
   Daily daily;
 
-  factory Weather7Days.fromJson(Map<String, dynamic> json) => Weather7Days(
+  factory Weather7DaysApi.fromJson(Map<String, dynamic> json) =>
+      Weather7DaysApi(
         latitude: json["latitude"]?.toDouble(),
         longitude: json["longitude"]?.toDouble(),
         generationtimeMs: json["generationtime_ms"]?.toDouble(),

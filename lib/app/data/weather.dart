@@ -17,10 +17,10 @@ class WeatherDay {
   int relativehumidity2M;
   double apparentTemperature;
   double precipitation;
-  int rain;
+  double rain;
   int weathercode;
   double surfacePressure;
-  int visibility;
+  double visibility;
   double evapotranspiration;
   double windspeed10M;
   int winddirection10M;

@@ -23,6 +23,8 @@ void main() async {
 Future<void> isarInit() async {
   isar = await Isar.open([
     SettingsSchema,
+    WeatherDaySchema,
+    Weather7DaySchema,
   ], directory: (await getApplicationSupportDirectory()).path);
 
   settings = await isar.settings.where().findFirst() ?? Settings();

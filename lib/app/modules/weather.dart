@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:rain/app/api/api.dart';
+import 'package:rain/app/api/weather_7days.dart';
+import 'package:rain/app/api/weather_day.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/weather_7days.dart';
+import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_today.dart';
 import 'package:rain/theme/theme_controller.dart';
+import 'package:shimmer/shimmer.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -84,80 +88,58 @@ class _WeatherPageState extends State<WeatherPage> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 350,
-                  child: Stack(
-                    children: [
-                      const Image(
-                        image: AssetImage('assets/images/sunny.png'),
-                        fit: BoxFit.fill,
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        left: 0,
-                        child: Center(
-                          child: Column(
-                            children: [
-                              GlowText(
-                                '4',
-                                style: context.theme.textTheme.displayLarge
-                                    ?.copyWith(
-                                  fontSize: 90,
-                                  fontWeight: FontWeight.w800,
-                                  height: 0.7,
-                                ),
-                              ),
-                              const SizedBox(height: 15),
-                              Text(
-                                'Солнечно',
-                                style: context.theme.textTheme.titleLarge,
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                DateFormat.MMMMEEEEd('${locale?.languageCode}')
-                                    .format(
-                                  DateTime.now(),
-                                ),
-                                style: context.theme.textTheme.labelLarge
-                                    ?.copyWith(
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
+                const WeatherNow(
+                  weather: 61,
+                  degree: 3.9,
+                ),
+                FutureBuilder<Hourly>(
+                  future: WeatherAPI().getWeatherData(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Shimmer.fromColors(
+                        baseColor: context.theme.colorScheme.primaryContainer,
+                        highlightColor: context.theme.unselectedWidgetColor,
+                        child: Container(
+                          height: 130,
+                          margin: const EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 5),
+                          decoration: BoxDecoration(
+                              color: context.theme.colorScheme.primaryContainer,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20))),
+                        ),
+                      );
+                    }
+                    return Container(
+                      height: 130,
+                      margin: const EdgeInsets.symmetric(vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 5),
+                      decoration: BoxDecoration(
+                          color: context.theme.colorScheme.primaryContainer,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
+                      child: ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return VerticalDivider(
+                            width: 30,
+                            color: context.theme.unselectedWidgetColor,
+                            indent: 40,
+                            endIndent: 40,
+                          );
+                        },
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.time.length,
+                        itemBuilder: (ctx, i) => WeatherToday(
+                          time: snapshot.data!.time[i],
+                          weather: snapshot.data!.weathercode[i],
+                          degree: snapshot.data!.temperature2M[i],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 130,
-                  margin: const EdgeInsets.symmetric(vertical: 15),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (BuildContext context, int index) {
-                      return VerticalDivider(
-                        width: 30,
-                        color: context.theme.unselectedWidgetColor,
-                        indent: 40,
-                        endIndent: 40,
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 24,
-                    itemBuilder: (ctx, i) => const WeatherToday(
-                      time: '00:00',
-                      weather: 'assets/images/sunny_2d.png',
-                      degree: '-2.6',
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 15),
@@ -221,28 +203,47 @@ class _WeatherPageState extends State<WeatherPage> {
                     ),
                   ),
                 ),
-                Container(
-                  height: 355,
-                  margin: const EdgeInsets.only(bottom: 15),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: 7,
-                    itemBuilder: (ctx, i) => Weather7Days(
-                      locale: locale!,
-                      date: DateFormat.EEEE(locale?.languageCode)
-                          .format(DateTime.now().add(Duration(days: i + 1))),
-                      image: 'assets/images/sunny_2d.png',
-                      weather: 'Облачно',
-                      minDegree: '-13.4°',
-                      maxDegree: '-57.3°',
-                    ),
-                  ),
+                FutureBuilder<Daily>(
+                  future: WeatherAPI().getWeather7Data(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Shimmer.fromColors(
+                        baseColor: context.theme.colorScheme.primaryContainer,
+                        highlightColor: context.theme.unselectedWidgetColor,
+                        child: Container(
+                          height: 405,
+                          margin: const EdgeInsets.only(bottom: 15),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 5),
+                          decoration: BoxDecoration(
+                              color: context.theme.colorScheme.primaryContainer,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20))),
+                        ),
+                      );
+                    }
+                    return Container(
+                      height: 405,
+                      margin: const EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 5),
+                      decoration: BoxDecoration(
+                          color: context.theme.colorScheme.primaryContainer,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: snapshot.data!.time.length,
+                        itemBuilder: (ctx, i) => Weather7Days(
+                          date: DateFormat.EEEE(locale?.languageCode)
+                              .format(snapshot.data!.time[i]),
+                          weather: snapshot.data!.weathercode[i],
+                          minDegree: snapshot.data!.temperature2MMin[i],
+                          maxDegree: snapshot.data!.temperature2MMax[i],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

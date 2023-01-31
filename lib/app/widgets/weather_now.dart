@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class Weather7Days extends StatefulWidget {
-  const Weather7Days({
+class WeatherNow extends StatefulWidget {
+  const WeatherNow({
     super.key,
-    required this.date,
     required this.weather,
-    required this.minDegree,
-    required this.maxDegree,
+    required this.degree,
   });
-  final String date;
   final int weather;
-  final double minDegree;
-  final double maxDegree;
+  final double degree;
 
   @override
-  State<Weather7Days> createState() => _Weather7DaysState();
+  State<WeatherNow> createState() => _WeatherNowState();
 }
 
-class _Weather7DaysState extends State<Weather7Days> {
+class _WeatherNowState extends State<WeatherNow> {
+  final locale = Get.locale;
+
   @override
   Widget build(BuildContext context) {
     String getImage() {
@@ -103,55 +103,47 @@ class _Weather7DaysState extends State<Weather7Days> {
       }
     }
 
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SizedBox(
+      height: 350,
+      child: Stack(
         children: [
-          SizedBox(
-            width: 85,
-            child: Text(
-              widget.date,
-              style: context.theme.textTheme.labelLarge,
+          Center(
+            child: Image(
+              image: AssetImage(getImage()),
+              fit: BoxFit.fill,
             ),
           ),
-          SizedBox(
-            width: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  getImage(),
-                  scale: 3,
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Text(
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: Center(
+              child: Column(
+                children: [
+                  GlowText(
+                    '${widget.degree}',
+                    style: context.theme.textTheme.displayLarge?.copyWith(
+                      fontSize: 90,
+                      fontWeight: FontWeight.w800,
+                      height: 0.7,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
                     getText(),
-                    style: context.theme.textTheme.labelLarge,
-                    overflow: TextOverflow.ellipsis,
+                    style: context.theme.textTheme.titleLarge,
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 80,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  '${widget.minDegree}',
-                  style: context.theme.textTheme.labelLarge,
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  '${widget.maxDegree}',
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey,
+                  const SizedBox(height: 5),
+                  Text(
+                    DateFormat.MMMMEEEEd('${locale?.languageCode}').format(
+                      DateTime.now(),
+                    ),
+                    style: context.theme.textTheme.labelLarge?.copyWith(
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

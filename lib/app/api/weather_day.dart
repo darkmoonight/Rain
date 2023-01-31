@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-WeatherDay weatherDayFromJson(String str) =>
-    WeatherDay.fromJson(json.decode(str));
+WeatherDayApi weatherDayFromJson(String str) =>
+    WeatherDayApi.fromJson(json.decode(str));
 
-String weatherDayToJson(WeatherDay data) => json.encode(data.toJson());
+String weatherDayToJson(WeatherDayApi data) => json.encode(data.toJson());
 
-class WeatherDay {
-  WeatherDay({
+class WeatherDayApi {
+  WeatherDayApi({
     required this.latitude,
     required this.longitude,
     required this.generationtimeMs,
@@ -24,11 +24,11 @@ class WeatherDay {
   int utcOffsetSeconds;
   String timezone;
   String timezoneAbbreviation;
-  int elevation;
+  double elevation;
   HourlyUnits hourlyUnits;
   Hourly hourly;
 
-  factory WeatherDay.fromJson(Map<String, dynamic> json) => WeatherDay(
+  factory WeatherDayApi.fromJson(Map<String, dynamic> json) => WeatherDayApi(
         latitude: json["latitude"]?.toDouble(),
         longitude: json["longitude"]?.toDouble(),
         generationtimeMs: json["generationtime_ms"]?.toDouble(),
@@ -74,10 +74,10 @@ class Hourly {
   List<int> relativehumidity2M;
   List<double> apparentTemperature;
   List<double> precipitation;
-  List<int> rain;
+  List<double> rain;
   List<int> weathercode;
   List<double> surfacePressure;
-  List<int> visibility;
+  List<double> visibility;
   List<double> evapotranspiration;
   List<double> windspeed10M;
   List<int> winddirection10M;
@@ -92,11 +92,11 @@ class Hourly {
             json["apparent_temperature"].map((x) => x?.toDouble())),
         precipitation:
             List<double>.from(json["precipitation"].map((x) => x?.toDouble())),
-        rain: List<int>.from(json["rain"].map((x) => x)),
+        rain: List<double>.from(json["rain"].map((x) => x)),
         weathercode: List<int>.from(json["weathercode"].map((x) => x)),
         surfacePressure: List<double>.from(
             json["surface_pressure"].map((x) => x?.toDouble())),
-        visibility: List<int>.from(json["visibility"].map((x) => x)),
+        visibility: List<double>.from(json["visibility"].map((x) => x)),
         evapotranspiration: List<double>.from(
             json["evapotranspiration"].map((x) => x?.toDouble())),
         windspeed10M:

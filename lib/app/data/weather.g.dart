@@ -404,7 +404,7 @@ const WeatherDaySchema = CollectionSchema(
     r'rain': PropertySchema(
       id: 3,
       name: r'rain',
-      type: IsarType.long,
+      type: IsarType.double,
     ),
     r'relativehumidity2M': PropertySchema(
       id: 4,
@@ -429,7 +429,7 @@ const WeatherDaySchema = CollectionSchema(
     r'visibility': PropertySchema(
       id: 8,
       name: r'visibility',
-      type: IsarType.long,
+      type: IsarType.double,
     ),
     r'weathercode': PropertySchema(
       id: 9,
@@ -480,12 +480,12 @@ void _weatherDaySerialize(
   writer.writeDouble(offsets[0], object.apparentTemperature);
   writer.writeDouble(offsets[1], object.evapotranspiration);
   writer.writeDouble(offsets[2], object.precipitation);
-  writer.writeLong(offsets[3], object.rain);
+  writer.writeDouble(offsets[3], object.rain);
   writer.writeLong(offsets[4], object.relativehumidity2M);
   writer.writeDouble(offsets[5], object.surfacePressure);
   writer.writeDouble(offsets[6], object.temperature2M);
   writer.writeString(offsets[7], object.time);
-  writer.writeLong(offsets[8], object.visibility);
+  writer.writeDouble(offsets[8], object.visibility);
   writer.writeLong(offsets[9], object.weathercode);
   writer.writeLong(offsets[10], object.winddirection10M);
   writer.writeDouble(offsets[11], object.windspeed10M);
@@ -502,12 +502,12 @@ WeatherDay _weatherDayDeserialize(
     evapotranspiration: reader.readDouble(offsets[1]),
     id: id,
     precipitation: reader.readDouble(offsets[2]),
-    rain: reader.readLong(offsets[3]),
+    rain: reader.readDouble(offsets[3]),
     relativehumidity2M: reader.readLong(offsets[4]),
     surfacePressure: reader.readDouble(offsets[5]),
     temperature2M: reader.readDouble(offsets[6]),
     time: reader.readString(offsets[7]),
-    visibility: reader.readLong(offsets[8]),
+    visibility: reader.readDouble(offsets[8]),
     weathercode: reader.readLong(offsets[9]),
     winddirection10M: reader.readLong(offsets[10]),
     windspeed10M: reader.readDouble(offsets[11]),
@@ -529,7 +529,7 @@ P _weatherDayDeserializeProp<P>(
     case 2:
       return (reader.readDouble(offset)) as P;
     case 3:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDouble(offset)) as P;
     case 4:
       return (reader.readLong(offset)) as P;
     case 5:
@@ -539,7 +539,7 @@ P _weatherDayDeserializeProp<P>(
     case 7:
       return (reader.readString(offset)) as P;
     case 8:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDouble(offset)) as P;
     case 9:
       return (reader.readLong(offset)) as P;
     case 10:
@@ -894,46 +894,54 @@ extension WeatherDayQueryFilter
   }
 
   QueryBuilder<WeatherDay, WeatherDay, QAfterFilterCondition> rainEqualTo(
-      int value) {
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'rain',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<WeatherDay, WeatherDay, QAfterFilterCondition> rainGreaterThan(
-    int value, {
+    double value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'rain',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<WeatherDay, WeatherDay, QAfterFilterCondition> rainLessThan(
-    int value, {
+    double value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'rain',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<WeatherDay, WeatherDay, QAfterFilterCondition> rainBetween(
-    int lower,
-    int upper, {
+    double lower,
+    double upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -942,6 +950,7 @@ extension WeatherDayQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -1265,48 +1274,56 @@ extension WeatherDayQueryFilter
   }
 
   QueryBuilder<WeatherDay, WeatherDay, QAfterFilterCondition> visibilityEqualTo(
-      int value) {
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'visibility',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<WeatherDay, WeatherDay, QAfterFilterCondition>
       visibilityGreaterThan(
-    int value, {
+    double value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'visibility',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<WeatherDay, WeatherDay, QAfterFilterCondition>
       visibilityLessThan(
-    int value, {
+    double value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'visibility',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<WeatherDay, WeatherDay, QAfterFilterCondition> visibilityBetween(
-    int lower,
-    int upper, {
+    double lower,
+    double upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -1315,6 +1332,7 @@ extension WeatherDayQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -1933,7 +1951,7 @@ extension WeatherDayQueryProperty
     });
   }
 
-  QueryBuilder<WeatherDay, int, QQueryOperations> rainProperty() {
+  QueryBuilder<WeatherDay, double, QQueryOperations> rainProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'rain');
     });
@@ -1963,7 +1981,7 @@ extension WeatherDayQueryProperty
     });
   }
 
-  QueryBuilder<WeatherDay, int, QQueryOperations> visibilityProperty() {
+  QueryBuilder<WeatherDay, double, QQueryOperations> visibilityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'visibility');
     });
