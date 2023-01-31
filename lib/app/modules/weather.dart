@@ -23,6 +23,50 @@ class _WeatherPageState extends State<WeatherPage> {
   final locale = Get.locale;
   final themeController = Get.put(ThemeController());
 
+  DateTime alignDateTime(DateTime dt, Duration alignment,
+      [bool roundUp = false]) {
+    assert(alignment >= Duration.zero);
+    if (alignment == Duration.zero) return dt;
+    final correction = Duration(
+        days: 0,
+        hours: alignment.inDays > 0
+            ? dt.hour
+            : alignment.inHours > 0
+                ? dt.hour % alignment.inHours
+                : 0,
+        minutes: alignment.inHours > 0
+            ? dt.minute
+            : alignment.inMinutes > 0
+                ? dt.minute % alignment.inMinutes
+                : 0,
+        seconds: alignment.inMinutes > 0
+            ? dt.second
+            : alignment.inSeconds > 0
+                ? dt.second % alignment.inSeconds
+                : 0,
+        milliseconds: alignment.inSeconds > 0
+            ? dt.millisecond
+            : alignment.inMilliseconds > 0
+                ? dt.millisecond % alignment.inMilliseconds
+                : 0,
+        microseconds: alignment.inMilliseconds > 0 ? dt.microsecond : 0);
+    if (correction == Duration.zero) return dt;
+    final corrected = dt.subtract(correction);
+    final result = roundUp ? corrected.add(alignment) : corrected;
+    return result;
+  }
+
+  DateTime? nowDate;
+
+  @override
+  void initState() {
+    super.initState();
+
+    nowDate = alignDateTime(DateTime.now(), const Duration(hours: 1));
+  }
+
+  int? getTime;
+
   @override
   Widget build(BuildContext context) {
     final MaterialStateProperty<Icon?> thumbIcon =
@@ -88,9 +132,33 @@ class _WeatherPageState extends State<WeatherPage> {
                     ),
                   ],
                 ),
-                const WeatherNow(
-                  weather: 61,
-                  degree: 3.9,
+                FutureBuilder<Hourly>(
+                  future: WeatherAPI().getWeatherData(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Shimmer.fromColors(
+                        baseColor: context.theme.colorScheme.primaryContainer,
+                        highlightColor: context.theme.unselectedWidgetColor,
+                        child: Container(
+                          height: 350,
+                          decoration: BoxDecoration(
+                              color: context.theme.colorScheme.primaryContainer,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20))),
+                        ),
+                      );
+                    }
+                    for (var i = 0; i < snapshot.data!.time.length; i++) {
+                      if (nowDate!.isAtSameMomentAs(
+                          DateTime.parse(snapshot.data!.time[i]))) {
+                        getTime = i;
+                      }
+                    }
+                    return WeatherNow(
+                      weather: snapshot.data!.weathercode[getTime!],
+                      degree: snapshot.data!.temperature2M[getTime!],
+                    );
+                  },
                 ),
                 FutureBuilder<Hourly>(
                   future: WeatherAPI().getWeatherData(),
@@ -141,68 +209,96 @@ class _WeatherPageState extends State<WeatherPage> {
                     );
                   },
                 ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 15),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                  decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(25))),
-                  child: Center(
-                    child: Wrap(
-                      spacing: 25,
-                      runSpacing: 15,
-                      children: const [
-                        DescWeather(
-                          imageName: 'assets/images/humidity.png',
-                          value: '76%',
-                          desc: 'Влажность',
+                FutureBuilder<Hourly>(
+                    future: WeatherAPI().getWeatherData(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Shimmer.fromColors(
+                          baseColor: context.theme.colorScheme.primaryContainer,
+                          highlightColor: context.theme.unselectedWidgetColor,
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 12),
+                            decoration: BoxDecoration(
+                                color:
+                                    context.theme.colorScheme.primaryContainer,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(25))),
+                          ),
+                        );
+                      }
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 12),
+                        decoration: BoxDecoration(
+                            color: context.theme.colorScheme.primaryContainer,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(25))),
+                        child: Center(
+                          child: Wrap(
+                            spacing: 25,
+                            runSpacing: 15,
+                            children: [
+                              DescWeather(
+                                imageName: 'assets/images/humidity.png',
+                                value:
+                                    '${snapshot.data!.relativehumidity2M[getTime!]}%',
+                                desc: 'Влажность',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/wind.png',
+                                value:
+                                    '${snapshot.data!.windspeed10M[getTime!]}км/ч',
+                                desc: 'Ветер',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/foggy.png',
+                                value:
+                                    '${snapshot.data!.visibility[getTime!]}м',
+                                desc: 'Видимость',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/temperature.png',
+                                value:
+                                    '${snapshot.data!.apparentTemperature[getTime!]}°',
+                                desc: 'Ощущается',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/evaporation.png',
+                                value:
+                                    '${snapshot.data!.evapotranspiration[getTime!]}мм',
+                                desc: 'Испарения',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/rainfall.png',
+                                value:
+                                    '${snapshot.data!.precipitation[getTime!]}мм',
+                                desc: 'Осадки',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/wind-direction.png',
+                                value:
+                                    '${snapshot.data!.winddirection10M[getTime!]}°',
+                                desc: 'Напрвление',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/atmospheric.png',
+                                value:
+                                    '${snapshot.data!.surfacePressure[getTime!]}ГПа',
+                                desc: 'Давление',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/water.png',
+                                value: '${snapshot.data!.rain[getTime!]}мм',
+                                desc: 'Дождь',
+                              ),
+                            ],
+                          ),
                         ),
-                        DescWeather(
-                          imageName: 'assets/images/wind.png',
-                          value: '26.6км/ч',
-                          desc: 'Ветер',
-                        ),
-                        DescWeather(
-                          imageName: 'assets/images/foggy.png',
-                          value: '24140м',
-                          desc: 'Видимость',
-                        ),
-                        DescWeather(
-                          imageName: 'assets/images/temperature.png',
-                          value: '-9.4°',
-                          desc: 'Ощущается',
-                        ),
-                        DescWeather(
-                          imageName: 'assets/images/evaporation.png',
-                          value: '0.02мм',
-                          desc: 'Испарения',
-                        ),
-                        DescWeather(
-                          imageName: 'assets/images/rainfall.png',
-                          value: '0.01мм',
-                          desc: 'Осадки',
-                        ),
-                        DescWeather(
-                          imageName: 'assets/images/wind-direction.png',
-                          value: '92°',
-                          desc: 'Напрвление',
-                        ),
-                        DescWeather(
-                          imageName: 'assets/images/atmospheric.png',
-                          value: '1017ГПа',
-                          desc: 'Давление',
-                        ),
-                        DescWeather(
-                          imageName: 'assets/images/water.png',
-                          value: '0.1мм',
-                          desc: 'Дождь',
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                      );
+                    }),
                 FutureBuilder<Daily>(
                   future: WeatherAPI().getWeather7Data(),
                   builder: (context, snapshot) {
