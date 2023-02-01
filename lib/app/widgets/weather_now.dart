@@ -24,14 +24,14 @@ class _WeatherNowState extends State<WeatherNow> {
     String getImage() {
       switch (widget.weather) {
         case 0:
-          return 'assets/images/01d.png';
+          return 'assets/images/sun.png';
         case 1:
         case 2:
         case 3:
-          return 'assets/images/02d.png';
+          return 'assets/images/cloud.png';
         case 45:
         case 48:
-          return 'assets/images/50d.png';
+          return 'assets/images/fog.png';
         case 51:
         case 53:
         case 55:
@@ -45,18 +45,18 @@ class _WeatherNowState extends State<WeatherNow> {
         case 80:
         case 81:
         case 82:
-          return 'assets/images/10d.png';
+          return 'assets/images/rain.png';
         case 71:
         case 73:
         case 75:
         case 77:
         case 85:
         case 86:
-          return 'assets/images/13d.png';
+          return 'assets/images/snow.png';
         case 95:
         case 96:
         case 99:
-          return 'assets/images/11d.png';
+          return 'assets/images/storm.png';
         default:
           return '';
       }
@@ -107,11 +107,15 @@ class _WeatherNowState extends State<WeatherNow> {
       height: 350,
       child: Stack(
         children: [
-          Center(
-            child: Image(
-              image: AssetImage(getImage()),
-              fit: BoxFit.fill,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                image: AssetImage(getImage()),
+                fit: BoxFit.fill,
+                height: 200,
+              ),
+            ],
           ),
           Positioned(
             bottom: 0,
