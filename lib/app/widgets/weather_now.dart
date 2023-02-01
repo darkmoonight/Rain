@@ -125,7 +125,7 @@ class _WeatherNowState extends State<WeatherNow> {
               child: Column(
                 children: [
                   GlowText(
-                    '${widget.degree}',
+                    '${widget.degree.round().toInt()}',
                     style: context.theme.textTheme.displayLarge?.copyWith(
                       fontSize: 90,
                       fontWeight: FontWeight.w800,

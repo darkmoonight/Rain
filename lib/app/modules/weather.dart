@@ -131,7 +131,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   ],
                 ),
                 FutureBuilder<Hourly>(
-                  future: WeatherAPI().getWeatherData(),
+                  future: WeatherAPI().getWeatherData(47.29, 39.70),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Shimmer.fromColors(
@@ -160,7 +160,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   },
                 ),
                 FutureBuilder<Hourly>(
-                  future: WeatherAPI().getWeatherData(),
+                  future: WeatherAPI().getWeatherData(47.29, 39.70),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Shimmer.fromColors(
@@ -209,7 +209,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   },
                 ),
                 FutureBuilder<Hourly>(
-                  future: WeatherAPI().getWeatherData(),
+                  future: WeatherAPI().getWeatherData(47.29, 39.70),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Shimmer.fromColors(
@@ -254,27 +254,30 @@ class _WeatherPageState extends State<WeatherPage> {
                             ),
                             DescWeather(
                               imageName: 'assets/images/wind.png',
-                              value: '${weather.windspeed10M[getTime]}км/ч',
+                              value: '${weather.windspeed10M[getTime]} км/ч',
                               desc: 'Ветер',
                             ),
                             DescWeather(
                               imageName: 'assets/images/foggy.png',
-                              value: '${weather.visibility[getTime]}м',
+                              value:
+                                  '${weather.visibility[getTime].round().toInt()} м',
                               desc: 'Видимость',
                             ),
                             DescWeather(
                               imageName: 'assets/images/temperature.png',
-                              value: '${weather.apparentTemperature[getTime]}°',
+                              value:
+                                  '${weather.apparentTemperature[getTime].round().toInt()}°',
                               desc: 'Ощущается',
                             ),
                             DescWeather(
                               imageName: 'assets/images/evaporation.png',
-                              value: '${weather.evapotranspiration[getTime]}мм',
+                              value:
+                                  '${weather.evapotranspiration[getTime].abs()} мм',
                               desc: 'Испарения',
                             ),
                             DescWeather(
                               imageName: 'assets/images/rainfall.png',
-                              value: '${weather.precipitation[getTime]}мм',
+                              value: '${weather.precipitation[getTime]} мм',
                               desc: 'Осадки',
                             ),
                             DescWeather(
@@ -284,12 +287,12 @@ class _WeatherPageState extends State<WeatherPage> {
                             ),
                             DescWeather(
                               imageName: 'assets/images/atmospheric.png',
-                              value: '${weather.surfacePressure[getTime]}ГПа',
+                              value: '${weather.surfacePressure[getTime]} ГПа',
                               desc: 'Давление',
                             ),
                             DescWeather(
                               imageName: 'assets/images/water.png',
-                              value: '${weather.rain[getTime]}мм',
+                              value: '${weather.rain[getTime]} мм',
                               desc: 'Дождь',
                             ),
                           ],
@@ -299,7 +302,7 @@ class _WeatherPageState extends State<WeatherPage> {
                   },
                 ),
                 FutureBuilder<Daily>(
-                  future: WeatherAPI().getWeather7Data(),
+                  future: WeatherAPI().getWeather7Data(47.29, 39.70),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Shimmer.fromColors(

@@ -141,12 +141,12 @@ class _Weather7DaysState extends State<Weather7Days> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  '${widget.minDegree}',
+                  '${widget.minDegree.round().toInt()}°C',
                   style: context.theme.textTheme.labelLarge,
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  '${widget.maxDegree}',
+                  '${widget.maxDegree.round().toInt()}°C',
                   style: context.theme.textTheme.bodyMedium?.copyWith(
                     color: Colors.grey,
                   ),

@@ -86,7 +86,7 @@ class _WeatherTodayState extends State<WeatherToday> {
           scale: 3,
         ),
         Text(
-          '${widget.degree}',
+          '${widget.degree.round().toInt()}°C',
           style: context.theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
