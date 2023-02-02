@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:rain/app/controller/controller.dart';
 
 class WeatherNow extends StatefulWidget {
   const WeatherNow({
@@ -21,88 +22,6 @@ class _WeatherNowState extends State<WeatherNow> {
 
   @override
   Widget build(BuildContext context) {
-    String getImage() {
-      switch (widget.weather) {
-        case 0:
-          return 'assets/images/sun.png';
-        case 1:
-        case 2:
-        case 3:
-          return 'assets/images/cloud.png';
-        case 45:
-        case 48:
-          return 'assets/images/fog.png';
-        case 51:
-        case 53:
-        case 55:
-        case 56:
-        case 57:
-        case 61:
-        case 63:
-        case 65:
-        case 66:
-        case 67:
-        case 80:
-        case 81:
-        case 82:
-          return 'assets/images/rain.png';
-        case 71:
-        case 73:
-        case 75:
-        case 77:
-        case 85:
-        case 86:
-          return 'assets/images/snow.png';
-        case 95:
-        case 96:
-        case 99:
-          return 'assets/images/storm.png';
-        default:
-          return '';
-      }
-    }
-
-    String getText() {
-      switch (widget.weather) {
-        case 0:
-          return 'Чистое небо';
-        case 1:
-        case 2:
-        case 3:
-          return 'Облачно';
-        case 45:
-        case 48:
-          return 'Туман';
-        case 51:
-        case 53:
-        case 55:
-        case 56:
-        case 57:
-        case 61:
-        case 63:
-        case 65:
-        case 66:
-        case 67:
-        case 80:
-        case 81:
-        case 82:
-          return 'Дождь';
-        case 71:
-        case 73:
-        case 75:
-        case 77:
-        case 85:
-        case 86:
-          return 'Снег';
-        case 95:
-        case 96:
-        case 99:
-          return 'Гроза';
-        default:
-          return '';
-      }
-    }
-
     return SizedBox(
       height: 350,
       child: Stack(
@@ -111,7 +30,7 @@ class _WeatherNowState extends State<WeatherNow> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage(getImage()),
+                image: AssetImage(Controller().getImageNow(widget.weather)),
                 fit: BoxFit.fill,
                 height: 200,
               ),
@@ -134,7 +53,7 @@ class _WeatherNowState extends State<WeatherNow> {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    getText(),
+                    Controller().getText(widget.weather),
                     style: context.theme.textTheme.titleLarge,
                   ),
                   const SizedBox(height: 5),

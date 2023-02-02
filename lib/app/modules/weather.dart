@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/weather_7days.dart';
 import 'package:rain/app/api/weather_day.dart';
@@ -24,6 +24,13 @@ class _WeatherPageState extends State<WeatherPage> {
   final themeController = Get.put(ThemeController());
   late int getTime;
   late DateTime nowDate;
+
+  late ScrollController controller;
+  bool fabIsVisible = true;
+  final duration = const Duration(milliseconds: 300);
+
+  late Future<Hourly> hourly;
+  late Future<Daily> daily;
 
   DateTime alignDateTime(DateTime dt, Duration alignment,
       [bool roundUp = false]) {
@@ -62,7 +69,27 @@ class _WeatherPageState extends State<WeatherPage> {
   void initState() {
     super.initState();
 
-    nowDate = alignDateTime(DateTime.now(), const Duration(hours: 1));
+    controller = ScrollController();
+    controller.addListener(() {
+      setState(() {
+        fabIsVisible =
+            controller.position.userScrollDirection == ScrollDirection.forward;
+      });
+    });
+
+    nowDate = alignDateTime(DateTime.now(), const Duration(hours: 1), true);
+
+    hourly = WeatherAPI().getWeatherData(47.29, 39.70);
+    daily = WeatherAPI().getWeather7Data(47.29, 39.70);
+  }
+
+  Future<void> _pullRefresh() async {
+    Hourly hourlyNew = await WeatherAPI().getWeatherData(47.29, 39.70);
+    Daily dailyNew = await WeatherAPI().getWeather7Data(47.29, 39.70);
+    setState(() {
+      hourly = Future.value(hourlyNew);
+      daily = Future.value(dailyNew);
+    });
   }
 
   @override
@@ -78,274 +105,295 @@ class _WeatherPageState extends State<WeatherPage> {
     );
 
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (OverscrollIndicatorNotification overScroll) {
-              overScroll.disallowIndicator();
-              return false;
-            },
-            child: ListView(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/map.png',
-                            scale: 35,
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            'Ростов-на-Дону, Россия',
-                            style: context.theme.textTheme.labelLarge,
-                          ),
-                          const Icon(
-                            Icons.arrow_drop_down_outlined,
-                            size: 16,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Transform.scale(
-                      alignment: Alignment.centerRight,
-                      scale: 0.7,
-                      child: Switch(
-                        thumbIcon: thumbIcon,
-                        value: Get.isDarkMode,
-                        onChanged: (_) {
-                          if (Get.isDarkMode) {
-                            themeController.changeThemeMode(ThemeMode.light);
-                            themeController.saveTheme(false);
-                          } else {
-                            themeController.changeThemeMode(ThemeMode.dark);
-                            themeController.saveTheme(true);
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                FutureBuilder<Hourly>(
-                  future: WeatherAPI().getWeatherData(47.29, 39.70),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Shimmer.fromColors(
-                        baseColor: context.theme.colorScheme.primaryContainer,
-                        highlightColor: context.theme.unselectedWidgetColor,
-                        child: Container(
-                          height: 350,
-                          decoration: BoxDecoration(
-                              color: context.theme.colorScheme.primaryContainer,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20))),
-                        ),
-                      );
-                    }
-                    final weather = snapshot.data;
-                    for (var i = 0; i < weather!.time.length; i++) {
-                      if (nowDate
-                          .isAtSameMomentAs(DateTime.parse(weather.time[i]))) {
-                        getTime = i;
-                      }
-                    }
-                    return WeatherNow(
-                      weather: weather.weathercode[getTime],
-                      degree: weather.temperature2M[getTime],
-                    );
-                  },
-                ),
-                FutureBuilder<Hourly>(
-                  future: WeatherAPI().getWeatherData(47.29, 39.70),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Shimmer.fromColors(
-                        baseColor: context.theme.colorScheme.primaryContainer,
-                        highlightColor: context.theme.unselectedWidgetColor,
-                        child: Container(
-                          height: 130,
-                          margin: const EdgeInsets.symmetric(vertical: 15),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 5),
-                          decoration: BoxDecoration(
-                              color: context.theme.colorScheme.primaryContainer,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20))),
-                        ),
-                      );
-                    }
-                    return Container(
-                      height: 130,
-                      margin: const EdgeInsets.symmetric(vertical: 15),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
-                      decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
-                      child: ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        separatorBuilder: (BuildContext context, int index) {
-                          return VerticalDivider(
-                            width: 30,
-                            color: context.theme.unselectedWidgetColor,
-                            indent: 40,
-                            endIndent: 40,
-                          );
-                        },
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.time.length,
-                        itemBuilder: (ctx, i) => WeatherToday(
-                          time: snapshot.data!.time[i],
-                          weather: snapshot.data!.weathercode[i],
-                          degree: snapshot.data!.temperature2M[i],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                FutureBuilder<Hourly>(
-                  future: WeatherAPI().getWeatherData(47.29, 39.70),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Shimmer.fromColors(
-                        baseColor: context.theme.colorScheme.primaryContainer,
-                        highlightColor: context.theme.unselectedWidgetColor,
-                        child: Container(
-                          height: 350,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 12),
-                          decoration: BoxDecoration(
-                              color: context.theme.colorScheme.primaryContainer,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(25))),
-                        ),
-                      );
-                    }
-                    final weather = snapshot.data;
-                    for (var i = 0; i < weather!.time.length; i++) {
-                      if (nowDate
-                          .isAtSameMomentAs(DateTime.parse(weather.time[i]))) {
-                        getTime = i;
-                      }
-                    }
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 12),
-                      decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(25))),
-                      child: Center(
-                        child: Wrap(
-                          spacing: 25,
-                          runSpacing: 15,
+      body: RefreshIndicator(
+        onRefresh: _pullRefresh,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (OverscrollIndicatorNotification overScroll) {
+                overScroll.disallowIndicator();
+                return false;
+              },
+              child: ListView(
+                controller: controller,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Row(
                           children: [
-                            DescWeather(
-                              imageName: 'assets/images/humidity.png',
-                              value: '${weather.relativehumidity2M[getTime]}%',
-                              desc: 'Влажность',
+                            Image.asset(
+                              'assets/images/map.png',
+                              scale: 35,
                             ),
-                            DescWeather(
-                              imageName: 'assets/images/wind.png',
-                              value: '${weather.windspeed10M[getTime]} км/ч',
-                              desc: 'Ветер',
+                            const SizedBox(width: 5),
+                            Text(
+                              'Ростов-на-Дону, Россия',
+                              style: context.theme.textTheme.labelLarge,
                             ),
-                            DescWeather(
-                              imageName: 'assets/images/foggy.png',
-                              value:
-                                  '${weather.visibility[getTime].round().toInt()} м',
-                              desc: 'Видимость',
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/temperature.png',
-                              value:
-                                  '${weather.apparentTemperature[getTime].round().toInt()}°',
-                              desc: 'Ощущается',
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/evaporation.png',
-                              value:
-                                  '${weather.evapotranspiration[getTime].abs()} мм',
-                              desc: 'Испарения',
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/rainfall.png',
-                              value: '${weather.precipitation[getTime]} мм',
-                              desc: 'Осадки',
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/wind-direction.png',
-                              value: '${weather.winddirection10M[getTime]}°',
-                              desc: 'Напрвление',
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/atmospheric.png',
-                              value: '${weather.surfacePressure[getTime]} ГПа',
-                              desc: 'Давление',
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/water.png',
-                              value: '${weather.rain[getTime]} мм',
-                              desc: 'Дождь',
+                            const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              size: 16,
                             ),
                           ],
                         ),
                       ),
-                    );
-                  },
-                ),
-                FutureBuilder<Daily>(
-                  future: WeatherAPI().getWeather7Data(47.29, 39.70),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Shimmer.fromColors(
-                        baseColor: context.theme.colorScheme.primaryContainer,
-                        highlightColor: context.theme.unselectedWidgetColor,
-                        child: Container(
-                          height: 405,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 5),
-                          decoration: BoxDecoration(
-                              color: context.theme.colorScheme.primaryContainer,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20))),
-                        ),
-                      );
-                    }
-                    final weather = snapshot.data!;
-                    return Container(
-                      height: 405,
-                      margin: const EdgeInsets.only(bottom: 15),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
-                      decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: snapshot.data!.time.length,
-                        itemBuilder: (ctx, i) => Weather7Days(
-                          date: DateFormat.EEEE(locale?.languageCode)
-                              .format(snapshot.data!.time[i]),
-                          weather: weather.weathercode[i],
-                          minDegree: weather.temperature2MMin[i],
-                          maxDegree: weather.temperature2MMax[i],
+                      Transform.scale(
+                        alignment: Alignment.centerRight,
+                        scale: 0.7,
+                        child: Switch(
+                          thumbIcon: thumbIcon,
+                          value: Get.isDarkMode,
+                          onChanged: (_) {
+                            if (Get.isDarkMode) {
+                              themeController.changeThemeMode(ThemeMode.light);
+                              themeController.saveTheme(false);
+                            } else {
+                              themeController.changeThemeMode(ThemeMode.dark);
+                              themeController.saveTheme(true);
+                            }
+                          },
                         ),
                       ),
-                    );
-                  },
-                ),
-              ],
+                    ],
+                  ),
+                  FutureBuilder<Hourly>(
+                    future: hourly,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Shimmer.fromColors(
+                          baseColor: context.theme.colorScheme.primaryContainer,
+                          highlightColor: context.theme.unselectedWidgetColor,
+                          child: Container(
+                            height: 350,
+                            decoration: BoxDecoration(
+                                color:
+                                    context.theme.colorScheme.primaryContainer,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
+                          ),
+                        );
+                      }
+                      final weather = snapshot.data;
+                      for (var i = 0; i < weather!.time.length; i++) {
+                        if (nowDate.isAtSameMomentAs(
+                            DateTime.parse(weather.time[i]))) {
+                          getTime = i;
+                        }
+                      }
+                      return WeatherNow(
+                        weather: weather.weathercode[getTime],
+                        degree: weather.temperature2M[getTime],
+                      );
+                    },
+                  ),
+                  FutureBuilder<Hourly>(
+                    future: hourly,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Shimmer.fromColors(
+                          baseColor: context.theme.colorScheme.primaryContainer,
+                          highlightColor: context.theme.unselectedWidgetColor,
+                          child: Container(
+                            height: 130,
+                            margin: const EdgeInsets.symmetric(vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 5),
+                            decoration: BoxDecoration(
+                                color:
+                                    context.theme.colorScheme.primaryContainer,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
+                          ),
+                        );
+                      }
+                      return Container(
+                        height: 130,
+                        margin: const EdgeInsets.symmetric(vertical: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 5),
+                        decoration: BoxDecoration(
+                            color: context.theme.colorScheme.primaryContainer,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return VerticalDivider(
+                              width: 30,
+                              color: context.theme.unselectedWidgetColor,
+                              indent: 40,
+                              endIndent: 40,
+                            );
+                          },
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data!.time.length,
+                          itemBuilder: (ctx, i) => WeatherToday(
+                            time: snapshot.data!.time[i],
+                            weather: snapshot.data!.weathercode[i],
+                            degree: snapshot.data!.temperature2M[i],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  FutureBuilder<Hourly>(
+                    future: hourly,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Shimmer.fromColors(
+                          baseColor: context.theme.colorScheme.primaryContainer,
+                          highlightColor: context.theme.unselectedWidgetColor,
+                          child: Container(
+                            height: 350,
+                            margin: const EdgeInsets.only(bottom: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 12),
+                            decoration: BoxDecoration(
+                                color:
+                                    context.theme.colorScheme.primaryContainer,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(25))),
+                          ),
+                        );
+                      }
+                      final weather = snapshot.data;
+                      for (var i = 0; i < weather!.time.length; i++) {
+                        if (nowDate.isAtSameMomentAs(
+                            DateTime.parse(weather.time[i]))) {
+                          getTime = i;
+                        }
+                      }
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 12),
+                        decoration: BoxDecoration(
+                            color: context.theme.colorScheme.primaryContainer,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(25))),
+                        child: Center(
+                          child: Wrap(
+                            spacing: 25,
+                            runSpacing: 15,
+                            children: [
+                              DescWeather(
+                                imageName: 'assets/images/humidity.png',
+                                value:
+                                    '${weather.relativehumidity2M[getTime]}%',
+                                desc: 'Влажность',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/wind.png',
+                                value: '${weather.windspeed10M[getTime]} км/ч',
+                                desc: 'Ветер',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/foggy.png',
+                                value:
+                                    '${weather.visibility[getTime].round().toInt()} м',
+                                desc: 'Видимость',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/temperature.png',
+                                value:
+                                    '${weather.apparentTemperature[getTime].round().toInt()}°',
+                                desc: 'Ощущается',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/evaporation.png',
+                                value:
+                                    '${weather.evapotranspiration[getTime].abs()} мм',
+                                desc: 'Испарения',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/rainfall.png',
+                                value: '${weather.precipitation[getTime]} мм',
+                                desc: 'Осадки',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/wind-direction.png',
+                                value: '${weather.winddirection10M[getTime]}°',
+                                desc: 'Напрвление',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/atmospheric.png',
+                                value:
+                                    '${weather.surfacePressure[getTime]} ГПа',
+                                desc: 'Давление',
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/water.png',
+                                value: '${weather.rain[getTime]} мм',
+                                desc: 'Дождь',
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  FutureBuilder<Daily>(
+                    future: daily,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Shimmer.fromColors(
+                          baseColor: context.theme.colorScheme.primaryContainer,
+                          highlightColor: context.theme.unselectedWidgetColor,
+                          child: Container(
+                            height: 405,
+                            margin: const EdgeInsets.only(bottom: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 5),
+                            decoration: BoxDecoration(
+                                color:
+                                    context.theme.colorScheme.primaryContainer,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
+                          ),
+                        );
+                      }
+                      final weather = snapshot.data!;
+                      return Container(
+                        height: 405,
+                        margin: const EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 5),
+                        decoration: BoxDecoration(
+                            color: context.theme.colorScheme.primaryContainer,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: snapshot.data!.time.length,
+                          itemBuilder: (ctx, i) => Weather7Days(
+                            date: snapshot.data!.time[i],
+                            weather: weather.weathercode[i],
+                            minDegree: weather.temperature2MMin[i],
+                            maxDegree: weather.temperature2MMax[i],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
+          ),
+        ),
+      ),
+      floatingActionButton: AnimatedSlide(
+        duration: duration,
+        offset: fabIsVisible ? Offset.zero : const Offset(0, 2),
+        child: AnimatedOpacity(
+          duration: duration,
+          opacity: fabIsVisible ? 1 : 0,
+          child: FloatingActionButton(
+            child: const Icon(Iconsax.gps),
+            onPressed: () {},
           ),
         ),
       ),
