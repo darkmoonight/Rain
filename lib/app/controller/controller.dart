@@ -168,17 +168,21 @@ class Controller {
       case 51:
       case 53:
       case 55:
+        return 'Морось';
       case 56:
       case 57:
+        return 'Моросящий дождь';
       case 61:
       case 63:
       case 65:
+        return 'Дождь';
       case 66:
       case 67:
+        return 'Ледяной дождь';
       case 80:
       case 81:
       case 82:
-        return 'Дождь';
+        return 'Ливневые дожди';
       case 71:
       case 73:
       case 75:

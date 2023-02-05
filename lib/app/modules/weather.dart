@@ -68,7 +68,7 @@ class _WeatherPageState extends State<WeatherPage> {
     return result;
   }
 
-  void getLocation() async {
+  Future<void> getLocation() async {
     final service = LocationService();
     final locationData = await service.getLocation();
 
@@ -79,21 +79,21 @@ class _WeatherPageState extends State<WeatherPage> {
         lat = locationData.latitude!.toStringAsFixed(2);
         long = locationData.longitude!.toStringAsFixed(2);
 
-        country = placeMark?.country ?? 'could not get country';
-        locality = placeMark?.locality ?? 'could not get admin area';
+        country = placeMark?.country ?? '';
+        locality = placeMark?.locality ?? '';
       });
-    }
 
-    hourly = WeatherAPI().getWeatherData('$lat', '$long');
-    daily = WeatherAPI().getWeather7Data('$lat', '$long');
+      hourly = WeatherAPI().getWeatherData('$lat', '$long');
+      daily = WeatherAPI().getWeather7Data('$lat', '$long');
+    }
   }
 
   @override
   void initState() {
     super.initState();
-
-    getLocation();
-
+    Future.delayed(Duration.zero, () async {
+      await getLocation();
+    });
     controller = ScrollController();
     controller.addListener(() {
       setState(() {
@@ -101,17 +101,7 @@ class _WeatherPageState extends State<WeatherPage> {
             controller.position.userScrollDirection == ScrollDirection.forward;
       });
     });
-
     nowDate = alignDateTime(DateTime.now(), const Duration(hours: 1), true);
-  }
-
-  Future<void> _pullRefresh() async {
-    Hourly hourlyNew = await WeatherAPI().getWeatherData('$lat', '$long');
-    Daily dailyNew = await WeatherAPI().getWeather7Data('$lat', '$long');
-    setState(() {
-      hourly = Future.value(hourlyNew);
-      daily = Future.value(dailyNew);
-    });
   }
 
   @override
@@ -128,7 +118,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: _pullRefresh,
+        onRefresh: getLocation,
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -153,12 +143,8 @@ class _WeatherPageState extends State<WeatherPage> {
                             ),
                             const SizedBox(width: 5),
                             Text(
-                              '$locality, $country',
+                              '${locality ?? 'Поиск'}, ${country ?? 'выполняется сканирование'}',
                               style: context.theme.textTheme.labelLarge,
-                            ),
-                            const Icon(
-                              Icons.arrow_drop_down_outlined,
-                              size: 16,
                             ),
                           ],
                         ),
@@ -414,10 +400,8 @@ class _WeatherPageState extends State<WeatherPage> {
           duration: duration,
           opacity: fabIsVisible ? 1 : 0,
           child: FloatingActionButton(
+            onPressed: getLocation,
             child: const Icon(Iconsax.gps),
-            onPressed: () {
-              getLocation();
-            },
           ),
         ),
       ),
