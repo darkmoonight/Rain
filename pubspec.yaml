@@ -20,6 +20,8 @@ dependencies:
   shimmer: ^2.0.0
   iconsax: ^0.0.8
   latlong2: ^0.8.1
+  location: ^4.4.0
+  geocoding: ^2.0.5
   flutter_glow: ^0.2.0
   path_provider: ^2.0.11
   isar_flutter_libs: ^3.0.5
@@ -51,3 +53,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+
+module:
+  androidX: true

@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/weather_7days.dart';
 import 'package:rain/app/api/weather_day.dart';
+import 'package:rain/app/services/location_service.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/weather_7days.dart';
 import 'package:rain/app/widgets/weather_now.dart';
@@ -25,12 +26,14 @@ class _WeatherPageState extends State<WeatherPage> {
   late int getTime;
   late DateTime nowDate;
 
+  String? lat, long, country, locality;
+
   late ScrollController controller;
   bool fabIsVisible = true;
   final duration = const Duration(milliseconds: 300);
 
-  late Future<Hourly> hourly;
-  late Future<Daily> daily;
+  Future<Hourly>? hourly;
+  Future<Daily>? daily;
 
   DateTime alignDateTime(DateTime dt, Duration alignment,
       [bool roundUp = false]) {
@@ -65,9 +68,31 @@ class _WeatherPageState extends State<WeatherPage> {
     return result;
   }
 
+  void getLocation() async {
+    final service = LocationService();
+    final locationData = await service.getLocation();
+
+    if (locationData != null) {
+      final placeMark = await service.getPlaceMark(locationData: locationData);
+
+      setState(() {
+        lat = locationData.latitude!.toStringAsFixed(2);
+        long = locationData.longitude!.toStringAsFixed(2);
+
+        country = placeMark?.country ?? 'could not get country';
+        locality = placeMark?.locality ?? 'could not get admin area';
+      });
+    }
+
+    hourly = WeatherAPI().getWeatherData('$lat', '$long');
+    daily = WeatherAPI().getWeather7Data('$lat', '$long');
+  }
+
   @override
   void initState() {
     super.initState();
+
+    getLocation();
 
     controller = ScrollController();
     controller.addListener(() {
@@ -78,14 +103,11 @@ class _WeatherPageState extends State<WeatherPage> {
     });
 
     nowDate = alignDateTime(DateTime.now(), const Duration(hours: 1), true);
-
-    hourly = WeatherAPI().getWeatherData(47.29, 39.70);
-    daily = WeatherAPI().getWeather7Data(47.29, 39.70);
   }
 
   Future<void> _pullRefresh() async {
-    Hourly hourlyNew = await WeatherAPI().getWeatherData(47.29, 39.70);
-    Daily dailyNew = await WeatherAPI().getWeather7Data(47.29, 39.70);
+    Hourly hourlyNew = await WeatherAPI().getWeatherData('$lat', '$long');
+    Daily dailyNew = await WeatherAPI().getWeather7Data('$lat', '$long');
     setState(() {
       hourly = Future.value(hourlyNew);
       daily = Future.value(dailyNew);
@@ -131,7 +153,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             ),
                             const SizedBox(width: 5),
                             Text(
-                              'Ростов-на-Дону, Россия',
+                              '$locality, $country',
                               style: context.theme.textTheme.labelLarge,
                             ),
                             const Icon(
@@ -393,7 +415,9 @@ class _WeatherPageState extends State<WeatherPage> {
           opacity: fabIsVisible ? 1 : 0,
           child: FloatingActionButton(
             child: const Icon(Iconsax.gps),
-            onPressed: () {},
+            onPressed: () {
+              getLocation();
+            },
           ),
         ),
       ),
