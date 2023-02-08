@@ -29,9 +29,13 @@ class DescWeather extends StatelessWidget {
             value,
             style: context.theme.textTheme.labelLarge,
           ),
-          Text(
-            desc,
-            style: context.theme.textTheme.bodySmall,
+          Expanded(
+            child: Text(
+              desc,
+              style: context.theme.textTheme.bodySmall,
+              overflow: TextOverflow.visible,
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),

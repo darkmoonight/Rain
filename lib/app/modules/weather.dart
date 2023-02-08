@@ -91,9 +91,7 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () async {
-      await getLocation();
-    });
+    getLocation();
     controller = ScrollController();
     controller.addListener(() {
       setState(() {
@@ -143,7 +141,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             ),
                             const SizedBox(width: 5),
                             Text(
-                              '${locality ?? 'Поиск'}, ${country ?? 'выполняется сканирование'}',
+                              '${locality ?? 'search'.tr}, ${country ?? 'scan'.tr}',
                               style: context.theme.textTheme.labelLarge,
                             ),
                           ],
@@ -292,51 +290,53 @@ class _WeatherPageState extends State<WeatherPage> {
                                 imageName: 'assets/images/humidity.png',
                                 value:
                                     '${weather.relativehumidity2M[getTime]}%',
-                                desc: 'Влажность',
+                                desc: 'humidity'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/wind.png',
-                                value: '${weather.windspeed10M[getTime]} км/ч',
-                                desc: 'Ветер',
+                                value:
+                                    '${weather.windspeed10M[getTime]} ${'km'.tr}',
+                                desc: 'wind'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/foggy.png',
                                 value:
-                                    '${weather.visibility[getTime].round().toInt()} м',
-                                desc: 'Видимость',
+                                    '${weather.visibility[getTime].round().toInt()} ${'m'.tr}',
+                                desc: 'visibility'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/temperature.png',
                                 value:
                                     '${weather.apparentTemperature[getTime].round().toInt()}°',
-                                desc: 'Ощущается',
+                                desc: 'feels'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/evaporation.png',
                                 value:
-                                    '${weather.evapotranspiration[getTime].abs()} мм',
-                                desc: 'Испарения',
+                                    '${weather.evapotranspiration[getTime].abs()} ${'mm'.tr}',
+                                desc: 'evaporation'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/rainfall.png',
-                                value: '${weather.precipitation[getTime]} мм',
-                                desc: 'Осадки',
+                                value:
+                                    '${weather.precipitation[getTime]} ${'mm'.tr}',
+                                desc: 'precipitation'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/wind-direction.png',
                                 value: '${weather.winddirection10M[getTime]}°',
-                                desc: 'Напрвление',
+                                desc: 'direction'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/atmospheric.png',
                                 value:
-                                    '${weather.surfacePressure[getTime]} ГПа',
-                                desc: 'Давление',
+                                    '${weather.surfacePressure[getTime]} ${'hPa'.tr}',
+                                desc: 'pressure'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/water.png',
-                                value: '${weather.rain[getTime]} мм',
-                                desc: 'Дождь',
+                                value: '${weather.rain[getTime]} ${'mm'.tr}',
+                                desc: 'rain'.tr,
                               ),
                             ],
                           ),

@@ -1,4 +1,6 @@
-class Controller {
+import 'package:get/get.dart';
+
+class Status {
   String getImageNow(weather) {
     switch (weather) {
       case 0:
@@ -44,9 +46,9 @@ class Controller {
     final currentTime = DateTime.parse(time);
 
     final dayTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 6, 00);
+        DateTime(currentTime.year, currentTime.month, currentTime.day, 5, 00);
     final nightTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 19, 00);
+        DateTime(currentTime.year, currentTime.month, currentTime.day, 18, 00);
 
     switch (weather) {
       case 0:
@@ -156,44 +158,44 @@ class Controller {
   String getText(weather) {
     switch (weather) {
       case 0:
-        return 'Чистое небо';
+        return 'clear_sky'.tr;
       case 1:
       case 2:
-        return 'Облачно';
+        return 'cloudy'.tr;
       case 3:
-        return 'Пасмурно';
+        return 'overcast'.tr;
       case 45:
       case 48:
-        return 'Туман';
+        return 'fog'.tr;
       case 51:
       case 53:
       case 55:
-        return 'Морось';
+        return 'drizzle'.tr;
       case 56:
       case 57:
-        return 'Моросящий дождь';
+        return 'drizzling_rain'.tr;
       case 61:
       case 63:
       case 65:
-        return 'Дождь';
+        return 'rain'.tr;
       case 66:
       case 67:
-        return 'Ледяной дождь';
+        return 'freezing_rain'.tr;
       case 80:
       case 81:
       case 82:
-        return 'Ливневые дожди';
+        return 'heavy_rains'.tr;
       case 71:
       case 73:
       case 75:
       case 77:
       case 85:
       case 86:
-        return 'Снег';
+        return 'snow'.tr;
       case 95:
       case 96:
       case 99:
-        return 'Гроза';
+        return 'thunderstorm'.tr;
       default:
         return '';
     }
