@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rain/app/api/weather_day.dart';
 
@@ -8,9 +9,23 @@ class WeatherAPI {
   final Dio dio = Dio()
     ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?'
     ..options.connectTimeout = 60 * 1000
-    ..options.receiveTimeout = 60 * 1000;
+    ..options.receiveTimeout = 60 * 1000
+    ..interceptors.add(
+      DioCacheInterceptor(
+        options: CacheOptions(
+          store: MemCacheStore(),
+          policy: CachePolicy.request,
+          hitCacheOnErrorExcept: [401, 403],
+          maxStale: const Duration(days: 1),
+          priority: CachePriority.normal,
+          cipher: null,
+          keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+          allowPostMethod: false,
+        ),
+      ),
+    );
 
-  Future<Hourly> getWeatherData(String lat, String lon) async {
+  Future<Hourly> getWeatherData(String? lat, String? lon) async {
     var url =
         'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto';
     try {
@@ -25,7 +40,7 @@ class WeatherAPI {
     }
   }
 
-  Future<Daily> getWeather7Data(String lat, String lon) async {
+  Future<Daily> getWeather7Data(String? lat, String? lon) async {
     var url =
         'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto';
     try {

@@ -20,10 +20,11 @@ dependencies:
   shimmer: ^2.0.0
   iconsax: ^0.0.8
   latlong2: ^0.8.1
-  location: ^4.4.0
   geocoding: ^2.0.5
+  geolocator: ^9.0.2
   flutter_glow: ^0.2.0
   path_provider: ^2.0.11
+  dio_cache_interceptor: ^3.3.1
   isar_flutter_libs: ^3.0.5
   flutter_easyloading: ^3.0.5
 

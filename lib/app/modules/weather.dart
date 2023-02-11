@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/weather_7days.dart';
 import 'package:rain/app/api/weather_day.dart';
-import 'package:rain/app/services/location_service.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/weather_7days.dart';
 import 'package:rain/app/widgets/weather_now.dart';
@@ -26,14 +28,15 @@ class _WeatherPageState extends State<WeatherPage> {
   late int getTime;
   late DateTime nowDate;
 
-  String? lat, long, country, locality;
+  final weatherAPI = WeatherAPI();
+  Future<Hourly>? hourly;
+  Future<Daily>? daily;
+
+  String? lat, lon, country, city;
 
   late ScrollController controller;
   bool fabIsVisible = true;
   final duration = const Duration(milliseconds: 300);
-
-  Future<Hourly>? hourly;
-  Future<Daily>? daily;
 
   DateTime alignDateTime(DateTime dt, Duration alignment,
       [bool roundUp = false]) {
@@ -68,30 +71,53 @@ class _WeatherPageState extends State<WeatherPage> {
     return result;
   }
 
-  Future<void> getLocation() async {
-    final service = LocationService();
-    final locationData = await service.getLocation();
+  Future<void> updatePosition() async {
+    Position pos = await determinePosition();
+    List<Placemark> pm =
+        await placemarkFromCoordinates(pos.latitude, pos.longitude);
+    setState(
+      () {
+        lat = pos.latitude.toString();
+        lon = pos.latitude.toString();
+        country = pm[0].country.toString();
+        city = pm[0].locality.toString();
 
-    if (locationData != null) {
-      final placeMark = await service.getPlaceMark(locationData: locationData);
+        hourly = weatherAPI.getWeatherData(lat, lon);
+        daily = weatherAPI.getWeather7Data(lat, lon);
+      },
+    );
+  }
 
-      setState(() {
-        lat = locationData.latitude!.toStringAsFixed(2);
-        long = locationData.longitude!.toStringAsFixed(2);
+  Future<Position> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
-        country = placeMark?.country ?? '';
-        locality = placeMark?.locality ?? '';
-      });
-
-      hourly = WeatherAPI().getWeatherData('$lat', '$long');
-      daily = WeatherAPI().getWeather7Data('$lat', '$long');
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      EasyLoading.showInfo('Включите геолакацию');
+      return Future.error('Location services are disabled.');
     }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    return await Geolocator.getCurrentPosition();
   }
 
   @override
   void initState() {
     super.initState();
-    getLocation();
+    determinePosition();
+    updatePosition();
     controller = ScrollController();
     controller.addListener(() {
       setState(() {
@@ -116,7 +142,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: getLocation,
+        onRefresh: updatePosition,
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -141,7 +167,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             ),
                             const SizedBox(width: 5),
                             Text(
-                              '${locality ?? 'search'.tr}, ${country ?? 'scan'.tr}',
+                              '${city ?? 'search'.tr}, ${country ?? 'scan'.tr}',
                               style: context.theme.textTheme.labelLarge,
                             ),
                           ],
@@ -226,7 +252,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
                         child: ListView.separated(
-                          physics: const BouncingScrollPhysics(),
+                          physics: const AlwaysScrollableScrollPhysics(),
                           separatorBuilder: (BuildContext context, int index) {
                             return VerticalDivider(
                               width: 30,
@@ -375,7 +401,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
                         child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
+                          physics: const AlwaysScrollableScrollPhysics(),
                           itemCount: snapshot.data!.time.length,
                           itemBuilder: (ctx, i) => Weather7Days(
                             date: snapshot.data!.time[i],
@@ -400,7 +426,7 @@ class _WeatherPageState extends State<WeatherPage> {
           duration: duration,
           opacity: fabIsVisible ? 1 : 0,
           child: FloatingActionButton(
-            onPressed: getLocation,
+            onPressed: updatePosition,
             child: const Icon(Iconsax.gps),
           ),
         ),
