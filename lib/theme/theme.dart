@@ -13,6 +13,8 @@ class RainTheme {
         brightness: Brightness.light,
         primaryContainer: const Color.fromARGB(255, 245, 245, 245),
       ),
+      snackBarTheme: const SnackBarThemeData(
+          backgroundColor: Color.fromARGB(255, 225, 225, 225)),
       scaffoldBackgroundColor: Colors.white,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Color.fromARGB(255, 240, 240, 240)),
@@ -31,6 +33,8 @@ class RainTheme {
         brightness: Brightness.dark,
         primaryContainer: const Color.fromARGB(255, 40, 40, 40),
       ),
+      snackBarTheme: const SnackBarThemeData(
+          backgroundColor: Color.fromARGB(255, 55, 55, 55)),
       scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Color.fromARGB(255, 28, 28, 28)),

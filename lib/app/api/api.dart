@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rain/app/api/weather_day.dart';
 
@@ -9,21 +8,7 @@ class WeatherAPI {
   final Dio dio = Dio()
     ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?'
     ..options.connectTimeout = 60 * 1000
-    ..options.receiveTimeout = 60 * 1000
-    ..interceptors.add(
-      DioCacheInterceptor(
-        options: CacheOptions(
-          store: MemCacheStore(),
-          policy: CachePolicy.request,
-          hitCacheOnErrorExcept: [401, 403],
-          maxStale: const Duration(days: 1),
-          priority: CachePriority.normal,
-          cipher: null,
-          keyBuilder: CacheOptions.defaultCacheKeyBuilder,
-          allowPostMethod: false,
-        ),
-      ),
-    );
+    ..options.receiveTimeout = 60 * 1000;
 
   Future<Hourly> getWeatherData(String? lat, String? lon) async {
     var url =

@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -12,6 +12,7 @@ import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/weather_7days.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_today.dart';
+import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -72,29 +73,60 @@ class _WeatherPageState extends State<WeatherPage> {
   }
 
   Future<void> updatePosition() async {
-    Position pos = await determinePosition();
-    List<Placemark> pm =
-        await placemarkFromCoordinates(pos.latitude, pos.longitude);
-    setState(
-      () {
-        lat = pos.latitude.toString();
-        lon = pos.latitude.toString();
-        country = pm[0].country.toString();
-        city = pm[0].locality.toString();
+    final theme = context.theme;
+    if (await isDeviceConnectedNotifier.value) {
+      Position pos = await determinePosition();
+      List<Placemark> pm =
+          await placemarkFromCoordinates(pos.latitude, pos.longitude);
+      setState(
+        () {
+          lat = pos.latitude.toString();
+          lon = pos.longitude.toString();
+          country = pm[0].country.toString();
+          city = pm[0].locality.toString();
 
-        hourly = weatherAPI.getWeatherData(lat, lon);
-        daily = weatherAPI.getWeather7Data(lat, lon);
-      },
-    );
+          hourly = weatherAPI.getWeatherData(lat, lon);
+          daily = weatherAPI.getWeather7Data(lat, lon);
+        },
+      );
+    } else {
+      Get.snackbar(
+        'Нет интернета',
+        'Включите интернет для получения метеорологических данных.',
+        backgroundColor: theme.snackBarTheme.backgroundColor,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+        icon: const Icon(Iconsax.wifi),
+        shouldIconPulse: true,
+      );
+    }
   }
 
   Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
+    final theme = context.theme;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      EasyLoading.showInfo('Включите геолакацию');
+      Get.snackbar(
+        'Местоположение',
+        'Включите службу определения местоположения для получения метеорологических данных для текучщего местоположения.',
+        backgroundColor: theme.snackBarTheme.backgroundColor,
+        mainButton: TextButton(
+          onPressed: () {
+            Geolocator.openLocationSettings();
+          },
+          child: Text(
+            'Настр.',
+            style: theme.textTheme.bodyMedium?.copyWith(color: Colors.blue),
+          ),
+        ),
+        icon: const Icon(Iconsax.location_slash),
+        shouldIconPulse: true,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+      );
       return Future.error('Location services are disabled.');
     }
 
@@ -116,8 +148,10 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   void initState() {
     super.initState();
-    determinePosition();
-    updatePosition();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      determinePosition();
+      updatePosition();
+    });
     controller = ScrollController();
     controller.addListener(() {
       setState(() {
@@ -130,22 +164,12 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   Widget build(BuildContext context) {
-    final MaterialStateProperty<Icon?> thumbIcon =
-        MaterialStateProperty.resolveWith<Icon?>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
-          return const Icon(Iconsax.moon5);
-        }
-        return const Icon(Iconsax.sun_15);
-      },
-    );
-
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: updatePosition,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.only(right: 15, left: 15, top: 15),
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (OverscrollIndicatorNotification overScroll) {
                 overScroll.disallowIndicator();
@@ -173,25 +197,25 @@ class _WeatherPageState extends State<WeatherPage> {
                           ],
                         ),
                       ),
-                      Transform.scale(
-                        alignment: Alignment.centerRight,
-                        scale: 0.7,
-                        child: Switch(
-                          thumbIcon: thumbIcon,
-                          value: Get.isDarkMode,
-                          onChanged: (_) {
-                            if (Get.isDarkMode) {
-                              themeController.changeThemeMode(ThemeMode.light);
-                              themeController.saveTheme(false);
-                            } else {
-                              themeController.changeThemeMode(ThemeMode.dark);
-                              themeController.saveTheme(true);
-                            }
-                          },
+                      GestureDetector(
+                        onTap: () {
+                          if (Get.isDarkMode) {
+                            themeController.changeThemeMode(ThemeMode.light);
+                            themeController.saveTheme(false);
+                          } else {
+                            themeController.changeThemeMode(ThemeMode.dark);
+                            themeController.saveTheme(true);
+                          }
+                        },
+                        child: Icon(
+                          Get.isDarkMode ? Iconsax.sun_1 : Iconsax.moon,
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
+                          size: 18,
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 10),
                   FutureBuilder<Hourly>(
                     future: hourly,
                     builder: (context, snapshot) {
@@ -401,7 +425,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
                         child: ListView.builder(
-                          physics: const AlwaysScrollableScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           itemCount: snapshot.data!.time.length,
                           itemBuilder: (ctx, i) => Weather7Days(
                             date: snapshot.data!.time[i],
