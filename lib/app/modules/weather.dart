@@ -14,6 +14,7 @@ import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_today.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WeatherPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class WeatherPage extends StatefulWidget {
 class _WeatherPageState extends State<WeatherPage> {
   final locale = Get.locale;
   final themeController = Get.put(ThemeController());
-  late int getTime;
+  int? getTime;
   late DateTime nowDate;
 
   final weatherAPI = WeatherAPI();
@@ -35,6 +36,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
   String? lat, lon, country, city;
 
+  final ItemScrollController itemScrollController = ItemScrollController();
   late ScrollController controller;
   bool fabIsVisible = true;
   final duration = const Duration(milliseconds: 300);
@@ -74,6 +76,11 @@ class _WeatherPageState extends State<WeatherPage> {
 
   Future<void> updatePosition() async {
     final theme = context.theme;
+    bool serviceEnabled;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    nowDate = alignDateTime(DateTime.now(), const Duration(hours: 1), true);
+
     if (await isDeviceConnectedNotifier.value) {
       Position pos = await determinePosition();
       List<Placemark> pm =
@@ -87,6 +94,22 @@ class _WeatherPageState extends State<WeatherPage> {
 
           hourly = weatherAPI.getWeatherData(lat, lon);
           daily = weatherAPI.getWeather7Data(lat, lon);
+
+          Future.delayed(Duration.zero, () async {
+            final weather = await hourly!;
+            for (var i = 0; i < weather.time.length; i++) {
+              if (nowDate.isAtSameMomentAs(DateTime.parse(weather.time[i]))) {
+                getTime = i;
+                Future.delayed(const Duration(milliseconds: 30), () async {
+                  itemScrollController.scrollTo(
+                    index: getTime!,
+                    duration: const Duration(seconds: 3),
+                    curve: Curves.easeInOutCubic,
+                  );
+                });
+              }
+            }
+          });
         },
       );
     } else {
@@ -100,23 +123,14 @@ class _WeatherPageState extends State<WeatherPage> {
         shouldIconPulse: true,
       );
     }
-  }
 
-  Future<Position> determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    final theme = context.theme;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       Get.snackbar(
         'Местоположение',
         'Включите службу определения местоположения для получения метеорологических данных для текучщего местоположения.',
         backgroundColor: theme.snackBarTheme.backgroundColor,
         mainButton: TextButton(
-          onPressed: () {
-            Geolocator.openLocationSettings();
-          },
+          onPressed: () => Geolocator.openLocationSettings(),
           child: Text(
             'Настр.',
             style: theme.textTheme.bodyMedium?.copyWith(color: Colors.blue),
@@ -129,6 +143,10 @@ class _WeatherPageState extends State<WeatherPage> {
       );
       return Future.error('Location services are disabled.');
     }
+  }
+
+  Future<Position> determinePosition() async {
+    LocationPermission permission;
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -147,7 +165,6 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       determinePosition();
       updatePosition();
@@ -159,7 +176,7 @@ class _WeatherPageState extends State<WeatherPage> {
             controller.position.userScrollDirection == ScrollDirection.forward;
       });
     });
-    nowDate = alignDateTime(DateTime.now(), const Duration(hours: 1), true);
+    super.initState();
   }
 
   @override
@@ -233,16 +250,10 @@ class _WeatherPageState extends State<WeatherPage> {
                           ),
                         );
                       }
-                      final weather = snapshot.data;
-                      for (var i = 0; i < weather!.time.length; i++) {
-                        if (nowDate.isAtSameMomentAs(
-                            DateTime.parse(weather.time[i]))) {
-                          getTime = i;
-                        }
-                      }
+                      final weather = snapshot.data!;
                       return WeatherNow(
-                        weather: weather.weathercode[getTime],
-                        degree: weather.temperature2M[getTime],
+                        weather: weather.weathercode[getTime!],
+                        degree: weather.temperature2M[getTime!],
                       );
                     },
                   ),
@@ -266,6 +277,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           ),
                         );
                       }
+                      final weather = snapshot.data!;
                       return Container(
                         height: 130,
                         margin: const EdgeInsets.symmetric(vertical: 15),
@@ -275,22 +287,40 @@ class _WeatherPageState extends State<WeatherPage> {
                             color: context.theme.colorScheme.primaryContainer,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
-                        child: ListView.separated(
+                        child: ScrollablePositionedList.separated(
                           physics: const AlwaysScrollableScrollPhysics(),
                           separatorBuilder: (BuildContext context, int index) {
                             return VerticalDivider(
-                              width: 30,
+                              width: 10,
                               color: context.theme.unselectedWidgetColor,
                               indent: 40,
                               endIndent: 40,
                             );
                           },
                           scrollDirection: Axis.horizontal,
+                          itemScrollController: itemScrollController,
                           itemCount: snapshot.data!.time.length,
-                          itemBuilder: (ctx, i) => WeatherToday(
-                            time: snapshot.data!.time[i],
-                            weather: snapshot.data!.weathercode[i],
-                            degree: snapshot.data!.temperature2M[i],
+                          itemBuilder: (ctx, i) => GestureDetector(
+                            onTap: () {
+                              getTime = i;
+                              setState(() {});
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(vertical: 5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              decoration: BoxDecoration(
+                                  color: i == getTime
+                                      ? Colors.indigo
+                                      : Colors.transparent,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20))),
+                              child: WeatherToday(
+                                time: weather.time[i],
+                                weather: weather.weathercode[i],
+                                degree: weather.temperature2M[i],
+                              ),
+                            ),
                           ),
                         ),
                       );
@@ -316,13 +346,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           ),
                         );
                       }
-                      final weather = snapshot.data;
-                      for (var i = 0; i < weather!.time.length; i++) {
-                        if (nowDate.isAtSameMomentAs(
-                            DateTime.parse(weather.time[i]))) {
-                          getTime = i;
-                        }
-                      }
+                      final weather = snapshot.data!;
                       return Container(
                         margin: const EdgeInsets.only(bottom: 15),
                         padding: const EdgeInsets.symmetric(
@@ -339,53 +363,53 @@ class _WeatherPageState extends State<WeatherPage> {
                               DescWeather(
                                 imageName: 'assets/images/humidity.png',
                                 value:
-                                    '${weather.relativehumidity2M[getTime]}%',
+                                    '${weather.relativehumidity2M[getTime!]}%',
                                 desc: 'humidity'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/wind.png',
                                 value:
-                                    '${weather.windspeed10M[getTime]} ${'km'.tr}',
+                                    '${weather.windspeed10M[getTime!]} ${'km'.tr}',
                                 desc: 'wind'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/foggy.png',
                                 value:
-                                    '${weather.visibility[getTime].round().toInt()} ${'m'.tr}',
+                                    '${weather.visibility[getTime!].round().toInt()} ${'m'.tr}',
                                 desc: 'visibility'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/temperature.png',
                                 value:
-                                    '${weather.apparentTemperature[getTime].round().toInt()}°',
+                                    '${weather.apparentTemperature[getTime!].round().toInt()}°',
                                 desc: 'feels'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/evaporation.png',
                                 value:
-                                    '${weather.evapotranspiration[getTime].abs()} ${'mm'.tr}',
+                                    '${weather.evapotranspiration[getTime!].abs()} ${'mm'.tr}',
                                 desc: 'evaporation'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/rainfall.png',
                                 value:
-                                    '${weather.precipitation[getTime]} ${'mm'.tr}',
+                                    '${weather.precipitation[getTime!]} ${'mm'.tr}',
                                 desc: 'precipitation'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/wind-direction.png',
-                                value: '${weather.winddirection10M[getTime]}°',
+                                value: '${weather.winddirection10M[getTime!]}°',
                                 desc: 'direction'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/atmospheric.png',
                                 value:
-                                    '${weather.surfacePressure[getTime]} ${'hPa'.tr}',
+                                    '${weather.surfacePressure[getTime!]} ${'hPa'.tr}',
                                 desc: 'pressure'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/water.png',
-                                value: '${weather.rain[getTime]} ${'mm'.tr}',
+                                value: '${weather.rain[getTime!]} ${'mm'.tr}',
                                 desc: 'rain'.tr,
                               ),
                             ],
