@@ -24,50 +24,34 @@ class _WeatherNowState extends State<WeatherNow> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
-      child: Stack(
+      height: 360,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image(
-                image: AssetImage(status.getImageNow(widget.weather)),
-                fit: BoxFit.fill,
-                height: 200,
-              ),
-            ],
+          const SizedBox(height: 15),
+          Image(
+            image: AssetImage(status.getImageNow(widget.weather)),
+            fit: BoxFit.fill,
+            height: 200,
           ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: Center(
-              child: Column(
-                children: [
-                  GlowText(
-                    '${widget.degree.round().toInt()}',
-                    style: context.theme.textTheme.displayLarge?.copyWith(
-                      fontSize: 90,
-                      fontWeight: FontWeight.w800,
-                      height: 0.7,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    status.getText(widget.weather),
-                    style: context.theme.textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    DateFormat.MMMMEEEEd('${locale?.languageCode}').format(
-                      DateTime.now(),
-                    ),
-                    style: context.theme.textTheme.labelLarge?.copyWith(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
+          GlowText(
+            '${widget.degree.round().toInt()}',
+            style: context.theme.textTheme.displayLarge?.copyWith(
+              fontSize: 90,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          Text(
+            status.getText(widget.weather),
+            style: context.theme.textTheme.titleLarge,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            DateFormat.MMMMEEEEd('${locale?.languageCode}').format(
+              DateTime.now(),
+            ),
+            style: context.theme.textTheme.labelLarge?.copyWith(
+              color: Colors.grey,
             ),
           ),
         ],

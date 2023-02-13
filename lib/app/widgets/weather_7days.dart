@@ -32,7 +32,7 @@ class _Weather7DaysState extends State<Weather7Days> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: 115,
+            width: 90,
             child: Text(
               DateFormat.EEEE(locale?.languageCode).format(widget.date),
               style: context.theme.textTheme.labelLarge,
