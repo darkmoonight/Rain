@@ -8,8 +8,7 @@ class Translation extends Translations {
           'description':
               'Приложение погоды, которое предоставляет прогнозы в режиме реального времени, а также ежечасные, ежедневные и еженедельные прогнозы для любого местоположения.',
           'name': 'Погода',
-          'search': 'Поиск',
-          'scan': 'выполняется сканирование',
+          'search': 'Поиск...',
           'humidity': 'Влажность',
           'wind': 'Ветер',
           'visibility': 'Видимость',
@@ -46,8 +45,7 @@ class Translation extends Translations {
           'description':
               'Weather app that provides real-time forecasts, and hourly, daily and weekly forecasts for any location.',
           'name': 'Weather',
-          'search': 'Search',
-          'scan': 'scanning is in progress',
+          'search': 'Search...',
           'humidity': 'Humidity',
           'wind': 'Wind',
           'visibility': 'Visibility',

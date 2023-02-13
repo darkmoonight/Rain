@@ -31,15 +31,13 @@ class _Weather7DaysState extends State<Weather7Days> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: 90,
+          Expanded(
             child: Text(
               DateFormat.EEEE(locale?.languageCode).format(widget.date),
               style: context.theme.textTheme.labelLarge,
             ),
           ),
-          SizedBox(
-            width: 100,
+          Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -58,8 +56,7 @@ class _Weather7DaysState extends State<Weather7Days> {
               ],
             ),
           ),
-          SizedBox(
-            width: 80,
+          Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

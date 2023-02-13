@@ -7,8 +7,8 @@ import 'weather_7days.dart';
 class WeatherAPI {
   final Dio dio = Dio()
     ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?'
-    ..options.connectTimeout = 60 * 1000
-    ..options.receiveTimeout = 60 * 1000;
+    ..options.connectTimeout = const Duration(seconds: 60)
+    ..options.receiveTimeout = const Duration(seconds: 60);
 
   Future<Hourly> getWeatherData(String? lat, String? lon) async {
     var url =

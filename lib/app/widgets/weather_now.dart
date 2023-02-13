@@ -9,7 +9,9 @@ class WeatherNow extends StatefulWidget {
     super.key,
     required this.weather,
     required this.degree,
+    required this.time,
   });
+  final String time;
   final int weather;
   final double degree;
 
@@ -23,39 +25,36 @@ class _WeatherNowState extends State<WeatherNow> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 360,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 15),
-          Image(
-            image: AssetImage(status.getImageNow(widget.weather)),
-            fit: BoxFit.fill,
-            height: 200,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: 15),
+        Image(
+          image: AssetImage(status.getImageNow(widget.weather, widget.time)),
+          fit: BoxFit.fill,
+          height: 200,
+        ),
+        GlowText(
+          '${widget.degree.round().toInt()}',
+          style: context.theme.textTheme.displayLarge?.copyWith(
+            fontSize: 90,
+            fontWeight: FontWeight.w800,
           ),
-          GlowText(
-            '${widget.degree.round().toInt()}',
-            style: context.theme.textTheme.displayLarge?.copyWith(
-              fontSize: 90,
-              fontWeight: FontWeight.w800,
-            ),
+        ),
+        Text(
+          status.getText(widget.weather),
+          style: context.theme.textTheme.titleLarge,
+        ),
+        const SizedBox(height: 5),
+        Text(
+          DateFormat.MMMMEEEEd('${locale?.languageCode}').format(
+            DateTime.now(),
           ),
-          Text(
-            status.getText(widget.weather),
-            style: context.theme.textTheme.titleLarge,
+          style: context.theme.textTheme.labelLarge?.copyWith(
+            color: Colors.grey,
           ),
-          const SizedBox(height: 5),
-          Text(
-            DateFormat.MMMMEEEEd('${locale?.languageCode}').format(
-              DateTime.now(),
-            ),
-            style: context.theme.textTheme.labelLarge?.copyWith(
-              color: Colors.grey,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,17 +1,36 @@
 import 'package:get/get.dart';
 
 class Status {
-  String getImageNow(weather) {
+  String getImageNow(weather, time) {
+    final currentTime = DateTime.parse(time);
+
+    final dayTime =
+        DateTime(currentTime.year, currentTime.month, currentTime.day, 5, 00);
+    final nightTime =
+        DateTime(currentTime.year, currentTime.month, currentTime.day, 18, 00);
+
     switch (weather) {
       case 0:
-        return 'assets/images/sun.png';
+        if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
+          return 'assets/images/sun.png';
+        } else {
+          return 'assets/images/full-moon.png';
+        }
       case 1:
       case 2:
       case 3:
-        return 'assets/images/cloud.png';
+        if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
+          return 'assets/images/cloud.png';
+        } else {
+          return 'assets/images/moon.png';
+        }
       case 45:
       case 48:
-        return 'assets/images/fog.png';
+        if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
+          return 'assets/images/fog.png';
+        } else {
+          return 'assets/images/fog_night.png';
+        }
       case 51:
       case 53:
       case 55:

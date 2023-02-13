@@ -99,7 +99,7 @@ class _WeatherPageState extends State<WeatherPage> {
                 Future.delayed(const Duration(milliseconds: 30), () async {
                   itemScrollController.scrollTo(
                     index: getTime!,
-                    duration: const Duration(seconds: 3),
+                    duration: const Duration(seconds: 2),
                     curve: Curves.easeInOutCubic,
                   );
                 });
@@ -180,9 +180,16 @@ class _WeatherPageState extends State<WeatherPage> {
           'assets/icons/logo.png',
           scale: 20,
         ),
-        title: Text(
-          '${city ?? 'search'.tr}, ${country ?? 'scan'.tr}',
-          style: context.theme.textTheme.titleLarge,
+        title: Center(
+          child: Text(
+            city == null && country == null
+                ? 'search'.tr
+                : '$city, ' '$country',
+            style: context.theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+            ),
+          ),
         ),
         actions: [
           IconButton(
@@ -231,6 +238,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     }
                     final weather = snapshot.data!;
                     return WeatherNow(
+                      time: weather.time[getTime!],
                       weather: weather.weathercode[getTime!],
                       degree: weather.temperature2M[getTime!],
                     );
@@ -336,7 +344,7 @@ class _WeatherPageState extends State<WeatherPage> {
                               const BorderRadius.all(Radius.circular(25))),
                       child: Center(
                         child: Wrap(
-                          spacing: 25,
+                          spacing: 5,
                           runSpacing: 15,
                           children: [
                             DescWeather(

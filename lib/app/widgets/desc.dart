@@ -16,7 +16,7 @@ class DescWeather extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 70,
-      width: 75,
+      width: 95,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
