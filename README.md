@@ -27,4 +27,4 @@ The following options are provided:
 We also tried to make the design as convenient and beautiful as possible.
 
 ### Screenshots:
-<img src="/readme/1.jpg" width="250"/> <img src="/readme/2.jpg" width="250"/>
+<img src="/readme/1.jpg" width="200"/> <img src="/readme/2.jpg" width="200"/>
