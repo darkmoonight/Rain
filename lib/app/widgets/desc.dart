@@ -33,7 +33,7 @@ class DescWeather extends StatelessWidget {
             child: Text(
               desc,
               style: context.theme.textTheme.bodySmall,
-              overflow: TextOverflow.visible,
+              overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
             ),
           ),

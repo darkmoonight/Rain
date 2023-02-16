@@ -48,7 +48,7 @@ class _WeatherNowState extends State<WeatherNow> {
         const SizedBox(height: 5),
         Text(
           DateFormat.MMMMEEEEd('${locale?.languageCode}').format(
-            DateTime.now(),
+            DateTime.parse(widget.time),
           ),
           style: context.theme.textTheme.labelLarge?.copyWith(
             color: Colors.grey,

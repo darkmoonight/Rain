@@ -255,7 +255,9 @@ class _WeatherPageState extends State<WeatherPage> {
                           height: 130,
                           margin: const EdgeInsets.symmetric(vertical: 15),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 5),
+                            horizontal: 15,
+                            vertical: 5,
+                          ),
                           decoration: BoxDecoration(
                               color: context.theme.colorScheme.primaryContainer,
                               borderRadius:
@@ -268,7 +270,9 @@ class _WeatherPageState extends State<WeatherPage> {
                       height: 130,
                       margin: const EdgeInsets.symmetric(vertical: 15),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
+                        horizontal: 15,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                           color: context.theme.colorScheme.primaryContainer,
                           borderRadius:
@@ -294,7 +298,9 @@ class _WeatherPageState extends State<WeatherPage> {
                           child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 5),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
+                              horizontal: 20,
+                              vertical: 5,
+                            ),
                             decoration: BoxDecoration(
                                 color: i == getTime
                                     ? Get.isDarkMode
@@ -325,7 +331,9 @@ class _WeatherPageState extends State<WeatherPage> {
                           height: 350,
                           margin: const EdgeInsets.only(bottom: 15),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 12),
+                            horizontal: 15,
+                            vertical: 12,
+                          ),
                           decoration: BoxDecoration(
                               color: context.theme.colorScheme.primaryContainer,
                               borderRadius:
@@ -337,7 +345,9 @@ class _WeatherPageState extends State<WeatherPage> {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 15),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 12),
+                        horizontal: 15,
+                        vertical: 12,
+                      ),
                       decoration: BoxDecoration(
                           color: context.theme.colorScheme.primaryContainer,
                           borderRadius:
@@ -355,19 +365,19 @@ class _WeatherPageState extends State<WeatherPage> {
                             DescWeather(
                               imageName: 'assets/images/wind.png',
                               value:
-                                  '${weather.windspeed10M[getTime!]} ${'km'.tr}',
+                                  '${weather.windspeed10M[getTime!].round()} ${'km/h'.tr}',
                               desc: 'wind'.tr,
                             ),
                             DescWeather(
                               imageName: 'assets/images/foggy.png',
                               value:
-                                  '${weather.visibility[getTime!].round().toInt()} ${'m'.tr}',
+                                  '${weather.visibility[getTime!] > 1000 ? (weather.visibility[getTime!] / 1000).round() : (weather.visibility[getTime!] / 1000)} ${'km'.tr}',
                               desc: 'visibility'.tr,
                             ),
                             DescWeather(
                               imageName: 'assets/images/temperature.png',
                               value:
-                                  '${weather.apparentTemperature[getTime!].round().toInt()}°',
+                                  '${weather.apparentTemperature[getTime!].round()}°',
                               desc: 'feels'.tr,
                             ),
                             DescWeather(
@@ -390,7 +400,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             DescWeather(
                               imageName: 'assets/images/atmospheric.png',
                               value:
-                                  '${weather.surfacePressure[getTime!]} ${'hPa'.tr}',
+                                  '${weather.surfacePressure[getTime!].round()} ${'hPa'.tr}',
                               desc: 'pressure'.tr,
                             ),
                             DescWeather(
@@ -415,7 +425,9 @@ class _WeatherPageState extends State<WeatherPage> {
                           height: 405,
                           margin: const EdgeInsets.only(bottom: 15),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 5),
+                            horizontal: 15,
+                            vertical: 5,
+                          ),
                           decoration: BoxDecoration(
                               color: context.theme.colorScheme.primaryContainer,
                               borderRadius:
@@ -428,7 +440,9 @@ class _WeatherPageState extends State<WeatherPage> {
                       height: 405,
                       margin: const EdgeInsets.only(bottom: 15),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
+                        horizontal: 15,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                           color: context.theme.colorScheme.primaryContainer,
                           borderRadius:
