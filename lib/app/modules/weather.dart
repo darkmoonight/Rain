@@ -26,6 +26,7 @@ class WeatherPage extends StatefulWidget {
 class _WeatherPageState extends State<WeatherPage> {
   final locale = Get.locale;
   final themeController = Get.put(ThemeController());
+
   int? getTime;
   late DateTime nowDate;
 
@@ -121,22 +122,6 @@ class _WeatherPageState extends State<WeatherPage> {
     }
 
     if (!serviceEnabled) {
-      Get.snackbar(
-        'location'.tr,
-        'no_location'.tr,
-        backgroundColor: theme.snackBarTheme.backgroundColor,
-        mainButton: TextButton(
-          onPressed: () => Geolocator.openLocationSettings(),
-          child: Text(
-            'settings'.tr,
-            style: theme.textTheme.bodyMedium?.copyWith(color: Colors.blue),
-          ),
-        ),
-        icon: const Icon(Iconsax.location_slash),
-        shouldIconPulse: true,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-      );
       return Future.error('Location services are disabled.');
     }
   }

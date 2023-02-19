@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.1+2
+version: 1.0.2+3
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -19,11 +19,10 @@ dependencies:
   intl: ^0.17.0
   shimmer: ^2.0.0
   iconsax: ^0.0.8
-  latlong2: ^0.8.1
   geocoding: ^2.0.5
   geolocator: ^9.0.2
   flutter_glow: ^0.2.0
-  path_provider: ^2.0.11
+  path_provider: ^2.0.12
   connectivity_plus: ^3.0.3
   isar_flutter_libs: ^3.0.5
   flutter_easyloading: ^3.0.5
@@ -56,6 +55,3 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-
-module:
-  androidX: true
