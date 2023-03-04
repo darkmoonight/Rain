@@ -32,8 +32,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                   Text(
                     'Rain - ${'name'.tr}',
-                    style: context.theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                    style: context.theme.textTheme.titleLarge?.copyWith(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w600,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -41,7 +42,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     height: 15,
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.85,
+                    width: 300,
                     child: Text(
                       'description'.tr,
                       style: context.theme.textTheme.bodyLarge,

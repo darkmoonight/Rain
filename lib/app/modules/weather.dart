@@ -1,20 +1,14 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:rain/app/api/api.dart';
-import 'package:rain/app/api/weather_7days.dart';
-import 'package:rain/app/api/weather_day.dart';
+import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/desc.dart';
+import 'package:rain/app/widgets/shimmer.dart';
 import 'package:rain/app/widgets/weather_7days.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_today.dart';
-import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:shimmer/shimmer.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -26,130 +20,11 @@ class WeatherPage extends StatefulWidget {
 class _WeatherPageState extends State<WeatherPage> {
   final locale = Get.locale;
   final themeController = Get.put(ThemeController());
-
-  int? getTime;
-  late DateTime nowDate;
-
-  final weatherAPI = WeatherAPI();
-  Future<Hourly>? hourly;
-  Future<Daily>? daily;
-
-  String? lat, lon, country, city;
-
-  final ItemScrollController itemScrollController = ItemScrollController();
-
-  DateTime alignDateTime(DateTime dt, Duration alignment,
-      [bool roundUp = false]) {
-    assert(alignment >= Duration.zero);
-    if (alignment == Duration.zero) return dt;
-    final correction = Duration(
-        days: 0,
-        hours: alignment.inDays > 0
-            ? dt.hour
-            : alignment.inHours > 0
-                ? dt.hour % alignment.inHours
-                : 0,
-        minutes: alignment.inHours > 0
-            ? dt.minute
-            : alignment.inMinutes > 0
-                ? dt.minute % alignment.inMinutes
-                : 0,
-        seconds: alignment.inMinutes > 0
-            ? dt.second
-            : alignment.inSeconds > 0
-                ? dt.second % alignment.inSeconds
-                : 0,
-        milliseconds: alignment.inSeconds > 0
-            ? dt.millisecond
-            : alignment.inMilliseconds > 0
-                ? dt.millisecond % alignment.inMilliseconds
-                : 0,
-        microseconds: alignment.inMilliseconds > 0 ? dt.microsecond : 0);
-    if (correction == Duration.zero) return dt;
-    final corrected = dt.subtract(correction);
-    final result = roundUp ? corrected.add(alignment) : corrected;
-    return result;
-  }
-
-  Future<void> updatePosition() async {
-    final theme = context.theme;
-    bool serviceEnabled;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    nowDate = alignDateTime(DateTime.now(), const Duration(hours: 1), true);
-
-    if (await isDeviceConnectedNotifier.value) {
-      Position pos = await determinePosition();
-      List<Placemark> pm =
-          await placemarkFromCoordinates(pos.latitude, pos.longitude);
-      setState(
-        () {
-          lat = pos.latitude.toString();
-          lon = pos.longitude.toString();
-          country = pm[0].country.toString();
-          city = pm[0].locality.toString();
-
-          hourly = weatherAPI.getWeatherData(lat, lon);
-          daily = weatherAPI.getWeather7Data(lat, lon);
-
-          Future.delayed(Duration.zero, () async {
-            final weather = await hourly!;
-            for (var i = 0; i < weather.time.length; i++) {
-              if (nowDate.isAtSameMomentAs(DateTime.parse(weather.time[i]))) {
-                getTime = i;
-                Future.delayed(const Duration(milliseconds: 30), () async {
-                  itemScrollController.scrollTo(
-                    index: getTime!,
-                    duration: const Duration(seconds: 2),
-                    curve: Curves.easeInOutCubic,
-                  );
-                });
-              }
-            }
-          });
-        },
-      );
-    } else {
-      Get.snackbar(
-        'no_inter'.tr,
-        'on_inter'.tr,
-        backgroundColor: theme.snackBarTheme.backgroundColor,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-        icon: const Icon(Iconsax.wifi),
-        shouldIconPulse: true,
-      );
-    }
-
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-  }
-
-  Future<Position> determinePosition() async {
-    LocationPermission permission;
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    return await Geolocator.getCurrentPosition();
-  }
+  final locationController = Get.put(LocationController(), permanent: true);
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      determinePosition();
-      updatePosition();
-    });
+    locationController.getCurrentLocation();
     super.initState();
   }
 
@@ -166,13 +41,16 @@ class _WeatherPageState extends State<WeatherPage> {
           'assets/icons/logo.png',
           scale: 20,
         ),
-        title: Text(
-          city == null && country == null ? 'search'.tr : '$city, ' '$country',
-          style: context.theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
-        ),
+        title: Obx(() => Text(
+              locationController.isLoading.isFalse
+                  ? '${locationController.city}, '
+                      '${locationController.country}'
+                  : 'search'.tr,
+              style: context.theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+              ),
+            )),
         actions: [
           IconButton(
             onPressed: () {
@@ -196,44 +74,31 @@ class _WeatherPageState extends State<WeatherPage> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: updatePosition,
+        onRefresh: () async {
+          await locationController.getCurrentLocation();
+          locationController.hourOfDay.value = DateTime.now().hour;
+          setState(() {});
+        },
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(right: 15, left: 15),
             child: ListView(
               children: [
-                FutureBuilder<Hourly>(
-                  future: hourly,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Shimmer.fromColors(
-                        baseColor: context.theme.colorScheme.primaryContainer,
-                        highlightColor: context.theme.unselectedWidgetColor,
-                        child: Container(
-                          height: 350,
-                          decoration: BoxDecoration(
-                              color: context.theme.colorScheme.primaryContainer,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20))),
-                        ),
-                      );
-                    }
-                    final weather = snapshot.data!;
-                    return WeatherNow(
-                      time: weather.time[getTime!],
-                      weather: weather.weathercode[getTime!],
-                      degree: weather.temperature2M[getTime!],
-                    );
-                  },
+                Obx(
+                  () => locationController.isLoading.isFalse
+                      ? WeatherNow(
+                          time: locationController
+                              .hourly.time![locationController.hourOfDay.value],
+                          weather: locationController.hourly
+                              .weathercode![locationController.hourOfDay.value],
+                          degree: locationController.hourly.temperature2M![
+                              locationController.hourOfDay.value],
+                        )
+                      : const MyShimmer(hight: 350),
                 ),
-                FutureBuilder<Hourly>(
-                  future: hourly,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Shimmer.fromColors(
-                        baseColor: context.theme.colorScheme.primaryContainer,
-                        highlightColor: context.theme.unselectedWidgetColor,
-                        child: Container(
+                Obx(
+                  () => locationController.isLoading.isFalse
+                      ? Container(
                           height: 130,
                           margin: const EdgeInsets.symmetric(vertical: 15),
                           padding: const EdgeInsets.symmetric(
@@ -244,73 +109,64 @@ class _WeatherPageState extends State<WeatherPage> {
                               color: context.theme.colorScheme.primaryContainer,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
-                        ),
-                      );
-                    }
-                    final weather = snapshot.data!;
-                    return Container(
-                      height: 130,
-                      margin: const EdgeInsets.symmetric(vertical: 15),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
-                      child: ScrollablePositionedList.separated(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        separatorBuilder: (BuildContext context, int index) {
-                          return VerticalDivider(
-                            width: 10,
-                            color: context.theme.unselectedWidgetColor,
-                            indent: 40,
-                            endIndent: 40,
-                          );
-                        },
-                        scrollDirection: Axis.horizontal,
-                        itemScrollController: itemScrollController,
-                        itemCount: snapshot.data!.time.length,
-                        itemBuilder: (ctx, i) => GestureDetector(
-                          onTap: () {
-                            getTime = i;
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(vertical: 5),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                                color: i == getTime
-                                    ? Get.isDarkMode
-                                        ? Colors.indigo
-                                        : Colors.amberAccent
-                                    : Colors.transparent,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(20))),
-                            child: WeatherToday(
-                              time: weather.time[i],
-                              weather: weather.weathercode[i],
-                              degree: weather.temperature2M[i],
+                          child: ScrollablePositionedList.separated(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return VerticalDivider(
+                                width: 10,
+                                color: context.theme.unselectedWidgetColor,
+                                indent: 40,
+                                endIndent: 40,
+                              );
+                            },
+                            scrollDirection: Axis.horizontal,
+                            itemScrollController:
+                                locationController.itemScrollController,
+                            itemCount: locationController.hourly.time!.length,
+                            itemBuilder: (ctx, i) => GestureDetector(
+                              onTap: () {
+                                locationController.hourOfDay.value = i;
+                                setState(() {});
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 5),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 5,
+                                ),
+                                decoration: BoxDecoration(
+                                    color:
+                                        i == locationController.hourOfDay.value
+                                            ? Get.isDarkMode
+                                                ? Colors.indigo
+                                                : Colors.amberAccent
+                                            : Colors.transparent,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20))),
+                                child: WeatherToday(
+                                  time: locationController.hourly.time![i],
+                                  weather:
+                                      locationController.hourly.weathercode![i],
+                                  degree: locationController
+                                      .hourly.temperature2M![i],
+                                ),
+                              ),
                             ),
                           ),
+                        )
+                      : const MyShimmer(
+                          hight: 130,
+                          edgeInsetsMargin: EdgeInsets.symmetric(vertical: 15),
+                          edgeInsetsPadding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 5,
+                          ),
                         ),
-                      ),
-                    );
-                  },
                 ),
-                FutureBuilder<Hourly>(
-                  future: hourly,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Shimmer.fromColors(
-                        baseColor: context.theme.colorScheme.primaryContainer,
-                        highlightColor: context.theme.unselectedWidgetColor,
-                        child: Container(
-                          height: 350,
+                Obx(
+                  () => locationController.isLoading.isFalse
+                      ? Container(
                           margin: const EdgeInsets.only(bottom: 15),
                           padding: const EdgeInsets.symmetric(
                             horizontal: 15,
@@ -320,90 +176,81 @@ class _WeatherPageState extends State<WeatherPage> {
                               color: context.theme.colorScheme.primaryContainer,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(25))),
+                          child: Center(
+                            child: Wrap(
+                              spacing: 5,
+                              runSpacing: 15,
+                              children: [
+                                DescWeather(
+                                  imageName: 'assets/images/humidity.png',
+                                  value:
+                                      '${locationController.hourly.relativehumidity2M![locationController.hourOfDay.value]}%',
+                                  desc: 'humidity'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/wind.png',
+                                  value:
+                                      '${locationController.hourly.windspeed10M![locationController.hourOfDay.value].round()} ${'km/h'.tr}',
+                                  desc: 'wind'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/foggy.png',
+                                  value:
+                                      '${locationController.hourly.visibility![locationController.hourOfDay.value] > 1000 ? (locationController.hourly.visibility![locationController.hourOfDay.value] / 1000).round() : (locationController.hourly.visibility![locationController.hourOfDay.value] / 1000)} ${'km'.tr}',
+                                  desc: 'visibility'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/temperature.png',
+                                  value:
+                                      '${locationController.hourly.apparentTemperature![locationController.hourOfDay.value].round()}°',
+                                  desc: 'feels'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/evaporation.png',
+                                  value:
+                                      '${locationController.hourly.evapotranspiration![locationController.hourOfDay.value].abs()} ${'mm'.tr}',
+                                  desc: 'evaporation'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/rainfall.png',
+                                  value:
+                                      '${locationController.hourly.precipitation![locationController.hourOfDay.value]} ${'mm'.tr}',
+                                  desc: 'precipitation'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/wind-direction.png',
+                                  value:
+                                      '${locationController.hourly.winddirection10M![locationController.hourOfDay.value]}°',
+                                  desc: 'direction'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/atmospheric.png',
+                                  value:
+                                      '${locationController.hourly.surfacePressure![locationController.hourOfDay.value].round()} ${'hPa'.tr}',
+                                  desc: 'pressure'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/water.png',
+                                  value:
+                                      '${locationController.hourly.rain![locationController.hourOfDay.value]} ${'mm'.tr}',
+                                  desc: 'rain'.tr,
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : const MyShimmer(
+                          hight: 350,
+                          edgeInsetsMargin: EdgeInsets.only(bottom: 15),
+                          edgeInsetsPadding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 12,
+                          ),
                         ),
-                      );
-                    }
-                    final weather = snapshot.data!;
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 12,
-                      ),
-                      decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(25))),
-                      child: Center(
-                        child: Wrap(
-                          spacing: 5,
-                          runSpacing: 15,
-                          children: [
-                            DescWeather(
-                              imageName: 'assets/images/humidity.png',
-                              value: '${weather.relativehumidity2M[getTime!]}%',
-                              desc: 'humidity'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/wind.png',
-                              value:
-                                  '${weather.windspeed10M[getTime!].round()} ${'km/h'.tr}',
-                              desc: 'wind'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/foggy.png',
-                              value:
-                                  '${weather.visibility[getTime!] > 1000 ? (weather.visibility[getTime!] / 1000).round() : (weather.visibility[getTime!] / 1000)} ${'km'.tr}',
-                              desc: 'visibility'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/temperature.png',
-                              value:
-                                  '${weather.apparentTemperature[getTime!].round()}°',
-                              desc: 'feels'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/evaporation.png',
-                              value:
-                                  '${weather.evapotranspiration[getTime!].abs()} ${'mm'.tr}',
-                              desc: 'evaporation'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/rainfall.png',
-                              value:
-                                  '${weather.precipitation[getTime!]} ${'mm'.tr}',
-                              desc: 'precipitation'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/wind-direction.png',
-                              value: '${weather.winddirection10M[getTime!]}°',
-                              desc: 'direction'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/atmospheric.png',
-                              value:
-                                  '${weather.surfacePressure[getTime!].round()} ${'hPa'.tr}',
-                              desc: 'pressure'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/water.png',
-                              value: '${weather.rain[getTime!]} ${'mm'.tr}',
-                              desc: 'rain'.tr,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
                 ),
-                FutureBuilder<Daily>(
-                  future: daily,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Shimmer.fromColors(
-                        baseColor: context.theme.colorScheme.primaryContainer,
-                        highlightColor: context.theme.unselectedWidgetColor,
-                        child: Container(
+                Obx(
+                  () => locationController.isLoading.isFalse
+                      ? Container(
                           height: 405,
                           margin: const EdgeInsets.only(bottom: 15),
                           padding: const EdgeInsets.symmetric(
@@ -414,33 +261,27 @@ class _WeatherPageState extends State<WeatherPage> {
                               color: context.theme.colorScheme.primaryContainer,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: locationController.daily.time!.length,
+                            itemBuilder: (ctx, i) => Weather7Days(
+                              date: locationController.daily.time![i],
+                              weather: locationController.daily.weathercode![i],
+                              minDegree:
+                                  locationController.daily.temperature2MMin![i],
+                              maxDegree:
+                                  locationController.daily.temperature2MMax![i],
+                            ),
+                          ),
+                        )
+                      : const MyShimmer(
+                          hight: 405,
+                          edgeInsetsMargin: EdgeInsets.only(bottom: 15),
+                          edgeInsetsPadding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 5,
+                          ),
                         ),
-                      );
-                    }
-                    final weather = snapshot.data!;
-                    return Container(
-                      height: 405,
-                      margin: const EdgeInsets.only(bottom: 15),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: snapshot.data!.time.length,
-                        itemBuilder: (ctx, i) => Weather7Days(
-                          date: snapshot.data!.time[i],
-                          weather: weather.weathercode[i],
-                          minDegree: weather.temperature2MMin[i],
-                          maxDegree: weather.temperature2MMax[i],
-                        ),
-                      ),
-                    );
-                  },
                 ),
               ],
             ),

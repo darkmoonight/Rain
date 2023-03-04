@@ -10,7 +10,7 @@ class WeatherAPI {
     ..options.connectTimeout = const Duration(seconds: 60)
     ..options.receiveTimeout = const Duration(seconds: 60);
 
-  Future<Hourly> getWeatherData(String? lat, String? lon) async {
+  Future<Hourly> getWeatherData(double? lat, double? lon) async {
     var url =
         'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto';
     try {
@@ -25,7 +25,7 @@ class WeatherAPI {
     }
   }
 
-  Future<Daily> getWeather7Data(String? lat, String? lon) async {
+  Future<Daily> getWeather7Data(double? lat, double? lon) async {
     var url =
         'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto';
     try {
