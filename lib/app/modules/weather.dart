@@ -157,6 +157,7 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
@@ -165,15 +166,11 @@ class _WeatherPageState extends State<WeatherPage> {
           'assets/icons/logo.png',
           scale: 20,
         ),
-        title: Center(
-          child: Text(
-            city == null && country == null
-                ? 'search'.tr
-                : '$city, ' '$country',
-            style: context.theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-            ),
+        title: Text(
+          city == null && country == null ? 'search'.tr : '$city, ' '$country',
+          style: context.theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
           ),
         ),
         actions: [

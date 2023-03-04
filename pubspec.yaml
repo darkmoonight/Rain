@@ -14,7 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get: ^4.6.5
-  dio: ^5.0.0
+  dio: ^5.0.1
   isar: ^3.0.5
   intl: ^0.17.0
   shimmer: ^2.0.0
@@ -22,7 +22,7 @@ dependencies:
   geocoding: ^2.0.5
   geolocator: ^9.0.2
   flutter_glow: ^0.2.0
-  path_provider: ^2.0.12
+  path_provider: ^2.0.13
   connectivity_plus: ^3.0.3
   isar_flutter_libs: ^3.0.5
   flutter_easyloading: ^3.0.5
@@ -35,8 +35,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.3.2
   isar_generator: ^3.0.5
-  flutter_native_splash: ^2.2.16
-  flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: ^2.2.18
+  flutter_launcher_icons: ^0.12.0
 
 flutter_icons:
   android: true
