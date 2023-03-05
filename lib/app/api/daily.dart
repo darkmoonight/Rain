@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-Weather7DaysApi weather7DaysFromJson(String str) =>
-    Weather7DaysApi.fromJson(json.decode(str));
+WeatherDailyApi weather7DaysFromJson(String str) =>
+    WeatherDailyApi.fromJson(json.decode(str));
 
-class Weather7DaysApi {
-  Weather7DaysApi({
+class WeatherDailyApi {
+  WeatherDailyApi({
     required this.daily,
   });
 
   Daily daily;
 
-  factory Weather7DaysApi.fromJson(Map<String, dynamic> json) =>
-      Weather7DaysApi(
+  factory WeatherDailyApi.fromJson(Map<String, dynamic> json) =>
+      WeatherDailyApi(
         daily: Daily.fromJson(json["daily"]),
       );
 }

@@ -37,8 +37,8 @@ void main() async {
 Future<void> isarInit() async {
   isar = await Isar.open([
     SettingsSchema,
-    WeatherDayCacheSchema,
-    Weather7DayCacheSchema,
+    HourlyCacheSchema,
+    DailyCacheSchema,
     LocationCacheSchema,
   ], directory: (await getApplicationSupportDirectory()).path);
 

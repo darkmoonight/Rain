@@ -10,7 +10,7 @@ class Settings {
 }
 
 @collection
-class WeatherDayCache {
+class HourlyCache {
   Id id = Isar.autoIncrement;
   List<String>? time;
   List<double>? temperature2M;
@@ -26,7 +26,7 @@ class WeatherDayCache {
   List<int>? winddirection10M;
   DateTime? timestamp;
 
-  WeatherDayCache({
+  HourlyCache({
     this.time,
     this.temperature2M,
     this.relativehumidity2M,
@@ -44,7 +44,7 @@ class WeatherDayCache {
 }
 
 @collection
-class Weather7DayCache {
+class DailyCache {
   Id id = Isar.autoIncrement;
   List<DateTime>? time;
   List<int>? weathercode;
@@ -52,7 +52,7 @@ class Weather7DayCache {
   List<double>? temperature2MMin;
   DateTime? timestamp;
 
-  Weather7DayCache({
+  DailyCache({
     this.time,
     this.weathercode,
     this.temperature2MMax,

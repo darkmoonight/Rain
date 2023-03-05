@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status.dart';
 
-class Weather7Days extends StatefulWidget {
-  const Weather7Days({
+class WeatherDaily extends StatefulWidget {
+  const WeatherDaily({
     super.key,
     required this.date,
     required this.weather,
@@ -17,10 +17,10 @@ class Weather7Days extends StatefulWidget {
   final double maxDegree;
 
   @override
-  State<Weather7Days> createState() => _Weather7DaysState();
+  State<WeatherDaily> createState() => _WeatherDailyState();
 }
 
-class _Weather7DaysState extends State<Weather7Days> {
+class _WeatherDailyState extends State<WeatherDaily> {
   final locale = Get.locale;
   final status = Status();
 

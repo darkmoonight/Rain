@@ -1,16 +1,17 @@
 import 'dart:convert';
 
-WeatherDayApi weatherDayFromJson(String str) =>
-    WeatherDayApi.fromJson(json.decode(str));
+WeatherHourlyApi weatherDayFromJson(String str) =>
+    WeatherHourlyApi.fromJson(json.decode(str));
 
-class WeatherDayApi {
-  WeatherDayApi({
+class WeatherHourlyApi {
+  WeatherHourlyApi({
     required this.hourly,
   });
 
   Hourly hourly;
 
-  factory WeatherDayApi.fromJson(Map<String, dynamic> json) => WeatherDayApi(
+  factory WeatherHourlyApi.fromJson(Map<String, dynamic> json) =>
+      WeatherHourlyApi(
         hourly: Hourly.fromJson(json["hourly"]),
       );
 }

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status.dart';
 
-class WeatherToday extends StatefulWidget {
-  const WeatherToday({
+class WeatherHourly extends StatefulWidget {
+  const WeatherHourly({
     super.key,
     required this.time,
     required this.weather,
@@ -15,10 +15,10 @@ class WeatherToday extends StatefulWidget {
   final double degree;
 
   @override
-  State<WeatherToday> createState() => _WeatherTodayState();
+  State<WeatherHourly> createState() => _WeatherHourlyState();
 }
 
-class _WeatherTodayState extends State<WeatherToday> {
+class _WeatherHourlyState extends State<WeatherHourly> {
   final status = Status();
   @override
   Widget build(BuildContext context) {

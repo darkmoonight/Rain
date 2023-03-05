@@ -4,9 +4,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/shimmer.dart';
-import 'package:rain/app/widgets/weather_7days.dart';
+import 'package:rain/app/widgets/weather_daily.dart';
 import 'package:rain/app/widgets/weather_now.dart';
-import 'package:rain/app/widgets/weather_today.dart';
+import 'package:rain/app/widgets/weather_hourly.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -144,7 +144,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                             : Colors.transparent,
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(20))),
-                                child: WeatherToday(
+                                child: WeatherHourly(
                                   time: locationController.hourly.time![i],
                                   weather:
                                       locationController.hourly.weathercode![i],
@@ -264,7 +264,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
                             itemCount: locationController.daily.time!.length,
-                            itemBuilder: (ctx, i) => Weather7Days(
+                            itemBuilder: (ctx, i) => WeatherDaily(
                               date: locationController.daily.time![i],
                               weather: locationController.daily.weathercode![i],
                               minDegree:
