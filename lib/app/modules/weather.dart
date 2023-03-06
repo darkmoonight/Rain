@@ -77,7 +77,6 @@ class _WeatherPageState extends State<WeatherPage> {
       body: RefreshIndicator(
         onRefresh: () async {
           await locationController.getCurrentLocation();
-          locationController.hourOfDay.value = DateTime.now().hour;
           setState(() {});
         },
         child: SafeArea(

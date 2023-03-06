@@ -29,9 +29,42 @@ class LocationController extends GetxController {
   DailyCache get daily => _daily.value;
   LocationCache get location => _location.value;
 
-  final hourOfDay = DateTime.now().hour.obs;
+  final hourOfDay = 0.obs;
   final ItemScrollController itemScrollController = ItemScrollController();
   final cacheExpiry = DateTime.now().subtract(const Duration(hours: 12));
+
+  DateTime alignDateTime(DateTime dt, Duration alignment,
+      [bool roundUp = false]) {
+    assert(alignment >= Duration.zero);
+    if (alignment == Duration.zero) return dt;
+    final correction = Duration(
+        days: 0,
+        hours: alignment.inDays > 0
+            ? dt.hour
+            : alignment.inHours > 0
+                ? dt.hour % alignment.inHours
+                : 0,
+        minutes: alignment.inHours > 0
+            ? dt.minute
+            : alignment.inMinutes > 0
+                ? dt.minute % alignment.inMinutes
+                : 0,
+        seconds: alignment.inMinutes > 0
+            ? dt.second
+            : alignment.inSeconds > 0
+                ? dt.second % alignment.inSeconds
+                : 0,
+        milliseconds: alignment.inSeconds > 0
+            ? dt.millisecond
+            : alignment.inMilliseconds > 0
+                ? dt.millisecond % alignment.inMilliseconds
+                : 0,
+        microseconds: alignment.inMilliseconds > 0 ? dt.microsecond : 0);
+    if (correction == Duration.zero) return dt;
+    final corrected = dt.subtract(correction);
+    final result = roundUp ? corrected.add(alignment) : corrected;
+    return result;
+  }
 
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -142,6 +175,12 @@ class LocationController extends GetxController {
     _hourly.value = hourlyCache;
     _daily.value = dailyCache;
     _location.value = locationCache;
+    for (var i = 0; i < _hourly.value.time!.length; i++) {
+      if (alignDateTime(DateTime.now(), const Duration(hours: 1), false)
+          .isAtSameMomentAs(DateTime.parse(_hourly.value.time![i]))) {
+        hourOfDay.value = i;
+      }
+    }
     isLoading.value = false;
     Future.delayed(const Duration(milliseconds: 30), () async {
       itemScrollController.scrollTo(
