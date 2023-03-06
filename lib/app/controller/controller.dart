@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:isar/isar.dart';
 import 'package:rain/app/api/api.dart';
-import 'package:rain/app/api/daily.dart';
-import 'package:rain/app/api/hourly.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/main.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -18,32 +16,27 @@ class LocationController extends GetxController {
   final _latitude = 0.0.obs;
   final _longitude = 0.0.obs;
 
-  final _hourly = Hourly().obs;
-  final _daily = Daily().obs;
-
-  final _hourlyCache = HourlyCache().obs;
-  final _dailyCache = DailyCache().obs;
-  final _locationCache = LocationCache().obs;
-
   String get country => _country.value;
   String get city => _city.value;
   double get latitude => _latitude.value;
   double get longitude => _longitude.value;
 
-  Hourly get hourly => _hourly.value;
-  Daily get daily => _daily.value;
+  final _hourly = HourlyCache().obs;
+  final _daily = DailyCache().obs;
+  final _location = LocationCache().obs;
 
-  HourlyCache get hourlyCache => _hourlyCache.value;
-  DailyCache get dailyCache => _dailyCache.value;
-  LocationCache get locationCache => _locationCache.value;
+  HourlyCache get hourly => _hourly.value;
+  DailyCache get daily => _daily.value;
+  LocationCache get location => _location.value;
 
   final hourOfDay = DateTime.now().hour.obs;
   final ItemScrollController itemScrollController = ItemScrollController();
+  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 1));
 
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
-    if (await isDeviceConnectedNotifier.value) {
+    if (await isDeviceConnectedNotifier.value && serviceEnabled) {
       Position position = await determinePosition();
 
       List<Placemark> placemarks =
@@ -60,18 +53,10 @@ class LocationController extends GetxController {
       _daily.value =
           await WeatherAPI().getWeather7Data(_latitude.value, _longitude.value);
 
-      isLoading.value = false;
-
       writeCache();
-
-      Future.delayed(const Duration(milliseconds: 30), () async {
-        itemScrollController.scrollTo(
-          index: hourOfDay.value,
-          duration: const Duration(seconds: 2),
-          curve: Curves.easeInOutCubic,
-        );
-      });
-    } else {
+      readCache();
+    } else if (await isDeviceConnectedNotifier.value == false &&
+        serviceEnabled) {
       Get.snackbar(
         'no_inter'.tr,
         'on_inter'.tr,
@@ -80,9 +65,47 @@ class LocationController extends GetxController {
         icon: const Icon(Iconsax.wifi),
         shouldIconPulse: true,
       );
-    }
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      readCache();
+    } else if (await isDeviceConnectedNotifier.value && !serviceEnabled) {
+      Get.snackbar(
+        'location'.tr,
+        'no_location'.tr,
+        mainButton: TextButton(
+          onPressed: () => Geolocator.openLocationSettings(),
+          child: Text(
+            'settings'.tr,
+          ),
+        ),
+        icon: const Icon(Iconsax.location_slash),
+        shouldIconPulse: true,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+      );
+      readCache();
+    } else if (await isDeviceConnectedNotifier.value == false &&
+        !serviceEnabled) {
+      Get.snackbar(
+        'no_inter'.tr,
+        'on_inter'.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+        icon: const Icon(Iconsax.wifi),
+        shouldIconPulse: true,
+      );
+      Get.snackbar(
+        'location'.tr,
+        'no_location'.tr,
+        mainButton: TextButton(
+          onPressed: () => Geolocator.openLocationSettings(),
+          child: Text(
+            'settings'.tr,
+          ),
+        ),
+        icon: const Icon(Iconsax.location_slash),
+        shouldIconPulse: true,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+      );
     }
   }
 
@@ -106,39 +129,30 @@ class LocationController extends GetxController {
   }
 
   void readCache() async {
-    _hourlyCache.value = (await isar.hourlyCaches.where().findFirst())!;
-    _dailyCache.value = (await isar.dailyCaches.where().findFirst())!;
+    HourlyCache? hourlyCache;
+    DailyCache? dailyCache;
+    LocationCache? locationCache;
+
+    while (hourlyCache == null || dailyCache == null || locationCache == null) {
+      hourlyCache = await isar.hourlyCaches.where().findFirst();
+      dailyCache = await isar.dailyCaches.where().findFirst();
+      locationCache = await isar.locationCaches.where().findFirst();
+    }
+
+    _hourly.value = hourlyCache;
+    _daily.value = dailyCache;
+    _location.value = locationCache;
+    isLoading.value = false;
+    Future.delayed(const Duration(milliseconds: 30), () async {
+      itemScrollController.scrollTo(
+        index: hourOfDay.value,
+        duration: const Duration(seconds: 2),
+        curve: Curves.easeInOutCubic,
+      );
+    });
   }
 
   void writeCache() async {
-    int cacheDuration = 24;
-    final now = DateTime.now();
-    final cacheExpiry = now.subtract(Duration(hours: cacheDuration));
-
-    final weatherHourly = HourlyCache(
-      time: _hourly.value.time!,
-      temperature2M: _hourly.value.temperature2M!,
-      relativehumidity2M: _hourly.value.relativehumidity2M!,
-      apparentTemperature: _hourly.value.apparentTemperature!,
-      precipitation: _hourly.value.precipitation!,
-      rain: _hourly.value.rain!,
-      weathercode: _hourly.value.weathercode!,
-      surfacePressure: _hourly.value.surfacePressure!,
-      visibility: _hourly.value.visibility!,
-      evapotranspiration: _hourly.value.evapotranspiration!,
-      windspeed10M: _hourly.value.windspeed10M!,
-      winddirection10M: _hourly.value.winddirection10M!,
-      timestamp: DateTime.now(),
-    );
-
-    final weatherDaily = DailyCache(
-      time: _daily.value.time!,
-      weathercode: _daily.value.weathercode!,
-      temperature2MMax: _daily.value.temperature2MMax!,
-      temperature2MMin: _daily.value.temperature2MMin!,
-      timestamp: DateTime.now(),
-    );
-
     final locationCaches = LocationCache(
       lat: _latitude.value,
       lon: _longitude.value,
@@ -149,26 +163,26 @@ class LocationController extends GetxController {
 
     isar.writeTxn(() async {
       if ((await isar.hourlyCaches.where().findAll()).isEmpty) {
-        await isar.hourlyCaches.put(weatherHourly);
+        await isar.hourlyCaches.put(_hourly.value);
       } else {
         await isar.hourlyCaches
             .filter()
             .timestampLessThan(cacheExpiry)
             .deleteFirst();
         if ((await isar.hourlyCaches.where().findAll()).isEmpty) {
-          await isar.hourlyCaches.put(weatherHourly);
+          await isar.hourlyCaches.put(_hourly.value);
         }
       }
 
       if ((await isar.dailyCaches.where().findAll()).isEmpty) {
-        await isar.dailyCaches.put(weatherDaily);
+        await isar.dailyCaches.put(_daily.value);
       } else {
         await isar.dailyCaches
             .filter()
             .timestampLessThan(cacheExpiry)
             .deleteFirst();
         if ((await isar.dailyCaches.where().findAll()).isEmpty) {
-          await isar.dailyCaches.put(weatherDaily);
+          await isar.dailyCaches.put(_daily.value);
         }
       }
 

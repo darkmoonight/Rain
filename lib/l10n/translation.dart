@@ -32,9 +32,13 @@ class Translation extends Translations {
           'km': 'км',
           'mm': 'мм',
           'hPa': 'ГПа',
+          'settings': 'Настр.',
           'no_inter': 'Нет интернета',
           'on_inter':
               'Включите интернет для получения метеорологических данных.',
+          'location': 'Местоположение',
+          'no_location':
+              'Включите службу определения местоположения для получения метеорологических данных для текущего местоположения.',
         },
         'en_US': {
           'start': 'Get Started',
@@ -65,8 +69,12 @@ class Translation extends Translations {
           'km': 'km',
           'mm': 'mm',
           'hPa': 'hPa',
+          'settings': 'Set.',
           'no_inter': 'There is no Internet',
           'on_inter': 'Turn on the Internet to get meteorological data.',
+          'location': 'Location',
+          'no_location':
+              'Enable the location service to get weather data for the current location.',
         },
       };
 }

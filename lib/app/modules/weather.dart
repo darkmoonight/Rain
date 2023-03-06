@@ -43,8 +43,8 @@ class _WeatherPageState extends State<WeatherPage> {
         ),
         title: Obx(() => Text(
               locationController.isLoading.isFalse
-                  ? '${locationController.city}, '
-                      '${locationController.country}'
+                  ? '${locationController.location.city}, '
+                      '${locationController.location.country}'
                   : 'search'.tr,
               style: context.theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,

@@ -33,7 +33,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   Text(
                     'Rain - ${'name'.tr}',
                     style: context.theme.textTheme.titleLarge?.copyWith(
-                      fontSize: 40,
+                      fontSize: 36,
                       fontWeight: FontWeight.w600,
                     ),
                     textAlign: TextAlign.center,
