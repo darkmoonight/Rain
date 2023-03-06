@@ -24,6 +24,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   void initState() {
+    locationController.deleteCache();
     locationController.getCurrentLocation();
     super.initState();
   }

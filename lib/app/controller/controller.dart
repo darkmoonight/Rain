@@ -31,7 +31,7 @@ class LocationController extends GetxController {
 
   final hourOfDay = DateTime.now().hour.obs;
   final ItemScrollController itemScrollController = ItemScrollController();
-  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 1));
+  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 12));
 
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -164,39 +164,34 @@ class LocationController extends GetxController {
     isar.writeTxn(() async {
       if ((await isar.hourlyCaches.where().findAll()).isEmpty) {
         await isar.hourlyCaches.put(_hourly.value);
-      } else {
-        await isar.hourlyCaches
-            .filter()
-            .timestampLessThan(cacheExpiry)
-            .deleteFirst();
-        if ((await isar.hourlyCaches.where().findAll()).isEmpty) {
-          await isar.hourlyCaches.put(_hourly.value);
-        }
       }
 
       if ((await isar.dailyCaches.where().findAll()).isEmpty) {
         await isar.dailyCaches.put(_daily.value);
-      } else {
-        await isar.dailyCaches
-            .filter()
-            .timestampLessThan(cacheExpiry)
-            .deleteFirst();
-        if ((await isar.dailyCaches.where().findAll()).isEmpty) {
-          await isar.dailyCaches.put(_daily.value);
-        }
       }
 
       if ((await isar.locationCaches.where().findAll()).isEmpty) {
         await isar.locationCaches.put(locationCaches);
-      } else {
+      }
+    });
+  }
+
+  void deleteCache() async {
+    if (await isDeviceConnectedNotifier.value) {
+      isar.writeTxn(() async {
+        await isar.hourlyCaches
+            .filter()
+            .timestampLessThan(cacheExpiry)
+            .deleteFirst();
+        await isar.dailyCaches
+            .filter()
+            .timestampLessThan(cacheExpiry)
+            .deleteFirst();
         await isar.locationCaches
             .filter()
             .timestampLessThan(cacheExpiry)
             .deleteFirst();
-        if ((await isar.locationCaches.where().findAll()).isEmpty) {
-          await isar.locationCaches.put(locationCaches);
-        }
-      }
-    });
+      });
+    }
   }
 }
