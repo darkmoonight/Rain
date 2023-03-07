@@ -15,6 +15,7 @@ An application for viewing the weather in your city
 - Просмотр погоды на неделю
 - Просмотр подробных данных о погоде
 - Локализация (ru/en)
+- Кэширование данных
 Также мы постарались сделать дизайн максимально удобным и красивым. -->
 This application allows you to view the weather in your city.
 The following options are provided:
@@ -23,6 +24,7 @@ The following options are provided:
 - View the weather for the week
 - View detailed weather data
 - Localization (ru/en)
+- Data caching
 
 We also tried to make the design as convenient and beautiful as possible.
 
