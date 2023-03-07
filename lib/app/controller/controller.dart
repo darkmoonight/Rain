@@ -31,7 +31,7 @@ class LocationController extends GetxController {
 
   final hourOfDay = 0.obs;
   final ItemScrollController itemScrollController = ItemScrollController();
-  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 12));
+  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 6));
 
   DateTime alignDateTime(DateTime dt, Duration alignment,
       [bool roundUp = false]) {
@@ -139,6 +139,7 @@ class LocationController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
       );
+      readCache();
     }
   }
 
