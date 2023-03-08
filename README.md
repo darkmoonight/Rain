@@ -10,7 +10,7 @@ An application for viewing the weather in your city
 ### Description:
 <!-- Данное приложение позволяет смотреть погоду в вашем городе.
 Предоставлены следующие возможности:
-- Просмотр погоды на данный моммент
+- Просмотр погоды на данный момент
 - Просмотр погоды по часам
 - Просмотр погоды на неделю
 - Просмотр подробных данных о погоде
@@ -30,3 +30,8 @@ We also tried to make the design as convenient and beautiful as possible.
 
 ### Screenshots:
 <img src="/readme/1.jpg" width="200"/> <img src="/readme/2.jpg" width="200"/>
+
+
+### Download: 
+[![Play Store](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.yoshi.rain) 
+[![RuStore](https://img.shields.io/badge/RuStore-blue?style=for-the-badge&logo=vk&logoColor=white)](https://apps.rustore.ru/app/com.yoshi.rain) 

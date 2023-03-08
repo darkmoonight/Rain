@@ -76,6 +76,7 @@ class _WeatherPageState extends State<WeatherPage> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
+          await locationController.deleteAll();
           locationController.deleteCache();
           await locationController.getCurrentLocation();
           setState(() {});

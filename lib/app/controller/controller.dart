@@ -234,4 +234,15 @@ class LocationController extends GetxController {
       });
     }
   }
+
+  Future<void> deleteAll() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (await isDeviceConnectedNotifier.value && serviceEnabled) {
+      isar.writeTxn(() async {
+        await isar.hourlyCaches.where().deleteFirst();
+        await isar.dailyCaches.where().deleteFirst();
+        await isar.locationCaches.where().deleteFirst();
+      });
+    }
+  }
 }
