@@ -39,6 +39,11 @@ class Translation extends Translations {
           'location': 'Местоположение',
           'no_location':
               'Включите службу определения местоположения для получения метеорологических данных для текущего местоположения.',
+          "about": "О нас",
+          "aboutDesc":
+              "Это проект с открытым исходным кодом.\nЕсли вам понравилась наша работа поставьте несколько 🌟 и ❤ на репозитории",
+          "author": "Сделано с ❤ от",
+          "theme": "Тёмная тема",
         },
         'en_US': {
           'start': 'Get Started',
@@ -75,6 +80,11 @@ class Translation extends Translations {
           'location': 'Location',
           'no_location':
               'Enable the location service to get weather data for the current location.',
+          "about": "About us",
+          "aboutDesc":
+              "This is an open source project.\nif you liked our work, put a few 🌟 and ❤ on the repositories",
+          "author": "Made with ❤ from",
+          "theme": "Dark theme",
         },
       };
 }

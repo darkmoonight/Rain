@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/modules/weather.dart';
+import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/widgets/button.dart';
 import 'package:rain/main.dart';
 
@@ -60,7 +60,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   settings.onboard = true;
                   isar.writeTxn(() async => isar.settings.put(settings));
                   Get.off(
-                    () => const WeatherPage(),
+                    () => const HomePage(),
                     transition: Transition.downToUp,
                   );
                 },

@@ -1,13 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
-import 'package:rain/app/modules/weather.dart';
 import 'package:rain/theme/theme.dart';
 import 'app/data/weather.dart';
 import 'l10n/translation.dart';
@@ -31,7 +30,7 @@ void main() async {
       isDeviceConnectedNotifier.value = Future(() => false);
     }
   });
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 Future<void> isarInit() async {
@@ -46,16 +45,15 @@ Future<void> isarInit() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
+  final themeController = Get.put(ThemeController());
 
   @override
   Widget build(BuildContext context) {
-    final themeController = Get.put(ThemeController());
-
     return GetMaterialApp(
+      themeMode: themeController.theme,
       theme: RainTheme.lightTheme,
       darkTheme: RainTheme.darkTheme,
-      themeMode: themeController.theme,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -77,10 +75,8 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       debugShowCheckedModeBanner: false,
-      home: settings.onboard == false
-          ? const OnboardingPage()
-          : const WeatherPage(),
-      builder: EasyLoading.init(),
+      home:
+          settings.onboard == false ? const OnboardingPage() : const HomePage(),
     );
   }
 }

@@ -7,6 +7,7 @@ class Settings {
   Id id = Isar.autoIncrement;
   bool onboard = false;
   bool? theme;
+  bool location = false;
 }
 
 @collection

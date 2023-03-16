@@ -1,0 +1,129 @@
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/modules/card_weather.dart';
+import 'package:rain/app/modules/settings.dart';
+import 'package:rain/app/modules/weather.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int tabIndex = 0;
+  final locationController = Get.put(LocationController());
+  bool visible = false;
+
+  @override
+  void initState() {
+    locationController.deleteCache();
+    locationController.getCurrentLocation();
+
+    super.initState();
+  }
+
+  void changeTabIndex(int index) {
+    setState(() {
+      tabIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor:
+            context.theme.bottomNavigationBarTheme.backgroundColor,
+      ),
+    );
+
+    return Scaffold(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        leading: Image.asset(
+          'assets/icons/logo.png',
+          scale: 20,
+        ),
+        title: visible
+            ? const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search...',
+                  border: InputBorder.none,
+                ),
+              )
+            : Obx(() => Text(
+                  locationController.isLoading.isFalse
+                      ? '${locationController.location.city}, '
+                          '${locationController.location.country}'
+                      : 'search'.tr,
+                  style: context.theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                )),
+        actions: [
+          IconButton(
+            onPressed: () {
+              if (visible) {
+                visible = false;
+              } else {
+                visible = true;
+              }
+              setState(() {});
+            },
+            icon: Icon(
+              visible ? Icons.close : Iconsax.search_normal_1,
+              size: 18,
+              color: context.theme.iconTheme.color,
+            ),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: IndexedStack(
+          index: tabIndex,
+          children: const [
+            WeatherPage(),
+            CardWeather(),
+            SettingsPage(),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Theme(
+        data: context.theme.copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: CustomNavigationBar(
+          backgroundColor:
+              context.theme.bottomNavigationBarTheme.backgroundColor!,
+          onTap: (int index) => changeTabIndex(index),
+          currentIndex: tabIndex,
+          strokeColor: const Color(0x300c18fb),
+          items: [
+            CustomNavigationBarItem(
+              icon: const Icon(Iconsax.cloud_sunny),
+            ),
+            CustomNavigationBarItem(
+              icon: const Icon(Iconsax.global),
+            ),
+            CustomNavigationBarItem(
+              icon: const Icon(Iconsax.setting_2),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

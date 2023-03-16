@@ -17,13 +17,18 @@ const SettingsSchema = CollectionSchema(
   name: r'Settings',
   id: -8656046621518759136,
   properties: {
-    r'onboard': PropertySchema(
+    r'location': PropertySchema(
       id: 0,
+      name: r'location',
+      type: IsarType.bool,
+    ),
+    r'onboard': PropertySchema(
+      id: 1,
       name: r'onboard',
       type: IsarType.bool,
     ),
     r'theme': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'theme',
       type: IsarType.bool,
     )
@@ -57,8 +62,9 @@ void _settingsSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeBool(offsets[0], object.onboard);
-  writer.writeBool(offsets[1], object.theme);
+  writer.writeBool(offsets[0], object.location);
+  writer.writeBool(offsets[1], object.onboard);
+  writer.writeBool(offsets[2], object.theme);
 }
 
 Settings _settingsDeserialize(
@@ -69,8 +75,9 @@ Settings _settingsDeserialize(
 ) {
   final object = Settings();
   object.id = id;
-  object.onboard = reader.readBool(offsets[0]);
-  object.theme = reader.readBoolOrNull(offsets[1]);
+  object.location = reader.readBool(offsets[0]);
+  object.onboard = reader.readBool(offsets[1]);
+  object.theme = reader.readBoolOrNull(offsets[2]);
   return object;
 }
 
@@ -84,6 +91,8 @@ P _settingsDeserializeProp<P>(
     case 0:
       return (reader.readBool(offset)) as P;
     case 1:
+      return (reader.readBool(offset)) as P;
+    case 2:
       return (reader.readBoolOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -231,6 +240,16 @@ extension SettingsQueryFilter
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> locationEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'location',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterFilterCondition> onboardEqualTo(
       bool value) {
     return QueryBuilder.apply(this, (query) {
@@ -275,6 +294,18 @@ extension SettingsQueryLinks
     on QueryBuilder<Settings, Settings, QFilterCondition> {}
 
 extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByLocation() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'location', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByLocationDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'location', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'onboard', Sort.asc);
@@ -314,6 +345,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByLocation() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'location', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByLocationDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'location', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'onboard', Sort.asc);
@@ -341,6 +384,12 @@ extension SettingsQuerySortThenBy
 
 extension SettingsQueryWhereDistinct
     on QueryBuilder<Settings, Settings, QDistinct> {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByLocation() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'location');
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'onboard');
@@ -359,6 +408,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<Settings, bool, QQueryOperations> locationProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'location');
     });
   }
 

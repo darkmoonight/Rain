@@ -3,10 +3,10 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.6+7
+version: 1.0.7+8
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: '>=2.19.4 <3.0.0'
 
 dependencies:
   flutter:
@@ -14,18 +14,21 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get: ^4.6.5
-  dio: ^5.0.1
+  dio: ^5.0.2
   isar: ^3.0.5
   intl: ^0.17.0
   shimmer: ^2.0.0
   iconsax: ^0.0.8
-  geocoding: ^2.0.5
+  geocoding: ^2.1.0
   geolocator: ^9.0.2
   flutter_glow: ^0.2.0
+  url_launcher: ^6.1.10
   path_provider: ^2.0.13
+  flutter_typeahead: ^4.3.7
+  package_info_plus: ^3.0.3
   connectivity_plus: ^3.0.3
   isar_flutter_libs: ^3.0.5
-  flutter_easyloading: ^3.0.5
+  custom_navigation_bar: ^0.8.2
   scrollable_positioned_list: ^0.3.5
   internet_connection_checker: ^1.0.0+1
 
