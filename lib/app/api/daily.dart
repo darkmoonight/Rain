@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-WeatherDailyApi weather7DaysFromJson(String str) =>
-    WeatherDailyApi.fromJson(json.decode(str));
-
 class WeatherDailyApi {
   WeatherDailyApi({
     required this.daily,

@@ -26,7 +26,7 @@ class CardDescWeather extends StatelessWidget {
                     Text(
                       '12°C',
                       style: context.theme.textTheme.titleLarge?.copyWith(
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -42,7 +42,7 @@ class CardDescWeather extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Ростов-на-Дону, Россия',
+                  'Ростов-на-Дону, Ростовская область',
                   style: context.theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
@@ -52,7 +52,7 @@ class CardDescWeather extends StatelessWidget {
           ),
           Image.asset(
             'assets/images/moon.png',
-            scale: 6,
+            scale: 6.5,
           ),
         ],
       ),

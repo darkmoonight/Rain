@@ -44,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Iconsax.location,
             color: context.theme.iconTheme.color,
           ),
-          text: 'Местоположение',
+          text: 'location'.tr,
           switcher: true,
           value: settings.location,
           onChange: (value) {

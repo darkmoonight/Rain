@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:rain/app/api/daily.dart';
 import 'package:rain/app/api/hourly.dart';
 import 'package:rain/app/data/weather.dart';
@@ -7,6 +8,7 @@ import 'package:rain/app/data/weather.dart';
 class WeatherAPI {
   final Dio dio = Dio()
     ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?';
+  final Dio dioLocation = Dio();
 
   Future<HourlyCache> getWeatherData(double? lat, double? lon) async {
     var url =
@@ -50,6 +52,28 @@ class WeatherAPI {
         temperature2MMin: weatherData.daily.temperature2MMin!,
         timestamp: DateTime.now(),
       );
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
+
+  Future<List<dynamic>> getSuggestions(
+      String query, Locale? locale, String apiKey) async {
+    final url =
+        'https://api.geoapify.com/v1/geocode/search?city=$query&apiKey=$apiKey&lang=${locale?.languageCode}&format=json';
+
+    try {
+      Response response = await dioLocation.get(url);
+      if (response.statusCode == 200) {
+        final data = response.data;
+        final results = data['results'];
+        return results;
+      } else {
+        throw Exception('Failed to load suggestions');
+      }
     } on DioError catch (e) {
       if (kDebugMode) {
         print(e);

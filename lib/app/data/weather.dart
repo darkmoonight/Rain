@@ -68,14 +68,14 @@ class LocationCache {
   double? lat;
   double? lon;
   String? city;
-  String? country;
+  String? administrativeArea;
   DateTime? timestamp;
 
   LocationCache({
     this.lat,
     this.lon,
     this.city,
-    this.country,
+    this.administrativeArea,
     this.timestamp,
   });
 }

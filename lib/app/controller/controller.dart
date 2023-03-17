@@ -11,12 +11,12 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class LocationController extends GetxController {
   final isLoading = true.obs;
-  final _country = ''.obs;
+  final _administrativeArea = ''.obs;
   final _city = ''.obs;
   final _latitude = 0.0.obs;
   final _longitude = 0.0.obs;
 
-  String get country => _country.value;
+  String get administrativeArea => _administrativeArea.value;
   String get city => _city.value;
   double get latitude => _latitude.value;
   double get longitude => _longitude.value;
@@ -78,7 +78,7 @@ class LocationController extends GetxController {
 
       _latitude.value = position.latitude;
       _longitude.value = position.longitude;
-      _country.value = '${place.country}';
+      _administrativeArea.value = '${place.administrativeArea}';
       _city.value = '${place.locality}';
 
       _hourly.value =
@@ -197,7 +197,7 @@ class LocationController extends GetxController {
       lat: _latitude.value,
       lon: _longitude.value,
       city: _city.value,
-      country: _country.value,
+      administrativeArea: _administrativeArea.value,
       timestamp: DateTime.now(),
     );
 

@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-WeatherHourlyApi weatherDayFromJson(String str) =>
-    WeatherHourlyApi.fromJson(json.decode(str));
-
 class WeatherHourlyApi {
   WeatherHourlyApi({
     required this.hourly,
