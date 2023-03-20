@@ -103,21 +103,38 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, suggestion) => ListTile(
                   title: Text(
                     suggestion['state'] == null
-                        ? '${suggestion['city'].toString()}, ${suggestion['country'].toString()}'
+                        ? '${suggestion['city']}, ${suggestion['country']}'
                         : suggestion['city'] == null
-                            ? '${suggestion['state'].toString()}, ${suggestion['country'].toString()}'
-                            : '${suggestion['city'].toString()}, ${suggestion['state'].toString()}',
+                            ? '${suggestion['state']}, ${suggestion['country']}'
+                            : '${suggestion['city']}, ${suggestion['state']}',
                     style: context.theme.textTheme.bodyLarge,
                   ),
                 ),
-                onSuggestionSelected: (suggestion) {
-                  _controller.text = suggestion;
+                onSuggestionSelected: (suggestion) async {
+                  await locationController.deleteAll();
+                  await locationController.getLocation(
+                    double.parse('${suggestion['lat']}'),
+                    double.parse('${suggestion['lon']}'),
+                    suggestion['state'] ?? suggestion['country'],
+                    suggestion['city'] ?? suggestion['state'],
+                  );
+                  visible = false;
+                  _controller.clear();
+                  setState(() {});
                 },
               )
             : Obx(() => Text(
                   locationController.isLoading.isFalse
-                      ? '${locationController.location.city}, '
-                          '${locationController.location.administrativeArea}'
+                      ? locationController.location.administrativeArea!.isEmpty
+                          ? '${locationController.location.city}'
+                          : locationController.location.city!.isEmpty
+                              ? '${locationController.location.administrativeArea}'
+                              : locationController.location.city ==
+                                      locationController
+                                          .location.administrativeArea
+                                  ? '${locationController.location.city}'
+                                  : '${locationController.location.city}'
+                                      ', ${locationController.location.administrativeArea}'
                       : 'search'.tr,
                   style: context.theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,

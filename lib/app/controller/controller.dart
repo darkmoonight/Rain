@@ -143,6 +143,34 @@ class LocationController extends GetxController {
     }
   }
 
+  Future<void> getLocation(
+      latitude, longitude, administrativeArea, locality) async {
+    if (await isDeviceConnectedNotifier.value) {
+      _latitude.value = latitude;
+      _longitude.value = longitude;
+      _administrativeArea.value = '$administrativeArea';
+      _city.value = '$locality';
+
+      _hourly.value =
+          await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
+      _daily.value =
+          await WeatherAPI().getWeather7Data(_latitude.value, _longitude.value);
+
+      writeCache();
+      readCache();
+    } else if (await isDeviceConnectedNotifier.value == false) {
+      Get.snackbar(
+        'no_inter'.tr,
+        'on_inter'.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+        icon: const Icon(Iconsax.wifi),
+        shouldIconPulse: true,
+      );
+      readCache();
+    }
+  }
+
   Future<Position> determinePosition() async {
     LocationPermission permission;
 
@@ -198,7 +226,6 @@ class LocationController extends GetxController {
       lon: _longitude.value,
       city: _city.value,
       administrativeArea: _administrativeArea.value,
-      timestamp: DateTime.now(),
     );
 
     isar.writeTxn(() async {
@@ -222,26 +249,24 @@ class LocationController extends GetxController {
         await isar.hourlyCaches
             .filter()
             .timestampLessThan(cacheExpiry)
-            .deleteFirst();
+            .deleteAll();
         await isar.dailyCaches
             .filter()
             .timestampLessThan(cacheExpiry)
-            .deleteFirst();
-        await isar.locationCaches
-            .filter()
-            .timestampLessThan(cacheExpiry)
-            .deleteFirst();
+            .deleteAll();
       });
     }
   }
 
   Future<void> deleteAll() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (await isDeviceConnectedNotifier.value && serviceEnabled) {
+    if (await isDeviceConnectedNotifier.value) {
       isar.writeTxn(() async {
-        await isar.hourlyCaches.where().deleteFirst();
-        await isar.dailyCaches.where().deleteFirst();
-        await isar.locationCaches.where().deleteFirst();
+        await isar.hourlyCaches.where().deleteAll();
+        await isar.dailyCaches.where().deleteAll();
+        if (location.lat != _latitude.value &&
+            location.lon != _longitude.value) {
+          await isar.locationCaches.where().deleteAll();
+        }
       });
     }
   }

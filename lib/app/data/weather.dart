@@ -69,13 +69,33 @@ class LocationCache {
   double? lon;
   String? city;
   String? administrativeArea;
-  DateTime? timestamp;
 
   LocationCache({
     this.lat,
     this.lon,
     this.city,
     this.administrativeArea,
-    this.timestamp,
+  });
+}
+
+@collection
+class WeatherCard {
+  Id id = Isar.autoIncrement;
+  List<String>? time;
+  List<double>? temperature2M;
+  List<int>? weathercode;
+  double? lat;
+  double? lon;
+  String? city;
+  String? administrativeArea;
+
+  WeatherCard({
+    this.time,
+    this.temperature2M,
+    this.weathercode,
+    this.lat,
+    this.lon,
+    this.city,
+    this.administrativeArea,
   });
 }

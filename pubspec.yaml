@@ -14,7 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get: ^4.6.5
-  dio: ^5.0.2
+  dio: ^5.0.3
   isar: ^3.0.5
   intl: ^0.17.0
   shimmer: ^2.0.0

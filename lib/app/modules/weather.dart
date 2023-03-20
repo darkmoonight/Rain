@@ -20,13 +20,6 @@ class _WeatherPageState extends State<WeatherPage> {
   final locationController = Get.put(LocationController());
 
   @override
-  void initState() {
-    locationController.deleteCache();
-    locationController.getCurrentLocation();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
