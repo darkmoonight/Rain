@@ -101,7 +101,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                       height: 45,
                       child: Center(
                         child: Text(
-                          'Введите название',
+                          'enter_name'.tr,
                           style: context.theme.textTheme.bodyLarge,
                         ),
                       ),

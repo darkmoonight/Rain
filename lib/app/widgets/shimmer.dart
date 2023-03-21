@@ -7,11 +7,9 @@ class MyShimmer extends StatelessWidget {
     super.key,
     required this.hight,
     this.edgeInsetsMargin,
-    this.edgeInsetsPadding,
   });
   final double hight;
   final EdgeInsets? edgeInsetsMargin;
-  final EdgeInsets? edgeInsetsPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,6 @@ class MyShimmer extends StatelessWidget {
       child: Container(
         height: hight,
         margin: edgeInsetsMargin,
-        padding: edgeInsetsPadding,
         decoration: BoxDecoration(
             color: context.theme.colorScheme.primaryContainer,
             borderRadius: const BorderRadius.all(Radius.circular(20))),

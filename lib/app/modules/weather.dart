@@ -105,94 +105,113 @@ class _WeatherPageState extends State<WeatherPage> {
                     : const MyShimmer(
                         hight: 130,
                         edgeInsetsMargin: EdgeInsets.symmetric(vertical: 15),
-                        edgeInsetsPadding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 5,
-                        ),
                       ),
               ),
               Obx(
                 () => locationController.isLoading.isFalse
                     ? Container(
                         margin: const EdgeInsets.only(bottom: 15),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 12,
-                        ),
+                        padding: const EdgeInsets.only(top: 20, bottom: 5),
                         decoration: BoxDecoration(
                             color: context.theme.colorScheme.primaryContainer,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
-                        child: Center(
-                          child: Wrap(
-                            spacing: 5,
-                            runSpacing: 15,
-                            children: [
-                              DescWeather(
-                                imageName: 'assets/images/humidity.png',
-                                value:
-                                    '${locationController.hourly.relativehumidity2M![locationController.hourOfDay.value]}%',
-                                desc: 'humidity'.tr,
-                              ),
-                              DescWeather(
-                                imageName: 'assets/images/wind.png',
-                                value:
-                                    '${locationController.hourly.windspeed10M![locationController.hourOfDay.value].round()} ${'km/h'.tr}',
-                                desc: 'wind'.tr,
-                              ),
-                              DescWeather(
-                                imageName: 'assets/images/foggy.png',
-                                value:
-                                    '${locationController.hourly.visibility![locationController.hourOfDay.value] > 1000 ? (locationController.hourly.visibility![locationController.hourOfDay.value] / 1000).round() : (locationController.hourly.visibility![locationController.hourOfDay.value] / 1000)} ${'km'.tr}',
-                                desc: 'visibility'.tr,
-                              ),
-                              DescWeather(
-                                imageName: 'assets/images/temperature.png',
-                                value:
-                                    '${locationController.hourly.apparentTemperature![locationController.hourOfDay.value].round()}°',
-                                desc: 'feels'.tr,
-                              ),
-                              DescWeather(
-                                imageName: 'assets/images/evaporation.png',
-                                value:
-                                    '${locationController.hourly.evapotranspiration![locationController.hourOfDay.value].abs()} ${'mm'.tr}',
-                                desc: 'evaporation'.tr,
-                              ),
-                              DescWeather(
-                                imageName: 'assets/images/rainfall.png',
-                                value:
-                                    '${locationController.hourly.precipitation![locationController.hourOfDay.value]} ${'mm'.tr}',
-                                desc: 'precipitation'.tr,
-                              ),
-                              DescWeather(
-                                imageName: 'assets/images/wind-direction.png',
-                                value:
-                                    '${locationController.hourly.winddirection10M![locationController.hourOfDay.value]}°',
-                                desc: 'direction'.tr,
-                              ),
-                              DescWeather(
-                                imageName: 'assets/images/atmospheric.png',
-                                value:
-                                    '${locationController.hourly.surfacePressure![locationController.hourOfDay.value].round()} ${'hPa'.tr}',
-                                desc: 'pressure'.tr,
-                              ),
-                              DescWeather(
-                                imageName: 'assets/images/water.png',
-                                value:
-                                    '${locationController.hourly.rain![locationController.hourOfDay.value]} ${'mm'.tr}',
-                                desc: 'rain'.tr,
-                              ),
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                DescWeather(
+                                  imageName: 'assets/images/humidity.png',
+                                  value:
+                                      '${locationController.hourly.relativehumidity2M![locationController.hourOfDay.value]}%',
+                                  desc: 'humidity'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/wind.png',
+                                  value:
+                                      '${locationController.hourly.windspeed10M![locationController.hourOfDay.value].round()} ${'km/h'.tr}',
+                                  desc: 'wind'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/foggy.png',
+                                  value:
+                                      '${locationController.hourly.visibility![locationController.hourOfDay.value] > 1000 ? (locationController.hourly.visibility![locationController.hourOfDay.value] / 1000).round() : (locationController.hourly.visibility![locationController.hourOfDay.value] / 1000)} ${'km'.tr}',
+                                  desc: 'visibility'.tr,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                DescWeather(
+                                  imageName: 'assets/images/temperature.png',
+                                  value:
+                                      '${locationController.hourly.apparentTemperature![locationController.hourOfDay.value].round()}°',
+                                  desc: 'feels'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/evaporation.png',
+                                  value:
+                                      '${locationController.hourly.evapotranspiration![locationController.hourOfDay.value].abs()} ${'mm'.tr}',
+                                  desc: 'evaporation'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/rainfall.png',
+                                  value:
+                                      '${locationController.hourly.precipitation![locationController.hourOfDay.value]} ${'mm'.tr}',
+                                  desc: 'precipitation'.tr,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                DescWeather(
+                                  imageName: 'assets/images/wind-direction.png',
+                                  value:
+                                      '${locationController.hourly.winddirection10M![locationController.hourOfDay.value]}°',
+                                  desc: 'direction'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/atmospheric.png',
+                                  value:
+                                      '${locationController.hourly.surfacePressure![locationController.hourOfDay.value].round()} ${'hPa'.tr}',
+                                  desc: 'pressure'.tr,
+                                  message: locationController
+                                              .hourly
+                                              .surfacePressure![
+                                                  locationController
+                                                      .hourOfDay.value]
+                                              .round() <
+                                          1000
+                                      ? 'low'.tr
+                                      : locationController
+                                                  .hourly
+                                                  .surfacePressure![
+                                                      locationController
+                                                          .hourOfDay.value]
+                                                  .round() >
+                                              1020
+                                          ? 'high'.tr
+                                          : 'normal'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/water.png',
+                                  value:
+                                      '${locationController.hourly.rain![locationController.hourOfDay.value]} ${'mm'.tr}',
+                                  desc: 'rain'.tr,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       )
                     : const MyShimmer(
                         hight: 350,
                         edgeInsetsMargin: EdgeInsets.only(bottom: 15),
-                        edgeInsetsPadding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 12,
-                        ),
                       ),
               ),
               Obx(
@@ -224,10 +243,6 @@ class _WeatherPageState extends State<WeatherPage> {
                     : const MyShimmer(
                         hight: 405,
                         edgeInsetsMargin: EdgeInsets.only(bottom: 15),
-                        edgeInsetsPadding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 5,
-                        ),
                       ),
               ),
             ],
