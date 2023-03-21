@@ -78,12 +78,18 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                   textFieldConfiguration: TextFieldConfiguration(
                     controller: _controller,
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Iconsax.location),
-                      filled: true,
-                      fillColor: context.theme.colorScheme.secondary,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
+                      prefixIcon: const Icon(Iconsax.global_search),
+                      focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(
+                          color: context.theme.disabledColor,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(
+                          color: context.theme.disabledColor,
+                        ),
                       ),
                       labelText: 'search'.tr,
                     ),
@@ -127,15 +133,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     ),
                   ),
                   onSuggestionSelected: (suggestion) async {
-                    await locationController.deleteAll();
-                    await locationController.getLocation(
-                      double.parse('${suggestion['lat']}'),
-                      double.parse('${suggestion['lon']}'),
-                      suggestion['state'] ?? suggestion['country'],
-                      suggestion['city'] ?? suggestion['state'],
-                    );
                     _controllerLat.text = '${suggestion['lat']}';
-                    _controllerLon.text = '${suggestion['lat']}';
+                    _controllerLon.text = '${suggestion['lon']}';
                     _controllerCity.text =
                         suggestion['city'] ?? suggestion['state'];
                     _controllerAdministrativeArea.text =
@@ -172,14 +171,14 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
               controller: _controllerCity,
               labelText: 'city'.tr,
               type: TextInputType.text,
-              icon: const Icon(Iconsax.location),
+              icon: const Icon(Icons.location_city_rounded),
               padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
             ),
             MyTextForm(
               controller: _controllerAdministrativeArea,
               labelText: 'district'.tr,
               type: TextInputType.text,
-              icon: const Icon(Iconsax.location),
+              icon: const Icon(Iconsax.global),
               padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
             ),
             const SizedBox(height: 20),

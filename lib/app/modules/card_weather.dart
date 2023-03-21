@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/card.dart';
 import 'package:rain/app/widgets/create_card_weather.dart';
 
@@ -15,6 +16,7 @@ class CardWeather extends StatefulWidget {
 class _CardWeatherState extends State<CardWeather> {
   bool _showFab = true;
   final duration = const Duration(milliseconds: 300);
+  final locationController = Get.put(LocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,16 @@ class _CardWeatherState extends State<CardWeather> {
                 );
               },
               onDismissed: (DismissDirection direction) {},
-              child: const CardDescWeather(),
+              child: CardDescWeather(
+                time: locationController
+                    .hourly.time![locationController.hourOfDay.value],
+                weather: locationController
+                    .hourly.weathercode![locationController.hourOfDay.value],
+                degree: locationController
+                    .hourly.temperature2M![locationController.hourOfDay.value],
+                administrativeArea: 'Ростовская область',
+                city: 'Ростов-на-Дону',
+              ),
             );
           },
         ),

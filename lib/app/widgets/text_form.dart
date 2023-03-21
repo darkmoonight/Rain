@@ -32,11 +32,17 @@ class MyTextForm extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: icon,
           suffixIcon: iconButton,
-          filled: true,
-          fillColor: context.theme.colorScheme.secondary,
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
+          focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),
+            borderSide: BorderSide(
+              color: context.theme.disabledColor,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50),
+            borderSide: BorderSide(
+              color: context.theme.disabledColor,
+            ),
           ),
           labelText: labelText,
         ),

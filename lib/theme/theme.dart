@@ -11,7 +11,6 @@ class RainTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.blue,
         brightness: Brightness.light,
-        secondary: const Color.fromARGB(255, 244, 248, 253),
         primaryContainer: const Color.fromARGB(255, 245, 245, 245),
         secondaryContainer: const Color.fromARGB(255, 240, 240, 240),
         tertiaryContainer: const Color.fromARGB(255, 250, 250, 250),
@@ -39,7 +38,6 @@ class RainTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.blue,
         brightness: Brightness.dark,
-        secondary: const Color.fromARGB(255, 38, 38, 44),
         primaryContainer: const Color.fromARGB(255, 40, 40, 40),
         secondaryContainer: const Color.fromARGB(255, 25, 25, 25),
         tertiaryContainer: const Color.fromARGB(255, 45, 45, 45),

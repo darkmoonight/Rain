@@ -32,9 +32,9 @@ The following options are provided:
 
 We also tried to make the design as convenient and beautiful as possible.
 
-### Services used
-The app receives weather data from [Open-Meteo](https://open-meteo.com/)
-Cities are searched using [Geoapify](https://www.geoapify.com/)
+### Services used:
+- The app receives weather data from [Open-Meteo](https://open-meteo.com/)
+- Cities are searched using [Geoapify](https://www.geoapify.com/)
 
 ### Screenshots:
 <img src="/readme/1.jpg" width="200"/> <img src="/readme/2.jpg" width="200"/>

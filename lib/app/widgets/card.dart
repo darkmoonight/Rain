@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rain/app/widgets/status.dart';
 
-class CardDescWeather extends StatelessWidget {
-  const CardDescWeather({super.key});
+class CardDescWeather extends StatefulWidget {
+  const CardDescWeather({
+    super.key,
+    required this.time,
+    required this.weather,
+    required this.degree,
+    required this.administrativeArea,
+    required this.city,
+  });
+  final String time;
+  final String administrativeArea;
+  final String city;
+  final int weather;
+  final double degree;
+
+  @override
+  State<CardDescWeather> createState() => _CardDescWeatherState();
+}
+
+class _CardDescWeatherState extends State<CardDescWeather> {
+  final status = Status();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +44,7 @@ class CardDescWeather extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '12°C',
+                      '${widget.degree.round().toInt()}°C',
                       style: context.theme.textTheme.titleLarge?.copyWith(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
@@ -32,7 +52,7 @@ class CardDescWeather extends StatelessWidget {
                     ),
                     const SizedBox(width: 7),
                     Text(
-                      'Пасмурно',
+                      status.getText(widget.weather),
                       style: context.theme.textTheme.titleMedium?.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
@@ -42,7 +62,14 @@ class CardDescWeather extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Ростов-на-Дону, Ростовская область',
+                  widget.administrativeArea.isEmpty
+                      ? widget.city
+                      : widget.city.isEmpty
+                          ? widget.administrativeArea
+                          : widget.city == widget.administrativeArea
+                              ? widget.city
+                              : '${widget.city}'
+                                  ', ${widget.administrativeArea}',
                   style: context.theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
@@ -51,7 +78,7 @@ class CardDescWeather extends StatelessWidget {
             ),
           ),
           Image.asset(
-            'assets/images/moon.png',
+            status.getImageNow(widget.weather, widget.time),
             scale: 6.5,
           ),
         ],
