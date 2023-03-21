@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:rain/app/api/card_api.dart';
 import 'package:rain/app/api/daily.dart';
 import 'package:rain/app/api/hourly.dart';
 import 'package:rain/app/data/weather.dart';
@@ -82,30 +83,22 @@ class WeatherAPI {
     }
   }
 
-  Future<WeatherCard> getWeatherCard(
-      double? lat, double? lon, String city, String administrativeArea) async {
+  Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
+      String administrativeArea, String timezone) async {
     var url =
-        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto';
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,weathercode&timezone=auto';
     try {
       Response response = await dio.get(url);
-      WeatherHourlyApi weatherData = WeatherHourlyApi.fromJson(response.data);
+      WeatherCardApi weatherData = WeatherCardApi.fromJson(response.data);
       return WeatherCard(
-        time: weatherData.hourly.time!,
-        temperature2M: weatherData.hourly.temperature2M!,
-        relativehumidity2M: weatherData.hourly.relativehumidity2M!,
-        apparentTemperature: weatherData.hourly.apparentTemperature!,
-        precipitation: weatherData.hourly.precipitation!,
-        rain: weatherData.hourly.rain!,
-        weathercode: weatherData.hourly.weathercode!,
-        surfacePressure: weatherData.hourly.surfacePressure!,
-        visibility: weatherData.hourly.visibility!,
-        evapotranspiration: weatherData.hourly.evapotranspiration!,
-        windspeed10M: weatherData.hourly.windspeed10M!,
-        winddirection10M: weatherData.hourly.winddirection10M!,
+        time: weatherData.weatherCardHourly.time!,
+        temperature2M: weatherData.weatherCardHourly.temperature2M!,
+        weathercode: weatherData.weatherCardHourly.weathercode!,
         lat: lat,
         lon: lon,
         city: city,
         administrativeArea: administrativeArea,
+        timezone: timezone,
         timestamp: DateTime.now(),
       );
     } on DioError catch (e) {

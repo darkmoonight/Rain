@@ -273,11 +273,11 @@ class LocationController extends GetxController {
     }
   }
 
-  Future<void> addCardWeather(
-      double latitude, double longitude, String city, String district) async {
+  Future<void> addCardWeather(double latitude, double longitude, String city,
+      String district, String timezone) async {
     if (await isDeviceConnectedNotifier.value) {
       _weatherCard.value = await WeatherAPI()
-          .getWeatherCard(latitude, longitude, city, district);
+          .getWeatherCard(latitude, longitude, city, district, timezone);
 
       isar.writeTxn(() async {
         await isar.weatherCards.put(_weatherCard.value);

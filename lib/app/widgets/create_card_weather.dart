@@ -23,6 +23,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
   final TextEditingController _controllerCity = TextEditingController();
   final TextEditingController _controllerAdministrativeArea =
       TextEditingController();
+  final TextEditingController _controllerTimezone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +63,12 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                   IconButton(
                     onPressed: () {
                       locationController.addCardWeather(
-                          double.parse(_controllerLat.text),
-                          double.parse(_controllerLon.text),
-                          _controllerCity.text,
-                          _controllerAdministrativeArea.text);
+                        double.parse(_controllerLat.text),
+                        double.parse(_controllerLon.text),
+                        _controllerCity.text,
+                        _controllerAdministrativeArea.text,
+                        _controllerTimezone.text,
+                      );
                       Get.back();
                     },
                     icon: Icon(
@@ -148,6 +151,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                       suggestion['city'] ?? suggestion['state'];
                   _controllerAdministrativeArea.text =
                       suggestion['state'] ?? suggestion['country'];
+                  _controllerTimezone.text = suggestion['timezone']['name'];
                   _controller.clear();
                   setState(() {});
                 },

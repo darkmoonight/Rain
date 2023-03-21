@@ -19,6 +19,7 @@ dependencies:
   intl: ^0.17.0
   shimmer: ^2.0.0
   iconsax: ^0.0.8
+  timezone: ^0.9.1
   geocoding: ^2.1.0
   geolocator: ^9.0.2
   flutter_glow: ^0.2.0

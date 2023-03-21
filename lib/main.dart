@@ -11,6 +11,7 @@ import 'package:rain/theme/theme.dart';
 import 'app/data/weather.dart';
 import 'l10n/translation.dart';
 import 'theme/theme_controller.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 late Isar isar;
 late Settings settings;
@@ -30,6 +31,7 @@ void main() async {
       isDeviceConnectedNotifier.value = Future(() => false);
     }
   });
+  tz.initializeTimeZones();
   runApp(MyApp());
 }
 

@@ -5337,85 +5337,45 @@ const WeatherCardSchema = CollectionSchema(
       name: r'administrativeArea',
       type: IsarType.string,
     ),
-    r'apparentTemperature': PropertySchema(
-      id: 1,
-      name: r'apparentTemperature',
-      type: IsarType.doubleList,
-    ),
     r'city': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'city',
       type: IsarType.string,
     ),
-    r'evapotranspiration': PropertySchema(
-      id: 3,
-      name: r'evapotranspiration',
-      type: IsarType.doubleList,
-    ),
     r'lat': PropertySchema(
-      id: 4,
+      id: 2,
       name: r'lat',
       type: IsarType.double,
     ),
     r'lon': PropertySchema(
-      id: 5,
+      id: 3,
       name: r'lon',
       type: IsarType.double,
     ),
-    r'precipitation': PropertySchema(
-      id: 6,
-      name: r'precipitation',
-      type: IsarType.doubleList,
-    ),
-    r'rain': PropertySchema(
-      id: 7,
-      name: r'rain',
-      type: IsarType.doubleList,
-    ),
-    r'relativehumidity2M': PropertySchema(
-      id: 8,
-      name: r'relativehumidity2M',
-      type: IsarType.longList,
-    ),
-    r'surfacePressure': PropertySchema(
-      id: 9,
-      name: r'surfacePressure',
-      type: IsarType.doubleList,
-    ),
     r'temperature2M': PropertySchema(
-      id: 10,
+      id: 4,
       name: r'temperature2M',
       type: IsarType.doubleList,
     ),
     r'time': PropertySchema(
-      id: 11,
+      id: 5,
       name: r'time',
       type: IsarType.stringList,
     ),
     r'timestamp': PropertySchema(
-      id: 12,
+      id: 6,
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
-    r'visibility': PropertySchema(
-      id: 13,
-      name: r'visibility',
-      type: IsarType.doubleList,
+    r'timezone': PropertySchema(
+      id: 7,
+      name: r'timezone',
+      type: IsarType.string,
     ),
     r'weathercode': PropertySchema(
-      id: 14,
+      id: 8,
       name: r'weathercode',
       type: IsarType.longList,
-    ),
-    r'winddirection10M': PropertySchema(
-      id: 15,
-      name: r'winddirection10M',
-      type: IsarType.longList,
-    ),
-    r'windspeed10M': PropertySchema(
-      id: 16,
-      name: r'windspeed10M',
-      type: IsarType.doubleList,
     )
   },
   estimateSize: _weatherCardEstimateSize,
@@ -5445,45 +5405,9 @@ int _weatherCardEstimateSize(
     }
   }
   {
-    final value = object.apparentTemperature;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
-    }
-  }
-  {
     final value = object.city;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.evapotranspiration;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
-    }
-  }
-  {
-    final value = object.precipitation;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
-    }
-  }
-  {
-    final value = object.rain;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
-    }
-  }
-  {
-    final value = object.relativehumidity2M;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
-    }
-  }
-  {
-    final value = object.surfacePressure;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
     }
   }
   {
@@ -5505,25 +5429,13 @@ int _weatherCardEstimateSize(
     }
   }
   {
-    final value = object.visibility;
+    final value = object.timezone;
     if (value != null) {
-      bytesCount += 3 + value.length * 8;
+      bytesCount += 3 + value.length * 3;
     }
   }
   {
     final value = object.weathercode;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
-    }
-  }
-  {
-    final value = object.winddirection10M;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
-    }
-  }
-  {
-    final value = object.windspeed10M;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
     }
@@ -5538,22 +5450,14 @@ void _weatherCardSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.administrativeArea);
-  writer.writeDoubleList(offsets[1], object.apparentTemperature);
-  writer.writeString(offsets[2], object.city);
-  writer.writeDoubleList(offsets[3], object.evapotranspiration);
-  writer.writeDouble(offsets[4], object.lat);
-  writer.writeDouble(offsets[5], object.lon);
-  writer.writeDoubleList(offsets[6], object.precipitation);
-  writer.writeDoubleList(offsets[7], object.rain);
-  writer.writeLongList(offsets[8], object.relativehumidity2M);
-  writer.writeDoubleList(offsets[9], object.surfacePressure);
-  writer.writeDoubleList(offsets[10], object.temperature2M);
-  writer.writeStringList(offsets[11], object.time);
-  writer.writeDateTime(offsets[12], object.timestamp);
-  writer.writeDoubleList(offsets[13], object.visibility);
-  writer.writeLongList(offsets[14], object.weathercode);
-  writer.writeLongList(offsets[15], object.winddirection10M);
-  writer.writeDoubleList(offsets[16], object.windspeed10M);
+  writer.writeString(offsets[1], object.city);
+  writer.writeDouble(offsets[2], object.lat);
+  writer.writeDouble(offsets[3], object.lon);
+  writer.writeDoubleList(offsets[4], object.temperature2M);
+  writer.writeStringList(offsets[5], object.time);
+  writer.writeDateTime(offsets[6], object.timestamp);
+  writer.writeString(offsets[7], object.timezone);
+  writer.writeLongList(offsets[8], object.weathercode);
 }
 
 WeatherCard _weatherCardDeserialize(
@@ -5564,22 +5468,14 @@ WeatherCard _weatherCardDeserialize(
 ) {
   final object = WeatherCard(
     administrativeArea: reader.readStringOrNull(offsets[0]),
-    apparentTemperature: reader.readDoubleList(offsets[1]),
-    city: reader.readStringOrNull(offsets[2]),
-    evapotranspiration: reader.readDoubleList(offsets[3]),
-    lat: reader.readDoubleOrNull(offsets[4]),
-    lon: reader.readDoubleOrNull(offsets[5]),
-    precipitation: reader.readDoubleList(offsets[6]),
-    rain: reader.readDoubleList(offsets[7]),
-    relativehumidity2M: reader.readLongList(offsets[8]),
-    surfacePressure: reader.readDoubleList(offsets[9]),
-    temperature2M: reader.readDoubleList(offsets[10]),
-    time: reader.readStringList(offsets[11]),
-    timestamp: reader.readDateTimeOrNull(offsets[12]),
-    visibility: reader.readDoubleList(offsets[13]),
-    weathercode: reader.readLongList(offsets[14]),
-    winddirection10M: reader.readLongList(offsets[15]),
-    windspeed10M: reader.readDoubleList(offsets[16]),
+    city: reader.readStringOrNull(offsets[1]),
+    lat: reader.readDoubleOrNull(offsets[2]),
+    lon: reader.readDoubleOrNull(offsets[3]),
+    temperature2M: reader.readDoubleList(offsets[4]),
+    time: reader.readStringList(offsets[5]),
+    timestamp: reader.readDateTimeOrNull(offsets[6]),
+    timezone: reader.readStringOrNull(offsets[7]),
+    weathercode: reader.readLongList(offsets[8]),
   );
   object.id = id;
   return object;
@@ -5595,37 +5491,21 @@ P _weatherCardDeserializeProp<P>(
     case 0:
       return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readDoubleList(offset)) as P;
-    case 2:
       return (reader.readStringOrNull(offset)) as P;
+    case 2:
+      return (reader.readDoubleOrNull(offset)) as P;
     case 3:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 4:
-      return (reader.readDoubleOrNull(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 5:
-      return (reader.readDoubleOrNull(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 6:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 7:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 8:
       return (reader.readLongList(offset)) as P;
-    case 9:
-      return (reader.readDoubleList(offset)) as P;
-    case 10:
-      return (reader.readDoubleList(offset)) as P;
-    case 11:
-      return (reader.readStringList(offset)) as P;
-    case 12:
-      return (reader.readDateTimeOrNull(offset)) as P;
-    case 13:
-      return (reader.readDoubleList(offset)) as P;
-    case 14:
-      return (reader.readLongList(offset)) as P;
-    case 15:
-      return (reader.readLongList(offset)) as P;
-    case 16:
-      return (reader.readDoubleList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -5878,179 +5758,6 @@ extension WeatherCardQueryFilter
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'apparentTemperature',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'apparentTemperature',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementLessThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementBetween(
-    double lower,
-    double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'apparentTemperature',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
-    });
-  }
-
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> cityIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -6196,179 +5903,6 @@ extension WeatherCardQueryFilter
         property: r'city',
         value: '',
       ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'evapotranspiration',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'evapotranspiration',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementLessThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementBetween(
-    double lower,
-    double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'evapotranspiration',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
     });
   }
 
@@ -6578,686 +6112,6 @@ extension WeatherCardQueryFilter
         includeUpper: includeUpper,
         epsilon: epsilon,
       ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitation',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitation',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementLessThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementBetween(
-    double lower,
-    double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitation',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> rainIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'rain',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'rain',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementLessThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementBetween(
-    double lower,
-    double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'rain',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> rainIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'relativehumidity2M',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'relativehumidity2M',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'relativehumidity2M',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'relativehumidity2M',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'relativehumidity2M',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'relativehumidity2M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'surfacePressure',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'surfacePressure',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementLessThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementBetween(
-    double lower,
-    double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'surfacePressure',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
     });
   }
 
@@ -7750,175 +6604,155 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityIsNull() {
+      timezoneIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'visibility',
+        property: r'timezone',
       ));
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityIsNotNull() {
+      timezoneIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'visibility',
+        property: r'timezone',
       ));
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> timezoneEqualTo(
+    String? value, {
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'visibility',
+        property: r'timezone',
         value: value,
-        epsilon: epsilon,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementGreaterThan(
-    double value, {
+      timezoneGreaterThan(
+    String? value, {
     bool include = false,
-    double epsilon = Query.epsilon,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'visibility',
+        property: r'timezone',
         value: value,
-        epsilon: epsilon,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementLessThan(
-    double value, {
+      timezoneLessThan(
+    String? value, {
     bool include = false,
-    double epsilon = Query.epsilon,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'visibility',
+        property: r'timezone',
         value: value,
-        epsilon: epsilon,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementBetween(
-    double lower,
-    double upper, {
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> timezoneBetween(
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    double epsilon = Query.epsilon,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'visibility',
+        property: r'timezone',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        epsilon: epsilon,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityLengthLessThan(
-    int length, {
-    bool include = false,
+      timezoneStartsWith(
+    String value, {
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityLengthGreaterThan(
-    int length, {
-    bool include = false,
+      timezoneEndsWith(
+    String value, {
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
+      timezoneContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> timezoneMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'timezone',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      timezoneIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timezone',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      timezoneIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'timezone',
+        value: '',
+      ));
     });
   }
 
@@ -8084,342 +6918,6 @@ extension WeatherCardQueryFilter
       );
     });
   }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'winddirection10M',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'winddirection10M',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'winddirection10M',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'winddirection10M',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'winddirection10M',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'winddirection10M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windspeed10M',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windspeed10M',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementLessThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementBetween(
-    double lower,
-    double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windspeed10M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
-    });
-  }
 }
 
 extension WeatherCardQueryObject
@@ -8489,6 +6987,18 @@ extension WeatherCardQuerySortBy
   QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> sortByTimestampDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.desc);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> sortByTimezone() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> sortByTimezoneDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.desc);
     });
   }
 }
@@ -8568,6 +7078,18 @@ extension WeatherCardQuerySortThenBy
       return query.addSortBy(r'timestamp', Sort.desc);
     });
   }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> thenByTimezone() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> thenByTimezoneDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.desc);
+    });
+  }
 }
 
 extension WeatherCardQueryWhereDistinct
@@ -8580,24 +7102,10 @@ extension WeatherCardQueryWhereDistinct
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByApparentTemperature() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'apparentTemperature');
-    });
-  }
-
   QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByCity(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'city', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByEvapotranspiration() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'evapotranspiration');
     });
   }
 
@@ -8610,32 +7118,6 @@ extension WeatherCardQueryWhereDistinct
   QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByLon() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'lon');
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByPrecipitation() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'precipitation');
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByRain() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'rain');
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByRelativehumidity2M() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'relativehumidity2M');
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctBySurfacePressure() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'surfacePressure');
     });
   }
 
@@ -8657,28 +7139,16 @@ extension WeatherCardQueryWhereDistinct
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByVisibility() {
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByTimezone(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'visibility');
+      return query.addDistinctBy(r'timezone', caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByWeathercode() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'weathercode');
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByWinddirection10M() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'winddirection10M');
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByWindspeed10M() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'windspeed10M');
     });
   }
 }
@@ -8698,23 +7168,9 @@ extension WeatherCardQueryProperty
     });
   }
 
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
-      apparentTemperatureProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'apparentTemperature');
-    });
-  }
-
   QueryBuilder<WeatherCard, String?, QQueryOperations> cityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'city');
-    });
-  }
-
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
-      evapotranspirationProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'evapotranspiration');
     });
   }
 
@@ -8727,33 +7183,6 @@ extension WeatherCardQueryProperty
   QueryBuilder<WeatherCard, double?, QQueryOperations> lonProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'lon');
-    });
-  }
-
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
-      precipitationProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'precipitation');
-    });
-  }
-
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations> rainProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'rain');
-    });
-  }
-
-  QueryBuilder<WeatherCard, List<int>?, QQueryOperations>
-      relativehumidity2MProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'relativehumidity2M');
-    });
-  }
-
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
-      surfacePressureProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'surfacePressure');
     });
   }
 
@@ -8776,10 +7205,9 @@ extension WeatherCardQueryProperty
     });
   }
 
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
-      visibilityProperty() {
+  QueryBuilder<WeatherCard, String?, QQueryOperations> timezoneProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'visibility');
+      return query.addPropertyName(r'timezone');
     });
   }
 
@@ -8787,20 +7215,6 @@ extension WeatherCardQueryProperty
       weathercodeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weathercode');
-    });
-  }
-
-  QueryBuilder<WeatherCard, List<int>?, QQueryOperations>
-      winddirection10MProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'winddirection10M');
-    });
-  }
-
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
-      windspeed10MProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'windspeed10M');
     });
   }
 }
