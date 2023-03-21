@@ -24,10 +24,12 @@ class LocationController extends GetxController {
   final _hourly = HourlyCache().obs;
   final _daily = DailyCache().obs;
   final _location = LocationCache().obs;
+  final _weatherCard = WeatherCard().obs;
 
   HourlyCache get hourly => _hourly.value;
   DailyCache get daily => _daily.value;
   LocationCache get location => _location.value;
+  WeatherCard get weatherCard => _weatherCard.value;
 
   final hourOfDay = 0.obs;
   final ItemScrollController itemScrollController = ItemScrollController();
@@ -269,5 +271,36 @@ class LocationController extends GetxController {
         }
       });
     }
+  }
+
+  Future<void> addCardWeather(
+      double latitude, double longitude, String city, String district) async {
+    if (await isDeviceConnectedNotifier.value) {
+      _weatherCard.value = await WeatherAPI()
+          .getWeatherCard(latitude, longitude, city, district);
+
+      isar.writeTxn(() async {
+        await isar.weatherCards.put(_weatherCard.value);
+      });
+    } else if (await isDeviceConnectedNotifier.value) {
+      Get.snackbar(
+        'no_inter'.tr,
+        'on_inter'.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
+        icon: const Icon(Iconsax.wifi),
+        shouldIconPulse: true,
+      );
+    }
+  }
+
+  Stream<List<WeatherCard>> getWeatherCard() async* {
+    yield* isar.weatherCards.where().watch(fireImmediately: true);
+  }
+
+  Future<void> deleteCardWeather(WeatherCard weatherCard) async {
+    await isar.writeTxn(() async {
+      await isar.weatherCards.delete(weatherCard.id);
+    });
   }
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/card.dart';
 import 'package:rain/app/widgets/create_card_weather.dart';
+import 'package:rain/app/widgets/shimmer.dart';
 
 class CardWeather extends StatefulWidget {
   const CardWeather({super.key});
@@ -14,109 +15,141 @@ class CardWeather extends StatefulWidget {
 }
 
 class _CardWeatherState extends State<CardWeather> {
-  bool _showFab = true;
-  final duration = const Duration(milliseconds: 300);
   final locationController = Get.put(LocationController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NotificationListener<UserScrollNotification>(
-        onNotification: (notification) {
-          final ScrollDirection direction = notification.direction;
-          setState(() {
-            if (direction == ScrollDirection.reverse) {
-              _showFab = false;
-            } else if (direction == ScrollDirection.forward) {
-              _showFab = true;
-            }
-          });
-          return true;
-        },
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Dismissible(
-              key: const ValueKey(1),
-              direction: DismissDirection.endToStart,
-              background: Container(
-                alignment: Alignment.centerRight,
-                child: const Padding(
-                  padding: EdgeInsets.only(
-                    right: 15,
-                  ),
-                  child: Icon(
-                    Iconsax.trash,
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-              confirmDismiss: (DismissDirection direction) async {
-                return await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      backgroundColor:
-                          context.theme.colorScheme.primaryContainer,
-                      title: Text(
-                        "deletedCardWeather".tr,
-                        style: context.theme.textTheme.titleLarge,
+      body: StreamBuilder<List<WeatherCard>>(
+        stream: locationController.getWeatherCard(),
+        builder: (context, listData) {
+          switch (listData.connectionState) {
+            case ConnectionState.done:
+            default:
+              if (listData.hasData) {
+                final weatherCard = listData.data!;
+                if (weatherCard.isEmpty) {
+                  return Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/images/add_weather.png',
+                            scale: 6,
+                          ),
+                          SizedBox(
+                            width: Get.size.width * 0.8,
+                            child: Text(
+                              'noWeatherCard'.tr,
+                              textAlign: TextAlign.center,
+                              style:
+                                  context.theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      content: Text("deletedCardWeatherQuery".tr,
-                          style: context.theme.textTheme.titleMedium),
-                      actions: [
-                        TextButton(
-                            onPressed: () => Get.back(result: false),
-                            child: Text("cancel".tr,
-                                style: context.theme.textTheme.titleMedium
-                                    ?.copyWith(color: Colors.blueAccent))),
-                        TextButton(
-                            onPressed: () => Get.back(result: true),
-                            child: Text("delete".tr,
-                                style: context.theme.textTheme.titleMedium
-                                    ?.copyWith(color: Colors.red))),
-                      ],
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: weatherCard.length,
+                  itemBuilder: (context, index) {
+                    final weatherCardList = weatherCard[index];
+                    return Dismissible(
+                      key: ValueKey(weatherCardList),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                            right: 15,
+                          ),
+                          child: Icon(
+                            Iconsax.trash,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                      confirmDismiss: (DismissDirection direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor:
+                                  context.theme.colorScheme.primaryContainer,
+                              title: Text(
+                                "deletedCardWeather".tr,
+                                style: context.theme.textTheme.titleLarge,
+                              ),
+                              content: Text("deletedCardWeatherQuery".tr,
+                                  style: context.theme.textTheme.titleMedium),
+                              actions: [
+                                TextButton(
+                                    onPressed: () => Get.back(result: false),
+                                    child: Text("cancel".tr,
+                                        style: context
+                                            .theme.textTheme.titleMedium
+                                            ?.copyWith(
+                                                color: Colors.blueAccent))),
+                                TextButton(
+                                    onPressed: () => Get.back(result: true),
+                                    child: Text("delete".tr,
+                                        style: context
+                                            .theme.textTheme.titleMedium
+                                            ?.copyWith(color: Colors.red))),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      onDismissed: (DismissDirection direction) {
+                        locationController.deleteCardWeather(weatherCardList);
+                      },
+                      child: Obx(
+                        () => locationController.isLoading.isFalse
+                            ? CardDescWeather(
+                                time: weatherCardList
+                                    .time![locationController.hourOfDay.value],
+                                weather: weatherCardList.weathercode![
+                                    locationController.hourOfDay.value],
+                                degree: weatherCardList.temperature2M![
+                                    locationController.hourOfDay.value],
+                                administrativeArea:
+                                    weatherCardList.administrativeArea!,
+                                city: weatherCardList.city!,
+                              )
+                            : const MyShimmer(
+                                hight: 110,
+                                edgeInsetsMargin: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 10),
+                              ),
+                      ),
                     );
                   },
                 );
-              },
-              onDismissed: (DismissDirection direction) {},
-              child: CardDescWeather(
-                time: locationController
-                    .hourly.time![locationController.hourOfDay.value],
-                weather: locationController
-                    .hourly.weathercode![locationController.hourOfDay.value],
-                degree: locationController
-                    .hourly.temperature2M![locationController.hourOfDay.value],
-                administrativeArea: 'Ростовская область',
-                city: 'Ростов-на-Дону',
-              ),
-            );
-          },
-        ),
+              } else {
+                return const SizedBox.shrink();
+              }
+          }
+        },
       ),
-      floatingActionButton: AnimatedSlide(
-        duration: duration,
-        offset: _showFab ? Offset.zero : const Offset(0, 2),
-        child: AnimatedOpacity(
-          duration: duration,
-          opacity: _showFab ? 1 : 0,
-          child: FloatingActionButton(
-            onPressed: () {
-              showModalBottomSheet(
-                enableDrag: false,
-                backgroundColor: context.theme.colorScheme.secondaryContainer,
-                context: context,
-                isScrollControlled: true,
-                builder: (BuildContext context) {
-                  return const CreateWeatherCard();
-                },
-              );
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            enableDrag: false,
+            backgroundColor: context.theme.colorScheme.secondaryContainer,
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return const CreateWeatherCard();
             },
-            backgroundColor: context.theme.colorScheme.tertiaryContainer,
-            child: const Icon(Iconsax.add),
-          ),
-        ),
+          );
+        },
+        backgroundColor: context.theme.colorScheme.tertiaryContainer,
+        child: const Icon(Iconsax.add),
       ),
     );
   }

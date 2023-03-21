@@ -111,7 +111,7 @@ class _WeatherPageState extends State<WeatherPage> {
                 () => locationController.isLoading.isFalse
                     ? Container(
                         margin: const EdgeInsets.only(bottom: 15),
-                        padding: const EdgeInsets.only(top: 20, bottom: 5),
+                        padding: const EdgeInsets.only(top: 22, bottom: 5),
                         decoration: BoxDecoration(
                             color: context.theme.colorScheme.primaryContainer,
                             borderRadius:

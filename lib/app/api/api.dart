@@ -81,4 +81,38 @@ class WeatherAPI {
       rethrow;
     }
   }
+
+  Future<WeatherCard> getWeatherCard(
+      double? lat, double? lon, String city, String administrativeArea) async {
+    var url =
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto';
+    try {
+      Response response = await dio.get(url);
+      WeatherHourlyApi weatherData = WeatherHourlyApi.fromJson(response.data);
+      return WeatherCard(
+        time: weatherData.hourly.time!,
+        temperature2M: weatherData.hourly.temperature2M!,
+        relativehumidity2M: weatherData.hourly.relativehumidity2M!,
+        apparentTemperature: weatherData.hourly.apparentTemperature!,
+        precipitation: weatherData.hourly.precipitation!,
+        rain: weatherData.hourly.rain!,
+        weathercode: weatherData.hourly.weathercode!,
+        surfacePressure: weatherData.hourly.surfacePressure!,
+        visibility: weatherData.hourly.visibility!,
+        evapotranspiration: weatherData.hourly.evapotranspiration!,
+        windspeed10M: weatherData.hourly.windspeed10M!,
+        winddirection10M: weatherData.hourly.winddirection10M!,
+        lat: lat,
+        lon: lon,
+        city: city,
+        administrativeArea: administrativeArea,
+        timestamp: DateTime.now(),
+      );
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
 }

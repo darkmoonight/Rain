@@ -39,6 +39,7 @@ Future<void> isarInit() async {
     HourlyCacheSchema,
     DailyCacheSchema,
     LocationCacheSchema,
+    WeatherCardSchema,
   ], directory: (await getApplicationSupportDirectory()).path);
   settings = await isar.settings.where().findFirst() ?? Settings();
 }

@@ -47,8 +47,9 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                             Get.back();
                           },
                           icon: Icon(
-                            Icons.close,
+                            Icons.close_rounded,
                             color: context.theme.iconTheme.color,
+                            size: 20,
                           ),
                         ),
                         Text(
@@ -59,90 +60,99 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      locationController.addCardWeather(
+                          double.parse(_controllerLat.text),
+                          double.parse(_controllerLon.text),
+                          _controllerCity.text,
+                          _controllerAdministrativeArea.text);
+                      Get.back();
+                    },
                     icon: Icon(
-                      Icons.save,
+                      Icons.save_rounded,
                       color: context.theme.iconTheme.color,
+                      size: 20,
                     ),
                   ),
                 ],
               ),
             ),
             Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                child: TypeAheadField(
-                  suggestionsBoxDecoration: SuggestionsBoxDecoration(
-                    color: context.theme.scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  textFieldConfiguration: TextFieldConfiguration(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Iconsax.global_search),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                          color: context.theme.disabledColor,
-                        ),
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: TypeAheadField(
+                suggestionsBoxDecoration: SuggestionsBoxDecoration(
+                  color: context.theme.scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                textFieldConfiguration: TextFieldConfiguration(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Iconsax.global_search),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: BorderSide(
+                        color: context.theme.disabledColor,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                          color: context.theme.disabledColor,
-                        ),
-                      ),
-                      labelText: 'search'.tr,
                     ),
-                  ),
-                  errorBuilder: (context, error) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      height: 45,
-                      child: Center(
-                        child: Text(
-                          'enter_name'.tr,
-                          style: context.theme.textTheme.bodyLarge,
-                        ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: BorderSide(
+                        color: context.theme.disabledColor,
                       ),
-                    );
-                  },
-                  noItemsFoundBuilder: (context) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      height: 45,
-                      child: Center(
-                        child: Text(
-                          'notFound'.tr,
-                          style: context.theme.textTheme.bodyLarge,
-                        ),
-                      ),
-                    );
-                  },
-                  suggestionsCallback: (query) =>
-                      WeatherAPI().getSuggestions(query, locale, apiKey),
-                  itemBuilder: (context, suggestion) => ListTile(
-                    title: Text(
-                      suggestion['state'] == null
-                          ? '${suggestion['city']}, ${suggestion['country']}'
-                          : suggestion['city'] == null
-                              ? '${suggestion['state']}, ${suggestion['country']}'
-                              : '${suggestion['city']}, ${suggestion['state']}',
-                      style: context.theme.textTheme.bodyLarge,
                     ),
+                    labelText: 'search'.tr,
                   ),
-                  onSuggestionSelected: (suggestion) async {
-                    _controllerLat.text = '${suggestion['lat']}';
-                    _controllerLon.text = '${suggestion['lon']}';
-                    _controllerCity.text =
-                        suggestion['city'] ?? suggestion['state'];
-                    _controllerAdministrativeArea.text =
-                        suggestion['state'] ?? suggestion['country'];
-                    _controller.clear();
-                    setState(() {});
-                  },
-                )),
+                ),
+                errorBuilder: (context, error) {
+                  return Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    height: 45,
+                    child: Center(
+                      child: Text(
+                        'enter_name'.tr,
+                        style: context.theme.textTheme.bodyLarge,
+                      ),
+                    ),
+                  );
+                },
+                noItemsFoundBuilder: (context) {
+                  return Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    height: 45,
+                    child: Center(
+                      child: Text(
+                        'notFound'.tr,
+                        style: context.theme.textTheme.bodyLarge,
+                      ),
+                    ),
+                  );
+                },
+                suggestionsCallback: (query) =>
+                    WeatherAPI().getSuggestions(query, locale, apiKey),
+                itemBuilder: (context, suggestion) => ListTile(
+                  title: Text(
+                    suggestion['state'] == null
+                        ? '${suggestion['city']}, ${suggestion['country']}'
+                        : suggestion['city'] == null
+                            ? '${suggestion['state']}, ${suggestion['country']}'
+                            : '${suggestion['city']}, ${suggestion['state']}',
+                    style: context.theme.textTheme.bodyLarge,
+                  ),
+                ),
+                onSuggestionSelected: (suggestion) async {
+                  _controllerLat.text = '${suggestion['lat']}';
+                  _controllerLon.text = '${suggestion['lon']}';
+                  _controllerCity.text =
+                      suggestion['city'] ?? suggestion['state'];
+                  _controllerAdministrativeArea.text =
+                      suggestion['state'] ?? suggestion['country'];
+                  _controller.clear();
+                  setState(() {});
+                },
+              ),
+            ),
             Row(
               children: [
                 Flexible(
