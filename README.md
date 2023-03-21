@@ -16,6 +16,8 @@ An application for viewing the weather in your city
 - Просмотр подробных данных о погоде
 - Локализация (ru/en)
 - Кэширование данных
+- Выбор города самостоятельно
+- Добавление карточек других городов
 Также мы постарались сделать дизайн максимально удобным и красивым. -->
 This application allows you to view the weather in your city.
 The following options are provided:
@@ -25,12 +27,17 @@ The following options are provided:
 - View detailed weather data
 - Localization (ru/en)
 - Data caching
+- Choose the city yourself
+- Adding cards of other cities
 
 We also tried to make the design as convenient and beautiful as possible.
 
+### Services used
+The app receives weather data from [Open-Meteo](https://open-meteo.com/)
+Cities are searched using [Geoapify](https://www.geoapify.com/)
+
 ### Screenshots:
 <img src="/readme/1.jpg" width="200"/> <img src="/readme/2.jpg" width="200"/>
-
 
 ### Download: 
 [![Play Store](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.yoshi.rain) 
