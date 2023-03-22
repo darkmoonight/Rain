@@ -7,6 +7,7 @@ import 'package:isar/isar.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/main.dart';
+import 'package:timezone/standalone.dart' as tz;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class LocationController extends GetxController {
@@ -300,5 +301,18 @@ class LocationController extends GetxController {
     await isar.writeTxn(() async {
       await isar.weatherCards.delete(weatherCard.id);
     });
+  }
+
+  int getTime(List<String> time, String timeNow) {
+    int getTime = 0;
+    for (var i = 0; i < time.length; i++) {
+      if (tz.TZDateTime.now(tz.getLocation(timeNow)).hour ==
+              DateTime.parse(time[i]).hour &&
+          tz.TZDateTime.now(tz.getLocation(timeNow)).day ==
+              DateTime.parse(time[i]).day) {
+        getTime = i;
+      }
+    }
+    return getTime;
   }
 }

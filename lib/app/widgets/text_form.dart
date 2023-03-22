@@ -11,6 +11,8 @@ class MyTextForm extends StatelessWidget {
     required this.padding,
     this.iconButton,
     this.onChanged,
+    this.validator,
+    required this.readOnly,
   });
   final String labelText;
   final TextInputType type;
@@ -19,12 +21,14 @@ class MyTextForm extends StatelessWidget {
   final EdgeInsets padding;
   final Widget? iconButton;
   final Function(String)? onChanged;
+  final String? Function(String?)? validator;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         onChanged: onChanged,
         keyboardType: type,
@@ -47,6 +51,8 @@ class MyTextForm extends StatelessWidget {
           labelText: labelText,
         ),
         autofocus: false,
+        validator: validator,
+        readOnly: readOnly,
       ),
     );
   }

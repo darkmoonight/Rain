@@ -60,6 +60,7 @@ class Translation extends Translations {
           "delete": "Удалить",
           "cancel": "Отмена",
           "time": "Время в городе",
+          "validateName": "Пожалуйста, введите название",
         },
         'en_US': {
           'start': 'Get Started',
@@ -118,6 +119,7 @@ class Translation extends Translations {
           "delete": "Delete",
           "cancel": "Cancel",
           "time": "Time in the city",
+          "validateName": "Please enter the name",
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -172,6 +174,7 @@ class Translation extends Translations {
           "delete": "Eliminare",
           "cancel": "Annullare",
           "time": "Tempo in città",
+          "validateName": "Si prega di inserire il titolo",
         },
       };
 }

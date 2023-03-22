@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/status.dart';
 import 'package:timezone/standalone.dart' as tz;
 
@@ -27,18 +28,10 @@ class CardDescWeather extends StatefulWidget {
 
 class _CardDescWeatherState extends State<CardDescWeather> {
   final status = Status();
-  int time = 0;
+  final locationController = Get.put(LocationController());
 
   @override
   Widget build(BuildContext context) {
-    for (var i = 0; i < widget.time.length; i++) {
-      if (tz.TZDateTime.now(tz.getLocation(widget.timeNow)).hour ==
-              DateTime.parse(widget.time[i]).hour &&
-          tz.TZDateTime.now(tz.getLocation(widget.timeNow)).day ==
-              DateTime.parse(widget.time[i]).day) {
-        time = i;
-      }
-    }
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -57,7 +50,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '${widget.degree[time].round().toInt()}°C',
+                      '${widget.degree[locationController.getTime(widget.time, widget.timeNow)].round().toInt()}°C',
                       style: context.theme.textTheme.titleLarge?.copyWith(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
@@ -65,7 +58,8 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                     ),
                     const SizedBox(width: 7),
                     Text(
-                      status.getText(widget.weather[time]),
+                      status.getText(widget.weather[locationController.getTime(
+                          widget.time, widget.timeNow)]),
                       style: context.theme.textTheme.titleMedium?.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
@@ -104,7 +98,11 @@ class _CardDescWeatherState extends State<CardDescWeather> {
           ),
           const SizedBox(width: 5),
           Image.asset(
-            status.getImageNow(widget.weather[time], widget.time[time]),
+            status.getImageNow(
+                widget.weather[
+                    locationController.getTime(widget.time, widget.timeNow)],
+                widget.time[
+                    locationController.getTime(widget.time, widget.timeNow)]),
             scale: 6.5,
           ),
         ],
