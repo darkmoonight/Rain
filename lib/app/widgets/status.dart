@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class Status {
-  String getImageNow(weather, time) {
+  String getImageNow(int weather, String time) {
     final currentTime = DateTime.parse(time);
 
     final dayTime =
@@ -61,7 +61,7 @@ class Status {
     }
   }
 
-  String getImageToday(time, weather) {
+  String getImageToday(String time, int weather) {
     final currentTime = DateTime.parse(time);
 
     final dayTime =
@@ -133,7 +133,7 @@ class Status {
     }
   }
 
-  String getImage7Day(weather) {
+  String getImage7Day(int weather) {
     switch (weather) {
       case 0:
         return 'assets/images/01d.png';
@@ -174,7 +174,7 @@ class Status {
     }
   }
 
-  String getText(weather) {
+  String getText(int weather) {
     switch (weather) {
       case 0:
         return 'clear_sky'.tr;

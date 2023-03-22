@@ -87,7 +87,7 @@ class WeatherCard {
   double? lat;
   double? lon;
   String? city;
-  String? administrativeArea;
+  String? district;
   String? timezone;
   DateTime? timestamp;
 
@@ -98,7 +98,7 @@ class WeatherCard {
     this.lat,
     this.lon,
     this.city,
-    this.administrativeArea,
+    this.district,
     this.timezone,
     this.timestamp,
   });

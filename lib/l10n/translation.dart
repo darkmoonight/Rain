@@ -54,6 +54,12 @@ class Translation extends Translations {
           "create": "Создание",
           "city": "Город",
           "district": "Район",
+          "noWeatherCard": "Добавьте город",
+          "deletedCardWeather": "Удаление города",
+          "deletedCardWeatherQuery": "Вы уверены что хотите удалить город?",
+          "delete": "Удалить",
+          "cancel": "Отмена",
+          "time": "Время в городе",
         },
         'en_US': {
           'start': 'Get Started',
@@ -105,6 +111,13 @@ class Translation extends Translations {
           "create": "Create",
           "city": "City",
           "district": "District",
+          "noWeatherCard": "Add a city",
+          "deletedCardWeather": "Deleting a city",
+          "deletedCardWeatherQuery":
+              "Are you sure you want to delete the city?",
+          "delete": "Delete",
+          "cancel": "Cancel",
+          "time": "Time in the city",
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -153,6 +166,12 @@ class Translation extends Translations {
           "create": "Creare",
           "city": "Citta",
           "district": "La zona",
+          "noWeatherCard": "Aggiungi una città",
+          "deletedCardWeather": "Rimozione della città",
+          "deletedCardWeatherQuery": "Sei sicuro di voler rimuovere una città?",
+          "delete": "Eliminare",
+          "cancel": "Annullare",
+          "time": "Tempo in città",
         },
       };
 }

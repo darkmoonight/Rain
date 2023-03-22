@@ -90,8 +90,7 @@ class LocationController extends GetxController {
 
       writeCache();
       readCache();
-    } else if (await isDeviceConnectedNotifier.value == false &&
-        serviceEnabled) {
+    } else if (!await isDeviceConnectedNotifier.value && serviceEnabled) {
       Get.snackbar(
         'no_inter'.tr,
         'on_inter'.tr,
@@ -117,8 +116,7 @@ class LocationController extends GetxController {
         margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
       );
       readCache();
-    } else if (await isDeviceConnectedNotifier.value == false &&
-        !serviceEnabled) {
+    } else if (!await isDeviceConnectedNotifier.value && !serviceEnabled) {
       Get.snackbar(
         'no_inter'.tr,
         'on_inter'.tr,
@@ -160,7 +158,7 @@ class LocationController extends GetxController {
 
       writeCache();
       readCache();
-    } else if (await isDeviceConnectedNotifier.value == false) {
+    } else if (!await isDeviceConnectedNotifier.value) {
       Get.snackbar(
         'no_inter'.tr,
         'on_inter'.tr,
@@ -282,7 +280,7 @@ class LocationController extends GetxController {
       isar.writeTxn(() async {
         await isar.weatherCards.put(_weatherCard.value);
       });
-    } else if (await isDeviceConnectedNotifier.value) {
+    } else if (!await isDeviceConnectedNotifier.value) {
       Get.snackbar(
         'no_inter'.tr,
         'on_inter'.tr,

@@ -84,7 +84,7 @@ class WeatherAPI {
   }
 
   Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
-      String administrativeArea, String timezone) async {
+      String district, String timezone) async {
     var url =
         'latitude=$lat&longitude=$lon&hourly=temperature_2m,weathercode&timezone=auto';
     try {
@@ -97,7 +97,7 @@ class WeatherAPI {
         lat: lat,
         lon: lon,
         city: city,
-        administrativeArea: administrativeArea,
+        district: district,
         timezone: timezone,
         timestamp: DateTime.now(),
       );

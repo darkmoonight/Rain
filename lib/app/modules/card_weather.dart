@@ -111,15 +111,12 @@ class _CardWeatherState extends State<CardWeather> {
                       child: Obx(
                         () => locationController.isLoading.isFalse
                             ? CardDescWeather(
-                                time: weatherCardList
-                                    .time![locationController.hourOfDay.value],
-                                weather: weatherCardList.weathercode![
-                                    locationController.hourOfDay.value],
-                                degree: weatherCardList.temperature2M![
-                                    locationController.hourOfDay.value],
-                                administrativeArea:
-                                    weatherCardList.administrativeArea!,
+                                time: weatherCardList.time!,
+                                weather: weatherCardList.weathercode!,
+                                degree: weatherCardList.temperature2M!,
+                                district: weatherCardList.district!,
                                 city: weatherCardList.city!,
+                                timeNow: weatherCardList.timezone!,
                               )
                             : const MyShimmer(
                                 hight: 110,

@@ -5332,14 +5332,14 @@ const WeatherCardSchema = CollectionSchema(
   name: r'WeatherCard',
   id: -6696987654183999616,
   properties: {
-    r'administrativeArea': PropertySchema(
+    r'city': PropertySchema(
       id: 0,
-      name: r'administrativeArea',
+      name: r'city',
       type: IsarType.string,
     ),
-    r'city': PropertySchema(
+    r'district': PropertySchema(
       id: 1,
-      name: r'city',
+      name: r'district',
       type: IsarType.string,
     ),
     r'lat': PropertySchema(
@@ -5399,13 +5399,13 @@ int _weatherCardEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
-    final value = object.administrativeArea;
+    final value = object.city;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
   }
   {
-    final value = object.city;
+    final value = object.district;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -5449,8 +5449,8 @@ void _weatherCardSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.administrativeArea);
-  writer.writeString(offsets[1], object.city);
+  writer.writeString(offsets[0], object.city);
+  writer.writeString(offsets[1], object.district);
   writer.writeDouble(offsets[2], object.lat);
   writer.writeDouble(offsets[3], object.lon);
   writer.writeDoubleList(offsets[4], object.temperature2M);
@@ -5467,8 +5467,8 @@ WeatherCard _weatherCardDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = WeatherCard(
-    administrativeArea: reader.readStringOrNull(offsets[0]),
-    city: reader.readStringOrNull(offsets[1]),
+    city: reader.readStringOrNull(offsets[0]),
+    district: reader.readStringOrNull(offsets[1]),
     lat: reader.readDoubleOrNull(offsets[2]),
     lon: reader.readDoubleOrNull(offsets[3]),
     temperature2M: reader.readDoubleList(offsets[4]),
@@ -5604,160 +5604,6 @@ extension WeatherCardQueryWhere
 
 extension WeatherCardQueryFilter
     on QueryBuilder<WeatherCard, WeatherCard, QFilterCondition> {
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'administrativeArea',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'administrativeArea',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'administrativeArea',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'administrativeArea',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'administrativeArea',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      administrativeAreaIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'administrativeArea',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> cityIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -5901,6 +5747,159 @@ extension WeatherCardQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'city',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'district',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'district',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> districtEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> districtBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'district',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> districtMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'district',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'district',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      districtIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'district',
         value: '',
       ));
     });
@@ -6928,20 +6927,6 @@ extension WeatherCardQueryLinks
 
 extension WeatherCardQuerySortBy
     on QueryBuilder<WeatherCard, WeatherCard, QSortBy> {
-  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy>
-      sortByAdministrativeArea() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'administrativeArea', Sort.asc);
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy>
-      sortByAdministrativeAreaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'administrativeArea', Sort.desc);
-    });
-  }
-
   QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> sortByCity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.asc);
@@ -6951,6 +6936,18 @@ extension WeatherCardQuerySortBy
   QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> sortByCityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.desc);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> sortByDistrict() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'district', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> sortByDistrictDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'district', Sort.desc);
     });
   }
 
@@ -7005,20 +7002,6 @@ extension WeatherCardQuerySortBy
 
 extension WeatherCardQuerySortThenBy
     on QueryBuilder<WeatherCard, WeatherCard, QSortThenBy> {
-  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy>
-      thenByAdministrativeArea() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'administrativeArea', Sort.asc);
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy>
-      thenByAdministrativeAreaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'administrativeArea', Sort.desc);
-    });
-  }
-
   QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> thenByCity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.asc);
@@ -7028,6 +7011,18 @@ extension WeatherCardQuerySortThenBy
   QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> thenByCityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.desc);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> thenByDistrict() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'district', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterSortBy> thenByDistrictDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'district', Sort.desc);
     });
   }
 
@@ -7094,18 +7089,17 @@ extension WeatherCardQuerySortThenBy
 
 extension WeatherCardQueryWhereDistinct
     on QueryBuilder<WeatherCard, WeatherCard, QDistinct> {
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByAdministrativeArea({bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'administrativeArea',
-          caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByCity(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'city', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByDistrict(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'district', caseSensitive: caseSensitive);
     });
   }
 
@@ -7161,16 +7155,15 @@ extension WeatherCardQueryProperty
     });
   }
 
-  QueryBuilder<WeatherCard, String?, QQueryOperations>
-      administrativeAreaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'administrativeArea');
-    });
-  }
-
   QueryBuilder<WeatherCard, String?, QQueryOperations> cityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'city');
+    });
+  }
+
+  QueryBuilder<WeatherCard, String?, QQueryOperations> districtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'district');
     });
   }
 

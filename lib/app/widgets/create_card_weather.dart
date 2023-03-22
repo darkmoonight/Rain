@@ -21,8 +21,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
   final TextEditingController _controllerLat = TextEditingController();
   final TextEditingController _controllerLon = TextEditingController();
   final TextEditingController _controllerCity = TextEditingController();
-  final TextEditingController _controllerAdministrativeArea =
-      TextEditingController();
+  final TextEditingController _controllerDistrict = TextEditingController();
   final TextEditingController _controllerTimezone = TextEditingController();
 
   @override
@@ -66,7 +65,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         double.parse(_controllerLat.text),
                         double.parse(_controllerLon.text),
                         _controllerCity.text,
-                        _controllerAdministrativeArea.text,
+                        _controllerDistrict.text,
                         _controllerTimezone.text,
                       );
                       Get.back();
@@ -149,7 +148,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                   _controllerLon.text = '${suggestion['lon']}';
                   _controllerCity.text =
                       suggestion['city'] ?? suggestion['state'];
-                  _controllerAdministrativeArea.text =
+                  _controllerDistrict.text =
                       suggestion['state'] ?? suggestion['country'];
                   _controllerTimezone.text = suggestion['timezone']['name'];
                   _controller.clear();
@@ -189,7 +188,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
               padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
             ),
             MyTextForm(
-              controller: _controllerAdministrativeArea,
+              controller: _controllerDistrict,
               labelText: 'district'.tr,
               type: TextInputType.text,
               icon: const Icon(Iconsax.global),
