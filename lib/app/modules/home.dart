@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     locationController.deleteCache();
+    locationController.updateCacheCard(false);
     locationController.getCurrentLocation();
     super.initState();
   }

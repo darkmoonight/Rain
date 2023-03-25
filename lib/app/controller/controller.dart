@@ -264,9 +264,29 @@ class LocationController extends GetxController {
       isar.writeTxn(() async {
         await isar.hourlyCaches.where().deleteAll();
         await isar.dailyCaches.where().deleteAll();
-        if (location.lat != _latitude.value &&
-            location.lon != _longitude.value) {
-          await isar.locationCaches.where().deleteAll();
+        await isar.locationCaches.where().deleteAll();
+      });
+    }
+  }
+
+  Future<void> updateCacheCard(bool refresh) async {
+    List<WeatherCard> weatherCard = refresh
+        ? await isar.weatherCards.where().findAll()
+        : await isar.weatherCards
+            .filter()
+            .timestampLessThan(cacheExpiry)
+            .findAll();
+
+    if (await isDeviceConnectedNotifier.value && weatherCard.isNotEmpty) {
+      isar.writeTxn(() async {
+        for (var element in weatherCard) {
+          _weatherCard.value = await WeatherAPI().getWeatherCard(element.lat,
+              element.lon, element.city!, element.district!, element.timezone!);
+          element.time = _weatherCard.value.time;
+          element.temperature2M = _weatherCard.value.temperature2M;
+          element.weathercode = _weatherCard.value.weathercode;
+          element.timestamp = DateTime.now();
+          await isar.weatherCards.put(element);
         }
       });
     }
