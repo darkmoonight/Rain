@@ -36,6 +36,25 @@ class LocationController extends GetxController {
   final ItemScrollController itemScrollController = ItemScrollController();
   final cacheExpiry = DateTime.now().subtract(const Duration(hours: 6));
 
+  Future<Position> determinePosition() async {
+    LocationPermission permission;
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
@@ -111,12 +130,13 @@ class LocationController extends GetxController {
     }
   }
 
-  Future<void> getLocation(latitude, longitude, district, locality) async {
+  Future<void> getLocation(double latitude, double longitude, String district,
+      String locality) async {
     if (await isDeviceConnectedNotifier.value) {
       _latitude.value = latitude;
       _longitude.value = longitude;
-      _district.value = '$district';
-      _city.value = '$locality';
+      _district.value = district;
+      _city.value = locality;
 
       _hourly.value =
           await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
@@ -136,25 +156,6 @@ class LocationController extends GetxController {
       );
       readCache();
     }
-  }
-
-  Future<Position> determinePosition() async {
-    LocationPermission permission;
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
   }
 
   void readCache() async {
@@ -222,12 +223,14 @@ class LocationController extends GetxController {
     }
   }
 
-  Future<void> deleteAll() async {
+  Future<void> deleteAll(bool changeCity) async {
     if (await isDeviceConnectedNotifier.value) {
       isar.writeTxn(() async {
         await isar.hourlyCaches.where().deleteAll();
         await isar.dailyCaches.where().deleteAll();
-        await isar.locationCaches.where().deleteAll();
+        if (settings.location || changeCity) {
+          await isar.locationCaches.where().deleteAll();
+        }
       });
     }
   }

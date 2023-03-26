@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:isar/isar.dart';
 import 'package:rain/api_key.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/card_weather.dart';
 import 'package:rain/app/modules/settings.dart';
 import 'package:rain/app/modules/weather.dart';
+import 'package:rain/main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,7 +32,19 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     locationController.deleteCache();
     locationController.updateCacheCard(false);
-    locationController.getCurrentLocation();
+    settings.location
+        ? locationController.getCurrentLocation()
+        : Future.delayed(Duration.zero, () async {
+            if ((await isar.locationCaches.where().findAll()).isNotEmpty) {
+              LocationCache locationCity =
+                  (await isar.locationCaches.where().findFirst())!;
+              locationController.getLocation(
+                  locationCity.lat!,
+                  locationCity.lon!,
+                  locationCity.district!,
+                  locationCity.city!);
+            }
+          });
     super.initState();
   }
 
@@ -80,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                     height: 45,
                     child: Center(
                       child: Text(
-                        'Введите название',
+                        'enter_name'.tr,
                         style: context.theme.textTheme.bodyLarge,
                       ),
                     ),
@@ -112,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onSuggestionSelected: (suggestion) async {
-                  await locationController.deleteAll();
+                  await locationController.deleteAll(true);
                   await locationController.getLocation(
                     double.parse('${suggestion['lat']}'),
                     double.parse('${suggestion['lon']}'),
@@ -135,7 +150,9 @@ class _HomePageState extends State<HomePage> {
                                   ? '${locationController.location.city}'
                                   : '${locationController.location.city}'
                                       ', ${locationController.location.district}'
-                      : 'search'.tr,
+                      : settings.location
+                          ? 'search'.tr
+                          : 'searchCity'.tr,
                   style: context.theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
