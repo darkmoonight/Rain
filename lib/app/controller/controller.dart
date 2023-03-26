@@ -12,12 +12,12 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class LocationController extends GetxController {
   final isLoading = true.obs;
-  final _administrativeArea = ''.obs;
+  final _district = ''.obs;
   final _city = ''.obs;
   final _latitude = 0.0.obs;
   final _longitude = 0.0.obs;
 
-  String get administrativeArea => _administrativeArea.value;
+  String get district => _district.value;
   String get city => _city.value;
   double get latitude => _latitude.value;
   double get longitude => _longitude.value;
@@ -36,39 +36,6 @@ class LocationController extends GetxController {
   final ItemScrollController itemScrollController = ItemScrollController();
   final cacheExpiry = DateTime.now().subtract(const Duration(hours: 6));
 
-  DateTime alignDateTime(DateTime dt, Duration alignment,
-      [bool roundUp = false]) {
-    assert(alignment >= Duration.zero);
-    if (alignment == Duration.zero) return dt;
-    final correction = Duration(
-        days: 0,
-        hours: alignment.inDays > 0
-            ? dt.hour
-            : alignment.inHours > 0
-                ? dt.hour % alignment.inHours
-                : 0,
-        minutes: alignment.inHours > 0
-            ? dt.minute
-            : alignment.inMinutes > 0
-                ? dt.minute % alignment.inMinutes
-                : 0,
-        seconds: alignment.inMinutes > 0
-            ? dt.second
-            : alignment.inSeconds > 0
-                ? dt.second % alignment.inSeconds
-                : 0,
-        milliseconds: alignment.inSeconds > 0
-            ? dt.millisecond
-            : alignment.inMilliseconds > 0
-                ? dt.millisecond % alignment.inMilliseconds
-                : 0,
-        microseconds: alignment.inMilliseconds > 0 ? dt.microsecond : 0);
-    if (correction == Duration.zero) return dt;
-    final corrected = dt.subtract(correction);
-    final result = roundUp ? corrected.add(alignment) : corrected;
-    return result;
-  }
-
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
@@ -81,7 +48,7 @@ class LocationController extends GetxController {
 
       _latitude.value = position.latitude;
       _longitude.value = position.longitude;
-      _administrativeArea.value = '${place.administrativeArea}';
+      _district.value = '${place.administrativeArea}';
       _city.value = '${place.locality}';
 
       _hourly.value =
@@ -144,12 +111,11 @@ class LocationController extends GetxController {
     }
   }
 
-  Future<void> getLocation(
-      latitude, longitude, administrativeArea, locality) async {
+  Future<void> getLocation(latitude, longitude, district, locality) async {
     if (await isDeviceConnectedNotifier.value) {
       _latitude.value = latitude;
       _longitude.value = longitude;
-      _administrativeArea.value = '$administrativeArea';
+      _district.value = '$district';
       _city.value = '$locality';
 
       _hourly.value =
@@ -205,12 +171,9 @@ class LocationController extends GetxController {
     _hourly.value = hourlyCache;
     _daily.value = dailyCache;
     _location.value = locationCache;
-    for (var i = 0; i < _hourly.value.time!.length; i++) {
-      if (alignDateTime(DateTime.now(), const Duration(hours: 1), false)
-          .isAtSameMomentAs(DateTime.parse(_hourly.value.time![i]))) {
-        hourOfDay.value = i;
-      }
-    }
+
+    hourOfDay.value = getTime(_hourly.value.time!, _hourly.value.timezone!);
+
     isLoading.value = false;
     Future.delayed(const Duration(milliseconds: 30), () async {
       itemScrollController.scrollTo(
@@ -226,7 +189,7 @@ class LocationController extends GetxController {
       lat: _latitude.value,
       lon: _longitude.value,
       city: _city.value,
-      administrativeArea: _administrativeArea.value,
+      district: _district.value,
     );
 
     isar.writeTxn(() async {
@@ -269,27 +232,9 @@ class LocationController extends GetxController {
     }
   }
 
-  Future<void> updateCacheCard(bool refresh) async {
-    List<WeatherCard> weatherCard = refresh
-        ? await isar.weatherCards.where().findAll()
-        : await isar.weatherCards
-            .filter()
-            .timestampLessThan(cacheExpiry)
-            .findAll();
-
-    if (await isDeviceConnectedNotifier.value && weatherCard.isNotEmpty) {
-      isar.writeTxn(() async {
-        for (var element in weatherCard) {
-          _weatherCard.value = await WeatherAPI().getWeatherCard(element.lat,
-              element.lon, element.city!, element.district!, element.timezone!);
-          element.time = _weatherCard.value.time;
-          element.temperature2M = _weatherCard.value.temperature2M;
-          element.weathercode = _weatherCard.value.weathercode;
-          element.timestamp = DateTime.now();
-          await isar.weatherCards.put(element);
-        }
-      });
-    }
+  // Card Weather
+  Stream<List<WeatherCard>> getWeatherCard() async* {
+    yield* isar.weatherCards.where().watch(fireImmediately: true);
   }
 
   Future<void> addCardWeather(double latitude, double longitude, String city,
@@ -313,8 +258,27 @@ class LocationController extends GetxController {
     }
   }
 
-  Stream<List<WeatherCard>> getWeatherCard() async* {
-    yield* isar.weatherCards.where().watch(fireImmediately: true);
+  Future<void> updateCacheCard(bool refresh) async {
+    List<WeatherCard> weatherCard = refresh
+        ? await isar.weatherCards.where().findAll()
+        : await isar.weatherCards
+            .filter()
+            .timestampLessThan(cacheExpiry)
+            .findAll();
+
+    if (await isDeviceConnectedNotifier.value && weatherCard.isNotEmpty) {
+      isar.writeTxn(() async {
+        for (var element in weatherCard) {
+          _weatherCard.value = await WeatherAPI().getWeatherCard(element.lat,
+              element.lon, element.city!, element.district!, element.timezone!);
+          element.time = _weatherCard.value.time;
+          element.temperature2M = _weatherCard.value.temperature2M;
+          element.weathercode = _weatherCard.value.weathercode;
+          element.timestamp = DateTime.now();
+          await isar.weatherCards.put(element);
+        }
+      });
+    }
   }
 
   Future<void> deleteCardWeather(WeatherCard weatherCard) async {
@@ -323,12 +287,12 @@ class LocationController extends GetxController {
     });
   }
 
-  int getTime(List<String> time, String timeNow) {
+  int getTime(List<String> time, String timezone) {
     int getTime = 0;
     for (var i = 0; i < time.length; i++) {
-      if (tz.TZDateTime.now(tz.getLocation(timeNow)).hour ==
+      if (tz.TZDateTime.now(tz.getLocation(timezone)).hour ==
               DateTime.parse(time[i]).hour &&
-          tz.TZDateTime.now(tz.getLocation(timeNow)).day ==
+          tz.TZDateTime.now(tz.getLocation(timezone)).day ==
               DateTime.parse(time[i]).day) {
         getTime = i;
       }

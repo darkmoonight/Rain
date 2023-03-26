@@ -13,7 +13,7 @@ class WeatherAPI {
 
   Future<HourlyCache> getWeatherData(double? lat, double? lon) async {
     var url =
-        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto&forecast_days=2';
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto&forecast_days=3';
     try {
       Response response = await dio.get(url);
       WeatherHourlyApi weatherData = WeatherHourlyApi.fromJson(response.data);
@@ -30,6 +30,7 @@ class WeatherAPI {
         evapotranspiration: weatherData.hourly.evapotranspiration!,
         windspeed10M: weatherData.hourly.windspeed10M!,
         winddirection10M: weatherData.hourly.winddirection10M!,
+        timezone: weatherData.timezone,
         timestamp: DateTime.now(),
       );
     } on DioError catch (e) {
@@ -51,6 +52,7 @@ class WeatherAPI {
         weathercode: weatherData.daily.weathercode!,
         temperature2MMax: weatherData.daily.temperature2MMax!,
         temperature2MMin: weatherData.daily.temperature2MMin!,
+        timezone: weatherData.timezone,
         timestamp: DateTime.now(),
       );
     } on DioError catch (e) {
@@ -86,7 +88,7 @@ class WeatherAPI {
   Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
       String district, String timezone) async {
     var url =
-        'latitude=$lat&longitude=$lon&hourly=temperature_2m,weathercode&timezone=auto&forecast_days=2';
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,weathercode&timezone=auto&forecast_days=3';
     try {
       Response response = await dio.get(url);
       WeatherCardApi weatherData = WeatherCardApi.fromJson(response.data);

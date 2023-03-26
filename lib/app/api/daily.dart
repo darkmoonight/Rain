@@ -1,13 +1,16 @@
 class WeatherDailyApi {
   WeatherDailyApi({
     required this.daily,
+    required this.timezone,
   });
 
   Daily daily;
+  String timezone;
 
   factory WeatherDailyApi.fromJson(Map<String, dynamic> json) =>
       WeatherDailyApi(
         daily: Daily.fromJson(json["daily"]),
+        timezone: json["timezone"],
       );
 }
 

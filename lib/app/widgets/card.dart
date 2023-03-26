@@ -13,14 +13,14 @@ class CardDescWeather extends StatefulWidget {
     required this.degree,
     required this.district,
     required this.city,
-    required this.timeNow,
+    required this.timezone,
   });
   final List<String> time;
   final String district;
   final String city;
   final List<int> weather;
   final List<double> degree;
-  final String timeNow;
+  final String timezone;
 
   @override
   State<CardDescWeather> createState() => _CardDescWeatherState();
@@ -50,7 +50,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '${widget.degree[locationController.getTime(widget.time, widget.timeNow)].round().toInt()}°C',
+                      '${widget.degree[locationController.getTime(widget.time, widget.timezone)].round().toInt()}°C',
                       style: context.theme.textTheme.titleLarge?.copyWith(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
@@ -59,7 +59,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                     const SizedBox(width: 7),
                     Text(
                       status.getText(widget.weather[locationController.getTime(
-                          widget.time, widget.timeNow)]),
+                          widget.time, widget.timezone)]),
                       style: context.theme.textTheme.titleMedium?.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
@@ -86,7 +86,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                     stream: Stream.periodic(const Duration(seconds: 1)),
                     builder: (context, snapshot) {
                       return Text(
-                        '${'time'.tr}: ${DateFormat('HH:mm').format(tz.TZDateTime.now(tz.getLocation(widget.timeNow)))}',
+                        '${'time'.tr}: ${DateFormat('HH:mm').format(tz.TZDateTime.now(tz.getLocation(widget.timezone)))}',
                         style: context.theme.textTheme.titleMedium?.copyWith(
                           color: Colors.grey,
                           fontWeight: FontWeight.w400,
@@ -100,9 +100,9 @@ class _CardDescWeatherState extends State<CardDescWeather> {
           Image.asset(
             status.getImageNow(
                 widget.weather[
-                    locationController.getTime(widget.time, widget.timeNow)],
+                    locationController.getTime(widget.time, widget.timezone)],
                 widget.time[
-                    locationController.getTime(widget.time, widget.timeNow)]),
+                    locationController.getTime(widget.time, widget.timezone)]),
             scale: 6.5,
           ),
         ],

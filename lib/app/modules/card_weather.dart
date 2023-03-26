@@ -121,7 +121,7 @@ class _CardWeatherState extends State<CardWeather> {
                                   degree: weatherCardList.temperature2M!,
                                   district: weatherCardList.district!,
                                   city: weatherCardList.city!,
-                                  timeNow: weatherCardList.timezone!,
+                                  timezone: weatherCardList.timezone!,
                                 )
                               : const MyShimmer(
                                   hight: 110,

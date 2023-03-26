@@ -25,6 +25,7 @@ class HourlyCache {
   List<double>? evapotranspiration;
   List<double>? windspeed10M;
   List<int>? winddirection10M;
+  String? timezone;
   DateTime? timestamp;
 
   HourlyCache({
@@ -40,6 +41,7 @@ class HourlyCache {
     this.evapotranspiration,
     this.windspeed10M,
     this.winddirection10M,
+    this.timezone,
     this.timestamp,
   });
 }
@@ -51,6 +53,7 @@ class DailyCache {
   List<int>? weathercode;
   List<double>? temperature2MMax;
   List<double>? temperature2MMin;
+  String? timezone;
   DateTime? timestamp;
 
   DailyCache({
@@ -58,6 +61,7 @@ class DailyCache {
     this.weathercode,
     this.temperature2MMax,
     this.temperature2MMin,
+    this.timezone,
     this.timestamp,
   });
 }
@@ -68,13 +72,13 @@ class LocationCache {
   double? lat;
   double? lon;
   String? city;
-  String? administrativeArea;
+  String? district;
 
   LocationCache({
     this.lat,
     this.lon,
     this.city,
-    this.administrativeArea,
+    this.district,
   });
 }
 

@@ -486,23 +486,28 @@ const HourlyCacheSchema = CollectionSchema(
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
-    r'visibility': PropertySchema(
+    r'timezone': PropertySchema(
       id: 9,
+      name: r'timezone',
+      type: IsarType.string,
+    ),
+    r'visibility': PropertySchema(
+      id: 10,
       name: r'visibility',
       type: IsarType.doubleList,
     ),
     r'weathercode': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'weathercode',
       type: IsarType.longList,
     ),
     r'winddirection10M': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'winddirection10M',
       type: IsarType.longList,
     ),
     r'windspeed10M': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'windspeed10M',
       type: IsarType.doubleList,
     )
@@ -582,6 +587,12 @@ int _hourlyCacheEstimateSize(
     }
   }
   {
+    final value = object.timezone;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.visibility;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
@@ -623,10 +634,11 @@ void _hourlyCacheSerialize(
   writer.writeDoubleList(offsets[6], object.temperature2M);
   writer.writeStringList(offsets[7], object.time);
   writer.writeDateTime(offsets[8], object.timestamp);
-  writer.writeDoubleList(offsets[9], object.visibility);
-  writer.writeLongList(offsets[10], object.weathercode);
-  writer.writeLongList(offsets[11], object.winddirection10M);
-  writer.writeDoubleList(offsets[12], object.windspeed10M);
+  writer.writeString(offsets[9], object.timezone);
+  writer.writeDoubleList(offsets[10], object.visibility);
+  writer.writeLongList(offsets[11], object.weathercode);
+  writer.writeLongList(offsets[12], object.winddirection10M);
+  writer.writeDoubleList(offsets[13], object.windspeed10M);
 }
 
 HourlyCache _hourlyCacheDeserialize(
@@ -645,10 +657,11 @@ HourlyCache _hourlyCacheDeserialize(
     temperature2M: reader.readDoubleList(offsets[6]),
     time: reader.readStringList(offsets[7]),
     timestamp: reader.readDateTimeOrNull(offsets[8]),
-    visibility: reader.readDoubleList(offsets[9]),
-    weathercode: reader.readLongList(offsets[10]),
-    winddirection10M: reader.readLongList(offsets[11]),
-    windspeed10M: reader.readDoubleList(offsets[12]),
+    timezone: reader.readStringOrNull(offsets[9]),
+    visibility: reader.readDoubleList(offsets[10]),
+    weathercode: reader.readLongList(offsets[11]),
+    winddirection10M: reader.readLongList(offsets[12]),
+    windspeed10M: reader.readDoubleList(offsets[13]),
   );
   object.id = id;
   return object;
@@ -680,12 +693,14 @@ P _hourlyCacheDeserializeProp<P>(
     case 8:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 9:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 10:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 11:
       return (reader.readLongList(offset)) as P;
     case 12:
+      return (reader.readLongList(offset)) as P;
+    case 13:
       return (reader.readDoubleList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2353,6 +2368,159 @@ extension HourlyCacheQueryFilter
   }
 
   QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'timezone',
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'timezone',
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition> timezoneEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition> timezoneBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'timezone',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition> timezoneMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'timezone',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timezone',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
+      timezoneIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'timezone',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterFilterCondition>
       visibilityIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -3044,6 +3212,18 @@ extension HourlyCacheQuerySortBy
       return query.addSortBy(r'timestamp', Sort.desc);
     });
   }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterSortBy> sortByTimezone() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.asc);
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterSortBy> sortByTimezoneDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.desc);
+    });
+  }
 }
 
 extension HourlyCacheQuerySortThenBy
@@ -3069,6 +3249,18 @@ extension HourlyCacheQuerySortThenBy
   QueryBuilder<HourlyCache, HourlyCache, QAfterSortBy> thenByTimestampDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.desc);
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterSortBy> thenByTimezone() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.asc);
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QAfterSortBy> thenByTimezoneDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.desc);
     });
   }
 }
@@ -3130,6 +3322,13 @@ extension HourlyCacheQueryWhereDistinct
   QueryBuilder<HourlyCache, HourlyCache, QDistinct> distinctByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timestamp');
+    });
+  }
+
+  QueryBuilder<HourlyCache, HourlyCache, QDistinct> distinctByTimezone(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'timezone', caseSensitive: caseSensitive);
     });
   }
 
@@ -3227,6 +3426,12 @@ extension HourlyCacheQueryProperty
     });
   }
 
+  QueryBuilder<HourlyCache, String?, QQueryOperations> timezoneProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'timezone');
+    });
+  }
+
   QueryBuilder<HourlyCache, List<double>?, QQueryOperations>
       visibilityProperty() {
     return QueryBuilder.apply(this, (query) {
@@ -3287,8 +3492,13 @@ const DailyCacheSchema = CollectionSchema(
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
-    r'weathercode': PropertySchema(
+    r'timezone': PropertySchema(
       id: 4,
+      name: r'timezone',
+      type: IsarType.string,
+    ),
+    r'weathercode': PropertySchema(
+      id: 5,
       name: r'weathercode',
       type: IsarType.longList,
     )
@@ -3332,6 +3542,12 @@ int _dailyCacheEstimateSize(
     }
   }
   {
+    final value = object.timezone;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.weathercode;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
@@ -3350,7 +3566,8 @@ void _dailyCacheSerialize(
   writer.writeDoubleList(offsets[1], object.temperature2MMin);
   writer.writeDateTimeList(offsets[2], object.time);
   writer.writeDateTime(offsets[3], object.timestamp);
-  writer.writeLongList(offsets[4], object.weathercode);
+  writer.writeString(offsets[4], object.timezone);
+  writer.writeLongList(offsets[5], object.weathercode);
 }
 
 DailyCache _dailyCacheDeserialize(
@@ -3364,7 +3581,8 @@ DailyCache _dailyCacheDeserialize(
     temperature2MMin: reader.readDoubleList(offsets[1]),
     time: reader.readDateTimeList(offsets[2]),
     timestamp: reader.readDateTimeOrNull(offsets[3]),
-    weathercode: reader.readLongList(offsets[4]),
+    timezone: reader.readStringOrNull(offsets[4]),
+    weathercode: reader.readLongList(offsets[5]),
   );
   object.id = id;
   return object;
@@ -3386,6 +3604,8 @@ P _dailyCacheDeserializeProp<P>(
     case 3:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 4:
+      return (reader.readStringOrNull(offset)) as P;
+    case 5:
       return (reader.readLongList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -4112,6 +4332,157 @@ extension DailyCacheQueryFilter
     });
   }
 
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> timezoneIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'timezone',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      timezoneIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'timezone',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> timezoneEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      timezoneGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> timezoneLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> timezoneBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'timezone',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      timezoneStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> timezoneEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> timezoneContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'timezone',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> timezoneMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'timezone',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      timezoneIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timezone',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      timezoneIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'timezone',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
       weathercodeIsNull() {
     return QueryBuilder.apply(this, (query) {
@@ -4295,6 +4666,18 @@ extension DailyCacheQuerySortBy
       return query.addSortBy(r'timestamp', Sort.desc);
     });
   }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterSortBy> sortByTimezone() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterSortBy> sortByTimezoneDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.desc);
+    });
+  }
 }
 
 extension DailyCacheQuerySortThenBy
@@ -4322,6 +4705,18 @@ extension DailyCacheQuerySortThenBy
       return query.addSortBy(r'timestamp', Sort.desc);
     });
   }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterSortBy> thenByTimezone() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterSortBy> thenByTimezoneDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timezone', Sort.desc);
+    });
+  }
 }
 
 extension DailyCacheQueryWhereDistinct
@@ -4347,6 +4742,13 @@ extension DailyCacheQueryWhereDistinct
   QueryBuilder<DailyCache, DailyCache, QDistinct> distinctByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timestamp');
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QDistinct> distinctByTimezone(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'timezone', caseSensitive: caseSensitive);
     });
   }
 
@@ -4391,6 +4793,12 @@ extension DailyCacheQueryProperty
     });
   }
 
+  QueryBuilder<DailyCache, String?, QQueryOperations> timezoneProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'timezone');
+    });
+  }
+
   QueryBuilder<DailyCache, List<int>?, QQueryOperations> weathercodeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weathercode');
@@ -4409,14 +4817,14 @@ const LocationCacheSchema = CollectionSchema(
   name: r'LocationCache',
   id: 6756051892239209721,
   properties: {
-    r'administrativeArea': PropertySchema(
+    r'city': PropertySchema(
       id: 0,
-      name: r'administrativeArea',
+      name: r'city',
       type: IsarType.string,
     ),
-    r'city': PropertySchema(
+    r'district': PropertySchema(
       id: 1,
-      name: r'city',
+      name: r'district',
       type: IsarType.string,
     ),
     r'lat': PropertySchema(
@@ -4451,13 +4859,13 @@ int _locationCacheEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
-    final value = object.administrativeArea;
+    final value = object.city;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
   }
   {
-    final value = object.city;
+    final value = object.district;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -4471,8 +4879,8 @@ void _locationCacheSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.administrativeArea);
-  writer.writeString(offsets[1], object.city);
+  writer.writeString(offsets[0], object.city);
+  writer.writeString(offsets[1], object.district);
   writer.writeDouble(offsets[2], object.lat);
   writer.writeDouble(offsets[3], object.lon);
 }
@@ -4484,8 +4892,8 @@ LocationCache _locationCacheDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = LocationCache(
-    administrativeArea: reader.readStringOrNull(offsets[0]),
-    city: reader.readStringOrNull(offsets[1]),
+    city: reader.readStringOrNull(offsets[0]),
+    district: reader.readStringOrNull(offsets[1]),
     lat: reader.readDoubleOrNull(offsets[2]),
     lon: reader.readDoubleOrNull(offsets[3]),
   );
@@ -4609,160 +5017,6 @@ extension LocationCacheQueryWhere
 
 extension LocationCacheQueryFilter
     on QueryBuilder<LocationCache, LocationCache, QFilterCondition> {
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'administrativeArea',
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'administrativeArea',
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'administrativeArea',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'administrativeArea',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'administrativeArea',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'administrativeArea',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      administrativeAreaIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'administrativeArea',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
       cityIsNull() {
     return QueryBuilder.apply(this, (query) {
@@ -4911,6 +5165,160 @@ extension LocationCacheQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'city',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'district',
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'district',
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'district',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'district',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'district',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'district',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+      districtIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'district',
         value: '',
       ));
     });
@@ -5141,20 +5549,6 @@ extension LocationCacheQueryLinks
 
 extension LocationCacheQuerySortBy
     on QueryBuilder<LocationCache, LocationCache, QSortBy> {
-  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
-      sortByAdministrativeArea() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'administrativeArea', Sort.asc);
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
-      sortByAdministrativeAreaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'administrativeArea', Sort.desc);
-    });
-  }
-
   QueryBuilder<LocationCache, LocationCache, QAfterSortBy> sortByCity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.asc);
@@ -5164,6 +5558,19 @@ extension LocationCacheQuerySortBy
   QueryBuilder<LocationCache, LocationCache, QAfterSortBy> sortByCityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.desc);
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterSortBy> sortByDistrict() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'district', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
+      sortByDistrictDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'district', Sort.desc);
     });
   }
 
@@ -5194,20 +5601,6 @@ extension LocationCacheQuerySortBy
 
 extension LocationCacheQuerySortThenBy
     on QueryBuilder<LocationCache, LocationCache, QSortThenBy> {
-  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
-      thenByAdministrativeArea() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'administrativeArea', Sort.asc);
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
-      thenByAdministrativeAreaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'administrativeArea', Sort.desc);
-    });
-  }
-
   QueryBuilder<LocationCache, LocationCache, QAfterSortBy> thenByCity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.asc);
@@ -5217,6 +5610,19 @@ extension LocationCacheQuerySortThenBy
   QueryBuilder<LocationCache, LocationCache, QAfterSortBy> thenByCityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.desc);
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterSortBy> thenByDistrict() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'district', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
+      thenByDistrictDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'district', Sort.desc);
     });
   }
 
@@ -5259,18 +5665,17 @@ extension LocationCacheQuerySortThenBy
 
 extension LocationCacheQueryWhereDistinct
     on QueryBuilder<LocationCache, LocationCache, QDistinct> {
-  QueryBuilder<LocationCache, LocationCache, QDistinct>
-      distinctByAdministrativeArea({bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'administrativeArea',
-          caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<LocationCache, LocationCache, QDistinct> distinctByCity(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'city', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QDistinct> distinctByDistrict(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'district', caseSensitive: caseSensitive);
     });
   }
 
@@ -5295,16 +5700,15 @@ extension LocationCacheQueryProperty
     });
   }
 
-  QueryBuilder<LocationCache, String?, QQueryOperations>
-      administrativeAreaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'administrativeArea');
-    });
-  }
-
   QueryBuilder<LocationCache, String?, QQueryOperations> cityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'city');
+    });
+  }
+
+  QueryBuilder<LocationCache, String?, QQueryOperations> districtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'district');
     });
   }
 

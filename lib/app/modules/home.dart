@@ -126,16 +126,15 @@ class _HomePageState extends State<HomePage> {
               )
             : Obx(() => Text(
                   locationController.isLoading.isFalse
-                      ? locationController.location.administrativeArea!.isEmpty
+                      ? locationController.location.district!.isEmpty
                           ? '${locationController.location.city}'
                           : locationController.location.city!.isEmpty
-                              ? '${locationController.location.administrativeArea}'
+                              ? '${locationController.location.district}'
                               : locationController.location.city ==
-                                      locationController
-                                          .location.administrativeArea
+                                      locationController.location.district
                                   ? '${locationController.location.city}'
                                   : '${locationController.location.city}'
-                                      ', ${locationController.location.administrativeArea}'
+                                      ', ${locationController.location.district}'
                       : 'search'.tr,
                   style: context.theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,

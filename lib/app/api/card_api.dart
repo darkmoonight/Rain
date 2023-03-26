@@ -1,12 +1,15 @@
 class WeatherCardApi {
   WeatherCardApi({
     required this.weatherCardHourly,
+    required this.timezone,
   });
 
   WeatherCardHourly weatherCardHourly;
+  String timezone;
 
   factory WeatherCardApi.fromJson(Map<String, dynamic> json) => WeatherCardApi(
         weatherCardHourly: WeatherCardHourly.fromJson(json["hourly"]),
+        timezone: json["timezone"],
       );
 }
 
