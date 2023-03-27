@@ -17,7 +17,7 @@ An application for viewing the weather in your city
 - Просмотр погоды по часам
 - Просмотр погоды на неделю
 - Просмотр подробных данных о погоде
-- Локализация (ru/en)
+- Локализация (ru/en/it)
 - Кэширование данных
 - Выбор города самостоятельно
 - Добавление карточек других городов
@@ -30,7 +30,7 @@ The following options are provided:
 - View weather by hour
 - View the weather for the week
 - View detailed weather data
-- Localization (ru/en)
+- Localization (ru/en/it)
 - Data caching
 - Choose the city yourself
 - Adding cards of other cities

@@ -12,6 +12,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class LocationController extends GetxController {
   final isLoading = true.obs;
+  final isSearch = true.obs;
   final _district = ''.obs;
   final _city = ''.obs;
   final _latitude = 0.0.obs;
@@ -53,6 +54,20 @@ class LocationController extends GetxController {
     }
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+  }
+
+  void setLocation() async {
+    if (settings.location) {
+      getCurrentLocation();
+    } else {
+      if ((await isar.locationCaches.where().findAll()).isNotEmpty) {
+        LocationCache locationCity =
+            (await isar.locationCaches.where().findFirst())!;
+        isSearch.value = false;
+        getLocation(locationCity.lat!, locationCity.lon!,
+            locationCity.district!, locationCity.city!);
+      }
+    }
   }
 
   Future<void> getCurrentLocation() async {

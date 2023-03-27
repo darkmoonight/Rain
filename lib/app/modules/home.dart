@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:isar/isar.dart';
 import 'package:rain/api_key.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/controller/controller.dart';
-import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/card_weather.dart';
 import 'package:rain/app/modules/settings.dart';
 import 'package:rain/app/modules/weather.dart';
@@ -23,28 +21,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int tabIndex = 0;
+  bool visible = false;
   final locale = Get.locale;
   final locationController = Get.put(LocationController());
-  bool visible = false;
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     locationController.deleteCache();
     locationController.updateCacheCard(false);
-    settings.location
-        ? locationController.getCurrentLocation()
-        : Future.delayed(Duration.zero, () async {
-            if ((await isar.locationCaches.where().findAll()).isNotEmpty) {
-              LocationCache locationCity =
-                  (await isar.locationCaches.where().findFirst())!;
-              locationController.getLocation(
-                  locationCity.lat!,
-                  locationCity.lon!,
-                  locationCity.district!,
-                  locationCity.city!);
-            }
-          });
+    locationController.setLocation();
     super.initState();
   }
 
@@ -152,7 +138,9 @@ class _HomePageState extends State<HomePage> {
                                       ', ${locationController.location.district}'
                       : settings.location
                           ? 'search'.tr
-                          : 'searchCity'.tr,
+                          : locationController.isSearch.isFalse
+                              ? 'loading'.tr
+                              : 'searchCity'.tr,
                   style: context.theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,

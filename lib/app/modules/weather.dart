@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:isar/isar.dart';
 import 'package:rain/app/controller/controller.dart';
-import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/shimmer.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
-import 'package:rain/main.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class WeatherPage extends StatefulWidget {
@@ -27,19 +24,7 @@ class _WeatherPageState extends State<WeatherPage> {
     return RefreshIndicator(
       onRefresh: () async {
         await locationController.deleteAll(false);
-        settings.location
-            ? await locationController.getCurrentLocation()
-            : Future.delayed(Duration.zero, () async {
-                if ((await isar.locationCaches.where().findAll()).isNotEmpty) {
-                  LocationCache locationCity =
-                      (await isar.locationCaches.where().findFirst())!;
-                  locationController.getLocation(
-                      locationCity.lat!,
-                      locationCity.lon!,
-                      locationCity.district!,
-                      locationCity.city!);
-                }
-              });
+        locationController.setLocation();
         setState(() {});
       },
       child: SafeArea(
