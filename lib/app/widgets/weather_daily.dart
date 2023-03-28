@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status.dart';
+import 'package:rain/app/widgets/status_im_fa.dart';
 
 class WeatherDaily extends StatefulWidget {
   const WeatherDaily({
@@ -23,6 +24,7 @@ class WeatherDaily extends StatefulWidget {
 class _WeatherDailyState extends State<WeatherDaily> {
   final locale = Get.locale;
   final status = Status();
+  final statusImFa = StatusImFa();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  '${widget.minDegree.round().toInt()}°C',
+                  statusImFa.getDegree(widget.minDegree.round().toInt()),
                   style: context.theme.textTheme.labelLarge,
                 ),
                 Text(
@@ -71,7 +73,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                   ),
                 ),
                 Text(
-                  '${widget.maxDegree.round().toInt()}°C',
+                  statusImFa.getDegree(widget.maxDegree.round().toInt()),
                   style: context.theme.textTheme.bodyMedium?.copyWith(
                     color: Colors.grey,
                   ),

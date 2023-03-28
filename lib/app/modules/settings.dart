@@ -28,6 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           text: 'theme'.tr,
           switcher: true,
+          dropdown: false,
           value: Get.isDarkMode,
           onChange: (_) {
             if (Get.isDarkMode) {
@@ -46,6 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           text: 'location'.tr,
           switcher: true,
+          dropdown: false,
           value: settings.location,
           onChange: (value) {
             isar.writeTxn(() async {
@@ -57,11 +59,60 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         SettingLinks(
           icon: Icon(
+            Iconsax.sun_1,
+            color: context.theme.iconTheme.color,
+          ),
+          text: 'degrees'.tr,
+          switcher: false,
+          dropdown: true,
+          dropdownName:
+              settings.degrees == 'celsius' ? 'celsius'.tr : 'fahrenheit'.tr,
+          dropdownList: <String>['celsius'.tr, 'fahrenheit'.tr],
+          dropdownCange: (String? newValue) {
+            isar.writeTxn(() async {
+              if (newValue == 'celsius'.tr) {
+                settings.degrees = 'celsius';
+                isar.settings.put(settings);
+              } else {
+                settings.degrees = 'fahrenheit';
+                isar.settings.put(settings);
+              }
+            });
+            setState(() {});
+          },
+        ),
+        SettingLinks(
+          icon: Icon(
+            Iconsax.rulerpen,
+            color: context.theme.iconTheme.color,
+          ),
+          text: 'measurements'.tr,
+          switcher: false,
+          dropdown: true,
+          dropdownName:
+              settings.measurements == 'metric' ? 'metric'.tr : 'imperial'.tr,
+          dropdownList: <String>['metric'.tr, 'imperial'.tr],
+          dropdownCange: (String? newValue) {
+            isar.writeTxn(() async {
+              if (newValue == 'metric'.tr) {
+                settings.measurements = 'metric';
+                isar.settings.put(settings);
+              } else {
+                settings.measurements = 'imperial';
+                isar.settings.put(settings);
+              }
+            });
+            setState(() {});
+          },
+        ),
+        SettingLinks(
+          icon: Icon(
             Iconsax.info_circle,
             color: context.theme.iconTheme.color,
           ),
           text: 'about'.tr,
           switcher: false,
+          dropdown: false,
           onPressed: () =>
               Get.to(() => const AboutPage(), transition: Transition.downToUp),
         ),

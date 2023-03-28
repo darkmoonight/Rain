@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/shimmer.dart';
+import 'package:rain/app/widgets/status_im_fa.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
@@ -17,6 +18,7 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   final locale = Get.locale;
+  final statusImFa = StatusImFa();
   final locationController = Get.put(LocationController());
 
   @override
@@ -128,14 +130,18 @@ class _WeatherPageState extends State<WeatherPage> {
                                 ),
                                 DescWeather(
                                   imageName: 'assets/images/wind.png',
-                                  value:
-                                      '${locationController.hourly.windspeed10M![locationController.hourOfDay.value].round()} ${'km/h'.tr}',
+                                  value: statusImFa.getSpeed(locationController
+                                      .hourly
+                                      .windspeed10M![
+                                          locationController.hourOfDay.value]
+                                      .round()),
                                   desc: 'wind'.tr,
                                 ),
                                 DescWeather(
                                   imageName: 'assets/images/foggy.png',
-                                  value:
-                                      '${locationController.hourly.visibility![locationController.hourOfDay.value] > 1000 ? (locationController.hourly.visibility![locationController.hourOfDay.value] / 1000).round() : (locationController.hourly.visibility![locationController.hourOfDay.value] / 1000)} ${'km'.tr}',
+                                  value: statusImFa.getVisibility(
+                                      locationController.hourly.visibility![
+                                          locationController.hourOfDay.value]),
                                   desc: 'visibility'.tr,
                                 ),
                               ],
@@ -152,14 +158,20 @@ class _WeatherPageState extends State<WeatherPage> {
                                 ),
                                 DescWeather(
                                   imageName: 'assets/images/evaporation.png',
-                                  value:
-                                      '${locationController.hourly.evapotranspiration![locationController.hourOfDay.value].abs()} ${'mm'.tr}',
+                                  value: statusImFa.getPrecipitation(
+                                      locationController
+                                          .hourly
+                                          .evapotranspiration![
+                                              locationController
+                                                  .hourOfDay.value]
+                                          .abs()),
                                   desc: 'evaporation'.tr,
                                 ),
                                 DescWeather(
                                   imageName: 'assets/images/rainfall.png',
-                                  value:
-                                      '${locationController.hourly.precipitation![locationController.hourOfDay.value]} ${'mm'.tr}',
+                                  value: statusImFa.getPrecipitation(
+                                      locationController.hourly.precipitation![
+                                          locationController.hourOfDay.value]),
                                   desc: 'precipitation'.tr,
                                 ),
                               ],
@@ -199,8 +211,9 @@ class _WeatherPageState extends State<WeatherPage> {
                                 ),
                                 DescWeather(
                                   imageName: 'assets/images/water.png',
-                                  value:
-                                      '${locationController.hourly.rain![locationController.hourOfDay.value]} ${'mm'.tr}',
+                                  value: statusImFa.getPrecipitation(
+                                      locationController.hourly.rain![
+                                          locationController.hourOfDay.value]),
                                   desc: 'rain'.tr,
                                 ),
                               ],

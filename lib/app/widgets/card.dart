@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/status.dart';
+import 'package:rain/app/widgets/status_im_fa.dart';
 import 'package:timezone/standalone.dart' as tz;
 
 class CardDescWeather extends StatefulWidget {
@@ -28,6 +29,7 @@ class CardDescWeather extends StatefulWidget {
 
 class _CardDescWeatherState extends State<CardDescWeather> {
   final status = Status();
+  final statusImFa = StatusImFa();
   final locationController = Get.put(LocationController());
 
   @override
@@ -50,7 +52,10 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '${widget.degree[locationController.getTime(widget.time, widget.timezone)].round().toInt()}°C',
+                      statusImFa.getDegree(widget.degree[locationController
+                              .getTime(widget.time, widget.timezone)]
+                          .round()
+                          .toInt()),
                       style: context.theme.textTheme.titleLarge?.copyWith(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,

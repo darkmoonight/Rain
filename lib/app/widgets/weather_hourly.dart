@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status.dart';
+import 'package:rain/app/widgets/status_im_fa.dart';
 
 class WeatherHourly extends StatefulWidget {
   const WeatherHourly({
@@ -20,6 +21,8 @@ class WeatherHourly extends StatefulWidget {
 
 class _WeatherHourlyState extends State<WeatherHourly> {
   final status = Status();
+  final statusImFa = StatusImFa();
+
   @override
   Widget build(BuildContext context) {
     final locale = Get.locale;
@@ -47,7 +50,7 @@ class _WeatherHourlyState extends State<WeatherHourly> {
           scale: 3,
         ),
         Text(
-          '${widget.degree.round().toInt()}°C',
+          statusImFa.getDegree(widget.degree.round().toInt()),
           style: context.theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),

@@ -8,6 +8,8 @@ class Settings {
   bool onboard = false;
   bool? theme;
   bool location = false;
+  String measurements = 'metric';
+  String degrees = 'celsius';
 }
 
 @collection
