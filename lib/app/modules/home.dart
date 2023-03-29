@@ -115,8 +115,8 @@ class _HomePageState extends State<HomePage> {
                 onSuggestionSelected: (suggestion) async {
                   await locationController.deleteAll(true);
                   await locationController.getLocation(
-                    double.parse('${suggestion['lat']}'),
-                    double.parse('${suggestion['lon']}'),
+                    double.parse('${suggestion['lat'].toStringAsFixed(4)}'),
+                    double.parse('${suggestion['lon'].toStringAsFixed(4)}'),
                     suggestion['state'] ?? suggestion['country'],
                     suggestion['city'] ?? suggestion['state'],
                   );

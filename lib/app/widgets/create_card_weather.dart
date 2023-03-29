@@ -72,6 +72,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     IconButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
+                          textTrim(_controllerLat);
+                          textTrim(_controllerLon);
                           textTrim(_controllerCity);
                           textTrim(_controllerDistrict);
                           locationController.addCardWeather(
@@ -158,8 +160,10 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     ),
                   ),
                   onSuggestionSelected: (suggestion) async {
-                    _controllerLat.text = '${suggestion['lat']}';
-                    _controllerLon.text = '${suggestion['lon']}';
+                    _controllerLat.text =
+                        '${suggestion['lat'].toStringAsFixed(4)}';
+                    _controllerLon.text =
+                        '${suggestion['lon'].toStringAsFixed(4)}';
                     _controllerCity.text =
                         suggestion['city'] ?? suggestion['state'];
                     _controllerDistrict.text =
@@ -170,31 +174,45 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                   },
                 ),
               ),
-              Row(
-                children: [
-                  Flexible(
-                    child: MyTextForm(
-                      controller: _controllerLat,
-                      labelText: 'lat'.tr,
-                      type: TextInputType.text,
-                      icon: const Icon(Iconsax.location),
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
-                      readOnly: true,
-                    ),
-                  ),
-                  Flexible(
-                    child: MyTextForm(
-                      controller: _controllerLon,
-                      labelText: 'lon'.tr,
-                      type: TextInputType.text,
-                      icon: const Icon(Iconsax.location),
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
-                      readOnly: true,
-                    ),
-                  ),
-                ],
+              MyTextForm(
+                controller: _controllerLat,
+                labelText: 'lat'.tr,
+                type: TextInputType.text,
+                icon: const Icon(Iconsax.location),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'validateValue'.tr;
+                  }
+                  double? numericValue = double.tryParse(value);
+                  if (numericValue == null) {
+                    return 'validateNumber'.tr;
+                  }
+                  if (numericValue < -90 || numericValue > 90) {
+                    return 'validate90'.tr;
+                  }
+                  return null;
+                },
+              ),
+              MyTextForm(
+                controller: _controllerLon,
+                labelText: 'lon'.tr,
+                type: TextInputType.text,
+                icon: const Icon(Iconsax.location),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'validateValue'.tr;
+                  }
+                  double? numericValue = double.tryParse(value);
+                  if (numericValue == null) {
+                    return 'validateNumber'.tr;
+                  }
+                  if (numericValue < -180 || numericValue > 180) {
+                    return 'validate180'.tr;
+                  }
+                  return null;
+                },
               ),
               MyTextForm(
                 controller: _controllerCity,
@@ -202,7 +220,6 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                 type: TextInputType.text,
                 icon: const Icon(Icons.location_city_rounded),
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                readOnly: false,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'validateName'.tr;
@@ -216,7 +233,6 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                 type: TextInputType.text,
                 icon: const Icon(Iconsax.global),
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                readOnly: false,
               ),
               const SizedBox(height: 20),
             ],

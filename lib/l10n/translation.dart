@@ -72,6 +72,10 @@ class Translation extends Translations {
           'fahrenheit': 'Фаренгейта',
           'imperial': 'Имперская',
           'metric': 'Метрическая',
+          'validateValue': 'Пожалуйста, введите значение',
+          'validateNumber': 'Пожалуйста, введите число',
+          'validate90': 'Значение должно быть в диапазоне от -90 до 90',
+          'validate180': 'Значение должно быть в диапазоне от -180 до 180',
         },
         'en_US': {
           'start': 'Get Started',
@@ -142,6 +146,10 @@ class Translation extends Translations {
           'fahrenheit': 'Fahrenheit',
           'imperial': 'Imperial',
           'metric': 'Metric',
+          'validateValue': 'Please enter a value',
+          'validateNumber': 'Please enter a valid number',
+          'validate90': 'Value must be between -90 and 90',
+          'validate180': 'Value must be between -180 and 180',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -212,6 +220,10 @@ class Translation extends Translations {
           'fahrenheit': 'Fahrenheit',
           'imperial': 'Imperiale',
           'metric': 'Metrico',
+          'validateValue': 'Si prega di inserire il valore',
+          'validateNumber': 'Si prega di inserire il numero',
+          'validate90': 'Il valore deve essere compreso tra -90 e 90',
+          'validate180': 'Il valore deve essere compreso tra -180 e 180',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -283,6 +295,10 @@ class Translation extends Translations {
           'fahrenheit': 'Fahrenheit',
           'imperial': 'Imperiales',
           'metric': 'Metrisches',
+          'validateValue': 'Bitte geben Sie einen Wert ein',
+          'validateNumber': 'Bitte geben Sie eine Nummer ein',
+          'validate90': 'Der Wert muss zwischen -90 und 90 liegen',
+          'validate180': 'Der Wert muss zwischen -180 und 180 liegen',
         },
       };
 }

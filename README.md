@@ -21,6 +21,8 @@ An application for viewing the weather in your city
 - Кэширование данных
 - Выбор города самостоятельно
 - Добавление карточек других городов
+- Выбор между метрической системой мер и имперской
+- Выбор между градусами Цельсия и Фаренгейта
 Также мы постарались сделать дизайн максимально удобным и красивым. -->
 
 This application allows you to view the weather in your city.
@@ -34,6 +36,8 @@ The following options are provided:
 - Data caching
 - Choose the city yourself
 - Adding cards of other cities
+- The choice between the metric system of measures and the imperial
+- Choose between Celsius and Fahrenheit
 
 We also tried to make the design as convenient and beautiful as possible.
 
