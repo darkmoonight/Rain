@@ -13,18 +13,17 @@ class WeatherAPI {
   final Dio dioLocation = Dio();
 
   Future<HourlyCache> getWeatherData(double? lat, double? lon) async {
+    String baseUrl =
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto&forecast_days=3';
     String url;
     settings.measurements == 'imperial' && settings.degrees == 'fahrenheit'
         ? url =
-            'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto&forecast_days=3&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch'
+            '$baseUrl&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch'
         : settings.measurements == 'imperial'
-            ? url =
-                'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto&forecast_days=3&windspeed_unit=mph&precipitation_unit=inch'
+            ? url = '$baseUrl&windspeed_unit=mph&precipitation_unit=inch'
             : settings.degrees == 'fahrenheit'
-                ? url =
-                    'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto&forecast_days=3&temperature_unit=fahrenheit'
-                : url =
-                    'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto&forecast_days=3';
+                ? url = '$baseUrl&temperature_unit=fahrenheit'
+                : url = baseUrl;
     try {
       Response response = await dio.get(url);
       WeatherHourlyApi weatherData = WeatherHourlyApi.fromJson(response.data);
@@ -53,12 +52,12 @@ class WeatherAPI {
   }
 
   Future<DailyCache> getWeather7Data(double? lat, double? lon) async {
+    String baseUrl =
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto';
     String url;
     settings.degrees == 'fahrenheit'
-        ? url =
-            'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto&temperature_unit=fahrenheit'
-        : url =
-            'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto';
+        ? url = '$baseUrl&temperature_unit=fahrenheit'
+        : url = baseUrl;
     try {
       Response response = await dio.get(url);
       WeatherDailyApi weatherData = WeatherDailyApi.fromJson(response.data);
@@ -82,7 +81,6 @@ class WeatherAPI {
       String query, Locale? locale, String apiKey) async {
     final url =
         'https://api.geoapify.com/v1/geocode/search?city=$query&apiKey=$apiKey&lang=${locale?.languageCode}&format=json';
-
     try {
       Response response = await dioLocation.get(url);
       if (response.statusCode == 200) {
@@ -102,12 +100,12 @@ class WeatherAPI {
 
   Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
       String district, String timezone) async {
+    String baseUrl =
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,weathercode&timezone=auto&forecast_days=3';
     String url;
     settings.degrees == 'fahrenheit'
-        ? url =
-            'latitude=$lat&longitude=$lon&hourly=temperature_2m,weathercode&timezone=auto&forecast_days=3&temperature_unit=fahrenheit'
-        : url =
-            'latitude=$lat&longitude=$lon&hourly=temperature_2m,weathercode&timezone=auto&forecast_days=3';
+        ? url = '$baseUrl&temperature_unit=fahrenheit'
+        : url = baseUrl;
     try {
       Response response = await dio.get(url);
       WeatherCardApi weatherData = WeatherCardApi.fromJson(response.data);

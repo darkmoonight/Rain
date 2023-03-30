@@ -28,10 +28,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    locationController.deleteCache();
-    locationController.updateCacheCard(false);
-    locationController.setLocation();
+    getData();
     super.initState();
+  }
+
+  void getData() async {
+    await locationController.deleteCache();
+    await locationController.updateCacheCard(false);
+    await locationController.setLocation();
   }
 
   void changeTabIndex(int index) {

@@ -24,7 +24,6 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
   final TextEditingController _controllerLon = TextEditingController();
   final TextEditingController _controllerCity = TextEditingController();
   final TextEditingController _controllerDistrict = TextEditingController();
-  final TextEditingController _controllerTimezone = TextEditingController();
 
   textTrim(value) {
     value.text = value.text.trim();
@@ -38,7 +37,6 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
     _controllerLon.text = '${suggestion['lon'].toStringAsFixed(4)}';
     _controllerCity.text = suggestion['city'] ?? suggestion['state'];
     _controllerDistrict.text = suggestion['state'] ?? suggestion['country'];
-    _controllerTimezone.text = suggestion['timezone']['name'];
     _controller.clear();
     setState(() {});
   }
@@ -95,7 +93,6 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                                 double.parse(_controllerLon.text),
                                 _controllerCity.text,
                                 _controllerDistrict.text,
-                                _controllerTimezone.text,
                               );
                               setState(() => isLoading = false);
                               Get.back();

@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 1.1.0+11
+version: 1.1.1+12
 
 environment:
   sdk: ">=2.19.4 <3.0.0"
@@ -14,7 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get: ^4.6.5
-  dio: ^5.1.0
+  dio: ^5.1.1
   isar: ^3.0.5
   intl: ^0.17.0
   shimmer: ^2.0.0
@@ -29,6 +29,7 @@ dependencies:
   package_info_plus: ^3.0.3
   connectivity_plus: ^3.0.3
   isar_flutter_libs: ^3.0.5
+  lat_lng_to_timezone: ^0.2.0
   custom_navigation_bar: ^0.8.2
   scrollable_positioned_list: ^0.3.5
   internet_connection_checker: ^1.0.0+1

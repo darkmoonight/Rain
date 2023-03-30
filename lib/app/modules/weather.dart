@@ -26,7 +26,7 @@ class _WeatherPageState extends State<WeatherPage> {
     return RefreshIndicator(
       onRefresh: () async {
         await locationController.deleteAll(false);
-        locationController.setLocation();
+        await locationController.setLocation();
         setState(() {});
       },
       child: SafeArea(

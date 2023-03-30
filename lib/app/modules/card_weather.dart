@@ -110,8 +110,9 @@ class _CardWeatherState extends State<CardWeather> {
                             },
                           );
                         },
-                        onDismissed: (DismissDirection direction) {
-                          locationController.deleteCardWeather(weatherCardList);
+                        onDismissed: (DismissDirection direction) async {
+                          await locationController
+                              .deleteCardWeather(weatherCardList);
                         },
                         child: CardDescWeather(
                           time: weatherCardList.time!,
@@ -139,17 +140,15 @@ class _CardWeatherState extends State<CardWeather> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            enableDrag: false,
-            backgroundColor: context.theme.colorScheme.secondaryContainer,
-            context: context,
-            isScrollControlled: true,
-            builder: (BuildContext context) {
-              return const CreateWeatherCard();
-            },
-          );
-        },
+        onPressed: () => showModalBottomSheet(
+          enableDrag: false,
+          backgroundColor: context.theme.colorScheme.secondaryContainer,
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return const CreateWeatherCard();
+          },
+        ),
         backgroundColor: context.theme.colorScheme.tertiaryContainer,
         child: const Icon(Iconsax.add),
       ),

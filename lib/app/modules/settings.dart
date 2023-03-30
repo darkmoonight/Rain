@@ -65,18 +65,13 @@ class _SettingsPageState extends State<SettingsPage> {
           text: 'degrees'.tr,
           switcher: false,
           dropdown: true,
-          dropdownName:
-              settings.degrees == 'celsius' ? 'celsius'.tr : 'fahrenheit'.tr,
+          dropdownName: settings.degrees.tr,
           dropdownList: <String>['celsius'.tr, 'fahrenheit'.tr],
           dropdownCange: (String? newValue) {
             isar.writeTxn(() async {
-              if (newValue == 'celsius'.tr) {
-                settings.degrees = 'celsius';
-                isar.settings.put(settings);
-              } else {
-                settings.degrees = 'fahrenheit';
-                isar.settings.put(settings);
-              }
+              settings.degrees =
+                  newValue == 'celsius'.tr ? 'celsius' : 'fahrenheit';
+              isar.settings.put(settings);
             });
             setState(() {});
           },
@@ -89,18 +84,13 @@ class _SettingsPageState extends State<SettingsPage> {
           text: 'measurements'.tr,
           switcher: false,
           dropdown: true,
-          dropdownName:
-              settings.measurements == 'metric' ? 'metric'.tr : 'imperial'.tr,
+          dropdownName: settings.measurements.tr,
           dropdownList: <String>['metric'.tr, 'imperial'.tr],
           dropdownCange: (String? newValue) {
             isar.writeTxn(() async {
-              if (newValue == 'metric'.tr) {
-                settings.measurements = 'metric';
-                isar.settings.put(settings);
-              } else {
-                settings.measurements = 'imperial';
-                isar.settings.put(settings);
-              }
+              settings.measurements =
+                  newValue == 'metric'.tr ? 'metric' : 'imperial';
+              isar.settings.put(settings);
             });
             setState(() {});
           },

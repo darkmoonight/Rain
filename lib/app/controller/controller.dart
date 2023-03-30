@@ -8,6 +8,7 @@ import 'package:rain/app/api/api.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/main.dart';
 import 'package:timezone/standalone.dart' as tz;
+import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class LocationController extends GetxController {
@@ -56,15 +57,15 @@ class LocationController extends GetxController {
         desiredAccuracy: LocationAccuracy.high);
   }
 
-  void setLocation() async {
+  Future<void> setLocation() async {
     if (settings.location) {
-      getCurrentLocation();
+      await getCurrentLocation();
     } else {
       if ((await isar.locationCaches.where().findAll()).isNotEmpty) {
         LocationCache locationCity =
             (await isar.locationCaches.where().findFirst())!;
         isSearch.value = false;
-        getLocation(locationCity.lat!, locationCity.lon!,
+        await getLocation(locationCity.lat!, locationCity.lon!,
             locationCity.district!, locationCity.city!);
       }
     }
@@ -90,8 +91,8 @@ class LocationController extends GetxController {
       _daily.value =
           await WeatherAPI().getWeather7Data(_latitude.value, _longitude.value);
 
-      writeCache();
-      readCache();
+      await writeCache();
+      await readCache();
     } else if (!await isDeviceConnectedNotifier.value && serviceEnabled) {
       Get.snackbar(
         'no_inter'.tr,
@@ -101,7 +102,7 @@ class LocationController extends GetxController {
         icon: const Icon(Iconsax.wifi),
         shouldIconPulse: true,
       );
-      readCache();
+      await readCache();
     } else if (await isDeviceConnectedNotifier.value && !serviceEnabled) {
       Get.snackbar(
         'location'.tr,
@@ -117,7 +118,7 @@ class LocationController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
       );
-      readCache();
+      await readCache();
     } else if (!await isDeviceConnectedNotifier.value && !serviceEnabled) {
       Get.snackbar(
         'no_inter'.tr,
@@ -141,7 +142,7 @@ class LocationController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
       );
-      readCache();
+      await readCache();
     }
   }
 
@@ -158,8 +159,8 @@ class LocationController extends GetxController {
       _daily.value =
           await WeatherAPI().getWeather7Data(_latitude.value, _longitude.value);
 
-      writeCache();
-      readCache();
+      await writeCache();
+      await readCache();
     } else if (!await isDeviceConnectedNotifier.value) {
       Get.snackbar(
         'no_inter'.tr,
@@ -169,11 +170,11 @@ class LocationController extends GetxController {
         icon: const Icon(Iconsax.wifi),
         shouldIconPulse: true,
       );
-      readCache();
+      await readCache();
     }
   }
 
-  void readCache() async {
+  Future<void> readCache() async {
     HourlyCache? hourlyCache;
     DailyCache? dailyCache;
     LocationCache? locationCache;
@@ -200,7 +201,7 @@ class LocationController extends GetxController {
     });
   }
 
-  void writeCache() async {
+  Future<void> writeCache() async {
     final locationCaches = LocationCache(
       lat: _latitude.value,
       lon: _longitude.value,
@@ -223,7 +224,7 @@ class LocationController extends GetxController {
     });
   }
 
-  void deleteCache() async {
+  Future<void> deleteCache() async {
     if (await isDeviceConnectedNotifier.value) {
       isar.writeTxn(() async {
         await isar.hourlyCaches
@@ -255,11 +256,12 @@ class LocationController extends GetxController {
     yield* isar.weatherCards.where().watch(fireImmediately: true);
   }
 
-  Future<void> addCardWeather(double latitude, double longitude, String city,
-      String district, String timezone) async {
+  Future<void> addCardWeather(
+      double latitude, double longitude, String city, String district) async {
     if (await isDeviceConnectedNotifier.value) {
+      String tz = tzmap.latLngToTimezoneString(latitude, longitude);
       _weatherCard.value = await WeatherAPI()
-          .getWeatherCard(latitude, longitude, city, district, timezone);
+          .getWeatherCard(latitude, longitude, city, district, tz);
 
       isar.writeTxn(() async {
         await isar.weatherCards.put(_weatherCard.value);
