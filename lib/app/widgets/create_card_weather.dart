@@ -70,13 +70,13 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           textTrim(_controllerLat);
                           textTrim(_controllerLon);
                           textTrim(_controllerCity);
                           textTrim(_controllerDistrict);
-                          locationController.addCardWeather(
+                          await locationController.addCardWeather(
                             double.parse(_controllerLat.text),
                             double.parse(_controllerLon.text),
                             _controllerCity.text,
