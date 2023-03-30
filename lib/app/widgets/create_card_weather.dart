@@ -16,6 +16,7 @@ class CreateWeatherCard extends StatefulWidget {
 
 class _CreateWeatherCardState extends State<CreateWeatherCard> {
   final locale = Get.locale;
+  bool isLoading = false;
   final formKey = GlobalKey<FormState>();
   final locationController = Get.put(LocationController());
   final TextEditingController _controller = TextEditingController();
@@ -32,211 +33,225 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
     }
   }
 
+  void fillController(suggestion) {
+    _controllerLat.text = '${suggestion['lat'].toStringAsFixed(4)}';
+    _controllerLon.text = '${suggestion['lon'].toStringAsFixed(4)}';
+    _controllerCity.text = suggestion['city'] ?? suggestion['state'];
+    _controllerDistrict.text = suggestion['state'] ?? suggestion['country'];
+    _controllerTimezone.text = suggestion['timezone']['name'];
+    _controller.clear();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
       child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 5, right: 10),
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 5, right: 10),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                icon: Icon(
+                                  Icons.close_rounded,
+                                  color: context.theme.iconTheme.color,
+                                  size: 20,
+                                ),
+                              ),
+                              Text(
+                                'create'.tr,
+                                style: context.theme.textTheme.titleLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              textTrim(_controllerLat);
+                              textTrim(_controllerLon);
+                              textTrim(_controllerCity);
+                              textTrim(_controllerDistrict);
+                              setState(() => isLoading = true);
+                              await locationController.addCardWeather(
+                                double.parse(_controllerLat.text),
+                                double.parse(_controllerLon.text),
+                                _controllerCity.text,
+                                _controllerDistrict.text,
+                                _controllerTimezone.text,
+                              );
+                              setState(() => isLoading = false);
                               Get.back();
-                            },
-                            icon: Icon(
-                              Icons.close_rounded,
-                              color: context.theme.iconTheme.color,
-                              size: 20,
+                            }
+                          },
+                          icon: Icon(
+                            Icons.save_rounded,
+                            color: context.theme.iconTheme.color,
+                            size: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    child: TypeAheadField(
+                      suggestionsBoxDecoration: SuggestionsBoxDecoration(
+                        color: context.theme.scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      textFieldConfiguration: TextFieldConfiguration(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Iconsax.global_search),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide(
+                              color: context.theme.disabledColor,
                             ),
                           ),
-                          Text(
-                            'create'.tr,
-                            style: context.theme.textTheme.titleLarge,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide(
+                              color: context.theme.disabledColor,
+                            ),
                           ),
-                        ],
+                          labelText: 'search'.tr,
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          textTrim(_controllerLat);
-                          textTrim(_controllerLon);
-                          textTrim(_controllerCity);
-                          textTrim(_controllerDistrict);
-                          await locationController.addCardWeather(
-                            double.parse(_controllerLat.text),
-                            double.parse(_controllerLon.text),
-                            _controllerCity.text,
-                            _controllerDistrict.text,
-                            _controllerTimezone.text,
-                          );
-                          Get.back();
-                        }
+                      errorBuilder: (context, error) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          height: 45,
+                          child: Center(
+                            child: Text(
+                              'enter_name'.tr,
+                              style: context.theme.textTheme.bodyLarge,
+                            ),
+                          ),
+                        );
                       },
-                      icon: Icon(
-                        Icons.save_rounded,
-                        color: context.theme.iconTheme.color,
-                        size: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                child: TypeAheadField(
-                  suggestionsBoxDecoration: SuggestionsBoxDecoration(
-                    color: context.theme.scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  textFieldConfiguration: TextFieldConfiguration(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Iconsax.global_search),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                          color: context.theme.disabledColor,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                          color: context.theme.disabledColor,
-                        ),
-                      ),
-                      labelText: 'search'.tr,
-                    ),
-                  ),
-                  errorBuilder: (context, error) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      height: 45,
-                      child: Center(
-                        child: Text(
-                          'enter_name'.tr,
+                      noItemsFoundBuilder: (context) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          height: 45,
+                          child: Center(
+                            child: Text(
+                              'notFound'.tr,
+                              style: context.theme.textTheme.bodyLarge,
+                            ),
+                          ),
+                        );
+                      },
+                      suggestionsCallback: (query) =>
+                          WeatherAPI().getSuggestions(query, locale, apiKey),
+                      itemBuilder: (context, suggestion) => ListTile(
+                        title: Text(
+                          suggestion['state'] == null
+                              ? '${suggestion['city']}, ${suggestion['country']}'
+                              : suggestion['city'] == null
+                                  ? '${suggestion['state']}, ${suggestion['country']}'
+                                  : '${suggestion['city']}, ${suggestion['state']}',
                           style: context.theme.textTheme.bodyLarge,
                         ),
                       ),
-                    );
-                  },
-                  noItemsFoundBuilder: (context) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      height: 45,
-                      child: Center(
-                        child: Text(
-                          'notFound'.tr,
-                          style: context.theme.textTheme.bodyLarge,
-                        ),
-                      ),
-                    );
-                  },
-                  suggestionsCallback: (query) =>
-                      WeatherAPI().getSuggestions(query, locale, apiKey),
-                  itemBuilder: (context, suggestion) => ListTile(
-                    title: Text(
-                      suggestion['state'] == null
-                          ? '${suggestion['city']}, ${suggestion['country']}'
-                          : suggestion['city'] == null
-                              ? '${suggestion['state']}, ${suggestion['country']}'
-                              : '${suggestion['city']}, ${suggestion['state']}',
-                      style: context.theme.textTheme.bodyLarge,
+                      onSuggestionSelected: (suggestion) =>
+                          fillController(suggestion),
                     ),
                   ),
-                  onSuggestionSelected: (suggestion) async {
-                    _controllerLat.text =
-                        '${suggestion['lat'].toStringAsFixed(4)}';
-                    _controllerLon.text =
-                        '${suggestion['lon'].toStringAsFixed(4)}';
-                    _controllerCity.text =
-                        suggestion['city'] ?? suggestion['state'];
-                    _controllerDistrict.text =
-                        suggestion['state'] ?? suggestion['country'];
-                    _controllerTimezone.text = suggestion['timezone']['name'];
-                    _controller.clear();
-                    setState(() {});
-                  },
-                ),
+                  MyTextForm(
+                    controller: _controllerLat,
+                    labelText: 'lat'.tr,
+                    type: TextInputType.text,
+                    icon: const Icon(Iconsax.location),
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'validateValue'.tr;
+                      }
+                      double? numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'validateNumber'.tr;
+                      }
+                      if (numericValue < -90 || numericValue > 90) {
+                        return 'validate90'.tr;
+                      }
+                      return null;
+                    },
+                  ),
+                  MyTextForm(
+                    controller: _controllerLon,
+                    labelText: 'lon'.tr,
+                    type: TextInputType.text,
+                    icon: const Icon(Iconsax.location),
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'validateValue'.tr;
+                      }
+                      double? numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'validateNumber'.tr;
+                      }
+                      if (numericValue < -180 || numericValue > 180) {
+                        return 'validate180'.tr;
+                      }
+                      return null;
+                    },
+                  ),
+                  MyTextForm(
+                    controller: _controllerCity,
+                    labelText: 'city'.tr,
+                    type: TextInputType.text,
+                    icon: const Icon(Icons.location_city_rounded),
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'validateName'.tr;
+                      }
+                      return null;
+                    },
+                  ),
+                  MyTextForm(
+                    controller: _controllerDistrict,
+                    labelText: 'district'.tr,
+                    type: TextInputType.text,
+                    icon: const Icon(Iconsax.global),
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
-              MyTextForm(
-                controller: _controllerLat,
-                labelText: 'lat'.tr,
-                type: TextInputType.text,
-                icon: const Icon(Iconsax.location),
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'validateValue'.tr;
-                  }
-                  double? numericValue = double.tryParse(value);
-                  if (numericValue == null) {
-                    return 'validateNumber'.tr;
-                  }
-                  if (numericValue < -90 || numericValue > 90) {
-                    return 'validate90'.tr;
-                  }
-                  return null;
-                },
+            ),
+            if (isLoading)
+              const Center(
+                child: CircularProgressIndicator(),
               ),
-              MyTextForm(
-                controller: _controllerLon,
-                labelText: 'lon'.tr,
-                type: TextInputType.text,
-                icon: const Icon(Iconsax.location),
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'validateValue'.tr;
-                  }
-                  double? numericValue = double.tryParse(value);
-                  if (numericValue == null) {
-                    return 'validateNumber'.tr;
-                  }
-                  if (numericValue < -180 || numericValue > 180) {
-                    return 'validate180'.tr;
-                  }
-                  return null;
-                },
-              ),
-              MyTextForm(
-                controller: _controllerCity,
-                labelText: 'city'.tr,
-                type: TextInputType.text,
-                icon: const Icon(Icons.location_city_rounded),
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'validateName'.tr;
-                  }
-                  return null;
-                },
-              ),
-              MyTextForm(
-                controller: _controllerDistrict,
-                labelText: 'district'.tr,
-                type: TextInputType.text,
-                icon: const Icon(Iconsax.global),
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
+          ],
         ),
       ),
     );

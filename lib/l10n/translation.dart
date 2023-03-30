@@ -46,7 +46,7 @@ class Translation extends Translations {
               'Включите службу определения местоположения для получения метеорологических данных для текущего местоположения.',
           'about': 'О нас',
           'aboutDesc':
-              'Это проект с открытым исходным кодом.\nЕсли вам понравилась наша работа поставьте несколько 🌟 и ❤ на репозитории',
+              'Это проект с открытым исходным кодом.\nЕсли вам понравилась наша работа поставьте несколько 🌟 и ❤ на репозитории.',
           'author': 'Сделано с ❤ от',
           'theme': 'Тёмная тема',
           'low': 'Низкое',
@@ -119,7 +119,7 @@ class Translation extends Translations {
               'Enable the location service to get weather data for the current location.',
           'about': 'About us',
           'aboutDesc':
-              'This is an open source project.\nif you liked our work, put a few 🌟 and ❤ on the repositories',
+              'This is an open source project.\nif you liked our work, put a few 🌟 and ❤ on the repositories.',
           'author': 'Made with ❤ from',
           'theme': 'Dark theme',
           'low': 'Low',
@@ -194,7 +194,7 @@ class Translation extends Translations {
               'Activez le service de localisation pour obtenir les données météorologiques de l\'endroit actuel.',
           'about': 'A propos de nous',
           'aboutDesc':
-              'C\'est un projet open source.\nsi vous aimez notre travail, mettez quelques 🌟 et ❤ sur le dépôt',
+              'C\'est un projet open source.\nSi vous aimez notre travail, mettez quelques 🌟 et ❤ sur le dépôt.',
           'author': 'Fait avec ❤ par',
           'theme': 'Theme sombre',
           'low': 'Bas',
@@ -418,7 +418,7 @@ class Translation extends Translations {
           'about': 'Hakkımızda',
           'aboutDesc':
               'Bu, açık kaynak kodlu bir proje.\nÇalışmamızı beğendiyseniz, lütfen depolarda birkaç 🌟 ve ❤ ekleyin.',
-          'author': '❤ ile yapıldı',
+          'author': 'Ile yapıldı ❤',
           'theme': 'Karanlık tema',
           'low': 'Düşük',
           'high': 'Yüksek',

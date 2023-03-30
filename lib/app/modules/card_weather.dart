@@ -113,27 +113,26 @@ class _CardWeatherState extends State<CardWeather> {
                         onDismissed: (DismissDirection direction) {
                           locationController.deleteCardWeather(weatherCardList);
                         },
-                        child: Obx(
-                          () => locationController.isLoading.isFalse
-                              ? CardDescWeather(
-                                  time: weatherCardList.time!,
-                                  weather: weatherCardList.weathercode!,
-                                  degree: weatherCardList.temperature2M!,
-                                  district: weatherCardList.district!,
-                                  city: weatherCardList.city!,
-                                  timezone: weatherCardList.timezone!,
-                                )
-                              : const MyShimmer(
-                                  hight: 110,
-                                  edgeInsetsMargin: EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 10),
-                                ),
+                        child: CardDescWeather(
+                          time: weatherCardList.time!,
+                          weather: weatherCardList.weathercode!,
+                          degree: weatherCardList.temperature2M!,
+                          district: weatherCardList.district!,
+                          city: weatherCardList.city!,
+                          timezone: weatherCardList.timezone!,
                         ),
                       );
                     },
                   );
                 } else {
-                  return const SizedBox.shrink();
+                  return ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index) => const MyShimmer(
+                      hight: 110,
+                      edgeInsetsMargin:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    ),
+                  );
                 }
             }
           },
