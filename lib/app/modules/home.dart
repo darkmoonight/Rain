@@ -1,4 +1,3 @@
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/api_key.dart';
 import 'package:rain/app/api/api.dart';
+import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/modules/card_weather.dart';
 import 'package:rain/app/modules/settings.dart';
@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   final locale = Get.locale;
   final locationController = Get.put(LocationController());
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -66,67 +67,82 @@ class _HomePageState extends State<HomePage> {
           scale: 20,
         ),
         title: visible
-            ? TypeAheadField(
-                suggestionsBoxDecoration: SuggestionsBoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                textFieldConfiguration: TextFieldConfiguration(
-                  controller: _controller,
-                  decoration: InputDecoration(
-                    hintText: 'search'.tr,
-                    border: InputBorder.none,
-                  ),
-                ),
-                errorBuilder: (context, error) {
-                  return Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    height: 45,
-                    child: Center(
-                      child: Text(
-                        'enter_name'.tr,
-                        style: context.theme.textTheme.bodyLarge,
-                      ),
+            ? RawAutocomplete<Result>(
+                focusNode: _focusNode,
+                textEditingController: _controller,
+                fieldViewBuilder: (BuildContext context,
+                    TextEditingController fieldTextEditingController,
+                    FocusNode fieldFocusNode,
+                    VoidCallback onFieldSubmitted) {
+                  return TextField(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    decoration: InputDecoration(
+                      hintText: 'search'.tr,
+                      border: InputBorder.none,
                     ),
                   );
                 },
-                noItemsFoundBuilder: (context) {
-                  return Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    height: 45,
-                    child: Center(
-                      child: Text(
-                        'notFound'.tr,
-                        style: context.theme.textTheme.bodyLarge,
-                      ),
-                    ),
-                  );
+                optionsBuilder: (TextEditingValue textEditingValue) {
+                  if (textEditingValue.text.isEmpty) {
+                    return const Iterable<Result>.empty();
+                  }
+                  return WeatherAPI()
+                      .getSuggestions(textEditingValue.text, locale, apiKey);
                 },
-                suggestionsCallback: (query) =>
-                    WeatherAPI().getSuggestions(query, locale, apiKey),
-                itemBuilder: (context, suggestion) => ListTile(
-                  title: Text(
-                    suggestion['state'] == null
-                        ? '${suggestion['city']}, ${suggestion['country']}'
-                        : suggestion['city'] == null
-                            ? '${suggestion['state']}, ${suggestion['country']}'
-                            : '${suggestion['city']}, ${suggestion['state']}',
-                    style: context.theme.textTheme.bodyLarge,
-                  ),
-                ),
-                onSuggestionSelected: (suggestion) async {
+                onSelected: (Result selection) async {
                   await locationController.deleteAll(true);
                   await locationController.getLocation(
-                    double.parse('${suggestion['lat'].toStringAsFixed(4)}'),
-                    double.parse('${suggestion['lon'].toStringAsFixed(4)}'),
-                    suggestion['state'] ?? suggestion['country'],
-                    suggestion['city'] ?? suggestion['state'],
+                    double.parse(selection.lat.toStringAsFixed(4)),
+                    double.parse(selection.lon.toStringAsFixed(4)),
+                    selection.state ?? selection.country!,
+                    selection.city ?? selection.state!,
                   );
                   visible = false;
                   _controller.clear();
+                  _focusNode.unfocus();
                   setState(() {});
+                },
+                displayStringForOption: (Result option) => option.state == null
+                    ? '${option.city}, ${option.country}'
+                    : option.city == null
+                        ? '${option.state}, ${option.country}'
+                        : '${option.city}, ${option.state}',
+                optionsViewBuilder: (BuildContext context,
+                    AutocompleteOnSelected<Result> onSelected,
+                    Iterable<Result> options) {
+                  return Align(
+                    alignment: Alignment.topLeft,
+                    child: Material(
+                      color: context.theme.scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(20),
+                      elevation: 4.0,
+                      child: SizedBox(
+                        width: 250,
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          itemCount: options.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final Result option = options.elementAt(index);
+                            return InkWell(
+                              onTap: () => onSelected(option),
+                              child: ListTile(
+                                title: Text(
+                                  option.state == null
+                                      ? '${option.city}, ${option.country}'
+                                      : option.city == null
+                                          ? '${option.state}, ${option.country}'
+                                          : '${option.city}, ${option.state}',
+                                  style: context.theme.textTheme.bodyLarge,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  );
                 },
               )
             : Obx(() => Text(
@@ -154,6 +170,8 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () {
               if (visible) {
+                _controller.clear();
+                _focusNode.unfocus();
                 visible = false;
               } else {
                 visible = true;

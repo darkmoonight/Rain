@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rain/app/api/card_api.dart';
+import 'package:rain/app/api/city.dart';
 import 'package:rain/app/api/daily.dart';
 import 'package:rain/app/api/hourly.dart';
 import 'package:rain/app/data/weather.dart';
@@ -77,16 +78,23 @@ class WeatherAPI {
     }
   }
 
-  Future<List<dynamic>> getSuggestions(
+  Future<Iterable<Result>> getSuggestions(
       String query, Locale? locale, String apiKey) async {
     final url =
         'https://api.geoapify.com/v1/geocode/search?city=$query&apiKey=$apiKey&lang=${locale?.languageCode}&format=json';
     try {
       Response response = await dioLocation.get(url);
       if (response.statusCode == 200) {
-        final data = response.data;
-        final results = data['results'];
-        return results;
+        CityApi cityData = CityApi.fromJson(response.data);
+        return cityData.results.map(
+          (e) => Result(
+            country: e.country,
+            state: e.state,
+            city: e.city,
+            lon: e.lon,
+            lat: e.lat,
+          ),
+        );
       } else {
         throw Exception('Failed to load suggestions');
       }

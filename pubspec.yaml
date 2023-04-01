@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 1.1.1+12
+version: 1.1.2+13
 
 environment:
   sdk: ">=2.19.4 <3.0.0"
@@ -25,7 +25,6 @@ dependencies:
   flutter_glow: ^0.2.0
   url_launcher: ^6.1.10
   path_provider: ^2.0.14
-  flutter_typeahead: ^4.3.7
   package_info_plus: ^3.0.3
   connectivity_plus: ^3.0.3
   isar_flutter_libs: ^3.0.5
