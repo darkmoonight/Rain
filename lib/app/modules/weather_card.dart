@@ -27,6 +27,11 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
 
   @override
   void initState() {
+    getTime();
+    super.initState();
+  }
+
+  void getTime() {
     timeNow = locationController.getTime(
         widget.weatherCard.time!, widget.weatherCard.timezone!);
     Future.delayed(const Duration(milliseconds: 30), () async {
@@ -36,7 +41,6 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
         curve: Curves.easeInOutCubic,
       );
     });
-    super.initState();
   }
 
   @override
@@ -44,6 +48,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
     return RefreshIndicator(
       onRefresh: () async {
         await locationController.updateCard(widget.weatherCard);
+        getTime();
         setState(() {});
       },
       child: Scaffold(
