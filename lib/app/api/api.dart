@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rain/app/api/card_api.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/api/daily.dart';
 import 'package:rain/app/api/hourly.dart';
@@ -108,19 +107,49 @@ class WeatherAPI {
 
   Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
       String district, String timezone) async {
-    String baseUrl =
-        'latitude=$lat&longitude=$lon&hourly=temperature_2m,weathercode&timezone=auto&forecast_days=3';
-    String url;
+    String baseUrlHourly =
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m&timezone=auto&forecast_days=3';
+    String urlHourly;
+    settings.measurements == 'imperial' && settings.degrees == 'fahrenheit'
+        ? urlHourly =
+            '$baseUrlHourly&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch'
+        : settings.measurements == 'imperial'
+            ? urlHourly =
+                '$baseUrlHourly&windspeed_unit=mph&precipitation_unit=inch'
+            : settings.degrees == 'fahrenheit'
+                ? urlHourly = '$baseUrlHourly&temperature_unit=fahrenheit'
+                : urlHourly = baseUrlHourly;
+
+    String baseUrlDaily =
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto';
+    String urlDaily;
     settings.degrees == 'fahrenheit'
-        ? url = '$baseUrl&temperature_unit=fahrenheit'
-        : url = baseUrl;
+        ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
+        : urlDaily = baseUrlDaily;
     try {
-      Response response = await dio.get(url);
-      WeatherCardApi weatherData = WeatherCardApi.fromJson(response.data);
+      Response responseHourly = await dio.get(urlHourly);
+      Response responseDaily = await dio.get(urlDaily);
+      WeatherHourlyApi weatherDataHourly =
+          WeatherHourlyApi.fromJson(responseHourly.data);
+      WeatherDailyApi weatherDataDaily =
+          WeatherDailyApi.fromJson(responseDaily.data);
       return WeatherCard(
-        time: weatherData.weatherCardHourly.time!,
-        temperature2M: weatherData.weatherCardHourly.temperature2M!,
-        weathercode: weatherData.weatherCardHourly.weathercode!,
+        time: weatherDataHourly.hourly.time!,
+        temperature2M: weatherDataHourly.hourly.temperature2M!,
+        relativehumidity2M: weatherDataHourly.hourly.relativehumidity2M!,
+        apparentTemperature: weatherDataHourly.hourly.apparentTemperature!,
+        precipitation: weatherDataHourly.hourly.precipitation!,
+        rain: weatherDataHourly.hourly.rain!,
+        weathercode: weatherDataHourly.hourly.weathercode!,
+        surfacePressure: weatherDataHourly.hourly.surfacePressure!,
+        visibility: weatherDataHourly.hourly.visibility!,
+        evapotranspiration: weatherDataHourly.hourly.evapotranspiration!,
+        windspeed10M: weatherDataHourly.hourly.windspeed10M!,
+        winddirection10M: weatherDataHourly.hourly.winddirection10M!,
+        timeDaily: weatherDataDaily.daily.time!,
+        weathercodeDaily: weatherDataDaily.daily.weathercode!,
+        temperature2MMax: weatherDataDaily.daily.temperature2MMax!,
+        temperature2MMin: weatherDataDaily.daily.temperature2MMin!,
         lat: lat,
         lon: lon,
         city: city,

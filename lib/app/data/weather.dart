@@ -89,7 +89,20 @@ class WeatherCard {
   Id id = Isar.autoIncrement;
   List<String>? time;
   List<double>? temperature2M;
+  List<int>? relativehumidity2M;
+  List<double>? apparentTemperature;
+  List<double>? precipitation;
+  List<double>? rain;
   List<int>? weathercode;
+  List<double>? surfacePressure;
+  List<double>? visibility;
+  List<double>? evapotranspiration;
+  List<double>? windspeed10M;
+  List<int>? winddirection10M;
+  List<DateTime>? timeDaily;
+  List<int>? weathercodeDaily;
+  List<double>? temperature2MMax;
+  List<double>? temperature2MMin;
   double? lat;
   double? lon;
   String? city;
@@ -100,7 +113,20 @@ class WeatherCard {
   WeatherCard({
     this.time,
     this.temperature2M,
+    this.relativehumidity2M,
+    this.apparentTemperature,
+    this.precipitation,
+    this.rain,
     this.weathercode,
+    this.surfacePressure,
+    this.visibility,
+    this.evapotranspiration,
+    this.windspeed10M,
+    this.winddirection10M,
+    this.timeDaily,
+    this.weathercodeDaily,
+    this.temperature2MMax,
+    this.temperature2MMin,
     this.lat,
     this.lon,
     this.city,

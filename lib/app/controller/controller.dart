@@ -293,10 +293,55 @@ class LocationController extends GetxController {
               element.lon, element.city!, element.district!, element.timezone!);
           element.time = _weatherCard.value.time;
           element.temperature2M = _weatherCard.value.temperature2M;
+          element.relativehumidity2M = _weatherCard.value.relativehumidity2M;
+          element.apparentTemperature = _weatherCard.value.apparentTemperature;
+          element.precipitation = _weatherCard.value.precipitation;
+          element.rain = _weatherCard.value.rain;
           element.weathercode = _weatherCard.value.weathercode;
+          element.surfacePressure = _weatherCard.value.surfacePressure;
+          element.visibility = _weatherCard.value.visibility;
+          element.evapotranspiration = _weatherCard.value.evapotranspiration;
+          element.windspeed10M = _weatherCard.value.windspeed10M;
+          element.winddirection10M = _weatherCard.value.winddirection10M;
+          element.timeDaily = _weatherCard.value.timeDaily;
+          element.weathercodeDaily = _weatherCard.value.weathercodeDaily;
+          element.temperature2MMax = _weatherCard.value.temperature2MMax;
+          element.temperature2MMin = _weatherCard.value.temperature2MMin;
           element.timestamp = DateTime.now();
           await isar.weatherCards.put(element);
         }
+      });
+    }
+  }
+
+  Future<void> updateCard(WeatherCard weatherCard) async {
+    if (await isDeviceConnectedNotifier.value) {
+      isar.writeTxn(() async {
+        _weatherCard.value = await WeatherAPI().getWeatherCard(
+            weatherCard.lat,
+            weatherCard.lon,
+            weatherCard.city!,
+            weatherCard.district!,
+            weatherCard.timezone!);
+        weatherCard.time = _weatherCard.value.time;
+        weatherCard.temperature2M = _weatherCard.value.temperature2M;
+        weatherCard.relativehumidity2M = _weatherCard.value.relativehumidity2M;
+        weatherCard.apparentTemperature =
+            _weatherCard.value.apparentTemperature;
+        weatherCard.precipitation = _weatherCard.value.precipitation;
+        weatherCard.rain = _weatherCard.value.rain;
+        weatherCard.weathercode = _weatherCard.value.weathercode;
+        weatherCard.surfacePressure = _weatherCard.value.surfacePressure;
+        weatherCard.visibility = _weatherCard.value.visibility;
+        weatherCard.evapotranspiration = _weatherCard.value.evapotranspiration;
+        weatherCard.windspeed10M = _weatherCard.value.windspeed10M;
+        weatherCard.winddirection10M = _weatherCard.value.winddirection10M;
+        weatherCard.timeDaily = _weatherCard.value.timeDaily;
+        weatherCard.weathercodeDaily = _weatherCard.value.weathercodeDaily;
+        weatherCard.temperature2MMax = _weatherCard.value.temperature2MMax;
+        weatherCard.temperature2MMin = _weatherCard.value.temperature2MMin;
+        weatherCard.timestamp = DateTime.now();
+        await isar.weatherCards.put(weatherCard);
       });
     }
   }

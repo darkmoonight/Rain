@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
+import 'package:rain/app/modules/weather_card.dart';
 import 'package:rain/app/widgets/card.dart';
 import 'package:rain/app/widgets/create_card_weather.dart';
 import 'package:rain/app/widgets/shimmer.dart';
@@ -114,13 +115,20 @@ class _CardWeatherState extends State<CardWeather> {
                           await locationController
                               .deleteCardWeather(weatherCardList);
                         },
-                        child: CardDescWeather(
-                          time: weatherCardList.time!,
-                          weather: weatherCardList.weathercode!,
-                          degree: weatherCardList.temperature2M!,
-                          district: weatherCardList.district!,
-                          city: weatherCardList.city!,
-                          timezone: weatherCardList.timezone!,
+                        child: GestureDetector(
+                          onTap: () => Get.to(
+                              () => WeatherCardPage(
+                                    weatherCard: weatherCardList,
+                                  ),
+                              transition: Transition.downToUp),
+                          child: CardDescWeather(
+                            time: weatherCardList.time!,
+                            weather: weatherCardList.weathercode!,
+                            degree: weatherCardList.temperature2M!,
+                            district: weatherCardList.district!,
+                            city: weatherCardList.city!,
+                            timezone: weatherCardList.timezone!,
+                          ),
                         ),
                       );
                     },
