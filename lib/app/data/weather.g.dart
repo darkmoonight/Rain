@@ -32,13 +32,18 @@ const SettingsSchema = CollectionSchema(
       name: r'measurements',
       type: IsarType.string,
     ),
-    r'onboard': PropertySchema(
+    r'notifications': PropertySchema(
       id: 3,
+      name: r'notifications',
+      type: IsarType.bool,
+    ),
+    r'onboard': PropertySchema(
+      id: 4,
       name: r'onboard',
       type: IsarType.bool,
     ),
     r'theme': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'theme',
       type: IsarType.bool,
     )
@@ -77,8 +82,9 @@ void _settingsSerialize(
   writer.writeString(offsets[0], object.degrees);
   writer.writeBool(offsets[1], object.location);
   writer.writeString(offsets[2], object.measurements);
-  writer.writeBool(offsets[3], object.onboard);
-  writer.writeBool(offsets[4], object.theme);
+  writer.writeBool(offsets[3], object.notifications);
+  writer.writeBool(offsets[4], object.onboard);
+  writer.writeBool(offsets[5], object.theme);
 }
 
 Settings _settingsDeserialize(
@@ -92,8 +98,9 @@ Settings _settingsDeserialize(
   object.id = id;
   object.location = reader.readBool(offsets[1]);
   object.measurements = reader.readString(offsets[2]);
-  object.onboard = reader.readBool(offsets[3]);
-  object.theme = reader.readBoolOrNull(offsets[4]);
+  object.notifications = reader.readBool(offsets[3]);
+  object.onboard = reader.readBool(offsets[4]);
+  object.theme = reader.readBoolOrNull(offsets[5]);
   return object;
 }
 
@@ -113,6 +120,8 @@ P _settingsDeserializeProp<P>(
     case 3:
       return (reader.readBool(offset)) as P;
     case 4:
+      return (reader.readBool(offset)) as P;
+    case 5:
       return (reader.readBoolOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -534,6 +543,16 @@ extension SettingsQueryFilter
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> notificationsEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'notifications',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterFilterCondition> onboardEqualTo(
       bool value) {
     return QueryBuilder.apply(this, (query) {
@@ -614,6 +633,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByNotifications() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notifications', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByNotificationsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notifications', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'onboard', Sort.asc);
@@ -689,6 +720,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByNotifications() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notifications', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByNotificationsDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notifications', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'onboard', Sort.asc);
@@ -736,6 +779,12 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByNotifications() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'notifications');
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'onboard');
@@ -772,6 +821,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, String, QQueryOperations> measurementsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'measurements');
+    });
+  }
+
+  QueryBuilder<Settings, bool, QQueryOperations> notificationsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'notifications');
     });
   }
 
@@ -3830,33 +3885,43 @@ const DailyCacheSchema = CollectionSchema(
   name: r'DailyCache',
   id: -7787496426483859096,
   properties: {
-    r'temperature2MMax': PropertySchema(
+    r'sunrise': PropertySchema(
       id: 0,
+      name: r'sunrise',
+      type: IsarType.stringList,
+    ),
+    r'sunset': PropertySchema(
+      id: 1,
+      name: r'sunset',
+      type: IsarType.stringList,
+    ),
+    r'temperature2MMax': PropertySchema(
+      id: 2,
       name: r'temperature2MMax',
       type: IsarType.doubleList,
     ),
     r'temperature2MMin': PropertySchema(
-      id: 1,
+      id: 3,
       name: r'temperature2MMin',
       type: IsarType.doubleList,
     ),
     r'time': PropertySchema(
-      id: 2,
+      id: 4,
       name: r'time',
       type: IsarType.dateTimeList,
     ),
     r'timestamp': PropertySchema(
-      id: 3,
+      id: 5,
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
     r'timezone': PropertySchema(
-      id: 4,
+      id: 6,
       name: r'timezone',
       type: IsarType.string,
     ),
     r'weathercode': PropertySchema(
-      id: 5,
+      id: 7,
       name: r'weathercode',
       type: IsarType.longList,
     )
@@ -3881,6 +3946,30 @@ int _dailyCacheEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  {
+    final list = object.sunrise;
+    if (list != null) {
+      bytesCount += 3 + list.length * 3;
+      {
+        for (var i = 0; i < list.length; i++) {
+          final value = list[i];
+          bytesCount += value.length * 3;
+        }
+      }
+    }
+  }
+  {
+    final list = object.sunset;
+    if (list != null) {
+      bytesCount += 3 + list.length * 3;
+      {
+        for (var i = 0; i < list.length; i++) {
+          final value = list[i];
+          bytesCount += value.length * 3;
+        }
+      }
+    }
+  }
   {
     final value = object.temperature2MMax;
     if (value != null) {
@@ -3920,12 +4009,14 @@ void _dailyCacheSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDoubleList(offsets[0], object.temperature2MMax);
-  writer.writeDoubleList(offsets[1], object.temperature2MMin);
-  writer.writeDateTimeList(offsets[2], object.time);
-  writer.writeDateTime(offsets[3], object.timestamp);
-  writer.writeString(offsets[4], object.timezone);
-  writer.writeLongList(offsets[5], object.weathercode);
+  writer.writeStringList(offsets[0], object.sunrise);
+  writer.writeStringList(offsets[1], object.sunset);
+  writer.writeDoubleList(offsets[2], object.temperature2MMax);
+  writer.writeDoubleList(offsets[3], object.temperature2MMin);
+  writer.writeDateTimeList(offsets[4], object.time);
+  writer.writeDateTime(offsets[5], object.timestamp);
+  writer.writeString(offsets[6], object.timezone);
+  writer.writeLongList(offsets[7], object.weathercode);
 }
 
 DailyCache _dailyCacheDeserialize(
@@ -3935,12 +4026,14 @@ DailyCache _dailyCacheDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = DailyCache(
-    temperature2MMax: reader.readDoubleList(offsets[0]),
-    temperature2MMin: reader.readDoubleList(offsets[1]),
-    time: reader.readDateTimeList(offsets[2]),
-    timestamp: reader.readDateTimeOrNull(offsets[3]),
-    timezone: reader.readStringOrNull(offsets[4]),
-    weathercode: reader.readLongList(offsets[5]),
+    sunrise: reader.readStringList(offsets[0]),
+    sunset: reader.readStringList(offsets[1]),
+    temperature2MMax: reader.readDoubleList(offsets[2]),
+    temperature2MMin: reader.readDoubleList(offsets[3]),
+    time: reader.readDateTimeList(offsets[4]),
+    timestamp: reader.readDateTimeOrNull(offsets[5]),
+    timezone: reader.readStringOrNull(offsets[6]),
+    weathercode: reader.readLongList(offsets[7]),
   );
   object.id = id;
   return object;
@@ -3954,16 +4047,20 @@ P _dailyCacheDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 1:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 2:
-      return (reader.readDateTimeList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 3:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 4:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDateTimeList(offset)) as P;
     case 5:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 6:
+      return (reader.readStringOrNull(offset)) as P;
+    case 7:
       return (reader.readLongList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -4111,6 +4208,488 @@ extension DailyCacheQueryFilter
         upper: upper,
         includeUpper: includeUpper,
       ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> sunriseIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'sunrise',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'sunrise',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'sunrise',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'sunrise',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'sunrise',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'sunrise',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> sunriseIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunriseLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> sunsetIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'sunset',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'sunset',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'sunset',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'sunset',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'sunset',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'sunset',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition> sunsetIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QAfterFilterCondition>
+      sunsetLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
     });
   }
 
@@ -5079,6 +5658,18 @@ extension DailyCacheQuerySortThenBy
 
 extension DailyCacheQueryWhereDistinct
     on QueryBuilder<DailyCache, DailyCache, QDistinct> {
+  QueryBuilder<DailyCache, DailyCache, QDistinct> distinctBySunrise() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'sunrise');
+    });
+  }
+
+  QueryBuilder<DailyCache, DailyCache, QDistinct> distinctBySunset() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'sunset');
+    });
+  }
+
   QueryBuilder<DailyCache, DailyCache, QDistinct> distinctByTemperature2MMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'temperature2MMax');
@@ -5122,6 +5713,18 @@ extension DailyCacheQueryProperty
   QueryBuilder<DailyCache, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<DailyCache, List<String>?, QQueryOperations> sunriseProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'sunrise');
+    });
+  }
+
+  QueryBuilder<DailyCache, List<String>?, QQueryOperations> sunsetProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'sunset');
     });
   }
 
@@ -6139,68 +6742,78 @@ const WeatherCardSchema = CollectionSchema(
       name: r'relativehumidity2M',
       type: IsarType.longList,
     ),
-    r'surfacePressure': PropertySchema(
+    r'sunrise': PropertySchema(
       id: 9,
+      name: r'sunrise',
+      type: IsarType.stringList,
+    ),
+    r'sunset': PropertySchema(
+      id: 10,
+      name: r'sunset',
+      type: IsarType.stringList,
+    ),
+    r'surfacePressure': PropertySchema(
+      id: 11,
       name: r'surfacePressure',
       type: IsarType.doubleList,
     ),
     r'temperature2M': PropertySchema(
-      id: 10,
+      id: 12,
       name: r'temperature2M',
       type: IsarType.doubleList,
     ),
     r'temperature2MMax': PropertySchema(
-      id: 11,
+      id: 13,
       name: r'temperature2MMax',
       type: IsarType.doubleList,
     ),
     r'temperature2MMin': PropertySchema(
-      id: 12,
+      id: 14,
       name: r'temperature2MMin',
       type: IsarType.doubleList,
     ),
     r'time': PropertySchema(
-      id: 13,
+      id: 15,
       name: r'time',
       type: IsarType.stringList,
     ),
     r'timeDaily': PropertySchema(
-      id: 14,
+      id: 16,
       name: r'timeDaily',
       type: IsarType.dateTimeList,
     ),
     r'timestamp': PropertySchema(
-      id: 15,
+      id: 17,
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
     r'timezone': PropertySchema(
-      id: 16,
+      id: 18,
       name: r'timezone',
       type: IsarType.string,
     ),
     r'visibility': PropertySchema(
-      id: 17,
+      id: 19,
       name: r'visibility',
       type: IsarType.doubleList,
     ),
     r'weathercode': PropertySchema(
-      id: 18,
+      id: 20,
       name: r'weathercode',
       type: IsarType.longList,
     ),
     r'weathercodeDaily': PropertySchema(
-      id: 19,
+      id: 21,
       name: r'weathercodeDaily',
       type: IsarType.longList,
     ),
     r'winddirection10M': PropertySchema(
-      id: 20,
+      id: 22,
       name: r'winddirection10M',
       type: IsarType.longList,
     ),
     r'windspeed10M': PropertySchema(
-      id: 21,
+      id: 23,
       name: r'windspeed10M',
       type: IsarType.doubleList,
     )
@@ -6265,6 +6878,30 @@ int _weatherCardEstimateSize(
     final value = object.relativehumidity2M;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final list = object.sunrise;
+    if (list != null) {
+      bytesCount += 3 + list.length * 3;
+      {
+        for (var i = 0; i < list.length; i++) {
+          final value = list[i];
+          bytesCount += value.length * 3;
+        }
+      }
+    }
+  }
+  {
+    final list = object.sunset;
+    if (list != null) {
+      bytesCount += 3 + list.length * 3;
+      {
+        for (var i = 0; i < list.length; i++) {
+          final value = list[i];
+          bytesCount += value.length * 3;
+        }
+      }
     }
   }
   {
@@ -6363,19 +7000,21 @@ void _weatherCardSerialize(
   writer.writeDoubleList(offsets[6], object.precipitation);
   writer.writeDoubleList(offsets[7], object.rain);
   writer.writeLongList(offsets[8], object.relativehumidity2M);
-  writer.writeDoubleList(offsets[9], object.surfacePressure);
-  writer.writeDoubleList(offsets[10], object.temperature2M);
-  writer.writeDoubleList(offsets[11], object.temperature2MMax);
-  writer.writeDoubleList(offsets[12], object.temperature2MMin);
-  writer.writeStringList(offsets[13], object.time);
-  writer.writeDateTimeList(offsets[14], object.timeDaily);
-  writer.writeDateTime(offsets[15], object.timestamp);
-  writer.writeString(offsets[16], object.timezone);
-  writer.writeDoubleList(offsets[17], object.visibility);
-  writer.writeLongList(offsets[18], object.weathercode);
-  writer.writeLongList(offsets[19], object.weathercodeDaily);
-  writer.writeLongList(offsets[20], object.winddirection10M);
-  writer.writeDoubleList(offsets[21], object.windspeed10M);
+  writer.writeStringList(offsets[9], object.sunrise);
+  writer.writeStringList(offsets[10], object.sunset);
+  writer.writeDoubleList(offsets[11], object.surfacePressure);
+  writer.writeDoubleList(offsets[12], object.temperature2M);
+  writer.writeDoubleList(offsets[13], object.temperature2MMax);
+  writer.writeDoubleList(offsets[14], object.temperature2MMin);
+  writer.writeStringList(offsets[15], object.time);
+  writer.writeDateTimeList(offsets[16], object.timeDaily);
+  writer.writeDateTime(offsets[17], object.timestamp);
+  writer.writeString(offsets[18], object.timezone);
+  writer.writeDoubleList(offsets[19], object.visibility);
+  writer.writeLongList(offsets[20], object.weathercode);
+  writer.writeLongList(offsets[21], object.weathercodeDaily);
+  writer.writeLongList(offsets[22], object.winddirection10M);
+  writer.writeDoubleList(offsets[23], object.windspeed10M);
 }
 
 WeatherCard _weatherCardDeserialize(
@@ -6394,19 +7033,21 @@ WeatherCard _weatherCardDeserialize(
     precipitation: reader.readDoubleList(offsets[6]),
     rain: reader.readDoubleList(offsets[7]),
     relativehumidity2M: reader.readLongList(offsets[8]),
-    surfacePressure: reader.readDoubleList(offsets[9]),
-    temperature2M: reader.readDoubleList(offsets[10]),
-    temperature2MMax: reader.readDoubleList(offsets[11]),
-    temperature2MMin: reader.readDoubleList(offsets[12]),
-    time: reader.readStringList(offsets[13]),
-    timeDaily: reader.readDateTimeList(offsets[14]),
-    timestamp: reader.readDateTimeOrNull(offsets[15]),
-    timezone: reader.readStringOrNull(offsets[16]),
-    visibility: reader.readDoubleList(offsets[17]),
-    weathercode: reader.readLongList(offsets[18]),
-    weathercodeDaily: reader.readLongList(offsets[19]),
-    winddirection10M: reader.readLongList(offsets[20]),
-    windspeed10M: reader.readDoubleList(offsets[21]),
+    sunrise: reader.readStringList(offsets[9]),
+    sunset: reader.readStringList(offsets[10]),
+    surfacePressure: reader.readDoubleList(offsets[11]),
+    temperature2M: reader.readDoubleList(offsets[12]),
+    temperature2MMax: reader.readDoubleList(offsets[13]),
+    temperature2MMin: reader.readDoubleList(offsets[14]),
+    time: reader.readStringList(offsets[15]),
+    timeDaily: reader.readDateTimeList(offsets[16]),
+    timestamp: reader.readDateTimeOrNull(offsets[17]),
+    timezone: reader.readStringOrNull(offsets[18]),
+    visibility: reader.readDoubleList(offsets[19]),
+    weathercode: reader.readLongList(offsets[20]),
+    weathercodeDaily: reader.readLongList(offsets[21]),
+    winddirection10M: reader.readLongList(offsets[22]),
+    windspeed10M: reader.readDoubleList(offsets[23]),
   );
   object.id = id;
   return object;
@@ -6438,30 +7079,34 @@ P _weatherCardDeserializeProp<P>(
     case 8:
       return (reader.readLongList(offset)) as P;
     case 9:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 10:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 11:
       return (reader.readDoubleList(offset)) as P;
     case 12:
       return (reader.readDoubleList(offset)) as P;
     case 13:
-      return (reader.readStringList(offset)) as P;
-    case 14:
-      return (reader.readDateTimeList(offset)) as P;
-    case 15:
-      return (reader.readDateTimeOrNull(offset)) as P;
-    case 16:
-      return (reader.readStringOrNull(offset)) as P;
-    case 17:
       return (reader.readDoubleList(offset)) as P;
+    case 14:
+      return (reader.readDoubleList(offset)) as P;
+    case 15:
+      return (reader.readStringList(offset)) as P;
+    case 16:
+      return (reader.readDateTimeList(offset)) as P;
+    case 17:
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 18:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 19:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 20:
       return (reader.readLongList(offset)) as P;
     case 21:
+      return (reader.readLongList(offset)) as P;
+    case 22:
+      return (reader.readLongList(offset)) as P;
+    case 23:
       return (reader.readDoubleList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -7916,6 +8561,491 @@ extension WeatherCardQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'relativehumidity2M',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'sunrise',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'sunrise',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'sunrise',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'sunrise',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'sunrise',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'sunrise',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'sunrise',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunriseLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunrise',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> sunsetIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'sunset',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'sunset',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'sunset',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'sunset',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'sunset',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'sunset',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'sunset',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      sunsetLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'sunset',
         lower,
         includeLower,
         upper,
@@ -10312,6 +11442,18 @@ extension WeatherCardQueryWhereDistinct
     });
   }
 
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctBySunrise() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'sunrise');
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctBySunset() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'sunset');
+    });
+  }
+
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
       distinctBySurfacePressure() {
     return QueryBuilder.apply(this, (query) {
@@ -10460,6 +11602,18 @@ extension WeatherCardQueryProperty
       relativehumidity2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'relativehumidity2M');
+    });
+  }
+
+  QueryBuilder<WeatherCard, List<String>?, QQueryOperations> sunriseProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'sunrise');
+    });
+  }
+
+  QueryBuilder<WeatherCard, List<String>?, QQueryOperations> sunsetProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'sunset');
     });
   }
 

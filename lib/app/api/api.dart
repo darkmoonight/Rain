@@ -53,7 +53,7 @@ class WeatherAPI {
 
   Future<DailyCache> getWeather7Data(double? lat, double? lon) async {
     String baseUrl =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto';
     String url;
     settings.degrees == 'fahrenheit'
         ? url = '$baseUrl&temperature_unit=fahrenheit'
@@ -66,6 +66,8 @@ class WeatherAPI {
         weathercode: weatherData.daily.weathercode!,
         temperature2MMax: weatherData.daily.temperature2MMax!,
         temperature2MMin: weatherData.daily.temperature2MMin!,
+        sunrise: weatherData.daily.sunrise,
+        sunset: weatherData.daily.sunset,
         timezone: weatherData.timezone,
         timestamp: DateTime.now(),
       );
@@ -121,7 +123,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -150,6 +152,8 @@ class WeatherAPI {
         weathercodeDaily: weatherDataDaily.daily.weathercode!,
         temperature2MMax: weatherDataDaily.daily.temperature2MMax!,
         temperature2MMin: weatherDataDaily.daily.temperature2MMin!,
+        sunrise: weatherDataDaily.daily.sunrise,
+        sunset: weatherDataDaily.daily.sunset,
         lat: lat,
         lon: lon,
         city: city,

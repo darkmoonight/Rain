@@ -5,9 +5,9 @@ class Status {
     final currentTime = DateTime.parse(time);
 
     final dayTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 5, 00);
+        DateTime(currentTime.year, currentTime.month, currentTime.day, 6, 00);
     final nightTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 18, 00);
+        DateTime(currentTime.year, currentTime.month, currentTime.day, 19, 00);
 
     switch (weather) {
       case 0:
@@ -65,9 +65,9 @@ class Status {
     final currentTime = DateTime.parse(time);
 
     final dayTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 5, 00);
+        DateTime(currentTime.year, currentTime.month, currentTime.day, 6, 00);
     final nightTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 18, 00);
+        DateTime(currentTime.year, currentTime.month, currentTime.day, 19, 00);
 
     switch (weather) {
       case 0:

@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                   return Align(
                     alignment: Alignment.topLeft,
                     child: Material(
-                      color: context.theme.scaffoldBackgroundColor,
+                      color: context.theme.colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(20),
                       elevation: 4.0,
                       child: SizedBox(

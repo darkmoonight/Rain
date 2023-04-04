@@ -27,7 +27,6 @@ class RainTheme {
       ),
       unselectedWidgetColor: Colors.grey[350],
       dividerColor: Colors.black,
-      primaryColor: const Color.fromARGB(255, 245, 245, 245),
     );
   }
 
@@ -38,21 +37,20 @@ class RainTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.blue,
         brightness: Brightness.dark,
-        primaryContainer: const Color.fromARGB(255, 40, 40, 40),
-        secondaryContainer: const Color.fromARGB(255, 25, 25, 25),
-        tertiaryContainer: const Color.fromARGB(255, 45, 45, 45),
+        primaryContainer: const Color.fromARGB(255, 15, 15, 15),
+        secondaryContainer: const Color.fromARGB(255, 10, 10, 10),
+        tertiaryContainer: const Color.fromARGB(255, 20, 20, 20),
       ),
       iconTheme: baseLigth.iconTheme.copyWith(
         color: Colors.white,
       ),
       snackBarTheme: const SnackBarThemeData(
           backgroundColor: Color.fromARGB(255, 55, 55, 55)),
-      scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
+      scaffoldBackgroundColor: Colors.black,
       bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme
-          .copyWith(backgroundColor: const Color.fromARGB(255, 28, 28, 28)),
-      unselectedWidgetColor: Colors.grey[850],
+          .copyWith(backgroundColor: const Color.fromARGB(255, 10, 10, 10)),
+      unselectedWidgetColor: const Color.fromARGB(255, 20, 20, 20),
       dividerColor: Colors.white,
-      primaryColor: const Color.fromARGB(255, 40, 40, 40),
     );
   }
 }

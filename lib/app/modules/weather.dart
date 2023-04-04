@@ -4,6 +4,7 @@ import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/shimmer.dart';
 import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
@@ -49,7 +50,7 @@ class _WeatherPageState extends State<WeatherPage> {
               Obx(
                 () => locationController.isLoading.isFalse
                     ? Container(
-                        height: 130,
+                        height: 135,
                         margin: const EdgeInsets.symmetric(vertical: 15),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -106,6 +107,42 @@ class _WeatherPageState extends State<WeatherPage> {
                     : const MyShimmer(
                         hight: 130,
                         edgeInsetsMargin: EdgeInsets.symmetric(vertical: 15),
+                      ),
+              ),
+              Obx(
+                () => locationController.isLoading.isFalse
+                    ? Container(
+                        margin: const EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.fromLTRB(10, 15, 20, 15),
+                        decoration: BoxDecoration(
+                            color: context.theme.colorScheme.primaryContainer,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: SunsetSunrise(
+                                title: 'sunrise'.tr,
+                                time: locationController.daily.sunrise![
+                                    locationController.dayOfNow.value],
+                                image: 'assets/images/sunrise.png',
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(
+                              child: SunsetSunrise(
+                                title: 'sunset'.tr,
+                                time: locationController.daily
+                                    .sunset![locationController.dayOfNow.value],
+                                image: 'assets/images/sunset.png',
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const MyShimmer(
+                        hight: 80,
+                        edgeInsetsMargin: EdgeInsets.only(bottom: 15),
                       ),
               ),
               Obx(

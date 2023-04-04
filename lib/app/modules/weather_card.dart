@@ -5,6 +5,7 @@ import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
@@ -24,6 +25,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
   final locationController = Get.put(LocationController());
   final ItemScrollController itemScrollController = ItemScrollController();
   int timeNow = 0;
+  int dayNow = 0;
 
   @override
   void initState() {
@@ -34,6 +36,8 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
   void getTime() {
     timeNow = locationController.getTime(
         widget.weatherCard.time!, widget.weatherCard.timezone!);
+    dayNow = locationController.getDay(
+        widget.weatherCard.timeDaily!, widget.weatherCard.timezone!);
     Future.delayed(const Duration(milliseconds: 30), () async {
       itemScrollController.scrollTo(
         index: timeNow,
@@ -134,6 +138,33 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                         ),
                       ),
                     ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 15),
+                  padding: const EdgeInsets.fromLTRB(10, 15, 20, 15),
+                  decoration: BoxDecoration(
+                      color: context.theme.colorScheme.primaryContainer,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(20))),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: SunsetSunrise(
+                          title: 'sunrise'.tr,
+                          time: widget.weatherCard.sunrise![dayNow],
+                          image: 'assets/images/sunrise.png',
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Flexible(
+                        child: SunsetSunrise(
+                          title: 'sunset'.tr,
+                          time: widget.weatherCard.sunset![dayNow],
+                          image: 'assets/images/sunset.png',
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(

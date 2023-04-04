@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -9,9 +10,9 @@ import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
 import 'package:rain/theme/theme.dart';
 import 'app/data/weather.dart';
-import 'l10n/translation.dart';
+import 'translation/translation.dart';
 import 'theme/theme_controller.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
 
 late Isar isar;
 late Settings settings;
@@ -21,6 +22,7 @@ final ValueNotifier<Future<bool>> isDeviceConnectedNotifier =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await isarInit();
+  await setOptimalDisplayMode();
   Connectivity()
       .onConnectivityChanged
       .listen((ConnectivityResult result) async {
@@ -33,6 +35,23 @@ void main() async {
   });
   tz.initializeTimeZones();
   runApp(MyApp());
+}
+
+Future<void> setOptimalDisplayMode() async {
+  final List<DisplayMode> supported = await FlutterDisplayMode.supported;
+  final DisplayMode active = await FlutterDisplayMode.active;
+
+  final List<DisplayMode> sameResolution = supported
+      .where((DisplayMode m) =>
+          m.width == active.width && m.height == active.height)
+      .toList()
+    ..sort((DisplayMode a, DisplayMode b) =>
+        b.refreshRate.compareTo(a.refreshRate));
+
+  final DisplayMode mostOptimalMode =
+      sameResolution.isNotEmpty ? sameResolution.first : active;
+
+  await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
 }
 
 Future<void> isarInit() async {

@@ -8,6 +8,7 @@ class Settings {
   bool onboard = false;
   bool? theme;
   bool location = false;
+  bool notifications = false;
   String measurements = 'metric';
   String degrees = 'celsius';
 }
@@ -55,6 +56,8 @@ class DailyCache {
   List<int>? weathercode;
   List<double>? temperature2MMax;
   List<double>? temperature2MMin;
+  List<String>? sunrise;
+  List<String>? sunset;
   String? timezone;
   DateTime? timestamp;
 
@@ -63,6 +66,8 @@ class DailyCache {
     this.weathercode,
     this.temperature2MMax,
     this.temperature2MMin,
+    this.sunrise,
+    this.sunset,
     this.timezone,
     this.timestamp,
   });
@@ -103,6 +108,8 @@ class WeatherCard {
   List<int>? weathercodeDaily;
   List<double>? temperature2MMax;
   List<double>? temperature2MMin;
+  List<String>? sunrise;
+  List<String>? sunset;
   double? lat;
   double? lon;
   String? city;
@@ -127,6 +134,8 @@ class WeatherCard {
     this.weathercodeDaily,
     this.temperature2MMax,
     this.temperature2MMin,
+    this.sunrise,
+    this.sunset,
     this.lat,
     this.lon,
     this.city,

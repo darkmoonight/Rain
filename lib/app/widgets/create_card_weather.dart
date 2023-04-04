@@ -161,7 +161,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         return Align(
                           alignment: Alignment.topCenter,
                           child: Material(
-                            color: context.theme.scaffoldBackgroundColor,
+                            color: context.theme.colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(20),
                             elevation: 4.0,
                             child: ListView.builder(

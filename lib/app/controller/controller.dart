@@ -35,6 +35,7 @@ class LocationController extends GetxController {
   WeatherCard get weatherCard => _weatherCard.value;
 
   final hourOfDay = 0.obs;
+  final dayOfNow = 0.obs;
   final ItemScrollController itemScrollController = ItemScrollController();
   final cacheExpiry = DateTime.now().subtract(const Duration(hours: 6));
 
@@ -161,7 +162,7 @@ class LocationController extends GetxController {
 
       await writeCache();
       await readCache();
-    } else if (!await isDeviceConnectedNotifier.value) {
+    } else {
       Get.snackbar(
         'no_inter'.tr,
         'on_inter'.tr,
@@ -190,6 +191,7 @@ class LocationController extends GetxController {
     _location.value = locationCache;
 
     hourOfDay.value = getTime(_hourly.value.time!, _hourly.value.timezone!);
+    dayOfNow.value = getDay(_daily.value.time!, _daily.value.timezone!);
 
     isLoading.value = false;
     Future.delayed(const Duration(milliseconds: 30), () async {
@@ -266,7 +268,7 @@ class LocationController extends GetxController {
       isar.writeTxn(() async {
         await isar.weatherCards.put(_weatherCard.value);
       });
-    } else if (!await isDeviceConnectedNotifier.value) {
+    } else {
       Get.snackbar(
         'no_inter'.tr,
         'on_inter'.tr,
@@ -307,6 +309,8 @@ class LocationController extends GetxController {
           element.weathercodeDaily = _weatherCard.value.weathercodeDaily;
           element.temperature2MMax = _weatherCard.value.temperature2MMax;
           element.temperature2MMin = _weatherCard.value.temperature2MMin;
+          element.sunrise = _weatherCard.value.sunrise;
+          element.sunset = _weatherCard.value.sunset;
           element.timestamp = DateTime.now();
           await isar.weatherCards.put(element);
         }
@@ -340,6 +344,8 @@ class LocationController extends GetxController {
         weatherCard.weathercodeDaily = _weatherCard.value.weathercodeDaily;
         weatherCard.temperature2MMax = _weatherCard.value.temperature2MMax;
         weatherCard.temperature2MMin = _weatherCard.value.temperature2MMin;
+        weatherCard.sunrise = _weatherCard.value.sunrise;
+        weatherCard.sunset = _weatherCard.value.sunset;
         weatherCard.timestamp = DateTime.now();
         await isar.weatherCards.put(weatherCard);
       });
@@ -363,5 +369,15 @@ class LocationController extends GetxController {
       }
     }
     return getTime;
+  }
+
+  int getDay(List<DateTime> time, String timezone) {
+    int getDay = 0;
+    for (var i = 0; i < time.length; i++) {
+      if (tz.TZDateTime.now(tz.getLocation(timezone)).day == time[i].day) {
+        getDay = i;
+      }
+    }
+    return getDay;
   }
 }
