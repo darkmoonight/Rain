@@ -123,6 +123,9 @@ class _CardWeatherState extends State<CardWeather> {
                               transition: Transition.downToUp),
                           child: CardDescWeather(
                             time: weatherCardList.time!,
+                            timeDaily: weatherCardList.timeDaily!,
+                            timeDay: weatherCardList.sunrise!,
+                            timeNight: weatherCardList.sunset!,
                             weather: weatherCardList.weathercode!,
                             degree: weatherCardList.temperature2M!,
                             district: weatherCardList.district!,

@@ -22,6 +22,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           child: Column(
@@ -31,6 +32,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                 widget.title,
                 style: context.theme.textTheme.titleSmall,
                 overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 2),
               Text(
@@ -41,9 +43,11 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
             ],
           ),
         ),
-        Image.asset(
-          widget.image,
-          scale: 10,
+        Expanded(
+          child: Image.asset(
+            widget.image,
+            scale: 10,
+          ),
         ),
       ],
     );

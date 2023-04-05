@@ -44,6 +44,10 @@ class _WeatherPageState extends State<WeatherPage> {
                             .weathercode![locationController.hourOfDay.value],
                         degree: locationController.hourly
                             .temperature2M![locationController.hourOfDay.value],
+                        timeDay: locationController
+                            .daily.sunrise![locationController.dayOfNow.value],
+                        timeNight: locationController
+                            .daily.sunset![locationController.dayOfNow.value],
                       )
                     : const MyShimmer(hight: 350),
               ),
@@ -77,6 +81,8 @@ class _WeatherPageState extends State<WeatherPage> {
                           itemBuilder: (ctx, i) => GestureDetector(
                             onTap: () {
                               locationController.hourOfDay.value = i;
+                              locationController.dayOfNow.value =
+                                  (i / 24).floor();
                               setState(() {});
                             },
                             child: Container(
@@ -99,6 +105,10 @@ class _WeatherPageState extends State<WeatherPage> {
                                     locationController.hourly.weathercode![i],
                                 degree:
                                     locationController.hourly.temperature2M![i],
+                                timeDay: locationController
+                                    .daily.sunrise![(i / 24).floor()],
+                                timeNight: locationController
+                                    .daily.sunset![(i / 24).floor()],
                               ),
                             ),
                           ),
@@ -113,14 +123,15 @@ class _WeatherPageState extends State<WeatherPage> {
                 () => locationController.isLoading.isFalse
                     ? Container(
                         margin: const EdgeInsets.only(bottom: 15),
-                        padding: const EdgeInsets.fromLTRB(10, 15, 20, 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                             color: context.theme.colorScheme.primaryContainer,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
                         child: Row(
                           children: [
-                            Flexible(
+                            Expanded(
                               child: SunsetSunrise(
                                 title: 'sunrise'.tr,
                                 time: locationController.daily.sunrise![
@@ -128,8 +139,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                 image: 'assets/images/sunrise.png',
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            Flexible(
+                            Expanded(
                               child: SunsetSunrise(
                                 title: 'sunset'.tr,
                                 time: locationController.daily
@@ -141,7 +151,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                       )
                     : const MyShimmer(
-                        hight: 80,
+                        hight: 90,
                         edgeInsetsMargin: EdgeInsets.only(bottom: 15),
                       ),
               ),

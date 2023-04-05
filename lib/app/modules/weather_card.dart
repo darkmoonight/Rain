@@ -87,6 +87,8 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                   time: widget.weatherCard.time![timeNow],
                   weather: widget.weatherCard.weathercode![timeNow],
                   degree: widget.weatherCard.temperature2M![timeNow],
+                  timeDay: widget.weatherCard.sunrise![dayNow],
+                  timeNight: widget.weatherCard.sunset![dayNow],
                 ),
                 Container(
                   height: 130,
@@ -115,6 +117,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                     itemBuilder: (ctx, i) => GestureDetector(
                       onTap: () {
                         timeNow = i;
+                        dayNow = (i / 24).floor();
                         setState(() {});
                       },
                       child: Container(
@@ -135,6 +138,10 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                           time: widget.weatherCard.time![i],
                           weather: widget.weatherCard.weathercode![i],
                           degree: widget.weatherCard.temperature2M![i],
+                          timeDay:
+                              widget.weatherCard.sunrise![(i / 24).floor()],
+                          timeNight:
+                              widget.weatherCard.sunset![(i / 24).floor()],
                         ),
                       ),
                     ),
@@ -142,22 +149,22 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 15),
-                  padding: const EdgeInsets.fromLTRB(10, 15, 20, 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                       color: context.theme.colorScheme.primaryContainer,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20))),
                   child: Row(
                     children: [
-                      Flexible(
+                      Expanded(
                         child: SunsetSunrise(
                           title: 'sunrise'.tr,
                           time: widget.weatherCard.sunrise![dayNow],
                           image: 'assets/images/sunrise.png',
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      Flexible(
+                      Expanded(
                         child: SunsetSunrise(
                           title: 'sunset'.tr,
                           time: widget.weatherCard.sunset![dayNow],

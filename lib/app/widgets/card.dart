@@ -15,8 +15,14 @@ class CardDescWeather extends StatefulWidget {
     required this.district,
     required this.city,
     required this.timezone,
+    required this.timeDay,
+    required this.timeNight,
+    required this.timeDaily,
   });
   final List<String> time;
+  final List<String> timeDay;
+  final List<String> timeNight;
+  final List<DateTime> timeDaily;
   final String district;
   final String city;
   final List<int> weather;
@@ -107,7 +113,11 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                 widget.weather[
                     locationController.getTime(widget.time, widget.timezone)],
                 widget.time[
-                    locationController.getTime(widget.time, widget.timezone)]),
+                    locationController.getTime(widget.time, widget.timezone)],
+                widget.timeDay[locationController.getDay(
+                    widget.timeDaily, widget.timezone)],
+                widget.timeNight[locationController.getDay(
+                    widget.timeDaily, widget.timezone)]),
             scale: 6.5,
           ),
         ],

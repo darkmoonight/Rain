@@ -10,8 +10,12 @@ class WeatherNow extends StatefulWidget {
     required this.weather,
     required this.degree,
     required this.time,
+    required this.timeDay,
+    required this.timeNight,
   });
   final String time;
+  final String timeDay;
+  final String timeNight;
   final int weather;
   final double degree;
 
@@ -30,7 +34,8 @@ class _WeatherNowState extends State<WeatherNow> {
       children: [
         const SizedBox(height: 15),
         Image(
-          image: AssetImage(status.getImageNow(widget.weather, widget.time)),
+          image: AssetImage(status.getImageNow(
+              widget.weather, widget.time, widget.timeDay, widget.timeNight)),
           fit: BoxFit.fill,
           height: 200,
         ),

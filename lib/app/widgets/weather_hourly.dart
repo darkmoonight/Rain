@@ -10,8 +10,12 @@ class WeatherHourly extends StatefulWidget {
     required this.time,
     required this.weather,
     required this.degree,
+    required this.timeDay,
+    required this.timeNight,
   });
   final String time;
+  final String timeDay;
+  final String timeNight;
   final int weather;
   final double degree;
 
@@ -46,7 +50,8 @@ class _WeatherHourlyState extends State<WeatherHourly> {
           ],
         ),
         Image.asset(
-          status.getImageToday(widget.time, widget.weather),
+          status.getImageToday(
+              widget.time, widget.weather, widget.timeDay, widget.timeNight),
           scale: 3,
         ),
         Text(

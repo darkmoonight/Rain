@@ -1,13 +1,16 @@
 import 'package:get/get.dart';
 
 class Status {
-  String getImageNow(int weather, String time) {
+  String getImageNow(
+      int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
+    final day = DateTime.parse(timeDay);
+    final night = DateTime.parse(timeNight);
 
     final dayTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 6, 00);
+        DateTime(day.year, day.month, day.day, day.hour, day.minute);
     final nightTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 19, 00);
+        DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
@@ -61,13 +64,16 @@ class Status {
     }
   }
 
-  String getImageToday(String time, int weather) {
+  String getImageToday(
+      String time, int weather, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
+    final day = DateTime.parse(timeDay);
+    final night = DateTime.parse(timeNight);
 
     final dayTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 6, 00);
+        DateTime(day.year, day.month, day.day, day.hour, day.minute);
     final nightTime =
-        DateTime(currentTime.year, currentTime.month, currentTime.day, 19, 00);
+        DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
