@@ -41,23 +41,23 @@ class _SettingsPageState extends State<SettingsPage> {
               }
             },
           ),
-          SettingLinks(
-            icon: Icon(
-              Iconsax.notification,
-              color: context.theme.iconTheme.color,
-            ),
-            text: 'notifications'.tr,
-            switcher: true,
-            dropdown: false,
-            value: settings.notifications,
-            onChange: (value) {
-              isar.writeTxn(() async {
-                settings.notifications = value;
-                isar.settings.put(settings);
-              });
-              setState(() {});
-            },
-          ),
+          // SettingLinks(
+          //   icon: Icon(
+          //     Iconsax.notification,
+          //     color: context.theme.iconTheme.color,
+          //   ),
+          //   text: 'notifications'.tr,
+          //   switcher: true,
+          //   dropdown: false,
+          //   value: settings.notifications,
+          //   onChange: (value) {
+          //     isar.writeTxn(() async {
+          //       settings.notifications = value;
+          //       isar.settings.put(settings);
+          //     });
+          //     setState(() {});
+          //   },
+          // ),
           SettingLinks(
             icon: Icon(
               Iconsax.location,

@@ -56,6 +56,7 @@ class Status {
       case 86:
         return 'assets/images/snow.png';
       case 95:
+        return 'assets/images/thunder.png';
       case 96:
       case 99:
         return 'assets/images/storm.png';
