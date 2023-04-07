@@ -467,7 +467,7 @@ class Translation extends Translations {
           'sunrise': 'Güneş doğuşu',
           'sunset': 'Güneş batışı',
         },
-         'pt_BR': {
+        'pt_BR': {
           'start': 'Iniciar',
           'description':
               'Aplicativo de clima em tempo real com previsões horárias, diárias e semanais para qualquer local.',
@@ -485,7 +485,7 @@ class Translation extends Translations {
           'pressure': 'Pressão',
           'rain': 'Chuva',
           'clear_sky': 'Céu limpo',
-          'cloudy: 'Nublado',
+          'cloudy': 'Nublado',
           'overcast': 'Encoberto',
           'fog': 'Névoa',
           'drizzle': 'Garoa',
@@ -543,6 +543,6 @@ class Translation extends Translations {
           'notifications': 'Notificações',
           'sunrise': 'Nascer do sol',
           'sunset': 'Pôr do sol',
-         },
+        },
       };
 }
