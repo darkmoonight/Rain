@@ -17,12 +17,13 @@ An application for viewing the weather in your city
 - Просмотр погоды по часам
 - Просмотр погоды на неделю
 - Просмотр подробных данных о погоде
-- Локализация (ru/en/it/de/fr/tr)
+- Локализация (ru/en/it/de/fr/tr/pt)
 - Кэширование данных
 - Выбор города самостоятельно
 - Добавление карточек других городов
 - Выбор между метрической системой мер и имперской
 - Выбор между градусами Цельсия и Фаренгейта
+- Выбор между форматом времени 12 и 24-часовым
 Также мы постарались сделать дизайн максимально удобным и красивым. -->
 
 This application allows you to view the weather in your city.
@@ -32,12 +33,13 @@ The following options are provided:
 - View weather by hour
 - View the weather for the week
 - View detailed weather data
-- Localization (ru/en/it/de/fr/tr)
+- Localization (ru/en/it/de/fr/tr/pt)
 - Data caching
 - Choose the city yourself
 - Adding cards of other cities
 - The choice between the metric system of measures and the imperial
 - Choose between Celsius and Fahrenheit
+- Choosing between 12-hour and 24-hour time formats
 
 We also tried to make the design as convenient and beautiful as possible.
 
@@ -48,7 +50,7 @@ We also tried to make the design as convenient and beautiful as possible.
 
 ### Screenshots:
 
-<img src="/readme/1.jpg" width="200"/> <img src="/readme/2.jpg" width="200"/> <img src="/readme/3.jpg" width="200"/>
+<img src="/readme/1.png" width="200"/> <img src="/readme/2.png" width="200"/> <img src="/readme/3.png" width="200"/> <img src="/readme/4.png" width="200"/>
 
 ### Download:
 
