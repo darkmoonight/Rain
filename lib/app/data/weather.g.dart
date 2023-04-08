@@ -46,6 +46,11 @@ const SettingsSchema = CollectionSchema(
       id: 5,
       name: r'theme',
       type: IsarType.bool,
+    ),
+    r'timeformat': PropertySchema(
+      id: 6,
+      name: r'timeformat',
+      type: IsarType.string,
     )
   },
   estimateSize: _settingsEstimateSize,
@@ -70,6 +75,7 @@ int _settingsEstimateSize(
   var bytesCount = offsets.last;
   bytesCount += 3 + object.degrees.length * 3;
   bytesCount += 3 + object.measurements.length * 3;
+  bytesCount += 3 + object.timeformat.length * 3;
   return bytesCount;
 }
 
@@ -85,6 +91,7 @@ void _settingsSerialize(
   writer.writeBool(offsets[3], object.notifications);
   writer.writeBool(offsets[4], object.onboard);
   writer.writeBool(offsets[5], object.theme);
+  writer.writeString(offsets[6], object.timeformat);
 }
 
 Settings _settingsDeserialize(
@@ -101,6 +108,7 @@ Settings _settingsDeserialize(
   object.notifications = reader.readBool(offsets[3]);
   object.onboard = reader.readBool(offsets[4]);
   object.theme = reader.readBoolOrNull(offsets[5]);
+  object.timeformat = reader.readString(offsets[6]);
   return object;
 }
 
@@ -123,6 +131,8 @@ P _settingsDeserializeProp<P>(
       return (reader.readBool(offset)) as P;
     case 5:
       return (reader.readBoolOrNull(offset)) as P;
+    case 6:
+      return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -588,6 +598,137 @@ extension SettingsQueryFilter
       ));
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timeformat',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'timeformat',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'timeformat',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'timeformat',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'timeformat',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'timeformat',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'timeformat',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'timeformat',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timeformat',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      timeformatIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'timeformat',
+        value: '',
+      ));
+    });
+  }
 }
 
 extension SettingsQueryObject
@@ -666,6 +807,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByThemeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'theme', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeformat() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeformat', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeformatDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeformat', Sort.desc);
     });
   }
 }
@@ -755,6 +908,18 @@ extension SettingsQuerySortThenBy
       return query.addSortBy(r'theme', Sort.desc);
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeformat() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeformat', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeformatDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeformat', Sort.desc);
+    });
+  }
 }
 
 extension SettingsQueryWhereDistinct
@@ -794,6 +959,13 @@ extension SettingsQueryWhereDistinct
   QueryBuilder<Settings, Settings, QDistinct> distinctByTheme() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'theme');
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeformat(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'timeformat', caseSensitive: caseSensitive);
     });
   }
 }
@@ -839,6 +1011,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, bool?, QQueryOperations> themeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'theme');
+    });
+  }
+
+  QueryBuilder<Settings, String, QQueryOperations> timeformatProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'timeformat');
     });
   }
 }

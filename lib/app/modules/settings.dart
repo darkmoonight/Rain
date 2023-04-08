@@ -115,6 +115,24 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingLinks(
             icon: Icon(
+              Iconsax.clock,
+              color: context.theme.iconTheme.color,
+            ),
+            text: 'timeformat'.tr,
+            switcher: false,
+            dropdown: true,
+            dropdownName: settings.timeformat.tr,
+            dropdownList: <String>['12'.tr, '24'.tr],
+            dropdownCange: (String? newValue) {
+              isar.writeTxn(() async {
+                settings.timeformat = newValue == '12'.tr ? '12' : '24';
+                isar.settings.put(settings);
+              });
+              setState(() {});
+            },
+          ),
+          SettingLinks(
+            icon: Icon(
               Iconsax.info_circle,
               color: context.theme.iconTheme.color,
             ),

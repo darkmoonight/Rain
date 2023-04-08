@@ -11,6 +11,7 @@ class Settings {
   bool notifications = false;
   String measurements = 'metric';
   String degrees = 'celsius';
+  String timeformat = '24';
 }
 
 @collection

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:rain/app/widgets/status_im_fa.dart';
 
 class SunsetSunrise extends StatefulWidget {
   const SunsetSunrise({
@@ -19,6 +19,8 @@ class SunsetSunrise extends StatefulWidget {
 
 class _SunsetSunriseState extends State<SunsetSunrise> {
   final locale = Get.locale;
+  final statusImFa = StatusImFa();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -36,8 +38,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
               ),
               const SizedBox(height: 2),
               Text(
-                DateFormat('HH:mm', '${locale?.languageCode}')
-                    .format(DateTime.tryParse(widget.time)!),
+                statusImFa.getTimeFormat(widget.time),
                 style: context.theme.textTheme.titleLarge,
               ),
             ],

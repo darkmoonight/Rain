@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:rain/main.dart';
+import 'package:timezone/timezone.dart';
 
 class StatusImFa {
   String getDegree(int degree) {
@@ -43,6 +45,28 @@ class StatusImFa {
         return '$precipitation ${'inch'.tr}';
       default:
         return '$precipitation ${'mm'.tr}';
+    }
+  }
+
+  String getTimeFormat(String time) {
+    switch (settings.timeformat) {
+      case '12':
+        return DateFormat.jm().format(DateTime.tryParse(time)!);
+      case '24':
+        return DateFormat.Hm().format(DateTime.tryParse(time)!);
+      default:
+        return DateFormat.Hm().format(DateTime.tryParse(time)!);
+    }
+  }
+
+  String getTimeFormatTz(TZDateTime time) {
+    switch (settings.timeformat) {
+      case '12':
+        return DateFormat.jm().format(time);
+      case '24':
+        return DateFormat.Hm().format(time);
+      default:
+        return DateFormat.Hm().format(time);
     }
   }
 }

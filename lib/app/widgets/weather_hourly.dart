@@ -36,8 +36,7 @@ class _WeatherHourlyState extends State<WeatherHourly> {
         Column(
           children: [
             Text(
-              DateFormat('HH:mm', '${locale?.languageCode}')
-                  .format(DateTime.tryParse(widget.time)!),
+              statusImFa.getTimeFormat(widget.time),
               style: context.theme.textTheme.labelLarge,
             ),
             Text(

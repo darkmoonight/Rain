@@ -79,6 +79,9 @@ class Translation extends Translations {
           'notifications': 'Уведомления',
           'sunrise': 'Рассвет',
           'sunset': 'Закат',
+          'timeformat': 'Формат времени',
+          '12': '12-часовой',
+          '24': '24-часовой',
         },
         'en_US': {
           'start': 'Get Started',
@@ -156,6 +159,9 @@ class Translation extends Translations {
           'notifications': 'Notifications',
           'sunrise': 'Sunrise',
           'sunset': 'Sunset',
+          'timeformat': 'Time format',
+          '12': '12-hour',
+          '24': '24-hour',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -234,6 +240,9 @@ class Translation extends Translations {
           'notifications': 'Notifications',
           'sunrise': 'Lever du soleil',
           'sunset': 'Coucher du soleil',
+          'timeformat': 'Format horaire',
+          '12': '12 heures',
+          '24': '24 heures',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -311,6 +320,9 @@ class Translation extends Translations {
           'notifications': 'Notifiche',
           'sunrise': 'Alba',
           'sunset': 'Tramonto',
+          'timeformat': 'Formato ora',
+          '12': '12 ore',
+          '24': '24 ore',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -389,6 +401,9 @@ class Translation extends Translations {
           'notifications': 'Benachrichtigungen',
           'sunrise': 'Sonnenaufgang',
           'sunset': 'Sonnenuntergang',
+          'timeformat': 'Zeitformat',
+          '12': '12-stunden',
+          '24': '24-stunden',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -466,6 +481,9 @@ class Translation extends Translations {
           'notifications': 'Bildirme',
           'sunrise': 'Güneş doğuşu',
           'sunset': 'Güneş batışı',
+          'timeformat': 'Saat biçimi',
+          '12': '12 saat',
+          '24': '24 saat',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -543,6 +561,9 @@ class Translation extends Translations {
           'notifications': 'Notificações',
           'sunrise': 'Nascer do sol',
           'sunset': 'Pôr do sol',
+          'timeformat': 'Formato de hora',
+          '12': '12 horas',
+          '24': '24 horas',
         },
       };
 }

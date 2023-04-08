@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/status.dart';
 import 'package:rain/app/widgets/status_im_fa.dart';
@@ -97,7 +96,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                     stream: Stream.periodic(const Duration(seconds: 1)),
                     builder: (context, snapshot) {
                       return Text(
-                        '${'time'.tr}: ${DateFormat('HH:mm').format(tz.TZDateTime.now(tz.getLocation(widget.timezone)))}',
+                        '${'time'.tr}: ${statusImFa.getTimeFormatTz(tz.TZDateTime.now(tz.getLocation(widget.timezone)))}',
                         style: context.theme.textTheme.titleMedium?.copyWith(
                           color: Colors.grey,
                           fontWeight: FontWeight.w400,
