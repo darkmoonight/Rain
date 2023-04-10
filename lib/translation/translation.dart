@@ -36,7 +36,7 @@ class Translation extends Translations {
           'km': 'км',
           'inch': 'дюйм',
           'mm': 'мм',
-          'hPa': 'ГПа',
+          'hPa': 'гПа',
           'settings': 'Настр.',
           'no_inter': 'Нет интернета',
           'on_inter':
