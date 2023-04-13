@@ -165,10 +165,10 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: "8875e8ed511a49f030e313656154e4bbbcef18d68dfd32eb853fac10bce48e96"
+      sha256: d73575bb66216738db892f72ba67dc478bd3b5490fbbcf43644b57645eabc822
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.4"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -241,6 +241,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.1"
+  dynamic_color:
+    dependency: "direct main"
+    description:
+      name: dynamic_color
+      sha256: bbebb1b7ebed819e0ec83d4abdc2a8482d934f6a85289ffc1c6acf7589fa2aad
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.3"
   fake_async:
     dependency: transitive
     description:
@@ -633,10 +641,10 @@ packages:
     dependency: "direct main"
     description:
       name: package_info_plus
-      sha256: "8df5ab0a481d7dc20c0e63809e90a588e496d276ba53358afc4c4443d0a00697"
+      sha256: cbff87676c352d97116af6dbea05aa28c4d65eb0f6d5677a520c11a69ca9a24d
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.1.0"
   package_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -673,10 +681,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_foundation
-      sha256: "818b2dc38b0f178e0ea3f7cf3b28146faab11375985d815942a68eee11c2d0f7"
+      sha256: ad4c4d011830462633f03eb34445a45345673dfd4faf1ab0b4735fbd93b19183
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   path_provider_linux:
     dependency: transitive
     description:
@@ -918,10 +926,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: dd729390aa936bf1bdf5cd1bc7468ff340263f80a2c4f569416507667de8e3c8
+      sha256: a52628068d282d01a07cd86e6ba99e497aa45ce8c91159015b2416907d78e411
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.26"
+    version: "6.0.27"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -942,10 +950,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_macos
-      sha256: "0ef2b4f97942a16523e51256b799e9aa1843da6c60c55eefbfa9dbc2dcb8331a"
+      sha256: "91ee3e75ea9dadf38036200c5d3743518f4a5eb77a8d13fda1ee5764373f185e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.4"
+    version: "3.0.5"
   url_launcher_platform_interface:
     dependency: transitive
     description:
@@ -990,10 +998,10 @@ packages:
     dependency: transitive
     description:
       name: web_socket_channel
-      sha256: ca49c0bc209c687b887f30527fb6a9d80040b072cc2990f34b9bec3e7663101b
+      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.0"
   win32:
     dependency: transitive
     description:
@@ -1036,4 +1044,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.19.4 <3.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.4.0-17.0.pre"
