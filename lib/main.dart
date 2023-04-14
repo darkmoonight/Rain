@@ -57,8 +57,7 @@ Future<void> setOptimalDisplayMode() async {
 Future<void> isarInit() async {
   isar = await Isar.open([
     SettingsSchema,
-    HourlyCacheSchema,
-    DailyCacheSchema,
+    MainWeatherCacheSchema,
     LocationCacheSchema,
     WeatherCardSchema,
   ], directory: (await getApplicationSupportDirectory()).path);

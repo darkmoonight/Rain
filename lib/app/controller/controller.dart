@@ -24,13 +24,12 @@ class LocationController extends GetxController {
   double get latitude => _latitude.value;
   double get longitude => _longitude.value;
 
-  final _hourly = HourlyCache().obs;
-  final _daily = DailyCache().obs;
+  final _mainWeather = MainWeatherCache().obs;
+
   final _location = LocationCache().obs;
   final _weatherCard = WeatherCard().obs;
 
-  HourlyCache get hourly => _hourly.value;
-  DailyCache get daily => _daily.value;
+  MainWeatherCache get mainWeather => _mainWeather.value;
   LocationCache get location => _location.value;
   WeatherCard get weatherCard => _weatherCard.value;
 
@@ -87,10 +86,8 @@ class LocationController extends GetxController {
       _district.value = '${place.administrativeArea}';
       _city.value = '${place.locality}';
 
-      _hourly.value =
+      _mainWeather.value =
           await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
-      _daily.value =
-          await WeatherAPI().getWeather7Data(_latitude.value, _longitude.value);
 
       await writeCache();
       await readCache();
@@ -155,10 +152,8 @@ class LocationController extends GetxController {
       _district.value = district;
       _city.value = locality;
 
-      _hourly.value =
+      _mainWeather.value =
           await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
-      _daily.value =
-          await WeatherAPI().getWeather7Data(_latitude.value, _longitude.value);
 
       await writeCache();
       await readCache();
@@ -176,22 +171,21 @@ class LocationController extends GetxController {
   }
 
   Future<void> readCache() async {
-    HourlyCache? hourlyCache;
-    DailyCache? dailyCache;
+    MainWeatherCache? mainWeatherCache;
     LocationCache? locationCache;
 
-    while (hourlyCache == null || dailyCache == null || locationCache == null) {
-      hourlyCache = await isar.hourlyCaches.where().findFirst();
-      dailyCache = await isar.dailyCaches.where().findFirst();
+    while (mainWeatherCache == null || locationCache == null) {
+      mainWeatherCache = await isar.mainWeatherCaches.where().findFirst();
       locationCache = await isar.locationCaches.where().findFirst();
     }
 
-    _hourly.value = hourlyCache;
-    _daily.value = dailyCache;
+    _mainWeather.value = mainWeatherCache;
     _location.value = locationCache;
 
-    hourOfDay.value = getTime(_hourly.value.time!, _hourly.value.timezone!);
-    dayOfNow.value = getDay(_daily.value.time!, _daily.value.timezone!);
+    hourOfDay.value =
+        getTime(_mainWeather.value.time!, _mainWeather.value.timezone!);
+    dayOfNow.value =
+        getDay(_mainWeather.value.timeDaily!, _mainWeather.value.timezone!);
 
     isLoading.value = false;
     Future.delayed(const Duration(milliseconds: 30), () async {
@@ -212,12 +206,8 @@ class LocationController extends GetxController {
     );
 
     isar.writeTxn(() async {
-      if ((await isar.hourlyCaches.where().findAll()).isEmpty) {
-        await isar.hourlyCaches.put(_hourly.value);
-      }
-
-      if ((await isar.dailyCaches.where().findAll()).isEmpty) {
-        await isar.dailyCaches.put(_daily.value);
+      if ((await isar.mainWeatherCaches.where().findAll()).isEmpty) {
+        await isar.mainWeatherCaches.put(_mainWeather.value);
       }
 
       if ((await isar.locationCaches.where().findAll()).isEmpty) {
@@ -229,11 +219,7 @@ class LocationController extends GetxController {
   Future<void> deleteCache() async {
     if (await isDeviceConnectedNotifier.value) {
       isar.writeTxn(() async {
-        await isar.hourlyCaches
-            .filter()
-            .timestampLessThan(cacheExpiry)
-            .deleteAll();
-        await isar.dailyCaches
+        await isar.mainWeatherCaches
             .filter()
             .timestampLessThan(cacheExpiry)
             .deleteAll();
@@ -244,8 +230,7 @@ class LocationController extends GetxController {
   Future<void> deleteAll(bool changeCity) async {
     if (await isDeviceConnectedNotifier.value) {
       isar.writeTxn(() async {
-        await isar.hourlyCaches.where().deleteAll();
-        await isar.dailyCaches.where().deleteAll();
+        await isar.mainWeatherCaches.where().deleteAll();
         if (settings.location || changeCity) {
           await isar.locationCaches.where().deleteAll();
         }

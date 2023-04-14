@@ -38,16 +38,16 @@ class _WeatherPageState extends State<WeatherPage> {
               Obx(
                 () => locationController.isLoading.isFalse
                     ? WeatherNow(
-                        time: locationController
-                            .hourly.time![locationController.hourOfDay.value],
-                        weather: locationController.hourly
+                        time: locationController.mainWeather
+                            .time![locationController.hourOfDay.value],
+                        weather: locationController.mainWeather
                             .weathercode![locationController.hourOfDay.value],
-                        degree: locationController.hourly
+                        degree: locationController.mainWeather
                             .temperature2M![locationController.hourOfDay.value],
-                        timeDay: locationController
-                            .daily.sunrise![locationController.dayOfNow.value],
-                        timeNight: locationController
-                            .daily.sunset![locationController.dayOfNow.value],
+                        timeDay: locationController.mainWeather
+                            .sunrise![locationController.dayOfNow.value],
+                        timeNight: locationController.mainWeather
+                            .sunset![locationController.dayOfNow.value],
                       )
                     : const MyShimmer(hight: 350),
               ),
@@ -77,7 +77,8 @@ class _WeatherPageState extends State<WeatherPage> {
                           scrollDirection: Axis.horizontal,
                           itemScrollController:
                               locationController.itemScrollController,
-                          itemCount: locationController.hourly.time!.length,
+                          itemCount:
+                              locationController.mainWeather.time!.length,
                           itemBuilder: (ctx, i) => GestureDetector(
                             onTap: () {
                               locationController.hourOfDay.value = i;
@@ -100,15 +101,15 @@ class _WeatherPageState extends State<WeatherPage> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(20))),
                               child: WeatherHourly(
-                                time: locationController.hourly.time![i],
-                                weather:
-                                    locationController.hourly.weathercode![i],
-                                degree:
-                                    locationController.hourly.temperature2M![i],
+                                time: locationController.mainWeather.time![i],
+                                weather: locationController
+                                    .mainWeather.weathercode![i],
+                                degree: locationController
+                                    .mainWeather.temperature2M![i],
                                 timeDay: locationController
-                                    .daily.sunrise![(i / 24).floor()],
+                                    .mainWeather.sunrise![(i / 24).floor()],
                                 timeNight: locationController
-                                    .daily.sunset![(i / 24).floor()],
+                                    .mainWeather.sunset![(i / 24).floor()],
                               ),
                             ),
                           ),
@@ -134,7 +135,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             Expanded(
                               child: SunsetSunrise(
                                 title: 'sunrise'.tr,
-                                time: locationController.daily.sunrise![
+                                time: locationController.mainWeather.sunrise![
                                     locationController.dayOfNow.value],
                                 image: 'assets/images/sunrise.png',
                               ),
@@ -142,7 +143,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             Expanded(
                               child: SunsetSunrise(
                                 title: 'sunset'.tr,
-                                time: locationController.daily
+                                time: locationController.mainWeather
                                     .sunset![locationController.dayOfNow.value],
                                 image: 'assets/images/sunset.png',
                               ),
@@ -172,13 +173,13 @@ class _WeatherPageState extends State<WeatherPage> {
                                 DescWeather(
                                   imageName: 'assets/images/humidity.png',
                                   value:
-                                      '${locationController.hourly.relativehumidity2M![locationController.hourOfDay.value]}%',
+                                      '${locationController.mainWeather.relativehumidity2M![locationController.hourOfDay.value]}%',
                                   desc: 'humidity'.tr,
                                 ),
                                 DescWeather(
                                   imageName: 'assets/images/wind.png',
                                   value: statusImFa.getSpeed(locationController
-                                      .hourly
+                                      .mainWeather
                                       .windspeed10M![
                                           locationController.hourOfDay.value]
                                       .round()),
@@ -187,7 +188,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                 DescWeather(
                                   imageName: 'assets/images/foggy.png',
                                   value: statusImFa.getVisibility(
-                                      locationController.hourly.visibility![
+                                      locationController
+                                              .mainWeather.visibility![
                                           locationController.hourOfDay.value]),
                                   desc: 'visibility'.tr,
                                 ),
@@ -200,14 +202,14 @@ class _WeatherPageState extends State<WeatherPage> {
                                 DescWeather(
                                   imageName: 'assets/images/temperature.png',
                                   value:
-                                      '${locationController.hourly.apparentTemperature![locationController.hourOfDay.value].round()}°',
+                                      '${locationController.mainWeather.apparentTemperature![locationController.hourOfDay.value].round()}°',
                                   desc: 'feels'.tr,
                                 ),
                                 DescWeather(
                                   imageName: 'assets/images/evaporation.png',
                                   value: statusImFa.getPrecipitation(
                                       locationController
-                                          .hourly
+                                          .mainWeather
                                           .evapotranspiration![
                                               locationController
                                                   .hourOfDay.value]
@@ -217,7 +219,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                 DescWeather(
                                   imageName: 'assets/images/rainfall.png',
                                   value: statusImFa.getPrecipitation(
-                                      locationController.hourly.precipitation![
+                                      locationController
+                                              .mainWeather.precipitation![
                                           locationController.hourOfDay.value]),
                                   desc: 'precipitation'.tr,
                                 ),
@@ -230,16 +233,16 @@ class _WeatherPageState extends State<WeatherPage> {
                                 DescWeather(
                                   imageName: 'assets/images/wind-direction.png',
                                   value:
-                                      '${locationController.hourly.winddirection10M![locationController.hourOfDay.value]}°',
+                                      '${locationController.mainWeather.winddirection10M![locationController.hourOfDay.value]}°',
                                   desc: 'direction'.tr,
                                 ),
                                 DescWeather(
                                   imageName: 'assets/images/atmospheric.png',
                                   value:
-                                      '${locationController.hourly.surfacePressure![locationController.hourOfDay.value].round()} ${'hPa'.tr}',
+                                      '${locationController.mainWeather.surfacePressure![locationController.hourOfDay.value].round()} ${'hPa'.tr}',
                                   desc: 'pressure'.tr,
                                   message: locationController
-                                              .hourly
+                                              .mainWeather
                                               .surfacePressure![
                                                   locationController
                                                       .hourOfDay.value]
@@ -247,7 +250,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                           1000
                                       ? 'low'.tr
                                       : locationController
-                                                  .hourly
+                                                  .mainWeather
                                                   .surfacePressure![
                                                       locationController
                                                           .hourOfDay.value]
@@ -259,7 +262,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                 DescWeather(
                                   imageName: 'assets/images/water.png',
                                   value: statusImFa.getPrecipitation(
-                                      locationController.hourly.rain![
+                                      locationController.mainWeather.rain![
                                           locationController.hourOfDay.value]),
                                   desc: 'rain'.tr,
                                 ),
@@ -288,14 +291,16 @@ class _WeatherPageState extends State<WeatherPage> {
                                 const BorderRadius.all(Radius.circular(20))),
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
-                          itemCount: locationController.daily.time!.length,
+                          itemCount:
+                              locationController.mainWeather.timeDaily!.length,
                           itemBuilder: (ctx, i) => WeatherDaily(
-                            date: locationController.daily.time![i],
-                            weather: locationController.daily.weathercode![i],
-                            minDegree:
-                                locationController.daily.temperature2MMin![i],
-                            maxDegree:
-                                locationController.daily.temperature2MMax![i],
+                            date: locationController.mainWeather.timeDaily![i],
+                            weather: locationController
+                                .mainWeather.weathercodeDaily![i],
+                            minDegree: locationController
+                                .mainWeather.temperature2MMin![i],
+                            maxDegree: locationController
+                                .mainWeather.temperature2MMax![i],
                           ),
                         ),
                       )

@@ -32,7 +32,7 @@ class Status {
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
           return 'assets/images/fog.png';
         } else {
-          return 'assets/images/fog_night.png';
+          return 'assets/images/fog_moon.png';
         }
       case 51:
       case 53:
@@ -79,24 +79,24 @@ class Status {
     switch (weather) {
       case 0:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/01d.png';
+          return 'assets/images/clear_day.png';
         } else {
-          return 'assets/images/01n.png';
+          return 'assets/images/clear_night.png';
         }
       case 1:
       case 2:
       case 3:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/02d.png';
+          return 'assets/images/cloudy_day.png';
         } else {
-          return 'assets/images/02n.png';
+          return 'assets/images/cloudy_night.png';
         }
       case 45:
       case 48:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/50d.png';
+          return 'assets/images/fog_day.png';
         } else {
-          return 'assets/images/50n.png';
+          return 'assets/images/fog_night.png';
         }
       case 51:
       case 53:
@@ -112,9 +112,9 @@ class Status {
       case 81:
       case 82:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/10d.png';
+          return 'assets/images/rain_day.png';
         } else {
-          return 'assets/images/10n.png';
+          return 'assets/images/rain_night.png';
         }
       case 71:
       case 73:
@@ -123,17 +123,17 @@ class Status {
       case 85:
       case 86:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/13d.png';
+          return 'assets/images/snow_day.png';
         } else {
-          return 'assets/images/13n.png';
+          return 'assets/images/snow_night.png';
         }
       case 95:
       case 96:
       case 99:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/11d.png';
+          return 'assets/images/thunder_day.png';
         } else {
-          return 'assets/images/11n.png';
+          return 'assets/images/thunder_night.png';
         }
       default:
         return '';
@@ -143,14 +143,14 @@ class Status {
   String getImage7Day(int weather) {
     switch (weather) {
       case 0:
-        return 'assets/images/01d.png';
+        return 'assets/images/clear_day.png';
       case 1:
       case 2:
       case 3:
-        return 'assets/images/02d.png';
+        return 'assets/images/cloudy_day.png';
       case 45:
       case 48:
-        return 'assets/images/50d.png';
+        return 'assets/images/fog_day.png';
       case 51:
       case 53:
       case 55:
@@ -164,18 +164,18 @@ class Status {
       case 80:
       case 81:
       case 82:
-        return 'assets/images/10d.png';
+        return 'assets/images/rain_day.png';
       case 71:
       case 73:
       case 75:
       case 77:
       case 85:
       case 86:
-        return 'assets/images/13d.png';
+        return 'assets/images/snow_day.png';
       case 95:
       case 96:
       case 99:
-        return 'assets/images/11d.png';
+        return 'assets/images/thunder_night.png';
       default:
         return '';
     }

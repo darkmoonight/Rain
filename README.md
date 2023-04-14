@@ -45,8 +45,8 @@ We also tried to make the design as convenient and beautiful as possible.
 
 ### Services used:
 
-- The app receives weather data from [Open-Meteo](https://open-meteo.com/)
-- Cities are searched using [Geoapify](https://www.geoapify.com/)
+- The app receives weather data from [Open-Meteo](https://open-meteo.com/en/docs)
+- Cities are searched using [Open-Meteo](https://open-meteo.com/en/docs/geocoding-api)
 
 ### Screenshots:
 

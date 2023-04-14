@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:rain/api_key.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
@@ -88,26 +87,23 @@ class _HomePageState extends State<HomePage> {
                     return const Iterable<Result>.empty();
                   }
                   return WeatherAPI()
-                      .getSuggestions(textEditingValue.text, locale, apiKey);
+                      .getSuggestions(textEditingValue.text, locale);
                 },
                 onSelected: (Result selection) async {
                   await locationController.deleteAll(true);
                   await locationController.getLocation(
-                    double.parse(selection.lat.toStringAsFixed(4)),
-                    double.parse(selection.lon.toStringAsFixed(4)),
-                    selection.state ?? selection.country!,
-                    selection.city ?? selection.state!,
+                    double.parse('${selection.latitude}'),
+                    double.parse('${selection.longitude}'),
+                    selection.admin1,
+                    selection.name,
                   );
                   visible = false;
                   _controller.clear();
                   _focusNode.unfocus();
                   setState(() {});
                 },
-                displayStringForOption: (Result option) => option.state == null
-                    ? '${option.city}, ${option.country}'
-                    : option.city == null
-                        ? '${option.state}, ${option.country}'
-                        : '${option.city}, ${option.state}',
+                displayStringForOption: (Result option) =>
+                    '${option.name}, ${option.admin1}',
                 optionsViewBuilder: (BuildContext context,
                     AutocompleteOnSelected<Result> onSelected,
                     Iterable<Result> options) {
@@ -129,11 +125,7 @@ class _HomePageState extends State<HomePage> {
                               onTap: () => onSelected(option),
                               child: ListTile(
                                 title: Text(
-                                  option.state == null
-                                      ? '${option.city}, ${option.country}'
-                                      : option.city == null
-                                          ? '${option.state}, ${option.country}'
-                                          : '${option.city}, ${option.state}',
+                                  '${option.name}, ${option.admin1}',
                                   style: context.theme.textTheme.bodyLarge,
                                 ),
                               ),

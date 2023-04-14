@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:rain/api_key.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
@@ -33,11 +32,11 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
     }
   }
 
-  void fillController(suggestion) {
-    _controllerLat.text = '${suggestion.lat.toStringAsFixed(4)}';
-    _controllerLon.text = '${suggestion.lon.toStringAsFixed(4)}';
-    _controllerCity.text = suggestion.city ?? suggestion.state;
-    _controllerDistrict.text = suggestion.state ?? suggestion.country;
+  void fillController(selection) {
+    _controllerLat.text = '${selection.latitude}';
+    _controllerLon.text = '${selection.longitude}';
+    _controllerCity.text = selection.name;
+    _controllerDistrict.text = selection.admin1;
     _controller.clear();
     _focusNode.unfocus();
     setState(() {});
@@ -144,17 +143,13 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         if (textEditingValue.text.isEmpty) {
                           return const Iterable<Result>.empty();
                         }
-                        return WeatherAPI().getSuggestions(
-                            textEditingValue.text, locale, apiKey);
+                        return WeatherAPI()
+                            .getSuggestions(textEditingValue.text, locale);
                       },
                       onSelected: (Result selection) =>
                           fillController(selection),
                       displayStringForOption: (Result option) =>
-                          option.state == null
-                              ? '${option.city}, ${option.country}'
-                              : option.city == null
-                                  ? '${option.state}, ${option.country}'
-                                  : '${option.city}, ${option.state}',
+                          '${option.name}, ${option.admin1}',
                       optionsViewBuilder: (BuildContext context,
                           AutocompleteOnSelected<Result> onSelected,
                           Iterable<Result> options) {
@@ -174,11 +169,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                                   onTap: () => onSelected(option),
                                   child: ListTile(
                                     title: Text(
-                                      option.state == null
-                                          ? '${option.city}, ${option.country}'
-                                          : option.city == null
-                                              ? '${option.state}, ${option.country}'
-                                              : '${option.city}, ${option.state}',
+                                      '${option.name}, ${option.admin1}',
                                       style: context.theme.textTheme.bodyLarge,
                                     ),
                                   ),

@@ -15,7 +15,7 @@ class Settings {
 }
 
 @collection
-class HourlyCache {
+class MainWeatherCache {
   Id id = Isar.autoIncrement;
   List<String>? time;
   List<double>? temperature2M;
@@ -29,10 +29,18 @@ class HourlyCache {
   List<double>? evapotranspiration;
   List<double>? windspeed10M;
   List<int>? winddirection10M;
+  List<int>? cloudcover;
+  List<double>? uvIndex;
+  List<DateTime>? timeDaily;
+  List<int>? weathercodeDaily;
+  List<double>? temperature2MMax;
+  List<double>? temperature2MMin;
+  List<String>? sunrise;
+  List<String>? sunset;
   String? timezone;
   DateTime? timestamp;
 
-  HourlyCache({
+  MainWeatherCache({
     this.time,
     this.temperature2M,
     this.relativehumidity2M,
@@ -45,26 +53,10 @@ class HourlyCache {
     this.evapotranspiration,
     this.windspeed10M,
     this.winddirection10M,
-    this.timezone,
-    this.timestamp,
-  });
-}
-
-@collection
-class DailyCache {
-  Id id = Isar.autoIncrement;
-  List<DateTime>? time;
-  List<int>? weathercode;
-  List<double>? temperature2MMax;
-  List<double>? temperature2MMin;
-  List<String>? sunrise;
-  List<String>? sunset;
-  String? timezone;
-  DateTime? timestamp;
-
-  DailyCache({
-    this.time,
-    this.weathercode,
+    this.cloudcover,
+    this.uvIndex,
+    this.timeDaily,
+    this.weathercodeDaily,
     this.temperature2MMax,
     this.temperature2MMin,
     this.sunrise,
@@ -105,6 +97,8 @@ class WeatherCard {
   List<double>? evapotranspiration;
   List<double>? windspeed10M;
   List<int>? winddirection10M;
+  List<int>? cloudcover;
+  List<double>? uvIndex;
   List<DateTime>? timeDaily;
   List<int>? weathercodeDaily;
   List<double>? temperature2MMax;
@@ -131,6 +125,8 @@ class WeatherCard {
     this.evapotranspiration,
     this.windspeed10M,
     this.winddirection10M,
+    this.cloudcover,
+    this.uvIndex,
     this.timeDaily,
     this.weathercodeDaily,
     this.temperature2MMax,

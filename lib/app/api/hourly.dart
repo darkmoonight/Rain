@@ -28,6 +28,8 @@ class Hourly {
     this.evapotranspiration,
     this.windspeed10M,
     this.winddirection10M,
+    this.cloudcover,
+    this.uvIndex,
   });
 
   List<String>? time;
@@ -42,27 +44,28 @@ class Hourly {
   List<double>? evapotranspiration;
   List<double>? windspeed10M;
   List<int>? winddirection10M;
+  List<int>? cloudcover;
+  List<double>? uvIndex;
 
   factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
         time: List<String>.from(json["time"].map((x) => x)),
-        temperature2M:
-            List<double>.from(json["temperature_2m"].map((x) => x?.toDouble())),
+        temperature2M: List<double>.from(json["temperature_2m"].map((x) => x)),
         relativehumidity2M:
             List<int>.from(json["relativehumidity_2m"].map((x) => x)),
-        apparentTemperature: List<double>.from(
-            json["apparent_temperature"].map((x) => x?.toDouble())),
-        precipitation:
-            List<double>.from(json["precipitation"].map((x) => x?.toDouble())),
+        apparentTemperature:
+            List<double>.from(json["apparent_temperature"].map((x) => x)),
+        precipitation: List<double>.from(json["precipitation"].map((x) => x)),
         rain: List<double>.from(json["rain"].map((x) => x)),
         weathercode: List<int>.from(json["weathercode"].map((x) => x)),
-        surfacePressure: List<double>.from(
-            json["surface_pressure"].map((x) => x?.toDouble())),
+        surfacePressure:
+            List<double>.from(json["surface_pressure"].map((x) => x)),
         visibility: List<double>.from(json["visibility"].map((x) => x)),
-        evapotranspiration: List<double>.from(
-            json["evapotranspiration"].map((x) => x?.toDouble())),
-        windspeed10M:
-            List<double>.from(json["windspeed_10m"].map((x) => x?.toDouble())),
+        evapotranspiration:
+            List<double>.from(json["evapotranspiration"].map((x) => x)),
+        windspeed10M: List<double>.from(json["windspeed_10m"].map((x) => x)),
         winddirection10M:
             List<int>.from(json["winddirection_10m"].map((x) => x)),
+        cloudcover: List<int>.from(json["cloudcover"].map((x) => x)),
+        uvIndex: List<double>.from(json["uv_index"].map((x) => x)),
       );
 }

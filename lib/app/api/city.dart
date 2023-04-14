@@ -13,24 +13,21 @@ class CityApi {
 
 class Result {
   Result({
-    this.country,
-    this.state,
-    this.city,
-    required this.lon,
-    required this.lat,
+    required this.admin1,
+    required this.name,
+    required this.latitude,
+    required this.longitude,
   });
 
-  String? country;
-  String? state;
-  String? city;
-  double lon;
-  double lat;
+  String admin1;
+  String name;
+  double latitude;
+  double longitude;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-        country: json["country"],
-        state: json["state"],
-        city: json["city"],
-        lon: json["lon"],
-        lat: json["lat"],
+        admin1: json["admin1"],
+        name: json["name"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
       );
 }
