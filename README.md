@@ -33,7 +33,7 @@ The following options are provided:
 - View weather by hour
 - View the weather for the week
 - View detailed weather data
-- Localization (ru/en/it/de/fr/tr/pt)
+- Localization (ru/en/it/de/fr/tr/pt/es)
 - Data caching
 - Choose the city yourself
 - Adding cards of other cities
