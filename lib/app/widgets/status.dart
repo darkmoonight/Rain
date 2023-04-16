@@ -175,7 +175,7 @@ class Status {
       case 95:
       case 96:
       case 99:
-        return 'assets/images/thunder_night.png';
+        return 'assets/images/thunder_day.png';
       default:
         return '';
     }
