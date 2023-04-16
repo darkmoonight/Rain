@@ -73,7 +73,7 @@ class WeatherAPI {
 
   Future<Iterable<Result>> getSuggestions(String query, Locale? locale) async {
     final url =
-        'https://geocoding-api.open-meteo.com/v1/search?name=$query&count=10&language=${locale?.languageCode}&format=json';
+        'https://geocoding-api.open-meteo.com/v1/search?name=$query&count=5&language=${locale?.languageCode}&format=json';
     try {
       Response response = await dioLocation.get(url);
       if (response.statusCode == 200) {

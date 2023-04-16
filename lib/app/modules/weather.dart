@@ -268,11 +268,61 @@ class _WeatherPageState extends State<WeatherPage> {
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                DescWeather(
+                                  imageName: 'assets/images/cloudy.png',
+                                  value:
+                                      '${locationController.mainWeather.cloudcover![locationController.hourOfDay.value]}%',
+                                  desc: 'cloudcover'.tr,
+                                ),
+                                DescWeather(
+                                  imageName: 'assets/images/uv-index.png',
+                                  value:
+                                      '${locationController.mainWeather.uvIndex![locationController.hourOfDay.value].round()}',
+                                  desc: 'uvIndex'.tr,
+                                  message: locationController
+                                              .mainWeather
+                                              .uvIndex![locationController
+                                                  .hourOfDay.value]
+                                              .round() <
+                                          3
+                                      ? 'uvLow'.tr
+                                      : locationController
+                                                  .mainWeather
+                                                  .uvIndex![locationController
+                                                      .hourOfDay.value]
+                                                  .round() <
+                                              6
+                                          ? 'uvAverage'.tr
+                                          : locationController
+                                                      .mainWeather
+                                                      .uvIndex![
+                                                          locationController
+                                                              .hourOfDay.value]
+                                                      .round() <
+                                                  8
+                                              ? 'uvHigh'.tr
+                                              : locationController
+                                                          .mainWeather
+                                                          .uvIndex![
+                                                              locationController
+                                                                  .hourOfDay
+                                                                  .value]
+                                                          .round() <
+                                                      11
+                                                  ? 'uvVeryHigh'.tr
+                                                  : 'uvExtreme'.tr,
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       )
                     : const MyShimmer(
-                        hight: 350,
+                        hight: 400,
                         edgeInsetsMargin: EdgeInsets.only(bottom: 15),
                       ),
               ),

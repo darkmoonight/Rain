@@ -7,7 +7,7 @@ part of 'weather.dart';
 // **************************************************************************
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
 extension GetSettingsCollection on Isar {
   IsarCollection<Settings> get settings => this.collection();
@@ -27,28 +27,33 @@ const SettingsSchema = CollectionSchema(
       name: r'location',
       type: IsarType.bool,
     ),
-    r'measurements': PropertySchema(
+    r'materialColor': PropertySchema(
       id: 2,
+      name: r'materialColor',
+      type: IsarType.bool,
+    ),
+    r'measurements': PropertySchema(
+      id: 3,
       name: r'measurements',
       type: IsarType.string,
     ),
     r'notifications': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'notifications',
       type: IsarType.bool,
     ),
     r'onboard': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'onboard',
       type: IsarType.bool,
     ),
     r'theme': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'theme',
       type: IsarType.bool,
     ),
     r'timeformat': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'timeformat',
       type: IsarType.string,
     )
@@ -64,7 +69,7 @@ const SettingsSchema = CollectionSchema(
   getId: _settingsGetId,
   getLinks: _settingsGetLinks,
   attach: _settingsAttach,
-  version: '3.0.5',
+  version: '3.1.0',
 );
 
 int _settingsEstimateSize(
@@ -87,11 +92,12 @@ void _settingsSerialize(
 ) {
   writer.writeString(offsets[0], object.degrees);
   writer.writeBool(offsets[1], object.location);
-  writer.writeString(offsets[2], object.measurements);
-  writer.writeBool(offsets[3], object.notifications);
-  writer.writeBool(offsets[4], object.onboard);
-  writer.writeBool(offsets[5], object.theme);
-  writer.writeString(offsets[6], object.timeformat);
+  writer.writeBool(offsets[2], object.materialColor);
+  writer.writeString(offsets[3], object.measurements);
+  writer.writeBool(offsets[4], object.notifications);
+  writer.writeBool(offsets[5], object.onboard);
+  writer.writeBool(offsets[6], object.theme);
+  writer.writeString(offsets[7], object.timeformat);
 }
 
 Settings _settingsDeserialize(
@@ -104,11 +110,12 @@ Settings _settingsDeserialize(
   object.degrees = reader.readString(offsets[0]);
   object.id = id;
   object.location = reader.readBool(offsets[1]);
-  object.measurements = reader.readString(offsets[2]);
-  object.notifications = reader.readBool(offsets[3]);
-  object.onboard = reader.readBool(offsets[4]);
-  object.theme = reader.readBoolOrNull(offsets[5]);
-  object.timeformat = reader.readString(offsets[6]);
+  object.materialColor = reader.readBool(offsets[2]);
+  object.measurements = reader.readString(offsets[3]);
+  object.notifications = reader.readBool(offsets[4]);
+  object.onboard = reader.readBool(offsets[5]);
+  object.theme = reader.readBoolOrNull(offsets[6]);
+  object.timeformat = reader.readString(offsets[7]);
   return object;
 }
 
@@ -124,14 +131,16 @@ P _settingsDeserializeProp<P>(
     case 1:
       return (reader.readBool(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
-    case 3:
       return (reader.readBool(offset)) as P;
+    case 3:
+      return (reader.readString(offset)) as P;
     case 4:
       return (reader.readBool(offset)) as P;
     case 5:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 6:
+      return (reader.readBoolOrNull(offset)) as P;
+    case 7:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -414,6 +423,16 @@ extension SettingsQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'location',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> materialColorEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'materialColor',
         value: value,
       ));
     });
@@ -762,6 +781,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByMaterialColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'materialColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByMaterialColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'materialColor', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByMeasurements() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'measurements', Sort.asc);
@@ -861,6 +892,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByMaterialColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'materialColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByMaterialColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'materialColor', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByMeasurements() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'measurements', Sort.asc);
@@ -937,6 +980,12 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByMaterialColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'materialColor');
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByMeasurements(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -990,6 +1039,12 @@ extension SettingsQueryProperty
     });
   }
 
+  QueryBuilder<Settings, bool, QQueryOperations> materialColorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'materialColor');
+    });
+  }
+
   QueryBuilder<Settings, String, QQueryOperations> measurementsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'measurements');
@@ -1022,7 +1077,7 @@ extension SettingsQueryProperty
 }
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
 extension GetMainWeatherCacheCollection on Isar {
   IsarCollection<MainWeatherCache> get mainWeatherCaches => this.collection();
@@ -1154,7 +1209,7 @@ const MainWeatherCacheSchema = CollectionSchema(
   getId: _mainWeatherCacheGetId,
   getLinks: _mainWeatherCacheGetLinks,
   attach: _mainWeatherCacheAttach,
-  version: '3.0.5',
+  version: '3.1.0',
 );
 
 int _mainWeatherCacheEstimateSize(
@@ -5818,7 +5873,7 @@ extension MainWeatherCacheQueryProperty
 }
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
 extension GetLocationCacheCollection on Isar {
   IsarCollection<LocationCache> get locationCaches => this.collection();
@@ -5860,7 +5915,7 @@ const LocationCacheSchema = CollectionSchema(
   getId: _locationCacheGetId,
   getLinks: _locationCacheGetLinks,
   attach: _locationCacheAttach,
-  version: '3.0.5',
+  version: '3.1.0',
 );
 
 int _locationCacheEstimateSize(
@@ -6737,7 +6792,7 @@ extension LocationCacheQueryProperty
 }
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
 extension GetWeatherCardCollection on Isar {
   IsarCollection<WeatherCard> get weatherCards => this.collection();
@@ -6889,7 +6944,7 @@ const WeatherCardSchema = CollectionSchema(
   getId: _weatherCardGetId,
   getLinks: _weatherCardGetLinks,
   attach: _weatherCardAttach,
-  version: '3.0.5',
+  version: '3.1.0',
 );
 
 int _weatherCardEstimateSize(

@@ -266,6 +266,40 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          DescWeather(
+                            imageName: 'assets/images/cloudy.png',
+                            value:
+                                '${widget.weatherCard.cloudcover![timeNow]}%',
+                            desc: 'cloudcover'.tr,
+                          ),
+                          DescWeather(
+                            imageName: 'assets/images/uv-index.png',
+                            value:
+                                '${widget.weatherCard.uvIndex![timeNow].round()}',
+                            desc: 'uvIndex'.tr,
+                            message: widget.weatherCard.uvIndex![timeNow]
+                                        .round() <
+                                    3
+                                ? 'uvLow'.tr
+                                : widget.weatherCard.uvIndex![timeNow].round() <
+                                        6
+                                    ? 'uvAverage'.tr
+                                    : widget.weatherCard.uvIndex![timeNow]
+                                                .round() <
+                                            8
+                                        ? 'uvHigh'.tr
+                                        : widget.weatherCard.uvIndex![timeNow]
+                                                    .round() <
+                                                11
+                                            ? 'uvVeryHigh'.tr
+                                            : 'uvExtreme'.tr,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

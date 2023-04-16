@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -70,39 +71,44 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      themeMode: themeController.theme,
-      theme: RainTheme.lightTheme,
-      darkTheme: RainTheme.darkTheme,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      translations: Translation(),
-      locale: Get.deviceLocale,
-      fallbackLocale: const Locale('en', 'US'),
-      supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('ru', 'RU'),
-        Locale('it', 'IT'),
-        Locale('de', 'DE'),
-        Locale('fr', 'FR'),
-        Locale('tr', 'TR'),
-        Locale('pt', 'BR'),
-        Locale('es', 'ES'),
-      ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale?.languageCode) {
-            return supportedLocale;
-          }
-        }
-        return supportedLocales.first;
+    return DynamicColorBuilder(
+      builder: (lightColorScheme, darkColorScheme) {
+        return GetMaterialApp(
+          themeMode: themeController.theme,
+          theme: RainTheme.lightTheme,
+          darkTheme: RainTheme.darkTheme,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          translations: Translation(),
+          locale: Get.deviceLocale,
+          fallbackLocale: const Locale('en', 'US'),
+          supportedLocales: const [
+            Locale('en', 'US'),
+            Locale('ru', 'RU'),
+            Locale('it', 'IT'),
+            Locale('de', 'DE'),
+            Locale('fr', 'FR'),
+            Locale('tr', 'TR'),
+            Locale('pt', 'BR'),
+            Locale('es', 'ES'),
+          ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale?.languageCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
+          },
+          debugShowCheckedModeBanner: false,
+          home: settings.onboard == false
+              ? const OnboardingPage()
+              : const HomePage(),
+        );
       },
-      debugShowCheckedModeBanner: false,
-      home:
-          settings.onboard == false ? const OnboardingPage() : const HomePage(),
     );
   }
 }

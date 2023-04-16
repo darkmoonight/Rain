@@ -9,6 +9,7 @@ class Settings {
   bool? theme;
   bool location = false;
   bool notifications = false;
+  bool materialColor = false;
   String measurements = 'metric';
   String degrees = 'celsius';
   String timeformat = '24';

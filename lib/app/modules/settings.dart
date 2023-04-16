@@ -43,6 +43,23 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           // SettingLinks(
           //   icon: Icon(
+          //     Iconsax.colorfilter,
+          //     color: context.theme.iconTheme.color,
+          //   ),
+          //   text: 'materialColor'.tr,
+          //   switcher: true,
+          //   dropdown: false,
+          //   value: settings.materialColor,
+          //   onChange: (value) {
+          //     isar.writeTxn(() async {
+          //       settings.materialColor = value;
+          //       isar.settings.put(settings);
+          //     });
+          //     setState(() {});
+          //   },
+          // ),
+          // SettingLinks(
+          //   icon: Icon(
           //     Iconsax.notification,
           //     color: context.theme.iconTheme.color,
           //   ),
