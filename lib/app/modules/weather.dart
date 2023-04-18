@@ -6,6 +6,7 @@ import 'package:rain/app/widgets/shimmer.dart';
 import 'package:rain/app/widgets/status_im_fa.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
+import 'package:rain/app/widgets/weather_more.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -329,7 +330,7 @@ class _WeatherPageState extends State<WeatherPage> {
               Obx(
                 () => locationController.isLoading.isFalse
                     ? Container(
-                        height: 405,
+                        height: 450,
                         margin: const EdgeInsets.only(bottom: 15),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -339,23 +340,51 @@ class _WeatherPageState extends State<WeatherPage> {
                             color: context.theme.colorScheme.primaryContainer,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount:
-                              locationController.mainWeather.timeDaily!.length,
-                          itemBuilder: (ctx, i) => WeatherDaily(
-                            date: locationController.mainWeather.timeDaily![i],
-                            weather: locationController
-                                .mainWeather.weathercodeDaily![i],
-                            minDegree: locationController
-                                .mainWeather.temperature2MMin![i],
-                            maxDegree: locationController
-                                .mainWeather.temperature2MMax![i],
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: 7,
+                                itemBuilder: (ctx, i) => WeatherDaily(
+                                  date: locationController
+                                      .mainWeather.timeDaily![i],
+                                  weather: locationController
+                                      .mainWeather.weathercodeDaily![i],
+                                  minDegree: locationController
+                                      .mainWeather.temperature2MMin![i],
+                                  maxDegree: locationController
+                                      .mainWeather.temperature2MMax![i],
+                                ),
+                              ),
+                            ),
+                            const Divider(),
+                            GestureDetector(
+                              onTap: () => Get.to(
+                                () => WeatherMore(
+                                  mainWeatherCache:
+                                      locationController.mainWeather,
+                                ),
+                                transition: Transition.downToUp,
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: Text(
+                                  'weatherMore'.tr,
+                                  style: context.theme.textTheme.titleLarge
+                                      ?.copyWith(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     : const MyShimmer(
-                        hight: 405,
+                        hight: 450,
                         edgeInsetsMargin: EdgeInsets.only(bottom: 15),
                       ),
               ),

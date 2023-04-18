@@ -36,8 +36,12 @@ class MainWeatherCache {
   List<int>? weathercodeDaily;
   List<double>? temperature2MMax;
   List<double>? temperature2MMin;
+  List<double>? apparentTemperatureMax;
+  List<double>? apparentTemperatureMin;
   List<String>? sunrise;
   List<String>? sunset;
+  List<double>? precipitationSum;
+  List<double>? windspeed10MMax;
   String? timezone;
   DateTime? timestamp;
 
@@ -60,8 +64,12 @@ class MainWeatherCache {
     this.weathercodeDaily,
     this.temperature2MMax,
     this.temperature2MMin,
+    this.apparentTemperatureMax,
+    this.apparentTemperatureMin,
     this.sunrise,
     this.sunset,
+    this.precipitationSum,
+    this.windspeed10MMax,
     this.timezone,
     this.timestamp,
   });
@@ -104,8 +112,12 @@ class WeatherCard {
   List<int>? weathercodeDaily;
   List<double>? temperature2MMax;
   List<double>? temperature2MMin;
+  List<double>? apparentTemperatureMax;
+  List<double>? apparentTemperatureMin;
   List<String>? sunrise;
   List<String>? sunset;
+  List<double>? precipitationSum;
+  List<double>? windspeed10MMax;
   double? lat;
   double? lon;
   String? city;
@@ -132,8 +144,12 @@ class WeatherCard {
     this.weathercodeDaily,
     this.temperature2MMax,
     this.temperature2MMin,
+    this.apparentTemperatureMax,
+    this.apparentTemperatureMin,
     this.sunrise,
     this.sunset,
+    this.precipitationSum,
+    this.windspeed10MMax,
     this.lat,
     this.lon,
     this.city,

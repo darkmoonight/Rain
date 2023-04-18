@@ -7,12 +7,16 @@ import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/status_im_fa.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
+import 'package:rain/app/widgets/weather_more.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class WeatherCardPage extends StatefulWidget {
-  const WeatherCardPage({super.key, required this.weatherCard});
+  const WeatherCardPage({
+    super.key,
+    required this.weatherCard,
+  });
   final WeatherCard weatherCard;
 
   @override
@@ -304,7 +308,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                   ),
                 ),
                 Container(
-                  height: 405,
+                  height: 450,
                   margin: const EdgeInsets.only(bottom: 15),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 15,
@@ -314,15 +318,39 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                       color: context.theme.colorScheme.primaryContainer,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20))),
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: widget.weatherCard.timeDaily!.length,
-                    itemBuilder: (ctx, i) => WeatherDaily(
-                      date: widget.weatherCard.timeDaily![i],
-                      weather: widget.weatherCard.weathercodeDaily![i],
-                      minDegree: widget.weatherCard.temperature2MMin![i],
-                      maxDegree: widget.weatherCard.temperature2MMax![i],
-                    ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 7,
+                          itemBuilder: (ctx, i) => WeatherDaily(
+                            date: widget.weatherCard.timeDaily![i],
+                            weather: widget.weatherCard.weathercodeDaily![i],
+                            minDegree: widget.weatherCard.temperature2MMin![i],
+                            maxDegree: widget.weatherCard.temperature2MMax![i],
+                          ),
+                        ),
+                      ),
+                      const Divider(),
+                      GestureDetector(
+                        onTap: () => Get.to(
+                          () => WeatherMore(
+                            weatherCard: widget.weatherCard,
+                          ),
+                          transition: Transition.downToUp,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            'weatherMore'.tr,
+                            style: context.theme.textTheme.titleLarge?.copyWith(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

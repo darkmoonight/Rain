@@ -25,7 +25,6 @@ class LocationController extends GetxController {
   double get longitude => _longitude.value;
 
   final _mainWeather = MainWeatherCache().obs;
-
   final _location = LocationCache().obs;
   final _weatherCard = WeatherCard().obs;
 
@@ -294,8 +293,14 @@ class LocationController extends GetxController {
           element.weathercodeDaily = _weatherCard.value.weathercodeDaily;
           element.temperature2MMax = _weatherCard.value.temperature2MMax;
           element.temperature2MMin = _weatherCard.value.temperature2MMin;
+          element.apparentTemperatureMax =
+              _weatherCard.value.apparentTemperatureMax;
+          element.apparentTemperatureMin =
+              _weatherCard.value.apparentTemperatureMin;
           element.sunrise = _weatherCard.value.sunrise;
           element.sunset = _weatherCard.value.sunset;
+          element.precipitationSum = _weatherCard.value.precipitationSum;
+          element.windspeed10MMax = _weatherCard.value.windspeed10MMax;
           element.timestamp = DateTime.now();
           await isar.weatherCards.put(element);
         }
@@ -329,8 +334,14 @@ class LocationController extends GetxController {
         weatherCard.weathercodeDaily = _weatherCard.value.weathercodeDaily;
         weatherCard.temperature2MMax = _weatherCard.value.temperature2MMax;
         weatherCard.temperature2MMin = _weatherCard.value.temperature2MMin;
+        weatherCard.apparentTemperatureMax =
+            _weatherCard.value.apparentTemperatureMax;
+        weatherCard.apparentTemperatureMin =
+            _weatherCard.value.apparentTemperatureMin;
         weatherCard.sunrise = _weatherCard.value.sunrise;
         weatherCard.sunset = _weatherCard.value.sunset;
+        weatherCard.precipitationSum = _weatherCard.value.precipitationSum;
+        weatherCard.windspeed10MMax = _weatherCard.value.windspeed10MMax;
         weatherCard.timestamp = DateTime.now();
         await isar.weatherCards.put(weatherCard);
       });

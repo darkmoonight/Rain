@@ -90,6 +90,7 @@ class Translation extends Translations {
           'uvHigh': 'Высокий',
           'uvVeryHigh': 'Очень высокий',
           'uvExtreme': 'Экстремальный',
+          'weatherMore': 'Прогноз погоды на 16 дней',
         },
         'en_US': {
           'start': 'Get Started',
@@ -178,6 +179,7 @@ class Translation extends Translations {
           'uvHigh': 'High',
           'uvVeryHigh': 'Very high',
           'uvExtreme': 'Extreme',
+          'weatherMore': '16-day weather forecast',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -267,6 +269,7 @@ class Translation extends Translations {
           'uvHigh': 'Élevé',
           'uvVeryHigh': 'Très élevé',
           'uvExtreme': 'Extrême',
+          'weatherMore': 'Prévisions météo pour 16 jours',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -356,6 +359,7 @@ class Translation extends Translations {
           'uvHigh': 'Alto',
           'uvVeryHigh': 'Molto alto',
           'uvExtreme': 'Estremo',
+          'weatherMore': 'Previsioni del tempo per 16 giorni',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -445,6 +449,7 @@ class Translation extends Translations {
           'uvHigh': 'Hoch',
           'uvVeryHigh': 'Sehr hoch',
           'uvExtreme': 'Extrem',
+          'weatherMore': '16-Tage-Wettervorhersage',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -533,6 +538,7 @@ class Translation extends Translations {
           'uvHigh': 'Yüksek',
           'uvVeryHigh': 'Çok yüksek',
           'uvExtreme': 'Aşırı',
+          'weatherMore': '16 günlük hava tahmini',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -621,6 +627,7 @@ class Translation extends Translations {
           'uvHigh': 'Alto',
           'uvVeryHigh': 'Muito alto',
           'uvExtreme': 'Extremo',
+          'weatherMore': 'Previsão do tempo para 16 dias',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -710,6 +717,7 @@ class Translation extends Translations {
           'uvHigh': 'Alto',
           'uvVeryHigh': 'Muy alto',
           'uvExtreme': 'Extremo',
+          'weatherMore': 'Pronóstico del tiempo para 16 días',
         },
       };
 }

@@ -27,7 +27,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto&forecast_days=7';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,windspeed_10m_max&forecast_days=16&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -58,8 +58,12 @@ class WeatherAPI {
         weathercodeDaily: weatherDataDaily.daily.weathercode,
         temperature2MMax: weatherDataDaily.daily.temperature2MMax,
         temperature2MMin: weatherDataDaily.daily.temperature2MMin,
+        apparentTemperatureMax: weatherDataDaily.daily.apparentTemperatureMax,
+        apparentTemperatureMin: weatherDataDaily.daily.apparentTemperatureMin,
         sunrise: weatherDataDaily.daily.sunrise,
         sunset: weatherDataDaily.daily.sunset,
+        precipitationSum: weatherDataDaily.daily.precipitationSum,
+        windspeed10MMax: weatherDataDaily.daily.windspeed10MMax,
         timezone: weatherDataHourly.timezone,
         timestamp: DateTime.now(),
       );
@@ -113,7 +117,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto&forecast_days=7';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,windspeed_10m_max&forecast_days=16&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -144,8 +148,12 @@ class WeatherAPI {
         weathercodeDaily: weatherDataDaily.daily.weathercode,
         temperature2MMax: weatherDataDaily.daily.temperature2MMax,
         temperature2MMin: weatherDataDaily.daily.temperature2MMin,
+        apparentTemperatureMax: weatherDataDaily.daily.apparentTemperatureMax,
+        apparentTemperatureMin: weatherDataDaily.daily.apparentTemperatureMin,
         sunrise: weatherDataDaily.daily.sunrise,
         sunset: weatherDataDaily.daily.sunset,
+        precipitationSum: weatherDataDaily.daily.precipitationSum,
+        windspeed10MMax: weatherDataDaily.daily.windspeed10MMax,
         lat: lat,
         lon: lon,
         city: city,
