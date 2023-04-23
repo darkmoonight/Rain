@@ -13,7 +13,7 @@ class WeatherDailyApi {
 
 class Daily {
   Daily({
-    required this.time,
+    this.time,
     this.weathercode,
     this.temperature2MMax,
     this.temperature2MMin,

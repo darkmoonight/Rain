@@ -1,9 +1,9 @@
 name: rain
-description: A new Flutter project.
+description: Weather app.
 
 publish_to: "none"
 
-version: 1.1.7+18
+version: 1.1.8+19
 
 environment:
   sdk: ">=2.19.4 <3.0.0"
@@ -19,7 +19,7 @@ dependencies:
   intl: ^0.17.0
   shimmer: ^2.0.0
   iconsax: ^0.0.8
-  timezone: ^0.9.1
+  timezone: ^0.9.2
   geocoding: ^2.1.0
   geolocator: ^9.0.2
   flutter_glow: ^0.3.0
@@ -42,7 +42,7 @@ dev_dependencies:
   build_runner: ^2.3.3
   isar_generator: ^3.1.0
   flutter_native_splash: ^2.2.19
-  flutter_launcher_icons: ^0.13.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
   android: true
