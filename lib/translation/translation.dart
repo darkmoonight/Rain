@@ -91,6 +91,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Очень высокий',
           'uvExtreme': 'Экстремальный',
           'weatherMore': 'Прогноз погоды на 16 дней',
+          'windgusts': 'Шквал',
         },
         'en_US': {
           'start': 'Get Started',
@@ -180,6 +181,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Very high',
           'uvExtreme': 'Extreme',
           'weatherMore': '16-day weather forecast',
+          'windgusts': 'Gust',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -270,6 +272,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Très élevé',
           'uvExtreme': 'Extrême',
           'weatherMore': 'Prévisions météo pour 16 jours',
+          'windgusts': 'Rafale',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -360,6 +363,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Molto alto',
           'uvExtreme': 'Estremo',
           'weatherMore': 'Previsioni del tempo per 16 giorni',
+          'windgusts': 'Raffica',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -450,6 +454,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Sehr hoch',
           'uvExtreme': 'Extrem',
           'weatherMore': '16-Tage-Wettervorhersage',
+          'windgusts': 'Böe',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -539,6 +544,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Çok yüksek',
           'uvExtreme': 'Aşırı',
           'weatherMore': '16 günlük hava tahmini',
+          'windgusts': 'Bir telaş',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -628,6 +634,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Muito alto',
           'uvExtreme': 'Extremo',
           'weatherMore': 'Previsão do tempo para 16 dias',
+          'windgusts': 'Rajadas',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -718,6 +725,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Muy alto',
           'uvExtreme': 'Extremo',
           'weatherMore': 'Pronóstico del tiempo para 16 días',
+          'windgusts': 'Ráfagas'
         },
         'sk_SK': {
           'start': 'Začať',
@@ -755,7 +763,8 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Set.',
           'no_inter': 'Žiadny internet',
-          'on_inter': 'Pripojte sa na internet a získajte meteorologické údaje.',
+          'on_inter':
+              'Pripojte sa na internet a získajte meteorologické údaje.',
           'location': 'Poloha',
           'no_location':
               'Ak chcete získať údaje o počasí pre aktuálnu polohu, povoľte službu určovania polohy.',
@@ -776,8 +785,7 @@ class Translation extends Translations {
           'district': 'Okres',
           'noWeatherCard': 'Pridať mesto',
           'deletedCardWeather': 'Vymazať mesto',
-          'deletedCardWeatherQuery':
-              'Naozaj chcete odstrániť mesto?',
+          'deletedCardWeatherQuery': 'Naozaj chcete odstrániť mesto?',
           'delete': 'Odstrániť',
           'cancel': 'Zrušiť',
           'time': 'Čas v meste',
@@ -807,6 +815,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Veľmi vysoký',
           'uvExtreme': 'Extrémny',
           'weatherMore': 'Predpoveď počasia na 16 dní',
+          'windgusts': 'Squall'
         },
       };
 }

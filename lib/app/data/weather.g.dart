@@ -1207,13 +1207,23 @@ const MainWeatherCacheSchema = CollectionSchema(
       name: r'winddirection10M',
       type: IsarType.longList,
     ),
-    r'windspeed10M': PropertySchema(
+    r'windgusts10M': PropertySchema(
       id: 24,
+      name: r'windgusts10M',
+      type: IsarType.doubleList,
+    ),
+    r'windgusts10MMax': PropertySchema(
+      id: 25,
+      name: r'windgusts10MMax',
+      type: IsarType.doubleList,
+    ),
+    r'windspeed10M': PropertySchema(
+      id: 26,
       name: r'windspeed10M',
       type: IsarType.doubleList,
     ),
     r'windspeed10MMax': PropertySchema(
-      id: 25,
+      id: 27,
       name: r'windspeed10MMax',
       type: IsarType.doubleList,
     )
@@ -1395,6 +1405,18 @@ int _mainWeatherCacheEstimateSize(
     }
   }
   {
+    final value = object.windgusts10M;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final value = object.windgusts10MMax;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
     final value = object.windspeed10M;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
@@ -1439,8 +1461,10 @@ void _mainWeatherCacheSerialize(
   writer.writeLongList(offsets[21], object.weathercode);
   writer.writeLongList(offsets[22], object.weathercodeDaily);
   writer.writeLongList(offsets[23], object.winddirection10M);
-  writer.writeDoubleList(offsets[24], object.windspeed10M);
-  writer.writeDoubleList(offsets[25], object.windspeed10MMax);
+  writer.writeDoubleList(offsets[24], object.windgusts10M);
+  writer.writeDoubleList(offsets[25], object.windgusts10MMax);
+  writer.writeDoubleList(offsets[26], object.windspeed10M);
+  writer.writeDoubleList(offsets[27], object.windspeed10MMax);
 }
 
 MainWeatherCache _mainWeatherCacheDeserialize(
@@ -1474,8 +1498,10 @@ MainWeatherCache _mainWeatherCacheDeserialize(
     weathercode: reader.readLongList(offsets[21]),
     weathercodeDaily: reader.readLongList(offsets[22]),
     winddirection10M: reader.readLongList(offsets[23]),
-    windspeed10M: reader.readDoubleList(offsets[24]),
-    windspeed10MMax: reader.readDoubleList(offsets[25]),
+    windgusts10M: reader.readDoubleList(offsets[24]),
+    windgusts10MMax: reader.readDoubleList(offsets[25]),
+    windspeed10M: reader.readDoubleList(offsets[26]),
+    windspeed10MMax: reader.readDoubleList(offsets[27]),
   );
   object.id = id;
   return object;
@@ -1539,6 +1565,10 @@ P _mainWeatherCacheDeserializeProp<P>(
     case 24:
       return (reader.readDoubleList(offset)) as P;
     case 25:
+      return (reader.readDoubleList(offset)) as P;
+    case 26:
+      return (reader.readDoubleList(offset)) as P;
+    case 27:
       return (reader.readDoubleList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -5880,6 +5910,352 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'windgusts10M',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'windgusts10M',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MElementEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'windgusts10M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MElementGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'windgusts10M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MElementLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'windgusts10M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MElementBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'windgusts10M',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'windgusts10MMax',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'windgusts10MMax',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxElementEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'windgusts10MMax',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxElementGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'windgusts10MMax',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxElementLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'windgusts10MMax',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxElementBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'windgusts10MMax',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      windgusts10MMaxLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       windspeed10MIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -6476,6 +6852,20 @@ extension MainWeatherCacheQueryWhereDistinct
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
+      distinctByWindgusts10M() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'windgusts10M');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
+      distinctByWindgusts10MMax() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'windgusts10MMax');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
       distinctByWindspeed10M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'windspeed10M');
@@ -6662,6 +7052,20 @@ extension MainWeatherCacheQueryProperty
       winddirection10MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'winddirection10M');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, List<double>?, QQueryOperations>
+      windgusts10MProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'windgusts10M');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, List<double>?, QQueryOperations>
+      windgusts10MMaxProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'windgusts10MMax');
     });
   }
 
@@ -7750,13 +8154,23 @@ const WeatherCardSchema = CollectionSchema(
       name: r'winddirection10M',
       type: IsarType.longList,
     ),
-    r'windspeed10M': PropertySchema(
+    r'windgusts10M': PropertySchema(
       id: 28,
+      name: r'windgusts10M',
+      type: IsarType.doubleList,
+    ),
+    r'windgusts10MMax': PropertySchema(
+      id: 29,
+      name: r'windgusts10MMax',
+      type: IsarType.doubleList,
+    ),
+    r'windspeed10M': PropertySchema(
+      id: 30,
       name: r'windspeed10M',
       type: IsarType.doubleList,
     ),
     r'windspeed10MMax': PropertySchema(
-      id: 29,
+      id: 31,
       name: r'windspeed10MMax',
       type: IsarType.doubleList,
     )
@@ -7950,6 +8364,18 @@ int _weatherCardEstimateSize(
     }
   }
   {
+    final value = object.windgusts10M;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final value = object.windgusts10MMax;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
     final value = object.windspeed10M;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
@@ -7998,8 +8424,10 @@ void _weatherCardSerialize(
   writer.writeLongList(offsets[25], object.weathercode);
   writer.writeLongList(offsets[26], object.weathercodeDaily);
   writer.writeLongList(offsets[27], object.winddirection10M);
-  writer.writeDoubleList(offsets[28], object.windspeed10M);
-  writer.writeDoubleList(offsets[29], object.windspeed10MMax);
+  writer.writeDoubleList(offsets[28], object.windgusts10M);
+  writer.writeDoubleList(offsets[29], object.windgusts10MMax);
+  writer.writeDoubleList(offsets[30], object.windspeed10M);
+  writer.writeDoubleList(offsets[31], object.windspeed10MMax);
 }
 
 WeatherCard _weatherCardDeserialize(
@@ -8037,8 +8465,10 @@ WeatherCard _weatherCardDeserialize(
     weathercode: reader.readLongList(offsets[25]),
     weathercodeDaily: reader.readLongList(offsets[26]),
     winddirection10M: reader.readLongList(offsets[27]),
-    windspeed10M: reader.readDoubleList(offsets[28]),
-    windspeed10MMax: reader.readDoubleList(offsets[29]),
+    windgusts10M: reader.readDoubleList(offsets[28]),
+    windgusts10MMax: reader.readDoubleList(offsets[29]),
+    windspeed10M: reader.readDoubleList(offsets[30]),
+    windspeed10MMax: reader.readDoubleList(offsets[31]),
   );
   object.id = id;
   return object;
@@ -8110,6 +8540,10 @@ P _weatherCardDeserializeProp<P>(
     case 28:
       return (reader.readDoubleList(offset)) as P;
     case 29:
+      return (reader.readDoubleList(offset)) as P;
+    case 30:
+      return (reader.readDoubleList(offset)) as P;
+    case 31:
       return (reader.readDoubleList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -12898,6 +13332,352 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'windgusts10M',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'windgusts10M',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MElementEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'windgusts10M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MElementGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'windgusts10M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MElementLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'windgusts10M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MElementBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'windgusts10M',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10M',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'windgusts10MMax',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'windgusts10MMax',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxElementEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'windgusts10MMax',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxElementGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'windgusts10MMax',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxElementLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'windgusts10MMax',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxElementBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'windgusts10MMax',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      windgusts10MMaxLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'windgusts10MMax',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       windspeed10MIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -13596,6 +14376,19 @@ extension WeatherCardQueryWhereDistinct
     });
   }
 
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByWindgusts10M() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'windgusts10M');
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
+      distinctByWindgusts10MMax() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'windgusts10MMax');
+    });
+  }
+
   QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByWindspeed10M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'windspeed10M');
@@ -13799,6 +14592,20 @@ extension WeatherCardQueryProperty
       winddirection10MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'winddirection10M');
+    });
+  }
+
+  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
+      windgusts10MProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'windgusts10M');
+    });
+  }
+
+  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
+      windgusts10MMaxProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'windgusts10MMax');
     });
   }
 

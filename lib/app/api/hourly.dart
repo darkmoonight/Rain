@@ -28,6 +28,7 @@ class Hourly {
     this.evapotranspiration,
     this.windspeed10M,
     this.winddirection10M,
+    this.windgusts10M,
     this.cloudcover,
     this.uvIndex,
   });
@@ -44,6 +45,7 @@ class Hourly {
   List<double>? evapotranspiration;
   List<double>? windspeed10M;
   List<int>? winddirection10M;
+  List<double>? windgusts10M;
   List<int>? cloudcover;
   List<double>? uvIndex;
 
@@ -65,6 +67,7 @@ class Hourly {
         windspeed10M: List<double>.from(json["windspeed_10m"].map((x) => x)),
         winddirection10M:
             List<int>.from(json["winddirection_10m"].map((x) => x)),
+        windgusts10M: List<double>.from(json["windgusts_10m"].map((x) => x)),
         cloudcover: List<int>.from(json["cloudcover"].map((x) => x)),
         uvIndex: List<double>.from(json["uv_index"].map((x) => x)),
       );

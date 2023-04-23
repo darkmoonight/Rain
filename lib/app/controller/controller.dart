@@ -289,6 +289,7 @@ class LocationController extends GetxController {
           element.evapotranspiration = _weatherCard.value.evapotranspiration;
           element.windspeed10M = _weatherCard.value.windspeed10M;
           element.winddirection10M = _weatherCard.value.winddirection10M;
+          element.windgusts10M = _weatherCard.value.windgusts10M;
           element.timeDaily = _weatherCard.value.timeDaily;
           element.weathercodeDaily = _weatherCard.value.weathercodeDaily;
           element.temperature2MMax = _weatherCard.value.temperature2MMax;
@@ -301,6 +302,7 @@ class LocationController extends GetxController {
           element.sunset = _weatherCard.value.sunset;
           element.precipitationSum = _weatherCard.value.precipitationSum;
           element.windspeed10MMax = _weatherCard.value.windspeed10MMax;
+          element.windgusts10MMax = _weatherCard.value.windgusts10MMax;
           element.timestamp = DateTime.now();
           await isar.weatherCards.put(element);
         }
@@ -330,6 +332,7 @@ class LocationController extends GetxController {
         weatherCard.evapotranspiration = _weatherCard.value.evapotranspiration;
         weatherCard.windspeed10M = _weatherCard.value.windspeed10M;
         weatherCard.winddirection10M = _weatherCard.value.winddirection10M;
+        weatherCard.windgusts10M = _weatherCard.value.windgusts10M;
         weatherCard.timeDaily = _weatherCard.value.timeDaily;
         weatherCard.weathercodeDaily = _weatherCard.value.weathercodeDaily;
         weatherCard.temperature2MMax = _weatherCard.value.temperature2MMax;
@@ -342,6 +345,7 @@ class LocationController extends GetxController {
         weatherCard.sunset = _weatherCard.value.sunset;
         weatherCard.precipitationSum = _weatherCard.value.precipitationSum;
         weatherCard.windspeed10MMax = _weatherCard.value.windspeed10MMax;
+        weatherCard.windgusts10MMax = _weatherCard.value.windgusts10MMax;
         weatherCard.timestamp = DateTime.now();
         await isar.weatherCards.put(weatherCard);
       });

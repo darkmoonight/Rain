@@ -14,7 +14,7 @@ class WeatherAPI {
 
   Future<MainWeatherCache> getWeatherData(double? lat, double? lon) async {
     String baseUrlHourly =
-        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,cloudcover,uv_index&timezone=auto&forecast_days=7';
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,windgusts_10m,cloudcover,uv_index&timezone=auto&forecast_days=7';
     String urlHourly;
     settings.measurements == 'imperial' && settings.degrees == 'fahrenheit'
         ? urlHourly =
@@ -27,7 +27,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,windspeed_10m_max&forecast_days=16&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,windspeed_10m_max,windgusts_10m_max&forecast_days=16&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -52,6 +52,7 @@ class WeatherAPI {
         evapotranspiration: weatherDataHourly.hourly.evapotranspiration,
         windspeed10M: weatherDataHourly.hourly.windspeed10M,
         winddirection10M: weatherDataHourly.hourly.winddirection10M,
+        windgusts10M: weatherDataHourly.hourly.windgusts10M,
         cloudcover: weatherDataHourly.hourly.cloudcover,
         uvIndex: weatherDataHourly.hourly.uvIndex,
         timeDaily: weatherDataDaily.daily.time,
@@ -64,6 +65,7 @@ class WeatherAPI {
         sunset: weatherDataDaily.daily.sunset,
         precipitationSum: weatherDataDaily.daily.precipitationSum,
         windspeed10MMax: weatherDataDaily.daily.windspeed10MMax,
+        windgusts10MMax: weatherDataDaily.daily.windgusts10MMax,
         timezone: weatherDataHourly.timezone,
         timestamp: DateTime.now(),
       );
@@ -104,7 +106,7 @@ class WeatherAPI {
   Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
       String district, String timezone) async {
     String baseUrlHourly =
-        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,cloudcover,uv_index&timezone=auto&forecast_days=7';
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,windgusts_10m,cloudcover,uv_index&timezone=auto&forecast_days=7';
     String urlHourly;
     settings.measurements == 'imperial' && settings.degrees == 'fahrenheit'
         ? urlHourly =
@@ -117,7 +119,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,windspeed_10m_max&forecast_days=16&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,windspeed_10m_max,windgusts_10m_max&forecast_days=16&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -142,6 +144,7 @@ class WeatherAPI {
         evapotranspiration: weatherDataHourly.hourly.evapotranspiration,
         windspeed10M: weatherDataHourly.hourly.windspeed10M,
         winddirection10M: weatherDataHourly.hourly.winddirection10M,
+        windgusts10M: weatherDataHourly.hourly.windgusts10M,
         cloudcover: weatherDataHourly.hourly.cloudcover,
         uvIndex: weatherDataHourly.hourly.uvIndex,
         timeDaily: weatherDataDaily.daily.time,
@@ -154,6 +157,7 @@ class WeatherAPI {
         sunset: weatherDataDaily.daily.sunset,
         precipitationSum: weatherDataDaily.daily.precipitationSum,
         windspeed10MMax: weatherDataDaily.daily.windspeed10MMax,
+        windgusts10MMax: weatherDataDaily.daily.windgusts10MMax,
         lat: lat,
         lon: lon,
         city: city,

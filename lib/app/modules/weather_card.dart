@@ -264,6 +264,13 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                             desc: 'cloudcover'.tr,
                           ),
                           DescWeather(
+                            imageName: 'assets/images/windgusts.png',
+                            value: statusImFa.getSpeed(widget
+                                .weatherCard.windgusts10M![timeNow]
+                                .round()),
+                            desc: 'windgusts'.tr,
+                          ),
+                          DescWeather(
                             imageName: 'assets/images/uv.png',
                             value:
                                 '${widget.weatherCard.uvIndex![timeNow].round()}',

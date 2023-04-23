@@ -262,6 +262,15 @@ class _WeatherPageState extends State<WeatherPage> {
                                   desc: 'cloudcover'.tr,
                                 ),
                                 DescWeather(
+                                  imageName: 'assets/images/windgusts.png',
+                                  value: statusImFa.getSpeed(locationController
+                                      .mainWeather
+                                      .windgusts10M![
+                                          locationController.hourOfDay.value]
+                                      .round()),
+                                  desc: 'windgusts'.tr,
+                                ),
+                                DescWeather(
                                   imageName: 'assets/images/uv.png',
                                   value:
                                       '${locationController.mainWeather.uvIndex![locationController.hourOfDay.value].round()}',

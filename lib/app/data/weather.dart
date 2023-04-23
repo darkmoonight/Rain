@@ -30,6 +30,7 @@ class MainWeatherCache {
   List<double>? evapotranspiration;
   List<double>? windspeed10M;
   List<int>? winddirection10M;
+  List<double>? windgusts10M;
   List<int>? cloudcover;
   List<double>? uvIndex;
   List<DateTime>? timeDaily;
@@ -42,6 +43,7 @@ class MainWeatherCache {
   List<String>? sunset;
   List<double>? precipitationSum;
   List<double>? windspeed10MMax;
+  List<double>? windgusts10MMax;
   String? timezone;
   DateTime? timestamp;
 
@@ -58,6 +60,7 @@ class MainWeatherCache {
     this.evapotranspiration,
     this.windspeed10M,
     this.winddirection10M,
+    this.windgusts10M,
     this.cloudcover,
     this.uvIndex,
     this.timeDaily,
@@ -70,6 +73,7 @@ class MainWeatherCache {
     this.sunset,
     this.precipitationSum,
     this.windspeed10MMax,
+    this.windgusts10MMax,
     this.timezone,
     this.timestamp,
   });
@@ -106,6 +110,7 @@ class WeatherCard {
   List<double>? evapotranspiration;
   List<double>? windspeed10M;
   List<int>? winddirection10M;
+  List<double>? windgusts10M;
   List<int>? cloudcover;
   List<double>? uvIndex;
   List<DateTime>? timeDaily;
@@ -118,6 +123,7 @@ class WeatherCard {
   List<String>? sunset;
   List<double>? precipitationSum;
   List<double>? windspeed10MMax;
+  List<double>? windgusts10MMax;
   double? lat;
   double? lon;
   String? city;
@@ -138,6 +144,7 @@ class WeatherCard {
     this.evapotranspiration,
     this.windspeed10M,
     this.winddirection10M,
+    this.windgusts10M,
     this.cloudcover,
     this.uvIndex,
     this.timeDaily,
@@ -150,6 +157,7 @@ class WeatherCard {
     this.sunset,
     this.precipitationSum,
     this.windspeed10MMax,
+    this.windgusts10MMax,
     this.lat,
     this.lon,
     this.city,

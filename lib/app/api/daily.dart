@@ -23,6 +23,7 @@ class Daily {
     this.sunset,
     this.precipitationSum,
     this.windspeed10MMax,
+    this.windgusts10MMax,
   });
 
   List<DateTime>? time;
@@ -35,6 +36,7 @@ class Daily {
   List<String>? sunset;
   List<double>? precipitationSum;
   List<double>? windspeed10MMax;
+  List<double>? windgusts10MMax;
 
   factory Daily.fromJson(Map<String, dynamic> json) => Daily(
         time: List<DateTime>.from(json["time"].map((x) => DateTime.parse(x))),
@@ -53,5 +55,7 @@ class Daily {
             List<double>.from(json["precipitation_sum"].map((x) => x)),
         windspeed10MMax:
             List<double>.from(json["windspeed_10m_max"].map((x) => x)),
+        windgusts10MMax:
+            List<double>.from(json["windgusts_10m_max"].map((x) => x)),
       );
 }
