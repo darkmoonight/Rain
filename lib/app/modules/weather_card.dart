@@ -7,7 +7,6 @@ import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/status_im_fa.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
-import 'package:rain/app/widgets/weather_more.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -67,12 +66,13 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
           surfaceTintColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-              onPressed: () => Get.back(),
-              icon: Icon(
-                Iconsax.arrow_left_1,
-                size: 20,
-                color: context.theme.iconTheme.color,
-              )),
+            onPressed: () => Get.back(),
+            icon: Icon(
+              Iconsax.arrow_left_1,
+              size: 20,
+              color: context.theme.iconTheme.color,
+            ),
+          ),
           title: Text(
             '${widget.weatherCard.city}'
             ', ${widget.weatherCard.district}',
@@ -102,9 +102,11 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
+                    color: context.theme.colorScheme.primaryContainer,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
                   child: ScrollablePositionedList.separated(
                     physics: const AlwaysScrollableScrollPhysics(),
                     separatorBuilder: (BuildContext context, int index) {
@@ -131,13 +133,15 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                           vertical: 5,
                         ),
                         decoration: BoxDecoration(
-                            color: i == timeNow
-                                ? Get.isDarkMode
-                                    ? Colors.indigo
-                                    : Colors.amberAccent
-                                : Colors.transparent,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
+                          color: i == timeNow
+                              ? Get.isDarkMode
+                                  ? Colors.indigo
+                                  : Colors.amberAccent
+                              : Colors.transparent,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         child: WeatherHourly(
                           time: widget.weatherCard.time![i],
                           weather: widget.weatherCard.weathercode![i],
@@ -151,40 +155,19 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 15),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SunsetSunrise(
-                          title: 'sunrise'.tr,
-                          time: widget.weatherCard.sunrise![dayNow],
-                          image: 'assets/images/sunrise.png',
-                        ),
-                      ),
-                      Expanded(
-                        child: SunsetSunrise(
-                          title: 'sunset'.tr,
-                          time: widget.weatherCard.sunset![dayNow],
-                          image: 'assets/images/sunset.png',
-                        ),
-                      ),
-                    ],
-                  ),
+                SunsetSunrise(
+                  timeSunrise: widget.weatherCard.sunrise![dayNow],
+                  timeSunset: widget.weatherCard.sunset![dayNow],
                 ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 15),
                   padding: const EdgeInsets.only(top: 22, bottom: 5),
                   decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
+                    color: context.theme.colorScheme.primaryContainer,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
                   child: Column(
                     children: [
                       Row(
@@ -204,7 +187,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                             desc: 'wind'.tr,
                           ),
                           DescWeather(
-                            imageName: 'assets/images/foggy.png',
+                            imageName: 'assets/images/fog.png',
                             value: statusImFa.getVisibility(
                                 widget.weatherCard.visibility![timeNow]),
                             desc: 'visibility'.tr,
@@ -241,7 +224,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           DescWeather(
-                            imageName: 'assets/images/wind-direction.png',
+                            imageName: 'assets/images/windsock.png',
                             value:
                                 '${widget.weatherCard.winddirection10M![timeNow]}°',
                             desc: 'direction'.tr,
@@ -281,7 +264,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                             desc: 'cloudcover'.tr,
                           ),
                           DescWeather(
-                            imageName: 'assets/images/uv-index.png',
+                            imageName: 'assets/images/uv.png',
                             value:
                                 '${widget.weatherCard.uvIndex![timeNow].round()}',
                             desc: 'uvIndex'.tr,
@@ -307,51 +290,11 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                     ],
                   ),
                 ),
-                Container(
-                  height: 450,
-                  margin: const EdgeInsets.only(bottom: 15),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 7,
-                          itemBuilder: (ctx, i) => WeatherDaily(
-                            date: widget.weatherCard.timeDaily![i],
-                            weather: widget.weatherCard.weathercodeDaily![i],
-                            minDegree: widget.weatherCard.temperature2MMin![i],
-                            maxDegree: widget.weatherCard.temperature2MMax![i],
-                          ),
-                        ),
-                      ),
-                      const Divider(),
-                      GestureDetector(
-                        onTap: () => Get.to(
-                          () => WeatherMore(
-                            weatherCard: widget.weatherCard,
-                          ),
-                          transition: Transition.downToUp,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            'weatherMore'.tr,
-                            style: context.theme.textTheme.titleLarge?.copyWith(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                WeatherDaily(
+                  date: widget.weatherCard.timeDaily!,
+                  weather: widget.weatherCard.weathercodeDaily!,
+                  minDegree: widget.weatherCard.temperature2MMin!,
+                  maxDegree: widget.weatherCard.temperature2MMax!,
                 ),
               ],
             ),

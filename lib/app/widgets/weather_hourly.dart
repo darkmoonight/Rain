@@ -50,7 +50,7 @@ class _WeatherHourlyState extends State<WeatherHourly> {
         ),
         Image.asset(
           status.getImageToday(
-              widget.time, widget.weather, widget.timeDay, widget.timeNight),
+              widget.weather, widget.time, widget.timeDay, widget.timeNight),
           scale: 3,
         ),
         Text(

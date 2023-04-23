@@ -6,7 +6,6 @@ import 'package:rain/app/widgets/shimmer.dart';
 import 'package:rain/app/widgets/status_im_fa.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
-import 'package:rain/app/widgets/weather_more.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -62,9 +61,11 @@ class _WeatherPageState extends State<WeatherPage> {
                           vertical: 5,
                         ),
                         decoration: BoxDecoration(
-                            color: context.theme.colorScheme.primaryContainer,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
+                          color: context.theme.colorScheme.primaryContainer,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         child: ScrollablePositionedList.separated(
                           physics: const AlwaysScrollableScrollPhysics(),
                           separatorBuilder: (BuildContext context, int index) {
@@ -94,13 +95,15 @@ class _WeatherPageState extends State<WeatherPage> {
                                 vertical: 5,
                               ),
                               decoration: BoxDecoration(
-                                  color: i == locationController.hourOfDay.value
-                                      ? Get.isDarkMode
-                                          ? Colors.indigo
-                                          : Colors.amberAccent
-                                      : Colors.transparent,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20))),
+                                color: i == locationController.hourOfDay.value
+                                    ? Get.isDarkMode
+                                        ? Colors.indigo
+                                        : Colors.amberAccent
+                                    : Colors.transparent,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
                               child: WeatherHourly(
                                 time: locationController.mainWeather.time![i],
                                 weather: locationController
@@ -123,34 +126,11 @@ class _WeatherPageState extends State<WeatherPage> {
               ),
               Obx(
                 () => locationController.isLoading.isFalse
-                    ? Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            color: context.theme.colorScheme.primaryContainer,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: SunsetSunrise(
-                                title: 'sunrise'.tr,
-                                time: locationController.mainWeather.sunrise![
-                                    locationController.dayOfNow.value],
-                                image: 'assets/images/sunrise.png',
-                              ),
-                            ),
-                            Expanded(
-                              child: SunsetSunrise(
-                                title: 'sunset'.tr,
-                                time: locationController.mainWeather
-                                    .sunset![locationController.dayOfNow.value],
-                                image: 'assets/images/sunset.png',
-                              ),
-                            ),
-                          ],
-                        ),
+                    ? SunsetSunrise(
+                        timeSunrise: locationController.mainWeather
+                            .sunrise![locationController.dayOfNow.value],
+                        timeSunset: locationController.mainWeather
+                            .sunset![locationController.dayOfNow.value],
                       )
                     : const MyShimmer(
                         hight: 90,
@@ -163,9 +143,11 @@ class _WeatherPageState extends State<WeatherPage> {
                         margin: const EdgeInsets.only(bottom: 15),
                         padding: const EdgeInsets.only(top: 22, bottom: 5),
                         decoration: BoxDecoration(
-                            color: context.theme.colorScheme.primaryContainer,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
+                          color: context.theme.colorScheme.primaryContainer,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                         child: Column(
                           children: [
                             Row(
@@ -187,7 +169,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                   desc: 'wind'.tr,
                                 ),
                                 DescWeather(
-                                  imageName: 'assets/images/foggy.png',
+                                  imageName: 'assets/images/fog.png',
                                   value: statusImFa.getVisibility(
                                       locationController
                                               .mainWeather.visibility![
@@ -232,7 +214,7 @@ class _WeatherPageState extends State<WeatherPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 DescWeather(
-                                  imageName: 'assets/images/wind-direction.png',
+                                  imageName: 'assets/images/windsock.png',
                                   value:
                                       '${locationController.mainWeather.winddirection10M![locationController.hourOfDay.value]}°',
                                   desc: 'direction'.tr,
@@ -280,7 +262,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                   desc: 'cloudcover'.tr,
                                 ),
                                 DescWeather(
-                                  imageName: 'assets/images/uv-index.png',
+                                  imageName: 'assets/images/uv.png',
                                   value:
                                       '${locationController.mainWeather.uvIndex![locationController.hourOfDay.value].round()}',
                                   desc: 'uvIndex'.tr,
@@ -329,59 +311,14 @@ class _WeatherPageState extends State<WeatherPage> {
               ),
               Obx(
                 () => locationController.isLoading.isFalse
-                    ? Container(
-                        height: 450,
-                        margin: const EdgeInsets.only(bottom: 15),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                            color: context.theme.colorScheme.primaryContainer,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: 7,
-                                itemBuilder: (ctx, i) => WeatherDaily(
-                                  date: locationController
-                                      .mainWeather.timeDaily![i],
-                                  weather: locationController
-                                      .mainWeather.weathercodeDaily![i],
-                                  minDegree: locationController
-                                      .mainWeather.temperature2MMin![i],
-                                  maxDegree: locationController
-                                      .mainWeather.temperature2MMax![i],
-                                ),
-                              ),
-                            ),
-                            const Divider(),
-                            GestureDetector(
-                              onTap: () => Get.to(
-                                () => WeatherMore(
-                                  mainWeatherCache:
-                                      locationController.mainWeather,
-                                ),
-                                transition: Transition.downToUp,
-                              ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: Text(
-                                  'weatherMore'.tr,
-                                  style: context.theme.textTheme.titleLarge
-                                      ?.copyWith(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                    ? WeatherDaily(
+                        date: locationController.mainWeather.timeDaily!,
+                        weather:
+                            locationController.mainWeather.weathercodeDaily!,
+                        minDegree:
+                            locationController.mainWeather.temperature2MMin!,
+                        maxDegree:
+                            locationController.mainWeather.temperature2MMax!,
                       )
                     : const MyShimmer(
                         hight: 450,

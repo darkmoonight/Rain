@@ -66,7 +66,7 @@ class Status {
   }
 
   String getImageToday(
-      String time, int weather, String timeDay, String timeNight) {
+      int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
