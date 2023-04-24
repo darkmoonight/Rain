@@ -42,23 +42,18 @@ const SettingsSchema = CollectionSchema(
       name: r'notifications',
       type: IsarType.bool,
     ),
-    r'oledScreens': PropertySchema(
-      id: 5,
-      name: r'oledScreens',
-      type: IsarType.bool,
-    ),
     r'onboard': PropertySchema(
-      id: 6,
+      id: 5,
       name: r'onboard',
       type: IsarType.bool,
     ),
     r'theme': PropertySchema(
-      id: 7,
+      id: 6,
       name: r'theme',
       type: IsarType.bool,
     ),
     r'timeformat': PropertySchema(
-      id: 8,
+      id: 7,
       name: r'timeformat',
       type: IsarType.string,
     )
@@ -100,10 +95,9 @@ void _settingsSerialize(
   writer.writeBool(offsets[2], object.materialColor);
   writer.writeString(offsets[3], object.measurements);
   writer.writeBool(offsets[4], object.notifications);
-  writer.writeBool(offsets[5], object.oledScreens);
-  writer.writeBool(offsets[6], object.onboard);
-  writer.writeBool(offsets[7], object.theme);
-  writer.writeString(offsets[8], object.timeformat);
+  writer.writeBool(offsets[5], object.onboard);
+  writer.writeBool(offsets[6], object.theme);
+  writer.writeString(offsets[7], object.timeformat);
 }
 
 Settings _settingsDeserialize(
@@ -119,10 +113,9 @@ Settings _settingsDeserialize(
   object.materialColor = reader.readBool(offsets[2]);
   object.measurements = reader.readString(offsets[3]);
   object.notifications = reader.readBool(offsets[4]);
-  object.oledScreens = reader.readBool(offsets[5]);
-  object.onboard = reader.readBool(offsets[6]);
-  object.theme = reader.readBoolOrNull(offsets[7]);
-  object.timeformat = reader.readString(offsets[8]);
+  object.onboard = reader.readBool(offsets[5]);
+  object.theme = reader.readBoolOrNull(offsets[6]);
+  object.timeformat = reader.readString(offsets[7]);
   return object;
 }
 
@@ -146,10 +139,8 @@ P _settingsDeserializeProp<P>(
     case 5:
       return (reader.readBool(offset)) as P;
     case 6:
-      return (reader.readBool(offset)) as P;
-    case 7:
       return (reader.readBoolOrNull(offset)) as P;
-    case 8:
+    case 7:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -591,16 +582,6 @@ extension SettingsQueryFilter
     });
   }
 
-  QueryBuilder<Settings, Settings, QAfterFilterCondition> oledScreensEqualTo(
-      bool value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'oledScreens',
-        value: value,
-      ));
-    });
-  }
-
   QueryBuilder<Settings, Settings, QAfterFilterCondition> onboardEqualTo(
       bool value) {
     return QueryBuilder.apply(this, (query) {
@@ -836,18 +817,6 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
-  QueryBuilder<Settings, Settings, QAfterSortBy> sortByOledScreens() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'oledScreens', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Settings, Settings, QAfterSortBy> sortByOledScreensDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'oledScreens', Sort.desc);
-    });
-  }
-
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'onboard', Sort.asc);
@@ -959,18 +928,6 @@ extension SettingsQuerySortThenBy
     });
   }
 
-  QueryBuilder<Settings, Settings, QAfterSortBy> thenByOledScreens() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'oledScreens', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Settings, Settings, QAfterSortBy> thenByOledScreensDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'oledScreens', Sort.desc);
-    });
-  }
-
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'onboard', Sort.asc);
@@ -1042,12 +999,6 @@ extension SettingsQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByOledScreens() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'oledScreens');
-    });
-  }
-
   QueryBuilder<Settings, Settings, QDistinct> distinctByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'onboard');
@@ -1103,12 +1054,6 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, bool, QQueryOperations> notificationsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'notifications');
-    });
-  }
-
-  QueryBuilder<Settings, bool, QQueryOperations> oledScreensProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'oledScreens');
     });
   }
 

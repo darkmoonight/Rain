@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/data/weather.dart';
+import 'package:rain/app/widgets/daily_card.dart';
 
 class WeatherMore extends StatefulWidget {
   const WeatherMore({
@@ -46,7 +47,7 @@ class _WeatherMoreState extends State<WeatherMore> {
         itemCount: widget.mainWeatherCache?.timeDaily!.length ??
             widget.weatherCard?.timeDaily!.length,
         itemBuilder: (context, index) {
-          return Container();
+          return const DailyCard();
         },
       ),
     );

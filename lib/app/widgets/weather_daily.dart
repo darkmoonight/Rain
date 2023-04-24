@@ -11,11 +11,13 @@ class WeatherDaily extends StatefulWidget {
     required this.weather,
     required this.minDegree,
     required this.maxDegree,
+    required this.onTap,
   });
   final List<DateTime> date;
   final List<int> weather;
   final List<double> minDegree;
   final List<double> maxDegree;
+  final Function() onTap;
 
   @override
   State<WeatherDaily> createState() => _WeatherDailyState();
@@ -113,7 +115,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
           ),
           const Divider(),
           GestureDetector(
-            onTap: () {},
+            onTap: widget.onTap,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
@@ -121,6 +123,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                 style: context.theme.textTheme.titleLarge?.copyWith(
                   fontSize: 16,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),

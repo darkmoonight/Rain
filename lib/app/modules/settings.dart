@@ -59,21 +59,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           // SettingLinks(
           //   icon: Icon(
-          //     Iconsax.mobile,
-          //     color: context.theme.iconTheme.color,
-          //   ),
-          //   text: 'oledScreens'.tr,
-          //   switcher: true,
-          //   dropdown: false,
-          //   info: false,
-          //   value: settings.oledScreens,
-          //   onChange: (value) {
-          //     themeController.changeThemeDark(value);
-          //     setState(() {});
-          //   },
-          // ),
-          // SettingLinks(
-          //   icon: Icon(
           //     Iconsax.colorfilter,
           //     color: context.theme.iconTheme.color,
           //   ),

@@ -6,6 +6,7 @@ import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/desc_container.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
+import 'package:rain/app/widgets/weather_more.dart';
 import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -175,6 +176,12 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                   weather: widget.weatherCard.weathercodeDaily!,
                   minDegree: widget.weatherCard.temperature2MMin!,
                   maxDegree: widget.weatherCard.temperature2MMax!,
+                  onTap: () => Get.to(
+                    () => WeatherMore(
+                      weatherCard: widget.weatherCard,
+                    ),
+                    transition: Transition.downToUp,
+                  ),
                 ),
               ],
             ),
