@@ -95,6 +95,7 @@ class MyApp extends StatelessWidget {
             Locale('pt', 'BR'),
             Locale('es', 'ES'),
             Locale('sk', 'SK'),
+            Locale('nl', 'NL'),
           ],
           localeResolutionCallback: (locale, supportedLocales) {
             for (var supportedLocale in supportedLocales) {

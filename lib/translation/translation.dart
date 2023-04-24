@@ -853,7 +853,8 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Instellingen.',
           'no_inter': 'Geen Internet',
-          'on_inter': 'Schakel Internet in om meteorologische gegevens te ontvangen.',
+          'on_inter':
+              'Schakel Internet in om meteorologische gegevens te ontvangen.',
           'location': 'Locatie',
           'no_location':
               'Schakel de locatiedienst in om weer gegevens voor de huidige locatie te ontvangen.',
@@ -905,6 +906,7 @@ class Translation extends Translations {
           'uvVeryHigh': 'Erg hoog',
           'uvExtreme': 'Extreem',
           'weatherMore': '16-daagse weersverwachting',
+          'windgusts': 'Windstoten'
         },
       };
 }
