@@ -9,17 +9,21 @@ class SettingLinks extends StatelessWidget {
     required this.text,
     required this.switcher,
     required this.dropdown,
+    required this.info,
     this.dropdownName,
     this.dropdownList,
     this.dropdownCange,
     this.value,
     this.onPressed,
     this.onChange,
+    this.textInfo,
   });
-  final Icon icon;
+  final Widget icon;
   final String text;
   final bool switcher;
   final bool dropdown;
+  final bool info;
+  final String? textInfo;
   final String? dropdownName;
   final List<String>? dropdownList;
   final Function(String?)? dropdownCange;
@@ -77,10 +81,20 @@ class SettingLinks extends StatelessWidget {
                         }).toList(),
                         onChanged: dropdownCange,
                       )
-                    : Icon(
-                        Iconsax.arrow_right_3,
-                        color: context.theme.iconTheme.color,
-                      ),
+                    : info
+                        ? Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: Text(
+                              textInfo!,
+                              style: context.theme.textTheme.titleMedium,
+                              overflow: TextOverflow.visible,
+                            ),
+                          )
+                        : Icon(
+                            Iconsax.arrow_right_3,
+                            color: context.theme.iconTheme.color,
+                            size: 18,
+                          ),
           ],
         ),
       ),

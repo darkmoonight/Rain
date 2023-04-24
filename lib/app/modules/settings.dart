@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/modules/about.dart';
 import 'package:rain/app/widgets/setting_links.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -16,6 +17,20 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final themeController = Get.put(ThemeController());
+  String? appVersion;
+
+  Future<void> infoVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = packageInfo.version;
+    });
+  }
+
+  @override
+  void initState() {
+    infoVersion();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
             text: 'theme'.tr,
             switcher: true,
             dropdown: false,
+            info: false,
             value: Get.isDarkMode,
             onChange: (_) {
               if (Get.isDarkMode) {
@@ -43,12 +59,28 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           // SettingLinks(
           //   icon: Icon(
+          //     Iconsax.mobile,
+          //     color: context.theme.iconTheme.color,
+          //   ),
+          //   text: 'oledScreens'.tr,
+          //   switcher: true,
+          //   dropdown: false,
+          //   info: false,
+          //   value: settings.oledScreens,
+          //   onChange: (value) {
+          //     themeController.changeThemeDark(value);
+          //     setState(() {});
+          //   },
+          // ),
+          // SettingLinks(
+          //   icon: Icon(
           //     Iconsax.colorfilter,
           //     color: context.theme.iconTheme.color,
           //   ),
           //   text: 'materialColor'.tr,
           //   switcher: true,
           //   dropdown: false,
+          //   info: false,
           //   value: settings.materialColor,
           //   onChange: (value) {
           //     isar.writeTxn(() async {
@@ -66,6 +98,7 @@ class _SettingsPageState extends State<SettingsPage> {
           //   text: 'notifications'.tr,
           //   switcher: true,
           //   dropdown: false,
+          //   info: false,
           //   value: settings.notifications,
           //   onChange: (value) {
           //     isar.writeTxn(() async {
@@ -83,6 +116,7 @@ class _SettingsPageState extends State<SettingsPage> {
             text: 'location'.tr,
             switcher: true,
             dropdown: false,
+            info: false,
             value: settings.location,
             onChange: (value) {
               isar.writeTxn(() async {
@@ -100,6 +134,7 @@ class _SettingsPageState extends State<SettingsPage> {
             text: 'degrees'.tr,
             switcher: false,
             dropdown: true,
+            info: false,
             dropdownName: settings.degrees.tr,
             dropdownList: <String>['celsius'.tr, 'fahrenheit'.tr],
             dropdownCange: (String? newValue) {
@@ -119,6 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
             text: 'measurements'.tr,
             switcher: false,
             dropdown: true,
+            info: false,
             dropdownName: settings.measurements.tr,
             dropdownList: <String>['metric'.tr, 'imperial'.tr],
             dropdownCange: (String? newValue) {
@@ -138,6 +174,7 @@ class _SettingsPageState extends State<SettingsPage> {
             text: 'timeformat'.tr,
             switcher: false,
             dropdown: true,
+            info: false,
             dropdownName: settings.timeformat.tr,
             dropdownList: <String>['12'.tr, '24'.tr],
             dropdownCange: (String? newValue) {
@@ -150,14 +187,30 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingLinks(
             icon: Icon(
-              Iconsax.info_circle,
+              Iconsax.code_circle,
               color: context.theme.iconTheme.color,
             ),
-            text: 'about'.tr,
+            text: 'version'.tr,
             switcher: false,
             dropdown: false,
-            onPressed: () => Get.to(() => const AboutPage(),
-                transition: Transition.downToUp),
+            info: true,
+            textInfo: '$appVersion',
+          ),
+          SettingLinks(
+            icon: Image.asset(
+              'assets/images/github.png',
+              scale: 20,
+            ),
+            text: '${'project'.tr} GitHub',
+            switcher: false,
+            dropdown: false,
+            info: false,
+            onPressed: () async {
+              final Uri url = Uri.parse('https://github.com/DarkMooNight/Rain');
+              if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                throw Exception('Could not launch $url');
+              }
+            },
           ),
         ],
       ),

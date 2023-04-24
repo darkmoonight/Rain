@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/widgets/desc.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/desc_container.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
 import 'package:rain/app/widgets/weather_now.dart';
@@ -23,12 +22,10 @@ class WeatherCardPage extends StatefulWidget {
 }
 
 class _WeatherCardPageState extends State<WeatherCardPage> {
-  final locale = Get.locale;
-  final statusImFa = StatusImFa();
-  final locationController = Get.put(LocationController());
-  final ItemScrollController itemScrollController = ItemScrollController();
   int timeNow = 0;
   int dayNow = 0;
+  final locationController = Get.put(LocationController());
+  final ItemScrollController itemScrollController = ItemScrollController();
 
   @override
   void initState() {
@@ -159,143 +156,19 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                   timeSunrise: widget.weatherCard.sunrise![dayNow],
                   timeSunset: widget.weatherCard.sunset![dayNow],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 15),
-                  padding: const EdgeInsets.only(top: 22, bottom: 5),
-                  decoration: BoxDecoration(
-                    color: context.theme.colorScheme.primaryContainer,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          DescWeather(
-                            imageName: 'assets/images/humidity.png',
-                            value:
-                                '${widget.weatherCard.relativehumidity2M![timeNow]}%',
-                            desc: 'humidity'.tr,
-                          ),
-                          DescWeather(
-                            imageName: 'assets/images/wind.png',
-                            value: statusImFa.getSpeed(widget
-                                .weatherCard.windspeed10M![timeNow]
-                                .round()),
-                            desc: 'wind'.tr,
-                          ),
-                          DescWeather(
-                            imageName: 'assets/images/fog.png',
-                            value: statusImFa.getVisibility(
-                                widget.weatherCard.visibility![timeNow]),
-                            desc: 'visibility'.tr,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          DescWeather(
-                            imageName: 'assets/images/temperature.png',
-                            value:
-                                '${widget.weatherCard.apparentTemperature![timeNow].round()}°',
-                            desc: 'feels'.tr,
-                          ),
-                          DescWeather(
-                            imageName: 'assets/images/evaporation.png',
-                            value: statusImFa.getPrecipitation(widget
-                                .weatherCard.evapotranspiration![timeNow]
-                                .abs()),
-                            desc: 'evaporation'.tr,
-                          ),
-                          DescWeather(
-                            imageName: 'assets/images/rainfall.png',
-                            value: statusImFa.getPrecipitation(
-                                widget.weatherCard.precipitation![timeNow]),
-                            desc: 'precipitation'.tr,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          DescWeather(
-                            imageName: 'assets/images/windsock.png',
-                            value:
-                                '${widget.weatherCard.winddirection10M![timeNow]}°',
-                            desc: 'direction'.tr,
-                          ),
-                          DescWeather(
-                            imageName: 'assets/images/atmospheric.png',
-                            value:
-                                '${widget.weatherCard.surfacePressure![timeNow].round()} ${'hPa'.tr}',
-                            desc: 'pressure'.tr,
-                            message: widget
-                                        .weatherCard.surfacePressure![timeNow]
-                                        .round() <
-                                    1000
-                                ? 'low'.tr
-                                : widget.weatherCard.surfacePressure![timeNow]
-                                            .round() >
-                                        1020
-                                    ? 'high'.tr
-                                    : 'normal'.tr,
-                          ),
-                          DescWeather(
-                            imageName: 'assets/images/water.png',
-                            value: statusImFa.getPrecipitation(
-                                widget.weatherCard.rain![timeNow]),
-                            desc: 'rain'.tr,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          DescWeather(
-                            imageName: 'assets/images/cloudy.png',
-                            value:
-                                '${widget.weatherCard.cloudcover![timeNow]}%',
-                            desc: 'cloudcover'.tr,
-                          ),
-                          DescWeather(
-                            imageName: 'assets/images/windgusts.png',
-                            value: statusImFa.getSpeed(widget
-                                .weatherCard.windgusts10M![timeNow]
-                                .round()),
-                            desc: 'windgusts'.tr,
-                          ),
-                          DescWeather(
-                            imageName: 'assets/images/uv.png',
-                            value:
-                                '${widget.weatherCard.uvIndex![timeNow].round()}',
-                            desc: 'uvIndex'.tr,
-                            message: widget.weatherCard.uvIndex![timeNow]
-                                        .round() <
-                                    3
-                                ? 'uvLow'.tr
-                                : widget.weatherCard.uvIndex![timeNow].round() <
-                                        6
-                                    ? 'uvAverage'.tr
-                                    : widget.weatherCard.uvIndex![timeNow]
-                                                .round() <
-                                            8
-                                        ? 'uvHigh'.tr
-                                        : widget.weatherCard.uvIndex![timeNow]
-                                                    .round() <
-                                                11
-                                            ? 'uvVeryHigh'.tr
-                                            : 'uvExtreme'.tr,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                DescContainer(
+                  humidity: widget.weatherCard.relativehumidity2M![timeNow],
+                  wind: widget.weatherCard.windspeed10M![timeNow],
+                  visibility: widget.weatherCard.visibility![timeNow],
+                  feels: widget.weatherCard.apparentTemperature![timeNow],
+                  evaporation: widget.weatherCard.evapotranspiration![timeNow],
+                  precipitation: widget.weatherCard.precipitation![timeNow],
+                  direction: widget.weatherCard.winddirection10M![timeNow],
+                  pressure: widget.weatherCard.surfacePressure![timeNow],
+                  rain: widget.weatherCard.rain![timeNow],
+                  cloudcover: widget.weatherCard.cloudcover![timeNow],
+                  windgusts: widget.weatherCard.windgusts10M![timeNow],
+                  uvIndex: widget.weatherCard.uvIndex![timeNow],
                 ),
                 WeatherDaily(
                   date: widget.weatherCard.timeDaily!,

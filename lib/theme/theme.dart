@@ -45,11 +45,39 @@ class RainTheme {
         color: Colors.white,
       ),
       snackBarTheme: const SnackBarThemeData(
-          backgroundColor: Color.fromARGB(255, 55, 55, 55)),
+        backgroundColor: Color.fromARGB(255, 55, 55, 55),
+      ),
       scaffoldBackgroundColor: Colors.black,
-      bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme
-          .copyWith(backgroundColor: const Color.fromARGB(255, 10, 10, 10)),
+      bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme.copyWith(
+        backgroundColor: const Color.fromARGB(255, 10, 10, 10),
+      ),
       unselectedWidgetColor: const Color.fromARGB(255, 20, 20, 20),
+      dividerColor: Colors.white,
+    );
+  }
+
+  static ThemeData get greyTheme {
+    return baseDark.copyWith(
+      brightness: Brightness.dark,
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.blue,
+        brightness: Brightness.dark,
+        primaryContainer: const Color.fromARGB(255, 40, 40, 40),
+        secondaryContainer: const Color.fromARGB(255, 25, 25, 25),
+        tertiaryContainer: const Color.fromARGB(255, 45, 45, 45),
+      ),
+      iconTheme: baseLigth.iconTheme.copyWith(
+        color: Colors.white,
+      ),
+      snackBarTheme: const SnackBarThemeData(
+        backgroundColor: Color.fromARGB(255, 55, 55, 55),
+      ),
+      scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
+      bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme.copyWith(
+        backgroundColor: const Color.fromARGB(255, 28, 28, 28),
+      ),
+      unselectedWidgetColor: Colors.grey[850],
       dividerColor: Colors.white,
     );
   }

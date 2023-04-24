@@ -10,6 +10,7 @@ class Settings {
   bool location = false;
   bool notifications = false;
   bool materialColor = false;
+  bool oledScreens = false;
   String measurements = 'metric';
   String degrees = 'celsius';
   String timeformat = '24';

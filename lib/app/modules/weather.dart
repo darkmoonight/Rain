@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rain/app/controller/controller.dart';
-import 'package:rain/app/widgets/desc.dart';
+import 'package:rain/app/widgets/desc_container.dart';
 import 'package:rain/app/widgets/shimmer.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
 import 'package:rain/app/widgets/weather_daily.dart';
 import 'package:rain/app/widgets/weather_now.dart';
@@ -18,8 +17,6 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  final locale = Get.locale;
-  final statusImFa = StatusImFa();
   final locationController = Get.put(LocationController());
 
   @override
@@ -139,179 +136,36 @@ class _WeatherPageState extends State<WeatherPage> {
               ),
               Obx(
                 () => locationController.isLoading.isFalse
-                    ? Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        padding: const EdgeInsets.only(top: 22, bottom: 5),
-                        decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primaryContainer,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                DescWeather(
-                                  imageName: 'assets/images/humidity.png',
-                                  value:
-                                      '${locationController.mainWeather.relativehumidity2M![locationController.hourOfDay.value]}%',
-                                  desc: 'humidity'.tr,
-                                ),
-                                DescWeather(
-                                  imageName: 'assets/images/wind.png',
-                                  value: statusImFa.getSpeed(locationController
-                                      .mainWeather
-                                      .windspeed10M![
-                                          locationController.hourOfDay.value]
-                                      .round()),
-                                  desc: 'wind'.tr,
-                                ),
-                                DescWeather(
-                                  imageName: 'assets/images/fog.png',
-                                  value: statusImFa.getVisibility(
-                                      locationController
-                                              .mainWeather.visibility![
-                                          locationController.hourOfDay.value]),
-                                  desc: 'visibility'.tr,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                DescWeather(
-                                  imageName: 'assets/images/temperature.png',
-                                  value:
-                                      '${locationController.mainWeather.apparentTemperature![locationController.hourOfDay.value].round()}°',
-                                  desc: 'feels'.tr,
-                                ),
-                                DescWeather(
-                                  imageName: 'assets/images/evaporation.png',
-                                  value: statusImFa.getPrecipitation(
-                                      locationController
-                                          .mainWeather
-                                          .evapotranspiration![
-                                              locationController
-                                                  .hourOfDay.value]
-                                          .abs()),
-                                  desc: 'evaporation'.tr,
-                                ),
-                                DescWeather(
-                                  imageName: 'assets/images/rainfall.png',
-                                  value: statusImFa.getPrecipitation(
-                                      locationController
-                                              .mainWeather.precipitation![
-                                          locationController.hourOfDay.value]),
-                                  desc: 'precipitation'.tr,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                DescWeather(
-                                  imageName: 'assets/images/windsock.png',
-                                  value:
-                                      '${locationController.mainWeather.winddirection10M![locationController.hourOfDay.value]}°',
-                                  desc: 'direction'.tr,
-                                ),
-                                DescWeather(
-                                  imageName: 'assets/images/atmospheric.png',
-                                  value:
-                                      '${locationController.mainWeather.surfacePressure![locationController.hourOfDay.value].round()} ${'hPa'.tr}',
-                                  desc: 'pressure'.tr,
-                                  message: locationController
-                                              .mainWeather
-                                              .surfacePressure![
-                                                  locationController
-                                                      .hourOfDay.value]
-                                              .round() <
-                                          1000
-                                      ? 'low'.tr
-                                      : locationController
-                                                  .mainWeather
-                                                  .surfacePressure![
-                                                      locationController
-                                                          .hourOfDay.value]
-                                                  .round() >
-                                              1020
-                                          ? 'high'.tr
-                                          : 'normal'.tr,
-                                ),
-                                DescWeather(
-                                  imageName: 'assets/images/water.png',
-                                  value: statusImFa.getPrecipitation(
-                                      locationController.mainWeather.rain![
-                                          locationController.hourOfDay.value]),
-                                  desc: 'rain'.tr,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                DescWeather(
-                                  imageName: 'assets/images/cloudy.png',
-                                  value:
-                                      '${locationController.mainWeather.cloudcover![locationController.hourOfDay.value]}%',
-                                  desc: 'cloudcover'.tr,
-                                ),
-                                DescWeather(
-                                  imageName: 'assets/images/windgusts.png',
-                                  value: statusImFa.getSpeed(locationController
-                                      .mainWeather
-                                      .windgusts10M![
-                                          locationController.hourOfDay.value]
-                                      .round()),
-                                  desc: 'windgusts'.tr,
-                                ),
-                                DescWeather(
-                                  imageName: 'assets/images/uv.png',
-                                  value:
-                                      '${locationController.mainWeather.uvIndex![locationController.hourOfDay.value].round()}',
-                                  desc: 'uvIndex'.tr,
-                                  message: locationController
-                                              .mainWeather
-                                              .uvIndex![locationController
-                                                  .hourOfDay.value]
-                                              .round() <
-                                          3
-                                      ? 'uvLow'.tr
-                                      : locationController
-                                                  .mainWeather
-                                                  .uvIndex![locationController
-                                                      .hourOfDay.value]
-                                                  .round() <
-                                              6
-                                          ? 'uvAverage'.tr
-                                          : locationController
-                                                      .mainWeather
-                                                      .uvIndex![
-                                                          locationController
-                                                              .hourOfDay.value]
-                                                      .round() <
-                                                  8
-                                              ? 'uvHigh'.tr
-                                              : locationController
-                                                          .mainWeather
-                                                          .uvIndex![
-                                                              locationController
-                                                                  .hourOfDay
-                                                                  .value]
-                                                          .round() <
-                                                      11
-                                                  ? 'uvVeryHigh'.tr
-                                                  : 'uvExtreme'.tr,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                    ? DescContainer(
+                        humidity:
+                            locationController.mainWeather.relativehumidity2M![
+                                locationController.hourOfDay.value],
+                        wind: locationController.mainWeather
+                            .windspeed10M![locationController.hourOfDay.value],
+                        visibility: locationController.mainWeather
+                            .visibility![locationController.hourOfDay.value],
+                        feels:
+                            locationController.mainWeather.apparentTemperature![
+                                locationController.hourOfDay.value],
+                        evaporation:
+                            locationController.mainWeather.evapotranspiration![
+                                locationController.hourOfDay.value],
+                        precipitation: locationController.mainWeather
+                            .precipitation![locationController.hourOfDay.value],
+                        direction:
+                            locationController.mainWeather.winddirection10M![
+                                locationController.hourOfDay.value],
+                        pressure:
+                            locationController.mainWeather.surfacePressure![
+                                locationController.hourOfDay.value],
+                        rain: locationController.mainWeather
+                            .rain![locationController.hourOfDay.value],
+                        cloudcover: locationController.mainWeather
+                            .cloudcover![locationController.hourOfDay.value],
+                        windgusts: locationController.mainWeather
+                            .windgusts10M![locationController.hourOfDay.value],
+                        uvIndex: locationController.mainWeather
+                            .uvIndex![locationController.hourOfDay.value],
                       )
                     : const MyShimmer(
                         hight: 400,

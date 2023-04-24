@@ -29,7 +29,7 @@ dependencies:
   package_info_plus: ^3.1.0
   connectivity_plus: ^3.0.4
   isar_flutter_libs: ^3.1.0
-  flutter_displaymode: ^0.5.0
+  flutter_displaymode: ^0.6.0
   lat_lng_to_timezone: ^0.2.0
   custom_navigation_bar: ^0.8.2
   scrollable_positioned_list: ^0.3.5
