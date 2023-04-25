@@ -51,7 +51,7 @@ class StatusImFa {
   String getTimeFormat(String time) {
     switch (settings.timeformat) {
       case '12':
-        return DateFormat.j().format(DateTime.tryParse(time)!);
+        return DateFormat.jm().format(DateTime.tryParse(time)!);
       case '24':
         return DateFormat.Hm().format(DateTime.tryParse(time)!);
       default:
@@ -62,7 +62,7 @@ class StatusImFa {
   String getTimeFormatTz(TZDateTime time) {
     switch (settings.timeformat) {
       case '12':
-        return DateFormat.j().format(time);
+        return DateFormat.jm().format(time);
       case '24':
         return DateFormat.Hm().format(time);
       default:

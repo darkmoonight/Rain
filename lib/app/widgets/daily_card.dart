@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/desc.dart';
@@ -41,74 +42,49 @@ class DailyCard extends StatelessWidget {
     final status = Status();
     final statusImFa = StatusImFa();
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
-          Text(
-            DateFormat.MMMMEEEEd(locale?.languageCode).format(timeDaily!),
-            style: context.theme.textTheme.titleLarge,
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 15),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
-            ),
-            decoration: BoxDecoration(
-              color: context.theme.colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 15),
+              Image(
+                image: AssetImage(
+                    status.getImageNowDaily(weathercodeDaily!, timeDaily!)),
+                fit: BoxFit.fill,
+                height: 200,
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        status.getImage7Day(weathercodeDaily!),
-                        scale: 3,
-                      ),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: Text(
-                          status.getText(weathercodeDaily!),
-                          style: context.theme.textTheme.labelLarge
-                              ?.copyWith(fontSize: 16),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
+              const SizedBox(height: 10),
+              GlowText(
+                '${statusImFa.getDegree(temperature2MMin!.round())} / ${statusImFa.getDegree(temperature2MMax!.round())}',
+                style: context.theme.textTheme.titleLarge?.copyWith(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      statusImFa.getDegree(temperature2MMin!.round()),
-                      style: context.theme.textTheme.labelLarge
-                          ?.copyWith(fontSize: 16),
-                    ),
-                    Text(
-                      ' / ',
-                      style: context.theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      statusImFa.getDegree(temperature2MMax!.round()),
-                      style: context.theme.textTheme.bodyMedium
-                          ?.copyWith(fontSize: 16),
-                    ),
-                  ],
+              ),
+              const SizedBox(height: 5),
+              Text(
+                status.getText(weathercodeDaily!),
+                style: context.theme.textTheme.titleLarge,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                DateFormat.MMMMEEEEd(locale?.languageCode).format(timeDaily!),
+                style: context.theme.textTheme.labelLarge?.copyWith(
+                  color: Colors.grey,
+                  fontSize: 16,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          SunsetSunrise(
-            timeSunrise: sunrise!,
-            timeSunset: sunset!,
+          Padding(
+            padding: const EdgeInsets.only(top: 15),
+            child: SunsetSunrise(
+              timeSunrise: sunrise!,
+              timeSunset: sunset!,
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 15),
