@@ -96,6 +96,9 @@ class Translation extends Translations {
           'northwest': 'Северо-запад',
           'project': 'Проект на',
           'version': 'Версия приложения',
+          'precipitationProbabilit': 'Вероятность выпадения осадков',
+          'apparentTemperatureMin': 'Минимальная ощущаемая температура',
+          'apparentTemperatureMax': 'Максимальная ощущаемая температура',
         },
         'en_US': {
           'start': 'Get Started',
@@ -190,6 +193,9 @@ class Translation extends Translations {
           'northwest': 'Northwest',
           'project': 'Project on',
           'version': 'Application version',
+          'precipitationProbabilit': 'Precipitation probability',
+          'apparentTemperatureMin': 'Minimum apparent temperature',
+          'apparentTemperatureMax': 'Maximum apparent temperature',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -285,6 +291,9 @@ class Translation extends Translations {
           'northwest': 'Nord-Ouest',
           'project': 'Project on',
           'version': 'Application version',
+          'precipitationProbabilit': 'Probabilité de précipitation',
+          'apparentTemperatureMin': 'Température apparente minimale',
+          'apparentTemperatureMax': 'Température apparente maximale',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -380,6 +389,9 @@ class Translation extends Translations {
           'northwest': 'Nord-ovest',
           'project': 'Progetto su',
           'version': 'Versione dell\'applicazione',
+          'precipitationProbabilit': 'Probabilità di precipitazione',
+          'apparentTemperatureMin': 'Temperatura apparente minima',
+          'apparentTemperatureMax': 'Temperatura apparente massima',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -475,6 +487,9 @@ class Translation extends Translations {
           'northwest': 'Nordwesten',
           'project': 'Projekt auf',
           'version': 'Anwendungsversion',
+          'precipitationProbabilit': 'Niederschlagswahrscheinlichkeit',
+          'apparentTemperatureMin': 'Minimale gefühlte Temperatur',
+          'apparentTemperatureMax': 'Maximale gefühlte Temperatur',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -569,6 +584,9 @@ class Translation extends Translations {
           'northwest': 'Kuzeybatı',
           'project': 'Proje üzerinde',
           'version': 'Uygulama sürümü',
+          'precipitationProbabilit': 'Yağış olasılığı',
+          'apparentTemperatureMin': 'Minimum hissedilen sıcaklık',
+          'apparentTemperatureMax': 'Maksimum hissedilen sıcaklık',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -663,6 +681,9 @@ class Translation extends Translations {
           'northwest': 'Noroeste',
           'project': 'Projeto em',
           'version': 'Versão do aplicativo',
+          'precipitationProbabilit': 'Probabilidade de precipitação',
+          'apparentTemperatureMin': 'Temperatura aparente mínima',
+          'apparentTemperatureMax': 'Temperatura aparente máxima',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -758,6 +779,9 @@ class Translation extends Translations {
           'northwest': 'Noroeste',
           'project': 'Proyecto en',
           'version': 'Versión de la aplicación',
+          'precipitationProbabilit': 'Probabilidad de precipitación',
+          'apparentTemperatureMin': 'Temperatura aparente mínima',
+          'apparentTemperatureMax': 'Temperatura aparente máxima',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -852,6 +876,9 @@ class Translation extends Translations {
           'northwest': 'Severo-Západ',
           'project': 'Projekt na',
           'version': 'Verzia aplikácie',
+          'precipitationProbabilit': 'Pravdepodobnosť zrážok',
+          'apparentTemperatureMin': 'Minimálna viditeľná teplota',
+          'apparentTemperatureMax': 'Maximálna viditeľná teplota',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -947,6 +974,9 @@ class Translation extends Translations {
           'northwest': 'Noordwest',
           'project': 'Project op',
           'version': 'Applicatieversie',
+          'precipitationProbabilit': 'Kans op neerslag',
+          'apparentTemperatureMin': 'Minimum schijnbare temperatuur',
+          'apparentTemperatureMax': 'Maximale schijnbare temperatuur',
         },
       };
 }

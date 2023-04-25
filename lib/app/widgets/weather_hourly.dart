@@ -54,7 +54,7 @@ class _WeatherHourlyState extends State<WeatherHourly> {
           scale: 3,
         ),
         Text(
-          statusImFa.getDegree(widget.degree.round().toInt()),
+          statusImFa.getDegree(widget.degree.round()),
           style: context.theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
