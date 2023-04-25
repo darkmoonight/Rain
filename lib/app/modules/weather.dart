@@ -191,7 +191,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                       )
                     : const MyShimmer(
-                        hight: 450,
+                        hight: 455,
                         edgeInsetsMargin: EdgeInsets.only(bottom: 15),
                       ),
               ),

@@ -69,7 +69,7 @@ const SettingsSchema = CollectionSchema(
   getId: _settingsGetId,
   getLinks: _settingsGetLinks,
   attach: _settingsAttach,
-  version: '3.1.0',
+  version: '3.1.0+1',
 );
 
 int _settingsEstimateSize(
@@ -1117,113 +1117,118 @@ const MainWeatherCacheSchema = CollectionSchema(
       name: r'precipitation',
       type: IsarType.doubleList,
     ),
-    r'precipitationSum': PropertySchema(
+    r'precipitationProbabilityMax': PropertySchema(
       id: 6,
+      name: r'precipitationProbabilityMax',
+      type: IsarType.longList,
+    ),
+    r'precipitationSum': PropertySchema(
+      id: 7,
       name: r'precipitationSum',
       type: IsarType.doubleList,
     ),
     r'rain': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'rain',
       type: IsarType.doubleList,
     ),
     r'relativehumidity2M': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'relativehumidity2M',
       type: IsarType.longList,
     ),
     r'sunrise': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'sunrise',
       type: IsarType.stringList,
     ),
     r'sunset': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'sunset',
       type: IsarType.stringList,
     ),
     r'surfacePressure': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'surfacePressure',
       type: IsarType.doubleList,
     ),
     r'temperature2M': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'temperature2M',
       type: IsarType.doubleList,
     ),
     r'temperature2MMax': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'temperature2MMax',
       type: IsarType.doubleList,
     ),
     r'temperature2MMin': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'temperature2MMin',
       type: IsarType.doubleList,
     ),
     r'time': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'time',
       type: IsarType.stringList,
     ),
     r'timeDaily': PropertySchema(
-      id: 16,
+      id: 17,
       name: r'timeDaily',
       type: IsarType.dateTimeList,
     ),
     r'timestamp': PropertySchema(
-      id: 17,
+      id: 18,
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
     r'timezone': PropertySchema(
-      id: 18,
+      id: 19,
       name: r'timezone',
       type: IsarType.string,
     ),
     r'uvIndex': PropertySchema(
-      id: 19,
+      id: 20,
       name: r'uvIndex',
       type: IsarType.doubleList,
     ),
     r'visibility': PropertySchema(
-      id: 20,
+      id: 21,
       name: r'visibility',
       type: IsarType.doubleList,
     ),
     r'weathercode': PropertySchema(
-      id: 21,
+      id: 22,
       name: r'weathercode',
       type: IsarType.longList,
     ),
     r'weathercodeDaily': PropertySchema(
-      id: 22,
+      id: 23,
       name: r'weathercodeDaily',
       type: IsarType.longList,
     ),
     r'winddirection10M': PropertySchema(
-      id: 23,
+      id: 24,
       name: r'winddirection10M',
       type: IsarType.longList,
     ),
     r'windgusts10M': PropertySchema(
-      id: 24,
+      id: 25,
       name: r'windgusts10M',
       type: IsarType.doubleList,
     ),
     r'windgusts10MMax': PropertySchema(
-      id: 25,
+      id: 26,
       name: r'windgusts10MMax',
       type: IsarType.doubleList,
     ),
     r'windspeed10M': PropertySchema(
-      id: 26,
+      id: 27,
       name: r'windspeed10M',
       type: IsarType.doubleList,
     ),
     r'windspeed10MMax': PropertySchema(
-      id: 27,
+      id: 28,
       name: r'windspeed10MMax',
       type: IsarType.doubleList,
     )
@@ -1239,7 +1244,7 @@ const MainWeatherCacheSchema = CollectionSchema(
   getId: _mainWeatherCacheGetId,
   getLinks: _mainWeatherCacheGetLinks,
   attach: _mainWeatherCacheAttach,
-  version: '3.1.0',
+  version: '3.1.0+1',
 );
 
 int _mainWeatherCacheEstimateSize(
@@ -1280,6 +1285,12 @@ int _mainWeatherCacheEstimateSize(
   }
   {
     final value = object.precipitation;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final value = object.precipitationProbabilityMax;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
     }
@@ -1443,28 +1454,29 @@ void _mainWeatherCacheSerialize(
   writer.writeLongList(offsets[3], object.cloudcover);
   writer.writeDoubleList(offsets[4], object.evapotranspiration);
   writer.writeDoubleList(offsets[5], object.precipitation);
-  writer.writeDoubleList(offsets[6], object.precipitationSum);
-  writer.writeDoubleList(offsets[7], object.rain);
-  writer.writeLongList(offsets[8], object.relativehumidity2M);
-  writer.writeStringList(offsets[9], object.sunrise);
-  writer.writeStringList(offsets[10], object.sunset);
-  writer.writeDoubleList(offsets[11], object.surfacePressure);
-  writer.writeDoubleList(offsets[12], object.temperature2M);
-  writer.writeDoubleList(offsets[13], object.temperature2MMax);
-  writer.writeDoubleList(offsets[14], object.temperature2MMin);
-  writer.writeStringList(offsets[15], object.time);
-  writer.writeDateTimeList(offsets[16], object.timeDaily);
-  writer.writeDateTime(offsets[17], object.timestamp);
-  writer.writeString(offsets[18], object.timezone);
-  writer.writeDoubleList(offsets[19], object.uvIndex);
-  writer.writeDoubleList(offsets[20], object.visibility);
-  writer.writeLongList(offsets[21], object.weathercode);
-  writer.writeLongList(offsets[22], object.weathercodeDaily);
-  writer.writeLongList(offsets[23], object.winddirection10M);
-  writer.writeDoubleList(offsets[24], object.windgusts10M);
-  writer.writeDoubleList(offsets[25], object.windgusts10MMax);
-  writer.writeDoubleList(offsets[26], object.windspeed10M);
-  writer.writeDoubleList(offsets[27], object.windspeed10MMax);
+  writer.writeLongList(offsets[6], object.precipitationProbabilityMax);
+  writer.writeDoubleList(offsets[7], object.precipitationSum);
+  writer.writeDoubleList(offsets[8], object.rain);
+  writer.writeLongList(offsets[9], object.relativehumidity2M);
+  writer.writeStringList(offsets[10], object.sunrise);
+  writer.writeStringList(offsets[11], object.sunset);
+  writer.writeDoubleList(offsets[12], object.surfacePressure);
+  writer.writeDoubleList(offsets[13], object.temperature2M);
+  writer.writeDoubleList(offsets[14], object.temperature2MMax);
+  writer.writeDoubleList(offsets[15], object.temperature2MMin);
+  writer.writeStringList(offsets[16], object.time);
+  writer.writeDateTimeList(offsets[17], object.timeDaily);
+  writer.writeDateTime(offsets[18], object.timestamp);
+  writer.writeString(offsets[19], object.timezone);
+  writer.writeDoubleList(offsets[20], object.uvIndex);
+  writer.writeDoubleList(offsets[21], object.visibility);
+  writer.writeLongList(offsets[22], object.weathercode);
+  writer.writeLongList(offsets[23], object.weathercodeDaily);
+  writer.writeLongList(offsets[24], object.winddirection10M);
+  writer.writeDoubleList(offsets[25], object.windgusts10M);
+  writer.writeDoubleList(offsets[26], object.windgusts10MMax);
+  writer.writeDoubleList(offsets[27], object.windspeed10M);
+  writer.writeDoubleList(offsets[28], object.windspeed10MMax);
 }
 
 MainWeatherCache _mainWeatherCacheDeserialize(
@@ -1480,28 +1492,29 @@ MainWeatherCache _mainWeatherCacheDeserialize(
     cloudcover: reader.readLongList(offsets[3]),
     evapotranspiration: reader.readDoubleList(offsets[4]),
     precipitation: reader.readDoubleList(offsets[5]),
-    precipitationSum: reader.readDoubleList(offsets[6]),
-    rain: reader.readDoubleList(offsets[7]),
-    relativehumidity2M: reader.readLongList(offsets[8]),
-    sunrise: reader.readStringList(offsets[9]),
-    sunset: reader.readStringList(offsets[10]),
-    surfacePressure: reader.readDoubleList(offsets[11]),
-    temperature2M: reader.readDoubleList(offsets[12]),
-    temperature2MMax: reader.readDoubleList(offsets[13]),
-    temperature2MMin: reader.readDoubleList(offsets[14]),
-    time: reader.readStringList(offsets[15]),
-    timeDaily: reader.readDateTimeList(offsets[16]),
-    timestamp: reader.readDateTimeOrNull(offsets[17]),
-    timezone: reader.readStringOrNull(offsets[18]),
-    uvIndex: reader.readDoubleList(offsets[19]),
-    visibility: reader.readDoubleList(offsets[20]),
-    weathercode: reader.readLongList(offsets[21]),
-    weathercodeDaily: reader.readLongList(offsets[22]),
-    winddirection10M: reader.readLongList(offsets[23]),
-    windgusts10M: reader.readDoubleList(offsets[24]),
-    windgusts10MMax: reader.readDoubleList(offsets[25]),
-    windspeed10M: reader.readDoubleList(offsets[26]),
-    windspeed10MMax: reader.readDoubleList(offsets[27]),
+    precipitationProbabilityMax: reader.readLongList(offsets[6]),
+    precipitationSum: reader.readDoubleList(offsets[7]),
+    rain: reader.readDoubleList(offsets[8]),
+    relativehumidity2M: reader.readLongList(offsets[9]),
+    sunrise: reader.readStringList(offsets[10]),
+    sunset: reader.readStringList(offsets[11]),
+    surfacePressure: reader.readDoubleList(offsets[12]),
+    temperature2M: reader.readDoubleList(offsets[13]),
+    temperature2MMax: reader.readDoubleList(offsets[14]),
+    temperature2MMin: reader.readDoubleList(offsets[15]),
+    time: reader.readStringList(offsets[16]),
+    timeDaily: reader.readDateTimeList(offsets[17]),
+    timestamp: reader.readDateTimeOrNull(offsets[18]),
+    timezone: reader.readStringOrNull(offsets[19]),
+    uvIndex: reader.readDoubleList(offsets[20]),
+    visibility: reader.readDoubleList(offsets[21]),
+    weathercode: reader.readLongList(offsets[22]),
+    weathercodeDaily: reader.readLongList(offsets[23]),
+    winddirection10M: reader.readLongList(offsets[24]),
+    windgusts10M: reader.readDoubleList(offsets[25]),
+    windgusts10MMax: reader.readDoubleList(offsets[26]),
+    windspeed10M: reader.readDoubleList(offsets[27]),
+    windspeed10MMax: reader.readDoubleList(offsets[28]),
   );
   object.id = id;
   return object;
@@ -1527,17 +1540,17 @@ P _mainWeatherCacheDeserializeProp<P>(
     case 5:
       return (reader.readDoubleList(offset)) as P;
     case 6:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 7:
       return (reader.readDoubleList(offset)) as P;
     case 8:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 9:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 10:
       return (reader.readStringList(offset)) as P;
     case 11:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 12:
       return (reader.readDoubleList(offset)) as P;
     case 13:
@@ -1545,30 +1558,32 @@ P _mainWeatherCacheDeserializeProp<P>(
     case 14:
       return (reader.readDoubleList(offset)) as P;
     case 15:
-      return (reader.readStringList(offset)) as P;
-    case 16:
-      return (reader.readDateTimeList(offset)) as P;
-    case 17:
-      return (reader.readDateTimeOrNull(offset)) as P;
-    case 18:
-      return (reader.readStringOrNull(offset)) as P;
-    case 19:
       return (reader.readDoubleList(offset)) as P;
+    case 16:
+      return (reader.readStringList(offset)) as P;
+    case 17:
+      return (reader.readDateTimeList(offset)) as P;
+    case 18:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 19:
+      return (reader.readStringOrNull(offset)) as P;
     case 20:
       return (reader.readDoubleList(offset)) as P;
     case 21:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 22:
       return (reader.readLongList(offset)) as P;
     case 23:
       return (reader.readLongList(offset)) as P;
     case 24:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 25:
       return (reader.readDoubleList(offset)) as P;
     case 26:
       return (reader.readDoubleList(offset)) as P;
     case 27:
+      return (reader.readDoubleList(offset)) as P;
+    case 28:
       return (reader.readDoubleList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2745,6 +2760,169 @@ extension MainWeatherCacheQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitation',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'precipitationProbabilityMax',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'precipitationProbabilityMax',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'precipitationProbabilityMax',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxElementGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'precipitationProbabilityMax',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxElementLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'precipitationProbabilityMax',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'precipitationProbabilityMax',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityMaxLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
         lower,
         includeLower,
         upper,
@@ -6728,6 +6906,13 @@ extension MainWeatherCacheQueryWhereDistinct
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
+      distinctByPrecipitationProbabilityMax() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'precipitationProbabilityMax');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
       distinctByPrecipitationSum() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationSum');
@@ -6930,6 +7115,13 @@ extension MainWeatherCacheQueryProperty
     });
   }
 
+  QueryBuilder<MainWeatherCache, List<int>?, QQueryOperations>
+      precipitationProbabilityMaxProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'precipitationProbabilityMax');
+    });
+  }
+
   QueryBuilder<MainWeatherCache, List<double>?, QQueryOperations>
       precipitationSumProperty() {
     return QueryBuilder.apply(this, (query) {
@@ -7127,7 +7319,7 @@ const LocationCacheSchema = CollectionSchema(
   getId: _locationCacheGetId,
   getLinks: _locationCacheGetLinks,
   attach: _locationCacheAttach,
-  version: '3.1.0',
+  version: '3.1.0+1',
 );
 
 int _locationCacheEstimateSize(
@@ -8064,113 +8256,118 @@ const WeatherCardSchema = CollectionSchema(
       name: r'precipitation',
       type: IsarType.doubleList,
     ),
-    r'precipitationSum': PropertySchema(
+    r'precipitationProbabilityMax': PropertySchema(
       id: 10,
+      name: r'precipitationProbabilityMax',
+      type: IsarType.longList,
+    ),
+    r'precipitationSum': PropertySchema(
+      id: 11,
       name: r'precipitationSum',
       type: IsarType.doubleList,
     ),
     r'rain': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'rain',
       type: IsarType.doubleList,
     ),
     r'relativehumidity2M': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'relativehumidity2M',
       type: IsarType.longList,
     ),
     r'sunrise': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'sunrise',
       type: IsarType.stringList,
     ),
     r'sunset': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'sunset',
       type: IsarType.stringList,
     ),
     r'surfacePressure': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'surfacePressure',
       type: IsarType.doubleList,
     ),
     r'temperature2M': PropertySchema(
-      id: 16,
+      id: 17,
       name: r'temperature2M',
       type: IsarType.doubleList,
     ),
     r'temperature2MMax': PropertySchema(
-      id: 17,
+      id: 18,
       name: r'temperature2MMax',
       type: IsarType.doubleList,
     ),
     r'temperature2MMin': PropertySchema(
-      id: 18,
+      id: 19,
       name: r'temperature2MMin',
       type: IsarType.doubleList,
     ),
     r'time': PropertySchema(
-      id: 19,
+      id: 20,
       name: r'time',
       type: IsarType.stringList,
     ),
     r'timeDaily': PropertySchema(
-      id: 20,
+      id: 21,
       name: r'timeDaily',
       type: IsarType.dateTimeList,
     ),
     r'timestamp': PropertySchema(
-      id: 21,
+      id: 22,
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
     r'timezone': PropertySchema(
-      id: 22,
+      id: 23,
       name: r'timezone',
       type: IsarType.string,
     ),
     r'uvIndex': PropertySchema(
-      id: 23,
+      id: 24,
       name: r'uvIndex',
       type: IsarType.doubleList,
     ),
     r'visibility': PropertySchema(
-      id: 24,
+      id: 25,
       name: r'visibility',
       type: IsarType.doubleList,
     ),
     r'weathercode': PropertySchema(
-      id: 25,
+      id: 26,
       name: r'weathercode',
       type: IsarType.longList,
     ),
     r'weathercodeDaily': PropertySchema(
-      id: 26,
+      id: 27,
       name: r'weathercodeDaily',
       type: IsarType.longList,
     ),
     r'winddirection10M': PropertySchema(
-      id: 27,
+      id: 28,
       name: r'winddirection10M',
       type: IsarType.longList,
     ),
     r'windgusts10M': PropertySchema(
-      id: 28,
+      id: 29,
       name: r'windgusts10M',
       type: IsarType.doubleList,
     ),
     r'windgusts10MMax': PropertySchema(
-      id: 29,
+      id: 30,
       name: r'windgusts10MMax',
       type: IsarType.doubleList,
     ),
     r'windspeed10M': PropertySchema(
-      id: 30,
+      id: 31,
       name: r'windspeed10M',
       type: IsarType.doubleList,
     ),
     r'windspeed10MMax': PropertySchema(
-      id: 31,
+      id: 32,
       name: r'windspeed10MMax',
       type: IsarType.doubleList,
     )
@@ -8186,7 +8383,7 @@ const WeatherCardSchema = CollectionSchema(
   getId: _weatherCardGetId,
   getLinks: _weatherCardGetLinks,
   attach: _weatherCardAttach,
-  version: '3.1.0',
+  version: '3.1.0+1',
 );
 
 int _weatherCardEstimateSize(
@@ -8239,6 +8436,12 @@ int _weatherCardEstimateSize(
   }
   {
     final value = object.precipitation;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final value = object.precipitationProbabilityMax;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
     }
@@ -8406,28 +8609,29 @@ void _weatherCardSerialize(
   writer.writeDouble(offsets[7], object.lat);
   writer.writeDouble(offsets[8], object.lon);
   writer.writeDoubleList(offsets[9], object.precipitation);
-  writer.writeDoubleList(offsets[10], object.precipitationSum);
-  writer.writeDoubleList(offsets[11], object.rain);
-  writer.writeLongList(offsets[12], object.relativehumidity2M);
-  writer.writeStringList(offsets[13], object.sunrise);
-  writer.writeStringList(offsets[14], object.sunset);
-  writer.writeDoubleList(offsets[15], object.surfacePressure);
-  writer.writeDoubleList(offsets[16], object.temperature2M);
-  writer.writeDoubleList(offsets[17], object.temperature2MMax);
-  writer.writeDoubleList(offsets[18], object.temperature2MMin);
-  writer.writeStringList(offsets[19], object.time);
-  writer.writeDateTimeList(offsets[20], object.timeDaily);
-  writer.writeDateTime(offsets[21], object.timestamp);
-  writer.writeString(offsets[22], object.timezone);
-  writer.writeDoubleList(offsets[23], object.uvIndex);
-  writer.writeDoubleList(offsets[24], object.visibility);
-  writer.writeLongList(offsets[25], object.weathercode);
-  writer.writeLongList(offsets[26], object.weathercodeDaily);
-  writer.writeLongList(offsets[27], object.winddirection10M);
-  writer.writeDoubleList(offsets[28], object.windgusts10M);
-  writer.writeDoubleList(offsets[29], object.windgusts10MMax);
-  writer.writeDoubleList(offsets[30], object.windspeed10M);
-  writer.writeDoubleList(offsets[31], object.windspeed10MMax);
+  writer.writeLongList(offsets[10], object.precipitationProbabilityMax);
+  writer.writeDoubleList(offsets[11], object.precipitationSum);
+  writer.writeDoubleList(offsets[12], object.rain);
+  writer.writeLongList(offsets[13], object.relativehumidity2M);
+  writer.writeStringList(offsets[14], object.sunrise);
+  writer.writeStringList(offsets[15], object.sunset);
+  writer.writeDoubleList(offsets[16], object.surfacePressure);
+  writer.writeDoubleList(offsets[17], object.temperature2M);
+  writer.writeDoubleList(offsets[18], object.temperature2MMax);
+  writer.writeDoubleList(offsets[19], object.temperature2MMin);
+  writer.writeStringList(offsets[20], object.time);
+  writer.writeDateTimeList(offsets[21], object.timeDaily);
+  writer.writeDateTime(offsets[22], object.timestamp);
+  writer.writeString(offsets[23], object.timezone);
+  writer.writeDoubleList(offsets[24], object.uvIndex);
+  writer.writeDoubleList(offsets[25], object.visibility);
+  writer.writeLongList(offsets[26], object.weathercode);
+  writer.writeLongList(offsets[27], object.weathercodeDaily);
+  writer.writeLongList(offsets[28], object.winddirection10M);
+  writer.writeDoubleList(offsets[29], object.windgusts10M);
+  writer.writeDoubleList(offsets[30], object.windgusts10MMax);
+  writer.writeDoubleList(offsets[31], object.windspeed10M);
+  writer.writeDoubleList(offsets[32], object.windspeed10MMax);
 }
 
 WeatherCard _weatherCardDeserialize(
@@ -8447,28 +8651,29 @@ WeatherCard _weatherCardDeserialize(
     lat: reader.readDoubleOrNull(offsets[7]),
     lon: reader.readDoubleOrNull(offsets[8]),
     precipitation: reader.readDoubleList(offsets[9]),
-    precipitationSum: reader.readDoubleList(offsets[10]),
-    rain: reader.readDoubleList(offsets[11]),
-    relativehumidity2M: reader.readLongList(offsets[12]),
-    sunrise: reader.readStringList(offsets[13]),
-    sunset: reader.readStringList(offsets[14]),
-    surfacePressure: reader.readDoubleList(offsets[15]),
-    temperature2M: reader.readDoubleList(offsets[16]),
-    temperature2MMax: reader.readDoubleList(offsets[17]),
-    temperature2MMin: reader.readDoubleList(offsets[18]),
-    time: reader.readStringList(offsets[19]),
-    timeDaily: reader.readDateTimeList(offsets[20]),
-    timestamp: reader.readDateTimeOrNull(offsets[21]),
-    timezone: reader.readStringOrNull(offsets[22]),
-    uvIndex: reader.readDoubleList(offsets[23]),
-    visibility: reader.readDoubleList(offsets[24]),
-    weathercode: reader.readLongList(offsets[25]),
-    weathercodeDaily: reader.readLongList(offsets[26]),
-    winddirection10M: reader.readLongList(offsets[27]),
-    windgusts10M: reader.readDoubleList(offsets[28]),
-    windgusts10MMax: reader.readDoubleList(offsets[29]),
-    windspeed10M: reader.readDoubleList(offsets[30]),
-    windspeed10MMax: reader.readDoubleList(offsets[31]),
+    precipitationProbabilityMax: reader.readLongList(offsets[10]),
+    precipitationSum: reader.readDoubleList(offsets[11]),
+    rain: reader.readDoubleList(offsets[12]),
+    relativehumidity2M: reader.readLongList(offsets[13]),
+    sunrise: reader.readStringList(offsets[14]),
+    sunset: reader.readStringList(offsets[15]),
+    surfacePressure: reader.readDoubleList(offsets[16]),
+    temperature2M: reader.readDoubleList(offsets[17]),
+    temperature2MMax: reader.readDoubleList(offsets[18]),
+    temperature2MMin: reader.readDoubleList(offsets[19]),
+    time: reader.readStringList(offsets[20]),
+    timeDaily: reader.readDateTimeList(offsets[21]),
+    timestamp: reader.readDateTimeOrNull(offsets[22]),
+    timezone: reader.readStringOrNull(offsets[23]),
+    uvIndex: reader.readDoubleList(offsets[24]),
+    visibility: reader.readDoubleList(offsets[25]),
+    weathercode: reader.readLongList(offsets[26]),
+    weathercodeDaily: reader.readLongList(offsets[27]),
+    winddirection10M: reader.readLongList(offsets[28]),
+    windgusts10M: reader.readDoubleList(offsets[29]),
+    windgusts10MMax: reader.readDoubleList(offsets[30]),
+    windspeed10M: reader.readDoubleList(offsets[31]),
+    windspeed10MMax: reader.readDoubleList(offsets[32]),
   );
   object.id = id;
   return object;
@@ -8502,17 +8707,17 @@ P _weatherCardDeserializeProp<P>(
     case 9:
       return (reader.readDoubleList(offset)) as P;
     case 10:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 11:
       return (reader.readDoubleList(offset)) as P;
     case 12:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 13:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 14:
       return (reader.readStringList(offset)) as P;
     case 15:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 16:
       return (reader.readDoubleList(offset)) as P;
     case 17:
@@ -8520,30 +8725,32 @@ P _weatherCardDeserializeProp<P>(
     case 18:
       return (reader.readDoubleList(offset)) as P;
     case 19:
-      return (reader.readStringList(offset)) as P;
-    case 20:
-      return (reader.readDateTimeList(offset)) as P;
-    case 21:
-      return (reader.readDateTimeOrNull(offset)) as P;
-    case 22:
-      return (reader.readStringOrNull(offset)) as P;
-    case 23:
       return (reader.readDoubleList(offset)) as P;
+    case 20:
+      return (reader.readStringList(offset)) as P;
+    case 21:
+      return (reader.readDateTimeList(offset)) as P;
+    case 22:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 23:
+      return (reader.readStringOrNull(offset)) as P;
     case 24:
       return (reader.readDoubleList(offset)) as P;
     case 25:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 26:
       return (reader.readLongList(offset)) as P;
     case 27:
       return (reader.readLongList(offset)) as P;
     case 28:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 29:
       return (reader.readDoubleList(offset)) as P;
     case 30:
       return (reader.readDoubleList(offset)) as P;
     case 31:
+      return (reader.readDoubleList(offset)) as P;
+    case 32:
       return (reader.readDoubleList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -10173,6 +10380,169 @@ extension WeatherCardQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitation',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'precipitationProbabilityMax',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'precipitationProbabilityMax',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'precipitationProbabilityMax',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxElementGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'precipitationProbabilityMax',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxElementLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'precipitationProbabilityMax',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'precipitationProbabilityMax',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityMaxLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbabilityMax',
         lower,
         includeLower,
         upper,
@@ -14261,6 +14631,13 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
+      distinctByPrecipitationProbabilityMax() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'precipitationProbabilityMax');
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
       distinctByPrecipitationSum() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationSum');
@@ -14473,6 +14850,13 @@ extension WeatherCardQueryProperty
       precipitationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitation');
+    });
+  }
+
+  QueryBuilder<WeatherCard, List<int>?, QQueryOperations>
+      precipitationProbabilityMaxProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'precipitationProbabilityMax');
     });
   }
 

@@ -31,7 +31,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 450,
+      height: 455,
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.symmetric(
         horizontal: 15,

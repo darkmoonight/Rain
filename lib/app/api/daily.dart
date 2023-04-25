@@ -22,6 +22,7 @@ class Daily {
     this.sunrise,
     this.sunset,
     this.precipitationSum,
+    this.precipitationProbabilityMax,
     this.windspeed10MMax,
     this.windgusts10MMax,
   });
@@ -35,6 +36,7 @@ class Daily {
   List<String>? sunrise;
   List<String>? sunset;
   List<double>? precipitationSum;
+  List<int>? precipitationProbabilityMax;
   List<double>? windspeed10MMax;
   List<double>? windgusts10MMax;
 
@@ -53,6 +55,8 @@ class Daily {
         sunset: List<String>.from(json["sunset"].map((x) => x)),
         precipitationSum:
             List<double>.from(json["precipitation_sum"].map((x) => x)),
+        precipitationProbabilityMax:
+            List<int>.from(json["precipitation_probability_max"].map((x) => x)),
         windspeed10MMax:
             List<double>.from(json["windspeed_10m_max"].map((x) => x)),
         windgusts10MMax:

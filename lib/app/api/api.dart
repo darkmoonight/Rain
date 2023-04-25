@@ -27,7 +27,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,windspeed_10m_max,windgusts_10m_max&forecast_days=10&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max&forecast_days=10&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -64,6 +64,8 @@ class WeatherAPI {
         sunrise: weatherDataDaily.daily.sunrise,
         sunset: weatherDataDaily.daily.sunset,
         precipitationSum: weatherDataDaily.daily.precipitationSum,
+        precipitationProbabilityMax:
+            weatherDataDaily.daily.precipitationProbabilityMax,
         windspeed10MMax: weatherDataDaily.daily.windspeed10MMax,
         windgusts10MMax: weatherDataDaily.daily.windgusts10MMax,
         timezone: weatherDataHourly.timezone,
@@ -119,7 +121,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,windspeed_10m_max,windgusts_10m_max&forecast_days=10&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max&forecast_days=10&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -156,6 +158,8 @@ class WeatherAPI {
         sunrise: weatherDataDaily.daily.sunrise,
         sunset: weatherDataDaily.daily.sunset,
         precipitationSum: weatherDataDaily.daily.precipitationSum,
+        precipitationProbabilityMax:
+            weatherDataDaily.daily.precipitationProbabilityMax,
         windspeed10MMax: weatherDataDaily.daily.windspeed10MMax,
         windgusts10MMax: weatherDataDaily.daily.windgusts10MMax,
         lat: lat,

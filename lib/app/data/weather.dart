@@ -42,6 +42,7 @@ class MainWeatherCache {
   List<String>? sunrise;
   List<String>? sunset;
   List<double>? precipitationSum;
+  List<int>? precipitationProbabilityMax;
   List<double>? windspeed10MMax;
   List<double>? windgusts10MMax;
   String? timezone;
@@ -72,6 +73,7 @@ class MainWeatherCache {
     this.sunrise,
     this.sunset,
     this.precipitationSum,
+    this.precipitationProbabilityMax,
     this.windspeed10MMax,
     this.windgusts10MMax,
     this.timezone,
@@ -122,6 +124,7 @@ class WeatherCard {
   List<String>? sunrise;
   List<String>? sunset;
   List<double>? precipitationSum;
+  List<int>? precipitationProbabilityMax;
   List<double>? windspeed10MMax;
   List<double>? windgusts10MMax;
   double? lat;
@@ -156,6 +159,7 @@ class WeatherCard {
     this.sunrise,
     this.sunset,
     this.precipitationSum,
+    this.precipitationProbabilityMax,
     this.windspeed10MMax,
     this.windgusts10MMax,
     this.lat,

@@ -301,6 +301,8 @@ class LocationController extends GetxController {
           element.sunrise = _weatherCard.value.sunrise;
           element.sunset = _weatherCard.value.sunset;
           element.precipitationSum = _weatherCard.value.precipitationSum;
+          element.precipitationProbabilityMax =
+              _weatherCard.value.precipitationProbabilityMax;
           element.windspeed10MMax = _weatherCard.value.windspeed10MMax;
           element.windgusts10MMax = _weatherCard.value.windgusts10MMax;
           element.timestamp = DateTime.now();
@@ -344,6 +346,8 @@ class LocationController extends GetxController {
         weatherCard.sunrise = _weatherCard.value.sunrise;
         weatherCard.sunset = _weatherCard.value.sunset;
         weatherCard.precipitationSum = _weatherCard.value.precipitationSum;
+        weatherCard.precipitationProbabilityMax =
+            _weatherCard.value.precipitationProbabilityMax;
         weatherCard.windspeed10MMax = _weatherCard.value.windspeed10MMax;
         weatherCard.windgusts10MMax = _weatherCard.value.windgusts10MMax;
         weatherCard.timestamp = DateTime.now();
