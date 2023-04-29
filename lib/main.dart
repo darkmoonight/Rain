@@ -2,7 +2,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:isar/isar.dart';
@@ -14,11 +16,15 @@ import 'app/data/weather.dart';
 import 'translation/translation.dart';
 import 'theme/theme_controller.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 late Isar isar;
 late Settings settings;
 final ValueNotifier<Future<bool>> isDeviceConnectedNotifier =
     ValueNotifier(InternetConnectionChecker().hasConnection);
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +40,14 @@ void main() async {
       isDeviceConnectedNotifier.value = Future(() => false);
     }
   });
+  final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  const InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
   runApp(MyApp());
 }
 

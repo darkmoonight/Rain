@@ -53,10 +53,7 @@ class LocationController extends GetxController {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
     return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.medium,
-      forceAndroidLocationManager: true,
-      timeLimit: const Duration(seconds: 30),
-    );
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   Future<void> setLocation() async {

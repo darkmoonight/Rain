@@ -37,7 +37,7 @@ dependencies:
   flutter_native_timezone: ^2.0.0
   material_color_utilities: ^0.2.0
   scrollable_positioned_list: ^0.3.6
-  flutter_local_notifications: ^14.0.0
+  flutter_local_notifications: ^14.0.0+1
   internet_connection_checker: ^1.0.0+1
 
 dev_dependencies:
