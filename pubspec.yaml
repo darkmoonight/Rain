@@ -21,7 +21,11 @@ dependencies:
   iconsax: ^0.0.8
   timezone: ^0.9.2
   geocoding: ^2.1.0
-  geolocator: ^9.0.2
+  geolocator:
+    git:
+      url: https://gitlab.com/free2pass/flutter-geolocator-floss.git
+      ref: master
+      path: geolocator
   flutter_glow: ^0.3.0
   url_launcher: ^6.1.10
   dynamic_color: ^1.6.3
