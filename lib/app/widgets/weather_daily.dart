@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:rain/app/data/weather.dart';
+import 'package:rain/app/widgets/daily_card.dart';
 import 'package:rain/app/widgets/status.dart';
 import 'package:rain/app/widgets/status_im_fa.dart';
 
 class WeatherDaily extends StatefulWidget {
   const WeatherDaily({
     super.key,
-    required this.date,
-    required this.weather,
-    required this.minDegree,
-    required this.maxDegree,
+    this.mainWeatherCache,
+    this.weatherCard,
     required this.onTap,
   });
-  final List<DateTime> date;
-  final List<int> weather;
-  final List<double> minDegree;
-  final List<double> maxDegree;
+  final MainWeatherCache? mainWeatherCache;
+  final WeatherCard? weatherCard;
   final Function() onTap;
 
   @override
@@ -50,70 +48,130 @@ class _WeatherDailyState extends State<WeatherDaily> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 7,
               itemBuilder: (ctx, i) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          DateFormat.EEEE(locale?.languageCode)
-                              .format(widget.date[i]),
-                          style: context.theme.textTheme.labelLarge,
+                return InkWell(
+                  onTap: () => Get.to(
+                      () => DailyCard(
+                            timeDaily: widget.mainWeatherCache?.timeDaily ??
+                                widget.weatherCard?.timeDaily,
+                            weathercodeDaily:
+                                widget.mainWeatherCache?.weathercodeDaily ??
+                                    widget.weatherCard?.weathercodeDaily,
+                            temperature2MMax:
+                                widget.mainWeatherCache?.temperature2MMax ??
+                                    widget.weatherCard?.temperature2MMax,
+                            temperature2MMin:
+                                widget.mainWeatherCache?.temperature2MMin ??
+                                    widget.weatherCard?.temperature2MMin,
+                            apparentTemperatureMax: widget
+                                    .mainWeatherCache?.apparentTemperatureMax ??
+                                widget.weatherCard?.apparentTemperatureMax,
+                            apparentTemperatureMin: widget
+                                    .mainWeatherCache?.apparentTemperatureMin ??
+                                widget.weatherCard?.apparentTemperatureMin,
+                            sunrise: widget.mainWeatherCache?.sunrise ??
+                                widget.weatherCard?.sunrise,
+                            sunset: widget.mainWeatherCache?.sunset ??
+                                widget.weatherCard?.sunset,
+                            precipitationSum:
+                                widget.mainWeatherCache?.precipitationSum ??
+                                    widget.weatherCard?.precipitationSum,
+                            precipitationProbabilityMax: widget.mainWeatherCache
+                                    ?.precipitationProbabilityMax ??
+                                widget.weatherCard?.precipitationProbabilityMax,
+                            windspeed10MMax:
+                                widget.mainWeatherCache?.windspeed10MMax ??
+                                    widget.weatherCard?.windspeed10MMax,
+                            windgusts10MMax:
+                                widget.mainWeatherCache?.windgusts10MMax ??
+                                    widget.weatherCard?.windgusts10MMax,
+                            uvIndexMax: widget.mainWeatherCache?.uvIndexMax ??
+                                widget.weatherCard?.uvIndexMax,
+                            rainSum: widget.mainWeatherCache?.rainSum! ??
+                                widget.weatherCard?.rainSum,
+                            winddirection10MDominant: widget.mainWeatherCache
+                                    ?.winddirection10MDominant ??
+                                widget.weatherCard?.winddirection10MDominant,
+                            index: i,
+                          ),
+                      transition: Transition.downToUp),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            DateFormat.EEEE(locale?.languageCode).format(
+                                widget.mainWeatherCache?.timeDaily![i] ??
+                                    widget.weatherCard!.timeDaily![i]),
+                            style: context.theme.textTheme.labelLarge,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              status.getImage7Day(widget.weather[i]),
-                              scale: 3,
-                            ),
-                            const SizedBox(width: 5),
-                            Expanded(
-                              child: Text(
-                                status.getText(widget.weather[i]),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                status.getImage7Day(widget.mainWeatherCache
+                                        ?.weathercodeDaily![i] ??
+                                    widget.weatherCard!.weathercodeDaily![i]),
+                                scale: 3,
+                              ),
+                              const SizedBox(width: 5),
+                              Expanded(
+                                child: Text(
+                                  status.getText(widget.mainWeatherCache
+                                          ?.weathercodeDaily![i] ??
+                                      widget.weatherCard!.weathercodeDaily![i]),
+                                  style: context.theme.textTheme.labelLarge,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                statusImFa.getDegree(widget
+                                        .mainWeatherCache?.temperature2MMin![i]
+                                        .round() ??
+                                    widget.weatherCard!.temperature2MMin![i]
+                                        .round()),
                                 style: context.theme.textTheme.labelLarge,
-                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                          ],
+                              Text(
+                                ' / ',
+                                style: context.theme.textTheme.bodyMedium
+                                    ?.copyWith(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Text(
+                                statusImFa.getDegree(widget
+                                        .mainWeatherCache?.temperature2MMax![i]
+                                        .round() ??
+                                    widget.weatherCard!.temperature2MMax![i]
+                                        .round()),
+                                style: context.theme.textTheme.bodyMedium
+                                    ?.copyWith(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              statusImFa.getDegree(widget.minDegree[i].round()),
-                              style: context.theme.textTheme.labelLarge,
-                            ),
-                            Text(
-                              ' / ',
-                              style:
-                                  context.theme.textTheme.bodyMedium?.copyWith(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(
-                              statusImFa.getDegree(widget.maxDegree[i].round()),
-                              style:
-                                  context.theme.textTheme.bodyMedium?.copyWith(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
             ),
           ),
           const Divider(),
-          GestureDetector(
+          InkWell(
             onTap: widget.onTap,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),

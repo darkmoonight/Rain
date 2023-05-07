@@ -9,6 +9,7 @@ import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/modules/card_weather.dart';
 import 'package:rain/app/modules/settings.dart';
 import 'package:rain/app/modules/weather.dart';
+import 'package:rain/app/widgets/create_card_weather.dart';
 import 'package:rain/main.dart';
 
 class HomePage extends StatefulWidget {
@@ -54,11 +55,11 @@ class _HomePageState extends State<HomePage> {
     );
 
     return Scaffold(
-      backgroundColor: context.theme.scaffoldBackgroundColor,
+      backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: context.theme.scaffoldBackgroundColor,
+        backgroundColor: context.theme.colorScheme.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: Image.asset(
@@ -212,6 +213,21 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      floatingActionButton: tabIndex == 1
+          ? FloatingActionButton(
+              onPressed: () => showModalBottomSheet(
+                enableDrag: false,
+                backgroundColor: context.theme.colorScheme.secondaryContainer,
+                context: context,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return const CreateWeatherCard();
+                },
+              ),
+              backgroundColor: context.theme.colorScheme.tertiaryContainer,
+              child: const Icon(Iconsax.add),
+            )
+          : null,
     );
   }
 }

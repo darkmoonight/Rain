@@ -11,6 +11,7 @@ class RainTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.blue,
         brightness: Brightness.light,
+        surface: Colors.white,
         primaryContainer: const Color.fromARGB(255, 245, 245, 245),
         secondaryContainer: const Color.fromARGB(255, 240, 240, 240),
         tertiaryContainer: const Color.fromARGB(255, 250, 250, 250),
@@ -21,7 +22,6 @@ class RainTheme {
       snackBarTheme: const SnackBarThemeData(
         backgroundColor: Color.fromARGB(255, 225, 225, 225),
       ),
-      scaffoldBackgroundColor: Colors.white,
       bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme.copyWith(
         backgroundColor: const Color.fromARGB(255, 250, 250, 250),
       ),
@@ -37,6 +37,7 @@ class RainTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.blue,
         brightness: Brightness.dark,
+        surface: Colors.black,
         primaryContainer: const Color.fromARGB(255, 15, 15, 15),
         secondaryContainer: const Color.fromARGB(255, 10, 10, 10),
         tertiaryContainer: const Color.fromARGB(255, 20, 20, 20),
@@ -47,7 +48,6 @@ class RainTheme {
       snackBarTheme: const SnackBarThemeData(
         backgroundColor: Color.fromARGB(255, 55, 55, 55),
       ),
-      scaffoldBackgroundColor: Colors.black,
       bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme.copyWith(
         backgroundColor: const Color.fromARGB(255, 10, 10, 10),
       ),
@@ -63,6 +63,7 @@ class RainTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.blue,
         brightness: Brightness.dark,
+        surface: const Color.fromARGB(255, 30, 30, 30),
         primaryContainer: const Color.fromARGB(255, 40, 40, 40),
         secondaryContainer: const Color.fromARGB(255, 25, 25, 25),
         tertiaryContainer: const Color.fromARGB(255, 45, 45, 45),
@@ -73,7 +74,6 @@ class RainTheme {
       snackBarTheme: const SnackBarThemeData(
         backgroundColor: Color.fromARGB(255, 55, 55, 55),
       ),
-      scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
       bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme.copyWith(
         backgroundColor: const Color.fromARGB(255, 28, 28, 28),
       ),

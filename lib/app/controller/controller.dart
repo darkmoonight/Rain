@@ -305,6 +305,10 @@ class LocationController extends GetxController {
               _weatherCard.value.precipitationProbabilityMax;
           element.windspeed10MMax = _weatherCard.value.windspeed10MMax;
           element.windgusts10MMax = _weatherCard.value.windgusts10MMax;
+          element.uvIndexMax = _weatherCard.value.uvIndexMax;
+          element.rainSum = _weatherCard.value.rainSum;
+          element.winddirection10MDominant =
+              _weatherCard.value.winddirection10MDominant;
           element.timestamp = DateTime.now();
           await isar.weatherCards.put(element);
         }
@@ -350,6 +354,10 @@ class LocationController extends GetxController {
             _weatherCard.value.precipitationProbabilityMax;
         weatherCard.windspeed10MMax = _weatherCard.value.windspeed10MMax;
         weatherCard.windgusts10MMax = _weatherCard.value.windgusts10MMax;
+        weatherCard.uvIndexMax = _weatherCard.value.uvIndexMax;
+        weatherCard.rainSum = _weatherCard.value.rainSum;
+        weatherCard.winddirection10MDominant =
+            _weatherCard.value.winddirection10MDominant;
         weatherCard.timestamp = DateTime.now();
         await isar.weatherCards.put(weatherCard);
       });

@@ -57,10 +57,11 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
         setState(() {});
       },
       child: Scaffold(
+        backgroundColor: context.theme.colorScheme.surface,
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
-          backgroundColor: context.theme.scaffoldBackgroundColor,
+          backgroundColor: context.theme.colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
@@ -172,10 +173,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                   uvIndex: widget.weatherCard.uvIndex![timeNow],
                 ),
                 WeatherDaily(
-                  date: widget.weatherCard.timeDaily!,
-                  weather: widget.weatherCard.weathercodeDaily!,
-                  minDegree: widget.weatherCard.temperature2MMin!,
-                  maxDegree: widget.weatherCard.temperature2MMax!,
+                  weatherCard: widget.weatherCard,
                   onTap: () => Get.to(
                     () => WeatherMore(
                       weatherCard: widget.weatherCard,

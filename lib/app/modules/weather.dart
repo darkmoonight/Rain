@@ -176,13 +176,7 @@ class _WeatherPageState extends State<WeatherPage> {
               Obx(
                 () => locationController.isLoading.isFalse
                     ? WeatherDaily(
-                        date: locationController.mainWeather.timeDaily!,
-                        weather:
-                            locationController.mainWeather.weathercodeDaily!,
-                        minDegree:
-                            locationController.mainWeather.temperature2MMin!,
-                        maxDegree:
-                            locationController.mainWeather.temperature2MMax!,
+                        mainWeatherCache: locationController.mainWeather,
                         onTap: () => Get.to(
                           () => WeatherMore(
                             mainWeatherCache: locationController.mainWeather,

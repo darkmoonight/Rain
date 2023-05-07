@@ -27,7 +27,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max&forecast_days=10&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=10&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -68,6 +68,10 @@ class WeatherAPI {
             weatherDataDaily.daily.precipitationProbabilityMax,
         windspeed10MMax: weatherDataDaily.daily.windspeed10MMax,
         windgusts10MMax: weatherDataDaily.daily.windgusts10MMax,
+        uvIndexMax: weatherDataDaily.daily.uvIndexMax,
+        rainSum: weatherDataDaily.daily.rainSum,
+        winddirection10MDominant:
+            weatherDataDaily.daily.winddirection10MDominant,
         timezone: weatherDataHourly.timezone,
         timestamp: DateTime.now(),
       );
@@ -121,7 +125,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max&forecast_days=10&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=10&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -162,6 +166,10 @@ class WeatherAPI {
             weatherDataDaily.daily.precipitationProbabilityMax,
         windspeed10MMax: weatherDataDaily.daily.windspeed10MMax,
         windgusts10MMax: weatherDataDaily.daily.windgusts10MMax,
+        uvIndexMax: weatherDataDaily.daily.uvIndexMax,
+        rainSum: weatherDataDaily.daily.rainSum,
+        winddirection10MDominant:
+            weatherDataDaily.daily.winddirection10MDominant,
         lat: lat,
         lon: lon,
         city: city,

@@ -25,6 +25,9 @@ class Daily {
     this.precipitationProbabilityMax,
     this.windspeed10MMax,
     this.windgusts10MMax,
+    this.uvIndexMax,
+    this.rainSum,
+    this.winddirection10MDominant,
   });
 
   List<DateTime>? time;
@@ -39,6 +42,9 @@ class Daily {
   List<int>? precipitationProbabilityMax;
   List<double>? windspeed10MMax;
   List<double>? windgusts10MMax;
+  List<double>? uvIndexMax;
+  List<double>? rainSum;
+  List<int>? winddirection10MDominant;
 
   factory Daily.fromJson(Map<String, dynamic> json) => Daily(
         time: List<DateTime>.from(json["time"].map((x) => DateTime.parse(x))),
@@ -61,5 +67,9 @@ class Daily {
             List<double>.from(json["windspeed_10m_max"].map((x) => x)),
         windgusts10MMax:
             List<double>.from(json["windgusts_10m_max"].map((x) => x)),
+        uvIndexMax: List<double>.from(json["uv_index_max"].map((x) => x)),
+        rainSum: List<double>.from(json["rain_sum"].map((x) => x)),
+        winddirection10MDominant:
+            List<int>.from(json["winddirection_10m_dominant"].map((x) => x)),
       );
 }

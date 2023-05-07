@@ -45,6 +45,9 @@ class MainWeatherCache {
   List<int>? precipitationProbabilityMax;
   List<double>? windspeed10MMax;
   List<double>? windgusts10MMax;
+  List<double>? uvIndexMax;
+  List<double>? rainSum;
+  List<int>? winddirection10MDominant;
   String? timezone;
   DateTime? timestamp;
 
@@ -76,6 +79,9 @@ class MainWeatherCache {
     this.precipitationProbabilityMax,
     this.windspeed10MMax,
     this.windgusts10MMax,
+    this.uvIndexMax,
+    this.rainSum,
+    this.winddirection10MDominant,
     this.timezone,
     this.timestamp,
   });
@@ -127,6 +133,9 @@ class WeatherCard {
   List<int>? precipitationProbabilityMax;
   List<double>? windspeed10MMax;
   List<double>? windgusts10MMax;
+  List<double>? uvIndexMax;
+  List<double>? rainSum;
+  List<int>? winddirection10MDominant;
   double? lat;
   double? lon;
   String? city;
@@ -162,6 +171,9 @@ class WeatherCard {
     this.precipitationProbabilityMax,
     this.windspeed10MMax,
     this.windgusts10MMax,
+    this.uvIndexMax,
+    this.rainSum,
+    this.winddirection10MDominant,
     this.lat,
     this.lon,
     this.city,

@@ -93,16 +93,17 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                 ),
                 const SizedBox(height: 5),
                 StreamBuilder(
-                    stream: Stream.periodic(const Duration(seconds: 1)),
-                    builder: (context, snapshot) {
-                      return Text(
-                        '${'time'.tr}: ${statusImFa.getTimeFormatTz(tz.TZDateTime.now(tz.getLocation(widget.timezone)))}',
-                        style: context.theme.textTheme.titleMedium?.copyWith(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      );
-                    }),
+                  stream: Stream.periodic(const Duration(seconds: 1)),
+                  builder: (context, snapshot) {
+                    return Text(
+                      '${'time'.tr}: ${statusImFa.getTimeFormatTz(tz.TZDateTime.now(tz.getLocation(widget.timezone)))}',
+                      style: context.theme.textTheme.titleMedium?.copyWith(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
