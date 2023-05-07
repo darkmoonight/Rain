@@ -47,51 +47,52 @@ class _WeatherDailyState extends State<WeatherDaily> {
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 7,
-              itemBuilder: (ctx, i) {
+              itemBuilder: (ctx, index) {
                 return InkWell(
                   onTap: () => Get.to(
                       () => DailyCard(
                             timeDaily: widget.mainWeatherCache?.timeDaily ??
-                                widget.weatherCard?.timeDaily,
+                                widget.weatherCard!.timeDaily!,
                             weathercodeDaily:
                                 widget.mainWeatherCache?.weathercodeDaily ??
-                                    widget.weatherCard?.weathercodeDaily,
+                                    widget.weatherCard!.weathercodeDaily!,
                             temperature2MMax:
                                 widget.mainWeatherCache?.temperature2MMax ??
-                                    widget.weatherCard?.temperature2MMax,
+                                    widget.weatherCard!.temperature2MMax!,
                             temperature2MMin:
                                 widget.mainWeatherCache?.temperature2MMin ??
-                                    widget.weatherCard?.temperature2MMin,
+                                    widget.weatherCard!.temperature2MMin!,
                             apparentTemperatureMax: widget
                                     .mainWeatherCache?.apparentTemperatureMax ??
-                                widget.weatherCard?.apparentTemperatureMax,
+                                widget.weatherCard!.apparentTemperatureMax!,
                             apparentTemperatureMin: widget
                                     .mainWeatherCache?.apparentTemperatureMin ??
-                                widget.weatherCard?.apparentTemperatureMin,
+                                widget.weatherCard!.apparentTemperatureMin!,
                             sunrise: widget.mainWeatherCache?.sunrise ??
-                                widget.weatherCard?.sunrise,
+                                widget.weatherCard!.sunrise!,
                             sunset: widget.mainWeatherCache?.sunset ??
-                                widget.weatherCard?.sunset,
+                                widget.weatherCard!.sunset!,
                             precipitationSum:
                                 widget.mainWeatherCache?.precipitationSum ??
-                                    widget.weatherCard?.precipitationSum,
+                                    widget.weatherCard!.precipitationSum!,
                             precipitationProbabilityMax: widget.mainWeatherCache
                                     ?.precipitationProbabilityMax ??
-                                widget.weatherCard?.precipitationProbabilityMax,
+                                widget
+                                    .weatherCard!.precipitationProbabilityMax!,
                             windspeed10MMax:
                                 widget.mainWeatherCache?.windspeed10MMax ??
-                                    widget.weatherCard?.windspeed10MMax,
+                                    widget.weatherCard!.windspeed10MMax!,
                             windgusts10MMax:
                                 widget.mainWeatherCache?.windgusts10MMax ??
-                                    widget.weatherCard?.windgusts10MMax,
+                                    widget.weatherCard!.windgusts10MMax!,
                             uvIndexMax: widget.mainWeatherCache?.uvIndexMax ??
-                                widget.weatherCard?.uvIndexMax,
-                            rainSum: widget.mainWeatherCache?.rainSum! ??
-                                widget.weatherCard?.rainSum,
+                                widget.weatherCard!.uvIndexMax!,
+                            rainSum: widget.mainWeatherCache?.rainSum ??
+                                widget.weatherCard!.rainSum!,
                             winddirection10MDominant: widget.mainWeatherCache
                                     ?.winddirection10MDominant ??
-                                widget.weatherCard?.winddirection10MDominant,
-                            index: i,
+                                widget.weatherCard!.winddirection10MDominant!,
+                            index: index,
                           ),
                       transition: Transition.downToUp),
                   child: Container(
@@ -102,8 +103,8 @@ class _WeatherDailyState extends State<WeatherDaily> {
                         Expanded(
                           child: Text(
                             DateFormat.EEEE(locale?.languageCode).format(
-                                widget.mainWeatherCache?.timeDaily![i] ??
-                                    widget.weatherCard!.timeDaily![i]),
+                                widget.mainWeatherCache?.timeDaily?[index] ??
+                                    widget.weatherCard!.timeDaily![index]),
                             style: context.theme.textTheme.labelLarge,
                           ),
                         ),
@@ -113,16 +114,18 @@ class _WeatherDailyState extends State<WeatherDaily> {
                             children: [
                               Image.asset(
                                 status.getImage7Day(widget.mainWeatherCache
-                                        ?.weathercodeDaily![i] ??
-                                    widget.weatherCard!.weathercodeDaily![i]),
+                                        ?.weathercodeDaily?[index] ??
+                                    widget
+                                        .weatherCard!.weathercodeDaily![index]),
                                 scale: 3,
                               ),
                               const SizedBox(width: 5),
                               Expanded(
                                 child: Text(
                                   status.getText(widget.mainWeatherCache
-                                          ?.weathercodeDaily![i] ??
-                                      widget.weatherCard!.weathercodeDaily![i]),
+                                          ?.weathercodeDaily?[index] ??
+                                      widget.weatherCard!
+                                          .weathercodeDaily![index]),
                                   style: context.theme.textTheme.labelLarge,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -135,10 +138,10 @@ class _WeatherDailyState extends State<WeatherDaily> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                statusImFa.getDegree(widget
-                                        .mainWeatherCache?.temperature2MMin![i]
+                                statusImFa.getDegree(widget.mainWeatherCache
+                                        ?.temperature2MMin?[index]
                                         .round() ??
-                                    widget.weatherCard!.temperature2MMin![i]
+                                    widget.weatherCard!.temperature2MMin![index]
                                         .round()),
                                 style: context.theme.textTheme.labelLarge,
                               ),
@@ -150,10 +153,10 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                 ),
                               ),
                               Text(
-                                statusImFa.getDegree(widget
-                                        .mainWeatherCache?.temperature2MMax![i]
+                                statusImFa.getDegree(widget.mainWeatherCache
+                                        ?.temperature2MMax?[index]
                                         .round() ??
-                                    widget.weatherCard!.temperature2MMax![i]
+                                    widget.weatherCard!.temperature2MMax![index]
                                         .round()),
                                 style: context.theme.textTheme.bodyMedium
                                     ?.copyWith(

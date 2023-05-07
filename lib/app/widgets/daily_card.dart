@@ -12,38 +12,38 @@ import 'package:rain/app/widgets/sunset_sunrise.dart';
 class DailyCard extends StatefulWidget {
   const DailyCard({
     super.key,
-    this.timeDaily,
-    this.weathercodeDaily,
-    this.temperature2MMax,
-    this.temperature2MMin,
-    this.apparentTemperatureMax,
-    this.apparentTemperatureMin,
-    this.sunrise,
-    this.sunset,
-    this.precipitationSum,
-    this.precipitationProbabilityMax,
-    this.windspeed10MMax,
-    this.windgusts10MMax,
-    this.uvIndexMax,
-    this.rainSum,
-    this.winddirection10MDominant,
+    required this.timeDaily,
+    required this.weathercodeDaily,
+    required this.temperature2MMax,
+    required this.temperature2MMin,
+    required this.apparentTemperatureMax,
+    required this.apparentTemperatureMin,
+    required this.sunrise,
+    required this.sunset,
+    required this.precipitationSum,
+    required this.precipitationProbabilityMax,
+    required this.windspeed10MMax,
+    required this.windgusts10MMax,
+    required this.uvIndexMax,
+    required this.rainSum,
+    required this.winddirection10MDominant,
     required this.index,
   });
-  final List<DateTime>? timeDaily;
-  final List<int>? weathercodeDaily;
-  final List<double>? temperature2MMax;
-  final List<double>? temperature2MMin;
-  final List<double>? apparentTemperatureMax;
-  final List<double>? apparentTemperatureMin;
-  final List<String>? sunrise;
-  final List<String>? sunset;
-  final List<double>? precipitationSum;
-  final List<int>? precipitationProbabilityMax;
-  final List<double>? windspeed10MMax;
-  final List<double>? windgusts10MMax;
-  final List<double>? uvIndexMax;
-  final List<double>? rainSum;
-  final List<int>? winddirection10MDominant;
+  final List<DateTime> timeDaily;
+  final List<int> weathercodeDaily;
+  final List<double> temperature2MMax;
+  final List<double> temperature2MMin;
+  final List<double> apparentTemperatureMax;
+  final List<double> apparentTemperatureMin;
+  final List<String> sunrise;
+  final List<String> sunset;
+  final List<double> precipitationSum;
+  final List<int> precipitationProbabilityMax;
+  final List<double> windspeed10MMax;
+  final List<double> windgusts10MMax;
+  final List<double> uvIndexMax;
+  final List<double> rainSum;
+  final List<int> winddirection10MDominant;
   final int index;
 
   @override
@@ -93,7 +93,7 @@ class _DailyCardState extends State<DailyCard> {
         ),
         title: Text(
           DateFormat.MMMMEEEEd(locale?.languageCode)
-              .format(widget.timeDaily![pageIndex]),
+              .format(widget.timeDaily[pageIndex]),
           style: context.theme.textTheme.titleLarge,
         ),
       ),
@@ -105,7 +105,7 @@ class _DailyCardState extends State<DailyCard> {
               pageIndex = index;
             });
           },
-          itemCount: widget.timeDaily?.length,
+          itemCount: widget.timeDaily.length,
           itemBuilder: (context, index) {
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -117,14 +117,14 @@ class _DailyCardState extends State<DailyCard> {
                       const SizedBox(height: 15),
                       Image(
                         image: AssetImage(status.getImageNowDaily(
-                            widget.weathercodeDaily![index],
-                            widget.timeDaily![index])),
+                            widget.weathercodeDaily[index],
+                            widget.timeDaily[index])),
                         fit: BoxFit.fill,
                         height: 200,
                       ),
                       const SizedBox(height: 10),
                       GlowText(
-                        '${statusImFa.getDegree(widget.temperature2MMin![index].round())} / ${statusImFa.getDegree(widget.temperature2MMax![index].round())}',
+                        '${statusImFa.getDegree(widget.temperature2MMin[index].round())} / ${statusImFa.getDegree(widget.temperature2MMax[index].round())}',
                         style: context.theme.textTheme.titleLarge?.copyWith(
                           fontSize: 30,
                           fontWeight: FontWeight.w800,
@@ -132,13 +132,13 @@ class _DailyCardState extends State<DailyCard> {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        status.getText(widget.weathercodeDaily![index]),
+                        status.getText(widget.weathercodeDaily[index]),
                         style: context.theme.textTheme.titleLarge,
                       ),
                       const SizedBox(height: 5),
                       Text(
                         DateFormat.MMMMEEEEd(locale?.languageCode)
-                            .format(widget.timeDaily![index]),
+                            .format(widget.timeDaily[index]),
                         style: context.theme.textTheme.labelLarge?.copyWith(
                           color: Colors.grey,
                           fontSize: 16,
@@ -149,8 +149,8 @@ class _DailyCardState extends State<DailyCard> {
                   Padding(
                     padding: const EdgeInsets.only(top: 15),
                     child: SunsetSunrise(
-                      timeSunrise: widget.sunrise![index],
-                      timeSunset: widget.sunset![index],
+                      timeSunrise: widget.sunrise[index],
+                      timeSunset: widget.sunset[index],
                     ),
                   ),
                   Container(
@@ -169,24 +169,22 @@ class _DailyCardState extends State<DailyCard> {
                           children: [
                             DescWeather(
                               imageName: 'assets/images/cold.png',
-                              value: statusImFa.getDegree(widget
-                                  .apparentTemperatureMin![index]
-                                  .round()),
+                              value: statusImFa.getDegree(
+                                  widget.apparentTemperatureMin[index].round()),
                               desc: 'apparentTemperatureMin'.tr,
                             ),
                             DescWeather(
                               imageName: 'assets/images/hot.png',
-                              value: statusImFa.getDegree(widget
-                                  .apparentTemperatureMax![index]
-                                  .round()),
+                              value: statusImFa.getDegree(
+                                  widget.apparentTemperatureMax[index].round()),
                               desc: 'apparentTemperatureMax'.tr,
                             ),
                             DescWeather(
                               imageName: 'assets/images/uv.png',
-                              value: '${widget.uvIndexMax![index].round()}',
+                              value: '${widget.uvIndexMax[index].round()}',
                               desc: 'uvIndex'.tr,
-                              message: message.getUvIndex(
-                                  widget.uvIndexMax![index].round()),
+                              message: message
+                                  .getUvIndex(widget.uvIndexMax[index].round()),
                             ),
                           ],
                         ),
@@ -197,21 +195,21 @@ class _DailyCardState extends State<DailyCard> {
                             DescWeather(
                               imageName: 'assets/images/windsock.png',
                               value:
-                                  '${widget.winddirection10MDominant![index]}°',
+                                  '${widget.winddirection10MDominant[index]}°',
                               desc: 'direction'.tr,
                               message: message.getDirection(
-                                  widget.winddirection10MDominant![index]),
+                                  widget.winddirection10MDominant[index]),
                             ),
                             DescWeather(
                               imageName: 'assets/images/wind.png',
                               value: statusImFa.getSpeed(
-                                  widget.windspeed10MMax![index].round()),
+                                  widget.windspeed10MMax[index].round()),
                               desc: 'wind'.tr,
                             ),
                             DescWeather(
                               imageName: 'assets/images/windgusts.png',
                               value: statusImFa.getSpeed(
-                                  widget.windgusts10MMax![index].round()),
+                                  widget.windgusts10MMax[index].round()),
                               desc: 'windgusts'.tr,
                             ),
                           ],
@@ -223,19 +221,19 @@ class _DailyCardState extends State<DailyCard> {
                             DescWeather(
                               imageName: 'assets/images/humidity.png',
                               value:
-                                  '${widget.precipitationProbabilityMax![index]}%',
+                                  '${widget.precipitationProbabilityMax[index]}%',
                               desc: 'precipitationProbabilit'.tr,
                             ),
                             DescWeather(
                               imageName: 'assets/images/water.png',
                               value: statusImFa
-                                  .getPrecipitation(widget.rainSum![index]),
+                                  .getPrecipitation(widget.rainSum[index]),
                               desc: 'rain'.tr,
                             ),
                             DescWeather(
                               imageName: 'assets/images/rainfall.png',
                               value: statusImFa.getPrecipitation(
-                                  widget.precipitationSum![index]),
+                                  widget.precipitationSum[index]),
                               desc: 'precipitation'.tr,
                             ),
                           ],
