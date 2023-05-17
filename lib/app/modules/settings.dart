@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -36,6 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SettingLinks(
             icon: Icon(
@@ -57,42 +59,67 @@ class _SettingsPageState extends State<SettingsPage> {
               }
             },
           ),
-          // SettingLinks(
-          //   icon: Icon(
-          //     Iconsax.colorfilter,
-          //     color: context.theme.iconTheme.color,
-          //   ),
-          //   text: 'materialColor'.tr,
-          //   switcher: true,
-          //   dropdown: false,
-          //   info: false,
-          //   value: settings.materialColor,
-          //   onChange: (value) {
-          //     isar.writeTxn(() async {
-          //       settings.materialColor = value;
-          //       isar.settings.put(settings);
-          //     });
-          //     setState(() {});
-          //   },
-          // ),
-          // SettingLinks(
-          //   icon: Icon(
-          //     Iconsax.notification,
-          //     color: context.theme.iconTheme.color,
-          //   ),
-          //   text: 'notifications'.tr,
-          //   switcher: true,
-          //   dropdown: false,
-          //   info: false,
-          //   value: settings.notifications,
-          //   onChange: (value) {
-          //     isar.writeTxn(() async {
-          //       settings.notifications = value;
-          //       isar.settings.put(settings);
-          //     });
-          //     setState(() {});
-          //   },
-          // ),
+          SettingLinks(
+            icon: Icon(
+              Iconsax.mobile,
+              color: context.theme.iconTheme.color,
+            ),
+            text: 'amoledTheme'.tr,
+            switcher: true,
+            dropdown: false,
+            info: false,
+            value: settings.amoledTheme,
+            onChange: (value) {
+              isar.writeTxn(() async {
+                settings.amoledTheme = value;
+                isar.settings.put(settings);
+              });
+              setState(() {});
+            },
+          ),
+          SettingLinks(
+            icon: Icon(
+              Iconsax.colorfilter,
+              color: context.theme.iconTheme.color,
+            ),
+            text: 'materialColor'.tr,
+            switcher: true,
+            dropdown: false,
+            info: false,
+            value: settings.materialColor,
+            onChange: (value) {
+              isar.writeTxn(() async {
+                settings.materialColor = value;
+                isar.settings.put(settings);
+              });
+              setState(() {});
+            },
+          ),
+          SettingLinks(
+            icon: Icon(
+              Iconsax.notification,
+              color: context.theme.iconTheme.color,
+            ),
+            text: 'notifications'.tr,
+            switcher: true,
+            dropdown: false,
+            info: false,
+            value: settings.notifications,
+            onChange: (value) async {
+              final result = await flutterLocalNotificationsPlugin
+                  .resolvePlatformSpecificImplementation<
+                      AndroidFlutterLocalNotificationsPlugin>()
+                  ?.requestPermission();
+              if (result!) {
+                isar.writeTxn(() async {
+                  settings.notifications = value;
+                  isar.settings.put(settings);
+                });
+                flutterLocalNotificationsPlugin.cancelAll();
+                setState(() {});
+              }
+            },
+          ),
           SettingLinks(
             icon: Icon(
               Iconsax.location,

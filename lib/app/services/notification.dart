@@ -4,11 +4,11 @@ import 'package:timezone/timezone.dart' as tz;
 
 class NotificationShow {
   Future showNotification(
-      int id, String title, String body, DateTime? date) async {
-    flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestPermission();
+    int id,
+    String title,
+    String body,
+    DateTime date,
+  ) async {
     AndroidNotificationDetails androidNotificationDetails =
         const AndroidNotificationDetails(
       'Rain',
@@ -19,7 +19,7 @@ class NotificationShow {
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
 
-    var scheduledTime = tz.TZDateTime.from(date!, tz.local);
+    var scheduledTime = tz.TZDateTime.from(date, tz.local);
     flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
