@@ -22,9 +22,10 @@ dependencies:
   timezone: ^0.9.2
   geocoding: ^2.1.0
   geolocator: ^9.0.2
+  home_widget: ^0.2.1
   flutter_glow: ^0.3.0
   url_launcher: ^6.1.11
-  dynamic_color: ^1.6.3
+  dynamic_color: ^1.6.5
   path_provider: ^2.0.15
   flutter_timezone: ^1.0.6
   package_info_plus: ^4.0.0
@@ -35,16 +36,16 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   material_color_utilities: ^0.2.0
   scrollable_positioned_list: ^0.3.8
-  flutter_local_notifications: ^14.0.0+2
   internet_connection_checker: ^1.0.0+1
+  flutter_local_notifications: ^14.0.0+2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
-  build_runner: ^2.4.2
+  build_runner: ^2.4.4
   isar_generator: ^3.1.0+1
-  flutter_native_splash: ^2.2.19
+  flutter_native_splash: ^2.3.0
   flutter_launcher_icons: ^0.13.1
 
 flutter_icons:

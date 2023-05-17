@@ -1,4 +1,4 @@
-package com.example.rain
+package com.yoshi.rain
 
 import io.flutter.embedding.android.FlutterActivity
 
