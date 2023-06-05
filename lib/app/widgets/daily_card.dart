@@ -61,6 +61,7 @@ class _DailyCardState extends State<DailyCard> {
   @override
   void initState() {
     pageController = PageController(initialPage: widget.index);
+    pageIndex = widget.index;
     super.initState();
   }
 
