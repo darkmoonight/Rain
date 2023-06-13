@@ -78,3 +78,8 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
+// Remove this for FLOSS version
+// configurations.all {
+//     exclude group: 'com.google.android.gms'
+// }

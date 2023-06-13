@@ -14,7 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get: ^4.6.5
-  dio: ^5.1.2
+  dio: ^5.2.1+1
   intl: ^0.18.0
   isar: ^3.1.0+1
   shimmer: ^3.0.0
@@ -40,17 +40,17 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
 
 # Uncomment this for publishing FLOSS variant
-# fdependency_overrides:
-# f  geolocator_android:
-# f    git:
-# f      url: https://github.com/Zverik/flutter-geolocator.git
-# f      ref: floss
-# f      path: geolocator_android
+# dependency_overrides:
+#   geolocator_android:
+#     git:
+#       url: https://github.com/Zverik/flutter-geolocator.git
+#       ref: floss
+#       path: geolocator_android
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.4
+  build_runner: ^2.4.5
   flutter_lints: ^2.0.1
   isar_generator: ^3.1.0+1
   flutter_native_splash: ^2.3.1

@@ -75,7 +75,7 @@ class WeatherAPI {
         timezone: weatherDataHourly.timezone,
         timestamp: DateTime.now(),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -101,7 +101,7 @@ class WeatherAPI {
       } else {
         throw Exception('Failed to load suggestions');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -177,7 +177,7 @@ class WeatherAPI {
         timezone: timezone,
         timestamp: DateTime.now(),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
       }

@@ -17,43 +17,48 @@ const SettingsSchema = CollectionSchema(
   name: r'Settings',
   id: -8656046621518759136,
   properties: {
-    r'degrees': PropertySchema(
+    r'amoledTheme': PropertySchema(
       id: 0,
+      name: r'amoledTheme',
+      type: IsarType.bool,
+    ),
+    r'degrees': PropertySchema(
+      id: 1,
       name: r'degrees',
       type: IsarType.string,
     ),
     r'location': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'location',
       type: IsarType.bool,
     ),
     r'materialColor': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'materialColor',
       type: IsarType.bool,
     ),
     r'measurements': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'measurements',
       type: IsarType.string,
     ),
     r'notifications': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'notifications',
       type: IsarType.bool,
     ),
     r'onboard': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'onboard',
       type: IsarType.bool,
     ),
     r'theme': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'theme',
       type: IsarType.bool,
     ),
     r'timeformat': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'timeformat',
       type: IsarType.string,
     )
@@ -90,14 +95,15 @@ void _settingsSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.degrees);
-  writer.writeBool(offsets[1], object.location);
-  writer.writeBool(offsets[2], object.materialColor);
-  writer.writeString(offsets[3], object.measurements);
-  writer.writeBool(offsets[4], object.notifications);
-  writer.writeBool(offsets[5], object.onboard);
-  writer.writeBool(offsets[6], object.theme);
-  writer.writeString(offsets[7], object.timeformat);
+  writer.writeBool(offsets[0], object.amoledTheme);
+  writer.writeString(offsets[1], object.degrees);
+  writer.writeBool(offsets[2], object.location);
+  writer.writeBool(offsets[3], object.materialColor);
+  writer.writeString(offsets[4], object.measurements);
+  writer.writeBool(offsets[5], object.notifications);
+  writer.writeBool(offsets[6], object.onboard);
+  writer.writeBool(offsets[7], object.theme);
+  writer.writeString(offsets[8], object.timeformat);
 }
 
 Settings _settingsDeserialize(
@@ -107,15 +113,16 @@ Settings _settingsDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Settings();
-  object.degrees = reader.readString(offsets[0]);
+  object.amoledTheme = reader.readBool(offsets[0]);
+  object.degrees = reader.readString(offsets[1]);
   object.id = id;
-  object.location = reader.readBool(offsets[1]);
-  object.materialColor = reader.readBool(offsets[2]);
-  object.measurements = reader.readString(offsets[3]);
-  object.notifications = reader.readBool(offsets[4]);
-  object.onboard = reader.readBool(offsets[5]);
-  object.theme = reader.readBoolOrNull(offsets[6]);
-  object.timeformat = reader.readString(offsets[7]);
+  object.location = reader.readBool(offsets[2]);
+  object.materialColor = reader.readBool(offsets[3]);
+  object.measurements = reader.readString(offsets[4]);
+  object.notifications = reader.readBool(offsets[5]);
+  object.onboard = reader.readBool(offsets[6]);
+  object.theme = reader.readBoolOrNull(offsets[7]);
+  object.timeformat = reader.readString(offsets[8]);
   return object;
 }
 
@@ -127,20 +134,22 @@ P _settingsDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
-    case 1:
       return (reader.readBool(offset)) as P;
+    case 1:
+      return (reader.readString(offset)) as P;
     case 2:
       return (reader.readBool(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
-    case 4:
       return (reader.readBool(offset)) as P;
+    case 4:
+      return (reader.readString(offset)) as P;
     case 5:
       return (reader.readBool(offset)) as P;
     case 6:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 7:
+      return (reader.readBoolOrNull(offset)) as P;
+    case 8:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -236,6 +245,16 @@ extension SettingsQueryWhere on QueryBuilder<Settings, Settings, QWhereClause> {
 
 extension SettingsQueryFilter
     on QueryBuilder<Settings, Settings, QFilterCondition> {
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> amoledThemeEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'amoledTheme',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterFilterCondition> degreesEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -757,6 +776,18 @@ extension SettingsQueryLinks
     on QueryBuilder<Settings, Settings, QFilterCondition> {}
 
 extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByAmoledTheme() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'amoledTheme', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByAmoledThemeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'amoledTheme', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByDegrees() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'degrees', Sort.asc);
@@ -856,6 +887,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
 
 extension SettingsQuerySortThenBy
     on QueryBuilder<Settings, Settings, QSortThenBy> {
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByAmoledTheme() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'amoledTheme', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByAmoledThemeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'amoledTheme', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByDegrees() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'degrees', Sort.asc);
@@ -967,6 +1010,12 @@ extension SettingsQuerySortThenBy
 
 extension SettingsQueryWhereDistinct
     on QueryBuilder<Settings, Settings, QDistinct> {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByAmoledTheme() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'amoledTheme');
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByDegrees(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1024,6 +1073,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<Settings, bool, QQueryOperations> amoledThemeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'amoledTheme');
     });
   }
 
