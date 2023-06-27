@@ -44,10 +44,11 @@ class Status {
       case 65:
       case 66:
       case 67:
+        return 'assets/images/rain.png';
       case 80:
       case 81:
       case 82:
-        return 'assets/images/rain.png';
+        return 'assets/images/rain-fall.png';
       case 71:
       case 73:
       case 75:
@@ -86,10 +87,11 @@ class Status {
       case 65:
       case 66:
       case 67:
+        return 'assets/images/rain.png';
       case 80:
       case 81:
       case 82:
-        return 'assets/images/rain.png';
+        return 'assets/images/rain-fall.png';
       case 71:
       case 73:
       case 75:

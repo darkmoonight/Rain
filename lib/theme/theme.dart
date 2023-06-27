@@ -23,14 +23,14 @@ class RainTheme {
         backgroundColor: Color.fromARGB(255, 225, 225, 225),
       ),
       bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme.copyWith(
-        backgroundColor: const Color.fromARGB(255, 250, 250, 250),
+        backgroundColor: const Color.fromARGB(255, 240, 240, 240),
       ),
       unselectedWidgetColor: Colors.grey[350],
       dividerColor: Colors.black,
     );
   }
 
-  static ThemeData get darkTheme {
+  static ThemeData get oledTheme {
     return baseDark.copyWith(
       brightness: Brightness.dark,
       useMaterial3: true,
@@ -56,7 +56,7 @@ class RainTheme {
     );
   }
 
-  static ThemeData get greyTheme {
+  static ThemeData get darkTheme {
     return baseDark.copyWith(
       brightness: Brightness.dark,
       useMaterial3: true,

@@ -100,6 +100,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Минимальная ощущаемая температура',
           'apparentTemperatureMax': 'Максимальная ощущаемая температура',
           'amoledTheme': 'AMOLED-тема',
+          'appearance': 'Внешний вид',
+          'functions': 'Функции',
+          'data': 'Данные',
         },
         'en_US': {
           'start': 'Get Started',
@@ -198,6 +201,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Minimum apparent temperature',
           'apparentTemperatureMax': 'Maximum apparent temperature',
           'amoledTheme': 'AMOLED-theme',
+          'appearance': 'Appearance',
+          'functions': 'Functions',
+          'data': 'Data',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -297,6 +303,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Température apparente minimale',
           'apparentTemperatureMax': 'Température apparente maximale',
           'amoledTheme': 'AMOLED-thème',
+          'appearance': 'Apparence',
+          'functions': 'Fonctions',
+          'data': 'Données',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -396,6 +405,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Temperatura apparente minima',
           'apparentTemperatureMax': 'Temperatura apparente massima',
           'amoledTheme': 'AMOLED-tema',
+          'appearance': 'Aspetto',
+          'functions': 'Funzioni',
+          'data': 'Dati',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -495,6 +507,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Minimale gefühlte Temperatur',
           'apparentTemperatureMax': 'Maximale gefühlte Temperatur',
           'amoledTheme': 'AMOLED-thema',
+          'appearance': 'Erscheinungsbild',
+          'functions': 'Funktionen',
+          'data': 'Daten',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -593,6 +608,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Minimum hissedilen sıcaklık',
           'apparentTemperatureMax': 'Maksimum hissedilen sıcaklık',
           'amoledTheme': 'AMOLED-teması',
+          'appearance': 'Görünüm',
+          'functions': 'Fonksiyonlar',
+          'data': 'Veri',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -691,6 +709,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Temperatura aparente mínima',
           'apparentTemperatureMax': 'Temperatura aparente máxima',
           'amoledTheme': 'AMOLED-tema',
+          'appearance': 'Aparência',
+          'functions': 'Funções',
+          'data': 'Dados',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -790,6 +811,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Temperatura aparente mínima',
           'apparentTemperatureMax': 'Temperatura aparente máxima',
           'amoledTheme': 'AMOLED-tema',
+          'appearance': 'Apariencia',
+          'functions': 'Funciones',
+          'data': 'Datos',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -888,6 +912,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Minimálna viditeľná teplota',
           'apparentTemperatureMax': 'Maximálna viditeľná teplota',
           'amoledTheme': 'AMOLED-téma',
+          'appearance': 'Vzhľad',
+          'functions': 'Funkcie',
+          'data': 'Dáta',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -987,6 +1014,9 @@ class Translation extends Translations {
           'apparentTemperatureMin': 'Minimum schijnbare temperatuur',
           'apparentTemperatureMax': 'Maximale schijnbare temperatuur',
           'amoledTheme': 'AMOLED-thema',
+          'appearance': 'Uiterlijk',
+          'functions': 'Functies',
+          'data': 'Gegevens',
         },
         "hi_IN": {
           'start': 'शुरू करें',
@@ -1082,7 +1112,10 @@ class Translation extends Translations {
           'precipitationProbabilit': 'वर्षा संभावना',
           'apparentTemperatureMin': 'न्यूनतम प्रतीत तापमान',
           'apparentTemperatureMax': 'अधिकतम प्रतीत तापमान',
-          'amoledTheme': 'AMOLED थीम'
+          'amoledTheme': 'AMOLED थीम',
+          'appearance': 'दिखावट',
+          'functions': 'कार्य',
+          'data': 'डेटा',
         }
       };
 }

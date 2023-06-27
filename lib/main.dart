@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           themeMode: themeController.theme,
           theme: RainTheme.lightTheme,
-          darkTheme: RainTheme.darkTheme,
+          darkTheme: RainTheme.oledTheme,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
