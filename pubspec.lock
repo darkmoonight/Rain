@@ -201,14 +201,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  custom_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: custom_navigation_bar
-      sha256: "2e00e138a1eba71c288aadbcd728f1f8caebf659b95b793aae08a9c0d70ca941"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.2"
   dart_style:
     dependency: transitive
     description:
