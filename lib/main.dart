@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -26,8 +27,15 @@ final ValueNotifier<Future<bool>> isDeviceConnectedNotifier =
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
+bool oledTheme = false;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.black,
+    ),
+  );
   await isarInit();
   await setOptimalDisplayMode();
   Connectivity()
@@ -48,7 +56,7 @@ void main() async {
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 Future<void> setOptimalDisplayMode() async {
@@ -78,9 +86,38 @@ Future<void> isarInit() async {
   settings = await isar.settings.where().findFirst() ?? Settings();
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  static Future<void> updateAppState(
+    BuildContext context, {
+    bool? newOledTheme,
+  }) async {
+    final state = context.findAncestorStateOfType<_MyAppState>()!;
+
+    if (newOledTheme != null) {
+      state.changeOledTheme(newOledTheme);
+    }
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final themeController = Get.put(ThemeController());
+
+  void changeOledTheme(bool newOledTheme) {
+    setState(() {
+      oledTheme = newOledTheme;
+    });
+  }
+
+  @override
+  void initState() {
+    oledTheme = settings.amoledTheme;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +126,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           themeMode: themeController.theme,
           theme: RainTheme.lightTheme,
-          darkTheme: RainTheme.oledTheme,
+          darkTheme: oledTheme ? RainTheme.oledTheme : RainTheme.darkTheme,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

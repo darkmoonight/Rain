@@ -107,6 +107,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                     ),
                   ),
                   child: ScrollablePositionedList.separated(
+                    key: const PageStorageKey(1),
                     physics: const AlwaysScrollableScrollPhysics(),
                     separatorBuilder: (BuildContext context, int index) {
                       return VerticalDivider(

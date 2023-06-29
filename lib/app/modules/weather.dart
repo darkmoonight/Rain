@@ -65,6 +65,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           ),
                         ),
                         child: ScrollablePositionedList.separated(
+                          key: const PageStorageKey(0),
                           physics: const AlwaysScrollableScrollPhysics(),
                           separatorBuilder: (BuildContext context, int index) {
                             return VerticalDivider(

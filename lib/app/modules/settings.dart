@@ -107,13 +107,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               dropdown: false,
                               info: false,
                               value: settings.amoledTheme,
-                              onChange: (_) {
-                                if (settings.amoledTheme) {
-                                  themeController.saveOledTheme(false);
-                                } else {
-                                  themeController.saveOledTheme(true);
-                                }
-                                setState(() {});
+                              onChange: (value) {
+                                themeController.saveOledTheme(value);
+                                MyApp.updateAppState(context,
+                                    newOledTheme: value);
                               },
                             ),
                             SettingLinks(
