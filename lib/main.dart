@@ -27,7 +27,8 @@ final ValueNotifier<Future<bool>> isDeviceConnectedNotifier =
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-bool oledTheme = false;
+bool amoledTheme = false;
+bool materialColor = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -91,12 +92,16 @@ class MyApp extends StatefulWidget {
 
   static Future<void> updateAppState(
     BuildContext context, {
-    bool? newOledTheme,
+    bool? newAmoledTheme,
+    bool? newMaterialColor,
   }) async {
     final state = context.findAncestorStateOfType<_MyAppState>()!;
 
-    if (newOledTheme != null) {
-      state.changeOledTheme(newOledTheme);
+    if (newAmoledTheme != null) {
+      state.changeAmoledTheme(newAmoledTheme);
+    }
+    if (newMaterialColor != null) {
+      state.changeMarerialTheme(newMaterialColor);
     }
   }
 
@@ -107,15 +112,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final themeController = Get.put(ThemeController());
 
-  void changeOledTheme(bool newOledTheme) {
+  void changeAmoledTheme(bool newAmoledTheme) {
     setState(() {
-      oledTheme = newOledTheme;
+      amoledTheme = newAmoledTheme;
+    });
+  }
+
+  void changeMarerialTheme(bool newMaterialColor) {
+    setState(() {
+      materialColor = newMaterialColor;
     });
   }
 
   @override
   void initState() {
-    oledTheme = settings.amoledTheme;
+    amoledTheme = settings.amoledTheme;
+    materialColor = settings.materialColor;
     super.initState();
   }
 
@@ -123,10 +135,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightColorScheme, darkColorScheme) {
+        // if (lightColorScheme != null && darkColorScheme != null) {
+        //   colorScheme = themeController.theme == ThemeMode.light
+        //       ? lightColorScheme
+        //       : darkColorScheme;
+        // }
+
+        // final lightTheme = RainTheme.lightTheme.copyWith();
+        // final darkTheme = RainTheme.darkTheme.copyWith();
+
         return GetMaterialApp(
           themeMode: themeController.theme,
           theme: RainTheme.lightTheme,
-          darkTheme: oledTheme ? RainTheme.oledTheme : RainTheme.darkTheme,
+          darkTheme: amoledTheme ? RainTheme.oledTheme : RainTheme.darkTheme,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

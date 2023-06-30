@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: Container(
             height: 60,
             decoration: BoxDecoration(
-              color: context.theme.bottomNavigationBarTheme.backgroundColor!,
+              color: context.theme.bottomNavigationBarTheme.backgroundColor,
             ),
             child: TabBar(
               controller: tabController,
