@@ -346,7 +346,19 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingLinks(
             icon: Icon(
-              Iconsax.code_circle,
+              Iconsax.language_square,
+              color: context.theme.iconTheme.color,
+            ),
+            text: 'language'.tr,
+            switcher: false,
+            dropdown: false,
+            info: true,
+            textInfo: '',
+            onPressed: () {},
+          ),
+          SettingLinks(
+            icon: Icon(
+              Iconsax.code,
               color: context.theme.iconTheme.color,
             ),
             text: 'version'.tr,

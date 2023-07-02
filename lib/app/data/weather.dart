@@ -14,6 +14,7 @@ class Settings {
   String measurements = 'metric';
   String degrees = 'celsius';
   String timeformat = '24';
+  String? language;
 }
 
 @collection

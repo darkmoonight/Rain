@@ -29,6 +29,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 bool amoledTheme = false;
 bool materialColor = false;
+Locale locale = const Locale('en', 'US');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,6 +95,7 @@ class MyApp extends StatefulWidget {
     BuildContext context, {
     bool? newAmoledTheme,
     bool? newMaterialColor,
+    Locale? newLocale,
   }) async {
     final state = context.findAncestorStateOfType<_MyAppState>()!;
 
@@ -102,6 +104,9 @@ class MyApp extends StatefulWidget {
     }
     if (newMaterialColor != null) {
       state.changeMarerialTheme(newMaterialColor);
+    }
+    if (newLocale != null) {
+      state.changeLocale(newLocale);
     }
   }
 
@@ -124,6 +129,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void changeLocale(Locale newLocale) {
+    setState(() {
+      locale = newLocale;
+    });
+  }
+
   @override
   void initState() {
     amoledTheme = settings.amoledTheme;
@@ -135,15 +146,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightColorScheme, darkColorScheme) {
-        // if (lightColorScheme != null && darkColorScheme != null) {
-        //   colorScheme = themeController.theme == ThemeMode.light
-        //       ? lightColorScheme
-        //       : darkColorScheme;
-        // }
-
-        // final lightTheme = RainTheme.lightTheme.copyWith();
-        // final darkTheme = RainTheme.darkTheme.copyWith();
-
         return GetMaterialApp(
           themeMode: themeController.theme,
           theme: RainTheme.lightTheme,
@@ -169,14 +171,6 @@ class _MyAppState extends State<MyApp> {
             Locale('nl', 'NL'),
             Locale('hi', 'IN')
           ],
-          localeResolutionCallback: (locale, supportedLocales) {
-            for (var supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale?.languageCode) {
-                return supportedLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
           debugShowCheckedModeBanner: false,
           home: settings.onboard == false
               ? const OnboardingPage()

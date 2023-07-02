@@ -103,6 +103,7 @@ class Translation extends Translations {
           'appearance': 'Внешний вид',
           'functions': 'Функции',
           'data': 'Данные',
+          'language': 'Язык',
         },
         'en_US': {
           'start': 'Get Started',
@@ -204,6 +205,7 @@ class Translation extends Translations {
           'appearance': 'Appearance',
           'functions': 'Functions',
           'data': 'Data',
+          'language': 'Language',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -306,6 +308,7 @@ class Translation extends Translations {
           'appearance': 'Apparence',
           'functions': 'Fonctions',
           'data': 'Données',
+          'language': 'Langue',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -408,6 +411,7 @@ class Translation extends Translations {
           'appearance': 'Aspetto',
           'functions': 'Funzioni',
           'data': 'Dati',
+          'language': 'Lingua',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -510,6 +514,7 @@ class Translation extends Translations {
           'appearance': 'Erscheinungsbild',
           'functions': 'Funktionen',
           'data': 'Daten',
+          'language': 'Sprache',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -611,6 +616,7 @@ class Translation extends Translations {
           'appearance': 'Görünüm',
           'functions': 'Fonksiyonlar',
           'data': 'Veri',
+          'language': 'Dil',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -712,6 +718,7 @@ class Translation extends Translations {
           'appearance': 'Aparência',
           'functions': 'Funções',
           'data': 'Dados',
+          'language': 'Idioma',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -814,6 +821,7 @@ class Translation extends Translations {
           'appearance': 'Apariencia',
           'functions': 'Funciones',
           'data': 'Datos',
+          'language': 'Idioma',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -915,6 +923,7 @@ class Translation extends Translations {
           'appearance': 'Vzhľad',
           'functions': 'Funkcie',
           'data': 'Dáta',
+          'language': 'Jazyk',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -1017,6 +1026,7 @@ class Translation extends Translations {
           'appearance': 'Uiterlijk',
           'functions': 'Functies',
           'data': 'Gegevens',
+          'language': 'Taal',
         },
         "hi_IN": {
           'start': 'शुरू करें',
@@ -1116,6 +1126,7 @@ class Translation extends Translations {
           'appearance': 'दिखावट',
           'functions': 'कार्य',
           'data': 'डेटा',
+          'language': 'भाषा',
         }
       };
 }
