@@ -32,6 +32,13 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
   }
 
+  updateLanguage(Locale locale) {
+    settings.language = '$locale';
+    isar.writeTxn(() async => isar.settings.put(settings));
+    Get.updateLocale(locale);
+    Get.back();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -353,8 +360,74 @@ class _SettingsPageState extends State<SettingsPage> {
             switcher: false,
             dropdown: false,
             info: true,
-            textInfo: '',
-            onPressed: () {},
+            textInfo: appLanguages
+                .firstWhere((element) => element['locale'] == locale)['name'],
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                builder: (BuildContext context) {
+                  return StatefulBuilder(
+                    builder: (BuildContext context, setState) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: context.theme.colorScheme.secondaryContainer,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: ListView(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Text(
+                                'language'.tr,
+                                style: context.theme.textTheme.titleLarge,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: appLanguages.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  height: 50,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: context
+                                        .theme.colorScheme.primaryContainer,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(15)),
+                                  ),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      MyApp.updateAppState(context,
+                                          newLocale: appLanguages[index]
+                                              ['locale']);
+                                      updateLanguage(
+                                          appLanguages[index]['locale']);
+                                    },
+                                    child: Text(
+                                      appLanguages[index]['name'],
+                                      style: context.theme.textTheme.labelLarge,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            },
           ),
           SettingLinks(
             icon: Icon(

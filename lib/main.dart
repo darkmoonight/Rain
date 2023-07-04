@@ -31,6 +31,20 @@ bool amoledTheme = false;
 bool materialColor = false;
 Locale locale = const Locale('en', 'US');
 
+final List appLanguages = [
+  {'name': 'English', 'locale': const Locale('en', 'US')},
+  {'name': 'Русский', 'locale': const Locale('ru', 'RU')},
+  {'name': 'italiano', 'locale': const Locale('it', 'IT')},
+  {'name': 'Deutsch', 'locale': const Locale('de', 'DE')},
+  {'name': 'Français', 'locale': const Locale('fr', 'FR')},
+  {'name': 'Türkçe', 'locale': const Locale('tr', 'TR')},
+  {'name': 'Brasileiro', 'locale': const Locale('pt', 'BR')},
+  {'name': 'Español', 'locale': const Locale('es', 'ES')},
+  {'name': 'Slovenčina', 'locale': const Locale('sk', 'SK')},
+  {'name': 'Nederlands', 'locale': const Locale('nl', 'NL')},
+  {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
+];
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
@@ -86,6 +100,10 @@ Future<void> isarInit() async {
     WeatherCardSchema,
   ], directory: (await getApplicationSupportDirectory()).path);
   settings = await isar.settings.where().findFirst() ?? Settings();
+  if (settings.language == null) {
+    settings.language = '${Get.deviceLocale}';
+    isar.writeTxn(() async => isar.settings.put(settings));
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -139,6 +157,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     amoledTheme = settings.amoledTheme;
     materialColor = settings.materialColor;
+    locale = Locale(
+        settings.language!.substring(0, 2), settings.language!.substring(3));
     super.initState();
   }
 
@@ -156,7 +176,7 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
           ],
           translations: Translation(),
-          locale: Get.deviceLocale,
+          locale: locale,
           fallbackLocale: const Locale('en', 'US'),
           supportedLocales: const [
             Locale('en', 'US'),

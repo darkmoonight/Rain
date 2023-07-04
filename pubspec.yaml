@@ -26,7 +26,7 @@ dependencies:
   home_widget: ^0.3.0
   flutter_glow: ^0.3.0
   url_launcher: ^6.1.11
-  dynamic_color: ^1.6.5
+  dynamic_color: ^1.6.6
   path_provider: ^2.0.15
   flutter_timezone: ^1.0.7
   package_info_plus: ^4.0.2
