@@ -26,7 +26,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 children: [
                   Image.asset(
                     'assets/images/weather.png',
-                    scale: 2,
+                    scale: 7,
                   ),
                   const SizedBox(
                     height: 20,
@@ -46,7 +46,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     width: 300,
                     child: Text(
                       'description'.tr,
-                      style: context.theme.textTheme.bodyLarge,
+                      style: context.theme.textTheme.labelMedium
+                          ?.copyWith(fontSize: 14),
                       textAlign: TextAlign.center,
                     ),
                   ),

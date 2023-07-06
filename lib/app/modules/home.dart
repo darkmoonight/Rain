@@ -72,10 +72,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           backgroundColor: context.theme.colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
-          leading: Image.asset(
-            'assets/icons/logo.png',
-            scale: 20,
-          ),
+          leading: const Icon(Iconsax.cloud_drizzle),
           title: visible
               ? RawAutocomplete<Result>(
                   focusNode: _focusNode,
