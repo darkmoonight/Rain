@@ -28,20 +28,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     'assets/images/weather.png',
                     scale: 7,
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 15),
                   Text(
                     'Rain - ${'name'.tr}',
                     style: context.theme.textTheme.titleLarge?.copyWith(
-                      fontSize: 36,
+                      fontSize: 32,
                       fontWeight: FontWeight.w600,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 5),
                   SizedBox(
                     width: 300,
                     child: Text(
