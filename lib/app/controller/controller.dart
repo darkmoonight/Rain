@@ -8,6 +8,7 @@ import 'package:rain/app/api/api.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/services/notification.dart';
 import 'package:rain/app/widgets/status.dart';
+import 'package:rain/app/widgets/status_im_fa.dart';
 import 'package:rain/main.dart';
 import 'package:timezone/standalone.dart' as tz;
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
@@ -399,12 +400,15 @@ class LocationController extends GetxController {
   }
 
   void notlification(MainWeatherCache mainWeatherCache) {
-    for (var i = 0; i < mainWeatherCache.time!.length; i++) {
+    final weatherNotlification = mainWeatherCache.time
+        ?.where((element) => DateTime.parse(element).isAfter(DateTime.now()))
+        .toList();
+    for (var i = 0; i < weatherNotlification!.length; i++) {
       if (DateTime.parse(mainWeatherCache.time![i]).isAfter(DateTime.now())) {
         NotificationShow().showNotification(
           UniqueKey().hashCode,
-          '$city: ${mainWeatherCache.temperature2M}°',
-          Status().getText(mainWeatherCache.weathercode![i]),
+          '$city: ${mainWeatherCache.temperature2M![i]}°',
+          '${Status().getText(mainWeatherCache.weathercode![i])} · ${StatusImFa().getTimeFormat(mainWeatherCache.time![i])}',
           DateTime.parse(mainWeatherCache.time![i]),
         );
       }

@@ -62,8 +62,13 @@ const SettingsSchema = CollectionSchema(
       name: r'theme',
       type: IsarType.bool,
     ),
-    r'timeformat': PropertySchema(
+    r'timeRange': PropertySchema(
       id: 9,
+      name: r'timeRange',
+      type: IsarType.long,
+    ),
+    r'timeformat': PropertySchema(
+      id: 10,
       name: r'timeformat',
       type: IsarType.string,
     )
@@ -115,7 +120,8 @@ void _settingsSerialize(
   writer.writeBool(offsets[6], object.notifications);
   writer.writeBool(offsets[7], object.onboard);
   writer.writeBool(offsets[8], object.theme);
-  writer.writeString(offsets[9], object.timeformat);
+  writer.writeLong(offsets[9], object.timeRange);
+  writer.writeString(offsets[10], object.timeformat);
 }
 
 Settings _settingsDeserialize(
@@ -135,7 +141,8 @@ Settings _settingsDeserialize(
   object.notifications = reader.readBool(offsets[6]);
   object.onboard = reader.readBool(offsets[7]);
   object.theme = reader.readBoolOrNull(offsets[8]);
-  object.timeformat = reader.readString(offsets[9]);
+  object.timeRange = reader.readLong(offsets[9]);
+  object.timeformat = reader.readString(offsets[10]);
   return object;
 }
 
@@ -165,6 +172,8 @@ P _settingsDeserializeProp<P>(
     case 8:
       return (reader.readBoolOrNull(offset)) as P;
     case 9:
+      return (reader.readLong(offset)) as P;
+    case 10:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -798,6 +807,59 @@ extension SettingsQueryFilter
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timeRange',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'timeRange',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'timeRange',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'timeRange',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1045,6 +1107,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeRange() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeRange', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeRangeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeRange', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeformat() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timeformat', Sort.asc);
@@ -1180,6 +1254,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeRange() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeRange', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeRangeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeRange', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeformat() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timeformat', Sort.asc);
@@ -1252,6 +1338,12 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeRange() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'timeRange');
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByTimeformat(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1319,6 +1411,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, bool?, QQueryOperations> themeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'theme');
+    });
+  }
+
+  QueryBuilder<Settings, int, QQueryOperations> timeRangeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'timeRange');
     });
   }
 

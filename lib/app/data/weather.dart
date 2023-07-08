@@ -9,6 +9,7 @@ class Settings {
   bool? theme;
   bool location = false;
   bool notifications = false;
+  int timeRange = 1;
   bool materialColor = false;
   bool amoledTheme = false;
   String measurements = 'metric';

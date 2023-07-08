@@ -25,12 +25,9 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
+        await flutterLocalNotificationsPlugin.cancelAll();
         await locationController.deleteAll(false);
         await locationController.setLocation();
-        await flutterLocalNotificationsPlugin.cancelAll();
-        if (settings.notifications) {
-          locationController.notlification(locationController.mainWeather);
-        }
         setState(() {});
       },
       child: SafeArea(
