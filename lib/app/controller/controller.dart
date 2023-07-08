@@ -6,6 +6,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:isar/isar.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/data/weather.dart';
+import 'package:rain/app/services/notification.dart';
+import 'package:rain/app/widgets/status.dart';
 import 'package:rain/main.dart';
 import 'package:timezone/standalone.dart' as tz;
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
@@ -154,6 +156,9 @@ class LocationController extends GetxController {
       _mainWeather.value =
           await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
 
+      if (settings.notifications) {
+        notlification(_mainWeather.value);
+      }
       await writeCache();
       await readCache();
     } else {
@@ -391,5 +396,18 @@ class LocationController extends GetxController {
       }
     }
     return getDay;
+  }
+
+  void notlification(MainWeatherCache mainWeatherCache) {
+    for (var i = 0; i < mainWeatherCache.time!.length; i++) {
+      if (DateTime.parse(mainWeatherCache.time![i]).isAfter(DateTime.now())) {
+        NotificationShow().showNotification(
+          UniqueKey().hashCode,
+          '$city: ${mainWeatherCache.temperature2M}°',
+          Status().getText(mainWeatherCache.weathercode![i]),
+          DateTime.parse(mainWeatherCache.time![i]),
+        );
+      }
+    }
   }
 }
