@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +55,9 @@ void main() async {
     ),
   );
   await isarInit();
-  await setOptimalDisplayMode();
+  if (Platform.isAndroid) {
+    await setOptimalDisplayMode(); //it is not supported on iOS
+  }
   Connectivity()
       .onConnectivityChanged
       .listen((ConnectivityResult result) async {
@@ -67,8 +71,11 @@ void main() async {
   final String timeZoneName = await FlutterTimezone.getLocalTimezone();
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
-  const InitializationSettings initializationSettings =
-      InitializationSettings(android: initializationSettingsAndroid);
+  const DarwinInitializationSettings initializationSettingsDarwin =
+      DarwinInitializationSettings();
+  const InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
@@ -158,7 +165,7 @@ class _MyAppState extends State<MyApp> {
     amoledTheme = settings.amoledTheme;
     materialColor = settings.materialColor;
     locale = Locale(
-        settings.language!.substring(0, 2), settings.language!.substring(3));
+        settings.language!.substring(0, 2), settings.language!.substring(2));
     super.initState();
   }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -195,11 +197,16 @@ class _SettingsPageState extends State<SettingsPage> {
                               info: false,
                               value: settings.notifications,
                               onChange: (value) async {
-                                final result = await flutterLocalNotificationsPlugin
-                                    .resolvePlatformSpecificImplementation<
-                                        AndroidFlutterLocalNotificationsPlugin>()
-                                    ?.requestPermission();
-                                if (result!) {
+                                final result = Platform.isIOS
+                                    ? await flutterLocalNotificationsPlugin
+                                        .resolvePlatformSpecificImplementation<
+                                            IOSFlutterLocalNotificationsPlugin>()
+                                        ?.requestPermissions()
+                                    : await flutterLocalNotificationsPlugin
+                                        .resolvePlatformSpecificImplementation<
+                                            AndroidFlutterLocalNotificationsPlugin>()
+                                        ?.requestPermission();
+                                if (result != null) {
                                   isar.writeTxn(() async {
                                     settings.notifications = value;
                                     isar.settings.put(settings);
@@ -361,8 +368,9 @@ class _SettingsPageState extends State<SettingsPage> {
             switcher: false,
             dropdown: false,
             info: true,
-            textInfo: appLanguages
-                .firstWhere((element) => element['locale'] == locale)['name'],
+            textInfo: appLanguages.firstWhere(
+                (element) => (element['locale'] == locale),
+                orElse: () => appLanguages.first)['name'],
             onPressed: () {
               showModalBottomSheet(
                 context: context,
