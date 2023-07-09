@@ -75,7 +75,6 @@ class LocationController extends GetxController {
 
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
     if (await isDeviceConnectedNotifier.value && serviceEnabled) {
       Position position = await determinePosition();
 
