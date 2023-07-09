@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -156,9 +157,13 @@ class LocationController extends GetxController {
       _mainWeather.value =
           await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
 
-      if (settings.notifications) {
+      final List<PendingNotificationRequest> pendingNotificationRequests =
+          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+
+      if (settings.notifications && pendingNotificationRequests.isEmpty) {
         notlification(_mainWeather.value);
       }
+
       await writeCache();
       await readCache();
     } else {
@@ -227,6 +232,9 @@ class LocationController extends GetxController {
             .filter()
             .timestampLessThan(cacheExpiry)
             .deleteAll();
+        if ((await isar.mainWeatherCaches.where().findAll()).isEmpty) {
+          await flutterLocalNotificationsPlugin.cancelAll();
+        }
       });
     }
   }
@@ -402,7 +410,7 @@ class LocationController extends GetxController {
     final weatherNotlification = mainWeatherCache.time
         ?.where((element) => DateTime.parse(element).isAfter(DateTime.now()))
         .toList();
-    for (var i = 0; i < weatherNotlification!.length; i++) {
+    for (var i = 0; i < weatherNotlification!.length; i += timeRange) {
       if (DateTime.parse(mainWeatherCache.time![i]).isAfter(DateTime.now())) {
         NotificationShow().showNotification(
           UniqueKey().hashCode,

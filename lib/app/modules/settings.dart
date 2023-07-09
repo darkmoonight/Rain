@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/setting_links.dart';
 import 'package:rain/main.dart';
@@ -20,6 +20,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final themeController = Get.put(ThemeController());
+  final locationController = Get.put(LocationController());
   String? appVersion;
 
   Future<void> infoVersion() async {
@@ -50,13 +51,10 @@ class _SettingsPageState extends State<SettingsPage> {
         children: [
           SettingLinks(
             icon: Icon(
-              Iconsax.color_swatch,
+              Iconsax.brush_1,
               color: context.theme.iconTheme.color,
             ),
             text: 'appearance'.tr,
-            switcher: false,
-            dropdown: false,
-            info: false,
             onPressed: () {
               showModalBottomSheet(
                 context: context,
@@ -81,7 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   horizontal: 20, vertical: 15),
                               child: Text(
                                 'appearance'.tr,
-                                style: context.theme.textTheme.titleLarge,
+                                style: context.textTheme.titleLarge,
                               ),
                             ),
                             SettingLinks(
@@ -91,8 +89,6 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               text: 'theme'.tr,
                               switcher: true,
-                              dropdown: false,
-                              info: false,
                               value: Get.isDarkMode,
                               onChange: (_) {
                                 if (Get.isDarkMode) {
@@ -113,8 +109,6 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               text: 'amoledTheme'.tr,
                               switcher: true,
-                              dropdown: false,
-                              info: false,
                               value: settings.amoledTheme,
                               onChange: (value) {
                                 themeController.saveOledTheme(value);
@@ -129,8 +123,6 @@ class _SettingsPageState extends State<SettingsPage> {
                             //   ),
                             //   text: 'materialColor'.tr,
                             //   switcher: true,
-                            //   dropdown: false,
-                            //   info: false,
                             //   value: settings.materialColor,
                             //   onChange: (value) {
                             //     isar.writeTxn(() async {
@@ -156,9 +148,6 @@ class _SettingsPageState extends State<SettingsPage> {
               color: context.theme.iconTheme.color,
             ),
             text: 'functions'.tr,
-            switcher: false,
-            dropdown: false,
-            info: false,
             onPressed: () {
               showModalBottomSheet(
                 context: context,
@@ -183,18 +172,32 @@ class _SettingsPageState extends State<SettingsPage> {
                                   horizontal: 20, vertical: 15),
                               child: Text(
                                 'functions'.tr,
-                                style: context.theme.textTheme.titleLarge,
+                                style: context.textTheme.titleLarge,
                               ),
                             ),
                             SettingLinks(
                               icon: Icon(
-                                Iconsax.notification,
+                                Iconsax.map_1,
+                                color: context.theme.iconTheme.color,
+                              ),
+                              text: 'location'.tr,
+                              switcher: true,
+                              value: settings.location,
+                              onChange: (value) {
+                                isar.writeTxn(() async {
+                                  settings.location = value;
+                                  isar.settings.put(settings);
+                                });
+                                setState(() {});
+                              },
+                            ),
+                            SettingLinks(
+                              icon: Icon(
+                                Iconsax.notification_1,
                                 color: context.theme.iconTheme.color,
                               ),
                               text: 'notifications'.tr,
                               switcher: true,
-                              dropdown: false,
-                              info: false,
                               value: settings.notifications,
                               onChange: (value) async {
                                 final result = Platform.isIOS
@@ -211,27 +214,85 @@ class _SettingsPageState extends State<SettingsPage> {
                                     settings.notifications = value;
                                     isar.settings.put(settings);
                                   });
-                                  flutterLocalNotificationsPlugin.cancelAll();
+                                  if (value) {
+                                    locationController.notlification(
+                                        locationController.mainWeather);
+                                  } else {
+                                    flutterLocalNotificationsPlugin.cancelAll();
+                                  }
                                   setState(() {});
                                 }
                               },
                             ),
                             SettingLinks(
                               icon: Icon(
-                                Iconsax.location,
+                                Iconsax.notification_status,
                                 color: context.theme.iconTheme.color,
                               ),
-                              text: 'location'.tr,
-                              switcher: true,
-                              dropdown: false,
-                              info: false,
-                              value: settings.location,
-                              onChange: (value) {
+                              text: 'timeRange'.tr,
+                              dropdown: true,
+                              dropdownName: '$timeRange',
+                              dropdownList: const <String>[
+                                '1',
+                                '2',
+                                '3',
+                                '4',
+                                '5',
+                              ],
+                              dropdownCange: (String? newValue) {
                                 isar.writeTxn(() async {
-                                  settings.location = value;
+                                  settings.timeRange = int.parse(newValue!);
                                   isar.settings.put(settings);
                                 });
-                                setState(() {});
+                                MyApp.updateAppState(context,
+                                    newTimeRange: int.parse(newValue!));
+                                if (settings.notifications) {
+                                  flutterLocalNotificationsPlugin.cancelAll();
+                                  locationController.notlification(
+                                      locationController.mainWeather);
+                                }
+                              },
+                            ),
+                            SettingLinks(
+                              icon: Icon(
+                                Iconsax.timer_start,
+                                color: context.theme.iconTheme.color,
+                              ),
+                              text: 'timeStart'.tr,
+                              info: true,
+                              infoSettings: true,
+                              textInfo: TimeOfDay.now().format(context),
+                              onPressed: () async {
+                                final TimeOfDay? timeStart =
+                                    await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                );
+                                isar.writeTxn(() async {
+                                  settings.timeStart =
+                                      timeStart?.format(context);
+                                  isar.settings.put(settings);
+                                });
+                              },
+                            ),
+                            SettingLinks(
+                              icon: Icon(
+                                Iconsax.timer_pause,
+                                color: context.theme.iconTheme.color,
+                              ),
+                              text: 'timeEnd'.tr,
+                              info: true,
+                              infoSettings: true,
+                              textInfo: TimeOfDay.now().format(context),
+                              onPressed: () async {
+                                final TimeOfDay? timeEnd = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                );
+                                isar.writeTxn(() async {
+                                  settings.timeEnd = timeEnd?.format(context);
+                                  isar.settings.put(settings);
+                                });
                               },
                             ),
                             const SizedBox(height: 10),
@@ -246,13 +307,10 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingLinks(
             icon: Icon(
-              Iconsax.box_1,
+              Iconsax.d_square,
               color: context.theme.iconTheme.color,
             ),
             text: 'data'.tr,
-            switcher: false,
-            dropdown: false,
-            info: false,
             onPressed: () {
               showModalBottomSheet(
                 context: context,
@@ -277,7 +335,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   horizontal: 20, vertical: 15),
                               child: Text(
                                 'data'.tr,
-                                style: context.theme.textTheme.titleLarge,
+                                style: context.textTheme.titleLarge,
                               ),
                             ),
                             SettingLinks(
@@ -286,9 +344,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 color: context.theme.iconTheme.color,
                               ),
                               text: 'degrees'.tr,
-                              switcher: false,
                               dropdown: true,
-                              info: false,
                               dropdownName: settings.degrees.tr,
                               dropdownList: <String>[
                                 'celsius'.tr,
@@ -310,9 +366,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 color: context.theme.iconTheme.color,
                               ),
                               text: 'measurements'.tr,
-                              switcher: false,
                               dropdown: true,
-                              info: false,
                               dropdownName: settings.measurements.tr,
                               dropdownList: <String>[
                                 'metric'.tr,
@@ -335,9 +389,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 color: context.theme.iconTheme.color,
                               ),
                               text: 'timeformat'.tr,
-                              switcher: false,
                               dropdown: true,
-                              info: false,
                               dropdownName: settings.timeformat.tr,
                               dropdownList: <String>['12'.tr, '24'.tr],
                               dropdownCange: (String? newValue) {
@@ -365,9 +417,8 @@ class _SettingsPageState extends State<SettingsPage> {
               color: context.theme.iconTheme.color,
             ),
             text: 'language'.tr,
-            switcher: false,
-            dropdown: false,
             info: true,
+            infoSettings: true,
             textInfo: appLanguages.firstWhere(
                 (element) => (element['locale'] == locale),
                 orElse: () => appLanguages.first)['name'],
@@ -393,7 +444,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   horizontal: 20, vertical: 15),
                               child: Text(
                                 'language'.tr,
-                                style: context.theme.textTheme.titleLarge,
+                                style: context.textTheme.titleLarge,
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -422,7 +473,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     },
                                     child: Text(
                                       appLanguages[index]['name'],
-                                      style: context.theme.textTheme.labelLarge,
+                                      style: context.textTheme.labelLarge,
                                     ),
                                   ),
                                 );
@@ -444,8 +495,6 @@ class _SettingsPageState extends State<SettingsPage> {
               color: context.theme.iconTheme.color,
             ),
             text: 'version'.tr,
-            switcher: false,
-            dropdown: false,
             info: true,
             textInfo: '$appVersion',
           ),
@@ -455,9 +504,6 @@ class _SettingsPageState extends State<SettingsPage> {
               scale: 20,
             ),
             text: '${'project'.tr} GitHub',
-            switcher: false,
-            dropdown: false,
-            info: false,
             onPressed: () async {
               final Uri url = Uri.parse('https://github.com/DarkMooNight/Rain');
               if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {

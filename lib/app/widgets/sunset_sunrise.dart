@@ -43,14 +43,14 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                     children: [
                       Text(
                         'sunrise'.tr,
-                        style: context.theme.textTheme.titleSmall,
+                        style: context.textTheme.titleSmall,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 2),
                       Text(
                         statusImFa.getTimeFormat(widget.timeSunrise),
-                        style: context.theme.textTheme.titleLarge,
+                        style: context.textTheme.titleLarge,
                       ),
                     ],
                   ),
@@ -74,14 +74,14 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                     children: [
                       Text(
                         'sunset'.tr,
-                        style: context.theme.textTheme.titleSmall,
+                        style: context.textTheme.titleSmall,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 2),
                       Text(
                         statusImFa.getTimeFormat(widget.timeSunset),
-                        style: context.theme.textTheme.titleLarge,
+                        style: context.textTheme.titleLarge,
                       ),
                     ],
                   ),

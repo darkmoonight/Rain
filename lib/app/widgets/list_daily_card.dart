@@ -39,7 +39,7 @@ class ListCardDaily extends StatelessWidget {
               children: [
                 Text(
                   '${statusImFa.getDegree(temperature2MMin.round())} / ${statusImFa.getDegree(temperature2MMax.round())}',
-                  style: context.theme.textTheme.titleLarge?.copyWith(
+                  style: context.textTheme.titleLarge?.copyWith(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
@@ -47,7 +47,7 @@ class ListCardDaily extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   DateFormat.MMMMEEEEd(locale?.languageCode).format(timeDaily),
-                  style: context.theme.textTheme.titleMedium?.copyWith(
+                  style: context.textTheme.titleMedium?.copyWith(
                     color: Colors.grey,
                     fontWeight: FontWeight.w400,
                   ),
@@ -55,7 +55,7 @@ class ListCardDaily extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   status.getText(weathercodeDaily),
-                  style: context.theme.textTheme.titleMedium?.copyWith(
+                  style: context.textTheme.titleMedium?.copyWith(
                     color: Colors.grey,
                     fontWeight: FontWeight.w400,
                   ),

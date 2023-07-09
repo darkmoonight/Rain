@@ -104,6 +104,9 @@ class Translation extends Translations {
           'functions': 'Функции',
           'data': 'Данные',
           'language': 'Язык',
+          'timeRange': 'Периодичность (в часах)',
+          'timeStart': 'Время начала',
+          'timeEnd': 'Время оконания',
         },
         'en_US': {
           'start': 'Get Started',

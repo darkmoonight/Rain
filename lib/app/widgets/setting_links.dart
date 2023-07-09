@@ -7,9 +7,10 @@ class SettingLinks extends StatelessWidget {
     super.key,
     required this.icon,
     required this.text,
-    required this.switcher,
-    required this.dropdown,
-    required this.info,
+    this.switcher = false,
+    this.dropdown = false,
+    this.info = false,
+    this.infoSettings = false,
     this.dropdownName,
     this.dropdownList,
     this.dropdownCange,
@@ -23,6 +24,7 @@ class SettingLinks extends StatelessWidget {
   final bool switcher;
   final bool dropdown;
   final bool info;
+  final bool infoSettings;
   final String? textInfo;
   final String? dropdownName;
   final List<String>? dropdownList;
@@ -53,7 +55,7 @@ class SettingLinks extends StatelessWidget {
                   Expanded(
                     child: Text(
                       text,
-                      style: context.theme.textTheme.titleMedium,
+                      style: context.textTheme.titleMedium,
                       overflow: TextOverflow.visible,
                     ),
                   ),
@@ -82,14 +84,32 @@ class SettingLinks extends StatelessWidget {
                         onChanged: dropdownCange,
                       )
                     : info
-                        ? Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: Text(
-                              textInfo!,
-                              style: context.theme.textTheme.titleMedium,
-                              overflow: TextOverflow.visible,
-                            ),
-                          )
+                        ? infoSettings
+                            ? Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: Text(
+                                      textInfo!,
+                                      style: context.textTheme.bodyMedium,
+                                      overflow: TextOverflow.visible,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Iconsax.arrow_right_3,
+                                    color: context.theme.iconTheme.color,
+                                    size: 18,
+                                  ),
+                                ],
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Text(
+                                  textInfo!,
+                                  style: context.textTheme.titleMedium,
+                                  overflow: TextOverflow.visible,
+                                ),
+                              )
                         : Icon(
                             Iconsax.arrow_right_3,
                             color: context.theme.iconTheme.color,

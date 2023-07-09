@@ -31,12 +31,12 @@ class DescWeather extends StatelessWidget {
             const SizedBox(height: 5),
             Text(
               value,
-              style: context.theme.textTheme.labelLarge,
+              style: context.textTheme.labelLarge,
             ),
             Expanded(
               child: Text(
                 desc,
-                style: context.theme.textTheme.bodySmall,
+                style: context.textTheme.bodySmall,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
               ),

@@ -41,21 +41,21 @@ class _WeatherNowState extends State<WeatherNow> {
         ),
         GlowText(
           '${widget.degree.round()}',
-          style: context.theme.textTheme.displayLarge?.copyWith(
+          style: context.textTheme.displayLarge?.copyWith(
             fontSize: 90,
             fontWeight: FontWeight.w800,
           ),
         ),
         Text(
           status.getText(widget.weather),
-          style: context.theme.textTheme.titleLarge,
+          style: context.textTheme.titleLarge,
         ),
         const SizedBox(height: 5),
         Text(
           DateFormat.MMMMEEEEd('${locale?.languageCode}').format(
             DateTime.parse(widget.time),
           ),
-          style: context.theme.textTheme.labelLarge?.copyWith(
+          style: context.textTheme.labelLarge?.copyWith(
             color: Colors.grey,
           ),
         ),

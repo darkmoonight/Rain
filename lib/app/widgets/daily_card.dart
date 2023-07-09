@@ -95,7 +95,7 @@ class _DailyCardState extends State<DailyCard> {
         title: Text(
           DateFormat.MMMMEEEEd(locale?.languageCode)
               .format(widget.timeDaily[pageIndex]),
-          style: context.theme.textTheme.titleLarge,
+          style: context.textTheme.titleLarge,
         ),
       ),
       body: SafeArea(
@@ -126,7 +126,7 @@ class _DailyCardState extends State<DailyCard> {
                       const SizedBox(height: 10),
                       GlowText(
                         '${statusImFa.getDegree(widget.temperature2MMin[index].round())} / ${statusImFa.getDegree(widget.temperature2MMax[index].round())}',
-                        style: context.theme.textTheme.titleLarge?.copyWith(
+                        style: context.textTheme.titleLarge?.copyWith(
                           fontSize: 30,
                           fontWeight: FontWeight.w800,
                         ),
@@ -134,13 +134,13 @@ class _DailyCardState extends State<DailyCard> {
                       const SizedBox(height: 5),
                       Text(
                         status.getText(widget.weathercodeDaily[index]),
-                        style: context.theme.textTheme.titleLarge,
+                        style: context.textTheme.titleLarge,
                       ),
                       const SizedBox(height: 5),
                       Text(
                         DateFormat.MMMMEEEEd(locale?.languageCode)
                             .format(widget.timeDaily[index]),
-                        style: context.theme.textTheme.labelLarge?.copyWith(
+                        style: context.textTheme.labelLarge?.copyWith(
                           color: Colors.grey,
                           fontSize: 16,
                         ),

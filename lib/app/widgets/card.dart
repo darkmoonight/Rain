@@ -61,7 +61,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                               .getTime(widget.time, widget.timezone)]
                           .round()
                           .toInt()),
-                      style: context.theme.textTheme.titleLarge?.copyWith(
+                      style: context.textTheme.titleLarge?.copyWith(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
@@ -70,7 +70,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                     Text(
                       status.getText(widget.weather[locationController.getTime(
                           widget.time, widget.timezone)]),
-                      style: context.theme.textTheme.titleMedium?.copyWith(
+                      style: context.textTheme.titleMedium?.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
                       ),
@@ -87,7 +87,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                               ? widget.city
                               : '${widget.city}'
                                   ', ${widget.district}',
-                  style: context.theme.textTheme.titleMedium?.copyWith(
+                  style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -97,7 +97,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                   builder: (context, snapshot) {
                     return Text(
                       '${'time'.tr}: ${statusImFa.getTimeFormatTz(tz.TZDateTime.now(tz.getLocation(widget.timezone)))}',
-                      style: context.theme.textTheme.titleMedium?.copyWith(
+                      style: context.textTheme.titleMedium?.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
                       ),

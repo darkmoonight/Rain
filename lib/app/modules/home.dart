@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 child: ListTile(
                                   title: Text(
                                     '${option.name}, ${option.admin1}',
-                                    style: context.theme.textTheme.bodyLarge,
+                                    style: context.textTheme.bodyLarge,
                                   ),
                                 ),
                               );
@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             : locationController.isSearch.isFalse
                                 ? 'loading'.tr
                                 : 'searchCity'.tr,
-                    style: context.theme.textTheme.titleMedium?.copyWith(
+                    style: context.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ? FloatingActionButton(
                 onPressed: () => showModalBottomSheet(
                   enableDrag: false,
-                  backgroundColor: context.theme.colorScheme.secondaryContainer,
+                  backgroundColor: Colors.transparent,
                   context: context,
                   isScrollControlled: true,
                   builder: (BuildContext context) {

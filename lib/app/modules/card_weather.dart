@@ -46,8 +46,7 @@ class _CardWeatherState extends State<CardWeather> {
                             child: Text(
                               'noWeatherCard'.tr,
                               textAlign: TextAlign.center,
-                              style:
-                                  context.theme.textTheme.titleMedium?.copyWith(
+                              style: context.textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
                               ),
@@ -72,7 +71,7 @@ class _CardWeatherState extends State<CardWeather> {
                             right: 15,
                           ),
                           child: Icon(
-                            Iconsax.trash,
+                            Iconsax.trush_square,
                             color: Colors.red,
                           ),
                         ),
@@ -86,10 +85,10 @@ class _CardWeatherState extends State<CardWeather> {
                                   context.theme.colorScheme.primaryContainer,
                               title: Text(
                                 "deletedCardWeather".tr,
-                                style: context.theme.textTheme.titleLarge,
+                                style: context.textTheme.titleLarge,
                               ),
                               content: Text("deletedCardWeatherQuery".tr,
-                                  style: context.theme.textTheme.titleMedium),
+                                  style: context.textTheme.titleMedium),
                               actions: [
                                 TextButton(
                                     onPressed: () => Get.back(result: false),

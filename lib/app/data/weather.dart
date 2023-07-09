@@ -1,5 +1,4 @@
 import 'package:isar/isar.dart';
-
 part 'weather.g.dart';
 
 @collection
@@ -9,13 +8,15 @@ class Settings {
   bool? theme;
   bool location = false;
   bool notifications = false;
-  int timeRange = 1;
   bool materialColor = false;
   bool amoledTheme = false;
   String measurements = 'metric';
   String degrees = 'celsius';
   String timeformat = '24';
   String? language;
+  int? timeRange;
+  String? timeStart;
+  String? timeEnd;
 }
 
 @collection

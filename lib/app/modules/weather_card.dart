@@ -75,7 +75,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
           title: Text(
             '${widget.weatherCard.city}'
             ', ${widget.weatherCard.district}',
-            style: context.theme.textTheme.titleMedium?.copyWith(
+            style: context.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),

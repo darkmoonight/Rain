@@ -37,12 +37,12 @@ class _WeatherHourlyState extends State<WeatherHourly> {
           children: [
             Text(
               statusImFa.getTimeFormat(widget.time),
-              style: context.theme.textTheme.labelLarge,
+              style: context.textTheme.labelLarge,
             ),
             Text(
               DateFormat('E', '${locale?.languageCode}')
                   .format(DateTime.tryParse(widget.time)!),
-              style: context.theme.textTheme.labelLarge?.copyWith(
+              style: context.textTheme.labelLarge?.copyWith(
                 color: Colors.grey,
               ),
             ),
@@ -55,7 +55,7 @@ class _WeatherHourlyState extends State<WeatherHourly> {
         ),
         Text(
           statusImFa.getDegree(widget.degree.round()),
-          style: context.theme.textTheme.titleMedium?.copyWith(
+          style: context.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
         ),

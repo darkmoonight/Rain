@@ -30,21 +30,15 @@ class MyTextForm extends StatelessWidget {
         controller: controller,
         onChanged: onChanged,
         keyboardType: type,
-        style: context.theme.textTheme.bodyLarge,
+        style: context.textTheme.bodyLarge,
         decoration: InputDecoration(
           prefixIcon: icon,
           suffixIcon: iconButton,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-            borderSide: BorderSide(
-              color: context.theme.disabledColor,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-            borderSide: BorderSide(
-              color: context.theme.disabledColor,
-            ),
+          filled: true,
+          fillColor: context.theme.colorScheme.primaryContainer,
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(15),
           ),
           labelText: labelText,
         ),

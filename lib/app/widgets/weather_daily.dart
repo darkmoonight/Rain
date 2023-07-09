@@ -105,7 +105,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                             DateFormat.EEEE(locale?.languageCode).format(
                                 widget.mainWeatherCache?.timeDaily?[index] ??
                                     widget.weatherCard!.timeDaily![index]),
-                            style: context.theme.textTheme.labelLarge,
+                            style: context.textTheme.labelLarge,
                           ),
                         ),
                         Expanded(
@@ -126,7 +126,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                           ?.weathercodeDaily?[index] ??
                                       widget.weatherCard!
                                           .weathercodeDaily![index]),
-                                  style: context.theme.textTheme.labelLarge,
+                                  style: context.textTheme.labelLarge,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -143,12 +143,11 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                         .round() ??
                                     widget.weatherCard!.temperature2MMin![index]
                                         .round()),
-                                style: context.theme.textTheme.labelLarge,
+                                style: context.textTheme.labelLarge,
                               ),
                               Text(
                                 ' / ',
-                                style: context.theme.textTheme.bodyMedium
-                                    ?.copyWith(
+                                style: context.textTheme.bodyMedium?.copyWith(
                                   color: Colors.grey,
                                 ),
                               ),
@@ -158,8 +157,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                         .round() ??
                                     widget.weatherCard!.temperature2MMax![index]
                                         .round()),
-                                style: context.theme.textTheme.bodyMedium
-                                    ?.copyWith(
+                                style: context.textTheme.bodyMedium?.copyWith(
                                   color: Colors.grey,
                                 ),
                               ),
@@ -180,7 +178,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 'weatherMore'.tr,
-                style: context.theme.textTheme.titleLarge?.copyWith(
+                style: context.textTheme.titleLarge?.copyWith(
                   fontSize: 16,
                 ),
                 overflow: TextOverflow.ellipsis,

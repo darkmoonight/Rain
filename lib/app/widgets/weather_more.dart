@@ -42,7 +42,7 @@ class _WeatherMoreState extends State<WeatherMore> {
         ),
         title: Text(
           'weatherMore'.tr,
-          style: context.theme.textTheme.titleLarge,
+          style: context.textTheme.titleLarge,
         ),
       ),
       body: ListView.builder(
@@ -50,48 +50,45 @@ class _WeatherMoreState extends State<WeatherMore> {
             widget.weatherCard?.timeDaily!.length,
         itemBuilder: (context, index) => GestureDetector(
           onTap: () => Get.to(
-              () => DailyCard(
-                    timeDaily: widget.mainWeatherCache?.timeDaily ??
-                        widget.weatherCard!.timeDaily!,
-                    weathercodeDaily:
-                        widget.mainWeatherCache?.weathercodeDaily ??
-                            widget.weatherCard!.weathercodeDaily!,
-                    temperature2MMax:
-                        widget.mainWeatherCache?.temperature2MMax ??
-                            widget.weatherCard!.temperature2MMax!,
-                    temperature2MMin:
-                        widget.mainWeatherCache?.temperature2MMin ??
-                            widget.weatherCard!.temperature2MMin!,
-                    apparentTemperatureMax:
-                        widget.mainWeatherCache?.apparentTemperatureMax ??
-                            widget.weatherCard!.apparentTemperatureMax!,
-                    apparentTemperatureMin:
-                        widget.mainWeatherCache?.apparentTemperatureMin ??
-                            widget.weatherCard!.apparentTemperatureMin!,
-                    sunrise: widget.mainWeatherCache?.sunrise ??
-                        widget.weatherCard!.sunrise!,
-                    sunset: widget.mainWeatherCache?.sunset ??
-                        widget.weatherCard!.sunset!,
-                    precipitationSum:
-                        widget.mainWeatherCache?.precipitationSum ??
-                            widget.weatherCard!.precipitationSum!,
-                    precipitationProbabilityMax:
-                        widget.mainWeatherCache?.precipitationProbabilityMax ??
-                            widget.weatherCard!.precipitationProbabilityMax!,
-                    windspeed10MMax: widget.mainWeatherCache?.windspeed10MMax ??
-                        widget.weatherCard!.windspeed10MMax!,
-                    windgusts10MMax: widget.mainWeatherCache?.windgusts10MMax ??
-                        widget.weatherCard!.windgusts10MMax!,
-                    uvIndexMax: widget.mainWeatherCache?.uvIndexMax ??
-                        widget.weatherCard!.uvIndexMax!,
-                    rainSum: widget.mainWeatherCache?.rainSum ??
-                        widget.weatherCard!.rainSum!,
-                    winddirection10MDominant:
-                        widget.mainWeatherCache?.winddirection10MDominant ??
-                            widget.weatherCard!.winddirection10MDominant!,
-                    index: index,
-                  ),
-              transition: Transition.downToUp),
+            () => DailyCard(
+              timeDaily: widget.mainWeatherCache?.timeDaily ??
+                  widget.weatherCard!.timeDaily!,
+              weathercodeDaily: widget.mainWeatherCache?.weathercodeDaily ??
+                  widget.weatherCard!.weathercodeDaily!,
+              temperature2MMax: widget.mainWeatherCache?.temperature2MMax ??
+                  widget.weatherCard!.temperature2MMax!,
+              temperature2MMin: widget.mainWeatherCache?.temperature2MMin ??
+                  widget.weatherCard!.temperature2MMin!,
+              apparentTemperatureMax:
+                  widget.mainWeatherCache?.apparentTemperatureMax ??
+                      widget.weatherCard!.apparentTemperatureMax!,
+              apparentTemperatureMin:
+                  widget.mainWeatherCache?.apparentTemperatureMin ??
+                      widget.weatherCard!.apparentTemperatureMin!,
+              sunrise: widget.mainWeatherCache?.sunrise ??
+                  widget.weatherCard!.sunrise!,
+              sunset: widget.mainWeatherCache?.sunset ??
+                  widget.weatherCard!.sunset!,
+              precipitationSum: widget.mainWeatherCache?.precipitationSum ??
+                  widget.weatherCard!.precipitationSum!,
+              precipitationProbabilityMax:
+                  widget.mainWeatherCache?.precipitationProbabilityMax ??
+                      widget.weatherCard!.precipitationProbabilityMax!,
+              windspeed10MMax: widget.mainWeatherCache?.windspeed10MMax ??
+                  widget.weatherCard!.windspeed10MMax!,
+              windgusts10MMax: widget.mainWeatherCache?.windgusts10MMax ??
+                  widget.weatherCard!.windgusts10MMax!,
+              uvIndexMax: widget.mainWeatherCache?.uvIndexMax ??
+                  widget.weatherCard!.uvIndexMax!,
+              rainSum: widget.mainWeatherCache?.rainSum ??
+                  widget.weatherCard!.rainSum!,
+              winddirection10MDominant:
+                  widget.mainWeatherCache?.winddirection10MDominant ??
+                      widget.weatherCard!.winddirection10MDominant!,
+              index: index,
+            ),
+            transition: Transition.downToUp,
+          ),
           child: ListCardDaily(
             timeDaily: widget.mainWeatherCache?.timeDaily![index] ??
                 widget.weatherCard!.timeDaily![index],

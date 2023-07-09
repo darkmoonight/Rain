@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +31,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 bool amoledTheme = false;
 bool materialColor = false;
 Locale locale = const Locale('en', 'US');
+int timeRange = 1;
 
 final List appLanguages = [
   {'name': 'English', 'locale': const Locale('en', 'US')},
@@ -56,7 +56,7 @@ void main() async {
   );
   await isarInit();
   if (Platform.isAndroid) {
-    await setOptimalDisplayMode(); //it is not supported on iOS
+    await setOptimalDisplayMode();
   }
   Connectivity()
       .onConnectivityChanged
@@ -121,6 +121,7 @@ class MyApp extends StatefulWidget {
     bool? newAmoledTheme,
     bool? newMaterialColor,
     Locale? newLocale,
+    int? newTimeRange,
   }) async {
     final state = context.findAncestorStateOfType<_MyAppState>()!;
 
@@ -132,6 +133,9 @@ class MyApp extends StatefulWidget {
     }
     if (newLocale != null) {
       state.changeLocale(newLocale);
+    }
+    if (newTimeRange != null) {
+      state.changeTimeRange(newTimeRange);
     }
   }
 
@@ -154,6 +158,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void changeTimeRange(int newTimeRange) {
+    setState(() {
+      timeRange = newTimeRange;
+    });
+  }
+
   void changeLocale(Locale newLocale) {
     setState(() {
       locale = newLocale;
@@ -165,7 +175,8 @@ class _MyAppState extends State<MyApp> {
     amoledTheme = settings.amoledTheme;
     materialColor = settings.materialColor;
     locale = Locale(
-        settings.language!.substring(0, 2), settings.language!.substring(2));
+        settings.language!.substring(0, 2), settings.language!.substring(3));
+    timeRange = settings.timeRange ?? 1;
     super.initState();
   }
 

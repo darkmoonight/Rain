@@ -30,32 +30,6 @@ class RainTheme {
     );
   }
 
-  static ThemeData get oledTheme {
-    return baseDark.copyWith(
-      brightness: Brightness.dark,
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.blue,
-        brightness: Brightness.dark,
-        surface: Colors.black,
-        primaryContainer: const Color.fromARGB(255, 15, 15, 15),
-        secondaryContainer: const Color.fromARGB(255, 10, 10, 10),
-        tertiaryContainer: const Color.fromARGB(255, 20, 20, 20),
-      ),
-      iconTheme: baseLigth.iconTheme.copyWith(
-        color: Colors.white,
-      ),
-      snackBarTheme: const SnackBarThemeData(
-        backgroundColor: Color.fromARGB(255, 55, 55, 55),
-      ),
-      bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme.copyWith(
-        backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-      ),
-      unselectedWidgetColor: const Color.fromARGB(255, 20, 20, 20),
-      dividerColor: Colors.white,
-    );
-  }
-
   static ThemeData get darkTheme {
     return baseDark.copyWith(
       brightness: Brightness.dark,
@@ -78,6 +52,32 @@ class RainTheme {
         backgroundColor: const Color.fromARGB(255, 28, 28, 28),
       ),
       unselectedWidgetColor: Colors.grey[850],
+      dividerColor: Colors.white,
+    );
+  }
+
+  static ThemeData get oledTheme {
+    return baseDark.copyWith(
+      brightness: Brightness.dark,
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.blue,
+        brightness: Brightness.dark,
+        surface: Colors.black,
+        primaryContainer: const Color.fromARGB(255, 15, 15, 15),
+        secondaryContainer: const Color.fromARGB(255, 10, 10, 10),
+        tertiaryContainer: const Color.fromARGB(255, 20, 20, 20),
+      ),
+      iconTheme: baseLigth.iconTheme.copyWith(
+        color: Colors.white,
+      ),
+      snackBarTheme: const SnackBarThemeData(
+        backgroundColor: Color.fromARGB(255, 55, 55, 55),
+      ),
+      bottomNavigationBarTheme: baseLigth.bottomNavigationBarTheme.copyWith(
+        backgroundColor: const Color.fromARGB(255, 10, 10, 10),
+      ),
+      unselectedWidgetColor: const Color.fromARGB(255, 20, 20, 20),
       dividerColor: Colors.white,
     );
   }

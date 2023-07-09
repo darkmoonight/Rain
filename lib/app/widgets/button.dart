@@ -25,7 +25,7 @@ class MyTextButton extends StatelessWidget {
         onPressed: onTap,
         child: Text(
           buttonName,
-          style: context.theme.textTheme.titleMedium,
+          style: context.textTheme.titleMedium,
         ),
       ),
     );

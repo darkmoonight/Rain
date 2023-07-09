@@ -62,13 +62,23 @@ const SettingsSchema = CollectionSchema(
       name: r'theme',
       type: IsarType.bool,
     ),
-    r'timeRange': PropertySchema(
+    r'timeEnd': PropertySchema(
       id: 9,
+      name: r'timeEnd',
+      type: IsarType.string,
+    ),
+    r'timeRange': PropertySchema(
+      id: 10,
       name: r'timeRange',
       type: IsarType.long,
     ),
+    r'timeStart': PropertySchema(
+      id: 11,
+      name: r'timeStart',
+      type: IsarType.string,
+    ),
     r'timeformat': PropertySchema(
-      id: 10,
+      id: 12,
       name: r'timeformat',
       type: IsarType.string,
     )
@@ -101,6 +111,18 @@ int _settingsEstimateSize(
     }
   }
   bytesCount += 3 + object.measurements.length * 3;
+  {
+    final value = object.timeEnd;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.timeStart;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.timeformat.length * 3;
   return bytesCount;
 }
@@ -120,8 +142,10 @@ void _settingsSerialize(
   writer.writeBool(offsets[6], object.notifications);
   writer.writeBool(offsets[7], object.onboard);
   writer.writeBool(offsets[8], object.theme);
-  writer.writeLong(offsets[9], object.timeRange);
-  writer.writeString(offsets[10], object.timeformat);
+  writer.writeString(offsets[9], object.timeEnd);
+  writer.writeLong(offsets[10], object.timeRange);
+  writer.writeString(offsets[11], object.timeStart);
+  writer.writeString(offsets[12], object.timeformat);
 }
 
 Settings _settingsDeserialize(
@@ -141,8 +165,10 @@ Settings _settingsDeserialize(
   object.notifications = reader.readBool(offsets[6]);
   object.onboard = reader.readBool(offsets[7]);
   object.theme = reader.readBoolOrNull(offsets[8]);
-  object.timeRange = reader.readLong(offsets[9]);
-  object.timeformat = reader.readString(offsets[10]);
+  object.timeEnd = reader.readStringOrNull(offsets[9]);
+  object.timeRange = reader.readLongOrNull(offsets[10]);
+  object.timeStart = reader.readStringOrNull(offsets[11]);
+  object.timeformat = reader.readString(offsets[12]);
   return object;
 }
 
@@ -172,8 +198,12 @@ P _settingsDeserializeProp<P>(
     case 8:
       return (reader.readBoolOrNull(offset)) as P;
     case 9:
-      return (reader.readLong(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 10:
+      return (reader.readLongOrNull(offset)) as P;
+    case 11:
+      return (reader.readStringOrNull(offset)) as P;
+    case 12:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -807,8 +837,170 @@ extension SettingsQueryFilter
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'timeEnd',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'timeEnd',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timeEnd',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'timeEnd',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'timeEnd',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'timeEnd',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'timeEnd',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'timeEnd',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'timeEnd',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'timeEnd',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timeEnd',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'timeEnd',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'timeRange',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'timeRange',
+      ));
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'timeRange',
@@ -818,7 +1010,7 @@ extension SettingsQueryFilter
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -831,7 +1023,7 @@ extension SettingsQueryFilter
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -844,8 +1036,8 @@ extension SettingsQueryFilter
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -856,6 +1048,153 @@ extension SettingsQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'timeStart',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'timeStart',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timeStart',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'timeStart',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'timeStart',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'timeStart',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'timeStart',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'timeStart',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'timeStart',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'timeStart',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'timeStart',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      timeStartIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'timeStart',
+        value: '',
       ));
     });
   }
@@ -1107,6 +1446,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeEnd() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeEnd', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeEndDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeEnd', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timeRange', Sort.asc);
@@ -1116,6 +1467,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timeRange', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeStart() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeStart', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeStartDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeStart', Sort.desc);
     });
   }
 
@@ -1254,6 +1617,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeEnd() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeEnd', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeEndDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeEnd', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timeRange', Sort.asc);
@@ -1263,6 +1638,18 @@ extension SettingsQuerySortThenBy
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timeRange', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeStart() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeStart', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByTimeStartDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'timeStart', Sort.desc);
     });
   }
 
@@ -1338,9 +1725,23 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeEnd(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'timeEnd', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByTimeRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timeRange');
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeStart(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'timeStart', caseSensitive: caseSensitive);
     });
   }
 
@@ -1414,9 +1815,21 @@ extension SettingsQueryProperty
     });
   }
 
-  QueryBuilder<Settings, int, QQueryOperations> timeRangeProperty() {
+  QueryBuilder<Settings, String?, QQueryOperations> timeEndProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'timeEnd');
+    });
+  }
+
+  QueryBuilder<Settings, int?, QQueryOperations> timeRangeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'timeRange');
+    });
+  }
+
+  QueryBuilder<Settings, String?, QQueryOperations> timeStartProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'timeStart');
     });
   }
 
