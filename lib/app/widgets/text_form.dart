@@ -35,7 +35,6 @@ class MyTextForm extends StatelessWidget {
           prefixIcon: icon,
           suffixIcon: iconButton,
           filled: true,
-          fillColor: context.theme.colorScheme.primaryContainer,
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(15),

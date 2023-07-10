@@ -23,52 +23,50 @@ class ListCardDaily extends StatelessWidget {
     final status = Status();
     final statusImFa = StatusImFa();
 
-    return Container(
-      width: double.infinity,
+    return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: context.theme.colorScheme.primaryContainer,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${statusImFa.getDegree(temperature2MMin.round())} / ${statusImFa.getDegree(temperature2MMax.round())}',
-                  style: context.textTheme.titleLarge?.copyWith(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${statusImFa.getDegree(temperature2MMin.round())} / ${statusImFa.getDegree(temperature2MMax.round())}',
+                    style: context.textTheme.titleLarge?.copyWith(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  DateFormat.MMMMEEEEd(locale?.languageCode).format(timeDaily),
-                  style: context.textTheme.titleMedium?.copyWith(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w400,
+                  const SizedBox(height: 5),
+                  Text(
+                    DateFormat.MMMMEEEEd(locale?.languageCode)
+                        .format(timeDaily),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  status.getText(weathercodeDaily),
-                  style: context.textTheme.titleMedium?.copyWith(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w400,
+                  const SizedBox(height: 5),
+                  Text(
+                    status.getText(weathercodeDaily),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: 5),
-          Image.asset(
-            status.getImageNowDaily(weathercodeDaily, timeDaily),
-            scale: 6.5,
-          ),
-        ],
+            const SizedBox(width: 5),
+            Image.asset(
+              status.getImageNowDaily(weathercodeDaily, timeDaily),
+              scale: 6.5,
+            ),
+          ],
+        ),
       ),
     );
   }

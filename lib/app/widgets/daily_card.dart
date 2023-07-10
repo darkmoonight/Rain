@@ -154,92 +154,90 @@ class _DailyCardState extends State<DailyCard> {
                       timeSunset: widget.sunset[index],
                     ),
                   ),
-                  Container(
+                  Card(
                     margin: const EdgeInsets.only(bottom: 15),
-                    padding: const EdgeInsets.only(top: 20, bottom: 5),
-                    decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(20),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 5),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              DescWeather(
+                                imageName: 'assets/images/cold.png',
+                                value: statusImFa.getDegree(widget
+                                    .apparentTemperatureMin[index]
+                                    .round()),
+                                desc: 'apparentTemperatureMin'.tr,
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/hot.png',
+                                value: statusImFa.getDegree(widget
+                                    .apparentTemperatureMax[index]
+                                    .round()),
+                                desc: 'apparentTemperatureMax'.tr,
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/uv.png',
+                                value: '${widget.uvIndexMax[index].round()}',
+                                desc: 'uvIndex'.tr,
+                                message: message.getUvIndex(
+                                    widget.uvIndexMax[index].round()),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              DescWeather(
+                                imageName: 'assets/images/windsock.png',
+                                value:
+                                    '${widget.winddirection10MDominant[index]}°',
+                                desc: 'direction'.tr,
+                                message: message.getDirection(
+                                    widget.winddirection10MDominant[index]),
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/wind.png',
+                                value: statusImFa.getSpeed(
+                                    widget.windspeed10MMax[index].round()),
+                                desc: 'wind'.tr,
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/windgusts.png',
+                                value: statusImFa.getSpeed(
+                                    widget.windgusts10MMax[index].round()),
+                                desc: 'windgusts'.tr,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              DescWeather(
+                                imageName: 'assets/images/humidity.png',
+                                value:
+                                    '${widget.precipitationProbabilityMax[index]}%',
+                                desc: 'precipitationProbabilit'.tr,
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/water.png',
+                                value: statusImFa
+                                    .getPrecipitation(widget.rainSum[index]),
+                                desc: 'rain'.tr,
+                              ),
+                              DescWeather(
+                                imageName: 'assets/images/rainfall.png',
+                                value: statusImFa.getPrecipitation(
+                                    widget.precipitationSum[index]),
+                                desc: 'precipitation'.tr,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            DescWeather(
-                              imageName: 'assets/images/cold.png',
-                              value: statusImFa.getDegree(
-                                  widget.apparentTemperatureMin[index].round()),
-                              desc: 'apparentTemperatureMin'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/hot.png',
-                              value: statusImFa.getDegree(
-                                  widget.apparentTemperatureMax[index].round()),
-                              desc: 'apparentTemperatureMax'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/uv.png',
-                              value: '${widget.uvIndexMax[index].round()}',
-                              desc: 'uvIndex'.tr,
-                              message: message
-                                  .getUvIndex(widget.uvIndexMax[index].round()),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            DescWeather(
-                              imageName: 'assets/images/windsock.png',
-                              value:
-                                  '${widget.winddirection10MDominant[index]}°',
-                              desc: 'direction'.tr,
-                              message: message.getDirection(
-                                  widget.winddirection10MDominant[index]),
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/wind.png',
-                              value: statusImFa.getSpeed(
-                                  widget.windspeed10MMax[index].round()),
-                              desc: 'wind'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/windgusts.png',
-                              value: statusImFa.getSpeed(
-                                  widget.windgusts10MMax[index].round()),
-                              desc: 'windgusts'.tr,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            DescWeather(
-                              imageName: 'assets/images/humidity.png',
-                              value:
-                                  '${widget.precipitationProbabilityMax[index]}%',
-                              desc: 'precipitationProbabilit'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/water.png',
-                              value: statusImFa
-                                  .getPrecipitation(widget.rainSum[index]),
-                              desc: 'rain'.tr,
-                            ),
-                            DescWeather(
-                              imageName: 'assets/images/rainfall.png',
-                              value: statusImFa.getPrecipitation(
-                                  widget.precipitationSum[index]),
-                              desc: 'precipitation'.tr,
-                            ),
-                          ],
-                        ),
-                      ],
                     ),
                   ),
                 ],

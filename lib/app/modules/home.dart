@@ -201,25 +201,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
           ),
-          child: Container(
-            height: 60,
-            decoration: BoxDecoration(
-              color: context.theme.bottomNavigationBarTheme.backgroundColor,
-            ),
-            child: TabBar(
-              controller: tabController,
-              dividerColor: Colors.transparent,
-              indicator:
-                  const UnderlineTabIndicator(borderSide: BorderSide.none),
-              labelColor: Colors.blueAccent,
-              unselectedLabelColor: Colors.grey,
-              onTap: (int index) => changeTabIndex(index),
-              tabs: const [
-                Tab(icon: Icon(Iconsax.cloud_sunny)),
-                Tab(icon: Icon(Iconsax.global)),
-                Tab(icon: Icon(Iconsax.setting_2)),
-              ],
-            ),
+          child: TabBar(
+            controller: tabController,
+            dividerColor: Colors.transparent,
+            indicator: const UnderlineTabIndicator(borderSide: BorderSide.none),
+            labelColor: Colors.blueAccent,
+            unselectedLabelColor: Colors.grey,
+            onTap: (int index) => changeTabIndex(index),
+            tabs: const [
+              Tab(icon: Icon(Iconsax.cloud_sunny)),
+              Tab(icon: Icon(Iconsax.global)),
+              Tab(icon: Icon(Iconsax.setting_2)),
+            ],
           ),
         ),
         floatingActionButton: tabIndex == 1
@@ -233,7 +226,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     return const CreateWeatherCard();
                   },
                 ),
-                backgroundColor: context.theme.colorScheme.tertiaryContainer,
                 child: const Icon(Iconsax.add),
               )
             : null,

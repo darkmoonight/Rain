@@ -53,68 +53,68 @@ class _WeatherPageState extends State<WeatherPage> {
               ),
               Obx(
                 () => locationController.isLoading.isFalse
-                    ? Container(
-                        height: 135,
+                    ? Card(
                         margin: const EdgeInsets.symmetric(vertical: 15),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primaryContainer,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                        ),
-                        child: ScrollablePositionedList.separated(
-                          key: const PageStorageKey(0),
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          separatorBuilder: (BuildContext context, int index) {
-                            return VerticalDivider(
-                              width: 10,
-                              color: context.theme.unselectedWidgetColor,
-                              indent: 40,
-                              endIndent: 40,
-                            );
-                          },
-                          scrollDirection: Axis.horizontal,
-                          itemScrollController:
-                              locationController.itemScrollController,
-                          itemCount:
-                              locationController.mainWeather.time!.length,
-                          itemBuilder: (ctx, i) => GestureDetector(
-                            onTap: () {
-                              locationController.hourOfDay.value = i;
-                              locationController.dayOfNow.value =
-                                  (i / 24).floor();
-                              setState(() {});
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 5),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: i == locationController.hourOfDay.value
-                                    ? Get.isDarkMode
-                                        ? Colors.indigo
-                                        : Colors.amberAccent
-                                    : Colors.transparent,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20),
+                        child: SizedBox(
+                          height: 135,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 5),
+                            child: ScrollablePositionedList.separated(
+                              key: const PageStorageKey(0),
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return VerticalDivider(
+                                  width: 10,
+                                  color: context.theme.unselectedWidgetColor,
+                                  indent: 40,
+                                  endIndent: 40,
+                                );
+                              },
+                              scrollDirection: Axis.horizontal,
+                              itemScrollController:
+                                  locationController.itemScrollController,
+                              itemCount:
+                                  locationController.mainWeather.time!.length,
+                              itemBuilder: (ctx, i) => GestureDetector(
+                                onTap: () {
+                                  locationController.hourOfDay.value = i;
+                                  locationController.dayOfNow.value =
+                                      (i / 24).floor();
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 5,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        i == locationController.hourOfDay.value
+                                            ? Get.isDarkMode
+                                                ? Colors.indigo
+                                                : Colors.amberAccent
+                                            : Colors.transparent,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: WeatherHourly(
+                                    time:
+                                        locationController.mainWeather.time![i],
+                                    weather: locationController
+                                        .mainWeather.weathercode![i],
+                                    degree: locationController
+                                        .mainWeather.temperature2M![i],
+                                    timeDay: locationController
+                                        .mainWeather.sunrise![(i / 24).floor()],
+                                    timeNight: locationController
+                                        .mainWeather.sunset![(i / 24).floor()],
+                                  ),
                                 ),
-                              ),
-                              child: WeatherHourly(
-                                time: locationController.mainWeather.time![i],
-                                weather: locationController
-                                    .mainWeather.weathercode![i],
-                                degree: locationController
-                                    .mainWeather.temperature2M![i],
-                                timeDay: locationController
-                                    .mainWeather.sunrise![(i / 24).floor()],
-                                timeNight: locationController
-                                    .mainWeather.sunset![(i / 24).floor()],
                               ),
                             ),
                           ),

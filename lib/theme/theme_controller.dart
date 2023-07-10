@@ -15,6 +15,11 @@ class ThemeController extends GetxController {
     isar.writeTxn(() async => isar.settings.put(settings));
   }
 
+  void saveMaterialTheme(bool isMaterial) async {
+    settings.materialColor = isMaterial;
+    isar.writeTxn(() async => isar.settings.put(settings));
+  }
+
   void saveTheme(bool isDarkMode) async {
     settings.theme = isDarkMode;
     isar.writeTxn(() async => isar.settings.put(settings));

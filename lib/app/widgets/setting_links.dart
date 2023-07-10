@@ -35,88 +35,69 @@ class SettingLinks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
+    return Card(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      decoration: BoxDecoration(
-        color: context.theme.colorScheme.primaryContainer,
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
-      ),
-      child: TextButton(
-        onPressed: onPressed,
-        child: Row(
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  const SizedBox(width: 5),
-                  icon,
-                  const SizedBox(width: 15),
-                  Expanded(
-                    child: Text(
-                      text,
-                      style: context.textTheme.titleMedium,
-                      overflow: TextOverflow.visible,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            switcher
-                ? Transform.scale(
-                    scale: 0.8,
-                    child: Switch(
-                      value: value!,
-                      onChanged: onChange,
-                    ),
+      child: ListTile(
+        onTap: onPressed,
+        leading: icon,
+        title: Text(
+          text,
+          style: context.textTheme.titleMedium,
+          overflow: TextOverflow.visible,
+        ),
+        trailing: switcher
+            ? Transform.scale(
+                scale: 0.8,
+                child: Switch(
+                  value: value!,
+                  onChanged: onChange,
+                ),
+              )
+            : dropdown
+                ? DropdownButton<String>(
+                    underline: Container(),
+                    value: dropdownName,
+                    items: dropdownList!
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: dropdownCange,
                   )
-                : dropdown
-                    ? DropdownButton<String>(
-                        underline: Container(),
-                        value: dropdownName,
-                        items: dropdownList!
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: dropdownCange,
-                      )
-                    : info
-                        ? infoSettings
-                            ? Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: Text(
-                                      textInfo!,
-                                      style: context.textTheme.bodyMedium,
-                                      overflow: TextOverflow.visible,
-                                    ),
-                                  ),
-                                  Icon(
-                                    Iconsax.arrow_right_3,
-                                    color: context.theme.iconTheme.color,
-                                    size: 18,
-                                  ),
-                                ],
-                              )
-                            : Padding(
+                : info
+                    ? infoSettings
+                        ? Wrap(
+                            children: [
+                              Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: Text(
                                   textInfo!,
-                                  style: context.textTheme.titleMedium,
+                                  style: context.textTheme.bodyMedium,
                                   overflow: TextOverflow.visible,
                                 ),
-                              )
-                        : Icon(
-                            Iconsax.arrow_right_3,
-                            color: context.theme.iconTheme.color,
-                            size: 18,
-                          ),
-          ],
-        ),
+                              ),
+                              Icon(
+                                Iconsax.arrow_right_3,
+                                color: context.theme.iconTheme.color,
+                                size: 18,
+                              ),
+                            ],
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: Text(
+                              textInfo!,
+                              style: context.textTheme.titleMedium,
+                              overflow: TextOverflow.visible,
+                            ),
+                          )
+                    : Icon(
+                        Iconsax.arrow_right_3,
+                        color: context.theme.iconTheme.color,
+                        size: 18,
+                      ),
       ),
     );
   }

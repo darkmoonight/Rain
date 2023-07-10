@@ -16,12 +16,11 @@ class MyShimmer extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: context.theme.colorScheme.primaryContainer,
       highlightColor: context.theme.unselectedWidgetColor,
-      child: Container(
-        height: hight,
+      child: Card(
         margin: edgeInsetsMargin,
-        decoration: BoxDecoration(
-            color: context.theme.colorScheme.primaryContainer,
-            borderRadius: const BorderRadius.all(Radius.circular(20))),
+        child: SizedBox(
+          height: hight,
+        ),
       ),
     );
   }

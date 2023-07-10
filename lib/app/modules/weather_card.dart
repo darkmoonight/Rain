@@ -93,63 +93,59 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                   timeDay: widget.weatherCard.sunrise![dayNow],
                   timeNight: widget.weatherCard.sunset![dayNow],
                 ),
-                Container(
-                  height: 130,
+                Card(
                   margin: const EdgeInsets.symmetric(vertical: 15),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: context.theme.colorScheme.primaryContainer,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: ScrollablePositionedList.separated(
-                    key: const PageStorageKey(1),
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    separatorBuilder: (BuildContext context, int index) {
-                      return VerticalDivider(
-                        width: 10,
-                        color: context.theme.unselectedWidgetColor,
-                        indent: 40,
-                        endIndent: 40,
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                    itemScrollController: itemScrollController,
-                    itemCount: widget.weatherCard.time!.length,
-                    itemBuilder: (ctx, i) => GestureDetector(
-                      onTap: () {
-                        timeNow = i;
-                        dayNow = (i / 24).floor();
-                        setState(() {});
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: i == timeNow
-                              ? Get.isDarkMode
-                                  ? Colors.indigo
-                                  : Colors.amberAccent
-                              : Colors.transparent,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
+                  child: SizedBox(
+                    height: 130,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 5),
+                      child: ScrollablePositionedList.separated(
+                        key: const PageStorageKey(1),
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return VerticalDivider(
+                            width: 10,
+                            color: context.theme.unselectedWidgetColor,
+                            indent: 40,
+                            endIndent: 40,
+                          );
+                        },
+                        scrollDirection: Axis.horizontal,
+                        itemScrollController: itemScrollController,
+                        itemCount: widget.weatherCard.time!.length,
+                        itemBuilder: (ctx, i) => GestureDetector(
+                          onTap: () {
+                            timeNow = i;
+                            dayNow = (i / 24).floor();
+                            setState(() {});
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              color: i == timeNow
+                                  ? Get.isDarkMode
+                                      ? Colors.indigo
+                                      : Colors.amberAccent
+                                  : Colors.transparent,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            child: WeatherHourly(
+                              time: widget.weatherCard.time![i],
+                              weather: widget.weatherCard.weathercode![i],
+                              degree: widget.weatherCard.temperature2M![i],
+                              timeDay:
+                                  widget.weatherCard.sunrise![(i / 24).floor()],
+                              timeNight:
+                                  widget.weatherCard.sunset![(i / 24).floor()],
+                            ),
                           ),
-                        ),
-                        child: WeatherHourly(
-                          time: widget.weatherCard.time![i],
-                          weather: widget.weatherCard.weathercode![i],
-                          degree: widget.weatherCard.temperature2M![i],
-                          timeDay:
-                              widget.weatherCard.sunrise![(i / 24).floor()],
-                          timeNight:
-                              widget.weatherCard.sunset![(i / 24).floor()],
                         ),
                       ),
                     ),
