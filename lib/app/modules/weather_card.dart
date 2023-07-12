@@ -57,19 +57,16 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
         setState(() {});
       },
       child: Scaffold(
-        backgroundColor: context.theme.colorScheme.surface,
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
-          backgroundColor: context.theme.colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
             onPressed: () => Get.back(),
-            icon: Icon(
+            icon: const Icon(
               Iconsax.arrow_left_1,
               size: 20,
-              color: context.theme.iconTheme.color,
             ),
           ),
           title: Text(
@@ -104,9 +101,8 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                         key: const PageStorageKey(1),
                         physics: const AlwaysScrollableScrollPhysics(),
                         separatorBuilder: (BuildContext context, int index) {
-                          return VerticalDivider(
+                          return const VerticalDivider(
                             width: 10,
-                            color: context.theme.unselectedWidgetColor,
                             indent: 40,
                             endIndent: 40,
                           );

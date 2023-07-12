@@ -78,9 +78,8 @@ class SettingLinks extends StatelessWidget {
                                   overflow: TextOverflow.visible,
                                 ),
                               ),
-                              Icon(
+                              const Icon(
                                 Iconsax.arrow_right_3,
-                                color: context.theme.iconTheme.color,
                                 size: 18,
                               ),
                             ],
@@ -93,9 +92,8 @@ class SettingLinks extends StatelessWidget {
                               overflow: TextOverflow.visible,
                             ),
                           )
-                    : Icon(
+                    : const Icon(
                         Iconsax.arrow_right_3,
-                        color: context.theme.iconTheme.color,
                         size: 18,
                       ),
       ),

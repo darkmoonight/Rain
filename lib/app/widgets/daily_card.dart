@@ -74,10 +74,8 @@ class _DailyCardState extends State<DailyCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: context.theme.colorScheme.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,

@@ -66,9 +66,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                           onPressed: () {
                             Get.back();
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Iconsax.close_square,
-                            color: context.theme.iconTheme.color,
                             size: 20,
                           ),
                         ),
@@ -95,9 +94,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                               Get.back();
                             }
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Iconsax.tick_square,
-                            color: context.theme.iconTheme.color,
                             size: 20,
                           ),
                         ),
@@ -145,7 +143,6 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         return Align(
                           alignment: Alignment.topCenter,
                           child: Material(
-                            color: context.theme.colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(20),
                             elevation: 4.0,
                             child: ListView.builder(

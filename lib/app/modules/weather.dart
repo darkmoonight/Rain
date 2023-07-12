@@ -65,9 +65,8 @@ class _WeatherPageState extends State<WeatherPage> {
                               physics: const AlwaysScrollableScrollPhysics(),
                               separatorBuilder:
                                   (BuildContext context, int index) {
-                                return VerticalDivider(
+                                return const VerticalDivider(
                                   width: 10,
-                                  color: context.theme.unselectedWidgetColor,
                                   indent: 40,
                                   endIndent: 40,
                                 );

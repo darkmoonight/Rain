@@ -16,7 +16,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.colorScheme.surface,
       body: SafeArea(
         child: Column(
           children: [
@@ -62,7 +61,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     transition: Transition.downToUp,
                   );
                 },
-                bgColor: context.theme.colorScheme.primaryContainer,
               ),
             ),
           ],

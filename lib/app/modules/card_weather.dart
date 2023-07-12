@@ -81,8 +81,6 @@ class _CardWeatherState extends State<CardWeather> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              backgroundColor:
-                                  context.theme.colorScheme.primaryContainer,
                               title: Text(
                                 "deletedCardWeather".tr,
                                 style: context.textTheme.titleLarge,

@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     setState(() {
       tabIndex = index;
     });
+    tabController.animateTo(tabIndex);
   }
 
   @override
@@ -65,17 +66,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return DefaultTabController(
       length: pages.length,
       child: Scaffold(
-        backgroundColor: context.theme.colorScheme.surface,
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
-          backgroundColor: context.theme.colorScheme.surface,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
-          leading: Icon(
+          leading: const Icon(
             Iconsax.location,
             size: 18,
-            color: context.theme.iconTheme.color,
           ),
           title: visible
               ? RawAutocomplete<Result>(
@@ -122,7 +120,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     return Align(
                       alignment: Alignment.topLeft,
                       child: Material(
-                        color: context.theme.colorScheme.primaryContainer,
                         borderRadius: BorderRadius.circular(20),
                         elevation: 4.0,
                         child: SizedBox(
@@ -185,7 +182,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               icon: Icon(
                 visible ? Icons.close : Iconsax.search_normal_1,
                 size: 18,
-                color: context.theme.iconTheme.color,
               ),
             ),
           ],
@@ -196,35 +192,34 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             children: pages,
           ),
         ),
-        bottomNavigationBar: Theme(
-          data: context.theme.copyWith(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-          ),
-          child: TabBar(
-            controller: tabController,
-            dividerColor: Colors.transparent,
-            indicator: const UnderlineTabIndicator(borderSide: BorderSide.none),
-            labelColor: Colors.blueAccent,
-            unselectedLabelColor: Colors.grey,
-            onTap: (int index) => changeTabIndex(index),
-            tabs: const [
-              Tab(icon: Icon(Iconsax.cloud_sunny)),
-              Tab(icon: Icon(Iconsax.global)),
-              Tab(icon: Icon(Iconsax.setting_2)),
-            ],
-          ),
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) => changeTabIndex(index),
+          selectedIndex: tabIndex,
+          destinations: <Widget>[
+            NavigationDestination(
+              icon: const Icon(Iconsax.cloud_sunny),
+              selectedIcon: const Icon(Iconsax.cloud_sunny5),
+              label: 'name'.tr,
+            ),
+            NavigationDestination(
+              icon: const Icon(Iconsax.global),
+              selectedIcon: const Icon(Iconsax.global5),
+              label: 'city'.tr,
+            ),
+            NavigationDestination(
+              icon: const Icon(Iconsax.category),
+              selectedIcon: const Icon(Iconsax.category5),
+              label: 'settings'.tr,
+            ),
+          ],
         ),
         floatingActionButton: tabIndex == 1
             ? FloatingActionButton(
                 onPressed: () => showModalBottomSheet(
-                  enableDrag: false,
-                  backgroundColor: Colors.transparent,
                   context: context,
                   isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return const CreateWeatherCard();
-                  },
+                  enableDrag: false,
+                  builder: (BuildContext context) => const CreateWeatherCard(),
                 ),
                 child: const Icon(Iconsax.add),
               )

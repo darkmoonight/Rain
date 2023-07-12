@@ -22,10 +22,8 @@ class _WeatherMoreState extends State<WeatherMore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.theme.colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: context.theme.colorScheme.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -42,7 +40,10 @@ class _WeatherMoreState extends State<WeatherMore> {
         ),
         title: Text(
           'weatherMore'.tr,
-          style: context.textTheme.titleLarge,
+          style: context.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
         ),
       ),
       body: ListView.builder(

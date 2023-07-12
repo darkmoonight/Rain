@@ -50,15 +50,13 @@ class _SettingsPageState extends State<SettingsPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SettingLinks(
-            icon: Icon(
+            icon: const Icon(
               Iconsax.brush_1,
-              color: context.theme.iconTheme.color,
             ),
             text: 'appearance'.tr,
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                backgroundColor: Colors.transparent,
                 builder: (BuildContext context) {
                   return StatefulBuilder(
                     builder: (BuildContext context, setState) {
@@ -75,9 +73,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.moon,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'theme'.tr,
                             switcher: true,
@@ -94,9 +91,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.mobile,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'amoledTheme'.tr,
                             switcher: true,
@@ -108,9 +104,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.colorfilter,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'materialColor'.tr,
                             switcher: true,
@@ -131,15 +126,13 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingLinks(
-            icon: Icon(
+            icon: const Icon(
               Iconsax.code,
-              color: context.theme.iconTheme.color,
             ),
             text: 'functions'.tr,
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                backgroundColor: Colors.transparent,
                 builder: (BuildContext context) {
                   return StatefulBuilder(
                     builder: (BuildContext context, setState) {
@@ -156,9 +149,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.map_1,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'location'.tr,
                             switcher: true,
@@ -172,9 +164,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.notification_1,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'notifications'.tr,
                             switcher: true,
@@ -205,9 +196,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.notification_status,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'timeRange'.tr,
                             dropdown: true,
@@ -234,9 +224,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.timer_start,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'timeStart'.tr,
                             info: true,
@@ -254,9 +243,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.timer_pause,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'timeEnd'.tr,
                             info: true,
@@ -283,15 +271,13 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingLinks(
-            icon: Icon(
+            icon: const Icon(
               Iconsax.d_square,
-              color: context.theme.iconTheme.color,
             ),
             text: 'data'.tr,
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                backgroundColor: Colors.transparent,
                 builder: (BuildContext context) {
                   return StatefulBuilder(
                     builder: (BuildContext context, setState) {
@@ -308,9 +294,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.sun_1,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'degrees'.tr,
                             dropdown: true,
@@ -330,9 +315,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.rulerpen,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'measurements'.tr,
                             dropdown: true,
@@ -349,9 +333,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
-                            icon: Icon(
+                            icon: const Icon(
                               Iconsax.clock,
-                              color: context.theme.iconTheme.color,
                             ),
                             text: 'timeformat'.tr,
                             dropdown: true,
@@ -376,9 +359,8 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingLinks(
-            icon: Icon(
+            icon: const Icon(
               Iconsax.language_square,
-              color: context.theme.iconTheme.color,
             ),
             text: 'language'.tr,
             info: true,
@@ -389,7 +371,6 @@ class _SettingsPageState extends State<SettingsPage> {
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                backgroundColor: Colors.transparent,
                 builder: (BuildContext context) {
                   return StatefulBuilder(
                     builder: (BuildContext context, setState) {
@@ -438,9 +419,8 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingLinks(
-            icon: Icon(
+            icon: const Icon(
               Iconsax.code,
-              color: context.theme.iconTheme.color,
             ),
             text: 'version'.tr,
             info: true,
