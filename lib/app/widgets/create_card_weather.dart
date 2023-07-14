@@ -73,7 +73,9 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         ),
                         Text(
                           'create'.tr,
-                          style: context.textTheme.titleLarge,
+                          style: context.textTheme.titleLarge?.copyWith(
+                            fontSize: 20,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         IconButton(
@@ -115,13 +117,9 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         return TextField(
                           controller: _controller,
                           focusNode: _focusNode,
+                          style: context.textTheme.labelLarge,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(Iconsax.global_search),
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
                             labelText: 'search'.tr,
                           ),
                         );
@@ -156,7 +154,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                                   child: ListTile(
                                     title: Text(
                                       '${option.name}, ${option.admin1}',
-                                      style: context.textTheme.bodyLarge,
+                                      style: context.textTheme.labelLarge,
                                     ),
                                   ),
                                 );

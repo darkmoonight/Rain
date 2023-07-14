@@ -5,23 +5,21 @@ class MyTextButton extends StatelessWidget {
   const MyTextButton({
     super.key,
     required this.buttonName,
-    required this.onTap,
+    required this.onPressed,
   });
   final String buttonName;
-  final Function() onTap;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: SizedBox(
-        height: 50,
-        width: double.infinity,
-        child: TextButton(
-          onPressed: onTap,
-          child: Text(
-            buttonName,
-            style: context.textTheme.titleMedium,
-          ),
+    return SizedBox(
+      height: 50,
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(
+          buttonName,
+          style: context.textTheme.titleMedium,
         ),
       ),
     );

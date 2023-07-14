@@ -53,7 +53,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: MyTextButton(
                 buttonName: 'start'.tr,
-                onTap: () async {
+                onPressed: () async {
                   settings.onboard = true;
                   isar.writeTxn(() async => isar.settings.put(settings));
                   Get.off(

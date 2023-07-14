@@ -40,7 +40,7 @@ class _WeatherMoreState extends State<WeatherMore> {
         ),
         title: Text(
           'weatherMore'.tr,
-          style: context.textTheme.titleLarge?.copyWith(
+          style: context.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),

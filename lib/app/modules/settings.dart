@@ -69,7 +69,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 horizontal: 20, vertical: 15),
                             child: Text(
                               'appearance'.tr,
-                              style: context.textTheme.titleLarge,
+                              style: context.textTheme.titleLarge?.copyWith(
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                           SettingLinks(
@@ -145,7 +147,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 horizontal: 20, vertical: 15),
                             child: Text(
                               'functions'.tr,
-                              style: context.textTheme.titleLarge,
+                              style: context.textTheme.titleLarge?.copyWith(
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                           SettingLinks(
@@ -290,7 +294,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 horizontal: 20, vertical: 15),
                             child: Text(
                               'data'.tr,
-                              style: context.textTheme.titleLarge,
+                              style: context.textTheme.titleLarge?.copyWith(
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                           SettingLinks(
@@ -381,7 +387,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 horizontal: 20, vertical: 15),
                             child: Text(
                               'language'.tr,
-                              style: context.textTheme.titleLarge,
+                              style: context.textTheme.titleLarge?.copyWith(
+                                fontSize: 20,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ),

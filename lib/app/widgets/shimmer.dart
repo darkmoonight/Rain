@@ -14,8 +14,8 @@ class MyShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: context.theme.primaryColor,
-      highlightColor: context.theme.unselectedWidgetColor,
+      baseColor: context.theme.cardColor,
+      highlightColor: context.theme.primaryColor,
       child: Card(
         margin: edgeInsetsMargin,
         child: SizedBox(

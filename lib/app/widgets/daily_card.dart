@@ -93,7 +93,10 @@ class _DailyCardState extends State<DailyCard> {
         title: Text(
           DateFormat.MMMMEEEEd(locale?.languageCode)
               .format(widget.timeDaily[pageIndex]),
-          style: context.textTheme.titleLarge,
+          style: context.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
         ),
       ),
       body: SafeArea(

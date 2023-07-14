@@ -86,9 +86,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     return TextField(
                       controller: _controller,
                       focusNode: _focusNode,
+                      style:
+                          context.textTheme.labelLarge?.copyWith(fontSize: 16),
                       decoration: InputDecoration(
                         hintText: 'search'.tr,
                         border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
                       ),
                     );
                   },
@@ -135,7 +139,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 child: ListTile(
                                   title: Text(
                                     '${option.name}, ${option.admin1}',
-                                    style: context.textTheme.bodyLarge,
+                                    style: context.textTheme.labelLarge,
                                   ),
                                 ),
                               );
