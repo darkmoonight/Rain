@@ -27,15 +27,14 @@ class RainTheme {
         backgroundColor: lightColor,
       ),
       cardTheme: baseLigth.cardTheme.copyWith(
-        elevation: 2,
         color: lightColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
+        shadowColor: Colors.transparent,
       ),
       bottomSheetTheme: baseLigth.bottomSheetTheme.copyWith(
         backgroundColor: lightColor,
-        elevation: 0,
       ),
       colorScheme: baseLigth.colorScheme.copyWith(
         brightness: Brightness.dark,
@@ -88,15 +87,14 @@ class RainTheme {
         backgroundColor: darkColor,
       ),
       cardTheme: baseDark.cardTheme.copyWith(
-        elevation: 2,
         color: darkColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
+        shadowColor: Colors.transparent,
       ),
       bottomSheetTheme: baseDark.bottomSheetTheme.copyWith(
         backgroundColor: darkColor,
-        elevation: 0,
       ),
       colorScheme: baseDark.colorScheme.copyWith(
         brightness: Brightness.dark,
@@ -149,15 +147,14 @@ class RainTheme {
         backgroundColor: oledColor,
       ),
       cardTheme: baseDark.cardTheme.copyWith(
-        elevation: 2,
         color: oledColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
+        shadowColor: Colors.transparent,
       ),
       bottomSheetTheme: baseDark.bottomSheetTheme.copyWith(
         backgroundColor: oledColor,
-        elevation: 0,
       ),
       colorScheme: baseDark.colorScheme.copyWith(
         brightness: Brightness.dark,

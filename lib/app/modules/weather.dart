@@ -93,9 +93,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                   decoration: BoxDecoration(
                                     color:
                                         i == locationController.hourOfDay.value
-                                            ? Get.isDarkMode
-                                                ? Colors.indigo
-                                                : Colors.amberAccent
+                                            ? context.theme.colorScheme
+                                                .primaryContainer
                                             : Colors.transparent,
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(20),

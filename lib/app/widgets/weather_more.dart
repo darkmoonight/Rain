@@ -24,8 +24,6 @@ class _WeatherMoreState extends State<WeatherMore> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
         centerTitle: true,
         leading: IconButton(
           onPressed: () {

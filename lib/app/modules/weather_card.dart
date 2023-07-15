@@ -60,8 +60,6 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
-          surfaceTintColor: Colors.transparent,
-          elevation: 0,
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: const Icon(
@@ -124,9 +122,7 @@ class _WeatherCardPageState extends State<WeatherCardPage> {
                             ),
                             decoration: BoxDecoration(
                               color: i == timeNow
-                                  ? Get.isDarkMode
-                                      ? Colors.indigo
-                                      : Colors.amberAccent
+                                  ? context.theme.colorScheme.primaryContainer
                                   : Colors.transparent,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),

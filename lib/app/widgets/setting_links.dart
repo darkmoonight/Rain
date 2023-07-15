@@ -11,6 +11,7 @@ class SettingLinks extends StatelessWidget {
     this.dropdown = false,
     this.info = false,
     this.infoSettings = false,
+    this.elevation,
     this.dropdownName,
     this.dropdownList,
     this.dropdownCange,
@@ -32,10 +33,12 @@ class SettingLinks extends StatelessWidget {
   final bool? value;
   final Function()? onPressed;
   final Function(bool)? onChange;
+  final double? elevation;
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: elevation ?? 1,
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: ListTile(
         onTap: onPressed,

@@ -69,8 +69,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
-          surfaceTintColor: Colors.transparent,
-          elevation: 0,
           leading: const Icon(
             Iconsax.location,
             size: 18,

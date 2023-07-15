@@ -75,6 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.moon,
                             ),
@@ -93,6 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.mobile,
                             ),
@@ -106,6 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.colorfilter,
                             ),
@@ -153,6 +156,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.map_1,
                             ),
@@ -168,6 +172,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.notification_1,
                             ),
@@ -200,6 +205,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.notification_status,
                             ),
@@ -228,6 +234,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.timer_start,
                             ),
@@ -247,6 +254,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.timer_pause,
                             ),
@@ -300,6 +308,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.sun_1,
                             ),
@@ -321,6 +330,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.rulerpen,
                             ),
@@ -339,6 +349,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             },
                           ),
                           SettingLinks(
+                            elevation: 4,
                             icon: const Icon(
                               Iconsax.clock,
                             ),
@@ -399,6 +410,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             itemCount: appLanguages.length,
                             itemBuilder: (context, index) {
                               return Card(
+                                elevation: 4,
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 5),
                                 child: TextButton(

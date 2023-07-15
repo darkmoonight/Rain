@@ -76,8 +76,6 @@ class _DailyCardState extends State<DailyCard> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
