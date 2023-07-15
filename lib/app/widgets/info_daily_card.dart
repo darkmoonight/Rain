@@ -5,12 +5,12 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/message.dart';
-import 'package:rain/app/widgets/status.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/status_weather.dart';
+import 'package:rain/app/widgets/status_data.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
 
-class DailyCard extends StatefulWidget {
-  const DailyCard({
+class InfoDailyCard extends StatefulWidget {
+  const InfoDailyCard({
     super.key,
     required this.timeDaily,
     required this.weathercodeDaily,
@@ -47,13 +47,13 @@ class DailyCard extends StatefulWidget {
   final int index;
 
   @override
-  State<DailyCard> createState() => _DailyCardState();
+  State<InfoDailyCard> createState() => _InfoDailyCardState();
 }
 
-class _DailyCardState extends State<DailyCard> {
+class _InfoDailyCardState extends State<InfoDailyCard> {
   final locale = Get.locale;
-  final status = Status();
-  final statusImFa = StatusImFa();
+  final statusWeather = StatusWeather();
+  final statusData = StatusData();
   final message = Message();
   late PageController pageController;
   int pageIndex = 0;
@@ -116,7 +116,7 @@ class _DailyCardState extends State<DailyCard> {
                     children: [
                       const SizedBox(height: 15),
                       Image(
-                        image: AssetImage(status.getImageNowDaily(
+                        image: AssetImage(statusWeather.getImageNowDaily(
                             widget.weathercodeDaily[index],
                             widget.timeDaily[index])),
                         fit: BoxFit.fill,
@@ -124,15 +124,16 @@ class _DailyCardState extends State<DailyCard> {
                       ),
                       const SizedBox(height: 10),
                       GlowText(
-                        '${statusImFa.getDegree(widget.temperature2MMin[index].round())} / ${statusImFa.getDegree(widget.temperature2MMax[index].round())}',
+                        '${statusData.getDegree(widget.temperature2MMin[index].round())} / ${statusData.getDegree(widget.temperature2MMax[index].round())}',
                         style: context.textTheme.titleLarge?.copyWith(
-                          fontSize: 30,
+                          fontSize: 35,
                           fontWeight: FontWeight.w800,
                         ),
+                        blurRadius: 4,
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        status.getText(widget.weathercodeDaily[index]),
+                        statusWeather.getText(widget.weathercodeDaily[index]),
                         style: context.textTheme.titleLarge,
                       ),
                       const SizedBox(height: 5),
@@ -164,14 +165,14 @@ class _DailyCardState extends State<DailyCard> {
                             children: [
                               DescWeather(
                                 imageName: 'assets/images/cold.png',
-                                value: statusImFa.getDegree(widget
+                                value: statusData.getDegree(widget
                                     .apparentTemperatureMin[index]
                                     .round()),
                                 desc: 'apparentTemperatureMin'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/hot.png',
-                                value: statusImFa.getDegree(widget
+                                value: statusData.getDegree(widget
                                     .apparentTemperatureMax[index]
                                     .round()),
                                 desc: 'apparentTemperatureMax'.tr,
@@ -199,13 +200,13 @@ class _DailyCardState extends State<DailyCard> {
                               ),
                               DescWeather(
                                 imageName: 'assets/images/wind.png',
-                                value: statusImFa.getSpeed(
+                                value: statusData.getSpeed(
                                     widget.windspeed10MMax[index].round()),
                                 desc: 'wind'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/windgusts.png',
-                                value: statusImFa.getSpeed(
+                                value: statusData.getSpeed(
                                     widget.windgusts10MMax[index].round()),
                                 desc: 'windgusts'.tr,
                               ),
@@ -223,13 +224,13 @@ class _DailyCardState extends State<DailyCard> {
                               ),
                               DescWeather(
                                 imageName: 'assets/images/water.png',
-                                value: statusImFa
+                                value: statusData
                                     .getPrecipitation(widget.rainSum[index]),
                                 desc: 'rain'.tr,
                               ),
                               DescWeather(
                                 imageName: 'assets/images/rainfall.png',
-                                value: statusImFa.getPrecipitation(
+                                value: statusData.getPrecipitation(
                                     widget.precipitationSum[index]),
                                 desc: 'precipitation'.tr,
                               ),

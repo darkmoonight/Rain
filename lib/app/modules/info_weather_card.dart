@@ -11,18 +11,18 @@ import 'package:rain/app/widgets/weather_now.dart';
 import 'package:rain/app/widgets/weather_hourly.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class WeatherCardPage extends StatefulWidget {
-  const WeatherCardPage({
+class InfoWeatherCard extends StatefulWidget {
+  const InfoWeatherCard({
     super.key,
     required this.weatherCard,
   });
   final WeatherCard weatherCard;
 
   @override
-  State<WeatherCardPage> createState() => _WeatherCardPageState();
+  State<InfoWeatherCard> createState() => _InfoWeatherCardState();
 }
 
-class _WeatherCardPageState extends State<WeatherCardPage> {
+class _InfoWeatherCardState extends State<InfoWeatherCard> {
   int timeNow = 0;
   int dayNow = 0;
   final locationController = Get.put(LocationController());

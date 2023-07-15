@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/widgets/daily_card.dart';
+import 'package:rain/app/widgets/info_daily_card.dart';
 import 'package:rain/app/widgets/list_daily_card.dart';
 
 class WeatherMore extends StatefulWidget {
@@ -49,7 +49,7 @@ class _WeatherMoreState extends State<WeatherMore> {
             widget.weatherCard?.timeDaily!.length,
         itemBuilder: (context, index) => GestureDetector(
           onTap: () => Get.to(
-            () => DailyCard(
+            () => InfoDailyCard(
               timeDaily: widget.mainWeatherCache?.timeDaily ??
                   widget.weatherCard!.timeDaily!,
               weathercodeDaily: widget.mainWeatherCache?.weathercodeDaily ??
@@ -88,7 +88,7 @@ class _WeatherMoreState extends State<WeatherMore> {
             ),
             transition: Transition.downToUp,
           ),
-          child: ListCardDaily(
+          child: ListDailyCard(
             timeDaily: widget.mainWeatherCache?.timeDaily![index] ??
                 widget.weatherCard!.timeDaily![index],
             weathercodeDaily:

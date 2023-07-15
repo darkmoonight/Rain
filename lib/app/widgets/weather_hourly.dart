@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:rain/app/widgets/status.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/status_weather.dart';
+import 'package:rain/app/widgets/status_data.dart';
 
 class WeatherHourly extends StatefulWidget {
   const WeatherHourly({
@@ -24,8 +24,8 @@ class WeatherHourly extends StatefulWidget {
 }
 
 class _WeatherHourlyState extends State<WeatherHourly> {
-  final status = Status();
-  final statusImFa = StatusImFa();
+  final statusWeather = StatusWeather();
+  final statusData = StatusData();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _WeatherHourlyState extends State<WeatherHourly> {
         Column(
           children: [
             Text(
-              statusImFa.getTimeFormat(widget.time),
+              statusData.getTimeFormat(widget.time),
               style: context.textTheme.labelLarge,
             ),
             Text(
@@ -49,12 +49,12 @@ class _WeatherHourlyState extends State<WeatherHourly> {
           ],
         ),
         Image.asset(
-          status.getImageToday(
+          statusWeather.getImageToday(
               widget.weather, widget.time, widget.timeDay, widget.timeNight),
           scale: 3,
         ),
         Text(
-          statusImFa.getDegree(widget.degree.round()),
+          statusData.getDegree(widget.degree.round()),
           style: context.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),

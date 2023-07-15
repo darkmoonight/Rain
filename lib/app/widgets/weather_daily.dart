@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/widgets/daily_card.dart';
-import 'package:rain/app/widgets/status.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/info_daily_card.dart';
+import 'package:rain/app/widgets/status_weather.dart';
+import 'package:rain/app/widgets/status_data.dart';
 
 class WeatherDaily extends StatefulWidget {
   const WeatherDaily({
@@ -23,8 +23,8 @@ class WeatherDaily extends StatefulWidget {
 
 class _WeatherDailyState extends State<WeatherDaily> {
   final locale = Get.locale;
-  final status = Status();
-  final statusImFa = StatusImFa();
+  final statusWeather = StatusWeather();
+  final statusData = StatusData();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                   itemBuilder: (ctx, index) {
                     return InkWell(
                       onTap: () => Get.to(
-                          () => DailyCard(
+                          () => InfoDailyCard(
                                 timeDaily: widget.mainWeatherCache?.timeDaily ??
                                     widget.weatherCard!.timeDaily!,
                                 weathercodeDaily:
@@ -111,7 +111,8 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(
-                                    status.getImage7Day(widget.mainWeatherCache
+                                    statusWeather.getImage7Day(widget
+                                            .mainWeatherCache
                                             ?.weathercodeDaily?[index] ??
                                         widget.weatherCard!
                                             .weathercodeDaily![index]),
@@ -120,7 +121,8 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                   const SizedBox(width: 5),
                                   Expanded(
                                     child: Text(
-                                      status.getText(widget.mainWeatherCache
+                                      statusWeather.getText(widget
+                                              .mainWeatherCache
                                               ?.weathercodeDaily?[index] ??
                                           widget.weatherCard!
                                               .weathercodeDaily![index]),
@@ -136,7 +138,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    statusImFa.getDegree(widget.mainWeatherCache
+                                    statusData.getDegree(widget.mainWeatherCache
                                             ?.temperature2MMin?[index]
                                             .round() ??
                                         widget.weatherCard!
@@ -152,7 +154,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                     ),
                                   ),
                                   Text(
-                                    statusImFa.getDegree(widget.mainWeatherCache
+                                    statusData.getDegree(widget.mainWeatherCache
                                             ?.temperature2MMax?[index]
                                             .round() ??
                                         widget.weatherCard!

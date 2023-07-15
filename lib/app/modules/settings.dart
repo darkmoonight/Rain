@@ -6,7 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/widgets/setting_links.dart';
+import 'package:rain/app/widgets/setting_card.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -49,7 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SettingLinks(
+          SettingCard(
             icon: const Icon(
               Iconsax.brush_1,
             ),
@@ -60,69 +60,72 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return StatefulBuilder(
                     builder: (BuildContext context, setState) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 15),
-                            child: Text(
-                              'appearance'.tr,
-                              style: context.textTheme.titleLarge?.copyWith(
-                                fontSize: 20,
+                      return SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Text(
+                                'appearance'.tr,
+                                style: context.textTheme.titleLarge?.copyWith(
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.moon,
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.moon,
+                              ),
+                              text: 'theme'.tr,
+                              switcher: true,
+                              value: Get.isDarkMode,
+                              onChange: (_) {
+                                if (Get.isDarkMode) {
+                                  themeController
+                                      .changeThemeMode(ThemeMode.light);
+                                  themeController.saveTheme(false);
+                                } else {
+                                  themeController
+                                      .changeThemeMode(ThemeMode.dark);
+                                  themeController.saveTheme(true);
+                                }
+                              },
                             ),
-                            text: 'theme'.tr,
-                            switcher: true,
-                            value: Get.isDarkMode,
-                            onChange: (_) {
-                              if (Get.isDarkMode) {
-                                themeController
-                                    .changeThemeMode(ThemeMode.light);
-                                themeController.saveTheme(false);
-                              } else {
-                                themeController.changeThemeMode(ThemeMode.dark);
-                                themeController.saveTheme(true);
-                              }
-                            },
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.mobile,
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.mobile,
+                              ),
+                              text: 'amoledTheme'.tr,
+                              switcher: true,
+                              value: settings.amoledTheme,
+                              onChange: (value) {
+                                themeController.saveOledTheme(value);
+                                MyApp.updateAppState(context,
+                                    newAmoledTheme: value);
+                              },
                             ),
-                            text: 'amoledTheme'.tr,
-                            switcher: true,
-                            value: settings.amoledTheme,
-                            onChange: (value) {
-                              themeController.saveOledTheme(value);
-                              MyApp.updateAppState(context,
-                                  newAmoledTheme: value);
-                            },
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.colorfilter,
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.colorfilter,
+                              ),
+                              text: 'materialColor'.tr,
+                              switcher: true,
+                              value: settings.materialColor,
+                              onChange: (value) {
+                                themeController.saveMaterialTheme(value);
+                                MyApp.updateAppState(context,
+                                    newMaterialColor: value);
+                              },
                             ),
-                            text: 'materialColor'.tr,
-                            switcher: true,
-                            value: settings.materialColor,
-                            onChange: (value) {
-                              themeController.saveMaterialTheme(value);
-                              MyApp.updateAppState(context,
-                                  newMaterialColor: value);
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                        ],
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       );
                     },
                   );
@@ -130,7 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
               );
             },
           ),
-          SettingLinks(
+          SettingCard(
             icon: const Icon(
               Iconsax.code,
             ),
@@ -141,140 +144,144 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return StatefulBuilder(
                     builder: (BuildContext context, setState) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 15),
-                            child: Text(
-                              'functions'.tr,
-                              style: context.textTheme.titleLarge?.copyWith(
-                                fontSize: 20,
+                      return SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Text(
+                                'functions'.tr,
+                                style: context.textTheme.titleLarge?.copyWith(
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.map_1,
-                            ),
-                            text: 'location'.tr,
-                            switcher: true,
-                            value: settings.location,
-                            onChange: (value) {
-                              isar.writeTxn(() async {
-                                settings.location = value;
-                                isar.settings.put(settings);
-                              });
-                              setState(() {});
-                            },
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.notification_1,
-                            ),
-                            text: 'notifications'.tr,
-                            switcher: true,
-                            value: settings.notifications,
-                            onChange: (value) async {
-                              final result = Platform.isIOS
-                                  ? await flutterLocalNotificationsPlugin
-                                      .resolvePlatformSpecificImplementation<
-                                          IOSFlutterLocalNotificationsPlugin>()
-                                      ?.requestPermissions()
-                                  : await flutterLocalNotificationsPlugin
-                                      .resolvePlatformSpecificImplementation<
-                                          AndroidFlutterLocalNotificationsPlugin>()
-                                      ?.requestPermission();
-                              if (result != null) {
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.map_1,
+                              ),
+                              text: 'location'.tr,
+                              switcher: true,
+                              value: settings.location,
+                              onChange: (value) {
                                 isar.writeTxn(() async {
-                                  settings.notifications = value;
+                                  settings.location = value;
                                   isar.settings.put(settings);
                                 });
-                                if (value) {
+                                setState(() {});
+                              },
+                            ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.notification_1,
+                              ),
+                              text: 'notifications'.tr,
+                              switcher: true,
+                              value: settings.notifications,
+                              onChange: (value) async {
+                                final result = Platform.isIOS
+                                    ? await flutterLocalNotificationsPlugin
+                                        .resolvePlatformSpecificImplementation<
+                                            IOSFlutterLocalNotificationsPlugin>()
+                                        ?.requestPermissions()
+                                    : await flutterLocalNotificationsPlugin
+                                        .resolvePlatformSpecificImplementation<
+                                            AndroidFlutterLocalNotificationsPlugin>()
+                                        ?.requestPermission();
+                                if (result != null) {
+                                  isar.writeTxn(() async {
+                                    settings.notifications = value;
+                                    isar.settings.put(settings);
+                                  });
+                                  if (value) {
+                                    locationController.notlification(
+                                        locationController.mainWeather);
+                                  } else {
+                                    flutterLocalNotificationsPlugin.cancelAll();
+                                  }
+                                  setState(() {});
+                                }
+                              },
+                            ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.notification_status,
+                              ),
+                              text: 'timeRange'.tr,
+                              dropdown: true,
+                              dropdownName: '$timeRange',
+                              dropdownList: const <String>[
+                                '1',
+                                '2',
+                                '3',
+                                '4',
+                                '5',
+                              ],
+                              dropdownCange: (String? newValue) {
+                                isar.writeTxn(() async {
+                                  settings.timeRange = int.parse(newValue!);
+                                  isar.settings.put(settings);
+                                });
+                                MyApp.updateAppState(context,
+                                    newTimeRange: int.parse(newValue!));
+                                if (settings.notifications) {
+                                  flutterLocalNotificationsPlugin.cancelAll();
                                   locationController.notlification(
                                       locationController.mainWeather);
-                                } else {
-                                  flutterLocalNotificationsPlugin.cancelAll();
                                 }
-                                setState(() {});
-                              }
-                            },
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.notification_status,
+                              },
                             ),
-                            text: 'timeRange'.tr,
-                            dropdown: true,
-                            dropdownName: '$timeRange',
-                            dropdownList: const <String>[
-                              '1',
-                              '2',
-                              '3',
-                              '4',
-                              '5',
-                            ],
-                            dropdownCange: (String? newValue) {
-                              isar.writeTxn(() async {
-                                settings.timeRange = int.parse(newValue!);
-                                isar.settings.put(settings);
-                              });
-                              MyApp.updateAppState(context,
-                                  newTimeRange: int.parse(newValue!));
-                              if (settings.notifications) {
-                                flutterLocalNotificationsPlugin.cancelAll();
-                                locationController.notlification(
-                                    locationController.mainWeather);
-                              }
-                            },
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.timer_start,
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.timer_start,
+                              ),
+                              text: 'timeStart'.tr,
+                              info: true,
+                              infoSettings: true,
+                              textInfo: TimeOfDay.now().format(context),
+                              onPressed: () async {
+                                final TimeOfDay? timeStart =
+                                    await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                );
+                                isar.writeTxn(() async {
+                                  settings.timeStart =
+                                      timeStart?.format(context);
+                                  isar.settings.put(settings);
+                                });
+                              },
                             ),
-                            text: 'timeStart'.tr,
-                            info: true,
-                            infoSettings: true,
-                            textInfo: TimeOfDay.now().format(context),
-                            onPressed: () async {
-                              final TimeOfDay? timeStart = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.now(),
-                              );
-                              isar.writeTxn(() async {
-                                settings.timeStart = timeStart?.format(context);
-                                isar.settings.put(settings);
-                              });
-                            },
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.timer_pause,
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.timer_pause,
+                              ),
+                              text: 'timeEnd'.tr,
+                              info: true,
+                              infoSettings: true,
+                              textInfo: TimeOfDay.now().format(context),
+                              onPressed: () async {
+                                final TimeOfDay? timeEnd = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                );
+                                isar.writeTxn(() async {
+                                  settings.timeEnd = timeEnd?.format(context);
+                                  isar.settings.put(settings);
+                                });
+                              },
                             ),
-                            text: 'timeEnd'.tr,
-                            info: true,
-                            infoSettings: true,
-                            textInfo: TimeOfDay.now().format(context),
-                            onPressed: () async {
-                              final TimeOfDay? timeEnd = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.now(),
-                              );
-                              isar.writeTxn(() async {
-                                settings.timeEnd = timeEnd?.format(context);
-                                isar.settings.put(settings);
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                        ],
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       );
                     },
                   );
@@ -282,7 +289,7 @@ class _SettingsPageState extends State<SettingsPage> {
               );
             },
           ),
-          SettingLinks(
+          SettingCard(
             icon: const Icon(
               Iconsax.d_square,
             ),
@@ -293,81 +300,87 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return StatefulBuilder(
                     builder: (BuildContext context, setState) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 15),
-                            child: Text(
-                              'data'.tr,
-                              style: context.textTheme.titleLarge?.copyWith(
-                                fontSize: 20,
+                      return SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Text(
+                                'data'.tr,
+                                style: context.textTheme.titleLarge?.copyWith(
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.sun_1,
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.sun_1,
+                              ),
+                              text: 'degrees'.tr,
+                              dropdown: true,
+                              dropdownName: settings.degrees.tr,
+                              dropdownList: <String>[
+                                'celsius'.tr,
+                                'fahrenheit'.tr
+                              ],
+                              dropdownCange: (String? newValue) {
+                                isar.writeTxn(() async {
+                                  settings.degrees = newValue == 'celsius'.tr
+                                      ? 'celsius'
+                                      : 'fahrenheit';
+                                  isar.settings.put(settings);
+                                });
+                                setState(() {});
+                              },
                             ),
-                            text: 'degrees'.tr,
-                            dropdown: true,
-                            dropdownName: settings.degrees.tr,
-                            dropdownList: <String>[
-                              'celsius'.tr,
-                              'fahrenheit'.tr
-                            ],
-                            dropdownCange: (String? newValue) {
-                              isar.writeTxn(() async {
-                                settings.degrees = newValue == 'celsius'.tr
-                                    ? 'celsius'
-                                    : 'fahrenheit';
-                                isar.settings.put(settings);
-                              });
-                              setState(() {});
-                            },
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.rulerpen,
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.rulerpen,
+                              ),
+                              text: 'measurements'.tr,
+                              dropdown: true,
+                              dropdownName: settings.measurements.tr,
+                              dropdownList: <String>[
+                                'metric'.tr,
+                                'imperial'.tr
+                              ],
+                              dropdownCange: (String? newValue) {
+                                isar.writeTxn(() async {
+                                  settings.measurements =
+                                      newValue == 'metric'.tr
+                                          ? 'metric'
+                                          : 'imperial';
+                                  isar.settings.put(settings);
+                                });
+                                setState(() {});
+                              },
                             ),
-                            text: 'measurements'.tr,
-                            dropdown: true,
-                            dropdownName: settings.measurements.tr,
-                            dropdownList: <String>['metric'.tr, 'imperial'.tr],
-                            dropdownCange: (String? newValue) {
-                              isar.writeTxn(() async {
-                                settings.measurements = newValue == 'metric'.tr
-                                    ? 'metric'
-                                    : 'imperial';
-                                isar.settings.put(settings);
-                              });
-                              setState(() {});
-                            },
-                          ),
-                          SettingLinks(
-                            elevation: 4,
-                            icon: const Icon(
-                              Iconsax.clock,
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.clock,
+                              ),
+                              text: 'timeformat'.tr,
+                              dropdown: true,
+                              dropdownName: settings.timeformat.tr,
+                              dropdownList: <String>['12'.tr, '24'.tr],
+                              dropdownCange: (String? newValue) {
+                                isar.writeTxn(() async {
+                                  settings.timeformat =
+                                      newValue == '12'.tr ? '12' : '24';
+                                  isar.settings.put(settings);
+                                });
+                                setState(() {});
+                              },
                             ),
-                            text: 'timeformat'.tr,
-                            dropdown: true,
-                            dropdownName: settings.timeformat.tr,
-                            dropdownList: <String>['12'.tr, '24'.tr],
-                            dropdownCange: (String? newValue) {
-                              isar.writeTxn(() async {
-                                settings.timeformat =
-                                    newValue == '12'.tr ? '12' : '24';
-                                isar.settings.put(settings);
-                              });
-                              setState(() {});
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                        ],
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       );
                     },
                   );
@@ -375,7 +388,7 @@ class _SettingsPageState extends State<SettingsPage> {
               );
             },
           ),
-          SettingLinks(
+          SettingCard(
             icon: const Icon(
               Iconsax.language_square,
             ),
@@ -438,7 +451,7 @@ class _SettingsPageState extends State<SettingsPage> {
               );
             },
           ),
-          SettingLinks(
+          SettingCard(
             icon: const Icon(
               Iconsax.code,
             ),
@@ -446,7 +459,7 @@ class _SettingsPageState extends State<SettingsPage> {
             info: true,
             textInfo: '$appVersion',
           ),
-          SettingLinks(
+          SettingCard(
             icon: Image.asset(
               'assets/images/github.png',
               scale: 20,

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class Status {
+class StatusWeather {
   String getImageNow(
       int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);

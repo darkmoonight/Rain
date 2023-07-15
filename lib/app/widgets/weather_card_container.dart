@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rain/app/controller/controller.dart';
-import 'package:rain/app/widgets/status.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/status_weather.dart';
+import 'package:rain/app/widgets/status_data.dart';
 import 'package:timezone/standalone.dart' as tz;
 
-class CardDescWeather extends StatefulWidget {
-  const CardDescWeather({
+class WeatherCardContainer extends StatefulWidget {
+  const WeatherCardContainer({
     super.key,
     required this.time,
     required this.weather,
@@ -29,12 +29,12 @@ class CardDescWeather extends StatefulWidget {
   final String timezone;
 
   @override
-  State<CardDescWeather> createState() => _CardDescWeatherState();
+  State<WeatherCardContainer> createState() => _WeatherCardContainerState();
 }
 
-class _CardDescWeatherState extends State<CardDescWeather> {
-  final status = Status();
-  final statusImFa = StatusImFa();
+class _WeatherCardContainerState extends State<WeatherCardContainer> {
+  final statusWeather = StatusWeather();
+  final statusData = StatusData();
   final locationController = Get.put(LocationController());
 
   @override
@@ -53,7 +53,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        statusImFa.getDegree(widget.degree[locationController
+                        statusData.getDegree(widget.degree[locationController
                                 .getTime(widget.time, widget.timezone)]
                             .round()
                             .toInt()),
@@ -64,7 +64,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                       ),
                       const SizedBox(width: 7),
                       Text(
-                        status.getText(widget.weather[locationController
+                        statusWeather.getText(widget.weather[locationController
                             .getTime(widget.time, widget.timezone)]),
                         style: context.textTheme.titleMedium?.copyWith(
                           color: Colors.grey,
@@ -92,7 +92,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
                     stream: Stream.periodic(const Duration(seconds: 1)),
                     builder: (context, snapshot) {
                       return Text(
-                        '${'time'.tr}: ${statusImFa.getTimeFormatTz(tz.TZDateTime.now(tz.getLocation(widget.timezone)))}',
+                        '${'time'.tr}: ${statusData.getTimeFormatTz(tz.TZDateTime.now(tz.getLocation(widget.timezone)))}',
                         style: context.textTheme.titleMedium?.copyWith(
                           color: Colors.grey,
                           fontWeight: FontWeight.w400,
@@ -105,7 +105,7 @@ class _CardDescWeatherState extends State<CardDescWeather> {
             ),
             const SizedBox(width: 5),
             Image.asset(
-              status.getImageNow(
+              statusWeather.getImageNow(
                   widget.weather[
                       locationController.getTime(widget.time, widget.timezone)],
                   widget.time[

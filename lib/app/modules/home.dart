@@ -4,7 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
-import 'package:rain/app/modules/card_weather.dart';
+import 'package:rain/app/modules/list_weather_card.dart';
 import 'package:rain/app/modules/settings.dart';
 import 'package:rain/app/modules/weather.dart';
 import 'package:rain/app/widgets/create_card_weather.dart';
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   final pages = [
     const WeatherPage(),
-    const CardWeather(),
+    const ListWeatherCard(),
     const SettingsPage(),
   ];
 
@@ -204,8 +204,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               label: 'name'.tr,
             ),
             NavigationDestination(
-              icon: const Icon(Iconsax.global),
-              selectedIcon: const Icon(Iconsax.global5),
+              icon: const Icon(Iconsax.map_1),
+              selectedIcon: const Icon(Iconsax.map5),
               label: 'city'.tr,
             ),
             NavigationDestination(

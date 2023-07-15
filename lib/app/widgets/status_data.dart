@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:rain/main.dart';
 import 'package:timezone/timezone.dart';
 
-class StatusImFa {
+class StatusData {
   String getDegree(int degree) {
     switch (settings.degrees) {
       case 'celsius':

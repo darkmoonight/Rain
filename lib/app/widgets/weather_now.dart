@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:rain/app/widgets/status.dart';
+import 'package:rain/app/widgets/status_weather.dart';
 
 class WeatherNow extends StatefulWidget {
   const WeatherNow({
@@ -25,7 +25,7 @@ class WeatherNow extends StatefulWidget {
 
 class _WeatherNowState extends State<WeatherNow> {
   final locale = Get.locale;
-  final status = Status();
+  final statusWeather = StatusWeather();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _WeatherNowState extends State<WeatherNow> {
       children: [
         const SizedBox(height: 15),
         Image(
-          image: AssetImage(status.getImageNow(
+          image: AssetImage(statusWeather.getImageNow(
               widget.weather, widget.time, widget.timeDay, widget.timeNight)),
           fit: BoxFit.fill,
           height: 200,
@@ -47,7 +47,7 @@ class _WeatherNowState extends State<WeatherNow> {
           ),
         ),
         Text(
-          status.getText(widget.weather),
+          statusWeather.getText(widget.weather),
           style: context.textTheme.titleLarge,
         ),
         const SizedBox(height: 5),

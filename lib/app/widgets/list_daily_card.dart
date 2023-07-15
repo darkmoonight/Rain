@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:rain/app/widgets/status.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/status_weather.dart';
+import 'package:rain/app/widgets/status_data.dart';
 
-class ListCardDaily extends StatelessWidget {
-  const ListCardDaily({
+class ListDailyCard extends StatelessWidget {
+  const ListDailyCard({
     super.key,
     required this.timeDaily,
     required this.weathercodeDaily,
@@ -20,8 +20,8 @@ class ListCardDaily extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = Get.locale;
-    final status = Status();
-    final statusImFa = StatusImFa();
+    final statusWeather = StatusWeather();
+    final statusData = StatusData();
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -34,7 +34,7 @@ class ListCardDaily extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${statusImFa.getDegree(temperature2MMin.round())} / ${statusImFa.getDegree(temperature2MMax.round())}',
+                    '${statusData.getDegree(temperature2MMin.round())} / ${statusData.getDegree(temperature2MMax.round())}',
                     style: context.textTheme.titleLarge?.copyWith(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
@@ -51,7 +51,7 @@ class ListCardDaily extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    status.getText(weathercodeDaily),
+                    statusWeather.getText(weathercodeDaily),
                     style: context.textTheme.titleMedium?.copyWith(
                       color: Colors.grey,
                       fontWeight: FontWeight.w400,
@@ -62,7 +62,7 @@ class ListCardDaily extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             Image.asset(
-              status.getImageNowDaily(weathercodeDaily, timeDaily),
+              statusWeather.getImageNowDaily(weathercodeDaily, timeDaily),
               scale: 6.5,
             ),
           ],

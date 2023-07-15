@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/message.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/status_data.dart';
 
 class DescContainer extends StatelessWidget {
   const DescContainer({
@@ -35,7 +35,7 @@ class DescContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusImFa = StatusImFa();
+    final statusData = StatusData();
     final message = Message();
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
@@ -58,7 +58,7 @@ class DescContainer extends StatelessWidget {
                 ),
                 DescWeather(
                   imageName: 'assets/images/fog.png',
-                  value: statusImFa.getVisibility(visibility),
+                  value: statusData.getVisibility(visibility),
                   desc: 'visibility'.tr,
                 ),
               ],
@@ -75,12 +75,12 @@ class DescContainer extends StatelessWidget {
                 ),
                 DescWeather(
                   imageName: 'assets/images/wind.png',
-                  value: statusImFa.getSpeed(wind.round()),
+                  value: statusData.getSpeed(wind.round()),
                   desc: 'wind'.tr,
                 ),
                 DescWeather(
                   imageName: 'assets/images/windgusts.png',
-                  value: statusImFa.getSpeed(windgusts.round()),
+                  value: statusData.getSpeed(windgusts.round()),
                   desc: 'windgusts'.tr,
                 ),
               ],
@@ -91,17 +91,17 @@ class DescContainer extends StatelessWidget {
               children: [
                 DescWeather(
                   imageName: 'assets/images/evaporation.png',
-                  value: statusImFa.getPrecipitation(evaporation.abs()),
+                  value: statusData.getPrecipitation(evaporation.abs()),
                   desc: 'evaporation'.tr,
                 ),
                 DescWeather(
                   imageName: 'assets/images/rainfall.png',
-                  value: statusImFa.getPrecipitation(precipitation),
+                  value: statusData.getPrecipitation(precipitation),
                   desc: 'precipitation'.tr,
                 ),
                 DescWeather(
                   imageName: 'assets/images/water.png',
-                  value: statusImFa.getPrecipitation(rain),
+                  value: statusData.getPrecipitation(rain),
                   desc: 'rain'.tr,
                 ),
               ],

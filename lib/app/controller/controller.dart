@@ -8,8 +8,8 @@ import 'package:isar/isar.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/services/notification.dart';
-import 'package:rain/app/widgets/status.dart';
-import 'package:rain/app/widgets/status_im_fa.dart';
+import 'package:rain/app/widgets/status_weather.dart';
+import 'package:rain/app/widgets/status_data.dart';
 import 'package:rain/main.dart';
 import 'package:timezone/standalone.dart' as tz;
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
@@ -415,7 +415,7 @@ class LocationController extends GetxController {
         NotificationShow().showNotification(
           UniqueKey().hashCode,
           '$city: ${mainWeatherCache.temperature2M![i]}°',
-          '${Status().getText(mainWeatherCache.weathercode![i])} · ${StatusImFa().getTimeFormat(mainWeatherCache.time![i])}',
+          '${StatusWeather().getText(mainWeatherCache.weathercode![i])} · ${StatusData().getTimeFormat(mainWeatherCache.time![i])}',
           DateTime.parse(mainWeatherCache.time![i]),
         );
       }

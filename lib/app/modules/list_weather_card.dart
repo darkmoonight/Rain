@@ -3,18 +3,18 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/modules/weather_card.dart';
-import 'package:rain/app/widgets/card.dart';
+import 'package:rain/app/modules/info_weather_card.dart';
+import 'package:rain/app/widgets/weather_card_container.dart';
 import 'package:rain/app/widgets/shimmer.dart';
 
-class CardWeather extends StatefulWidget {
-  const CardWeather({super.key});
+class ListWeatherCard extends StatefulWidget {
+  const ListWeatherCard({super.key});
 
   @override
-  State<CardWeather> createState() => _CardWeatherState();
+  State<ListWeatherCard> createState() => _ListWeatherCardState();
 }
 
-class _CardWeatherState extends State<CardWeather> {
+class _ListWeatherCardState extends State<ListWeatherCard> {
   final locationController = Get.put(LocationController());
 
   @override
@@ -82,10 +82,10 @@ class _CardWeatherState extends State<CardWeather> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: Text(
-                                "deletedCardWeather".tr,
+                                "deletedListWeatherCard".tr,
                                 style: context.textTheme.titleLarge,
                               ),
-                              content: Text("deletedCardWeatherQuery".tr,
+                              content: Text("deletedListWeatherCardQuery".tr,
                                   style: context.textTheme.titleMedium),
                               actions: [
                                 TextButton(
@@ -112,11 +112,11 @@ class _CardWeatherState extends State<CardWeather> {
                       },
                       child: GestureDetector(
                         onTap: () => Get.to(
-                            () => WeatherCardPage(
+                            () => InfoWeatherCard(
                                   weatherCard: weatherCardList,
                                 ),
                             transition: Transition.downToUp),
-                        child: CardDescWeather(
+                        child: WeatherCardContainer(
                           time: weatherCardList.time!,
                           timeDaily: weatherCardList.timeDaily!,
                           timeDay: weatherCardList.sunrise!,

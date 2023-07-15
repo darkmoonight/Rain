@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class SettingLinks extends StatelessWidget {
-  const SettingLinks({
+class SettingCard extends StatelessWidget {
+  const SettingCard({
     super.key,
     required this.icon,
     required this.text,
