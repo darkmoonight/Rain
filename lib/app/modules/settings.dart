@@ -109,20 +109,20 @@ class _SettingsPageState extends State<SettingsPage> {
                                     newAmoledTheme: value);
                               },
                             ),
-                            SettingCard(
-                              elevation: 4,
-                              icon: const Icon(
-                                Iconsax.colorfilter,
-                              ),
-                              text: 'materialColor'.tr,
-                              switcher: true,
-                              value: settings.materialColor,
-                              onChange: (value) {
-                                themeController.saveMaterialTheme(value);
-                                MyApp.updateAppState(context,
-                                    newMaterialColor: value);
-                              },
-                            ),
+                            // SettingCard(
+                            //   elevation: 4,
+                            //   icon: const Icon(
+                            //     Iconsax.colorfilter,
+                            //   ),
+                            //   text: 'materialColor'.tr,
+                            //   switcher: true,
+                            //   value: settings.materialColor,
+                            //   onChange: (value) {
+                            //     themeController.saveMaterialTheme(value);
+                            //     MyApp.updateAppState(context,
+                            //         newMaterialColor: value);
+                            //   },
+                            // ),
                             const SizedBox(height: 10),
                           ],
                         ),
@@ -237,48 +237,48 @@ class _SettingsPageState extends State<SettingsPage> {
                                 }
                               },
                             ),
-                            SettingCard(
-                              elevation: 4,
-                              icon: const Icon(
-                                Iconsax.timer_start,
-                              ),
-                              text: 'timeStart'.tr,
-                              info: true,
-                              infoSettings: true,
-                              textInfo: TimeOfDay.now().format(context),
-                              onPressed: () async {
-                                final TimeOfDay? timeStart =
-                                    await showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now(),
-                                );
-                                isar.writeTxn(() async {
-                                  settings.timeStart =
-                                      timeStart?.format(context);
-                                  isar.settings.put(settings);
-                                });
-                              },
-                            ),
-                            SettingCard(
-                              elevation: 4,
-                              icon: const Icon(
-                                Iconsax.timer_pause,
-                              ),
-                              text: 'timeEnd'.tr,
-                              info: true,
-                              infoSettings: true,
-                              textInfo: TimeOfDay.now().format(context),
-                              onPressed: () async {
-                                final TimeOfDay? timeEnd = await showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now(),
-                                );
-                                isar.writeTxn(() async {
-                                  settings.timeEnd = timeEnd?.format(context);
-                                  isar.settings.put(settings);
-                                });
-                              },
-                            ),
+                            // SettingCard(
+                            //   elevation: 4,
+                            //   icon: const Icon(
+                            //     Iconsax.timer_start,
+                            //   ),
+                            //   text: 'timeStart'.tr,
+                            //   info: true,
+                            //   infoSettings: true,
+                            //   textInfo: TimeOfDay.now().format(context),
+                            //   onPressed: () async {
+                            //     final TimeOfDay? timeStart =
+                            //         await showTimePicker(
+                            //       context: context,
+                            //       initialTime: TimeOfDay.now(),
+                            //     );
+                            //     isar.writeTxn(() async {
+                            //       settings.timeStart =
+                            //           timeStart?.format(context);
+                            //       isar.settings.put(settings);
+                            //     });
+                            //   },
+                            // ),
+                            // SettingCard(
+                            //   elevation: 4,
+                            //   icon: const Icon(
+                            //     Iconsax.timer_pause,
+                            //   ),
+                            //   text: 'timeEnd'.tr,
+                            //   info: true,
+                            //   infoSettings: true,
+                            //   textInfo: TimeOfDay.now().format(context),
+                            //   onPressed: () async {
+                            //     final TimeOfDay? timeEnd = await showTimePicker(
+                            //       context: context,
+                            //       initialTime: TimeOfDay.now(),
+                            //     );
+                            //     isar.writeTxn(() async {
+                            //       settings.timeEnd = timeEnd?.format(context);
+                            //       isar.settings.put(settings);
+                            //     });
+                            //   },
+                            // ),
                             const SizedBox(height: 10),
                           ],
                         ),

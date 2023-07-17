@@ -106,7 +106,7 @@ class Translation extends Translations {
           'language': 'Язык',
           'timeRange': 'Периодичность (в часах)',
           'timeStart': 'Время начала',
-          'timeEnd': 'Время оконания',
+          'timeEnd': 'Время окончания',
         },
         'en_US': {
           'start': 'Get Started',
@@ -209,6 +209,9 @@ class Translation extends Translations {
           'functions': 'Functions',
           'data': 'Data',
           'language': 'Language',
+          'timeRange': 'Frequency (in hours)',
+          'timeStart': 'Start time',
+          'timeEnd': 'End time',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -312,6 +315,9 @@ class Translation extends Translations {
           'functions': 'Fonctions',
           'data': 'Données',
           'language': 'Langue',
+          'timeRange': 'Fréquence (en heures)',
+          'timeStart': 'Heure de début',
+          'timeEnd': 'Heure de fin',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -415,6 +421,9 @@ class Translation extends Translations {
           'functions': 'Funzioni',
           'data': 'Dati',
           'language': 'Lingua',
+          'timeRange': 'Frequenza (in ore)',
+          'timeStart': 'Ora di inizio',
+          'timeEnd': 'Ora di fine',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -518,6 +527,9 @@ class Translation extends Translations {
           'functions': 'Funktionen',
           'data': 'Daten',
           'language': 'Sprache',
+          'timeRange': 'Häufigkeit (in Stunden)',
+          'timeStart': 'Startzeit',
+          'timeEnd': 'Endzeit',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -620,6 +632,9 @@ class Translation extends Translations {
           'functions': 'Fonksiyonlar',
           'data': 'Veri',
           'language': 'Dil',
+          'timeRange': 'Sıklık (saat cinsinden)',
+          'timeStart': 'Başlangıç zamanı',
+          'timeEnd': 'Bitiş zamanı',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -722,6 +737,9 @@ class Translation extends Translations {
           'functions': 'Funções',
           'data': 'Dados',
           'language': 'Idioma',
+          'timeRange': 'Frequência (em horas)',
+          'timeStart': 'Hora de início',
+          'timeEnd': 'Hora de término',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -825,6 +843,9 @@ class Translation extends Translations {
           'functions': 'Funciones',
           'data': 'Datos',
           'language': 'Idioma',
+          'timeRange': 'Frecuencia (en horas)',
+          'timeStart': 'Hora de inicio',
+          'timeEnd': 'Hora de finalización',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -927,6 +948,9 @@ class Translation extends Translations {
           'functions': 'Funkcie',
           'data': 'Dáta',
           'language': 'Jazyk',
+          'timeRange': 'Frekvencia (v hodinách)',
+          'timeStart': 'Čas začiatku',
+          'timeEnd': 'Čas ukončenia',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -1030,6 +1054,9 @@ class Translation extends Translations {
           'functions': 'Functies',
           'data': 'Gegevens',
           'language': 'Taal',
+          'timeRange': 'Frequentie (in uren)',
+          'timeStart': 'Begintijd',
+          'timeEnd': 'Eindtijd',
         },
         "hi_IN": {
           'start': 'शुरू करें',
@@ -1130,6 +1157,9 @@ class Translation extends Translations {
           'functions': 'कार्य',
           'data': 'डेटा',
           'language': 'भाषा',
+          'timeRange': 'अवधि (घंटों में)',
+          'timeStart': 'प्रारंभ समय',
+          'timeEnd': 'समाप्ति समय',
         }
       };
 }
