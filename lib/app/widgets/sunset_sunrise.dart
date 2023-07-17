@@ -25,7 +25,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Row(
           children: [
             Expanded(
@@ -50,7 +50,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                       ],
                     ),
                   ),
-                  Expanded(
+                  Flexible(
                     child: Image.asset(
                       'assets/images/sunrise.png',
                       scale: 10,
@@ -81,7 +81,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                       ],
                     ),
                   ),
-                  Expanded(
+                  Flexible(
                     child: Image.asset(
                       'assets/images/sunset.png',
                       scale: 10,

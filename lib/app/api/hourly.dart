@@ -9,8 +9,8 @@ class WeatherHourlyApi {
 
   factory WeatherHourlyApi.fromJson(Map<String, dynamic> json) =>
       WeatherHourlyApi(
-        hourly: Hourly.fromJson(json["hourly"]),
-        timezone: json["timezone"],
+        hourly: Hourly.fromJson(json['hourly']),
+        timezone: json['timezone'],
       );
 }
 
@@ -50,25 +50,25 @@ class Hourly {
   List<double>? uvIndex;
 
   factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
-        time: List<String>.from(json["time"].map((x) => x)),
-        temperature2M: List<double>.from(json["temperature_2m"].map((x) => x)),
+        time: List<String>.from(json['time'].map((x) => x)),
+        temperature2M: List<double>.from(json['temperature_2m'].map((x) => x)),
         relativehumidity2M:
-            List<int>.from(json["relativehumidity_2m"].map((x) => x)),
+            List<int>.from(json['relativehumidity_2m'].map((x) => x)),
         apparentTemperature:
-            List<double>.from(json["apparent_temperature"].map((x) => x)),
-        precipitation: List<double>.from(json["precipitation"].map((x) => x)),
-        rain: List<double>.from(json["rain"].map((x) => x)),
-        weathercode: List<int>.from(json["weathercode"].map((x) => x)),
+            List<double>.from(json['apparent_temperature'].map((x) => x)),
+        precipitation: List<double>.from(json['precipitation'].map((x) => x)),
+        rain: List<double>.from(json['rain'].map((x) => x)),
+        weathercode: List<int>.from(json['weathercode'].map((x) => x)),
         surfacePressure:
-            List<double>.from(json["surface_pressure"].map((x) => x)),
-        visibility: List<double>.from(json["visibility"].map((x) => x)),
+            List<double>.from(json['surface_pressure'].map((x) => x)),
+        visibility: List<double>.from(json['visibility'].map((x) => x)),
         evapotranspiration:
-            List<double>.from(json["evapotranspiration"].map((x) => x)),
-        windspeed10M: List<double>.from(json["windspeed_10m"].map((x) => x)),
+            List<double>.from(json['evapotranspiration'].map((x) => x)),
+        windspeed10M: List<double>.from(json['windspeed_10m'].map((x) => x)),
         winddirection10M:
-            List<int>.from(json["winddirection_10m"].map((x) => x)),
-        windgusts10M: List<double>.from(json["windgusts_10m"].map((x) => x)),
-        cloudcover: List<int>.from(json["cloudcover"].map((x) => x)),
-        uvIndex: List<double>.from(json["uv_index"].map((x) => x)),
+            List<int>.from(json['winddirection_10m'].map((x) => x)),
+        windgusts10M: List<double>.from(json['windgusts_10m'].map((x) => x)),
+        cloudcover: List<int>.from(json['cloudcover'].map((x) => x)),
+        uvIndex: List<double>.from(json['uv_index'].map((x) => x)),
       );
 }

@@ -23,9 +23,6 @@ class RainTheme {
       primaryColor: lightColor,
       canvasColor: lightColor,
       scaffoldBackgroundColor: lightColor,
-      drawerTheme: baseLigth.drawerTheme.copyWith(
-        backgroundColor: lightColor,
-      ),
       cardTheme: baseLigth.cardTheme.copyWith(
         color: lightColor,
         shape: RoundedRectangleBorder(
@@ -37,7 +34,7 @@ class RainTheme {
         backgroundColor: lightColor,
       ),
       colorScheme: baseLigth.colorScheme.copyWith(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         background: lightColor,
         surface: baseLigth.colorScheme.background,
       ),
@@ -83,9 +80,6 @@ class RainTheme {
       primaryColor: darkColor,
       canvasColor: darkColor,
       scaffoldBackgroundColor: darkColor,
-      drawerTheme: baseDark.drawerTheme.copyWith(
-        backgroundColor: darkColor,
-      ),
       cardTheme: baseDark.cardTheme.copyWith(
         color: darkColor,
         shape: RoundedRectangleBorder(
@@ -143,9 +137,6 @@ class RainTheme {
       primaryColor: oledColor,
       canvasColor: oledColor,
       scaffoldBackgroundColor: oledColor,
-      drawerTheme: baseDark.drawerTheme.copyWith(
-        backgroundColor: oledColor,
-      ),
       cardTheme: baseDark.cardTheme.copyWith(
         color: oledColor,
         shape: RoundedRectangleBorder(

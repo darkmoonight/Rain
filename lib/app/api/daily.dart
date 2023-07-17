@@ -7,7 +7,7 @@ class WeatherDailyApi {
 
   factory WeatherDailyApi.fromJson(Map<String, dynamic> json) =>
       WeatherDailyApi(
-        daily: Daily.fromJson(json["daily"]),
+        daily: Daily.fromJson(json['daily']),
       );
 }
 
@@ -47,29 +47,29 @@ class Daily {
   List<int>? winddirection10MDominant;
 
   factory Daily.fromJson(Map<String, dynamic> json) => Daily(
-        time: List<DateTime>.from(json["time"].map((x) => DateTime.parse(x))),
-        weathercode: List<int>.from(json["weathercode"].map((x) => x)),
+        time: List<DateTime>.from(json['time'].map((x) => DateTime.parse(x))),
+        weathercode: List<int>.from(json['weathercode'].map((x) => x)),
         temperature2MMax:
-            List<double>.from(json["temperature_2m_max"].map((x) => x)),
+            List<double>.from(json['temperature_2m_max'].map((x) => x)),
         temperature2MMin:
-            List<double>.from(json["temperature_2m_min"].map((x) => x)),
+            List<double>.from(json['temperature_2m_min'].map((x) => x)),
         apparentTemperatureMax:
-            List<double>.from(json["apparent_temperature_max"].map((x) => x)),
+            List<double>.from(json['apparent_temperature_max'].map((x) => x)),
         apparentTemperatureMin:
-            List<double>.from(json["apparent_temperature_min"].map((x) => x)),
-        sunrise: List<String>.from(json["sunrise"].map((x) => x)),
-        sunset: List<String>.from(json["sunset"].map((x) => x)),
+            List<double>.from(json['apparent_temperature_min'].map((x) => x)),
+        sunrise: List<String>.from(json['sunrise'].map((x) => x)),
+        sunset: List<String>.from(json['sunset'].map((x) => x)),
         precipitationSum:
-            List<double>.from(json["precipitation_sum"].map((x) => x)),
+            List<double>.from(json['precipitation_sum'].map((x) => x)),
         precipitationProbabilityMax:
-            List<int>.from(json["precipitation_probability_max"].map((x) => x)),
+            List<int>.from(json['precipitation_probability_max'].map((x) => x)),
         windspeed10MMax:
-            List<double>.from(json["windspeed_10m_max"].map((x) => x)),
+            List<double>.from(json['windspeed_10m_max'].map((x) => x)),
         windgusts10MMax:
-            List<double>.from(json["windgusts_10m_max"].map((x) => x)),
-        uvIndexMax: List<double>.from(json["uv_index_max"].map((x) => x)),
-        rainSum: List<double>.from(json["rain_sum"].map((x) => x)),
+            List<double>.from(json['windgusts_10m_max'].map((x) => x)),
+        uvIndexMax: List<double>.from(json['uv_index_max'].map((x) => x)),
+        rainSum: List<double>.from(json['rain_sum'].map((x) => x)),
         winddirection10MDominant:
-            List<int>.from(json["winddirection_10m_dominant"].map((x) => x)),
+            List<int>.from(json['winddirection_10m_dominant'].map((x) => x)),
       );
 }

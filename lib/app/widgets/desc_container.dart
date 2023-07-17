@@ -41,93 +41,75 @@ class DescContainer extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 15),
       child: Padding(
         padding: const EdgeInsets.only(top: 22, bottom: 5),
-        child: Column(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          runAlignment: WrapAlignment.center,
+          spacing: 5,
+          runSpacing: 2,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DescWeather(
-                  imageName: 'assets/images/humidity.png',
-                  value: '$humidity%',
-                  desc: 'humidity'.tr,
-                ),
-                DescWeather(
-                  imageName: 'assets/images/temperature.png',
-                  value: '${feels.round()}°',
-                  desc: 'feels'.tr,
-                ),
-                DescWeather(
-                  imageName: 'assets/images/fog.png',
-                  value: statusData.getVisibility(visibility),
-                  desc: 'visibility'.tr,
-                ),
-              ],
+            DescWeather(
+              imageName: 'assets/images/humidity.png',
+              value: '$humidity%',
+              desc: 'humidity'.tr,
             ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DescWeather(
-                  imageName: 'assets/images/windsock.png',
-                  value: '$direction°',
-                  desc: 'direction'.tr,
-                  message: message.getDirection(direction),
-                ),
-                DescWeather(
-                  imageName: 'assets/images/wind.png',
-                  value: statusData.getSpeed(wind.round()),
-                  desc: 'wind'.tr,
-                ),
-                DescWeather(
-                  imageName: 'assets/images/windgusts.png',
-                  value: statusData.getSpeed(windgusts.round()),
-                  desc: 'windgusts'.tr,
-                ),
-              ],
+            DescWeather(
+              imageName: 'assets/images/temperature.png',
+              value: '${feels.round()}°',
+              desc: 'feels'.tr,
             ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DescWeather(
-                  imageName: 'assets/images/evaporation.png',
-                  value: statusData.getPrecipitation(evaporation.abs()),
-                  desc: 'evaporation'.tr,
-                ),
-                DescWeather(
-                  imageName: 'assets/images/rainfall.png',
-                  value: statusData.getPrecipitation(precipitation),
-                  desc: 'precipitation'.tr,
-                ),
-                DescWeather(
-                  imageName: 'assets/images/water.png',
-                  value: statusData.getPrecipitation(rain),
-                  desc: 'rain'.tr,
-                ),
-              ],
+            DescWeather(
+              imageName: 'assets/images/fog.png',
+              value: statusData.getVisibility(visibility),
+              desc: 'visibility'.tr,
             ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DescWeather(
-                  imageName: 'assets/images/cloudy.png',
-                  value: '$cloudcover%',
-                  desc: 'cloudcover'.tr,
-                ),
-                DescWeather(
-                  imageName: 'assets/images/atmospheric.png',
-                  value: '${pressure.round()} ${'hPa'.tr}',
-                  desc: 'pressure'.tr,
-                  message: message.getPressure(pressure.round()),
-                ),
-                DescWeather(
-                  imageName: 'assets/images/uv.png',
-                  value: '${uvIndex.round()}',
-                  desc: 'uvIndex'.tr,
-                  message: message.getUvIndex(uvIndex.round()),
-                ),
-              ],
+            DescWeather(
+              imageName: 'assets/images/windsock.png',
+              value: '$direction°',
+              desc: 'direction'.tr,
+              message: message.getDirection(direction),
+            ),
+            DescWeather(
+              imageName: 'assets/images/wind.png',
+              value: statusData.getSpeed(wind.round()),
+              desc: 'wind'.tr,
+            ),
+            DescWeather(
+              imageName: 'assets/images/windgusts.png',
+              value: statusData.getSpeed(windgusts.round()),
+              desc: 'windgusts'.tr,
+            ),
+            DescWeather(
+              imageName: 'assets/images/evaporation.png',
+              value: statusData.getPrecipitation(evaporation.abs()),
+              desc: 'evaporation'.tr,
+            ),
+            DescWeather(
+              imageName: 'assets/images/rainfall.png',
+              value: statusData.getPrecipitation(precipitation),
+              desc: 'precipitation'.tr,
+            ),
+            DescWeather(
+              imageName: 'assets/images/water.png',
+              value: statusData.getPrecipitation(rain),
+              desc: 'rain'.tr,
+            ),
+            DescWeather(
+              imageName: 'assets/images/cloudy.png',
+              value: '$cloudcover%',
+              desc: 'cloudcover'.tr,
+            ),
+            DescWeather(
+              imageName: 'assets/images/atmospheric.png',
+              value: '${pressure.round()} ${'hPa'.tr}',
+              desc: 'pressure'.tr,
+              message: message.getPressure(pressure.round()),
+            ),
+            DescWeather(
+              imageName: 'assets/images/uv.png',
+              value: '${uvIndex.round()}',
+              desc: 'uvIndex'.tr,
+              message: message.getUvIndex(uvIndex.round()),
             ),
           ],
         ),

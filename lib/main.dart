@@ -14,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
 import 'package:rain/theme/theme.dart';
+import 'package:time_machine/time_machine.dart';
 import 'app/data/weather.dart';
 import 'translation/translation.dart';
 import 'theme/theme_controller.dart';
@@ -48,6 +49,7 @@ final List appLanguages = [
 ];
 
 void main() async {
+  final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -58,6 +60,13 @@ void main() async {
   if (Platform.isAndroid) {
     await setOptimalDisplayMode();
   }
+  if (Platform.isAndroid || Platform.isIOS) {
+    timeZoneName = await FlutterTimezone.getLocalTimezone();
+  } else {
+    timeZoneName = '${DateTimeZone.local}';
+  }
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
   Connectivity()
       .onConnectivityChanged
       .listen((ConnectivityResult result) async {
@@ -68,17 +77,18 @@ void main() async {
       isDeviceConnectedNotifier.value = Future(() => false);
     }
   });
-  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
   const DarwinInitializationSettings initializationSettingsDarwin =
       DarwinInitializationSettings();
+  const LinuxInitializationSettings initializationSettingsLinux =
+      LinuxInitializationSettings(defaultActionName: 'Rain');
   const InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsDarwin);
+    android: initializationSettingsAndroid,
+    iOS: initializationSettingsDarwin,
+    linux: initializationSettingsLinux,
+  );
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  tz.initializeTimeZones();
-  tz.setLocalLocation(tz.getLocation(timeZoneName));
   runApp(const MyApp());
 }
 

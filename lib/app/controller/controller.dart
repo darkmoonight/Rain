@@ -157,11 +157,12 @@ class LocationController extends GetxController {
       _mainWeather.value =
           await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
 
-      final List<PendingNotificationRequest> pendingNotificationRequests =
-          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-
-      if (settings.notifications && pendingNotificationRequests.isEmpty) {
-        notlification(_mainWeather.value);
+      if (settings.notifications) {
+        final List<PendingNotificationRequest> pendingNotificationRequests =
+            await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+        if (pendingNotificationRequests.isEmpty) {
+          notlification(_mainWeather.value);
+        }
       }
 
       await writeCache();
