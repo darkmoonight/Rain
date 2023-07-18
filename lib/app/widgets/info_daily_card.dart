@@ -163,7 +163,6 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                         crossAxisAlignment: WrapCrossAlignment.center,
                         runAlignment: WrapAlignment.center,
                         spacing: 5,
-                        runSpacing: 2,
                         children: [
                           DescWeather(
                             imageName: 'assets/images/cold.png',

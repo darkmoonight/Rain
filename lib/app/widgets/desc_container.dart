@@ -46,7 +46,7 @@ class DescContainer extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           runAlignment: WrapAlignment.center,
           spacing: 5,
-          runSpacing: 2,
+          // runSpacing: 5,
           children: [
             DescWeather(
               imageName: 'assets/images/humidity.png',
