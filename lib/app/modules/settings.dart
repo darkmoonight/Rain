@@ -109,20 +109,20 @@ class _SettingsPageState extends State<SettingsPage> {
                                     newAmoledTheme: value);
                               },
                             ),
-                            // SettingCard(
-                            //   elevation: 4,
-                            //   icon: const Icon(
-                            //     Iconsax.colorfilter,
-                            //   ),
-                            //   text: 'materialColor'.tr,
-                            //   switcher: true,
-                            //   value: settings.materialColor,
-                            //   onChange: (value) {
-                            //     themeController.saveMaterialTheme(value);
-                            //     MyApp.updateAppState(context,
-                            //         newMaterialColor: value);
-                            //   },
-                            // ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.colorfilter,
+                              ),
+                              text: 'materialColor'.tr,
+                              switcher: true,
+                              value: settings.materialColor,
+                              onChange: (value) {
+                                themeController.saveMaterialTheme(value);
+                                MyApp.updateAppState(context,
+                                    newMaterialColor: value);
+                              },
+                            ),
                             const SizedBox(height: 10),
                           ],
                         ),

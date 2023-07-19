@@ -42,9 +42,7 @@ class DescContainer extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 22, bottom: 5),
         child: Wrap(
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          runAlignment: WrapAlignment.center,
+          alignment: WrapAlignment.spaceEvenly,
           spacing: 5,
           // runSpacing: 5,
           children: [

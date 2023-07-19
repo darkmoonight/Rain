@@ -82,10 +82,10 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: Text(
-                                "deletedListWeatherCard".tr,
+                                "deletedCardWeather".tr,
                                 style: context.textTheme.titleLarge,
                               ),
-                              content: Text("deletedListWeatherCardQuery".tr,
+                              content: Text("deletedCardWeatherQuery".tr,
                                   style: context.textTheme.titleMedium),
                               actions: [
                                 TextButton(

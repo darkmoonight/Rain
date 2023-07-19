@@ -194,10 +194,30 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightColorScheme, darkColorScheme) {
+        final lightMaterialTheme =
+            lightTheme(lightColorScheme?.surface, lightColorScheme);
+        final darkMaterialTheme =
+            darkTheme(darkColorScheme?.surface, darkColorScheme);
+        final darkMaterialThemeOled = darkTheme(oledColor, darkColorScheme);
+
         return GetMaterialApp(
           themeMode: themeController.theme,
-          theme: RainTheme.lightTheme,
-          darkTheme: amoledTheme ? RainTheme.oledTheme : RainTheme.darkTheme,
+          theme: materialColor
+              ? lightColorScheme != null
+                  ? lightMaterialTheme
+                  : lightTheme(lightColor, colorSchemeLight)
+              : lightTheme(lightColor, colorSchemeLight),
+          darkTheme: amoledTheme
+              ? materialColor
+                  ? darkColorScheme != null
+                      ? darkMaterialThemeOled
+                      : darkTheme(oledColor, colorSchemeDark)
+                  : darkTheme(oledColor, colorSchemeDark)
+              : materialColor
+                  ? darkColorScheme != null
+                      ? darkMaterialTheme
+                      : darkTheme(darkColor, colorSchemeDark)
+                  : darkTheme(darkColor, colorSchemeDark),
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

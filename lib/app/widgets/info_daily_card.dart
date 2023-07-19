@@ -159,9 +159,7 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20, bottom: 5),
                       child: Wrap(
-                        alignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        runAlignment: WrapAlignment.center,
+                        alignment: WrapAlignment.spaceEvenly,
                         spacing: 5,
                         children: [
                           DescWeather(
