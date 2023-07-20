@@ -2301,8 +2301,8 @@ MainWeatherCache _mainWeatherCacheDeserialize(
     sunset: reader.readStringList(offsets[12]),
     surfacePressure: reader.readDoubleOrNullList(offsets[13]),
     temperature2M: reader.readDoubleList(offsets[14]),
-    temperature2MMax: reader.readDoubleList(offsets[15]),
-    temperature2MMin: reader.readDoubleList(offsets[16]),
+    temperature2MMax: reader.readDoubleOrNullList(offsets[15]),
+    temperature2MMin: reader.readDoubleOrNullList(offsets[16]),
     time: reader.readStringList(offsets[17]),
     timeDaily: reader.readDateTimeList(offsets[18]),
     timestamp: reader.readDateTimeOrNull(offsets[19]),
@@ -2311,7 +2311,7 @@ MainWeatherCache _mainWeatherCacheDeserialize(
     uvIndexMax: reader.readDoubleOrNullList(offsets[22]),
     visibility: reader.readDoubleOrNullList(offsets[23]),
     weathercode: reader.readLongList(offsets[24]),
-    weathercodeDaily: reader.readLongList(offsets[25]),
+    weathercodeDaily: reader.readLongOrNullList(offsets[25]),
     winddirection10M: reader.readLongOrNullList(offsets[26]),
     winddirection10MDominant: reader.readLongOrNullList(offsets[27]),
     windgusts10M: reader.readDoubleOrNullList(offsets[28]),
@@ -2361,9 +2361,9 @@ P _mainWeatherCacheDeserializeProp<P>(
     case 14:
       return (reader.readDoubleList(offset)) as P;
     case 15:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 16:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 17:
       return (reader.readStringList(offset)) as P;
     case 18:
@@ -2381,7 +2381,7 @@ P _mainWeatherCacheDeserializeProp<P>(
     case 24:
       return (reader.readLongList(offset)) as P;
     case 25:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 26:
       return (reader.readLongOrNullList(offset)) as P;
     case 27:
@@ -5489,8 +5489,26 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      temperature2MMaxElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'temperature2MMax',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      temperature2MMaxElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'temperature2MMax',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       temperature2MMaxElementEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -5504,7 +5522,7 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       temperature2MMaxElementGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -5520,7 +5538,7 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       temperature2MMaxElementLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -5536,8 +5554,8 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       temperature2MMaxElementBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -5662,8 +5680,26 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      temperature2MMinElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'temperature2MMin',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      temperature2MMinElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'temperature2MMin',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       temperature2MMinElementEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -5677,7 +5713,7 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       temperature2MMinElementGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -5693,7 +5729,7 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       temperature2MMinElementLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -5709,8 +5745,8 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       temperature2MMinElementBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -7205,7 +7241,25 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyElementEqualTo(int value) {
+      weathercodeDailyElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'weathercodeDaily',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      weathercodeDailyElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'weathercodeDaily',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      weathercodeDailyElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'weathercodeDaily',
@@ -7216,7 +7270,7 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       weathercodeDailyElementGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -7230,7 +7284,7 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       weathercodeDailyElementLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -7244,8 +7298,8 @@ extension MainWeatherCacheQueryFilter
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       weathercodeDailyElementBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -8895,14 +8949,14 @@ extension MainWeatherCacheQueryProperty
     });
   }
 
-  QueryBuilder<MainWeatherCache, List<double>?, QQueryOperations>
+  QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
       temperature2MMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2MMax');
     });
   }
 
-  QueryBuilder<MainWeatherCache, List<double>?, QQueryOperations>
+  QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
       temperature2MMinProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2MMin');
@@ -8964,7 +9018,7 @@ extension MainWeatherCacheQueryProperty
     });
   }
 
-  QueryBuilder<MainWeatherCache, List<int>?, QQueryOperations>
+  QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
       weathercodeDailyProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weathercodeDaily');
@@ -10434,8 +10488,8 @@ WeatherCard _weatherCardDeserialize(
     sunset: reader.readStringList(offsets[16]),
     surfacePressure: reader.readDoubleOrNullList(offsets[17]),
     temperature2M: reader.readDoubleList(offsets[18]),
-    temperature2MMax: reader.readDoubleList(offsets[19]),
-    temperature2MMin: reader.readDoubleList(offsets[20]),
+    temperature2MMax: reader.readDoubleOrNullList(offsets[19]),
+    temperature2MMin: reader.readDoubleOrNullList(offsets[20]),
     time: reader.readStringList(offsets[21]),
     timeDaily: reader.readDateTimeList(offsets[22]),
     timestamp: reader.readDateTimeOrNull(offsets[23]),
@@ -10444,7 +10498,7 @@ WeatherCard _weatherCardDeserialize(
     uvIndexMax: reader.readDoubleOrNullList(offsets[26]),
     visibility: reader.readDoubleOrNullList(offsets[27]),
     weathercode: reader.readLongList(offsets[28]),
-    weathercodeDaily: reader.readLongList(offsets[29]),
+    weathercodeDaily: reader.readLongOrNullList(offsets[29]),
     winddirection10M: reader.readLongOrNullList(offsets[30]),
     winddirection10MDominant: reader.readLongOrNullList(offsets[31]),
     windgusts10M: reader.readDoubleOrNullList(offsets[32]),
@@ -10502,9 +10556,9 @@ P _weatherCardDeserializeProp<P>(
     case 18:
       return (reader.readDoubleList(offset)) as P;
     case 19:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 20:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 21:
       return (reader.readStringList(offset)) as P;
     case 22:
@@ -10522,7 +10576,7 @@ P _weatherCardDeserializeProp<P>(
     case 28:
       return (reader.readLongList(offset)) as P;
     case 29:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 30:
       return (reader.readLongOrNullList(offset)) as P;
     case 31:
@@ -14080,8 +14134,26 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      temperature2MMaxElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'temperature2MMax',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      temperature2MMaxElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'temperature2MMax',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       temperature2MMaxElementEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -14095,7 +14167,7 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       temperature2MMaxElementGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -14111,7 +14183,7 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       temperature2MMaxElementLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -14127,8 +14199,8 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       temperature2MMaxElementBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -14253,8 +14325,26 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      temperature2MMinElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'temperature2MMin',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      temperature2MMinElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'temperature2MMin',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       temperature2MMinElementEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -14268,7 +14358,7 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       temperature2MMinElementGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -14284,7 +14374,7 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       temperature2MMinElementLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -14300,8 +14390,8 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       temperature2MMinElementBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -15793,7 +15883,25 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyElementEqualTo(int value) {
+      weathercodeDailyElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'weathercodeDaily',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      weathercodeDailyElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'weathercodeDaily',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      weathercodeDailyElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'weathercodeDaily',
@@ -15804,7 +15912,7 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       weathercodeDailyElementGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -15818,7 +15926,7 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       weathercodeDailyElementLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -15832,8 +15940,8 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       weathercodeDailyElementBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -17603,14 +17711,14 @@ extension WeatherCardQueryProperty
     });
   }
 
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
+  QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
       temperature2MMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2MMax');
     });
   }
 
-  QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
+  QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
       temperature2MMinProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2MMin');
@@ -17670,7 +17778,7 @@ extension WeatherCardQueryProperty
     });
   }
 
-  QueryBuilder<WeatherCard, List<int>?, QQueryOperations>
+  QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
       weathercodeDailyProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weathercodeDaily');

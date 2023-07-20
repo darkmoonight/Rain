@@ -48,47 +48,47 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                     widget.weatherCard!.timeDaily!,
                                 weathercodeDaily:
                                     widget.mainWeatherCache?.weathercodeDaily ??
-                                        widget.weatherCard!.weathercodeDaily!,
+                                        widget.weatherCard?.weathercodeDaily,
                                 temperature2MMax:
                                     widget.mainWeatherCache?.temperature2MMax ??
-                                        widget.weatherCard!.temperature2MMax!,
+                                        widget.weatherCard?.temperature2MMax,
                                 temperature2MMin:
                                     widget.mainWeatherCache?.temperature2MMin ??
-                                        widget.weatherCard!.temperature2MMin!,
+                                        widget.weatherCard?.temperature2MMin,
                                 apparentTemperatureMax: widget.mainWeatherCache
                                         ?.apparentTemperatureMax ??
-                                    widget.weatherCard!.apparentTemperatureMax,
+                                    widget.weatherCard?.apparentTemperatureMax,
                                 apparentTemperatureMin: widget.mainWeatherCache
                                         ?.apparentTemperatureMin ??
-                                    widget.weatherCard!.apparentTemperatureMin,
+                                    widget.weatherCard?.apparentTemperatureMin,
                                 sunrise: widget.mainWeatherCache?.sunrise ??
                                     widget.weatherCard!.sunrise!,
                                 sunset: widget.mainWeatherCache?.sunset ??
                                     widget.weatherCard!.sunset!,
                                 precipitationSum:
                                     widget.mainWeatherCache?.precipitationSum ??
-                                        widget.weatherCard!.precipitationSum,
+                                        widget.weatherCard?.precipitationSum,
                                 precipitationProbabilityMax: widget
                                         .mainWeatherCache
                                         ?.precipitationProbabilityMax ??
-                                    widget.weatherCard!
-                                        .precipitationProbabilityMax,
+                                    widget.weatherCard
+                                        ?.precipitationProbabilityMax,
                                 windspeed10MMax:
                                     widget.mainWeatherCache?.windspeed10MMax ??
-                                        widget.weatherCard!.windspeed10MMax,
+                                        widget.weatherCard?.windspeed10MMax,
                                 windgusts10MMax:
                                     widget.mainWeatherCache?.windgusts10MMax ??
-                                        widget.weatherCard!.windgusts10MMax,
+                                        widget.weatherCard?.windgusts10MMax,
                                 uvIndexMax:
                                     widget.mainWeatherCache?.uvIndexMax ??
-                                        widget.weatherCard!.uvIndexMax,
+                                        widget.weatherCard?.uvIndexMax,
                                 rainSum: widget.mainWeatherCache?.rainSum ??
-                                    widget.weatherCard!.rainSum,
+                                    widget.weatherCard?.rainSum,
                                 winddirection10MDominant: widget
                                         .mainWeatherCache
                                         ?.winddirection10MDominant ??
                                     widget
-                                        .weatherCard!.winddirection10MDominant,
+                                        .weatherCard?.winddirection10MDominant,
                                 index: index,
                               ),
                           transition: Transition.downToUp),
@@ -115,7 +115,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                             .mainWeatherCache
                                             ?.weathercodeDaily?[index] ??
                                         widget.weatherCard!
-                                            .weathercodeDaily![index]),
+                                            .weathercodeDaily?[index]),
                                     scale: 3,
                                   ),
                                   const SizedBox(width: 5),
@@ -125,7 +125,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                               .mainWeatherCache
                                               ?.weathercodeDaily?[index] ??
                                           widget.weatherCard!
-                                              .weathercodeDaily![index]),
+                                              .weathercodeDaily?[index]),
                                       style: context.textTheme.labelLarge,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -140,10 +140,10 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                   Text(
                                     statusData.getDegree(widget.mainWeatherCache
                                             ?.temperature2MMin?[index]
-                                            .round() ??
+                                            ?.round() ??
                                         widget.weatherCard!
-                                            .temperature2MMin![index]
-                                            .round()),
+                                            .temperature2MMin?[index]
+                                            ?.round()),
                                     style: context.textTheme.labelLarge,
                                   ),
                                   Text(
@@ -156,10 +156,10 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                   Text(
                                     statusData.getDegree(widget.mainWeatherCache
                                             ?.temperature2MMax?[index]
-                                            .round() ??
+                                            ?.round() ??
                                         widget.weatherCard!
-                                            .temperature2MMax![index]
-                                            .round()),
+                                            .temperature2MMax?[index]
+                                            ?.round()),
                                     style:
                                         context.textTheme.bodyMedium?.copyWith(
                                       color: Colors.grey,

@@ -31,9 +31,9 @@ class Daily {
   });
 
   List<DateTime>? time;
-  List<int>? weathercode;
-  List<double>? temperature2MMax;
-  List<double>? temperature2MMin;
+  List<int?>? weathercode;
+  List<double?>? temperature2MMax;
+  List<double?>? temperature2MMin;
   List<double?>? apparentTemperatureMax;
   List<double?>? apparentTemperatureMin;
   List<String>? sunrise;
@@ -48,11 +48,11 @@ class Daily {
 
   factory Daily.fromJson(Map<String, dynamic> json) => Daily(
         time: List<DateTime>.from(json['time'].map((x) => DateTime.parse(x))),
-        weathercode: List<int>.from(json['weathercode'].map((x) => x)),
+        weathercode: List<int?>.from(json['weathercode'].map((x) => x)),
         temperature2MMax:
-            List<double>.from(json['temperature_2m_max'].map((x) => x)),
+            List<double?>.from(json['temperature_2m_max'].map((x) => x)),
         temperature2MMin:
-            List<double>.from(json['temperature_2m_min'].map((x) => x)),
+            List<double?>.from(json['temperature_2m_min'].map((x) => x)),
         apparentTemperatureMax:
             List<double?>.from(json['apparent_temperature_max'].map((x) => x)),
         apparentTemperatureMin:

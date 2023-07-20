@@ -38,9 +38,9 @@ class MainWeatherCache {
   List<int?>? cloudcover;
   List<double?>? uvIndex;
   List<DateTime>? timeDaily;
-  List<int>? weathercodeDaily;
-  List<double>? temperature2MMax;
-  List<double>? temperature2MMin;
+  List<int?>? weathercodeDaily;
+  List<double?>? temperature2MMax;
+  List<double?>? temperature2MMin;
   List<double?>? apparentTemperatureMax;
   List<double?>? apparentTemperatureMin;
   List<String>? sunrise;
@@ -126,9 +126,9 @@ class WeatherCard {
   List<int?>? cloudcover;
   List<double?>? uvIndex;
   List<DateTime>? timeDaily;
-  List<int>? weathercodeDaily;
-  List<double>? temperature2MMax;
-  List<double>? temperature2MMin;
+  List<int?>? weathercodeDaily;
+  List<double?>? temperature2MMax;
+  List<double?>? temperature2MMin;
   List<double?>? apparentTemperatureMax;
   List<double?>? apparentTemperatureMin;
   List<String>? sunrise;

@@ -66,7 +66,7 @@ class StatusWeather {
     }
   }
 
-  String getImageNowDaily(int weather, DateTime time) {
+  String getImageNowDaily(int? weather, DateTime time) {
     switch (weather) {
       case 0:
         return 'assets/images/sun.png';
@@ -184,7 +184,7 @@ class StatusWeather {
     }
   }
 
-  String getImage7Day(int weather) {
+  String getImage7Day(int? weather) {
     switch (weather) {
       case 0:
         return 'assets/images/clear_day.png';
@@ -225,7 +225,7 @@ class StatusWeather {
     }
   }
 
-  String getText(int weather) {
+  String getText(int? weather) {
     switch (weather) {
       case 0:
         return 'clear_sky'.tr;
