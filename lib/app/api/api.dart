@@ -27,7 +27,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=7&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=12&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'
@@ -125,7 +125,7 @@ class WeatherAPI {
                 : urlHourly = baseUrlHourly;
 
     String baseUrlDaily =
-        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=7&timezone=auto';
+        'latitude=$lat&longitude=$lon&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=12&timezone=auto';
     String urlDaily;
     settings.degrees == 'fahrenheit'
         ? urlDaily = '$baseUrlDaily&temperature_unit=fahrenheit'

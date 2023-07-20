@@ -4,7 +4,7 @@ import 'package:rain/main.dart';
 import 'package:timezone/timezone.dart';
 
 class StatusData {
-  String getDegree(int degree) {
+  String getDegree(int? degree) {
     switch (settings.degrees) {
       case 'celsius':
         return '$degree°C';
@@ -15,7 +15,7 @@ class StatusData {
     }
   }
 
-  String getSpeed(int speed) {
+  String getSpeed(int? speed) {
     switch (settings.measurements) {
       case 'metric':
         return '$speed ${'kph'.tr}';
@@ -26,18 +26,22 @@ class StatusData {
     }
   }
 
-  String getVisibility(double length) {
-    switch (settings.measurements) {
-      case 'metric':
-        return '${length > 1000 ? (length / 1000).round() : (length / 1000).toStringAsFixed(2)} ${'km'.tr}';
-      case 'imperial':
-        return '${length > 5280 ? (length / 5280).round() : (length / 5280).toStringAsFixed(2)} ${'mi'.tr}';
-      default:
-        return '${length > 1000 ? (length / 1000).round() : (length / 1000).toStringAsFixed(2)} ${'km'.tr}';
+  String getVisibility(double? length) {
+    if (length != null) {
+      switch (settings.measurements) {
+        case 'metric':
+          return '${length > 1000 ? (length / 1000).round() : (length / 1000).toStringAsFixed(2)} ${'km'.tr}';
+        case 'imperial':
+          return '${length > 5280 ? (length / 5280).round() : (length / 5280).toStringAsFixed(2)} ${'mi'.tr}';
+        default:
+          return '${length > 1000 ? (length / 1000).round() : (length / 1000).toStringAsFixed(2)} ${'km'.tr}';
+      }
+    } else {
+      return '';
     }
   }
 
-  String getPrecipitation(double precipitation) {
+  String getPrecipitation(double? precipitation) {
     switch (settings.measurements) {
       case 'metric':
         return '$precipitation ${'mm'.tr}';
