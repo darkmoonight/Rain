@@ -3,7 +3,7 @@ description: Weather app.
 
 publish_to: "none"
 
-version: 1.2.1+24
+version: 1.2.3+26
 
 environment:
   sdk: ">=3.0.6 <4.0.0"
@@ -39,7 +39,7 @@ dependencies:
   lat_lng_to_timezone: ^0.2.0
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^15.1.0+1
-  internet_connection_checker: ^1.0.0+1
+  internet_connection_checker_plus: ^2.0.0
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:

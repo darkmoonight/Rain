@@ -10,7 +10,6 @@ class MyTextForm extends StatelessWidget {
     required this.controller,
     required this.padding,
     this.iconButton,
-    this.onChanged,
     this.validator,
   });
   final String labelText;
@@ -19,7 +18,6 @@ class MyTextForm extends StatelessWidget {
   final TextEditingController controller;
   final EdgeInsets padding;
   final Widget? iconButton;
-  final Function(String)? onChanged;
   final String? Function(String?)? validator;
 
   @override
@@ -28,7 +26,6 @@ class MyTextForm extends StatelessWidget {
       padding: padding,
       child: TextFormField(
         controller: controller,
-        onChanged: onChanged,
         keyboardType: type,
         style: context.textTheme.labelLarge,
         decoration: InputDecoration(
@@ -36,7 +33,6 @@ class MyTextForm extends StatelessWidget {
           suffixIcon: iconButton,
           labelText: labelText,
         ),
-        autofocus: false,
         validator: validator,
       ),
     );

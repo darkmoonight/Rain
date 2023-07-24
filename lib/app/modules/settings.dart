@@ -453,7 +453,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingCard(
             icon: const Icon(
-              Iconsax.code,
+              Iconsax.hierarchy_square_2,
             ),
             text: 'version'.tr,
             info: true,

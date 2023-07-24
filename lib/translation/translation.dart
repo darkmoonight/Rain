@@ -1201,7 +1201,7 @@ class Translation extends Translations {
           'location': 'Locație',
           'no_location':
               'Activează serviciul de localizare pentru a obține date meteorologice pentru locația curentă.',
-          'theme': 'Temă întunecată'
+          'theme': 'Temă întunecată',
           'low': 'Scăzut',
           'high': 'Ridicat',
           'normal': 'Normal',
@@ -1212,8 +1212,7 @@ class Translation extends Translations {
           'district': 'District',
           'noWeatherCard': 'Adaugă un oraș',
           'deletedCardWeather': 'Ștergerea orașului',
-          'deletedCardWeatherQuery':
-              'Ești sigur că vrei să ștergi orașul?',
+          'deletedCardWeatherQuery': 'Ești sigur că vrei să ștergi orașul?',
           'delete': 'Șterge',
           'cancel': 'Anulează',
           'time': 'Ora în oraș',
