@@ -46,6 +46,7 @@ final List appLanguages = [
   {'name': 'Slovenčina', 'locale': const Locale('sk', 'SK')},
   {'name': 'Nederlands', 'locale': const Locale('nl', 'NL')},
   {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
+  {'name': 'Română', 'locale': const Locale('ro', 'RO')},
 ];
 
 void main() async {
@@ -237,7 +238,8 @@ class _MyAppState extends State<MyApp> {
             Locale('es', 'ES'),
             Locale('sk', 'SK'),
             Locale('nl', 'NL'),
-            Locale('hi', 'IN')
+            Locale('hi', 'IN'),
+            Locale('ro', 'RO')
           ],
           debugShowCheckedModeBanner: false,
           home: settings.onboard == false
