@@ -253,7 +253,7 @@ class LocationController extends GetxController {
 
   // Card Weather
   Stream<List<WeatherCard>> getWeatherCard() async* {
-    yield* isar.weatherCards.where().watch(fireImmediately: true);
+    yield* isar.weatherCards.where().sortByIndex().watch(fireImmediately: true);
   }
 
   Future<void> addCardWeather(

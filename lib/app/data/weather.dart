@@ -146,6 +146,7 @@ class WeatherCard {
   String? district;
   String? timezone;
   DateTime? timestamp;
+  int? index;
 
   WeatherCard({
     this.time,
@@ -184,5 +185,6 @@ class WeatherCard {
     this.district,
     this.timezone,
     this.timestamp,
+    this.index,
   });
 }

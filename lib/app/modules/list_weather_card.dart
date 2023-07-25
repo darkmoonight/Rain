@@ -6,6 +6,7 @@ import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/info_weather_card.dart';
 import 'package:rain/app/widgets/weather_card_container.dart';
 import 'package:rain/app/widgets/shimmer.dart';
+import 'package:rain/main.dart';
 
 class ListWeatherCard extends StatefulWidget {
   const ListWeatherCard({super.key});
@@ -16,6 +17,14 @@ class ListWeatherCard extends StatefulWidget {
 
 class _ListWeatherCardState extends State<ListWeatherCard> {
   final locationController = Get.put(LocationController());
+
+  void updateItemOrderInDatabase(List<WeatherCard> weatherCard) async {
+    for (int i = 0; i < weatherCard.length; i++) {
+      final item = weatherCard[i];
+      item.index = i;
+      isar.writeTxn(() async => await isar.weatherCards.put(item));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +66,15 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                     ),
                   );
                 }
-                return ListView.builder(
+                return ReorderableListView.builder(
+                  onReorder: (oldIndex, newIndex) {
+                    if (newIndex > oldIndex) {
+                      newIndex -= 1;
+                    }
+                    final element = weatherCard.removeAt(oldIndex);
+                    weatherCard.insert(newIndex, element);
+                    updateItemOrderInDatabase(weatherCard);
+                  },
                   itemCount: weatherCard.length,
                   itemBuilder: (context, index) {
                     final weatherCardList = weatherCard[index];
