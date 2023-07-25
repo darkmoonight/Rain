@@ -5,7 +5,6 @@ import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/info_weather_card.dart';
 import 'package:rain/app/widgets/weather_card_container.dart';
-import 'package:rain/app/widgets/shimmer.dart';
 import 'package:rain/main.dart';
 
 class ListWeatherCard extends StatefulWidget {
@@ -29,55 +28,49 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async {
-        await locationController.updateCacheCard(true);
-        setState(() {});
-      },
-      child: StreamBuilder<List<WeatherCard>>(
-        stream: locationController.getWeatherCard(),
-        builder: (context, listData) {
-          switch (listData.connectionState) {
-            case ConnectionState.done:
-            default:
-              if (listData.hasData) {
-                final weatherCard = listData.data!;
-                if (weatherCard.isEmpty) {
-                  return Center(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/images/add_weather.png',
-                            scale: 6,
-                          ),
-                          SizedBox(
-                            width: Get.size.width * 0.8,
-                            child: Text(
-                              'noWeatherCard'.tr,
-                              textAlign: TextAlign.center,
-                              style: context.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                              ),
+        onRefresh: () async {
+          await locationController.updateCacheCard(true);
+          setState(() {});
+        },
+        child: Obx(
+          () => locationController.weatherCards.isEmpty
+              ? Center(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/add_weather.png',
+                          scale: 6,
+                        ),
+                        SizedBox(
+                          width: Get.size.width * 0.8,
+                          child: Text(
+                            'noWeatherCard'.tr,
+                            textAlign: TextAlign.center,
+                            style: context.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  );
-                }
-                return ReorderableListView.builder(
+                  ),
+                )
+              : ReorderableListView.builder(
                   onReorder: (oldIndex, newIndex) {
                     if (newIndex > oldIndex) {
                       newIndex -= 1;
                     }
-                    final element = weatherCard.removeAt(oldIndex);
-                    weatherCard.insert(newIndex, element);
-                    updateItemOrderInDatabase(weatherCard);
+                    final element =
+                        locationController.weatherCards.removeAt(oldIndex);
+                    locationController.weatherCards.insert(newIndex, element);
+                    updateItemOrderInDatabase(locationController.weatherCards);
                   },
-                  itemCount: weatherCard.length,
+                  itemCount: locationController.weatherCards.length,
                   itemBuilder: (context, index) {
-                    final weatherCardList = weatherCard[index];
+                    final weatherCardList =
+                        locationController.weatherCards[index];
                     return Dismissible(
                       key: ValueKey(weatherCardList),
                       direction: DismissDirection.endToStart,
@@ -147,20 +140,7 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                       ),
                     );
                   },
-                );
-              } else {
-                return ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) => const MyShimmer(
-                    hight: 110,
-                    edgeInsetsMargin:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                  ),
-                );
-              }
-          }
-        },
-      ),
-    );
+                ),
+        ));
   }
 }

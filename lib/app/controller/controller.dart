@@ -32,6 +32,8 @@ class LocationController extends GetxController {
   final _location = LocationCache().obs;
   final _weatherCard = WeatherCard().obs;
 
+  final weatherCards = <WeatherCard>[].obs;
+
   MainWeatherCache get mainWeather => _mainWeather.value;
   LocationCache get location => _location.value;
   WeatherCard get weatherCard => _weatherCard.value;
@@ -40,6 +42,12 @@ class LocationController extends GetxController {
   final dayOfNow = 0.obs;
   final ItemScrollController itemScrollController = ItemScrollController();
   final cacheExpiry = DateTime.now().subtract(const Duration(hours: 6));
+
+  @override
+  void onInit() {
+    weatherCards.value = isar.weatherCards.where().sortByIndex().findAllSync();
+    super.onInit();
+  }
 
   Future<Position> determinePosition() async {
     LocationPermission permission;
@@ -252,18 +260,14 @@ class LocationController extends GetxController {
   }
 
   // Card Weather
-  Stream<List<WeatherCard>> getWeatherCard() async* {
-    yield* isar.weatherCards.where().sortByIndex().watch(fireImmediately: true);
-  }
-
   Future<void> addCardWeather(
       double latitude, double longitude, String city, String district) async {
     if (await isDeviceConnectedNotifier.value) {
       String tz = tzmap.latLngToTimezoneString(latitude, longitude);
       _weatherCard.value = await WeatherAPI()
           .getWeatherCard(latitude, longitude, city, district, tz);
-
       isar.writeTxn(() async {
+        weatherCards.add(_weatherCard.value);
         await isar.weatherCards.put(_weatherCard.value);
       });
     } else {
@@ -280,10 +284,11 @@ class LocationController extends GetxController {
 
   Future<void> updateCacheCard(bool refresh) async {
     List<WeatherCard> weatherCard = refresh
-        ? await isar.weatherCards.where().findAll()
+        ? await isar.weatherCards.where().sortByIndex().findAll()
         : await isar.weatherCards
             .filter()
             .timestampLessThan(cacheExpiry)
+            .sortByIndex()
             .findAll();
 
     if (await isDeviceConnectedNotifier.value && weatherCard.isNotEmpty) {
@@ -325,6 +330,11 @@ class LocationController extends GetxController {
               _weatherCard.value.winddirection10MDominant;
           element.timestamp = DateTime.now();
           await isar.weatherCards.put(element);
+
+          var newCard = element;
+          int oldIdx = weatherCard.indexOf(element);
+          weatherCards[oldIdx] = newCard;
+          weatherCards.refresh();
         }
       });
     }
@@ -334,11 +344,12 @@ class LocationController extends GetxController {
     if (await isDeviceConnectedNotifier.value) {
       isar.writeTxn(() async {
         _weatherCard.value = await WeatherAPI().getWeatherCard(
-            weatherCard.lat,
-            weatherCard.lon,
-            weatherCard.city!,
-            weatherCard.district!,
-            weatherCard.timezone!);
+          weatherCard.lat,
+          weatherCard.lon,
+          weatherCard.city!,
+          weatherCard.district!,
+          weatherCard.timezone!,
+        );
         weatherCard.time = _weatherCard.value.time;
         weatherCard.temperature2M = _weatherCard.value.temperature2M;
         weatherCard.relativehumidity2M = _weatherCard.value.relativehumidity2M;
@@ -380,6 +391,7 @@ class LocationController extends GetxController {
 
   Future<void> deleteCardWeather(WeatherCard weatherCard) async {
     await isar.writeTxn(() async {
+      weatherCards.remove(weatherCard);
       await isar.weatherCards.delete(weatherCard.id);
     });
   }
