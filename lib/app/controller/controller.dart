@@ -419,17 +419,32 @@ class LocationController extends GetxController {
     return getDay;
   }
 
-  void notlification(MainWeatherCache mainWeatherCache) {
-    final weatherNotlification = mainWeatherCache.time
-        ?.where((element) => DateTime.parse(element).isAfter(DateTime.now()))
-        .toList();
-    for (var i = 0; i < weatherNotlification!.length; i += timeRange) {
-      if (DateTime.parse(mainWeatherCache.time![i]).isAfter(DateTime.now())) {
+  TimeOfDay timeConvert(String normTime) {
+    int hh = 0;
+    if (normTime.endsWith('PM')) hh = 12;
+    normTime = normTime.split(' ')[0];
+    return TimeOfDay(
+      hour: hh + int.parse(normTime.split(":")[0]) % 24,
+      minute: int.parse(normTime.split(":")[1]) % 60,
+    );
+  }
+
+  void notlification(MainWeatherCache mainWeatherCache) async {
+    DateTime now = DateTime.now();
+    int startHour = timeConvert(timeStart).hour;
+    int endHour = timeConvert(timeEnd).hour;
+
+    for (var i = 0; i < mainWeatherCache.time!.length; i += timeRange) {
+      DateTime notificationTime = DateTime.parse(mainWeatherCache.time![i]);
+
+      if (notificationTime.isAfter(now) &&
+          notificationTime.hour >= startHour &&
+          notificationTime.hour <= endHour) {
         NotificationShow().showNotification(
           UniqueKey().hashCode,
           '$city: ${mainWeatherCache.temperature2M![i]}°',
           '${StatusWeather().getText(mainWeatherCache.weathercode![i])} · ${StatusData().getTimeFormat(mainWeatherCache.time![i])}',
-          DateTime.parse(mainWeatherCache.time![i]),
+          notificationTime,
         );
       }
     }

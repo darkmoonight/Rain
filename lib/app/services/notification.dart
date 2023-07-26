@@ -15,6 +15,8 @@ class NotificationShow {
       'DARK NIGHT',
       priority: Priority.max,
       importance: Importance.max,
+      playSound: false,
+      enableVibration: false,
     );
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);

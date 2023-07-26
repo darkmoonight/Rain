@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
@@ -237,48 +238,92 @@ class _SettingsPageState extends State<SettingsPage> {
                                 }
                               },
                             ),
-                            // SettingCard(
-                            //   elevation: 4,
-                            //   icon: const Icon(
-                            //     Iconsax.timer_start,
-                            //   ),
-                            //   text: 'timeStart'.tr,
-                            //   info: true,
-                            //   infoSettings: true,
-                            //   textInfo: TimeOfDay.now().format(context),
-                            //   onPressed: () async {
-                            //     final TimeOfDay? timeStart =
-                            //         await showTimePicker(
-                            //       context: context,
-                            //       initialTime: TimeOfDay.now(),
-                            //     );
-                            //     isar.writeTxn(() async {
-                            //       settings.timeStart =
-                            //           timeStart?.format(context);
-                            //       isar.settings.put(settings);
-                            //     });
-                            //   },
-                            // ),
-                            // SettingCard(
-                            //   elevation: 4,
-                            //   icon: const Icon(
-                            //     Iconsax.timer_pause,
-                            //   ),
-                            //   text: 'timeEnd'.tr,
-                            //   info: true,
-                            //   infoSettings: true,
-                            //   textInfo: TimeOfDay.now().format(context),
-                            //   onPressed: () async {
-                            //     final TimeOfDay? timeEnd = await showTimePicker(
-                            //       context: context,
-                            //       initialTime: TimeOfDay.now(),
-                            //     );
-                            //     isar.writeTxn(() async {
-                            //       settings.timeEnd = timeEnd?.format(context);
-                            //       isar.settings.put(settings);
-                            //     });
-                            //   },
-                            // ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.timer_start,
+                              ),
+                              text: 'timeStart'.tr,
+                              info: true,
+                              infoSettings: true,
+                              textInfo: settings.timeformat == '12'
+                                  ? DateFormat.jm().format(DateFormat.Hm()
+                                      .parse(locationController
+                                          .timeConvert(timeStart)
+                                          .format(context)))
+                                  : DateFormat.Hm().format(DateFormat.Hm()
+                                      .parse(locationController
+                                          .timeConvert(timeStart)
+                                          .format(context))),
+                              onPressed: () async {
+                                final TimeOfDay? timeStartPicker =
+                                    await showTimePicker(
+                                  context: context,
+                                  initialTime:
+                                      locationController.timeConvert(timeStart),
+                                );
+                                if (timeStartPicker != null) {
+                                  isar.writeTxn(() async {
+                                    settings.timeStart =
+                                        timeStartPicker.format(context);
+                                    isar.settings.put(settings);
+                                  });
+                                  if (context.mounted) {
+                                    MyApp.updateAppState(context,
+                                        newTimeStart:
+                                            timeStartPicker.format(context));
+                                  }
+                                  if (settings.notifications) {
+                                    flutterLocalNotificationsPlugin.cancelAll();
+                                    locationController.notlification(
+                                        locationController.mainWeather);
+                                  }
+                                }
+                              },
+                            ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(
+                                Iconsax.timer_pause,
+                              ),
+                              text: 'timeEnd'.tr,
+                              info: true,
+                              infoSettings: true,
+                              textInfo: settings.timeformat == '12'
+                                  ? DateFormat.jm().format(DateFormat.Hm()
+                                      .parse(locationController
+                                          .timeConvert(timeEnd)
+                                          .format(context)))
+                                  : DateFormat.Hm().format(DateFormat.Hm()
+                                      .parse(locationController
+                                          .timeConvert(timeEnd)
+                                          .format(context))),
+                              onPressed: () async {
+                                final TimeOfDay? timeEndPicker =
+                                    await showTimePicker(
+                                  context: context,
+                                  initialTime:
+                                      locationController.timeConvert(timeEnd),
+                                );
+                                if (timeEndPicker != null) {
+                                  isar.writeTxn(() async {
+                                    settings.timeEnd =
+                                        timeEndPicker.format(context);
+                                    isar.settings.put(settings);
+                                  });
+                                  if (context.mounted) {
+                                    MyApp.updateAppState(context,
+                                        newTimeEnd:
+                                            timeEndPicker.format(context));
+                                  }
+                                  if (settings.notifications) {
+                                    flutterLocalNotificationsPlugin.cancelAll();
+                                    locationController.notlification(
+                                        locationController.mainWeather);
+                                  }
+                                }
+                              },
+                            ),
                             const SizedBox(height: 10),
                           ],
                         ),
