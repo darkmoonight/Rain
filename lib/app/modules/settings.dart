@@ -261,6 +261,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                   context: context,
                                   initialTime:
                                       locationController.timeConvert(timeStart),
+                                  builder: (context, child) {
+                                    final Widget mediaQueryWrapper = MediaQuery(
+                                      data: MediaQuery.of(context).copyWith(
+                                        alwaysUse24HourFormat:
+                                            settings.timeformat == '12'
+                                                ? false
+                                                : true,
+                                      ),
+                                      child: child!,
+                                    );
+                                    return mediaQueryWrapper;
+                                  },
                                 );
                                 if (timeStartPicker != null) {
                                   isar.writeTxn(() async {
@@ -304,6 +316,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                   context: context,
                                   initialTime:
                                       locationController.timeConvert(timeEnd),
+                                  builder: (context, child) {
+                                    final Widget mediaQueryWrapper = MediaQuery(
+                                      data: MediaQuery.of(context).copyWith(
+                                        alwaysUse24HourFormat:
+                                            settings.timeformat == '12'
+                                                ? false
+                                                : true,
+                                      ),
+                                      child: child!,
+                                    );
+                                    return mediaQueryWrapper;
+                                  },
                                 );
                                 if (timeEndPicker != null) {
                                   isar.writeTxn(() async {
