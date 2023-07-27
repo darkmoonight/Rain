@@ -56,7 +56,7 @@ class DescContainer extends StatelessWidget {
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/temperature.png',
-                    value: '${feels?.round()}°',
+                    value: statusData.getDegree(feels?.round()),
                     desc: 'feels'.tr,
                   ),
             visibility == null

@@ -30,7 +30,6 @@ dependencies:
   url_launcher: ^6.1.12
   dynamic_color: ^1.6.6
   path_provider: ^2.0.15
-  geolocator_linux: ^0.1.0
   flutter_timezone: ^1.0.7
   package_info_plus: ^4.0.2
   connectivity_plus: ^4.0.1

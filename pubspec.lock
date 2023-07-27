@@ -261,10 +261,10 @@ packages:
     dependency: transitive
     description:
       name: file
-      sha256: "1b92bec4fc2a72f59a8e15af5f52cd441e4a7860b49499d69dfa817af20e925d"
+      sha256: "5fc22d7c25582e38ad9a8515372cd9a93834027aacf1801cf01164dac0ffa08c"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.4"
+    version: "7.0.0"
   fixnum:
     dependency: transitive
     description:
@@ -373,14 +373,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  geoclue:
-    dependency: transitive
-    description:
-      name: geoclue
-      sha256: c2a998c77474fc57aa00c6baa2928e58f4b267649057a1c76738656e9dbd2a7f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.1"
   geocoding:
     dependency: "direct main"
     description:
@@ -437,14 +429,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.7"
-  geolocator_linux:
-    dependency: "direct main"
-    description:
-      name: geolocator_linux
-      sha256: dd0f4461577e8b2560b4384a2d182230a7e075d0b193093441355f93728d1920
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.3"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -501,14 +485,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
-  gsettings:
-    dependency: transitive
-    description:
-      name: gsettings
-      sha256: fe90d719e09a6f36607021047e642068a0c98839d9633db00b91633420ae8b0d
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.7"
   home_widget:
     dependency: "direct main"
     description:
@@ -813,14 +789,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
-  process:
-    dependency: transitive
-    description:
-      name: process
-      sha256: "53fd8db9cec1d37b0574e12f07520d582019cb6c44abf5479a01505099a34a09"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.4"
   pub_semver:
     dependency: transitive
     description:
@@ -1102,10 +1070,10 @@ packages:
     dependency: transitive
     description:
       name: xdg_directories
-      sha256: bd512f03919aac5f1313eb8249f223bacf4927031bf60b02601f81f687689e86
+      sha256: e0b1147eec179d3911f1f19b59206448f78195ca1d20514134e10641b7d7fbff
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0+3"
+    version: "1.0.1"
   xml:
     dependency: transitive
     description:
