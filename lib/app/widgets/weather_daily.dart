@@ -5,6 +5,7 @@ import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/info_daily_card.dart';
 import 'package:rain/app/widgets/status_weather.dart';
 import 'package:rain/app/widgets/status_data.dart';
+import 'package:rain/main.dart';
 
 class WeatherDaily extends StatefulWidget {
   const WeatherDaily({
@@ -22,7 +23,6 @@ class WeatherDaily extends StatefulWidget {
 }
 
 class _WeatherDailyState extends State<WeatherDaily> {
-  final locale = Get.locale;
   final statusWeather = StatusWeather();
   final statusData = StatusData();
 
@@ -99,7 +99,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                           children: [
                             Expanded(
                               child: Text(
-                                DateFormat.EEEE(locale?.languageCode).format(
+                                DateFormat.EEEE(locale.languageCode).format(
                                     widget.mainWeatherCache
                                             ?.timeDaily?[index] ??
                                         widget.weatherCard!.timeDaily![index]),

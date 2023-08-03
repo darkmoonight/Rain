@@ -5,6 +5,7 @@ import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/text_form.dart';
+import 'package:rain/main.dart';
 
 class CreateWeatherCard extends StatefulWidget {
   const CreateWeatherCard({super.key});
@@ -14,16 +15,15 @@ class CreateWeatherCard extends StatefulWidget {
 }
 
 class _CreateWeatherCardState extends State<CreateWeatherCard> {
-  final locale = Get.locale;
   bool isLoading = false;
   final formKey = GlobalKey<FormState>();
+  final _focusNode = FocusNode();
   final locationController = Get.put(LocationController());
-  final TextEditingController _controller = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-  final TextEditingController _controllerLat = TextEditingController();
-  final TextEditingController _controllerLon = TextEditingController();
-  final TextEditingController _controllerCity = TextEditingController();
-  final TextEditingController _controllerDistrict = TextEditingController();
+  final _controller = TextEditingController();
+  final _controllerLat = TextEditingController();
+  final _controllerLon = TextEditingController();
+  final _controllerCity = TextEditingController();
+  final _controllerDistrict = TextEditingController();
 
   textTrim(value) {
     value.text = value.text.trim();

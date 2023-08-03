@@ -3,6 +3,7 @@ import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status_weather.dart';
+import 'package:rain/main.dart';
 
 class WeatherNow extends StatefulWidget {
   const WeatherNow({
@@ -24,7 +25,6 @@ class WeatherNow extends StatefulWidget {
 }
 
 class _WeatherNowState extends State<WeatherNow> {
-  final locale = Get.locale;
   final statusWeather = StatusWeather();
 
   @override
@@ -52,7 +52,7 @@ class _WeatherNowState extends State<WeatherNow> {
         ),
         const SizedBox(height: 5),
         Text(
-          DateFormat.MMMMEEEEd('${locale?.languageCode}').format(
+          DateFormat.MMMMEEEEd(locale.languageCode).format(
             DateTime.parse(widget.time),
           ),
           style: context.textTheme.labelLarge?.copyWith(

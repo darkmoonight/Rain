@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status_weather.dart';
 import 'package:rain/app/widgets/status_data.dart';
+import 'package:rain/main.dart';
 
 class WeatherHourly extends StatefulWidget {
   const WeatherHourly({
@@ -29,7 +30,6 @@ class _WeatherHourlyState extends State<WeatherHourly> {
 
   @override
   Widget build(BuildContext context) {
-    final locale = Get.locale;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -40,7 +40,7 @@ class _WeatherHourlyState extends State<WeatherHourly> {
               style: context.textTheme.labelLarge,
             ),
             Text(
-              DateFormat('E', '${locale?.languageCode}')
+              DateFormat('E', locale.languageCode)
                   .format(DateTime.tryParse(widget.time)!),
               style: context.textTheme.labelLarge?.copyWith(
                 color: Colors.grey,

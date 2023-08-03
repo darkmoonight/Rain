@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status_weather.dart';
 import 'package:rain/app/widgets/status_data.dart';
+import 'package:rain/main.dart';
 
-class ListDailyCard extends StatelessWidget {
+class ListDailyCard extends StatefulWidget {
   const ListDailyCard({
     super.key,
     required this.timeDaily,
@@ -18,12 +19,16 @@ class ListDailyCard extends StatelessWidget {
   final double? temperature2MMin;
 
   @override
-  Widget build(BuildContext context) {
-    final locale = Get.locale;
-    final statusWeather = StatusWeather();
-    final statusData = StatusData();
+  State<ListDailyCard> createState() => _ListDailyCardState();
+}
 
-    return weathercodeDaily == null
+class _ListDailyCardState extends State<ListDailyCard> {
+  final statusWeather = StatusWeather();
+  final statusData = StatusData();
+  
+  @override
+  Widget build(BuildContext context) {
+    return widget.weathercodeDaily == null
         ? Container()
         : Card(
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -36,7 +41,7 @@ class ListDailyCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${statusData.getDegree(temperature2MMin?.round())} / ${statusData.getDegree(temperature2MMax?.round())}',
+                          '${statusData.getDegree(widget.temperature2MMin?.round())} / ${statusData.getDegree(widget.temperature2MMax?.round())}',
                           style: context.textTheme.titleLarge?.copyWith(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
@@ -44,8 +49,8 @@ class ListDailyCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          DateFormat.MMMMEEEEd(locale?.languageCode)
-                              .format(timeDaily),
+                          DateFormat.MMMMEEEEd(locale.languageCode)
+                              .format(widget.timeDaily),
                           style: context.textTheme.titleMedium?.copyWith(
                             color: Colors.grey,
                             fontWeight: FontWeight.w400,
@@ -53,7 +58,7 @@ class ListDailyCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          statusWeather.getText(weathercodeDaily),
+                          statusWeather.getText(widget.weathercodeDaily),
                           style: context.textTheme.titleMedium?.copyWith(
                             color: Colors.grey,
                             fontWeight: FontWeight.w400,
@@ -64,7 +69,8 @@ class ListDailyCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   Image.asset(
-                    statusWeather.getImageNowDaily(weathercodeDaily, timeDaily),
+                    statusWeather.getImageNowDaily(
+                        widget.weathercodeDaily, widget.timeDaily),
                     scale: 6.5,
                   ),
                 ],

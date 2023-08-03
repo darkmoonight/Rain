@@ -20,7 +20,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int tabIndex = 0;
   bool visible = false;
-  final locale = Get.locale;
   final locationController = Get.put(LocationController());
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();

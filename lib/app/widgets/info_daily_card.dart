@@ -8,6 +8,7 @@ import 'package:rain/app/widgets/message.dart';
 import 'package:rain/app/widgets/status_weather.dart';
 import 'package:rain/app/widgets/status_data.dart';
 import 'package:rain/app/widgets/sunset_sunrise.dart';
+import 'package:rain/main.dart';
 
 class InfoDailyCard extends StatefulWidget {
   const InfoDailyCard({
@@ -51,7 +52,6 @@ class InfoDailyCard extends StatefulWidget {
 }
 
 class _InfoDailyCardState extends State<InfoDailyCard> {
-  final locale = Get.locale;
   final statusWeather = StatusWeather();
   final statusData = StatusData();
   final message = Message();
@@ -89,7 +89,7 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
           highlightColor: Colors.transparent,
         ),
         title: Text(
-          DateFormat.MMMMEEEEd(locale?.languageCode)
+          DateFormat.MMMMEEEEd(locale.languageCode)
               .format(widget.timeDaily[pageIndex]),
           style: context.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
@@ -141,7 +141,7 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              DateFormat.MMMMEEEEd(locale?.languageCode)
+                              DateFormat.MMMMEEEEd(locale.languageCode)
                                   .format(widget.timeDaily[index]),
                               style: context.textTheme.labelLarge?.copyWith(
                                 color: Colors.grey,

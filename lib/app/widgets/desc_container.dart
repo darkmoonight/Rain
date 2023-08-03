@@ -4,7 +4,7 @@ import 'package:rain/app/widgets/desc.dart';
 import 'package:rain/app/widgets/message.dart';
 import 'package:rain/app/widgets/status_data.dart';
 
-class DescContainer extends StatelessWidget {
+class DescContainer extends StatefulWidget {
   const DescContainer({
     super.key,
     required this.humidity,
@@ -34,9 +34,15 @@ class DescContainer extends StatelessWidget {
   final double? uvIndex;
 
   @override
+  State<DescContainer> createState() => _DescContainerState();
+}
+
+class _DescContainerState extends State<DescContainer> {
+  final statusData = StatusData();
+  final message = Message();
+
+  @override
   Widget build(BuildContext context) {
-    final statusData = StatusData();
-    final message = Message();
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
       child: Padding(
@@ -45,92 +51,93 @@ class DescContainer extends StatelessWidget {
           alignment: WrapAlignment.spaceEvenly,
           spacing: 5,
           children: [
-            humidity == null
+            widget.humidity == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/humidity.png',
-                    value: '$humidity%',
+                    value: '${widget.humidity}%',
                     desc: 'humidity'.tr,
                   ),
-            feels == null
+            widget.feels == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/temperature.png',
-                    value: statusData.getDegree(feels?.round()),
+                    value: statusData.getDegree(widget.feels?.round()),
                     desc: 'feels'.tr,
                   ),
-            visibility == null
+            widget.visibility == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/fog.png',
-                    value: statusData.getVisibility(visibility),
+                    value: statusData.getVisibility(widget.visibility),
                     desc: 'visibility'.tr,
                   ),
-            direction == null
+            widget.direction == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/windsock.png',
-                    value: '$direction°',
+                    value: '${widget.direction}°',
                     desc: 'direction'.tr,
-                    message: message.getDirection(direction),
+                    message: message.getDirection(widget.direction),
                   ),
-            wind == null
+            widget.wind == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/wind.png',
-                    value: statusData.getSpeed(wind?.round()),
+                    value: statusData.getSpeed(widget.wind?.round()),
                     desc: 'wind'.tr,
                   ),
-            windgusts == null
+            widget.windgusts == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/windgusts.png',
-                    value: statusData.getSpeed(windgusts?.round()),
+                    value: statusData.getSpeed(widget.windgusts?.round()),
                     desc: 'windgusts'.tr,
                   ),
-            evaporation == null
+            widget.evaporation == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/evaporation.png',
-                    value: statusData.getPrecipitation(evaporation?.abs()),
+                    value:
+                        statusData.getPrecipitation(widget.evaporation?.abs()),
                     desc: 'evaporation'.tr,
                   ),
-            precipitation == null
+            widget.precipitation == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/rainfall.png',
-                    value: statusData.getPrecipitation(precipitation),
+                    value: statusData.getPrecipitation(widget.precipitation),
                     desc: 'precipitation'.tr,
                   ),
-            rain == null
+            widget.rain == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/water.png',
-                    value: statusData.getPrecipitation(rain),
+                    value: statusData.getPrecipitation(widget.rain),
                     desc: 'rain'.tr,
                   ),
-            cloudcover == null
+            widget.cloudcover == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/cloudy.png',
-                    value: '$cloudcover%',
+                    value: '${widget.cloudcover}%',
                     desc: 'cloudcover'.tr,
                   ),
-            pressure == null
+            widget.pressure == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/atmospheric.png',
-                    value: '${pressure?.round()} ${'hPa'.tr}',
+                    value: '${widget.pressure?.round()} ${'hPa'.tr}',
                     desc: 'pressure'.tr,
-                    message: message.getPressure(pressure?.round()),
+                    message: message.getPressure(widget.pressure?.round()),
                   ),
-            uvIndex == null
+            widget.uvIndex == null
                 ? Container()
                 : DescWeather(
                     imageName: 'assets/images/uv.png',
-                    value: '${uvIndex?.round()}',
+                    value: '${widget.uvIndex?.round()}',
                     desc: 'uvIndex'.tr,
-                    message: message.getUvIndex(uvIndex?.round()),
+                    message: message.getUvIndex(widget.uvIndex?.round()),
                   ),
           ],
         ),

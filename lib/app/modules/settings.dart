@@ -396,13 +396,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                 'celsius'.tr,
                                 'fahrenheit'.tr
                               ],
-                              dropdownCange: (String? newValue) {
+                              dropdownCange: (String? newValue) async {
                                 isar.writeTxn(() async {
                                   settings.degrees = newValue == 'celsius'.tr
                                       ? 'celsius'
                                       : 'fahrenheit';
                                   isar.settings.put(settings);
                                 });
+                                await flutterLocalNotificationsPlugin
+                                    .cancelAll();
+                                await locationController.deleteAll(false);
+                                await locationController.setLocation();
+                                await locationController.updateCacheCard(true);
                                 setState(() {});
                               },
                             ),
@@ -418,7 +423,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 'metric'.tr,
                                 'imperial'.tr
                               ],
-                              dropdownCange: (String? newValue) {
+                              dropdownCange: (String? newValue) async{
                                 isar.writeTxn(() async {
                                   settings.measurements =
                                       newValue == 'metric'.tr
@@ -426,6 +431,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                           : 'imperial';
                                   isar.settings.put(settings);
                                 });
+                                await flutterLocalNotificationsPlugin
+                                    .cancelAll();
+                                await locationController.deleteAll(false);
+                                await locationController.setLocation();
+                                await locationController.updateCacheCard(true);
                                 setState(() {});
                               },
                             ),

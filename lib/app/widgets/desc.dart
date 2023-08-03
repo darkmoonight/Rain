@@ -20,6 +20,7 @@ class DescWeather extends StatefulWidget {
 
 class _DescWeatherState extends State<DescWeather> {
   bool hide = true;
+  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

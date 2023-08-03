@@ -17,7 +17,6 @@ class SunsetSunrise extends StatefulWidget {
 }
 
 class _SunsetSunriseState extends State<SunsetSunrise> {
-  final locale = Get.locale;
   final statusData = StatusData();
 
   @override
