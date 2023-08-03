@@ -87,9 +87,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           context.textTheme.labelLarge?.copyWith(fontSize: 16),
                       decoration: InputDecoration(
                         hintText: 'search'.tr,
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
                       ),
                     );
                   },

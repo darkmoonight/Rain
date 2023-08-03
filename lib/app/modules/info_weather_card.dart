@@ -68,8 +68,10 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
             ),
           ),
           title: Text(
-            '${widget.weatherCard.city}'
-            ', ${widget.weatherCard.district}',
+            widget.weatherCard.district!.isNotEmpty
+                ? '${widget.weatherCard.city}'
+                    ', ${widget.weatherCard.district}'
+                : '${widget.weatherCard.city}',
             style: context.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
               fontSize: 18,

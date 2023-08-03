@@ -68,7 +68,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                           },
                           icon: const Icon(
                             Iconsax.close_square,
-                            size: 20,
+                            size: 18,
                           ),
                         ),
                         Text(
@@ -98,47 +98,46 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                           },
                           icon: const Icon(
                             Iconsax.tick_square,
-                            size: 20,
+                            size: 18,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 10),
-                    child: RawAutocomplete<Result>(
-                      focusNode: _focusNode,
-                      textEditingController: _controller,
-                      fieldViewBuilder: (BuildContext context,
-                          TextEditingController fieldTextEditingController,
-                          FocusNode fieldFocusNode,
-                          VoidCallback onFieldSubmitted) {
-                        return TextField(
-                          controller: _controller,
-                          focusNode: _focusNode,
-                          style: context.textTheme.labelLarge,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Iconsax.global_search),
-                            labelText: 'search'.tr,
-                          ),
-                        );
-                      },
-                      optionsBuilder: (TextEditingValue textEditingValue) {
-                        if (textEditingValue.text.isEmpty) {
-                          return const Iterable<Result>.empty();
-                        }
-                        return WeatherAPI()
-                            .getSuggestions(textEditingValue.text, locale);
-                      },
-                      onSelected: (Result selection) =>
-                          fillController(selection),
-                      displayStringForOption: (Result option) =>
-                          '${option.name}, ${option.admin1}',
-                      optionsViewBuilder: (BuildContext context,
-                          AutocompleteOnSelected<Result> onSelected,
-                          Iterable<Result> options) {
-                        return Align(
+                  RawAutocomplete<Result>(
+                    focusNode: _focusNode,
+                    textEditingController: _controller,
+                    fieldViewBuilder: (BuildContext context,
+                        TextEditingController fieldTextEditingController,
+                        FocusNode fieldFocusNode,
+                        VoidCallback onFieldSubmitted) {
+                      return MyTextForm(
+                        elevation: 4,
+                        labelText: 'search'.tr,
+                        type: TextInputType.text,
+                        icon: const Icon(Iconsax.global_search),
+                        controller: _controller,
+                        margin:
+                            const EdgeInsets.only(left: 10, right: 10, top: 10),
+                        focusNode: _focusNode,
+                      );
+                    },
+                    optionsBuilder: (TextEditingValue textEditingValue) {
+                      if (textEditingValue.text.isEmpty) {
+                        return const Iterable<Result>.empty();
+                      }
+                      return WeatherAPI()
+                          .getSuggestions(textEditingValue.text, locale);
+                    },
+                    onSelected: (Result selection) => fillController(selection),
+                    displayStringForOption: (Result option) =>
+                        '${option.name}, ${option.admin1}',
+                    optionsViewBuilder: (BuildContext context,
+                        AutocompleteOnSelected<Result> onSelected,
+                        Iterable<Result> options) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Align(
                           alignment: Alignment.topCenter,
                           child: Material(
                             borderRadius: BorderRadius.circular(20),
@@ -161,17 +160,17 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                               },
                             ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                   MyTextForm(
+                    elevation: 4,
                     controller: _controllerLat,
                     labelText: 'lat'.tr,
                     type: TextInputType.number,
                     icon: const Icon(Iconsax.location),
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'validateValue'.tr;
@@ -187,12 +186,12 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     },
                   ),
                   MyTextForm(
+                    elevation: 4,
                     controller: _controllerLon,
                     labelText: 'lon'.tr,
                     type: TextInputType.number,
                     icon: const Icon(Iconsax.location),
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'validateValue'.tr;
@@ -208,12 +207,12 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     },
                   ),
                   MyTextForm(
+                    elevation: 4,
                     controller: _controllerCity,
                     labelText: 'city'.tr,
                     type: TextInputType.name,
                     icon: const Icon(Icons.location_city_rounded),
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'validateName'.tr;
@@ -222,12 +221,12 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     },
                   ),
                   MyTextForm(
+                    elevation: 4,
                     controller: _controllerDistrict,
                     labelText: 'district'.tr,
                     type: TextInputType.streetAddress,
                     icon: const Icon(Iconsax.global),
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   ),
                   const SizedBox(height: 20),
                 ],

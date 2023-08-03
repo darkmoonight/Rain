@@ -8,23 +8,29 @@ class MyTextForm extends StatelessWidget {
     required this.type,
     required this.icon,
     required this.controller,
-    required this.padding,
+    required this.margin,
     this.iconButton,
     this.validator,
+    this.elevation,
+    this.focusNode,
   });
   final String labelText;
   final TextInputType type;
   final Icon icon;
   final TextEditingController controller;
-  final EdgeInsets padding;
+  final EdgeInsets margin;
   final Widget? iconButton;
   final String? Function(String?)? validator;
+  final double? elevation;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: padding,
+    return Card(
+      elevation: elevation,
+      margin: margin,
       child: TextFormField(
+        focusNode: focusNode,
         controller: controller,
         keyboardType: type,
         style: context.textTheme.labelLarge,

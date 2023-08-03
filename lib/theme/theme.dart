@@ -61,18 +61,9 @@ ThemeData lightTheme(Color? color, ColorScheme? colorScheme) {
           return const TextStyle(fontSize: 14);
         },
       ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(
-          color: baseLigth.disabledColor,
-        ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(
-          color: baseLigth.disabledColor,
-        ),
-      ),
+      border: InputBorder.none,
+      focusedBorder: InputBorder.none,
+      enabledBorder: InputBorder.none,
     ),
   );
 }
@@ -120,18 +111,9 @@ ThemeData darkTheme(Color? color, ColorScheme? colorScheme) {
           return const TextStyle(fontSize: 14);
         },
       ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(
-          color: baseDark.disabledColor,
-        ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(
-          color: baseDark.disabledColor,
-        ),
-      ),
+      border: InputBorder.none,
+      focusedBorder: InputBorder.none,
+      enabledBorder: InputBorder.none,
     ),
   );
 }
