@@ -26,7 +26,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
   int timeNow = 0;
   int dayNow = 0;
   final locationController = Get.put(LocationController());
-  final ItemScrollController itemScrollController = ItemScrollController();
+  final itemScrollController = ItemScrollController();
 
   @override
   void initState() {

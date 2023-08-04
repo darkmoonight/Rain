@@ -19,11 +19,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int tabIndex = 0;
-  bool visible = false;
-  final locationController = Get.put(LocationController());
-  final TextEditingController _controller = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
   late TabController tabController;
+  final locationController = Get.put(LocationController());
+  bool visible = false;
+  final _controller = TextEditingController();
+  final _focusNode = FocusNode();
 
   final pages = [
     const WeatherPage(),

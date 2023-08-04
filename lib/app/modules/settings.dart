@@ -25,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
   String? appVersion;
 
   Future<void> infoVersion() async {
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       appVersion = packageInfo.version;
     });
@@ -423,7 +423,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 'metric'.tr,
                                 'imperial'.tr
                               ],
-                              dropdownCange: (String? newValue) async{
+                              dropdownCange: (String? newValue) async {
                                 isar.writeTxn(() async {
                                   settings.measurements =
                                       newValue == 'metric'.tr

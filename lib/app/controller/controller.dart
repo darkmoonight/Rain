@@ -40,7 +40,7 @@ class LocationController extends GetxController {
 
   final hourOfDay = 0.obs;
   final dayOfNow = 0.obs;
-  final ItemScrollController itemScrollController = ItemScrollController();
+  final itemScrollController = ItemScrollController();
   final cacheExpiry = DateTime.now().subtract(const Duration(hours: 6));
 
   @override

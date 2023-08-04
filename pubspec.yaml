@@ -20,6 +20,7 @@ dependencies:
   shimmer: ^3.0.0
   iconsax: ^0.0.8
   timezone: ^0.9.2
+  connecteo: ^1.1.1
   geocoding: ^2.1.0
   geolocator: ^9.0.2
   workmanager: ^0.5.1
@@ -38,7 +39,6 @@ dependencies:
   lat_lng_to_timezone: ^0.2.0
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^15.1.0+1
-  internet_connection_checker_plus: ^2.0.0
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:

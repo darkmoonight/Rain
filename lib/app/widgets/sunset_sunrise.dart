@@ -49,6 +49,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                       ],
                     ),
                   ),
+                  const SizedBox(width: 5),
                   Flexible(
                     child: Image.asset(
                       'assets/images/sunrise.png',
@@ -80,6 +81,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                       ],
                     ),
                   ),
+                  const SizedBox(width: 5),
                   Flexible(
                     child: Image.asset(
                       'assets/images/sunset.png',
