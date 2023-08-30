@@ -28,9 +28,9 @@ dependencies:
   google_fonts: ^5.1.0
   flutter_glow: ^0.3.0
   time_machine: ^0.9.17
-  url_launcher: ^6.1.12
+  url_launcher: ^6.1.13
   dynamic_color: ^1.6.6
-  path_provider: ^2.1.0
+  path_provider: ^2.1.1
   flutter_timezone: ^1.0.7
   package_info_plus: ^4.1.0
   connectivity_plus: ^4.0.2
@@ -38,7 +38,7 @@ dependencies:
   flutter_displaymode: ^0.6.0
   lat_lng_to_timezone: ^0.2.0
   scrollable_positioned_list: ^0.3.8
-  flutter_local_notifications: ^15.1.0+1
+  flutter_local_notifications: ^15.1.1
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:
@@ -52,7 +52,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.6
-  flutter_lints: ^2.0.2
+  flutter_lints: ^2.0.3
   isar_generator: ^3.1.0+1
   flutter_native_splash: ^2.3.2
   flutter_launcher_icons: ^0.13.1

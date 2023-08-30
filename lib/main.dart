@@ -3,7 +3,6 @@ import 'package:connecteo/connecteo.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -56,11 +55,6 @@ final List appLanguages = [
 void main() async {
   final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.black,
-    ),
-  );
   await isarInit();
   if (Platform.isAndroid) {
     await setOptimalDisplayMode();
