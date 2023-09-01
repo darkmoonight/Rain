@@ -10,8 +10,8 @@ class WeatherDataApi {
   });
 
   factory WeatherDataApi.fromJson(Map<String, dynamic> json) => WeatherDataApi(
-        hourly: Hourly.fromJson(json["hourly"]),
-        daily: Daily.fromJson(json["daily"]),
+        hourly: Hourly.fromJson(json['hourly']),
+        daily: Daily.fromJson(json['daily']),
         timezone: json['timezone'],
       );
 }

@@ -19,15 +19,15 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  final locationController = Get.put(LocationController());
+  final weatherController = Get.put(WeatherController());
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
         await flutterLocalNotificationsPlugin.cancelAll();
-        await locationController.deleteAll(false);
-        await locationController.setLocation();
+        await weatherController.deleteAll(false);
+        await weatherController.setLocation();
         setState(() {});
       },
       child: SafeArea(
@@ -36,23 +36,23 @@ class _WeatherPageState extends State<WeatherPage> {
           child: ListView(
             children: [
               Obx(
-                () => locationController.isLoading.isFalse
+                () => weatherController.isLoading.isFalse
                     ? WeatherNow(
-                        time: locationController.mainWeather
-                            .time![locationController.hourOfDay.value],
-                        weather: locationController.mainWeather
-                            .weathercode![locationController.hourOfDay.value],
-                        degree: locationController.mainWeather
-                            .temperature2M![locationController.hourOfDay.value],
-                        timeDay: locationController.mainWeather
-                            .sunrise![locationController.dayOfNow.value],
-                        timeNight: locationController.mainWeather
-                            .sunset![locationController.dayOfNow.value],
+                        time: weatherController.mainWeather
+                            .time![weatherController.hourOfDay.value],
+                        weather: weatherController.mainWeather
+                            .weathercode![weatherController.hourOfDay.value],
+                        degree: weatherController.mainWeather
+                            .temperature2M![weatherController.hourOfDay.value],
+                        timeDay: weatherController.mainWeather
+                            .sunrise![weatherController.dayOfNow.value],
+                        timeNight: weatherController.mainWeather
+                            .sunset![weatherController.dayOfNow.value],
                       )
                     : const MyShimmer(hight: 350),
               ),
               Obx(
-                () => locationController.isLoading.isFalse
+                () => weatherController.isLoading.isFalse
                     ? Card(
                         margin: const EdgeInsets.symmetric(vertical: 15),
                         child: SizedBox(
@@ -73,13 +73,13 @@ class _WeatherPageState extends State<WeatherPage> {
                               },
                               scrollDirection: Axis.horizontal,
                               itemScrollController:
-                                  locationController.itemScrollController,
+                                  weatherController.itemScrollController,
                               itemCount:
-                                  locationController.mainWeather.time!.length,
+                                  weatherController.mainWeather.time!.length,
                               itemBuilder: (ctx, i) => GestureDetector(
                                 onTap: () {
-                                  locationController.hourOfDay.value = i;
-                                  locationController.dayOfNow.value =
+                                  weatherController.hourOfDay.value = i;
+                                  weatherController.dayOfNow.value =
                                       (i / 24).floor();
                                   setState(() {});
                                 },
@@ -92,7 +92,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                   ),
                                   decoration: BoxDecoration(
                                     color:
-                                        i == locationController.hourOfDay.value
+                                        i == weatherController.hourOfDay.value
                                             ? context.theme.colorScheme
                                                 .primaryContainer
                                             : Colors.transparent,
@@ -102,14 +102,14 @@ class _WeatherPageState extends State<WeatherPage> {
                                   ),
                                   child: WeatherHourly(
                                     time:
-                                        locationController.mainWeather.time![i],
-                                    weather: locationController
+                                        weatherController.mainWeather.time![i],
+                                    weather: weatherController
                                         .mainWeather.weathercode![i],
-                                    degree: locationController
+                                    degree: weatherController
                                         .mainWeather.temperature2M![i],
-                                    timeDay: locationController
+                                    timeDay: weatherController
                                         .mainWeather.sunrise![(i / 24).floor()],
-                                    timeNight: locationController
+                                    timeNight: weatherController
                                         .mainWeather.sunset![(i / 24).floor()],
                                   ),
                                 ),
@@ -124,12 +124,12 @@ class _WeatherPageState extends State<WeatherPage> {
                       ),
               ),
               Obx(
-                () => locationController.isLoading.isFalse
+                () => weatherController.isLoading.isFalse
                     ? SunsetSunrise(
-                        timeSunrise: locationController.mainWeather
-                            .sunrise![locationController.dayOfNow.value],
-                        timeSunset: locationController.mainWeather
-                            .sunset![locationController.dayOfNow.value],
+                        timeSunrise: weatherController.mainWeather
+                            .sunrise![weatherController.dayOfNow.value],
+                        timeSunset: weatherController.mainWeather
+                            .sunset![weatherController.dayOfNow.value],
                       )
                     : const MyShimmer(
                         hight: 90,
@@ -137,37 +137,37 @@ class _WeatherPageState extends State<WeatherPage> {
                       ),
               ),
               Obx(
-                () => locationController.isLoading.isFalse
+                () => weatherController.isLoading.isFalse
                     ? DescContainer(
                         humidity:
-                            locationController.mainWeather.relativehumidity2M![
-                                locationController.hourOfDay.value],
-                        wind: locationController.mainWeather
-                            .windspeed10M![locationController.hourOfDay.value],
-                        visibility: locationController.mainWeather
-                            .visibility![locationController.hourOfDay.value],
+                            weatherController.mainWeather.relativehumidity2M![
+                                weatherController.hourOfDay.value],
+                        wind: weatherController.mainWeather
+                            .windspeed10M![weatherController.hourOfDay.value],
+                        visibility: weatherController.mainWeather
+                            .visibility![weatherController.hourOfDay.value],
                         feels:
-                            locationController.mainWeather.apparentTemperature![
-                                locationController.hourOfDay.value],
+                            weatherController.mainWeather.apparentTemperature![
+                                weatherController.hourOfDay.value],
                         evaporation:
-                            locationController.mainWeather.evapotranspiration![
-                                locationController.hourOfDay.value],
-                        precipitation: locationController.mainWeather
-                            .precipitation![locationController.hourOfDay.value],
+                            weatherController.mainWeather.evapotranspiration![
+                                weatherController.hourOfDay.value],
+                        precipitation: weatherController.mainWeather
+                            .precipitation![weatherController.hourOfDay.value],
                         direction:
-                            locationController.mainWeather.winddirection10M![
-                                locationController.hourOfDay.value],
+                            weatherController.mainWeather.winddirection10M![
+                                weatherController.hourOfDay.value],
                         pressure:
-                            locationController.mainWeather.surfacePressure![
-                                locationController.hourOfDay.value],
-                        rain: locationController.mainWeather
-                            .rain![locationController.hourOfDay.value],
-                        cloudcover: locationController.mainWeather
-                            .cloudcover![locationController.hourOfDay.value],
-                        windgusts: locationController.mainWeather
-                            .windgusts10M![locationController.hourOfDay.value],
-                        uvIndex: locationController.mainWeather
-                            .uvIndex![locationController.hourOfDay.value],
+                            weatherController.mainWeather.surfacePressure![
+                                weatherController.hourOfDay.value],
+                        rain: weatherController.mainWeather
+                            .rain![weatherController.hourOfDay.value],
+                        cloudcover: weatherController.mainWeather
+                            .cloudcover![weatherController.hourOfDay.value],
+                        windgusts: weatherController.mainWeather
+                            .windgusts10M![weatherController.hourOfDay.value],
+                        uvIndex: weatherController.mainWeather
+                            .uvIndex![weatherController.hourOfDay.value],
                       )
                     : const MyShimmer(
                         hight: 400,
@@ -175,12 +175,12 @@ class _WeatherPageState extends State<WeatherPage> {
                       ),
               ),
               Obx(
-                () => locationController.isLoading.isFalse
+                () => weatherController.isLoading.isFalse
                     ? WeatherDaily(
-                        mainWeatherCache: locationController.mainWeather,
+                        mainWeatherCache: weatherController.mainWeather,
                         onTap: () => Get.to(
                           () => WeatherMore(
-                            mainWeatherCache: locationController.mainWeather,
+                            mainWeatherCache: weatherController.mainWeather,
                           ),
                           transition: Transition.downToUp,
                         ),

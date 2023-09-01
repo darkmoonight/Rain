@@ -3,6 +3,7 @@ import 'package:connecteo/connecteo.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -55,6 +56,11 @@ final List appLanguages = [
 void main() async {
   final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.black,
+    ),
+  );
   await isarInit();
   if (Platform.isAndroid) {
     await setOptimalDisplayMode();
@@ -93,17 +99,14 @@ void main() async {
 Future<void> setOptimalDisplayMode() async {
   final List<DisplayMode> supported = await FlutterDisplayMode.supported;
   final DisplayMode active = await FlutterDisplayMode.active;
-
   final List<DisplayMode> sameResolution = supported
       .where((DisplayMode m) =>
           m.width == active.width && m.height == active.height)
       .toList()
     ..sort((DisplayMode a, DisplayMode b) =>
         b.refreshRate.compareTo(a.refreshRate));
-
   final DisplayMode mostOptimalMode =
       sameResolution.isNotEmpty ? sameResolution.first : active;
-
   await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
 }
 
@@ -246,22 +249,8 @@ class _MyAppState extends State<MyApp> {
           translations: Translation(),
           locale: locale,
           fallbackLocale: const Locale('en', 'US'),
-          supportedLocales: const [
-            Locale('en', 'US'),
-            Locale('ru', 'RU'),
-            Locale('it', 'IT'),
-            Locale('de', 'DE'),
-            Locale('fr', 'FR'),
-            Locale('tr', 'TR'),
-            Locale('pt', 'BR'),
-            Locale('es', 'ES'),
-            Locale('sk', 'SK'),
-            Locale('nl', 'NL'),
-            Locale('hi', 'IN'),
-            Locale('ro', 'RO'),
-            Locale('zh', 'CN'),
-            Locale('pl', 'PL'),
-          ],
+          supportedLocales:
+              appLanguages.map((e) => e['locale'] as Locale).toList(),
           debugShowCheckedModeBanner: false,
           home: settings.onboard == false
               ? const OnboardingPage()

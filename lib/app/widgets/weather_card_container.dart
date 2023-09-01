@@ -35,7 +35,7 @@ class WeatherCardContainer extends StatefulWidget {
 class _WeatherCardContainerState extends State<WeatherCardContainer> {
   final statusWeather = StatusWeather();
   final statusData = StatusData();
-  final locationController = Get.put(LocationController());
+  final weatherController = Get.put(WeatherController());
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _WeatherCardContainerState extends State<WeatherCardContainer> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        statusData.getDegree(widget.degree[locationController
+                        statusData.getDegree(widget.degree[weatherController
                                 .getTime(widget.time, widget.timezone)]
                             .round()
                             .toInt()),
@@ -64,7 +64,7 @@ class _WeatherCardContainerState extends State<WeatherCardContainer> {
                       ),
                       const SizedBox(width: 7),
                       Text(
-                        statusWeather.getText(widget.weather[locationController
+                        statusWeather.getText(widget.weather[weatherController
                             .getTime(widget.time, widget.timezone)]),
                         style: context.textTheme.titleMedium?.copyWith(
                           color: Colors.grey,
@@ -107,12 +107,12 @@ class _WeatherCardContainerState extends State<WeatherCardContainer> {
             Image.asset(
               statusWeather.getImageNow(
                   widget.weather[
-                      locationController.getTime(widget.time, widget.timezone)],
+                      weatherController.getTime(widget.time, widget.timezone)],
                   widget.time[
-                      locationController.getTime(widget.time, widget.timezone)],
-                  widget.timeDay[locationController.getDay(
+                      weatherController.getTime(widget.time, widget.timezone)],
+                  widget.timeDay[weatherController.getDay(
                       widget.timeDaily, widget.timezone)],
-                  widget.timeNight[locationController.getDay(
+                  widget.timeNight[weatherController.getDay(
                       widget.timeDaily, widget.timezone)]),
               scale: 6.5,
             ),

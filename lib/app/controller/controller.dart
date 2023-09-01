@@ -15,7 +15,7 @@ import 'package:timezone/standalone.dart' as tz;
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class LocationController extends GetxController {
+class WeatherController extends GetxController {
   final isLoading = true.obs;
   final isSearch = true.obs;
   final _district = ''.obs;

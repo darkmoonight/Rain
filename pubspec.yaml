@@ -28,7 +28,7 @@ dependencies:
   google_fonts: ^5.1.0
   flutter_glow: ^0.3.0
   time_machine: ^0.9.17
-  url_launcher: ^6.1.13
+  url_launcher: ^6.1.14
   dynamic_color: ^1.6.6
   path_provider: ^2.1.1
   flutter_timezone: ^1.0.7

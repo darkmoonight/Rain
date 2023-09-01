@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/api/api.dart';
@@ -21,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int tabIndex = 0;
   late TabController tabController;
-  final locationController = Get.put(LocationController());
+  final weatherController = Get.put(WeatherController());
   bool visible = false;
   final _controller = TextEditingController();
   final _focusNode = FocusNode();
@@ -49,9 +48,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void getData() async {
-    await locationController.deleteCache();
-    await locationController.updateCacheCard(false);
-    await locationController.setLocation();
+    await weatherController.deleteCache();
+    await weatherController.updateCacheCard(false);
+    await weatherController.setLocation();
   }
 
   void changeTabIndex(int index) {
@@ -63,13 +62,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        systemNavigationBarColor:
-            context.theme.navigationBarTheme.backgroundColor,
-      ),
-    );
-
     return DefaultTabController(
       length: pages.length,
       child: Scaffold(
@@ -106,8 +98,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         .getSuggestions(textEditingValue.text, locale);
                   },
                   onSelected: (Result selection) async {
-                    await locationController.deleteAll(true);
-                    await locationController.getLocation(
+                    await weatherController.deleteAll(true);
+                    await weatherController.getLocation(
                       double.parse('${selection.latitude}'),
                       double.parse('${selection.longitude}'),
                       selection.admin1,
@@ -153,19 +145,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   },
                 )
               : Obx(() => Text(
-                    locationController.isLoading.isFalse
-                        ? locationController.location.district!.isEmpty
-                            ? '${locationController.location.city}'
-                            : locationController.location.city!.isEmpty
-                                ? '${locationController.location.district}'
-                                : locationController.location.city ==
-                                        locationController.location.district
-                                    ? '${locationController.location.city}'
-                                    : '${locationController.location.city}'
-                                        ', ${locationController.location.district}'
+                    weatherController.isLoading.isFalse
+                        ? weatherController.location.district!.isEmpty
+                            ? '${weatherController.location.city}'
+                            : weatherController.location.city!.isEmpty
+                                ? '${weatherController.location.district}'
+                                : weatherController.location.city ==
+                                        weatherController.location.district
+                                    ? '${weatherController.location.city}'
+                                    : '${weatherController.location.city}'
+                                        ', ${weatherController.location.district}'
                         : settings.location
                             ? 'search'.tr
-                            : locationController.isSearch.isFalse
+                            : weatherController.isSearch.isFalse
                                 ? 'loading'.tr
                                 : 'searchCity'.tr,
                     style: context.textTheme.titleMedium?.copyWith(

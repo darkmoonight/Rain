@@ -18,7 +18,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
   bool isLoading = false;
   final formKey = GlobalKey<FormState>();
   final _focusNode = FocusNode();
-  final locationController = Get.put(LocationController());
+  final weatherController = Get.put(WeatherController());
   final _controller = TextEditingController();
   final _controllerLat = TextEditingController();
   final _controllerLon = TextEditingController();
@@ -86,7 +86,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                               textTrim(_controllerCity);
                               textTrim(_controllerDistrict);
                               setState(() => isLoading = true);
-                              await locationController.addCardWeather(
+                              await weatherController.addCardWeather(
                                 double.parse(_controllerLat.text),
                                 double.parse(_controllerLon.text),
                                 _controllerCity.text,

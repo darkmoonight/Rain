@@ -21,7 +21,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final themeController = Get.put(ThemeController());
-  final locationController = Get.put(LocationController());
+  final weatherController = Get.put(WeatherController());
   String? appVersion;
 
   Future<void> infoVersion() async {
@@ -200,8 +200,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     isar.settings.put(settings);
                                   });
                                   if (value) {
-                                    locationController.notlification(
-                                        locationController.mainWeather);
+                                    weatherController.notlification(
+                                        weatherController.mainWeather);
                                   } else {
                                     flutterLocalNotificationsPlugin.cancelAll();
                                   }
@@ -233,8 +233,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     newTimeRange: int.parse(newValue!));
                                 if (settings.notifications) {
                                   flutterLocalNotificationsPlugin.cancelAll();
-                                  locationController.notlification(
-                                      locationController.mainWeather);
+                                  weatherController.notlification(
+                                      weatherController.mainWeather);
                                 }
                               },
                             ),
@@ -248,11 +248,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoSettings: true,
                               textInfo: settings.timeformat == '12'
                                   ? DateFormat.jm().format(DateFormat.Hm()
-                                      .parse(locationController
+                                      .parse(weatherController
                                           .timeConvert(timeStart)
                                           .format(context)))
                                   : DateFormat.Hm().format(DateFormat.Hm()
-                                      .parse(locationController
+                                      .parse(weatherController
                                           .timeConvert(timeStart)
                                           .format(context))),
                               onPressed: () async {
@@ -260,7 +260,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     await showTimePicker(
                                   context: context,
                                   initialTime:
-                                      locationController.timeConvert(timeStart),
+                                      weatherController.timeConvert(timeStart),
                                   builder: (context, child) {
                                     final Widget mediaQueryWrapper = MediaQuery(
                                       data: MediaQuery.of(context).copyWith(
@@ -287,8 +287,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                   }
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
-                                    locationController.notlification(
-                                        locationController.mainWeather);
+                                    weatherController.notlification(
+                                        weatherController.mainWeather);
                                   }
                                 }
                               },
@@ -303,11 +303,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoSettings: true,
                               textInfo: settings.timeformat == '12'
                                   ? DateFormat.jm().format(DateFormat.Hm()
-                                      .parse(locationController
+                                      .parse(weatherController
                                           .timeConvert(timeEnd)
                                           .format(context)))
                                   : DateFormat.Hm().format(DateFormat.Hm()
-                                      .parse(locationController
+                                      .parse(weatherController
                                           .timeConvert(timeEnd)
                                           .format(context))),
                               onPressed: () async {
@@ -315,7 +315,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     await showTimePicker(
                                   context: context,
                                   initialTime:
-                                      locationController.timeConvert(timeEnd),
+                                      weatherController.timeConvert(timeEnd),
                                   builder: (context, child) {
                                     final Widget mediaQueryWrapper = MediaQuery(
                                       data: MediaQuery.of(context).copyWith(
@@ -342,8 +342,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                   }
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
-                                    locationController.notlification(
-                                        locationController.mainWeather);
+                                    weatherController.notlification(
+                                        weatherController.mainWeather);
                                   }
                                 }
                               },
@@ -405,9 +405,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 });
                                 await flutterLocalNotificationsPlugin
                                     .cancelAll();
-                                await locationController.deleteAll(false);
-                                await locationController.setLocation();
-                                await locationController.updateCacheCard(true);
+                                await weatherController.deleteAll(false);
+                                await weatherController.setLocation();
+                                await weatherController.updateCacheCard(true);
                                 setState(() {});
                               },
                             ),
@@ -433,9 +433,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 });
                                 await flutterLocalNotificationsPlugin
                                     .cancelAll();
-                                await locationController.deleteAll(false);
-                                await locationController.setLocation();
-                                await locationController.updateCacheCard(true);
+                                await weatherController.deleteAll(false);
+                                await weatherController.setLocation();
+                                await weatherController.updateCacheCard(true);
                                 setState(() {});
                               },
                             ),

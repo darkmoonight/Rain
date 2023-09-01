@@ -25,7 +25,7 @@ class InfoWeatherCard extends StatefulWidget {
 class _InfoWeatherCardState extends State<InfoWeatherCard> {
   int timeNow = 0;
   int dayNow = 0;
-  final locationController = Get.put(LocationController());
+  final weatherController = Get.put(WeatherController());
   final itemScrollController = ItemScrollController();
 
   @override
@@ -35,9 +35,9 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
   }
 
   void getTime() {
-    timeNow = locationController.getTime(
+    timeNow = weatherController.getTime(
         widget.weatherCard.time!, widget.weatherCard.timezone!);
-    dayNow = locationController.getDay(
+    dayNow = weatherController.getDay(
         widget.weatherCard.timeDaily!, widget.weatherCard.timezone!);
     Future.delayed(const Duration(milliseconds: 30), () async {
       itemScrollController.scrollTo(
@@ -52,7 +52,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        await locationController.updateCard(widget.weatherCard);
+        await weatherController.updateCard(widget.weatherCard);
         getTime();
         setState(() {});
       },

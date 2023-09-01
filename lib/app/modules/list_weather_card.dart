@@ -15,7 +15,7 @@ class ListWeatherCard extends StatefulWidget {
 }
 
 class _ListWeatherCardState extends State<ListWeatherCard> {
-  final locationController = Get.put(LocationController());
+  final weatherController = Get.put(WeatherController());
 
   void updateItemOrderInDatabase(List<WeatherCard> weatherCard) async {
     for (int i = 0; i < weatherCard.length; i++) {
@@ -29,11 +29,11 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
         onRefresh: () async {
-          await locationController.updateCacheCard(true);
+          await weatherController.updateCacheCard(true);
           setState(() {});
         },
         child: Obx(
-          () => locationController.weatherCards.isEmpty
+          () => weatherController.weatherCards.isEmpty
               ? Center(
                   child: SingleChildScrollView(
                     child: Column(
@@ -63,14 +63,14 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                       newIndex -= 1;
                     }
                     final element =
-                        locationController.weatherCards.removeAt(oldIndex);
-                    locationController.weatherCards.insert(newIndex, element);
-                    updateItemOrderInDatabase(locationController.weatherCards);
+                        weatherController.weatherCards.removeAt(oldIndex);
+                    weatherController.weatherCards.insert(newIndex, element);
+                    updateItemOrderInDatabase(weatherController.weatherCards);
                   },
-                  itemCount: locationController.weatherCards.length,
+                  itemCount: weatherController.weatherCards.length,
                   itemBuilder: (context, index) {
                     final weatherCardList =
-                        locationController.weatherCards[index];
+                        weatherController.weatherCards[index];
                     return Dismissible(
                       key: ValueKey(weatherCardList),
                       direction: DismissDirection.endToStart,
@@ -117,7 +117,7 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                         );
                       },
                       onDismissed: (DismissDirection direction) async {
-                        await locationController
+                        await weatherController
                             .deleteCardWeather(weatherCardList);
                       },
                       child: GestureDetector(
