@@ -177,10 +177,10 @@ class _WeatherPageState extends State<WeatherPage> {
               Obx(
                 () => weatherController.isLoading.isFalse
                     ? WeatherDaily(
-                        mainWeatherCache: weatherController.mainWeather,
+                        weatherData: weatherController.mainWeather.toJson(),
                         onTap: () => Get.to(
                           () => WeatherMore(
-                            mainWeatherCache: weatherController.mainWeather,
+                            weatherData: weatherController.mainWeather.toJson(),
                           ),
                           transition: Transition.downToUp,
                         ),

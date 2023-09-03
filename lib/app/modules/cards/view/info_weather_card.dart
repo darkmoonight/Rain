@@ -164,10 +164,10 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   uvIndex: widget.weatherCard.uvIndex?[timeNow],
                 ),
                 WeatherDaily(
-                  weatherCard: widget.weatherCard,
+                  weatherData: widget.weatherCard.toJson(),
                   onTap: () => Get.to(
                     () => WeatherMore(
-                      weatherCard: widget.weatherCard,
+                      weatherData: widget.weatherCard.toJson(),
                     ),
                     transition: Transition.downToUp,
                   ),
