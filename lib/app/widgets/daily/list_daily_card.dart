@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:rain/app/widgets/status_weather.dart';
-import 'package:rain/app/widgets/status_data.dart';
+import 'package:rain/app/widgets/status/status_weather.dart';
+import 'package:rain/app/widgets/status/status_data.dart';
 import 'package:rain/main.dart';
 
 class ListDailyCard extends StatefulWidget {
@@ -25,7 +25,7 @@ class ListDailyCard extends StatefulWidget {
 class _ListDailyCardState extends State<ListDailyCard> {
   final statusWeather = StatusWeather();
   final statusData = StatusData();
-  
+
   @override
   Widget build(BuildContext context) {
     return widget.weathercodeDaily == null

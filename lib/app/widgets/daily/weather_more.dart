@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/widgets/info_daily_card.dart';
-import 'package:rain/app/widgets/list_daily_card.dart';
+import 'package:rain/app/widgets/daily/info_daily_card.dart';
+import 'package:rain/app/widgets/daily/list_daily_card.dart';
 
 class WeatherMore extends StatefulWidget {
   const WeatherMore({

@@ -4,10 +4,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
-import 'package:rain/app/modules/list_weather_card.dart';
-import 'package:rain/app/modules/settings.dart';
-import 'package:rain/app/modules/weather.dart';
-import 'package:rain/app/widgets/create_card_weather.dart';
+import 'package:rain/app/modules/cards/view/list_weather_card.dart';
+import 'package:rain/app/modules/settings/view/settings.dart';
+import 'package:rain/app/modules/main/view/weather.dart';
+import 'package:rain/app/modules/cards/widgets/create_card_weather.dart';
 import 'package:rain/main.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,11 +19,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int tabIndex = 0;
+  bool visible = false;
+  final _focusNode = FocusNode();
   late TabController tabController;
   final weatherController = Get.put(WeatherController());
-  bool visible = false;
   final _controller = TextEditingController();
-  final _focusNode = FocusNode();
 
   final pages = [
     const WeatherPage(),

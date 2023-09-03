@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rain/app/widgets/status_data.dart';
+import 'package:rain/app/widgets/status/status_data.dart';
 
 class SunsetSunrise extends StatefulWidget {
   const SunsetSunrise({

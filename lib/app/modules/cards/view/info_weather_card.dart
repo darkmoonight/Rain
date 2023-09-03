@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/widgets/desc_container.dart';
-import 'package:rain/app/widgets/sunset_sunrise.dart';
-import 'package:rain/app/widgets/weather_daily.dart';
-import 'package:rain/app/widgets/weather_more.dart';
-import 'package:rain/app/widgets/weather_now.dart';
-import 'package:rain/app/widgets/weather_hourly.dart';
+import 'package:rain/app/widgets/desc/desc_container.dart';
+import 'package:rain/app/widgets/sun_moon/sunset_sunrise.dart';
+import 'package:rain/app/widgets/daily/weather_daily.dart';
+import 'package:rain/app/widgets/daily/weather_more.dart';
+import 'package:rain/app/widgets/now/weather_now.dart';
+import 'package:rain/app/widgets/hourly/weather_hourly.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class InfoWeatherCard extends StatefulWidget {

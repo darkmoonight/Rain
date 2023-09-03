@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/widgets/setting_card.dart';
+import 'package:rain/app/modules/settings/widgets/setting_card.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:url_launcher/url_launcher.dart';

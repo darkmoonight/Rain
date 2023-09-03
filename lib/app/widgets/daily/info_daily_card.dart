@@ -3,11 +3,11 @@ import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:rain/app/widgets/desc.dart';
-import 'package:rain/app/widgets/message.dart';
-import 'package:rain/app/widgets/status_weather.dart';
-import 'package:rain/app/widgets/status_data.dart';
-import 'package:rain/app/widgets/sunset_sunrise.dart';
+import 'package:rain/app/widgets/desc/desc.dart';
+import 'package:rain/app/widgets/desc/message.dart';
+import 'package:rain/app/widgets/status/status_weather.dart';
+import 'package:rain/app/widgets/status/status_data.dart';
+import 'package:rain/app/widgets/sun_moon/sunset_sunrise.dart';
 import 'package:rain/main.dart';
 
 class InfoDailyCard extends StatefulWidget {

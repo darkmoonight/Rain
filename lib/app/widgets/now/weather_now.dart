@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:rain/app/widgets/status_weather.dart';
+import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/main.dart';
 
 class WeatherNow extends StatefulWidget {

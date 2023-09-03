@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/modules/info_weather_card.dart';
-import 'package:rain/app/widgets/weather_card_container.dart';
+import 'package:rain/app/modules/cards/view/info_weather_card.dart';
+import 'package:rain/app/modules/cards/widgets/weather_card_container.dart';
 import 'package:rain/main.dart';
 
 class ListWeatherCard extends StatefulWidget {
