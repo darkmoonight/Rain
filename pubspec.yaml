@@ -20,7 +20,6 @@ dependencies:
   shimmer: ^3.0.0
   iconsax: ^0.0.8
   timezone: ^0.9.2
-  connecteo: ^1.1.1
   geocoding: ^2.1.0
   geolocator: ^10.0.0
   workmanager: ^0.5.1

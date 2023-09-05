@@ -1418,8 +1418,7 @@ class Translation extends Translations {
           'district': 'Dzielnica',
           'noWeatherCard': 'Dodaj miasto',
           'deletedCardWeather': 'Usuwanie miasta',
-          'deletedCardWeatherQuery':
-              'Czy na pewno chcesz usunąć miasto?',
+          'deletedCardWeatherQuery': 'Czy na pewno chcesz usunąć miasto?',
           'delete': 'Usuń',
           'cancel': 'Anuluj',
           'time': 'Czas w mieście',

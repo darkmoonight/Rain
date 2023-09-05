@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:connecteo/connecteo.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +22,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 late Isar isar;
 late Settings settings;
-final ValueNotifier<Future<bool>> isDeviceConnectedNotifier =
-    ValueNotifier(ConnectionChecker().isConnected);
+bool isOnline = false;
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -75,10 +73,10 @@ void main() async {
   Connectivity()
       .onConnectivityChanged
       .listen((ConnectivityResult result) async {
-    if (result != ConnectivityResult.none) {
-      isDeviceConnectedNotifier.value = ConnectionChecker().isConnected;
+    if (result == ConnectivityResult.none) {
+      isOnline = false;
     } else {
-      isDeviceConnectedNotifier.value = Future(() => false);
+      isOnline = true;
     }
   });
   const AndroidInitializationSettings initializationSettingsAndroid =

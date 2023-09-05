@@ -3,11 +3,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:isar/isar.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/services/notification.dart';
+import 'package:rain/app/services/utils.dart';
 import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
 import 'package:rain/main.dart';
@@ -45,7 +45,8 @@ class WeatherController extends GetxController {
 
   @override
   void onInit() {
-    weatherCards.value = isar.weatherCards.where().sortByIndex().findAllSync();
+    weatherCards
+        .assignAll(isar.weatherCards.where().sortByIndex().findAllSync());
     super.onInit();
   }
 
@@ -84,7 +85,8 @@ class WeatherController extends GetxController {
 
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (await isDeviceConnectedNotifier.value && serviceEnabled) {
+
+    if (isOnline && serviceEnabled) {
       Position position = await determinePosition();
 
       List<Placemark> placemarks =
@@ -101,62 +103,26 @@ class WeatherController extends GetxController {
 
       await writeCache();
       await readCache();
-    } else if (!await isDeviceConnectedNotifier.value && serviceEnabled) {
-      Get.snackbar(
-        'no_inter'.tr,
-        'on_inter'.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-        icon: const Icon(Iconsax.wifi),
-        shouldIconPulse: true,
-      );
+    } else if (!isOnline && serviceEnabled) {
+      showSnackBar(content: 'no_inter'.tr);
       await readCache();
-    } else if (await isDeviceConnectedNotifier.value && !serviceEnabled) {
-      Get.snackbar(
-        'location'.tr,
-        'no_location'.tr,
-        mainButton: TextButton(
-          onPressed: () => Geolocator.openLocationSettings(),
-          child: Text(
-            'settings'.tr,
-          ),
-        ),
-        icon: const Icon(Iconsax.location_slash),
-        shouldIconPulse: true,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-      );
+    } else if (isOnline && !serviceEnabled) {
+      showSnackBar(
+          content: 'no_location'.tr,
+          onPressed: () => Geolocator.openLocationSettings());
       await readCache();
-    } else if (!await isDeviceConnectedNotifier.value && !serviceEnabled) {
-      Get.snackbar(
-        'no_inter'.tr,
-        'on_inter'.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-        icon: const Icon(Iconsax.wifi),
-        shouldIconPulse: true,
-      );
-      Get.snackbar(
-        'location'.tr,
-        'no_location'.tr,
-        mainButton: TextButton(
-          onPressed: () => Geolocator.openLocationSettings(),
-          child: Text(
-            'settings'.tr,
-          ),
-        ),
-        icon: const Icon(Iconsax.location_slash),
-        shouldIconPulse: true,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-      );
+    } else if (!isOnline && !serviceEnabled) {
+      showSnackBar(content: 'no_inter'.tr);
+      showSnackBar(
+          content: 'no_location'.tr,
+          onPressed: () => Geolocator.openLocationSettings());
       await readCache();
     }
   }
 
   Future<void> getLocation(double latitude, double longitude, String district,
       String locality) async {
-    if (await isDeviceConnectedNotifier.value) {
+    if (isOnline) {
       _latitude.value = latitude;
       _longitude.value = longitude;
       _district.value = district;
@@ -176,14 +142,7 @@ class WeatherController extends GetxController {
       await writeCache();
       await readCache();
     } else {
-      Get.snackbar(
-        'no_inter'.tr,
-        'on_inter'.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-        icon: const Icon(Iconsax.wifi),
-        shouldIconPulse: true,
-      );
+      showSnackBar(content: 'no_inter'.tr);
       await readCache();
     }
   }
@@ -235,7 +194,7 @@ class WeatherController extends GetxController {
   }
 
   Future<void> deleteCache() async {
-    if (await isDeviceConnectedNotifier.value) {
+    if (isOnline) {
       isar.writeTxn(() async {
         await isar.mainWeatherCaches
             .filter()
@@ -249,7 +208,7 @@ class WeatherController extends GetxController {
   }
 
   Future<void> deleteAll(bool changeCity) async {
-    if (await isDeviceConnectedNotifier.value) {
+    if (isOnline) {
       isar.writeTxn(() async {
         await isar.mainWeatherCaches.where().deleteAll();
         if (settings.location || changeCity) {
@@ -262,7 +221,7 @@ class WeatherController extends GetxController {
   // Card Weather
   Future<void> addCardWeather(
       double latitude, double longitude, String city, String district) async {
-    if (await isDeviceConnectedNotifier.value) {
+    if (isOnline) {
       String tz = tzmap.latLngToTimezoneString(latitude, longitude);
       _weatherCard.value = await WeatherAPI()
           .getWeatherCard(latitude, longitude, city, district, tz);
@@ -271,14 +230,7 @@ class WeatherController extends GetxController {
         await isar.weatherCards.put(_weatherCard.value);
       });
     } else {
-      Get.snackbar(
-        'no_inter'.tr,
-        'on_inter'.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-        icon: const Icon(Iconsax.wifi),
-        shouldIconPulse: true,
-      );
+      showSnackBar(content: 'no_inter'.tr);
     }
   }
 
@@ -291,7 +243,7 @@ class WeatherController extends GetxController {
             .sortByIndex()
             .findAll();
 
-    if (await isDeviceConnectedNotifier.value && weatherCard.isNotEmpty) {
+    if (isOnline && weatherCard.isNotEmpty) {
       isar.writeTxn(() async {
         for (var element in weatherCard) {
           _weatherCard.value = await WeatherAPI().getWeatherCard(element.lat,
@@ -341,7 +293,7 @@ class WeatherController extends GetxController {
   }
 
   Future<void> updateCard(WeatherCard weatherCard) async {
-    if (await isDeviceConnectedNotifier.value) {
+    if (isOnline) {
       isar.writeTxn(() async {
         _weatherCard.value = await WeatherAPI().getWeatherCard(
           weatherCard.lat,
@@ -447,6 +399,20 @@ class WeatherController extends GetxController {
           notificationTime,
         );
       }
+    }
+  }
+
+  void reorder(oldIndex, newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    final element = weatherCards.removeAt(oldIndex);
+    weatherCards.insert(newIndex, element);
+
+    for (int i = 0; i < weatherCards.length; i++) {
+      final item = weatherCards[i];
+      item.index = i;
+      isar.writeTxn(() async => await isar.weatherCards.put(item));
     }
   }
 }
