@@ -397,6 +397,12 @@ class WeatherController extends GetxController {
           '$city: ${mainWeatherCache.temperature2M![i]}°',
           '${StatusWeather().getText(mainWeatherCache.weathercode![i])} · ${StatusData().getTimeFormat(mainWeatherCache.time![i])}',
           notificationTime,
+          StatusWeather().getImageNow(
+            mainWeatherCache.weathercode![i],
+            mainWeatherCache.time![i],
+            mainWeatherCache.sunrise![i],
+            mainWeatherCache.sunset![i],
+          ),
         );
       }
     }

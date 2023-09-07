@@ -8,15 +8,17 @@ class NotificationShow {
     String title,
     String body,
     DateTime date,
+    String icon,
   ) async {
     AndroidNotificationDetails androidNotificationDetails =
-        const AndroidNotificationDetails(
+        AndroidNotificationDetails(
       'Rain',
       'DARK NIGHT',
       priority: Priority.max,
       importance: Importance.max,
       playSound: false,
       enableVibration: false,
+      largeIcon: FilePathAndroidBitmap(icon),
     );
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
@@ -31,7 +33,7 @@ class NotificationShow {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: 'notlification-payload',
+      payload: icon,
     );
   }
 }

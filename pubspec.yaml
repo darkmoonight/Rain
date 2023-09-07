@@ -21,7 +21,7 @@ dependencies:
   iconsax: ^0.0.8
   timezone: ^0.9.2
   geocoding: ^2.1.0
-  geolocator: ^10.0.0
+  geolocator: ^10.0.1
   workmanager: ^0.5.1
   home_widget: ^0.3.0
   google_fonts: ^5.1.0
