@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rain/app/controller/controller.dart';
 import 'package:rain/main.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -10,6 +11,8 @@ class NotificationShow {
     DateTime date,
     String icon,
   ) async {
+    final imagePath = await WeatherController().getLocalImagePath(icon);
+
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
       'Rain',
@@ -18,7 +21,7 @@ class NotificationShow {
       importance: Importance.max,
       playSound: false,
       enableVibration: false,
-      largeIcon: FilePathAndroidBitmap(icon),
+      largeIcon: FilePathAndroidBitmap(imagePath),
     );
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
@@ -33,7 +36,7 @@ class NotificationShow {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: icon,
+      payload: imagePath,
     );
   }
 }

@@ -270,4 +270,69 @@ class StatusWeather {
         return '';
     }
   }
+
+  String getImageNotification(
+      int weather, String time, String timeDay, String timeNight) {
+    final currentTime = DateTime.parse(time);
+    final day = DateTime.parse(timeDay);
+    final night = DateTime.parse(timeNight);
+
+    final dayTime =
+        DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime =
+        DateTime(night.year, night.month, night.day, night.hour, night.minute);
+
+    switch (weather) {
+      case 0:
+        if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
+          return 'sun.png';
+        } else {
+          return 'full-moon.png';
+        }
+      case 1:
+      case 2:
+      case 3:
+        if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
+          return 'cloud.png';
+        } else {
+          return 'moon.png';
+        }
+      case 45:
+      case 48:
+        if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
+          return 'fog.png';
+        } else {
+          return 'fog_moon.png';
+        }
+      case 51:
+      case 53:
+      case 55:
+      case 56:
+      case 57:
+      case 61:
+      case 63:
+      case 65:
+      case 66:
+      case 67:
+        return 'rain.png';
+      case 80:
+      case 81:
+      case 82:
+        return 'rain-fall.png';
+      case 71:
+      case 73:
+      case 75:
+      case 77:
+      case 85:
+      case 86:
+        return 'snow.png';
+      case 95:
+        return 'thunder.png';
+      case 96:
+      case 99:
+        return 'storm.png';
+      default:
+        return '';
+    }
+  }
 }
