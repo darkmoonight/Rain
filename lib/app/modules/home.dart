@@ -188,42 +188,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ],
           ),
           body: SafeArea(
-            child: Row(
-              children: [
-                // Row(
-                //   children: [
-                //     NavigationRail(
-                //       selectedIndex: tabIndex,
-                //       labelType: NavigationRailLabelType.all,
-                //       onDestinationSelected: (int index) => changeTabIndex(index),
-                //       destinations: [
-                //         NavigationRailDestination(
-                //           icon: const Icon(Iconsax.cloud_sunny),
-                //           selectedIcon: const Icon(Iconsax.cloud_sunny5),
-                //           label: Text('name'.tr),
-                //         ),
-                //         NavigationRailDestination(
-                //           icon: const Icon(Iconsax.map_1),
-                //           selectedIcon: const Icon(Iconsax.map5),
-                //           label: Text('city'.tr),
-                //         ),
-                //         NavigationRailDestination(
-                //           icon: const Icon(Iconsax.category),
-                //           selectedIcon: const Icon(Iconsax.category5),
-                //           label: Text('settings'.tr),
-                //         ),
-                //       ],
-                //     ),
-                //     const VerticalDivider(thickness: 1, width: 1),
-                //   ],
-                // ),
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    children: pages,
-                  ),
-                ),
-              ],
+            child: TabBarView(
+              controller: tabController,
+              children: pages,
             ),
           ),
           bottomNavigationBar: NavigationBar(

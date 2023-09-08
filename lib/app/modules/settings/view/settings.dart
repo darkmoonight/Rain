@@ -505,12 +505,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                 elevation: 4,
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 5),
-                                child: TextButton(
-                                  child: Text(
-                                    appLanguages[index]['name'],
-                                    style: context.textTheme.labelLarge,
+                                child: ListTile(
+                                  title: Center(
+                                    child: Text(
+                                      appLanguages[index]['name'],
+                                      style: context.textTheme.labelLarge,
+                                    ),
                                   ),
-                                  onPressed: () {
+                                  onTap: () {
                                     MyApp.updateAppState(context,
                                         newLocale: appLanguages[index]
                                             ['locale']);
