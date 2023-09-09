@@ -17,7 +17,7 @@ class NotificationShow {
         AndroidNotificationDetails(
       'Rain',
       'DARK NIGHT',
-      priority: Priority.max,
+      priority: Priority.high,
       importance: Importance.max,
       playSound: false,
       enableVibration: false,

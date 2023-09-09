@@ -44,7 +44,7 @@ class WeatherController extends GetxController {
   final hourOfDay = 0.obs;
   final dayOfNow = 0.obs;
   final itemScrollController = ItemScrollController();
-  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 6));
+  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 12));
 
   @override
   void onInit() {
@@ -89,65 +89,64 @@ class WeatherController extends GetxController {
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
-    if (isOnline && serviceEnabled) {
-      Position position = await determinePosition();
-
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
-      Placemark place = placemarks[0];
-
-      _latitude.value = position.latitude;
-      _longitude.value = position.longitude;
-      _district.value = '${place.administrativeArea}';
-      _city.value = '${place.locality}';
-
-      _mainWeather.value =
-          await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
-
-      await writeCache();
-      await readCache();
-    } else if (!isOnline && serviceEnabled) {
+    if (!isOnline) {
       showSnackBar(content: 'no_inter'.tr);
       await readCache();
-    } else if (isOnline && !serviceEnabled) {
-      showSnackBar(
-          content: 'no_location'.tr,
-          onPressed: () => Geolocator.openLocationSettings());
-      await readCache();
-    } else if (!isOnline && !serviceEnabled) {
-      showSnackBar(content: 'no_inter'.tr);
-      showSnackBar(
-          content: 'no_location'.tr,
-          onPressed: () => Geolocator.openLocationSettings());
-      await readCache();
+      return;
     }
+
+    if (!serviceEnabled) {
+      showSnackBar(
+        content: 'no_location'.tr,
+        onPressed: () => Geolocator.openLocationSettings(),
+      );
+      await readCache();
+      return;
+    }
+
+    Position position = await determinePosition();
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark place = placemarks[0];
+
+    _latitude.value = position.latitude;
+    _longitude.value = position.longitude;
+    _district.value = '${place.administrativeArea}';
+    _city.value = '${place.locality}';
+
+    _mainWeather.value =
+        await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
+
+    await writeCache();
+    await readCache();
   }
 
   Future<void> getLocation(double latitude, double longitude, String district,
       String locality) async {
-    if (isOnline) {
-      _latitude.value = latitude;
-      _longitude.value = longitude;
-      _district.value = district;
-      _city.value = locality;
-
-      _mainWeather.value =
-          await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
-
-      if (settings.notifications) {
-        final List<PendingNotificationRequest> pendingNotificationRequests =
-            await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-        if (pendingNotificationRequests.isEmpty) {
-          notlification(_mainWeather.value);
-        }
-      }
-
-      await writeCache();
-      await readCache();
-    } else {
+    if (!isOnline) {
       showSnackBar(content: 'no_inter'.tr);
       await readCache();
+      return;
     }
+
+    _latitude.value = latitude;
+    _longitude.value = longitude;
+    _district.value = district;
+    _city.value = locality;
+
+    _mainWeather.value =
+        await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
+
+    if (settings.notifications) {
+      final List<PendingNotificationRequest> pendingNotificationRequests =
+          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+      if (pendingNotificationRequests.isEmpty) {
+        notlification(_mainWeather.value);
+      }
+    }
+
+    await writeCache();
+    await readCache();
   }
 
   Future<void> readCache() async {
@@ -168,7 +167,8 @@ class WeatherController extends GetxController {
         getDay(_mainWeather.value.timeDaily!, _mainWeather.value.timezone!);
 
     isLoading.value = false;
-    Future.delayed(const Duration(milliseconds: 30), () async {
+
+    Future.delayed(const Duration(milliseconds: 30), () {
       itemScrollController.scrollTo(
         index: hourOfDay.value,
         duration: const Duration(seconds: 2),
@@ -186,11 +186,16 @@ class WeatherController extends GetxController {
     );
 
     isar.writeTxn(() async {
-      if ((await isar.mainWeatherCaches.where().findAll()).isEmpty) {
+      final mainWeatherCachesIsEmpty =
+          (await isar.mainWeatherCaches.where().findAll()).isEmpty;
+      final locationCachesIsEmpty =
+          (await isar.locationCaches.where().findAll()).isEmpty;
+
+      if (mainWeatherCachesIsEmpty) {
         await isar.mainWeatherCaches.put(_mainWeather.value);
       }
 
-      if ((await isar.locationCaches.where().findAll()).isEmpty) {
+      if (locationCachesIsEmpty) {
         await isar.locationCaches.put(locationCaches);
       }
     });
@@ -211,14 +216,21 @@ class WeatherController extends GetxController {
   }
 
   Future<void> deleteAll(bool changeCity) async {
-    if (isOnline) {
-      isar.writeTxn(() async {
-        await isar.mainWeatherCaches.where().deleteAll();
-        if (settings.location || changeCity) {
-          await isar.locationCaches.where().deleteAll();
-        }
-      });
+    if (!isOnline) {
+      return;
     }
+
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    isar.writeTxn(() async {
+      if (!settings.location) {
+        await isar.mainWeatherCaches.where().deleteAll();
+      }
+      if ((settings.location && serviceEnabled) || changeCity) {
+        await isar.mainWeatherCaches.where().deleteAll();
+        await isar.locationCaches.where().deleteAll();
+      }
+    });
   }
 
   // Card Weather

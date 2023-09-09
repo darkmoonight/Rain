@@ -127,7 +127,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         return const Iterable<Result>.empty();
                       }
                       return WeatherAPI()
-                          .getSuggestions(textEditingValue.text, locale);
+                          .getCity(textEditingValue.text, locale);
                     },
                     onSelected: (Result selection) => fillController(selection),
                     displayStringForOption: (Result option) =>

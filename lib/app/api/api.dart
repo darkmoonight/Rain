@@ -70,32 +70,6 @@ class WeatherAPI {
     }
   }
 
-  Future<Iterable<Result>> getSuggestions(String query, Locale? locale) async {
-    final url =
-        'https://geocoding-api.open-meteo.com/v1/search?name=$query&count=5&language=${locale?.languageCode}&format=json';
-    try {
-      Response response = await dioLocation.get(url);
-      if (response.statusCode == 200) {
-        CityApi cityData = CityApi.fromJson(response.data);
-        return cityData.results.map(
-          (e) => Result(
-            admin1: e.admin1,
-            name: e.name,
-            latitude: e.latitude,
-            longitude: e.longitude,
-          ),
-        );
-      } else {
-        throw Exception('Failed to load suggestions');
-      }
-    } on DioException catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      rethrow;
-    }
-  }
-
   Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
       String district, String timezone) async {
     String url =
@@ -151,6 +125,32 @@ class WeatherAPI {
         timezone: timezone,
         timestamp: DateTime.now(),
       );
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
+
+  Future<Iterable<Result>> getCity(String query, Locale? locale) async {
+    final url =
+        'https://geocoding-api.open-meteo.com/v1/search?name=$query&count=5&language=${locale?.languageCode}&format=json';
+    try {
+      Response response = await dioLocation.get(url);
+      if (response.statusCode == 200) {
+        CityApi cityData = CityApi.fromJson(response.data);
+        return cityData.results.map(
+          (e) => Result(
+            admin1: e.admin1,
+            name: e.name,
+            latitude: e.latitude,
+            longitude: e.longitude,
+          ),
+        );
+      } else {
+        throw Exception('Failed to load suggestions');
+      }
     } on DioException catch (e) {
       if (kDebugMode) {
         print(e);

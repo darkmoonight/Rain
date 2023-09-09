@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         return const Iterable<Result>.empty();
                       }
                       return WeatherAPI()
-                          .getSuggestions(textEditingValue.text, locale);
+                          .getCity(textEditingValue.text, locale);
                     },
                     onSelected: (Result selection) async {
                       await weatherController.deleteAll(true);
