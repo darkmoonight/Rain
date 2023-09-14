@@ -69,6 +69,7 @@ android {
            signingConfig signingConfigs.release
        }
    }
+    namespace 'com.yoshi.rain'
 }
 
 flutter {
