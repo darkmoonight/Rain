@@ -24,11 +24,11 @@ dependencies:
   geolocator: ^10.0.1
   workmanager: ^0.5.1
   home_widget: ^0.3.0
-  google_fonts: ^5.1.0
+  google_fonts: ^6.0.0
   flutter_glow: ^0.3.0
   time_machine: ^0.9.17
   url_launcher: ^6.1.14
-  dynamic_color: ^1.6.6
+  dynamic_color: ^1.6.7
   path_provider: ^2.1.1
   flutter_timezone: ^1.0.7
   package_info_plus: ^4.1.0

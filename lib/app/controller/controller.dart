@@ -104,6 +104,11 @@ class WeatherController extends GetxController {
       return;
     }
 
+    if ((isar.mainWeatherCaches.where().findAllSync()).isNotEmpty) {
+      await readCache();
+      return;
+    }
+
     Position position = await determinePosition();
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
@@ -125,6 +130,11 @@ class WeatherController extends GetxController {
       String locality) async {
     if (!isOnline) {
       showSnackBar(content: 'no_inter'.tr);
+      await readCache();
+      return;
+    }
+
+    if ((isar.mainWeatherCaches.where().findAllSync()).isNotEmpty) {
       await readCache();
       return;
     }
