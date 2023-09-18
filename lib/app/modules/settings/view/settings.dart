@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
@@ -39,7 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   updateLanguage(Locale locale) {
     settings.language = '$locale';
-    isar.writeTxn(() async => isar.settings.put(settings));
+    isar.writeTxnSync(() => isar.settings.putSync(settings));
     Get.updateLocale(locale);
     Get.back();
   }
@@ -168,10 +170,20 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'location'.tr,
                               switcher: true,
                               value: settings.location,
-                              onChange: (value) {
-                                isar.writeTxn(() async {
+                              onChange: (value) async {
+                                if (value) {
+                                  bool serviceEnabled = await Geolocator
+                                      .isLocationServiceEnabled();
+                                  if (!serviceEnabled) {
+                                    EasyLoading.showInfo('no_location'.tr);
+                                    return;
+                                  }
+                                  weatherController.determinePosition();
+                                  weatherController.getCurrentLocation();
+                                }
+                                isar.writeTxnSync(() {
                                   settings.location = value;
-                                  isar.settings.put(settings);
+                                  isar.settings.putSync(settings);
                                 });
                                 setState(() {});
                               },
@@ -195,9 +207,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                             AndroidFlutterLocalNotificationsPlugin>()
                                         ?.requestPermission();
                                 if (result != null) {
-                                  isar.writeTxn(() async {
+                                  isar.writeTxnSync(() {
                                     settings.notifications = value;
-                                    isar.settings.put(settings);
+                                    isar.settings.putSync(settings);
                                   });
                                   if (value) {
                                     weatherController.notlification(
@@ -225,9 +237,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 '5',
                               ],
                               dropdownCange: (String? newValue) {
-                                isar.writeTxn(() async {
+                                isar.writeTxnSync(() {
                                   settings.timeRange = int.parse(newValue!);
-                                  isar.settings.put(settings);
+                                  isar.settings.putSync(settings);
                                 });
                                 MyApp.updateAppState(context,
                                     newTimeRange: int.parse(newValue!));
@@ -275,10 +287,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                   },
                                 );
                                 if (timeStartPicker != null) {
-                                  isar.writeTxn(() async {
+                                  isar.writeTxnSync(() {
                                     settings.timeStart =
                                         timeStartPicker.format(context);
-                                    isar.settings.put(settings);
+                                    isar.settings.putSync(settings);
                                   });
                                   if (context.mounted) {
                                     MyApp.updateAppState(context,
@@ -330,10 +342,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                   },
                                 );
                                 if (timeEndPicker != null) {
-                                  isar.writeTxn(() async {
+                                  isar.writeTxnSync(() {
                                     settings.timeEnd =
                                         timeEndPicker.format(context);
-                                    isar.settings.put(settings);
+                                    isar.settings.putSync(settings);
                                   });
                                   if (context.mounted) {
                                     MyApp.updateAppState(context,
@@ -397,11 +409,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                 'fahrenheit'.tr
                               ],
                               dropdownCange: (String? newValue) async {
-                                isar.writeTxn(() async {
+                                isar.writeTxnSync(() {
                                   settings.degrees = newValue == 'celsius'.tr
                                       ? 'celsius'
                                       : 'fahrenheit';
-                                  isar.settings.put(settings);
+                                  isar.settings.putSync(settings);
                                 });
                                 await flutterLocalNotificationsPlugin
                                     .cancelAll();
@@ -424,12 +436,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                 'imperial'.tr
                               ],
                               dropdownCange: (String? newValue) async {
-                                isar.writeTxn(() async {
+                                isar.writeTxnSync(() {
                                   settings.measurements =
                                       newValue == 'metric'.tr
                                           ? 'metric'
                                           : 'imperial';
-                                  isar.settings.put(settings);
+                                  isar.settings.putSync(settings);
                                 });
                                 await flutterLocalNotificationsPlugin
                                     .cancelAll();
@@ -449,10 +461,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               dropdownName: settings.timeformat.tr,
                               dropdownList: <String>['12'.tr, '24'.tr],
                               dropdownCange: (String? newValue) {
-                                isar.writeTxn(() async {
+                                isar.writeTxnSync(() {
                                   settings.timeformat =
                                       newValue == '12'.tr ? '12' : '24';
-                                  isar.settings.put(settings);
+                                  isar.settings.putSync(settings);
                                 });
                                 setState(() {});
                               },

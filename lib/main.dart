@@ -4,6 +4,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -115,10 +116,10 @@ Future<void> isarInit() async {
     LocationCacheSchema,
     WeatherCardSchema,
   ], directory: (await getApplicationSupportDirectory()).path);
-  settings = await isar.settings.where().findFirst() ?? Settings();
+  settings = isar.settings.where().findFirstSync() ?? Settings();
   if (settings.language == null) {
     settings.language = '${Get.deviceLocale}';
-    isar.writeTxn(() async => isar.settings.put(settings));
+    isar.writeTxnSync(() => isar.settings.putSync(settings));
   }
 }
 
@@ -253,6 +254,7 @@ class _MyAppState extends State<MyApp> {
           home: settings.onboard == false
               ? const OnboardingPage()
               : const HomePage(),
+          builder: EasyLoading.init(),
         );
       },
     );

@@ -12,17 +12,17 @@ class ThemeController extends GetxController {
 
   void saveOledTheme(bool isOled) {
     settings.amoledTheme = isOled;
-    isar.writeTxn(() async => await isar.settings.put(settings));
+    isar.writeTxnSync(() => isar.settings.putSync(settings));
   }
 
   void saveMaterialTheme(bool isMaterial) {
     settings.materialColor = isMaterial;
-    isar.writeTxn(() async => await isar.settings.put(settings));
+    isar.writeTxnSync(() => isar.settings.putSync(settings));
   }
 
   void saveTheme(bool isDarkMode) {
     settings.theme = isDarkMode;
-    isar.writeTxn(() async => await isar.settings.put(settings));
+    isar.writeTxnSync(() => isar.settings.putSync(settings));
   }
 
   void changeTheme(ThemeData theme) => Get.changeTheme(theme);
