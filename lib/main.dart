@@ -55,11 +55,11 @@ final List appLanguages = [
 void main() async {
   final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
+  Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    result == ConnectivityResult.none ? isOnline = false : isOnline = true;
+  });
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.black,
-    ),
-  );
+      const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black));
   if (Platform.isAndroid) {
     await setOptimalDisplayMode();
   }
@@ -70,13 +70,6 @@ void main() async {
   }
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
-  Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-    if (result == ConnectivityResult.none) {
-      isOnline = false;
-    } else {
-      isOnline = true;
-    }
-  });
   await isarInit();
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
