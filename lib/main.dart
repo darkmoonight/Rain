@@ -60,7 +60,6 @@ void main() async {
       systemNavigationBarColor: Colors.black,
     ),
   );
-  await isarInit();
   if (Platform.isAndroid) {
     await setOptimalDisplayMode();
   }
@@ -71,15 +70,14 @@ void main() async {
   }
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
-  Connectivity()
-      .onConnectivityChanged
-      .listen((ConnectivityResult result) async {
+  Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
       isOnline = false;
     } else {
       isOnline = true;
     }
   });
+  await isarInit();
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
   const DarwinInitializationSettings initializationSettingsDarwin =

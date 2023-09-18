@@ -254,17 +254,18 @@ class WeatherController extends GetxController {
   // Card Weather
   Future<void> addCardWeather(
       double latitude, double longitude, String city, String district) async {
-    if (isOnline) {
-      String tz = tzmap.latLngToTimezoneString(latitude, longitude);
-      _weatherCard.value = await WeatherAPI()
-          .getWeatherCard(latitude, longitude, city, district, tz);
-      isar.writeTxnSync(() {
-        weatherCards.add(_weatherCard.value);
-        isar.weatherCards.putSync(_weatherCard.value);
-      });
-    } else {
+    if (!isOnline) {
       showSnackBar(content: 'no_inter'.tr);
+      return;
     }
+
+    String tz = tzmap.latLngToTimezoneString(latitude, longitude);
+    _weatherCard.value = await WeatherAPI()
+        .getWeatherCard(latitude, longitude, city, district, tz);
+    isar.writeTxnSync(() {
+      weatherCards.add(_weatherCard.value);
+      isar.weatherCards.putSync(_weatherCard.value);
+    });
   }
 
   Future<void> updateCacheCard(bool refresh) async {
@@ -325,51 +326,52 @@ class WeatherController extends GetxController {
   }
 
   Future<void> updateCard(WeatherCard weatherCard) async {
-    if (isOnline) {
-      final updatedCard = await WeatherAPI().getWeatherCard(
-        weatherCard.lat,
-        weatherCard.lon,
-        weatherCard.city!,
-        weatherCard.district!,
-        weatherCard.timezone!,
-      );
-
-      isar.writeTxnSync(() {
-        weatherCard
-          ..time = updatedCard.time
-          ..temperature2M = updatedCard.temperature2M
-          ..relativehumidity2M = updatedCard.relativehumidity2M
-          ..apparentTemperature = updatedCard.apparentTemperature
-          ..precipitation = updatedCard.precipitation
-          ..rain = updatedCard.rain
-          ..weathercode = updatedCard.weathercode
-          ..surfacePressure = updatedCard.surfacePressure
-          ..visibility = updatedCard.visibility
-          ..evapotranspiration = updatedCard.evapotranspiration
-          ..windspeed10M = updatedCard.windspeed10M
-          ..winddirection10M = updatedCard.winddirection10M
-          ..windgusts10M = updatedCard.windgusts10M
-          ..timeDaily = updatedCard.timeDaily
-          ..weathercodeDaily = updatedCard.weathercodeDaily
-          ..temperature2MMax = updatedCard.temperature2MMax
-          ..temperature2MMin = updatedCard.temperature2MMin
-          ..apparentTemperatureMax = updatedCard.apparentTemperatureMax
-          ..apparentTemperatureMin = updatedCard.apparentTemperatureMin
-          ..sunrise = updatedCard.sunrise
-          ..sunset = updatedCard.sunset
-          ..precipitationSum = updatedCard.precipitationSum
-          ..precipitationProbabilityMax =
-              updatedCard.precipitationProbabilityMax
-          ..windspeed10MMax = updatedCard.windspeed10MMax
-          ..windgusts10MMax = updatedCard.windgusts10MMax
-          ..uvIndexMax = updatedCard.uvIndexMax
-          ..rainSum = updatedCard.rainSum
-          ..winddirection10MDominant = updatedCard.winddirection10MDominant
-          ..timestamp = DateTime.now();
-
-        isar.weatherCards.putSync(weatherCard);
-      });
+    if (!isOnline) {
+      return;
     }
+
+    final updatedCard = await WeatherAPI().getWeatherCard(
+      weatherCard.lat,
+      weatherCard.lon,
+      weatherCard.city!,
+      weatherCard.district!,
+      weatherCard.timezone!,
+    );
+
+    isar.writeTxnSync(() {
+      weatherCard
+        ..time = updatedCard.time
+        ..temperature2M = updatedCard.temperature2M
+        ..relativehumidity2M = updatedCard.relativehumidity2M
+        ..apparentTemperature = updatedCard.apparentTemperature
+        ..precipitation = updatedCard.precipitation
+        ..rain = updatedCard.rain
+        ..weathercode = updatedCard.weathercode
+        ..surfacePressure = updatedCard.surfacePressure
+        ..visibility = updatedCard.visibility
+        ..evapotranspiration = updatedCard.evapotranspiration
+        ..windspeed10M = updatedCard.windspeed10M
+        ..winddirection10M = updatedCard.winddirection10M
+        ..windgusts10M = updatedCard.windgusts10M
+        ..timeDaily = updatedCard.timeDaily
+        ..weathercodeDaily = updatedCard.weathercodeDaily
+        ..temperature2MMax = updatedCard.temperature2MMax
+        ..temperature2MMin = updatedCard.temperature2MMin
+        ..apparentTemperatureMax = updatedCard.apparentTemperatureMax
+        ..apparentTemperatureMin = updatedCard.apparentTemperatureMin
+        ..sunrise = updatedCard.sunrise
+        ..sunset = updatedCard.sunset
+        ..precipitationSum = updatedCard.precipitationSum
+        ..precipitationProbabilityMax = updatedCard.precipitationProbabilityMax
+        ..windspeed10MMax = updatedCard.windspeed10MMax
+        ..windgusts10MMax = updatedCard.windgusts10MMax
+        ..uvIndexMax = updatedCard.uvIndexMax
+        ..rainSum = updatedCard.rainSum
+        ..winddirection10MDominant = updatedCard.winddirection10MDominant
+        ..timestamp = DateTime.now();
+
+      isar.weatherCards.putSync(weatherCard);
+    });
   }
 
   Future<void> deleteCardWeather(WeatherCard weatherCard) async {
