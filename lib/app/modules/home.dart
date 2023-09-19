@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:isar/isar.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/cards/view/list_weather_card.dart';
 import 'package:rain/app/modules/settings/view/settings.dart';
 import 'package:rain/app/modules/main/view/weather.dart';
@@ -160,7 +162,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           ', ${weatherController.location.district}'
                           : settings.location
                               ? 'search'.tr
-                              : weatherController.isSearch.isFalse
+                              : (isar.locationCaches.where().findAllSync())
+                                      .isNotEmpty
                                   ? 'loading'.tr
                                   : 'searchCity'.tr,
                       style: context.textTheme.titleMedium?.copyWith(

@@ -20,7 +20,6 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class WeatherController extends GetxController {
   final isLoading = true.obs;
-  final isSearch = true.obs;
   final _district = ''.obs;
   final _city = ''.obs;
   final _latitude = 0.0.obs;
@@ -79,7 +78,6 @@ class WeatherController extends GetxController {
       if ((isar.locationCaches.where().findAllSync()).isNotEmpty) {
         LocationCache locationCity =
             (isar.locationCaches.where().findFirstSync())!;
-        isSearch.value = false;
         await getLocation(locationCity.lat!, locationCity.lon!,
             locationCity.district!, locationCity.city!);
       }
