@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -175,7 +174,45 @@ class _SettingsPageState extends State<SettingsPage> {
                                   bool serviceEnabled = await Geolocator
                                       .isLocationServiceEnabled();
                                   if (!serviceEnabled) {
-                                    EasyLoading.showInfo('no_location'.tr);
+                                    if (!mounted) return;
+                                    await showAdaptiveDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog.adaptive(
+                                          title: Text(
+                                            "location".tr,
+                                            style: context.textTheme.titleLarge,
+                                          ),
+                                          content: Text("no_location".tr,
+                                              style: context
+                                                  .textTheme.titleMedium),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Get.back(result: false),
+                                                child: Text("cancel".tr,
+                                                    style: context.theme
+                                                        .textTheme.titleMedium
+                                                        ?.copyWith(
+                                                            color: Colors
+                                                                .blueAccent))),
+                                            TextButton(
+                                                onPressed: () {
+                                                  Geolocator
+                                                      .openLocationSettings();
+                                                  Get.back(result: true);
+                                                },
+                                                child: Text("settings".tr,
+                                                    style: context.theme
+                                                        .textTheme.titleMedium
+                                                        ?.copyWith(
+                                                            color:
+                                                                Colors.green))),
+                                          ],
+                                        );
+                                      },
+                                    );
+
                                     return;
                                   }
                                   weatherController.determinePosition();

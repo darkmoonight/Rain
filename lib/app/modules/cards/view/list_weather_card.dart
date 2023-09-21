@@ -69,10 +69,10 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                             ),
                           ),
                           confirmDismiss: (DismissDirection direction) async {
-                            return await showDialog(
+                            return await showAdaptiveDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return AlertDialog(
+                                return AlertDialog.adaptive(
                                   title: Text(
                                     "deletedCardWeather".tr,
                                     style: context.textTheme.titleLarge,

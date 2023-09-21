@@ -4,7 +4,6 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -242,10 +241,7 @@ class _MyAppState extends State<MyApp> {
           supportedLocales:
               appLanguages.map((e) => e['locale'] as Locale).toList(),
           debugShowCheckedModeBanner: false,
-          home: settings.onboard == false
-              ? const OnboardingPage()
-              : const HomePage(),
-          builder: EasyLoading.init(),
+          home: settings.onboard ? const HomePage() : const OnboardingPage(),
         );
       },
     );
