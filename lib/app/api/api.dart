@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/api/weather.dart';
-
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/main.dart';
 

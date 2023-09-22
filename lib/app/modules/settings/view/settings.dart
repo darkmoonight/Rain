@@ -215,7 +215,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
                                     return;
                                   }
-                                  weatherController.determinePosition();
                                   weatherController.getCurrentLocation();
                                 }
                                 isar.writeTxnSync(() {
@@ -452,8 +451,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                       : 'fahrenheit';
                                   isar.settings.putSync(settings);
                                 });
-                                await flutterLocalNotificationsPlugin
-                                    .cancelAll();
                                 await weatherController.deleteAll(false);
                                 await weatherController.setLocation();
                                 await weatherController.updateCacheCard(true);
@@ -480,8 +477,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                           : 'imperial';
                                   isar.settings.putSync(settings);
                                 });
-                                await flutterLocalNotificationsPlugin
-                                    .cancelAll();
                                 await weatherController.deleteAll(false);
                                 await weatherController.setLocation();
                                 await weatherController.updateCacheCard(true);

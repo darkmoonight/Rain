@@ -8,7 +8,6 @@ import 'package:rain/app/widgets/daily/weather_daily.dart';
 import 'package:rain/app/widgets/daily/weather_more.dart';
 import 'package:rain/app/widgets/now/weather_now.dart';
 import 'package:rain/app/widgets/hourly/weather_hourly.dart';
-import 'package:rain/main.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class WeatherPage extends StatefulWidget {
@@ -25,7 +24,6 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        await flutterLocalNotificationsPlugin.cancelAll();
         await weatherController.deleteAll(false);
         await weatherController.setLocation();
         setState(() {});

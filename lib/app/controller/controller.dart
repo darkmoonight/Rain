@@ -120,13 +120,7 @@ class WeatherController extends GetxController {
     _mainWeather.value =
         await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
 
-    if (settings.notifications) {
-      final List<PendingNotificationRequest> pendingNotificationRequests =
-          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-      if (pendingNotificationRequests.isEmpty) {
-        notlification(_mainWeather.value);
-      }
-    }
+    notificationCheck();
 
     await writeCache();
     await readCache();
@@ -153,13 +147,7 @@ class WeatherController extends GetxController {
     _mainWeather.value =
         await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
 
-    if (settings.notifications) {
-      final List<PendingNotificationRequest> pendingNotificationRequests =
-          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-      if (pendingNotificationRequests.isEmpty) {
-        notlification(_mainWeather.value);
-      }
-    }
+    notificationCheck();
 
     await writeCache();
     await readCache();
@@ -218,16 +206,18 @@ class WeatherController extends GetxController {
   }
 
   Future<void> deleteCache() async {
-    if (isOnline) {
-      isar.writeTxnSync(() {
-        isar.mainWeatherCaches
-            .filter()
-            .timestampLessThan(cacheExpiry)
-            .deleteAllSync();
-      });
-      if ((isar.mainWeatherCaches.where().findAllSync()).isEmpty) {
-        await flutterLocalNotificationsPlugin.cancelAll();
-      }
+    if (!isOnline) {
+      return;
+    }
+
+    isar.writeTxnSync(() {
+      isar.mainWeatherCaches
+          .filter()
+          .timestampLessThan(cacheExpiry)
+          .deleteAllSync();
+    });
+    if ((isar.mainWeatherCaches.where().findAllSync()).isEmpty) {
+      await flutterLocalNotificationsPlugin.cancelAll();
     }
   }
 
@@ -237,6 +227,7 @@ class WeatherController extends GetxController {
     }
 
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    await flutterLocalNotificationsPlugin.cancelAll();
 
     isar.writeTxnSync(() {
       if (!settings.location) {
@@ -275,51 +266,53 @@ class WeatherController extends GetxController {
             .sortByIndex()
             .findAllSync();
 
-    if (isOnline && weatherCard.isNotEmpty) {
-      for (var oldCard in weatherCard) {
-        var updatedCard = await WeatherAPI().getWeatherCard(oldCard.lat,
-            oldCard.lon, oldCard.city!, oldCard.district!, oldCard.timezone!);
-        isar.writeTxnSync(() {
-          oldCard
-            ..time = updatedCard.time
-            ..temperature2M = updatedCard.temperature2M
-            ..relativehumidity2M = updatedCard.relativehumidity2M
-            ..apparentTemperature = updatedCard.apparentTemperature
-            ..precipitation = updatedCard.precipitation
-            ..rain = updatedCard.rain
-            ..weathercode = updatedCard.weathercode
-            ..surfacePressure = updatedCard.surfacePressure
-            ..visibility = updatedCard.visibility
-            ..evapotranspiration = updatedCard.evapotranspiration
-            ..windspeed10M = updatedCard.windspeed10M
-            ..winddirection10M = updatedCard.winddirection10M
-            ..windgusts10M = updatedCard.windgusts10M
-            ..timeDaily = updatedCard.timeDaily
-            ..weathercodeDaily = updatedCard.weathercodeDaily
-            ..temperature2MMax = updatedCard.temperature2MMax
-            ..temperature2MMin = updatedCard.temperature2MMin
-            ..apparentTemperatureMax = updatedCard.apparentTemperatureMax
-            ..apparentTemperatureMin = updatedCard.apparentTemperatureMin
-            ..sunrise = updatedCard.sunrise
-            ..sunset = updatedCard.sunset
-            ..precipitationSum = updatedCard.precipitationSum
-            ..precipitationProbabilityMax =
-                updatedCard.precipitationProbabilityMax
-            ..windspeed10MMax = updatedCard.windspeed10MMax
-            ..windgusts10MMax = updatedCard.windgusts10MMax
-            ..uvIndexMax = updatedCard.uvIndexMax
-            ..rainSum = updatedCard.rainSum
-            ..winddirection10MDominant = updatedCard.winddirection10MDominant
-            ..timestamp = DateTime.now();
+    if (!isOnline || weatherCard.isEmpty) {
+      return;
+    }
 
-          isar.weatherCards.putSync(oldCard);
+    for (var oldCard in weatherCard) {
+      var updatedCard = await WeatherAPI().getWeatherCard(oldCard.lat,
+          oldCard.lon, oldCard.city!, oldCard.district!, oldCard.timezone!);
+      isar.writeTxnSync(() {
+        oldCard
+          ..time = updatedCard.time
+          ..temperature2M = updatedCard.temperature2M
+          ..relativehumidity2M = updatedCard.relativehumidity2M
+          ..apparentTemperature = updatedCard.apparentTemperature
+          ..precipitation = updatedCard.precipitation
+          ..rain = updatedCard.rain
+          ..weathercode = updatedCard.weathercode
+          ..surfacePressure = updatedCard.surfacePressure
+          ..visibility = updatedCard.visibility
+          ..evapotranspiration = updatedCard.evapotranspiration
+          ..windspeed10M = updatedCard.windspeed10M
+          ..winddirection10M = updatedCard.winddirection10M
+          ..windgusts10M = updatedCard.windgusts10M
+          ..timeDaily = updatedCard.timeDaily
+          ..weathercodeDaily = updatedCard.weathercodeDaily
+          ..temperature2MMax = updatedCard.temperature2MMax
+          ..temperature2MMin = updatedCard.temperature2MMin
+          ..apparentTemperatureMax = updatedCard.apparentTemperatureMax
+          ..apparentTemperatureMin = updatedCard.apparentTemperatureMin
+          ..sunrise = updatedCard.sunrise
+          ..sunset = updatedCard.sunset
+          ..precipitationSum = updatedCard.precipitationSum
+          ..precipitationProbabilityMax =
+              updatedCard.precipitationProbabilityMax
+          ..windspeed10MMax = updatedCard.windspeed10MMax
+          ..windgusts10MMax = updatedCard.windgusts10MMax
+          ..uvIndexMax = updatedCard.uvIndexMax
+          ..rainSum = updatedCard.rainSum
+          ..winddirection10MDominant = updatedCard.winddirection10MDominant
+          ..timestamp = DateTime.now();
 
-          var newCard = oldCard;
-          int oldIdx = weatherCard.indexOf(oldCard);
-          weatherCards[oldIdx] = newCard;
-          weatherCards.refresh();
-        });
-      }
+        isar.weatherCards.putSync(oldCard);
+
+        var newCard = oldCard;
+        int oldIdx = weatherCard.indexOf(oldCard);
+        weatherCards[oldIdx] = newCard;
+        weatherCards.refresh();
+      });
     }
   }
 
@@ -451,6 +444,16 @@ class WeatherController extends GetxController {
             );
           }
         }
+      }
+    }
+  }
+
+  void notificationCheck() async {
+    if (settings.notifications) {
+      final List<PendingNotificationRequest> pendingNotificationRequests =
+          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+      if (pendingNotificationRequests.isEmpty) {
+        notlification(_mainWeather.value);
       }
     }
   }
