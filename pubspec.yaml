@@ -14,7 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get: ^4.6.6
-  dio: ^5.3.2
+  dio: ^5.3.3
   intl: ^0.18.1
   isar: ^3.1.0+1
   shimmer: ^3.0.0
@@ -24,7 +24,7 @@ dependencies:
   geolocator: ^10.0.1
   workmanager: ^0.5.1
   home_widget: ^0.3.0
-  google_fonts: ^6.0.0
+  google_fonts: ^6.1.0
   flutter_glow: ^0.3.0
   time_machine: ^0.9.17
   url_launcher: ^6.1.14

@@ -43,7 +43,7 @@ class WeatherController extends GetxController {
   final hourOfDay = 0.obs;
   final dayOfNow = 0.obs;
   final itemScrollController = ItemScrollController();
-  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 6));
+  final cacheExpiry = DateTime.now().subtract(const Duration(hours: 12));
 
   @override
   void onInit() {
