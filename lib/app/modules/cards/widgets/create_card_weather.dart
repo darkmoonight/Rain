@@ -27,8 +27,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
 
   textTrim(value) {
     value.text = value.text.trim();
-    while (value.text.contains("  ")) {
-      value.text = value.text.replaceAll("  ", " ");
+    while (value.text.contains('  ')) {
+      value.text = value.text.replaceAll('  ', ' ');
     }
   }
 

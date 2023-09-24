@@ -400,8 +400,8 @@ class WeatherController extends GetxController {
     if (normTime.endsWith('PM')) hh = 12;
     normTime = normTime.split(' ')[0];
     return TimeOfDay(
-      hour: hh + int.parse(normTime.split(":")[0]) % 24,
-      minute: int.parse(normTime.split(":")[1]) % 60,
+      hour: hh + int.parse(normTime.split(':')[0]) % 24,
+      minute: int.parse(normTime.split(':')[1]) % 60,
     );
   }
 

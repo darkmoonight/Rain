@@ -39,7 +39,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
         widget.weatherCard.time!, widget.weatherCard.timezone!);
     dayNow = weatherController.getDay(
         widget.weatherCard.timeDaily!, widget.weatherCard.timezone!);
-    Future.delayed(const Duration(milliseconds: 30), () async {
+    Future.delayed(const Duration(milliseconds: 30), () {
       itemScrollController.scrollTo(
         index: timeNow,
         duration: const Duration(seconds: 2),

@@ -180,17 +180,17 @@ class _SettingsPageState extends State<SettingsPage> {
                                       builder: (BuildContext context) {
                                         return AlertDialog.adaptive(
                                           title: Text(
-                                            "location".tr,
+                                            'location'.tr,
                                             style: context.textTheme.titleLarge,
                                           ),
-                                          content: Text("no_location".tr,
+                                          content: Text('no_location'.tr,
                                               style: context
                                                   .textTheme.titleMedium),
                                           actions: [
                                             TextButton(
                                                 onPressed: () =>
                                                     Get.back(result: false),
-                                                child: Text("cancel".tr,
+                                                child: Text('cancel'.tr,
                                                     style: context.theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -202,7 +202,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                       .openLocationSettings();
                                                   Get.back(result: true);
                                                 },
-                                                child: Text("settings".tr,
+                                                child: Text('settings'.tr,
                                                     style: context.theme
                                                         .textTheme.titleMedium
                                                         ?.copyWith(
@@ -550,11 +550,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 5),
                                 child: ListTile(
-                                  title: Center(
-                                    child: Text(
-                                      appLanguages[index]['name'],
-                                      style: context.textTheme.labelLarge,
-                                    ),
+                                  title: Text(
+                                    appLanguages[index]['name'],
+                                    style: context.textTheme.labelLarge,
+                                    textAlign: TextAlign.center,
                                   ),
                                   onTap: () {
                                     MyApp.updateAppState(context,

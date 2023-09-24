@@ -74,23 +74,23 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                               builder: (BuildContext context) {
                                 return AlertDialog.adaptive(
                                   title: Text(
-                                    "deletedCardWeather".tr,
+                                    'deletedCardWeather'.tr,
                                     style: context.textTheme.titleLarge,
                                   ),
-                                  content: Text("deletedCardWeatherQuery".tr,
+                                  content: Text('deletedCardWeatherQuery'.tr,
                                       style: context.textTheme.titleMedium),
                                   actions: [
                                     TextButton(
                                         onPressed: () =>
                                             Get.back(result: false),
-                                        child: Text("cancel".tr,
+                                        child: Text('cancel'.tr,
                                             style: context
                                                 .theme.textTheme.titleMedium
                                                 ?.copyWith(
                                                     color: Colors.blueAccent))),
                                     TextButton(
                                         onPressed: () => Get.back(result: true),
-                                        child: Text("delete".tr,
+                                        child: Text('delete'.tr,
                                             style: context
                                                 .theme.textTheme.titleMedium
                                                 ?.copyWith(color: Colors.red))),
