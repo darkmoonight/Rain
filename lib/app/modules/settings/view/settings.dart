@@ -32,6 +32,13 @@ class _SettingsPageState extends State<SettingsPage> {
     });
   }
 
+  void urlLauncher(String uri) async {
+    final Uri url = Uri.parse(uri);
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   void initState() {
     infoVersion();
@@ -573,27 +580,15 @@ class _SettingsPageState extends State<SettingsPage> {
                               elevation: 4,
                               icon: const Icon(Iconsax.card),
                               text: 'DonationAlerts',
-                              onPressed: () async {
-                                final Uri url = Uri.parse(
-                                    'https://www.donationalerts.com/r/yoshimok');
-                                if (!await launchUrl(url,
-                                    mode: LaunchMode.externalApplication)) {
-                                  throw Exception('Could not launch $url');
-                                }
-                              },
+                              onPressed: () => urlLauncher(
+                                  'https://www.donationalerts.com/r/yoshimok'),
                             ),
                             SettingCard(
                               elevation: 4,
                               icon: const Icon(Iconsax.wallet),
                               text: 'ЮMoney',
-                              onPressed: () async {
-                                final Uri url = Uri.parse(
-                                    'https://yoomoney.ru/to/4100117672775961');
-                                if (!await launchUrl(url,
-                                    mode: LaunchMode.externalApplication)) {
-                                  throw Exception('Could not launch $url');
-                                }
-                              },
+                              onPressed: () => urlLauncher(
+                                  'https://yoomoney.ru/to/4100117672775961'),
                             ),
                             const SizedBox(height: 10),
                           ],
@@ -617,12 +612,8 @@ class _SettingsPageState extends State<SettingsPage> {
               scale: 20,
             ),
             text: '${'project'.tr} GitHub',
-            onPressed: () async {
-              final Uri url = Uri.parse('https://github.com/DarkMooNight/Rain');
-              if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-                throw Exception('Could not launch $url');
-              }
-            },
+            onPressed: () =>
+                urlLauncher('https://github.com/DarkMooNight/Rain'),
           ),
         ],
       ),
