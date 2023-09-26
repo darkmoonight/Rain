@@ -107,6 +107,7 @@ class Translation extends Translations {
           'timeRange': 'Периодичность (в часах)',
           'timeStart': 'Время начала',
           'timeEnd': 'Время окончания',
+          'support': 'Поддержка',
         },
         'en_US': {
           'start': 'Get Started',
@@ -212,6 +213,7 @@ class Translation extends Translations {
           'timeRange': 'Frequency (in hours)',
           'timeStart': 'Start time',
           'timeEnd': 'End time',
+          'support': 'Support',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -318,6 +320,7 @@ class Translation extends Translations {
           'timeRange': 'Fréquence (en heures)',
           'timeStart': 'Heure de début',
           'timeEnd': 'Heure de fin',
+          'support': 'Support',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -424,6 +427,7 @@ class Translation extends Translations {
           'timeRange': 'Frequenza (in ore)',
           'timeStart': 'Ora di inizio',
           'timeEnd': 'Ora di fine',
+          'support': 'Supporto',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -530,6 +534,7 @@ class Translation extends Translations {
           'timeRange': 'Häufigkeit (in Stunden)',
           'timeStart': 'Startzeit',
           'timeEnd': 'Endzeit',
+          'support': 'Unterstützung',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -635,6 +640,7 @@ class Translation extends Translations {
           'timeRange': 'Sıklık (saat cinsinden)',
           'timeStart': 'Başlangıç zamanı',
           'timeEnd': 'Bitiş zamanı',
+          'support': 'Destek',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -740,6 +746,7 @@ class Translation extends Translations {
           'timeRange': 'Frequência (em horas)',
           'timeStart': 'Hora de início',
           'timeEnd': 'Hora de término',
+          'support': 'Suporte',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -846,6 +853,7 @@ class Translation extends Translations {
           'timeRange': 'Frecuencia (en horas)',
           'timeStart': 'Hora de inicio',
           'timeEnd': 'Hora de finalización',
+          'support': 'Soporte',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -951,6 +959,7 @@ class Translation extends Translations {
           'timeRange': 'Frekvencia (v hodinách)',
           'timeStart': 'Čas začiatku',
           'timeEnd': 'Čas ukončenia',
+          'support': 'Podpora',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -1057,6 +1066,7 @@ class Translation extends Translations {
           'timeRange': 'Frequentie (in uren)',
           'timeStart': 'Begintijd',
           'timeEnd': 'Eindtijd',
+          'support': 'Ondersteuning',
         },
         "hi_IN": {
           'start': 'शुरू करें',
@@ -1160,6 +1170,7 @@ class Translation extends Translations {
           'timeRange': 'अवधि (घंटों में)',
           'timeStart': 'प्रारंभ समय',
           'timeEnd': 'समाप्ति समय',
+          'support': 'समर्थन',
         },
         'ro_RO': {
           'start': 'Începe',
@@ -1264,6 +1275,7 @@ class Translation extends Translations {
           'timeRange': 'Frecvența (în ore)',
           'timeStart': 'Ora de început',
           'timeEnd': 'Ora de sfârșit',
+          'support': 'Suport',
         },
         'zh_CN': {
           'start': '开始',
@@ -1366,6 +1378,7 @@ class Translation extends Translations {
           'timeRange': '频率（小时）',
           'timeStart': '开始时间',
           'timeEnd': '结束时间',
+          'support': '支持',
         },
         'pl_PL': {
           'start': 'Rozpocznij',
@@ -1470,6 +1483,7 @@ class Translation extends Translations {
           'timeRange': 'Częstotliwość (w godzinach)',
           'timeStart': 'Czas rozpoczęcia',
           'timeEnd': 'Czas zakończenia',
+          'support': 'Wsparcie',
         },
       };
 }

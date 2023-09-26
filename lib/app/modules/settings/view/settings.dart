@@ -52,9 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SettingCard(
-            icon: const Icon(
-              Iconsax.brush_1,
-            ),
+            icon: const Icon(Iconsax.brush_1),
             text: 'appearance'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -79,9 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.moon,
-                              ),
+                              icon: const Icon(Iconsax.moon),
                               text: 'theme'.tr,
                               switcher: true,
                               value: Get.isDarkMode,
@@ -99,9 +95,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.mobile,
-                              ),
+                              icon: const Icon(Iconsax.mobile),
                               text: 'amoledTheme'.tr,
                               switcher: true,
                               value: settings.amoledTheme,
@@ -113,9 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.colorfilter,
-                              ),
+                              icon: const Icon(Iconsax.colorfilter),
                               text: 'materialColor'.tr,
                               switcher: true,
                               value: settings.materialColor,
@@ -136,9 +128,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(
-              Iconsax.code,
-            ),
+            icon: const Icon(Iconsax.code),
             text: 'functions'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -163,9 +153,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.map_1,
-                              ),
+                              icon: const Icon(Iconsax.map_1),
                               text: 'location'.tr,
                               switcher: true,
                               value: settings.location,
@@ -226,9 +214,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.notification_1,
-                              ),
+                              icon: const Icon(Iconsax.notification_1),
                               text: 'notifications'.tr,
                               switcher: true,
                               value: settings.notifications,
@@ -259,9 +245,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.notification_status,
-                              ),
+                              icon: const Icon(Iconsax.notification_status),
                               text: 'timeRange'.tr,
                               dropdown: true,
                               dropdownName: '$timeRange',
@@ -288,9 +272,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.timer_start,
-                              ),
+                              icon: const Icon(Iconsax.timer_start),
                               text: 'timeStart'.tr,
                               info: true,
                               infoSettings: true,
@@ -343,9 +325,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.timer_pause,
-                              ),
+                              icon: const Icon(Iconsax.timer_pause),
                               text: 'timeEnd'.tr,
                               info: true,
                               infoSettings: true,
@@ -407,9 +387,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(
-              Iconsax.d_square,
-            ),
+            icon: const Icon(Iconsax.d_square),
             text: 'data'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -434,9 +412,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.sun_1,
-                              ),
+                              icon: const Icon(Iconsax.sun_1),
                               text: 'degrees'.tr,
                               dropdown: true,
                               dropdownName: settings.degrees.tr,
@@ -459,9 +435,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.rulerpen,
-                              ),
+                              icon: const Icon(Iconsax.rulerpen),
                               text: 'measurements'.tr,
                               dropdown: true,
                               dropdownName: settings.measurements.tr,
@@ -485,9 +459,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
-                              icon: const Icon(
-                                Iconsax.clock,
-                              ),
+                              icon: const Icon(Iconsax.clock),
                               text: 'timeformat'.tr,
                               dropdown: true,
                               dropdownName: settings.timeformat.tr,
@@ -512,9 +484,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(
-              Iconsax.language_square,
-            ),
+            icon: const Icon(Iconsax.language_square),
             text: 'language'.tr,
             info: true,
             infoSettings: true,
@@ -576,9 +546,67 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(
-              Iconsax.hierarchy_square_2,
-            ),
+            icon: const Icon(Iconsax.dollar_square),
+            text: 'support'.tr,
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return StatefulBuilder(
+                    builder: (BuildContext context, setState) {
+                      return SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Text(
+                                'support'.tr,
+                                style: context.textTheme.titleLarge?.copyWith(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(Iconsax.card),
+                              text: 'DonationAlerts',
+                              onPressed: () async {
+                                final Uri url = Uri.parse(
+                                    'https://www.donationalerts.com/r/yoshimok');
+                                if (!await launchUrl(url,
+                                    mode: LaunchMode.externalApplication)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                            ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(Iconsax.wallet),
+                              text: 'ЮMoney',
+                              onPressed: () async {
+                                final Uri url = Uri.parse(
+                                    'https://yoomoney.ru/to/4100117672775961');
+                                if (!await launchUrl(url,
+                                    mode: LaunchMode.externalApplication)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ),
+          SettingCard(
+            icon: const Icon(Iconsax.hierarchy_square_2),
             text: 'version'.tr,
             info: true,
             textInfo: '$appVersion',
