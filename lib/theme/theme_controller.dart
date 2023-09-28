@@ -4,9 +4,9 @@ import 'package:rain/app/data/weather.dart';
 import 'package:rain/main.dart';
 
 class ThemeController extends GetxController {
-  ThemeMode get theme => settings.theme == null
+  ThemeMode get theme => settings.theme == 'system'
       ? ThemeMode.system
-      : settings.theme == true
+      : settings.theme == 'dark'
           ? ThemeMode.dark
           : ThemeMode.light;
 
@@ -20,8 +20,8 @@ class ThemeController extends GetxController {
     isar.writeTxnSync(() => isar.settings.putSync(settings));
   }
 
-  void saveTheme(bool isDarkMode) {
-    settings.theme = isDarkMode;
+  void saveTheme(String themeMode) {
+    settings.theme = themeMode;
     isar.writeTxnSync(() => isar.settings.putSync(settings));
   }
 

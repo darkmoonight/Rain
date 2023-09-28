@@ -5,7 +5,7 @@ part 'weather.g.dart';
 class Settings {
   Id id = Isar.autoIncrement;
   bool onboard = false;
-  bool? theme;
+  String? theme = 'system';
   bool location = false;
   bool notifications = false;
   bool materialColor = false;

@@ -107,8 +107,14 @@ Future<void> isarInit() async {
     WeatherCardSchema,
   ], directory: (await getApplicationSupportDirectory()).path);
   settings = isar.settings.where().findFirstSync() ?? Settings();
+
   if (settings.language == null) {
     settings.language = '${Get.deviceLocale}';
+    isar.writeTxnSync(() => isar.settings.putSync(settings));
+  }
+
+  if (settings.theme == null) {
+    settings.theme = 'system';
     isar.writeTxnSync(() => isar.settings.putSync(settings));
   }
 }

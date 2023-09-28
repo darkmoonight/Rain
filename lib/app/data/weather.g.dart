@@ -60,7 +60,7 @@ const SettingsSchema = CollectionSchema(
     r'theme': PropertySchema(
       id: 8,
       name: r'theme',
-      type: IsarType.bool,
+      type: IsarType.string,
     ),
     r'timeEnd': PropertySchema(
       id: 9,
@@ -112,6 +112,12 @@ int _settingsEstimateSize(
   }
   bytesCount += 3 + object.measurements.length * 3;
   {
+    final value = object.theme;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.timeEnd;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -141,7 +147,7 @@ void _settingsSerialize(
   writer.writeString(offsets[5], object.measurements);
   writer.writeBool(offsets[6], object.notifications);
   writer.writeBool(offsets[7], object.onboard);
-  writer.writeBool(offsets[8], object.theme);
+  writer.writeString(offsets[8], object.theme);
   writer.writeString(offsets[9], object.timeEnd);
   writer.writeLong(offsets[10], object.timeRange);
   writer.writeString(offsets[11], object.timeStart);
@@ -164,7 +170,7 @@ Settings _settingsDeserialize(
   object.measurements = reader.readString(offsets[5]);
   object.notifications = reader.readBool(offsets[6]);
   object.onboard = reader.readBool(offsets[7]);
-  object.theme = reader.readBoolOrNull(offsets[8]);
+  object.theme = reader.readStringOrNull(offsets[8]);
   object.timeEnd = reader.readStringOrNull(offsets[9]);
   object.timeRange = reader.readLongOrNull(offsets[10]);
   object.timeStart = reader.readStringOrNull(offsets[11]);
@@ -196,7 +202,7 @@ P _settingsDeserializeProp<P>(
     case 7:
       return (reader.readBool(offset)) as P;
     case 8:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 9:
       return (reader.readStringOrNull(offset)) as P;
     case 10:
@@ -828,11 +834,131 @@ extension SettingsQueryFilter
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> themeEqualTo(
-      bool? value) {
+    String? value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'theme',
         value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'theme',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'theme',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'theme',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'theme',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'theme',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'theme',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'theme',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'theme',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> themeIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'theme',
+        value: '',
       ));
     });
   }
@@ -1719,9 +1845,10 @@ extension SettingsQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByTheme() {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTheme(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'theme');
+      return query.addDistinctBy(r'theme', caseSensitive: caseSensitive);
     });
   }
 
@@ -1809,7 +1936,7 @@ extension SettingsQueryProperty
     });
   }
 
-  QueryBuilder<Settings, bool?, QQueryOperations> themeProperty() {
+  QueryBuilder<Settings, String?, QQueryOperations> themeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'theme');
     });

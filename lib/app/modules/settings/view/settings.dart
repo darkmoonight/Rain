@@ -86,18 +86,28 @@ class _SettingsPageState extends State<SettingsPage> {
                               elevation: 4,
                               icon: const Icon(Iconsax.moon),
                               text: 'theme'.tr,
-                              switcher: true,
-                              value: Get.isDarkMode,
-                              onChange: (_) {
-                                if (Get.isDarkMode) {
-                                  themeController
-                                      .changeThemeMode(ThemeMode.light);
-                                  themeController.saveTheme(false);
-                                } else {
-                                  themeController
-                                      .changeThemeMode(ThemeMode.dark);
-                                  themeController.saveTheme(true);
-                                }
+                              dropdown: true,
+                              dropdownName: settings.theme?.tr,
+                              dropdownList: <String>[
+                                'system'.tr,
+                                'dark'.tr,
+                                'light'.tr
+                              ],
+                              dropdownCange: (String? newValue) {
+                                ThemeMode themeMode =
+                                    newValue?.tr == 'system'.tr
+                                        ? ThemeMode.system
+                                        : newValue?.tr == 'dark'.tr
+                                            ? ThemeMode.dark
+                                            : ThemeMode.light;
+                                String theme = newValue?.tr == 'system'.tr
+                                    ? 'system'
+                                    : newValue?.tr == 'dark'.tr
+                                        ? 'dark'
+                                        : 'light';
+                                themeController.saveTheme(theme);
+                                themeController.changeThemeMode(themeMode);
+                                setState(() {});
                               },
                             ),
                             SettingCard(

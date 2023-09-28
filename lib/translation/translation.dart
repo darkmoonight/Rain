@@ -44,7 +44,7 @@ class Translation extends Translations {
           'location': 'Местоположение',
           'no_location':
               'Включите службу определения местоположения для получения метеорологических данных для текущего местоположения.',
-          'theme': 'Тёмная тема',
+          'theme': 'Тема',
           'low': 'Низкое',
           'high': 'Высокое',
           'normal': 'Нормальное',
@@ -108,6 +108,9 @@ class Translation extends Translations {
           'timeStart': 'Время начала',
           'timeEnd': 'Время окончания',
           'support': 'Поддержка',
+          'system': 'Системная',
+          'dark': 'Тёмная',
+          'light': 'Светлая',
         },
         'en_US': {
           'start': 'Get Started',
@@ -149,7 +152,7 @@ class Translation extends Translations {
           'location': 'Location',
           'no_location':
               'Enable the location service to get weather data for the current location.',
-          'theme': 'Dark theme',
+          'theme': 'Theme',
           'low': 'Low',
           'high': 'High',
           'normal': 'Normal',
@@ -214,6 +217,9 @@ class Translation extends Translations {
           'timeStart': 'Start time',
           'timeEnd': 'End time',
           'support': 'Support',
+          'system': 'System',
+          'dark': 'Dark',
+          'light': 'Light',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -256,7 +262,7 @@ class Translation extends Translations {
           'location': 'Localisation',
           'no_location':
               'Activez le service de localisation pour obtenir les données météorologiques de l\'endroit actuel.',
-          'theme': 'Theme sombre',
+          'theme': 'Thème',
           'low': 'Bas',
           'high': 'Haut',
           'normal': 'Normal',
@@ -321,6 +327,9 @@ class Translation extends Translations {
           'timeStart': 'Heure de début',
           'timeEnd': 'Heure de fin',
           'support': 'Support',
+          'system': 'Système',
+          'dark': 'Sombre',
+          'light': 'Clair',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -363,7 +372,7 @@ class Translation extends Translations {
           'location': 'Posizione',
           'no_location':
               'Abilita il servizio di localizzazione per ottenere i dati meteo per la posizione corrente.',
-          'theme': 'Tema scuro',
+          'theme': 'Tema',
           'low': 'Basso',
           'high': 'Alto',
           'normal': 'Normale',
@@ -428,6 +437,9 @@ class Translation extends Translations {
           'timeStart': 'Ora di inizio',
           'timeEnd': 'Ora di fine',
           'support': 'Supporto',
+          'system': 'Sistema',
+          'dark': 'Scuro',
+          'light': 'Chiaro',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -470,7 +482,7 @@ class Translation extends Translations {
           'location': 'Standort',
           'no_location':
               'Aktiviere den Standortdienst, um Wetterdaten für den aktuellen Standort zu erhalten.',
-          'theme': 'Dunkles Design',
+          'theme': 'Thema',
           'low': 'Niedrig',
           'high': 'Hoch',
           'normal': 'Normal',
@@ -535,6 +547,9 @@ class Translation extends Translations {
           'timeStart': 'Startzeit',
           'timeEnd': 'Endzeit',
           'support': 'Unterstützung',
+          'system': 'System',
+          'dark': 'Dunkel',
+          'light': 'Hell',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -576,7 +591,7 @@ class Translation extends Translations {
           'location': 'Konum',
           'no_location':
               'Mevcut konumun hava durumu verilerini almak için konum servisini açın.',
-          'theme': 'Karanlık tema',
+          'theme': 'Tema',
           'low': 'Düşük',
           'high': 'Yüksek',
           'normal': 'Normal',
@@ -641,6 +656,9 @@ class Translation extends Translations {
           'timeStart': 'Başlangıç zamanı',
           'timeEnd': 'Bitiş zamanı',
           'support': 'Destek',
+          'system': 'Sistem',
+          'dark': 'Karanlık',
+          'light': 'Aydınlık',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -682,7 +700,7 @@ class Translation extends Translations {
           'location': 'Localização',
           'no_location':
               'Habilite a localização para obter dados de clima do local atual.',
-          'theme': 'Tema escuro',
+          'theme': 'Tema',
           'low': 'Baixo',
           'high': 'Alto',
           'normal': 'Normal',
@@ -747,6 +765,9 @@ class Translation extends Translations {
           'timeStart': 'Hora de início',
           'timeEnd': 'Hora de término',
           'support': 'Suporte',
+          'system': 'Sistema',
+          'dark': 'Escuro',
+          'light': 'Claro',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -789,7 +810,7 @@ class Translation extends Translations {
           'location': 'Ubicación',
           'no_location':
               'Activa la localización para obtener información meteorológica para tu ubicación actual.',
-          'theme': 'Tema oscuro',
+          'theme': 'Tema',
           'low': 'Bajo',
           'high': 'Alto',
           'normal': 'Normal',
@@ -854,6 +875,9 @@ class Translation extends Translations {
           'timeStart': 'Hora de inicio',
           'timeEnd': 'Hora de finalización',
           'support': 'Soporte',
+          'system': 'Sistema',
+          'dark': 'Oscuro',
+          'light': 'Claro',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -896,7 +920,7 @@ class Translation extends Translations {
           'location': 'Poloha',
           'no_location':
               'Ak chcete získať údaje o počasí pre aktuálnu polohu, povoľte službu určovania polohy.',
-          'theme': 'Tmavý režim',
+          'theme': 'Téma',
           'low': 'Nízky',
           'high': 'Vysoký',
           'normal': 'Normálny',
@@ -960,6 +984,9 @@ class Translation extends Translations {
           'timeStart': 'Čas začiatku',
           'timeEnd': 'Čas ukončenia',
           'support': 'Podpora',
+          'system': 'Systém',
+          'dark': 'Tmavá',
+          'light': 'Svetlá',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -1002,7 +1029,7 @@ class Translation extends Translations {
           'location': 'Locatie',
           'no_location':
               'Schakel de locatiedienst in om weer gegevens voor de huidige locatie te ontvangen.',
-          'theme': 'Donker thema',
+          'theme': 'Thema',
           'low': 'Laag',
           'high': 'Hoog',
           'normal': 'Normaal',
@@ -1067,6 +1094,9 @@ class Translation extends Translations {
           'timeStart': 'Begintijd',
           'timeEnd': 'Eindtijd',
           'support': 'Ondersteuning',
+          'system': 'Systeem',
+          'dark': 'Donker',
+          'light': 'Licht',
         },
         "hi_IN": {
           'start': 'शुरू करें',
@@ -1107,7 +1137,7 @@ class Translation extends Translations {
           'on_inter': 'मौसमी आंकड़े प्राप्त करने के लिए इंटरनेट को चालू करें।',
           'location': 'स्थान',
           'no_location': 'वर्तमान स्थान के लिए मौसम डेटा प्राप्त करने के',
-          'theme': 'डार्क थीम',
+          'theme': 'थीम',
           'low': 'निम्न',
           'high': 'उच्च',
           'normal': 'सामान्य',
@@ -1171,6 +1201,9 @@ class Translation extends Translations {
           'timeStart': 'प्रारंभ समय',
           'timeEnd': 'समाप्ति समय',
           'support': 'समर्थन',
+          'system': 'सिस्टम',
+          'dark': 'डार्क',
+          'light': 'लाइट',
         },
         'ro_RO': {
           'start': 'Începe',
@@ -1212,7 +1245,7 @@ class Translation extends Translations {
           'location': 'Locație',
           'no_location':
               'Activează serviciul de localizare pentru a obține date meteorologice pentru locația curentă.',
-          'theme': 'Temă întunecată',
+          'theme': 'Temă',
           'low': 'Scăzut',
           'high': 'Ridicat',
           'normal': 'Normal',
@@ -1276,6 +1309,9 @@ class Translation extends Translations {
           'timeStart': 'Ora de început',
           'timeEnd': 'Ora de sfârșit',
           'support': 'Suport',
+          'system': 'Sistem',
+          'dark': 'Întunecat',
+          'light': 'Luminos',
         },
         'zh_CN': {
           'start': '开始',
@@ -1315,7 +1351,7 @@ class Translation extends Translations {
           'on_inter': '打开网络连接以获取气象数据。',
           'location': '位置',
           'no_location': '启用定位服务以获取当前位置的天气数据。',
-          'theme': '暗色主题',
+          'theme': '主题',
           'low': '最低',
           'high': '最高',
           'normal': '正常',
@@ -1379,6 +1415,9 @@ class Translation extends Translations {
           'timeStart': '开始时间',
           'timeEnd': '结束时间',
           'support': '支持',
+          'system': '系统',
+          'dark': '暗',
+          'light': '亮',
         },
         'pl_PL': {
           'start': 'Rozpocznij',
@@ -1420,7 +1459,7 @@ class Translation extends Translations {
           'location': 'Lokalizacja',
           'no_location':
               'Włącz usługę lokalizacyjną, aby uzyskać dane pogodowe dla bieżącej lokalizacji.',
-          'theme': 'Ciemny motyw',
+          'theme': 'Motyw',
           'low': 'Niski',
           'high': 'Wysoki',
           'normal': 'Normalny',
@@ -1484,6 +1523,9 @@ class Translation extends Translations {
           'timeStart': 'Czas rozpoczęcia',
           'timeEnd': 'Czas zakończenia',
           'support': 'Wsparcie',
+          'system': 'System',
+          'dark': 'Ciemny',
+          'light': 'Jasny',
         },
       };
 }
