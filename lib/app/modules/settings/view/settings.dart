@@ -73,8 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'appearance'.tr,
                                 style: context.textTheme.titleLarge?.copyWith(
@@ -159,8 +158,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'functions'.tr,
                                 style: context.textTheme.titleLarge?.copyWith(
@@ -327,11 +325,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                         timeStartPicker.format(context);
                                     isar.settings.putSync(settings);
                                   });
-                                  if (context.mounted) {
-                                    MyApp.updateAppState(context,
-                                        newTimeStart:
-                                            timeStartPicker.format(context));
-                                  }
+                                  if (!mounted) return;
+                                  MyApp.updateAppState(context,
+                                      newTimeStart:
+                                          timeStartPicker.format(context));
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
                                     weatherController.notlification(
@@ -380,11 +377,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                         timeEndPicker.format(context);
                                     isar.settings.putSync(settings);
                                   });
-                                  if (context.mounted) {
-                                    MyApp.updateAppState(context,
-                                        newTimeEnd:
-                                            timeEndPicker.format(context));
-                                  }
+                                  if (!mounted) return;
+                                  MyApp.updateAppState(context,
+                                      newTimeEnd:
+                                          timeEndPicker.format(context));
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
                                     weatherController.notlification(
@@ -418,8 +414,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'data'.tr,
                                 style: context.textTheme.titleLarge?.copyWith(
@@ -517,8 +512,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       return ListView(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 15),
+                            padding: const EdgeInsets.symmetric(vertical: 15),
                             child: Text(
                               'language'.tr,
                               style: context.textTheme.titleLarge?.copyWith(
@@ -535,7 +529,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               return Card(
                                 elevation: 4,
                                 margin: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5),
+                                    horizontal: 10, vertical: 5),
                                 child: ListTile(
                                   title: Text(
                                     appLanguages[index]['name'],
@@ -577,8 +571,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'support'.tr,
                                 style: context.textTheme.titleLarge?.copyWith(

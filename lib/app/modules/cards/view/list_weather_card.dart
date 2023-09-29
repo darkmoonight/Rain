@@ -59,9 +59,7 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                           background: Container(
                             alignment: Alignment.centerRight,
                             child: const Padding(
-                              padding: EdgeInsets.only(
-                                right: 15,
-                              ),
+                              padding: EdgeInsets.only(right: 15),
                               child: Icon(
                                 Iconsax.trush_square,
                                 color: Colors.red,

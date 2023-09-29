@@ -80,7 +80,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(right: 15, left: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ListView(
               children: [
                 WeatherNow(
@@ -96,7 +96,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                     height: 130,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
+                          horizontal: 10, vertical: 5),
                       child: ScrollablePositionedList.separated(
                         key: const PageStorageKey(1),
                         physics: const AlwaysScrollableScrollPhysics(),

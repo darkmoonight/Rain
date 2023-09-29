@@ -41,21 +41,23 @@ class _WeatherMoreState extends State<WeatherMore> {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: widget.weatherData['timeDaily'].length,
-        itemBuilder: (context, index) => GestureDetector(
-          onTap: () => Get.to(
-            () => InfoDailyCard(
-              weatherData: widget.weatherData,
-              index: index,
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: widget.weatherData['timeDaily'].length,
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () => Get.to(
+              () => InfoDailyCard(
+                weatherData: widget.weatherData,
+                index: index,
+              ),
+              transition: Transition.downToUp,
             ),
-            transition: Transition.downToUp,
-          ),
-          child: ListDailyCard(
-            timeDaily: widget.weatherData['timeDaily'][index],
-            weathercodeDaily: widget.weatherData['weathercodeDaily'][index],
-            temperature2MMax: widget.weatherData['temperature2MMax'][index],
-            temperature2MMin: widget.weatherData['temperature2MMin'][index],
+            child: ListDailyCard(
+              timeDaily: widget.weatherData['timeDaily'][index],
+              weathercodeDaily: widget.weatherData['weathercodeDaily'][index],
+              temperature2MMax: widget.weatherData['temperature2MMax'][index],
+              temperature2MMin: widget.weatherData['temperature2MMin'][index],
+            ),
           ),
         ),
       ),

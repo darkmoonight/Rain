@@ -58,7 +58,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 5, right: 10),
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -136,7 +136,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         AutocompleteOnSelected<Result> onSelected,
                         Iterable<Result> options) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Material(
