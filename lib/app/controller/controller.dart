@@ -5,6 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/api/api.dart';
@@ -169,6 +170,8 @@ class WeatherController extends GetxController {
         getTime(_mainWeather.value.time!, _mainWeather.value.timezone!);
     dayOfNow.value =
         getDay(_mainWeather.value.timeDaily!, _mainWeather.value.timezone!);
+
+    updateWidget();
 
     isLoading.value = false;
 
@@ -470,5 +473,21 @@ class WeatherController extends GetxController {
       item.index = i;
       isar.writeTxnSync(() => isar.weatherCards.putSync(item));
     }
+  }
+
+  void updateWidget() async {
+    HomeWidget.saveWidgetData(
+        'weather_icon',
+        await getLocalImagePath(StatusWeather().getImageNotification(
+          mainWeather.weathercode![hourOfDay.value],
+          mainWeather.time![hourOfDay.value],
+          mainWeather.sunrise![dayOfNow.value],
+          mainWeather.sunset![dayOfNow.value],
+        )));
+    HomeWidget.saveWidgetData(
+      'weather_degree',
+      '${mainWeather.temperature2M?[hourOfDay.value].round()}°',
+    );
+    HomeWidget.updateWidget(androidName: androidWidgetName);
   }
 }

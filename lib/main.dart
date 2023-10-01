@@ -8,6 +8,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/modules/home.dart';
@@ -50,6 +51,9 @@ final List appLanguages = [
   {'name': '中文', 'locale': const Locale('zh', 'CN')},
   {'name': 'Polski', 'locale': const Locale('pl', 'PL')},
 ];
+
+const String appGroupId = 'DARK NIGHT';
+const String androidWidgetName = 'OreoWidget';
 
 void main() async {
   final String timeZoneName;
@@ -205,6 +209,7 @@ class _MyAppState extends State<MyApp> {
     timeRange = settings.timeRange ?? 1;
     timeStart = settings.timeStart ?? '09:00';
     timeEnd = settings.timeEnd ?? '21:00';
+    HomeWidget.setAppGroupId(appGroupId);
     super.initState();
   }
 

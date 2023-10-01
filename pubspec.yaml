@@ -22,7 +22,6 @@ dependencies:
   timezone: ^0.9.2
   geocoding: ^2.1.0
   geolocator: ^10.1.0
-  workmanager: ^0.5.2
   home_widget: ^0.3.0
   google_fonts: ^6.1.0
   flutter_glow: ^0.3.0
