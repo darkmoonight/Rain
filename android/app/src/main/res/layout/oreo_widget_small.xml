@@ -3,7 +3,8 @@
     style="@style/Widget.Android.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.Android.AppWidgetContainer">
+    android:theme="@style/Theme.Android.AppWidgetContainer"
+    android:id="@+id/widget_day_oreo">
 
     <LinearLayout
         android:id="@+id/widget_day_weather"

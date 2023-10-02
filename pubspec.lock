@@ -433,10 +433,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_platform_interface
-      sha256: b8cc1d3be0ca039a3f2174b0b026feab8af3610e220b8532e42cff8ec6658535
+      sha256: b7aca62aa05d7e610c396a53a1936ff87fce2f735d76e93fde9269c341c46a25
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.1.1"
   geolocator_web:
     dependency: transitive
     description:

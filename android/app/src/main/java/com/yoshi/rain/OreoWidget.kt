@@ -22,19 +22,21 @@ class OreoWidget : HomeWidgetProvider() {
     ) {
         for (appWidgetId in appWidgetIds) {
             val supportedSizes = listOf(
-                SizeFCompat(100.0f, 40.0f),
-                SizeFCompat(230.0f, 40.0f),
+                SizeFCompat(40.0f, 0.0f),
+                SizeFCompat(100.0f, 0.0f),
+                SizeFCompat(230.0f, 0.0f),
             )
             appWidgetManager.updateAppWidget(appWidgetId, supportedSizes) {
                 val layoutId = when (it) {
-                    supportedSizes[0] -> R.layout.oreo_widget_small
+                    supportedSizes[0] -> R.layout.oreo_widget_mini
+                    supportedSizes[1] -> R.layout.oreo_widget_small
                     else -> R.layout.oreo_widget_medium
                 }
                 RemoteViews(context.packageName, layoutId).apply {
                     val pendingIntent = HomeWidgetLaunchIntent.getActivity(
                     context,
                     MainActivity::class.java)
-                    setOnClickPendingIntent(R.id.widget_day_weather, pendingIntent)
+                    setOnClickPendingIntent(R.id.widget_day_oreo, pendingIntent)
 
                     val image = widgetData.getString("weather_icon", null)
                     setImageViewBitmap(R.id.widget_day_icon, BitmapFactory.decodeFile(image))
