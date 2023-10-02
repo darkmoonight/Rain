@@ -23,6 +23,7 @@ dependencies:
   geocoding: ^2.1.0
   geolocator: ^10.1.0
   home_widget: ^0.3.0
+  workmanager: ^0.5.2
   google_fonts: ^6.1.0
   flutter_glow: ^0.3.0
   time_machine: ^0.9.17

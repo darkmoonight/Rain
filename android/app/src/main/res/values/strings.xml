@@ -2,4 +2,5 @@
 <resources>
     <string name="app_widget_description">Oreo Widget</string>
     <string name="date_format_widget_oreo_style">EEE, d MMM │</string>
+    <string name="date_format_widget_oreo_big_style">EEEE, d MMM │</string>
 </resources>

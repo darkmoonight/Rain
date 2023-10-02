@@ -25,12 +25,14 @@ class OreoWidget : HomeWidgetProvider() {
                 SizeFCompat(40.0f, 0.0f),
                 SizeFCompat(100.0f, 0.0f),
                 SizeFCompat(230.0f, 0.0f),
+                SizeFCompat(280.0f, 0.0f),
             )
             appWidgetManager.updateAppWidget(appWidgetId, supportedSizes) {
                 val layoutId = when (it) {
                     supportedSizes[0] -> R.layout.oreo_widget_mini
                     supportedSizes[1] -> R.layout.oreo_widget_small
-                    else -> R.layout.oreo_widget_medium
+                    supportedSizes[2] -> R.layout.oreo_widget_medium
+                    else -> R.layout.oreo_widget_big
                 }
                 RemoteViews(context.packageName, layoutId).apply {
                     val pendingIntent = HomeWidgetLaunchIntent.getActivity(
