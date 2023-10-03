@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
@@ -11,10 +12,12 @@ import 'package:get/get.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
 import 'package:rain/theme/theme.dart';
 import 'package:time_machine/time_machine.dart';
+import 'package:workmanager/workmanager.dart';
 import 'app/data/weather.dart';
 import 'translation/translation.dart';
 import 'theme/theme_controller.dart';
@@ -55,9 +58,17 @@ final List appLanguages = [
 const String appGroupId = 'DARK NIGHT';
 const String androidWidgetName = 'OreoWidget';
 
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) {
+    return WeatherController().updateWidget();
+  });
+}
+
 void main() async {
   final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
   Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     result == ConnectivityResult.none ? isOnline = false : isOnline = true;
   });

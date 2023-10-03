@@ -18,6 +18,7 @@ import 'package:rain/main.dart';
 import 'package:timezone/standalone.dart' as tz;
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:workmanager/workmanager.dart';
 
 class WeatherController extends GetxController {
   final isLoading = true.obs;
@@ -171,7 +172,12 @@ class WeatherController extends GetxController {
     dayOfNow.value =
         getDay(_mainWeather.value.timeDaily!, _mainWeather.value.timezone!);
 
-    updateWidget();
+    Workmanager().registerPeriodicTask(
+      "widgetUpdate",
+      "widgetBackgroundUpdate",
+      frequency: const Duration(minutes: 15),
+      existingWorkPolicy: ExistingWorkPolicy.update,
+    );
 
     isLoading.value = false;
 
@@ -475,19 +481,30 @@ class WeatherController extends GetxController {
     }
   }
 
-  void updateWidget() async {
-    HomeWidget.saveWidgetData(
-        'weather_icon',
-        await getLocalImagePath(StatusWeather().getImageNotification(
-          mainWeather.weathercode![hourOfDay.value],
-          mainWeather.time![hourOfDay.value],
-          mainWeather.sunrise![dayOfNow.value],
-          mainWeather.sunset![dayOfNow.value],
-        )));
-    HomeWidget.saveWidgetData(
-      'weather_degree',
-      '${mainWeather.temperature2M?[hourOfDay.value].round()}°',
-    );
-    HomeWidget.updateWidget(androidName: androidWidgetName);
+  Future<bool> updateWidget() async {
+    MainWeatherCache? mainWeatherCache;
+    mainWeatherCache = isar.mainWeatherCaches.where().findFirstSync();
+    if (mainWeatherCache == null) return false;
+
+    int hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
+    int day = getDay(mainWeatherCache.timeDaily!, mainWeatherCache.timezone!);
+
+    return Future.wait<bool?>([
+      HomeWidget.saveWidgetData(
+          'weather_icon',
+          await getLocalImagePath(StatusWeather().getImageNotification(
+            mainWeatherCache.weathercode![hour],
+            mainWeatherCache.time![hour],
+            mainWeatherCache.sunrise![day],
+            mainWeatherCache.sunset![day],
+          ))),
+      HomeWidget.saveWidgetData(
+        'weather_degree',
+        '${mainWeatherCache.temperature2M?[hour].round()}°',
+      ),
+      HomeWidget.updateWidget(androidName: androidWidgetName),
+    ]).then((value) {
+      return !value.contains(false);
+    });
   }
 }
