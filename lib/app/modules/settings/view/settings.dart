@@ -242,7 +242,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     : await flutterLocalNotificationsPlugin
                                         .resolvePlatformSpecificImplementation<
                                             AndroidFlutterLocalNotificationsPlugin>()
-                                        ?.requestPermission();
+                                        ?.requestNotificationsPermission();
                                 if (result != null) {
                                   isar.writeTxnSync(() {
                                     settings.notifications = value;

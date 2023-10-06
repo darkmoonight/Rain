@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,8 @@ import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
 import 'package:rain/main.dart';
 import 'package:timezone/standalone.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:workmanager/workmanager.dart';
@@ -482,6 +485,17 @@ class WeatherController extends GetxController {
   }
 
   Future<bool> updateWidget() async {
+    final timeZoneName = await FlutterTimezone.getLocalTimezone();
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation(timeZoneName));
+
+    isar = await Isar.open([
+      SettingsSchema,
+      MainWeatherCacheSchema,
+      LocationCacheSchema,
+      WeatherCardSchema,
+    ], directory: (await getApplicationSupportDirectory()).path);
+
     MainWeatherCache? mainWeatherCache;
     mainWeatherCache = isar.mainWeatherCaches.where().findFirstSync();
     if (mainWeatherCache == null) return false;
