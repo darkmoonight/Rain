@@ -489,7 +489,7 @@ class WeatherController extends GetxController {
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
 
-    isar = await Isar.open([
+    final isarWidget = await Isar.open([
       SettingsSchema,
       MainWeatherCacheSchema,
       LocationCacheSchema,
@@ -497,7 +497,7 @@ class WeatherController extends GetxController {
     ], directory: (await getApplicationSupportDirectory()).path);
 
     MainWeatherCache? mainWeatherCache;
-    mainWeatherCache = isar.mainWeatherCaches.where().findFirstSync();
+    mainWeatherCache = isarWidget.mainWeatherCaches.where().findFirstSync();
     if (mainWeatherCache == null) return false;
 
     int hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
