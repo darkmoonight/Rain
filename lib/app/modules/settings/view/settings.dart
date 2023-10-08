@@ -234,6 +234,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               switcher: true,
                               value: settings.notifications,
                               onChange: (value) async {
+                                final resultExact =
+                                    await flutterLocalNotificationsPlugin
+                                        .resolvePlatformSpecificImplementation<
+                                            AndroidFlutterLocalNotificationsPlugin>()
+                                        ?.requestExactAlarmsPermission();
                                 final result = Platform.isIOS
                                     ? await flutterLocalNotificationsPlugin
                                         .resolvePlatformSpecificImplementation<
@@ -243,11 +248,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                         .resolvePlatformSpecificImplementation<
                                             AndroidFlutterLocalNotificationsPlugin>()
                                         ?.requestNotificationsPermission();
-                                final resultExact =
-                                    await flutterLocalNotificationsPlugin
-                                        .resolvePlatformSpecificImplementation<
-                                            AndroidFlutterLocalNotificationsPlugin>()
-                                        ?.requestExactAlarmsPermission();
                                 if (result != null && resultExact != null) {
                                   isar.writeTxnSync(() {
                                     settings.notifications = value;
