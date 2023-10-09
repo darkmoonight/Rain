@@ -79,7 +79,8 @@ class _WeatherPageState extends State<WeatherPage> {
                     child: SizedBox(
                       height: 136,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         child: ScrollablePositionedList.separated(
                           key: const PageStorageKey(0),
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -91,12 +92,14 @@ class _WeatherPageState extends State<WeatherPage> {
                             );
                           },
                           scrollDirection: Axis.horizontal,
-                          itemScrollController: weatherController.itemScrollController,
+                          itemScrollController:
+                              weatherController.itemScrollController,
                           itemCount: mainWeather.time!.length,
                           itemBuilder: (ctx, i) => GestureDetector(
                             onTap: () {
                               weatherController.hourOfDay.value = i;
-                              weatherController.dayOfNow.value = (i / 24).floor();
+                              weatherController.dayOfNow.value =
+                                  (i / 24).floor();
                               setState(() {});
                             },
                             child: Container(
@@ -106,7 +109,9 @@ class _WeatherPageState extends State<WeatherPage> {
                                 vertical: 5,
                               ),
                               decoration: BoxDecoration(
-                                color: i == hourOfDay ? context.theme.colorScheme.primaryContainer : Colors.transparent,
+                                color: i == hourOfDay
+                                    ? context.theme.colorScheme.primaryContainer
+                                    : Colors.transparent,
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(20),
                                 ),
@@ -116,7 +121,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                 weather: mainWeather.weathercode![i],
                                 degree: mainWeather.temperature2M![i],
                                 timeDay: mainWeather.sunrise![(i / 24).floor()],
-                                timeNight: mainWeather.sunset![(i / 24).floor()],
+                                timeNight:
+                                    mainWeather.sunset![(i / 24).floor()],
                               ),
                             ),
                           ),
