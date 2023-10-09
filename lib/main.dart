@@ -68,13 +68,13 @@ void callbackDispatcher() {
 void main() async {
   final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
   Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     result == ConnectivityResult.none ? isOnline = false : isOnline = true;
   });
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black));
   if (Platform.isAndroid) {
+    Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
     await setOptimalDisplayMode();
   }
   if (Platform.isAndroid || Platform.isIOS) {
@@ -220,7 +220,9 @@ class _MyAppState extends State<MyApp> {
     timeRange = settings.timeRange ?? 1;
     timeStart = settings.timeStart ?? '09:00';
     timeEnd = settings.timeEnd ?? '21:00';
-    HomeWidget.setAppGroupId(appGroupId);
+    if (Platform.isAndroid) {
+      HomeWidget.setAppGroupId(appGroupId);
+    }
     super.initState();
   }
 

@@ -35,8 +35,10 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
   }
 
   void getTime() {
-    timeNow = weatherController.getTime(widget.weatherCard.time!, widget.weatherCard.timezone!);
-    dayNow = weatherController.getDay(widget.weatherCard.timeDaily!, widget.weatherCard.timezone!);
+    timeNow = weatherController.getTime(
+        widget.weatherCard.time!, widget.weatherCard.timezone!);
+    dayNow = weatherController.getDay(
+        widget.weatherCard.timeDaily!, widget.weatherCard.timezone!);
     Future.delayed(const Duration(milliseconds: 30), () {
       itemScrollController.scrollTo(
         index: timeNow,
@@ -93,7 +95,8 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   child: SizedBox(
                     height: 136,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       child: ScrollablePositionedList.separated(
                         key: const PageStorageKey(1),
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -120,7 +123,9 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                               vertical: 5,
                             ),
                             decoration: BoxDecoration(
-                              color: i == timeNow ? context.theme.colorScheme.primaryContainer : Colors.transparent,
+                              color: i == timeNow
+                                  ? context.theme.colorScheme.primaryContainer
+                                  : Colors.transparent,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               ),
@@ -129,8 +134,10 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                               time: widget.weatherCard.time![i],
                               weather: widget.weatherCard.weathercode![i],
                               degree: widget.weatherCard.temperature2M![i],
-                              timeDay: widget.weatherCard.sunrise![(i / 24).floor()],
-                              timeNight: widget.weatherCard.sunset![(i / 24).floor()],
+                              timeDay:
+                                  widget.weatherCard.sunrise![(i / 24).floor()],
+                              timeNight:
+                                  widget.weatherCard.sunset![(i / 24).floor()],
                             ),
                           ),
                         ),

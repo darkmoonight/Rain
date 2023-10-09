@@ -175,12 +175,14 @@ class WeatherController extends GetxController {
     dayOfNow.value =
         getDay(_mainWeather.value.timeDaily!, _mainWeather.value.timezone!);
 
-    Workmanager().registerPeriodicTask(
-      "widgetUpdate",
-      "widgetBackgroundUpdate",
-      frequency: const Duration(minutes: 15),
-      existingWorkPolicy: ExistingWorkPolicy.update,
-    );
+    if (Platform.isAndroid) {
+      Workmanager().registerPeriodicTask(
+        "widgetUpdate",
+        "widgetBackgroundUpdate",
+        frequency: const Duration(minutes: 15),
+        existingWorkPolicy: ExistingWorkPolicy.update,
+      );
+    }
 
     isLoading.value = false;
 
