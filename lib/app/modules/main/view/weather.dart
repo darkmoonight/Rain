@@ -32,155 +32,127 @@ class _WeatherPageState extends State<WeatherPage> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: [
-            Obx(
-              () => weatherController.isLoading.isFalse
-                  ? WeatherNow(
-                      time: weatherController
-                          .mainWeather.time![weatherController.hourOfDay.value],
-                      weather: weatherController.mainWeather
-                          .weathercode![weatherController.hourOfDay.value],
-                      degree: weatherController.mainWeather
-                          .temperature2M![weatherController.hourOfDay.value],
-                      timeDay: weatherController.mainWeather
-                          .sunrise![weatherController.dayOfNow.value],
-                      timeNight: weatherController.mainWeather
-                          .sunset![weatherController.dayOfNow.value],
+            Obx(() {
+              if (weatherController.isLoading.isTrue) {
+                return const Column(
+                  children: [
+                    MyShimmer(
+                      hight: 350,
+                    ),
+                    MyShimmer(
+                      hight: 130,
+                      edgeInsetsMargin: EdgeInsets.symmetric(vertical: 15),
+                    ),
+                    MyShimmer(
+                      hight: 90,
+                      edgeInsetsMargin: EdgeInsets.only(bottom: 15),
+                    ),
+                    MyShimmer(
+                      hight: 400,
+                      edgeInsetsMargin: EdgeInsets.only(bottom: 15),
+                    ),
+                    MyShimmer(
+                      hight: 450,
+                      edgeInsetsMargin: EdgeInsets.only(bottom: 15),
                     )
-                  : const MyShimmer(hight: 350),
-            ),
-            Obx(
-              () => weatherController.isLoading.isFalse
-                  ? Card(
-                      margin: const EdgeInsets.symmetric(vertical: 15),
-                      child: SizedBox(
-                        height: 136,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: ScrollablePositionedList.separated(
-                            key: const PageStorageKey(0),
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const VerticalDivider(
-                                width: 10,
-                                indent: 40,
-                                endIndent: 40,
-                              );
+                  ],
+                );
+              }
+
+              final mainWeather = weatherController.mainWeather;
+              final hourOfDay = weatherController.hourOfDay.value;
+              final dayOfNow = weatherController.dayOfNow.value;
+              final sunrise = mainWeather.sunrise![dayOfNow];
+              final sunset = mainWeather.sunset![dayOfNow];
+              return Column(
+                children: [
+                  WeatherNow(
+                    time: mainWeather.time![hourOfDay],
+                    weather: mainWeather.weathercode![hourOfDay],
+                    degree: mainWeather.temperature2M![hourOfDay],
+                    timeDay: sunrise,
+                    timeNight: sunset,
+                  ),
+                  Card(
+                    margin: const EdgeInsets.symmetric(vertical: 15),
+                    child: SizedBox(
+                      height: 136,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        child: ScrollablePositionedList.separated(
+                          key: const PageStorageKey(0),
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const VerticalDivider(
+                              width: 10,
+                              indent: 40,
+                              endIndent: 40,
+                            );
+                          },
+                          scrollDirection: Axis.horizontal,
+                          itemScrollController: weatherController.itemScrollController,
+                          itemCount: mainWeather.time!.length,
+                          itemBuilder: (ctx, i) => GestureDetector(
+                            onTap: () {
+                              weatherController.hourOfDay.value = i;
+                              weatherController.dayOfNow.value = (i / 24).floor();
+                              setState(() {});
                             },
-                            scrollDirection: Axis.horizontal,
-                            itemScrollController:
-                                weatherController.itemScrollController,
-                            itemCount:
-                                weatherController.mainWeather.time!.length,
-                            itemBuilder: (ctx, i) => GestureDetector(
-                              onTap: () {
-                                weatherController.hourOfDay.value = i;
-                                weatherController.dayOfNow.value =
-                                    (i / 24).floor();
-                                setState(() {});
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(vertical: 5),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 5,
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(vertical: 5),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 5,
+                              ),
+                              decoration: BoxDecoration(
+                                color: i == hourOfDay ? context.theme.colorScheme.primaryContainer : Colors.transparent,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(20),
                                 ),
-                                decoration: BoxDecoration(
-                                  color: i == weatherController.hourOfDay.value
-                                      ? context
-                                          .theme.colorScheme.primaryContainer
-                                      : Colors.transparent,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(20),
-                                  ),
-                                ),
-                                child: WeatherHourly(
-                                  time: weatherController.mainWeather.time![i],
-                                  weather: weatherController
-                                      .mainWeather.weathercode![i],
-                                  degree: weatherController
-                                      .mainWeather.temperature2M![i],
-                                  timeDay: weatherController
-                                      .mainWeather.sunrise![(i / 24).floor()],
-                                  timeNight: weatherController
-                                      .mainWeather.sunset![(i / 24).floor()],
-                                ),
+                              ),
+                              child: WeatherHourly(
+                                time: mainWeather.time![i],
+                                weather: mainWeather.weathercode![i],
+                                degree: mainWeather.temperature2M![i],
+                                timeDay: mainWeather.sunrise![(i / 24).floor()],
+                                timeNight: mainWeather.sunset![(i / 24).floor()],
                               ),
                             ),
                           ),
                         ),
                       ),
-                    )
-                  : const MyShimmer(
-                      hight: 130,
-                      edgeInsetsMargin: EdgeInsets.symmetric(vertical: 15),
                     ),
-            ),
-            Obx(
-              () => weatherController.isLoading.isFalse
-                  ? SunsetSunrise(
-                      timeSunrise: weatherController.mainWeather
-                          .sunrise![weatherController.dayOfNow.value],
-                      timeSunset: weatherController.mainWeather
-                          .sunset![weatherController.dayOfNow.value],
-                    )
-                  : const MyShimmer(
-                      hight: 90,
-                      edgeInsetsMargin: EdgeInsets.only(bottom: 15),
-                    ),
-            ),
-            Obx(
-              () => weatherController.isLoading.isFalse
-                  ? DescContainer(
-                      humidity:
-                          weatherController.mainWeather.relativehumidity2M![
-                              weatherController.hourOfDay.value],
-                      wind: weatherController.mainWeather
-                          .windspeed10M![weatherController.hourOfDay.value],
-                      visibility: weatherController.mainWeather
-                          .visibility![weatherController.hourOfDay.value],
-                      feels: weatherController.mainWeather.apparentTemperature![
-                          weatherController.hourOfDay.value],
-                      evaporation:
-                          weatherController.mainWeather.evapotranspiration![
-                              weatherController.hourOfDay.value],
-                      precipitation: weatherController.mainWeather
-                          .precipitation![weatherController.hourOfDay.value],
-                      direction: weatherController.mainWeather
-                          .winddirection10M![weatherController.hourOfDay.value],
-                      pressure: weatherController.mainWeather
-                          .surfacePressure![weatherController.hourOfDay.value],
-                      rain: weatherController
-                          .mainWeather.rain![weatherController.hourOfDay.value],
-                      cloudcover: weatherController.mainWeather
-                          .cloudcover![weatherController.hourOfDay.value],
-                      windgusts: weatherController.mainWeather
-                          .windgusts10M![weatherController.hourOfDay.value],
-                      uvIndex: weatherController.mainWeather
-                          .uvIndex![weatherController.hourOfDay.value],
-                    )
-                  : const MyShimmer(
-                      hight: 400,
-                      edgeInsetsMargin: EdgeInsets.only(bottom: 15),
-                    ),
-            ),
-            Obx(
-              () => weatherController.isLoading.isFalse
-                  ? WeatherDaily(
-                      weatherData: weatherController.mainWeather.toJson(),
-                      onTap: () => Get.to(
-                        () => WeatherMore(
-                          weatherData: weatherController.mainWeather.toJson(),
-                        ),
-                        transition: Transition.downToUp,
+                  ),
+                  SunsetSunrise(
+                    timeSunrise: sunrise,
+                    timeSunset: sunset,
+                  ),
+                  DescContainer(
+                    humidity: mainWeather.relativehumidity2M![hourOfDay],
+                    wind: mainWeather.windspeed10M![hourOfDay],
+                    visibility: mainWeather.visibility![hourOfDay],
+                    feels: mainWeather.apparentTemperature![hourOfDay],
+                    evaporation: mainWeather.evapotranspiration![hourOfDay],
+                    precipitation: mainWeather.precipitation![hourOfDay],
+                    direction: mainWeather.winddirection10M![hourOfDay],
+                    pressure: mainWeather.surfacePressure![hourOfDay],
+                    rain: mainWeather.rain![hourOfDay],
+                    cloudcover: mainWeather.cloudcover![hourOfDay],
+                    windgusts: mainWeather.windgusts10M![hourOfDay],
+                    uvIndex: mainWeather.uvIndex![hourOfDay],
+                  ),
+                  WeatherDaily(
+                    weatherData: mainWeather.toJson(),
+                    onTap: () => Get.to(
+                      () => WeatherMore(
+                        weatherData: mainWeather.toJson(),
                       ),
-                    )
-                  : const MyShimmer(
-                      hight: 455,
-                      edgeInsetsMargin: EdgeInsets.only(bottom: 15),
+                      transition: Transition.downToUp,
                     ),
-            ),
+                  )
+                ],
+              );
+            }),
           ],
         ),
       ),
