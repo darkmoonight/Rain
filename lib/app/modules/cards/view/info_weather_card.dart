@@ -35,10 +35,10 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
   }
 
   void getTime() {
-    timeNow = weatherController.getTime(
-        widget.weatherCard.time!, widget.weatherCard.timezone!);
-    dayNow = weatherController.getDay(
-        widget.weatherCard.timeDaily!, widget.weatherCard.timezone!);
+    final weatherCard = widget.weatherCard;
+
+    timeNow = weatherController.getTime(weatherCard.time!, weatherCard.timezone!);
+    dayNow = weatherController.getDay(weatherCard.timeDaily!, weatherCard.timezone!);
     Future.delayed(const Duration(milliseconds: 30), () {
       itemScrollController.scrollTo(
         index: timeNow,
@@ -50,9 +50,11 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
 
   @override
   Widget build(BuildContext context) {
+    final weatherCard = widget.weatherCard;
+
     return RefreshIndicator(
       onRefresh: () async {
-        await weatherController.updateCard(widget.weatherCard);
+        await weatherController.updateCard(weatherCard);
         getTime();
         setState(() {});
       },
@@ -68,10 +70,10 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
             ),
           ),
           title: Text(
-            widget.weatherCard.district!.isNotEmpty
-                ? '${widget.weatherCard.city}'
-                    ', ${widget.weatherCard.district}'
-                : '${widget.weatherCard.city}',
+            weatherCard.district!.isNotEmpty
+                ? '${weatherCard.city}'
+                    ', ${weatherCard.district}'
+                : '${weatherCard.city}',
             style: context.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
               fontSize: 18,
@@ -84,19 +86,18 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
             child: ListView(
               children: [
                 WeatherNow(
-                  time: widget.weatherCard.time![timeNow],
-                  weather: widget.weatherCard.weathercode![timeNow],
-                  degree: widget.weatherCard.temperature2M![timeNow],
-                  timeDay: widget.weatherCard.sunrise![dayNow],
-                  timeNight: widget.weatherCard.sunset![dayNow],
+                  time: weatherCard.time![timeNow],
+                  weather: weatherCard.weathercode![timeNow],
+                  degree: weatherCard.temperature2M![timeNow],
+                  timeDay: weatherCard.sunrise![dayNow],
+                  timeNight: weatherCard.sunset![dayNow],
                 ),
                 Card(
                   margin: const EdgeInsets.symmetric(vertical: 15),
                   child: SizedBox(
                     height: 136,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: ScrollablePositionedList.separated(
                         key: const PageStorageKey(1),
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -109,7 +110,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                         },
                         scrollDirection: Axis.horizontal,
                         itemScrollController: itemScrollController,
-                        itemCount: widget.weatherCard.time!.length,
+                        itemCount: weatherCard.time!.length,
                         itemBuilder: (ctx, i) => GestureDetector(
                           onTap: () {
                             timeNow = i;
@@ -123,21 +124,17 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                               vertical: 5,
                             ),
                             decoration: BoxDecoration(
-                              color: i == timeNow
-                                  ? context.theme.colorScheme.primaryContainer
-                                  : Colors.transparent,
+                              color: i == timeNow ? context.theme.colorScheme.primaryContainer : Colors.transparent,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               ),
                             ),
                             child: WeatherHourly(
-                              time: widget.weatherCard.time![i],
-                              weather: widget.weatherCard.weathercode![i],
-                              degree: widget.weatherCard.temperature2M![i],
-                              timeDay:
-                                  widget.weatherCard.sunrise![(i / 24).floor()],
-                              timeNight:
-                                  widget.weatherCard.sunset![(i / 24).floor()],
+                              time: weatherCard.time![i],
+                              weather: weatherCard.weathercode![i],
+                              degree: weatherCard.temperature2M![i],
+                              timeDay: weatherCard.sunrise![(i / 24).floor()],
+                              timeNight: weatherCard.sunset![(i / 24).floor()],
                             ),
                           ),
                         ),
@@ -146,28 +143,28 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   ),
                 ),
                 SunsetSunrise(
-                  timeSunrise: widget.weatherCard.sunrise![dayNow],
-                  timeSunset: widget.weatherCard.sunset![dayNow],
+                  timeSunrise: weatherCard.sunrise![dayNow],
+                  timeSunset: weatherCard.sunset![dayNow],
                 ),
                 DescContainer(
-                  humidity: widget.weatherCard.relativehumidity2M?[timeNow],
-                  wind: widget.weatherCard.windspeed10M?[timeNow],
-                  visibility: widget.weatherCard.visibility?[timeNow],
-                  feels: widget.weatherCard.apparentTemperature?[timeNow],
-                  evaporation: widget.weatherCard.evapotranspiration?[timeNow],
-                  precipitation: widget.weatherCard.precipitation?[timeNow],
-                  direction: widget.weatherCard.winddirection10M?[timeNow],
-                  pressure: widget.weatherCard.surfacePressure?[timeNow],
-                  rain: widget.weatherCard.rain?[timeNow],
-                  cloudcover: widget.weatherCard.cloudcover?[timeNow],
-                  windgusts: widget.weatherCard.windgusts10M?[timeNow],
-                  uvIndex: widget.weatherCard.uvIndex?[timeNow],
+                  humidity: weatherCard.relativehumidity2M?[timeNow],
+                  wind: weatherCard.windspeed10M?[timeNow],
+                  visibility: weatherCard.visibility?[timeNow],
+                  feels: weatherCard.apparentTemperature?[timeNow],
+                  evaporation: weatherCard.evapotranspiration?[timeNow],
+                  precipitation: weatherCard.precipitation?[timeNow],
+                  direction: weatherCard.winddirection10M?[timeNow],
+                  pressure: weatherCard.surfacePressure?[timeNow],
+                  rain: weatherCard.rain?[timeNow],
+                  cloudcover: weatherCard.cloudcover?[timeNow],
+                  windgusts: weatherCard.windgusts10M?[timeNow],
+                  uvIndex: weatherCard.uvIndex?[timeNow],
                 ),
                 WeatherDaily(
-                  weatherData: widget.weatherCard.toJson(),
+                  weatherData: weatherCard.toJson(),
                   onTap: () => Get.to(
                     () => WeatherMore(
-                      weatherData: widget.weatherCard.toJson(),
+                      weatherData: weatherCard.toJson(),
                     ),
                     transition: Transition.downToUp,
                   ),
