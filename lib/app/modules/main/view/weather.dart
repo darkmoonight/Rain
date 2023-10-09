@@ -65,6 +65,7 @@ class _WeatherPageState extends State<WeatherPage> {
               final sunrise = mainWeather.sunrise![dayOfNow];
               final sunset = mainWeather.sunset![dayOfNow];
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   WeatherNow(
                     time: mainWeather.time![hourOfDay],
