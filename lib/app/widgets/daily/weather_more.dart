@@ -18,6 +18,10 @@ class WeatherMore extends StatefulWidget {
 class _WeatherMoreState extends State<WeatherMore> {
   @override
   Widget build(BuildContext context) {
+    const transparent = Colors.transparent;
+    final weatherData = widget.weatherData;
+    final timeDaily = weatherData['timeDaily'];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -30,8 +34,8 @@ class _WeatherMoreState extends State<WeatherMore> {
             Iconsax.arrow_left_1,
             size: 20,
           ),
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+          splashColor: transparent,
+          highlightColor: transparent,
         ),
         title: Text(
           'weatherMore'.tr,
@@ -43,20 +47,20 @@ class _WeatherMoreState extends State<WeatherMore> {
       ),
       body: SafeArea(
         child: ListView.builder(
-          itemCount: widget.weatherData['timeDaily'].length,
+          itemCount: timeDaily.length,
           itemBuilder: (context, index) => GestureDetector(
             onTap: () => Get.to(
               () => InfoDailyCard(
-                weatherData: widget.weatherData,
+                weatherData: weatherData,
                 index: index,
               ),
               transition: Transition.downToUp,
             ),
             child: ListDailyCard(
-              timeDaily: widget.weatherData['timeDaily'][index],
-              weathercodeDaily: widget.weatherData['weathercodeDaily'][index],
-              temperature2MMax: widget.weatherData['temperature2MMax'][index],
-              temperature2MMin: widget.weatherData['temperature2MMin'][index],
+              timeDaily: timeDaily[index],
+              weathercodeDaily: weatherData['weathercodeDaily'][index],
+              temperature2MMax: weatherData['temperature2MMax'][index],
+              temperature2MMin: weatherData['temperature2MMin'][index],
             ),
           ),
         ),
