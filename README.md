@@ -25,6 +25,7 @@ An application for viewing the weather
 - Выбор между градусами Цельсия и Фаренгейта
 - Выбор между форматом времени 12 и 24-часовым
 - Уведомления
+- Виджет
 
 Также мы постарались сделать дизайн максимально удобным и красивым. -->
 
@@ -43,6 +44,7 @@ The following options are provided:
 - Choose between Celsius and Fahrenheit
 - Choosing between 12-hour and 24-hour time formats
 - Notifications
+- Widget
 
 We also tried to make the design as convenient and beautiful as possible.
 
