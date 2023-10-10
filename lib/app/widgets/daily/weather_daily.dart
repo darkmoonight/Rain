@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/daily/info_daily_card.dart';
-import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
+import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/main.dart';
 
 class WeatherDaily extends StatefulWidget {
@@ -25,6 +25,19 @@ class _WeatherDailyState extends State<WeatherDaily> {
 
   @override
   Widget build(BuildContext context) {
+    final splashColor = context.theme.colorScheme.primary.withOpacity(0.4);
+    const inkWellBorderRadius = BorderRadius.all(
+      Radius.circular(16),
+    );
+
+    final weatherData = widget.weatherData;
+    final weatherCodeDaily = weatherData['weathercodeDaily'];
+    final textTheme = context.textTheme;
+    final labelLarge = textTheme.labelLarge;
+    final bodyMediumGrey = textTheme.bodyMedium?.copyWith(
+      color: Colors.grey,
+    );
+
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
       child: SizedBox(
@@ -39,12 +52,15 @@ class _WeatherDailyState extends State<WeatherDaily> {
                   itemCount: 7,
                   itemBuilder: (ctx, index) {
                     return InkWell(
+                      splashColor: splashColor,
+                      borderRadius: inkWellBorderRadius,
                       onTap: () => Get.to(
-                          () => InfoDailyCard(
-                                weatherData: widget.weatherData,
-                                index: index,
-                              ),
-                          transition: Transition.downToUp),
+                        () => InfoDailyCard(
+                          weatherData: weatherData,
+                          index: index,
+                        ),
+                        transition: Transition.downToUp,
+                      ),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 12),
                         child: Row(
@@ -52,9 +68,8 @@ class _WeatherDailyState extends State<WeatherDaily> {
                           children: [
                             Expanded(
                               child: Text(
-                                DateFormat.EEEE(locale.languageCode).format(
-                                    widget.weatherData['timeDaily'][index]),
-                                style: context.textTheme.labelLarge,
+                                DateFormat.EEEE(locale.languageCode).format(weatherData['timeDaily'][index]),
+                                style: labelLarge,
                               ),
                             ),
                             Expanded(
@@ -62,18 +77,14 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(
-                                    statusWeather.getImage7Day(
-                                        widget.weatherData['weathercodeDaily']
-                                            [index]),
+                                    statusWeather.getImage7Day(weatherCodeDaily[index]),
                                     scale: 3,
                                   ),
                                   const SizedBox(width: 5),
                                   Expanded(
                                     child: Text(
-                                      statusWeather.getText(
-                                          widget.weatherData['weathercodeDaily']
-                                              [index]),
-                                      style: context.textTheme.labelLarge,
+                                      statusWeather.getText(weatherCodeDaily[index]),
+                                      style: labelLarge,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -85,26 +96,16 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    statusData.getDegree(widget
-                                        .weatherData['temperature2MMin'][index]
-                                        .round()),
-                                    style: context.textTheme.labelLarge,
+                                    statusData.getDegree(weatherData['temperature2MMin'][index].round()),
+                                    style: labelLarge,
                                   ),
                                   Text(
                                     ' / ',
-                                    style:
-                                        context.textTheme.bodyMedium?.copyWith(
-                                      color: Colors.grey,
-                                    ),
+                                    style: bodyMediumGrey,
                                   ),
                                   Text(
-                                    statusData.getDegree(widget
-                                        .weatherData['temperature2MMax'][index]
-                                        .round()),
-                                    style:
-                                        context.textTheme.bodyMedium?.copyWith(
-                                      color: Colors.grey,
-                                    ),
+                                    statusData.getDegree(weatherData['temperature2MMax'][index].round()),
+                                    style: bodyMediumGrey,
                                   ),
                                 ],
                               ),
@@ -118,12 +119,14 @@ class _WeatherDailyState extends State<WeatherDaily> {
               ),
               const Divider(),
               InkWell(
+                splashColor: splashColor,
+                borderRadius: inkWellBorderRadius,
                 onTap: widget.onTap,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(
                     'weatherMore'.tr,
-                    style: context.textTheme.titleLarge?.copyWith(
+                    style: textTheme.titleLarge?.copyWith(
                       fontSize: 16,
                     ),
                     overflow: TextOverflow.ellipsis,
