@@ -38,6 +38,7 @@ Locale locale = const Locale('en', 'US');
 int timeRange = 1;
 String timeStart = '09:00';
 String timeEnd = '21:00';
+String widgetBackgroundColor = '';
 
 final List appLanguages = [
   {'name': 'English', 'locale': const Locale('en', 'US')},
@@ -146,6 +147,7 @@ class MyApp extends StatefulWidget {
     int? newTimeRange,
     String? newTimeStart,
     String? newTimeEnd,
+    String? newWidgetBackgroundColor,
   }) async {
     final state = context.findAncestorStateOfType<_MyAppState>()!;
 
@@ -166,6 +168,9 @@ class MyApp extends StatefulWidget {
     }
     if (newTimeEnd != null) {
       state.changeTimeEnd(newTimeEnd);
+    }
+    if (newWidgetBackgroundColor != null) {
+      state.changeWidgetBackgroundColor(newWidgetBackgroundColor);
     }
   }
 
@@ -212,6 +217,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void changeWidgetBackgroundColor(String newWidgetBackgroundColor) {
+    setState(() {
+      widgetBackgroundColor = newWidgetBackgroundColor;
+    });
+  }
+
   @override
   void initState() {
     amoledTheme = settings.amoledTheme;
@@ -221,6 +232,7 @@ class _MyAppState extends State<MyApp> {
     timeRange = settings.timeRange ?? 1;
     timeStart = settings.timeStart ?? '09:00';
     timeEnd = settings.timeEnd ?? '21:00';
+    widgetBackgroundColor = settings.widgetBackgroundColor ?? '';
     if (Platform.isAndroid) {
       HomeWidget.setAppGroupId(appGroupId);
     }

@@ -177,8 +177,8 @@ class WeatherController extends GetxController {
 
     if (Platform.isAndroid) {
       Workmanager().registerPeriodicTask(
-        "widgetUpdate",
-        "widgetBackgroundUpdate",
+        'widgetUpdate',
+        'widgetBackgroundUpdate',
         frequency: const Duration(minutes: 15),
         existingWorkPolicy: ExistingWorkPolicy.update,
       );
