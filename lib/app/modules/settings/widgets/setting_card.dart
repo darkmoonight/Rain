@@ -18,7 +18,7 @@ class SettingCard extends StatelessWidget {
     this.value,
     this.onPressed,
     this.onChange,
-    this.textInfo,
+    this.infoWidget,
   });
   final Widget icon;
   final String text;
@@ -26,7 +26,7 @@ class SettingCard extends StatelessWidget {
   final bool dropdown;
   final bool info;
   final bool infoSettings;
-  final String? textInfo;
+  final Widget? infoWidget;
   final String? dropdownName;
   final List<String>? dropdownList;
   final Function(String?)? dropdownCange;
@@ -41,6 +41,9 @@ class SettingCard extends StatelessWidget {
       elevation: elevation ?? 1,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ListTile(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
         onTap: onPressed,
         leading: icon,
         title: Text(
@@ -60,8 +63,7 @@ class SettingCard extends StatelessWidget {
                 ? DropdownButton<String>(
                     underline: Container(),
                     value: dropdownName,
-                    items: dropdownList!
-                        .map<DropdownMenuItem<String>>((String value) {
+                    items: dropdownList!.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -73,28 +75,14 @@ class SettingCard extends StatelessWidget {
                     ? infoSettings
                         ? Wrap(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: Text(
-                                  textInfo!,
-                                  style: context.textTheme.bodyMedium,
-                                  overflow: TextOverflow.visible,
-                                ),
-                              ),
+                              infoWidget!,
                               const Icon(
                                 Iconsax.arrow_right_3,
                                 size: 18,
                               ),
                             ],
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: Text(
-                              textInfo!,
-                              style: context.textTheme.titleMedium,
-                              overflow: TextOverflow.visible,
-                            ),
-                          )
+                        : infoWidget!
                     : const Icon(
                         Iconsax.arrow_right_3,
                         size: 18,
