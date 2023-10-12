@@ -35,6 +35,7 @@ class _WeatherPageState extends State<WeatherPage> {
             Obx(() {
               if (weatherController.isLoading.isTrue) {
                 return const Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     MyShimmer(
                       hight: 350,
@@ -79,8 +80,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     child: SizedBox(
                       height: 136,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: ScrollablePositionedList.separated(
                           key: const PageStorageKey(0),
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -92,8 +92,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             );
                           },
                           scrollDirection: Axis.horizontal,
-                          itemScrollController:
-                              weatherController.itemScrollController,
+                          itemScrollController: weatherController.itemScrollController,
                           itemCount: mainWeather.time!.length,
                           itemBuilder: (ctx, i) {
                             final i24 = (i / 24).floor();
@@ -111,10 +110,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                   vertical: 5,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: i == hourOfDay
-                                      ? context
-                                          .theme.colorScheme.primaryContainer
-                                      : Colors.transparent,
+                                  color:
+                                      i == hourOfDay ? context.theme.colorScheme.primaryContainer : Colors.transparent,
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(20),
                                   ),

@@ -38,6 +38,7 @@ dependencies:
   lat_lng_to_timezone: ^0.2.0
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^16.1.0
+  flutter_colorpicker: ^1.0.3
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:

@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.widget.RemoteViews
 import androidx.core.util.SizeFCompat
 import androidx.core.widget.updateAppWidget
@@ -36,13 +37,17 @@ class OreoWidget : HomeWidgetProvider() {
                 }
                 RemoteViews(context.packageName, layoutId).apply {
                     val pendingIntent = HomeWidgetLaunchIntent.getActivity(
-                    context,
-                    MainActivity::class.java)
+                        context,
+                        MainActivity::class.java
+                    )
                     setOnClickPendingIntent(R.id.widget_day_oreo, pendingIntent)
 
                     val image = widgetData.getString("weather_icon", null)
                     setImageViewBitmap(R.id.widget_day_icon, BitmapFactory.decodeFile(image))
-
+                    val backgroundColor = widgetData.getString("background_color", null)
+                    if (backgroundColor != null) {
+                        setInt(R.id.widget_day_oreo, "setBackgroundColor", Color.parseColor(backgroundColor))
+                    }
                     val degree = widgetData.getString("weather_degree", null)
                     setTextViewText(R.id.widget_day_title, degree)
                 }
