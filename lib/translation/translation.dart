@@ -114,6 +114,7 @@ class Translation extends Translations {
           'license': 'Лицензии',
           'widget': 'Виджет',
           'widgetBackground': 'Фон виджета',
+          'widgetText': 'Текст виджета',
         },
         'en_US': {
           'start': 'Get Started',
@@ -226,6 +227,7 @@ class Translation extends Translations {
           'license': 'Licenses',
           'widget': 'Widget',
           'widgetBackground': 'Widget background',
+          'widgetText': 'Widget text',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -339,6 +341,7 @@ class Translation extends Translations {
           'license': 'Licences',
           'widget': 'Widget',
           'widgetBackground': 'Fond du widget',
+          'widgetText': 'Texte du widget',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -452,6 +455,7 @@ class Translation extends Translations {
           'license': 'Licenze',
           'widget': 'Widget',
           'widgetBackground': 'Sfondo del widget',
+          'widgetText': 'Testo del widget',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -565,6 +569,7 @@ class Translation extends Translations {
           'license': 'Lizenzen',
           'widget': 'Widget',
           'widgetBackground': 'Widget-Hintergrund',
+          'widgetText': 'Widget-Text',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -677,6 +682,7 @@ class Translation extends Translations {
           'license': 'Lisanslar',
           'widget': 'Araç',
           'widgetBackground': 'Araç Arka Planı',
+          'widgetText': 'Araç metni',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -789,6 +795,7 @@ class Translation extends Translations {
           'license': 'Licenças',
           'widget': 'Widget',
           'widgetBackground': 'Fundo do widget',
+          'widgetText': 'Texto do widget',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -902,6 +909,7 @@ class Translation extends Translations {
           'license': 'Licencias',
           'widget': 'Widget',
           'widgetBackground': 'Fondo del widget',
+          'widgetText': 'Texto del widget',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -1014,6 +1022,7 @@ class Translation extends Translations {
           'license': 'Licencie',
           'widget': 'Widget',
           'widgetBackground': 'Pozadie widgetu',
+          'widgetText': 'Text widgetu',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -1127,6 +1136,7 @@ class Translation extends Translations {
           'license': 'Licenties',
           'widget': 'Widget',
           'widgetBackground': 'Widget-achtergrond',
+          'widgetText': 'Tekst van widget',
         },
         'hi_IN': {
           'start': 'शुरू करें',
@@ -1237,6 +1247,7 @@ class Translation extends Translations {
           'license': 'लाइसेंस',
           'widget': 'विजेट',
           'widgetBackground': 'विजेट का पृष्ठभूमि',
+          'widgetText': 'विजेट पाठ',
         },
         'ro_RO': {
           'start': 'Începe',
@@ -1348,6 +1359,7 @@ class Translation extends Translations {
           'license': 'Licențe',
           'widget': 'Widget',
           'widgetBackground': 'Fundal widget',
+          'widgetText': 'Text widget',
         },
         'zh_CN': {
           'start': '开始',
@@ -1457,6 +1469,7 @@ class Translation extends Translations {
           'license': '许可证',
           'widget': '小部件',
           'widgetBackground': '小部件背景',
+          'widgetText': '小部件文本',
         },
         'pl_PL': {
           'start': 'Rozpocznij',
@@ -1568,6 +1581,7 @@ class Translation extends Translations {
           'license': 'Licencje',
           'widget': 'Widget',
           'widgetBackground': 'Tło widżetu',
+          'widgetText': 'Tekst widżetu'
         },
       };
 }

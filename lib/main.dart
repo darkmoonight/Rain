@@ -39,6 +39,7 @@ int timeRange = 1;
 String timeStart = '09:00';
 String timeEnd = '21:00';
 String widgetBackgroundColor = '';
+String widgetTextColor = '';
 
 final List appLanguages = [
   {'name': 'English', 'locale': const Locale('en', 'US')},
@@ -148,6 +149,7 @@ class MyApp extends StatefulWidget {
     String? newTimeStart,
     String? newTimeEnd,
     String? newWidgetBackgroundColor,
+    String? newWidgetTextColor,
   }) async {
     final state = context.findAncestorStateOfType<_MyAppState>()!;
 
@@ -171,6 +173,9 @@ class MyApp extends StatefulWidget {
     }
     if (newWidgetBackgroundColor != null) {
       state.changeWidgetBackgroundColor(newWidgetBackgroundColor);
+    }
+    if (newWidgetTextColor != null) {
+      state.changeWidgetTextColor(newWidgetTextColor);
     }
   }
 
@@ -223,6 +228,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void changeWidgetTextColor(String newWidgetTextColor) {
+    setState(() {
+      widgetTextColor = newWidgetTextColor;
+    });
+  }
+
   @override
   void initState() {
     amoledTheme = settings.amoledTheme;
@@ -233,6 +244,7 @@ class _MyAppState extends State<MyApp> {
     timeStart = settings.timeStart ?? '09:00';
     timeEnd = settings.timeEnd ?? '21:00';
     widgetBackgroundColor = settings.widgetBackgroundColor ?? '';
+    widgetTextColor = settings.widgetTextColor ?? '';
     if (Platform.isAndroid) {
       HomeWidget.setAppGroupId(appGroupId);
     }

@@ -44,12 +44,20 @@ class OreoWidget : HomeWidgetProvider() {
 
                     val image = widgetData.getString("weather_icon", null)
                     setImageViewBitmap(R.id.widget_day_icon, BitmapFactory.decodeFile(image))
+
+                    val degree = widgetData.getString("weather_degree", null)
+                    setTextViewText(R.id.widget_day_title, degree)
+
                     val backgroundColor = widgetData.getString("background_color", null)
                     if (backgroundColor != null) {
                         setInt(R.id.widget_day_oreo, "setBackgroundColor", Color.parseColor(backgroundColor))
                     }
-                    val degree = widgetData.getString("weather_degree", null)
-                    setTextViewText(R.id.widget_day_title, degree)
+
+                    val textColor = widgetData.getString("text_color", null)
+                    if (textColor != null) {
+                        setTextColor(R.id.widget_day_title,Color.parseColor(textColor))
+                        setTextColor(R.id.widget_day_time,Color.parseColor(textColor))
+                    }
                 }
             }
         }

@@ -26,8 +26,8 @@ class _SettingsPageState extends State<SettingsPage> {
   final themeController = Get.put(ThemeController());
   final weatherController = Get.put(WeatherController());
   String? appVersion;
-  int? widgetColor;
-  String? color;
+  String? colorBackground;
+  String? colorText;
 
   Future<void> infoVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
@@ -547,7 +547,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 ),
                               ),
                               onPressed: () {
-                                color = null;
+                                colorBackground = null;
                                 showDialog(
                                   context: context,
                                   builder: (context) => Dialog(
@@ -588,7 +588,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     : HexColor.fromHex(
                                                         widgetBackgroundColor),
                                                 onColorChanged: (pickedColor) {
-                                                  color = pickedColor.toHex();
+                                                  colorBackground =
+                                                      pickedColor.toHex();
                                                 },
                                                 hexInputBar: true,
                                                 labelTypes: const [],
@@ -603,13 +604,105 @@ class _SettingsPageState extends State<SettingsPage> {
                                               Iconsax.tick_square,
                                             ),
                                             onPressed: () {
-                                              if (color == null) return;
+                                              if (colorBackground == null) {
+                                                return;
+                                              }
                                               weatherController
                                                   .updateWidgetBackgroundColor(
-                                                      color!);
+                                                      colorBackground!);
                                               MyApp.updateAppState(context,
                                                   newWidgetBackgroundColor:
-                                                      color);
+                                                      colorBackground);
+                                              Get.back();
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(Iconsax.text_block),
+                              text: 'widgetText'.tr,
+                              info: true,
+                              infoWidget: CircleAvatar(
+                                backgroundColor: context.theme.indicatorColor,
+                                radius: 11,
+                                child: CircleAvatar(
+                                  backgroundColor: widgetTextColor.isEmpty
+                                      ? context.theme.primaryColor
+                                      : HexColor.fromHex(widgetTextColor),
+                                  radius: 10,
+                                ),
+                              ),
+                              onPressed: () {
+                                colorText = null;
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Dialog(
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 15),
+                                            child: Text(
+                                              'widgetText'.tr,
+                                              style: context
+                                                  .textTheme.titleMedium
+                                                  ?.copyWith(fontSize: 18),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15),
+                                            child: Theme(
+                                              data: context.theme.copyWith(
+                                                inputDecorationTheme:
+                                                    InputDecorationTheme(
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                ),
+                                              ),
+                                              child: ColorPicker(
+                                                pickerColor: widgetTextColor
+                                                        .isEmpty
+                                                    ? context.theme.primaryColor
+                                                    : HexColor.fromHex(
+                                                        widgetTextColor),
+                                                onColorChanged: (pickedColor) {
+                                                  colorText =
+                                                      pickedColor.toHex();
+                                                },
+                                                hexInputBar: true,
+                                                labelTypes: const [],
+                                                pickerAreaHeightPercent: 0.7,
+                                                pickerAreaBorderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                            ),
+                                          ),
+                                          IconButton(
+                                            icon: const Icon(
+                                              Iconsax.tick_square,
+                                            ),
+                                            onPressed: () {
+                                              if (colorText == null) return;
+                                              weatherController
+                                                  .updateWidgetTextColor(
+                                                      colorText!);
+                                              MyApp.updateAppState(context,
+                                                  newWidgetTextColor:
+                                                      colorText);
                                               Get.back();
                                             },
                                           ),

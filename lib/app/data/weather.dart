@@ -11,6 +11,7 @@ class Settings {
   bool materialColor = false;
   bool amoledTheme = false;
   String? widgetBackgroundColor;
+  String? widgetTextColor;
   String measurements = 'metric';
   String degrees = 'celsius';
   String timeformat = '24';

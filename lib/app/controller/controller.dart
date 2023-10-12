@@ -503,6 +503,23 @@ class WeatherController extends GetxController {
     });
   }
 
+  Future<bool> updateWidgetTextColor(String color) async {
+    settings.widgetTextColor = color;
+    isar.writeTxnSync(() {
+      isar.settings.putSync(settings);
+    });
+
+    return Future.wait<bool?>([
+      HomeWidget.saveWidgetData(
+        'text_color',
+        color,
+      ),
+      HomeWidget.updateWidget(androidName: androidWidgetName),
+    ]).then((value) {
+      return !value.contains(false);
+    });
+  }
+
   Future<bool> updateWidget() async {
     final timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.initializeTimeZones();

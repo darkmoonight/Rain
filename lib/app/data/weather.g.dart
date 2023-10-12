@@ -86,6 +86,11 @@ const SettingsSchema = CollectionSchema(
       id: 13,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
+    ),
+    r'widgetTextColor': PropertySchema(
+      id: 14,
+      name: r'widgetTextColor',
+      type: IsarType.string,
     )
   },
   estimateSize: _settingsEstimateSize,
@@ -141,6 +146,12 @@ int _settingsEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
+  {
+    final value = object.widgetTextColor;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -164,6 +175,7 @@ void _settingsSerialize(
   writer.writeString(offsets[11], object.timeStart);
   writer.writeString(offsets[12], object.timeformat);
   writer.writeString(offsets[13], object.widgetBackgroundColor);
+  writer.writeString(offsets[14], object.widgetTextColor);
 }
 
 Settings _settingsDeserialize(
@@ -188,6 +200,7 @@ Settings _settingsDeserialize(
   object.timeStart = reader.readStringOrNull(offsets[11]);
   object.timeformat = reader.readString(offsets[12]);
   object.widgetBackgroundColor = reader.readStringOrNull(offsets[13]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[14]);
   return object;
 }
 
@@ -225,6 +238,8 @@ P _settingsDeserializeProp<P>(
     case 12:
       return (reader.readString(offset)) as P;
     case 13:
+      return (reader.readStringOrNull(offset)) as P;
+    case 14:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1625,6 +1640,160 @@ extension SettingsQueryFilter
       ));
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'widgetTextColor',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'widgetTextColor',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'widgetTextColor',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'widgetTextColor',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'widgetTextColor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'widgetTextColor',
+        value: '',
+      ));
+    });
+  }
 }
 
 extension SettingsQueryObject
@@ -1800,6 +1969,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
       sortByWidgetBackgroundColorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetBackgroundColor', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWidgetTextColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetTextColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWidgetTextColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetTextColor', Sort.desc);
     });
   }
 }
@@ -1986,6 +2167,18 @@ extension SettingsQuerySortThenBy
       return query.addSortBy(r'widgetBackgroundColor', Sort.desc);
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWidgetTextColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetTextColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWidgetTextColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetTextColor', Sort.desc);
+    });
+  }
 }
 
 extension SettingsQueryWhereDistinct
@@ -2082,6 +2275,14 @@ extension SettingsQueryWhereDistinct
           caseSensitive: caseSensitive);
     });
   }
+
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetTextColor(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'widgetTextColor',
+          caseSensitive: caseSensitive);
+    });
+  }
 }
 
 extension SettingsQueryProperty
@@ -2174,6 +2375,12 @@ extension SettingsQueryProperty
       widgetBackgroundColorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'widgetBackgroundColor');
+    });
+  }
+
+  QueryBuilder<Settings, String?, QQueryOperations> widgetTextColorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'widgetTextColor');
     });
   }
 }
