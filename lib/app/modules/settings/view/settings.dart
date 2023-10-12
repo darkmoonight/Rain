@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -13,9 +12,8 @@ import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/settings/widgets/setting_card.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
+import 'package:rain/utils/color_converter.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../../utils/color_converter.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -95,13 +93,18 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'theme'.tr,
                               dropdown: true,
                               dropdownName: settings.theme?.tr,
-                              dropdownList: <String>['system'.tr, 'dark'.tr, 'light'.tr],
+                              dropdownList: <String>[
+                                'system'.tr,
+                                'dark'.tr,
+                                'light'.tr
+                              ],
                               dropdownCange: (String? newValue) {
-                                ThemeMode themeMode = newValue?.tr == 'system'.tr
-                                    ? ThemeMode.system
-                                    : newValue?.tr == 'dark'.tr
-                                        ? ThemeMode.dark
-                                        : ThemeMode.light;
+                                ThemeMode themeMode =
+                                    newValue?.tr == 'system'.tr
+                                        ? ThemeMode.system
+                                        : newValue?.tr == 'dark'.tr
+                                            ? ThemeMode.dark
+                                            : ThemeMode.light;
                                 String theme = newValue?.tr == 'system'.tr
                                     ? 'system'
                                     : newValue?.tr == 'dark'.tr
@@ -120,7 +123,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               value: settings.amoledTheme,
                               onChange: (value) {
                                 themeController.saveOledTheme(value);
-                                MyApp.updateAppState(context, newAmoledTheme: value);
+                                MyApp.updateAppState(context,
+                                    newAmoledTheme: value);
                               },
                             ),
                             SettingCard(
@@ -131,7 +135,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               value: settings.materialColor,
                               onChange: (value) {
                                 themeController.saveMaterialTheme(value);
-                                MyApp.updateAppState(context, newMaterialColor: value);
+                                MyApp.updateAppState(context,
+                                    newMaterialColor: value);
                               },
                             ),
                             const SizedBox(height: 10),
@@ -175,7 +180,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               value: settings.location,
                               onChange: (value) async {
                                 if (value) {
-                                  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+                                  bool serviceEnabled = await Geolocator
+                                      .isLocationServiceEnabled();
                                   if (!serviceEnabled) {
                                     if (!mounted) return;
                                     await showAdaptiveDialog(
@@ -186,21 +192,31 @@ class _SettingsPageState extends State<SettingsPage> {
                                             'location'.tr,
                                             style: context.textTheme.titleLarge,
                                           ),
-                                          content: Text('no_location'.tr, style: context.textTheme.titleMedium),
+                                          content: Text('no_location'.tr,
+                                              style: context
+                                                  .textTheme.titleMedium),
                                           actions: [
                                             TextButton(
-                                                onPressed: () => Get.back(result: false),
+                                                onPressed: () =>
+                                                    Get.back(result: false),
                                                 child: Text('cancel'.tr,
-                                                    style: context.theme.textTheme.titleMedium
-                                                        ?.copyWith(color: Colors.blueAccent))),
+                                                    style: context.theme
+                                                        .textTheme.titleMedium
+                                                        ?.copyWith(
+                                                            color: Colors
+                                                                .blueAccent))),
                                             TextButton(
                                                 onPressed: () {
-                                                  Geolocator.openLocationSettings();
+                                                  Geolocator
+                                                      .openLocationSettings();
                                                   Get.back(result: true);
                                                 },
                                                 child: Text('settings'.tr,
-                                                    style: context.theme.textTheme.titleMedium
-                                                        ?.copyWith(color: Colors.green))),
+                                                    style: context.theme
+                                                        .textTheme.titleMedium
+                                                        ?.copyWith(
+                                                            color:
+                                                                Colors.green))),
                                           ],
                                         );
                                       },
@@ -224,15 +240,19 @@ class _SettingsPageState extends State<SettingsPage> {
                               switcher: true,
                               value: settings.notifications,
                               onChange: (value) async {
-                                final resultExact = await flutterLocalNotificationsPlugin
-                                    .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-                                    ?.requestExactAlarmsPermission();
+                                final resultExact =
+                                    await flutterLocalNotificationsPlugin
+                                        .resolvePlatformSpecificImplementation<
+                                            AndroidFlutterLocalNotificationsPlugin>()
+                                        ?.requestExactAlarmsPermission();
                                 final result = Platform.isIOS
                                     ? await flutterLocalNotificationsPlugin
-                                        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+                                        .resolvePlatformSpecificImplementation<
+                                            IOSFlutterLocalNotificationsPlugin>()
                                         ?.requestPermissions()
                                     : await flutterLocalNotificationsPlugin
-                                        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+                                        .resolvePlatformSpecificImplementation<
+                                            AndroidFlutterLocalNotificationsPlugin>()
                                         ?.requestNotificationsPermission();
                                 if (result != null && resultExact != null) {
                                   isar.writeTxnSync(() {
@@ -240,7 +260,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     isar.settings.putSync(settings);
                                   });
                                   if (value) {
-                                    weatherController.notlification(weatherController.mainWeather);
+                                    weatherController.notlification(
+                                        weatherController.mainWeather);
                                   } else {
                                     flutterLocalNotificationsPlugin.cancelAll();
                                   }
@@ -266,10 +287,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                   settings.timeRange = int.parse(newValue!);
                                   isar.settings.putSync(settings);
                                 });
-                                MyApp.updateAppState(context, newTimeRange: int.parse(newValue!));
+                                MyApp.updateAppState(context,
+                                    newTimeRange: int.parse(newValue!));
                                 if (settings.notifications) {
                                   flutterLocalNotificationsPlugin.cancelAll();
-                                  weatherController.notlification(weatherController.mainWeather);
+                                  weatherController.notlification(
+                                      weatherController.mainWeather);
                                 }
                               },
                             ),
@@ -281,19 +304,28 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoSettings: true,
                               infoWidget: _TextInfo(
                                 info: settings.timeformat == '12'
-                                    ? DateFormat.jm().format(
-                                        DateFormat.Hm().parse(weatherController.timeConvert(timeStart).format(context)))
+                                    ? DateFormat.jm().format(DateFormat.Hm()
+                                        .parse(weatherController
+                                            .timeConvert(timeStart)
+                                            .format(context)))
                                     : DateFormat.Hm().format(DateFormat.Hm()
-                                        .parse(weatherController.timeConvert(timeStart).format(context))),
+                                        .parse(weatherController
+                                            .timeConvert(timeStart)
+                                            .format(context))),
                               ),
                               onPressed: () async {
-                                final TimeOfDay? timeStartPicker = await showTimePicker(
+                                final TimeOfDay? timeStartPicker =
+                                    await showTimePicker(
                                   context: context,
-                                  initialTime: weatherController.timeConvert(timeStart),
+                                  initialTime:
+                                      weatherController.timeConvert(timeStart),
                                   builder: (context, child) {
                                     final Widget mediaQueryWrapper = MediaQuery(
                                       data: MediaQuery.of(context).copyWith(
-                                        alwaysUse24HourFormat: settings.timeformat == '12' ? false : true,
+                                        alwaysUse24HourFormat:
+                                            settings.timeformat == '12'
+                                                ? false
+                                                : true,
                                       ),
                                       child: child!,
                                     );
@@ -302,14 +334,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                 );
                                 if (timeStartPicker != null) {
                                   isar.writeTxnSync(() {
-                                    settings.timeStart = timeStartPicker.format(context);
+                                    settings.timeStart =
+                                        timeStartPicker.format(context);
                                     isar.settings.putSync(settings);
                                   });
                                   if (!mounted) return;
-                                  MyApp.updateAppState(context, newTimeStart: timeStartPicker.format(context));
+                                  MyApp.updateAppState(context,
+                                      newTimeStart:
+                                          timeStartPicker.format(context));
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
-                                    weatherController.notlification(weatherController.mainWeather);
+                                    weatherController.notlification(
+                                        weatherController.mainWeather);
                                   }
                                 }
                               },
@@ -322,19 +358,28 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoSettings: true,
                               infoWidget: _TextInfo(
                                 info: settings.timeformat == '12'
-                                    ? DateFormat.jm().format(
-                                        DateFormat.Hm().parse(weatherController.timeConvert(timeEnd).format(context)))
-                                    : DateFormat.Hm().format(
-                                        DateFormat.Hm().parse(weatherController.timeConvert(timeEnd).format(context))),
+                                    ? DateFormat.jm().format(DateFormat.Hm()
+                                        .parse(weatherController
+                                            .timeConvert(timeEnd)
+                                            .format(context)))
+                                    : DateFormat.Hm().format(DateFormat.Hm()
+                                        .parse(weatherController
+                                            .timeConvert(timeEnd)
+                                            .format(context))),
                               ),
                               onPressed: () async {
-                                final TimeOfDay? timeEndPicker = await showTimePicker(
+                                final TimeOfDay? timeEndPicker =
+                                    await showTimePicker(
                                   context: context,
-                                  initialTime: weatherController.timeConvert(timeEnd),
+                                  initialTime:
+                                      weatherController.timeConvert(timeEnd),
                                   builder: (context, child) {
                                     final Widget mediaQueryWrapper = MediaQuery(
                                       data: MediaQuery.of(context).copyWith(
-                                        alwaysUse24HourFormat: settings.timeformat == '12' ? false : true,
+                                        alwaysUse24HourFormat:
+                                            settings.timeformat == '12'
+                                                ? false
+                                                : true,
                                       ),
                                       child: child!,
                                     );
@@ -343,14 +388,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                 );
                                 if (timeEndPicker != null) {
                                   isar.writeTxnSync(() {
-                                    settings.timeEnd = timeEndPicker.format(context);
+                                    settings.timeEnd =
+                                        timeEndPicker.format(context);
                                     isar.settings.putSync(settings);
                                   });
                                   if (!mounted) return;
-                                  MyApp.updateAppState(context, newTimeEnd: timeEndPicker.format(context));
+                                  MyApp.updateAppState(context,
+                                      newTimeEnd:
+                                          timeEndPicker.format(context));
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
-                                    weatherController.notlification(weatherController.mainWeather);
+                                    weatherController.notlification(
+                                        weatherController.mainWeather);
                                   }
                                 }
                               },
@@ -394,10 +443,15 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'degrees'.tr,
                               dropdown: true,
                               dropdownName: settings.degrees.tr,
-                              dropdownList: <String>['celsius'.tr, 'fahrenheit'.tr],
+                              dropdownList: <String>[
+                                'celsius'.tr,
+                                'fahrenheit'.tr
+                              ],
                               dropdownCange: (String? newValue) async {
                                 isar.writeTxnSync(() {
-                                  settings.degrees = newValue == 'celsius'.tr ? 'celsius' : 'fahrenheit';
+                                  settings.degrees = newValue == 'celsius'.tr
+                                      ? 'celsius'
+                                      : 'fahrenheit';
                                   isar.settings.putSync(settings);
                                 });
                                 await weatherController.deleteAll(false);
@@ -412,10 +466,16 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'measurements'.tr,
                               dropdown: true,
                               dropdownName: settings.measurements.tr,
-                              dropdownList: <String>['metric'.tr, 'imperial'.tr],
+                              dropdownList: <String>[
+                                'metric'.tr,
+                                'imperial'.tr
+                              ],
                               dropdownCange: (String? newValue) async {
                                 isar.writeTxnSync(() {
-                                  settings.measurements = newValue == 'metric'.tr ? 'metric' : 'imperial';
+                                  settings.measurements =
+                                      newValue == 'metric'.tr
+                                          ? 'metric'
+                                          : 'imperial';
                                   isar.settings.putSync(settings);
                                 });
                                 await weatherController.deleteAll(false);
@@ -433,7 +493,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               dropdownList: <String>['12'.tr, '24'.tr],
                               dropdownCange: (String? newValue) {
                                 isar.writeTxnSync(() {
-                                  settings.timeformat = newValue == '12'.tr ? '12' : '24';
+                                  settings.timeformat =
+                                      newValue == '12'.tr ? '12' : '24';
                                   isar.settings.putSync(settings);
                                 });
                                 setState(() {});
@@ -451,7 +512,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingCard(
             icon: const Icon(Iconsax.bubble),
-            text: 'Widget',
+            text: 'widget'.tr,
             info: true,
             infoWidget: CircleAvatar(
               backgroundColor: context.theme.indicatorColor,
@@ -474,31 +535,34 @@ class _SettingsPageState extends State<SettingsPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.all(12),
                           child: Text(
-                            'Widget Background',
-                            style: context.textTheme.titleLarge,
+                            'widgetBackground'.tr,
+                            style: context.textTheme.titleMedium,
                           ),
                         ),
-                        Theme(
-                          data: context.theme.copyWith(
-                            inputDecorationTheme: InputDecorationTheme(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Theme(
+                            data: context.theme.copyWith(
+                              inputDecorationTheme: InputDecorationTheme(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
-                          ),
-                          child: ColorPicker(
-                            pickerColor: widgetBackgroundColor.isEmpty
-                                ? context.theme.primaryColor
-                                : HexColor.fromHex(widgetBackgroundColor),
-                            onColorChanged: (pickedColor) {
-                              color = pickedColor.toHex();
-                            },
-                            hexInputBar: true,
-                            labelTypes: const [],
-                            pickerAreaHeightPercent: 0.7,
-                            pickerAreaBorderRadius: BorderRadius.circular(20),
+                            child: ColorPicker(
+                              pickerColor: widgetBackgroundColor.isEmpty
+                                  ? context.theme.primaryColor
+                                  : HexColor.fromHex(widgetBackgroundColor),
+                              onColorChanged: (pickedColor) {
+                                color = pickedColor.toHex();
+                              },
+                              hexInputBar: true,
+                              labelTypes: const [],
+                              pickerAreaHeightPercent: 0.7,
+                              pickerAreaBorderRadius: BorderRadius.circular(20),
+                            ),
                           ),
                         ),
                         IconButton(
@@ -507,10 +571,11 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           onPressed: () {
                             if (color != null) {
-                              weatherController.updateWidgetBackgroundColor(color!);
+                              weatherController
+                                  .updateWidgetBackgroundColor(color!);
                             }
                             setState(() {});
-                            Navigator.of(context).pop();
+                            Get.back();
                           },
                         ),
                       ],
@@ -526,7 +591,8 @@ class _SettingsPageState extends State<SettingsPage> {
             info: true,
             infoSettings: true,
             infoWidget: _TextInfo(
-              info: appLanguages.firstWhere((element) => (element['locale'] == locale),
+              info: appLanguages.firstWhere(
+                  (element) => (element['locale'] == locale),
                   orElse: () => appLanguages.first)['name'],
             ),
             onPressed: () {
@@ -554,7 +620,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             itemBuilder: (context, index) {
                               return Card(
                                 elevation: 4,
-                                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
                                 child: ListTile(
                                   title: Text(
                                     appLanguages[index]['name'],
@@ -562,8 +629,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                     textAlign: TextAlign.center,
                                   ),
                                   onTap: () {
-                                    MyApp.updateAppState(context, newLocale: appLanguages[index]['locale']);
-                                    updateLanguage(appLanguages[index]['locale']);
+                                    MyApp.updateAppState(context,
+                                        newLocale: appLanguages[index]
+                                            ['locale']);
+                                    updateLanguage(
+                                        appLanguages[index]['locale']);
                                   },
                                 ),
                               );
@@ -605,13 +675,15 @@ class _SettingsPageState extends State<SettingsPage> {
                               elevation: 4,
                               icon: const Icon(Iconsax.card),
                               text: 'DonationAlerts',
-                              onPressed: () => urlLauncher('https://www.donationalerts.com/r/yoshimok'),
+                              onPressed: () => urlLauncher(
+                                  'https://www.donationalerts.com/r/yoshimok'),
                             ),
                             SettingCard(
                               elevation: 4,
                               icon: const Icon(Iconsax.wallet),
                               text: 'ЮMoney',
-                              onPressed: () => urlLauncher('https://yoomoney.ru/to/4100117672775961'),
+                              onPressed: () => urlLauncher(
+                                  'https://yoomoney.ru/to/4100117672775961'),
                             ),
                             const SizedBox(height: 10),
                           ],
@@ -642,7 +714,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      image: DecorationImage(image: AssetImage('assets/icons/icon.png'))),
+                      image: DecorationImage(
+                          image: AssetImage('assets/icons/icon.png'))),
                 ),
                 applicationName: 'Rain',
                 applicationVersion: appVersion,
@@ -656,7 +729,8 @@ class _SettingsPageState extends State<SettingsPage> {
               scale: 20,
             ),
             text: '${'project'.tr} GitHub',
-            onPressed: () => urlLauncher('https://github.com/DarkMooNight/Rain'),
+            onPressed: () =>
+                urlLauncher('https://github.com/DarkMooNight/Rain'),
           ),
         ],
       ),

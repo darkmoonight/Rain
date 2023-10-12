@@ -63,7 +63,8 @@ class SettingCard extends StatelessWidget {
                 ? DropdownButton<String>(
                     underline: Container(),
                     value: dropdownName,
-                    items: dropdownList!.map<DropdownMenuItem<String>>((String value) {
+                    items: dropdownList!
+                        .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),

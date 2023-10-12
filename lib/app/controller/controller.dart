@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -53,7 +52,8 @@ class WeatherController extends GetxController {
 
   @override
   void onInit() {
-    weatherCards.assignAll(isar.weatherCards.where().sortByIndex().findAllSync());
+    weatherCards
+        .assignAll(isar.weatherCards.where().sortByIndex().findAllSync());
     super.onInit();
   }
 
@@ -69,9 +69,11 @@ class WeatherController extends GetxController {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error('Location permissions are permanently denied, we cannot request permissions.');
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
     }
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   Future<void> setLocation() async {
@@ -79,8 +81,10 @@ class WeatherController extends GetxController {
       await getCurrentLocation();
     } else {
       if ((isar.locationCaches.where().findAllSync()).isNotEmpty) {
-        LocationCache locationCity = (isar.locationCaches.where().findFirstSync())!;
-        await getLocation(locationCity.lat!, locationCity.lon!, locationCity.district!, locationCity.city!);
+        LocationCache locationCity =
+            (isar.locationCaches.where().findFirstSync())!;
+        await getLocation(locationCity.lat!, locationCity.lon!,
+            locationCity.district!, locationCity.city!);
       }
     }
   }
@@ -109,7 +113,8 @@ class WeatherController extends GetxController {
     }
 
     Position position = await determinePosition();
-    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemarks[0];
 
     _latitude.value = position.latitude;
@@ -117,7 +122,8 @@ class WeatherController extends GetxController {
     _district.value = '${place.administrativeArea}';
     _city.value = '${place.locality}';
 
-    _mainWeather.value = await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
+    _mainWeather.value =
+        await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
 
     notificationCheck();
 
@@ -125,7 +131,8 @@ class WeatherController extends GetxController {
     await readCache();
   }
 
-  Future<void> getLocation(double latitude, double longitude, String district, String locality) async {
+  Future<void> getLocation(double latitude, double longitude, String district,
+      String locality) async {
     if (!isOnline) {
       showSnackBar(content: 'no_inter'.tr);
       await readCache();
@@ -142,7 +149,8 @@ class WeatherController extends GetxController {
     _district.value = district;
     _city.value = locality;
 
-    _mainWeather.value = await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
+    _mainWeather.value =
+        await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
 
     notificationCheck();
 
@@ -162,8 +170,10 @@ class WeatherController extends GetxController {
     _mainWeather.value = mainWeatherCache;
     _location.value = locationCache;
 
-    hourOfDay.value = getTime(_mainWeather.value.time!, _mainWeather.value.timezone!);
-    dayOfNow.value = getDay(_mainWeather.value.timeDaily!, _mainWeather.value.timezone!);
+    hourOfDay.value =
+        getTime(_mainWeather.value.time!, _mainWeather.value.timezone!);
+    dayOfNow.value =
+        getDay(_mainWeather.value.timeDaily!, _mainWeather.value.timezone!);
 
     if (Platform.isAndroid) {
       Workmanager().registerPeriodicTask(
@@ -194,8 +204,10 @@ class WeatherController extends GetxController {
     );
 
     isar.writeTxnSync(() {
-      final mainWeatherCachesIsEmpty = (isar.mainWeatherCaches.where().findAllSync()).isEmpty;
-      final locationCachesIsEmpty = (isar.locationCaches.where().findAllSync()).isEmpty;
+      final mainWeatherCachesIsEmpty =
+          (isar.mainWeatherCaches.where().findAllSync()).isEmpty;
+      final locationCachesIsEmpty =
+          (isar.locationCaches.where().findAllSync()).isEmpty;
 
       if (mainWeatherCachesIsEmpty) {
         isar.mainWeatherCaches.putSync(_mainWeather.value);
@@ -213,7 +225,10 @@ class WeatherController extends GetxController {
     }
 
     isar.writeTxnSync(() {
-      isar.mainWeatherCaches.filter().timestampLessThan(cacheExpiry).deleteAllSync();
+      isar.mainWeatherCaches
+          .filter()
+          .timestampLessThan(cacheExpiry)
+          .deleteAllSync();
     });
     if ((isar.mainWeatherCaches.where().findAllSync()).isEmpty) {
       await flutterLocalNotificationsPlugin.cancelAll();
@@ -240,14 +255,16 @@ class WeatherController extends GetxController {
   }
 
   // Card Weather
-  Future<void> addCardWeather(double latitude, double longitude, String city, String district) async {
+  Future<void> addCardWeather(
+      double latitude, double longitude, String city, String district) async {
     if (!isOnline) {
       showSnackBar(content: 'no_inter'.tr);
       return;
     }
 
     String tz = tzmap.latLngToTimezoneString(latitude, longitude);
-    _weatherCard.value = await WeatherAPI().getWeatherCard(latitude, longitude, city, district, tz);
+    _weatherCard.value = await WeatherAPI()
+        .getWeatherCard(latitude, longitude, city, district, tz);
     isar.writeTxnSync(() {
       weatherCards.add(_weatherCard.value);
       isar.weatherCards.putSync(_weatherCard.value);
@@ -257,15 +274,19 @@ class WeatherController extends GetxController {
   Future<void> updateCacheCard(bool refresh) async {
     List<WeatherCard> weatherCard = refresh
         ? isar.weatherCards.where().sortByIndex().findAllSync()
-        : isar.weatherCards.filter().timestampLessThan(cacheExpiry).sortByIndex().findAllSync();
+        : isar.weatherCards
+            .filter()
+            .timestampLessThan(cacheExpiry)
+            .sortByIndex()
+            .findAllSync();
 
     if (!isOnline || weatherCard.isEmpty) {
       return;
     }
 
     for (var oldCard in weatherCard) {
-      var updatedCard = await WeatherAPI()
-          .getWeatherCard(oldCard.lat, oldCard.lon, oldCard.city!, oldCard.district!, oldCard.timezone!);
+      var updatedCard = await WeatherAPI().getWeatherCard(oldCard.lat,
+          oldCard.lon, oldCard.city!, oldCard.district!, oldCard.timezone!);
       isar.writeTxnSync(() {
         oldCard
           ..time = updatedCard.time
@@ -290,7 +311,8 @@ class WeatherController extends GetxController {
           ..sunrise = updatedCard.sunrise
           ..sunset = updatedCard.sunset
           ..precipitationSum = updatedCard.precipitationSum
-          ..precipitationProbabilityMax = updatedCard.precipitationProbabilityMax
+          ..precipitationProbabilityMax =
+              updatedCard.precipitationProbabilityMax
           ..windspeed10MMax = updatedCard.windspeed10MMax
           ..windgusts10MMax = updatedCard.windgusts10MMax
           ..uvIndexMax = updatedCard.uvIndexMax
@@ -367,8 +389,10 @@ class WeatherController extends GetxController {
   int getTime(List<String> time, String timezone) {
     int getTime = 0;
     for (var i = 0; i < time.length; i++) {
-      if (tz.TZDateTime.now(tz.getLocation(timezone)).hour == DateTime.parse(time[i]).hour &&
-          tz.TZDateTime.now(tz.getLocation(timezone)).day == DateTime.parse(time[i]).day) {
+      if (tz.TZDateTime.now(tz.getLocation(timezone)).hour ==
+              DateTime.parse(time[i]).hour &&
+          tz.TZDateTime.now(tz.getLocation(timezone)).day ==
+              DateTime.parse(time[i]).day) {
         getTime = i;
       }
     }
@@ -415,7 +439,9 @@ class WeatherController extends GetxController {
     for (var i = 0; i < mainWeatherCache.time!.length; i += timeRange) {
       DateTime notificationTime = DateTime.parse(mainWeatherCache.time![i]);
 
-      if (notificationTime.isAfter(now) && notificationTime.hour >= startHour && notificationTime.hour <= endHour) {
+      if (notificationTime.isAfter(now) &&
+          notificationTime.hour >= startHour &&
+          notificationTime.hour <= endHour) {
         for (var j = 0; j < mainWeatherCache.timeDaily!.length; j++) {
           if (mainWeatherCache.timeDaily![j].day == notificationTime.day) {
             NotificationShow().showNotification(
@@ -461,14 +487,11 @@ class WeatherController extends GetxController {
   }
 
   Future<bool> updateWidgetBackgroundColor(String color) async {
-    print(settings.widgetBackgroundColor);
-
     settings.widgetBackgroundColor = color;
     isar.writeTxnSync(() {
       isar.settings.putSync(settings);
     });
 
-    print(settings.widgetBackgroundColor);
     return Future.wait<bool?>([
       HomeWidget.saveWidgetData(
         'background_color',
