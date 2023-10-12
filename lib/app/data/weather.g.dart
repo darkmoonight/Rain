@@ -81,6 +81,11 @@ const SettingsSchema = CollectionSchema(
       id: 12,
       name: r'timeformat',
       type: IsarType.string,
+    ),
+    r'widgetBackgroundColor': PropertySchema(
+      id: 13,
+      name: r'widgetBackgroundColor',
+      type: IsarType.string,
     )
   },
   estimateSize: _settingsEstimateSize,
@@ -130,6 +135,12 @@ int _settingsEstimateSize(
     }
   }
   bytesCount += 3 + object.timeformat.length * 3;
+  {
+    final value = object.widgetBackgroundColor;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -152,6 +163,7 @@ void _settingsSerialize(
   writer.writeLong(offsets[10], object.timeRange);
   writer.writeString(offsets[11], object.timeStart);
   writer.writeString(offsets[12], object.timeformat);
+  writer.writeString(offsets[13], object.widgetBackgroundColor);
 }
 
 Settings _settingsDeserialize(
@@ -175,6 +187,7 @@ Settings _settingsDeserialize(
   object.timeRange = reader.readLongOrNull(offsets[10]);
   object.timeStart = reader.readStringOrNull(offsets[11]);
   object.timeformat = reader.readString(offsets[12]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[13]);
   return object;
 }
 
@@ -211,6 +224,8 @@ P _settingsDeserializeProp<P>(
       return (reader.readStringOrNull(offset)) as P;
     case 12:
       return (reader.readString(offset)) as P;
+    case 13:
+      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -1455,6 +1470,161 @@ extension SettingsQueryFilter
       ));
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'widgetBackgroundColor',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'widgetBackgroundColor',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'widgetBackgroundColor',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorMatches(String pattern,
+          {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'widgetBackgroundColor',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'widgetBackgroundColor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'widgetBackgroundColor',
+        value: '',
+      ));
+    });
+  }
 }
 
 extension SettingsQueryObject
@@ -1617,6 +1787,19 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeformatDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timeformat', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWidgetBackgroundColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetBackgroundColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+      sortByWidgetBackgroundColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetBackgroundColor', Sort.desc);
     });
   }
 }
@@ -1790,6 +1973,19 @@ extension SettingsQuerySortThenBy
       return query.addSortBy(r'timeformat', Sort.desc);
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWidgetBackgroundColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetBackgroundColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+      thenByWidgetBackgroundColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetBackgroundColor', Sort.desc);
+    });
+  }
 }
 
 extension SettingsQueryWhereDistinct
@@ -1878,6 +2074,14 @@ extension SettingsQueryWhereDistinct
       return query.addDistinctBy(r'timeformat', caseSensitive: caseSensitive);
     });
   }
+
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetBackgroundColor(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'widgetBackgroundColor',
+          caseSensitive: caseSensitive);
+    });
+  }
 }
 
 extension SettingsQueryProperty
@@ -1963,6 +2167,13 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, String, QQueryOperations> timeformatProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'timeformat');
+    });
+  }
+
+  QueryBuilder<Settings, String?, QQueryOperations>
+      widgetBackgroundColorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'widgetBackgroundColor');
     });
   }
 }

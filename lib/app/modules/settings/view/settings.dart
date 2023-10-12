@@ -29,6 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
   final weatherController = Get.put(WeatherController());
   String? appVersion;
   int? widgetColor;
+  String? color;
 
   Future<void> infoVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
@@ -59,6 +60,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final widgetBackgroundColor = settings.widgetBackgroundColor ?? '';
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -446,77 +449,77 @@ class _SettingsPageState extends State<SettingsPage> {
               );
             },
           ),
-          Obx(() {
-            final backgroundColor = weatherController.widgetBackgroundColor.value;
-
-            return SettingCard(
-              icon: const Icon(Iconsax.bubble),
-              text: 'Widget',
-              info: true,
-              infoWidget: CircleAvatar(
-                backgroundColor: context.theme.indicatorColor,
-                radius: 12,
-                child: CircleAvatar(
-                  backgroundColor: backgroundColor.isEmpty
-                      ? context.theme.primaryColor
-                      : HexColor.fromHex(weatherController.widgetBackgroundColor.value),
-                  radius: 8,
-                ),
+          SettingCard(
+            icon: const Icon(Iconsax.bubble),
+            text: 'Widget',
+            info: true,
+            infoWidget: CircleAvatar(
+              backgroundColor: context.theme.indicatorColor,
+              radius: 12,
+              child: CircleAvatar(
+                backgroundColor: widgetBackgroundColor.isEmpty
+                    ? context.theme.primaryColor
+                    : HexColor.fromHex(widgetBackgroundColor),
+                radius: 8,
               ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => Dialog(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text(
-                              'Widget Background',
-                              style: context.textTheme.titleLarge,
-                            ),
+            ),
+            onPressed: () {
+              color = null;
+              showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            'Widget Background',
+                            style: context.textTheme.titleLarge,
                           ),
-                          Theme(
-                            data: context.theme.copyWith(
-                              inputDecorationTheme: InputDecorationTheme(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
+                        ),
+                        Theme(
+                          data: context.theme.copyWith(
+                            inputDecorationTheme: InputDecorationTheme(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: ColorPicker(
-                              pickerColor: backgroundColor.isEmpty
-                                  ? context.theme.primaryColor
-                                  : HexColor.fromHex(weatherController.widgetBackgroundColor.value),
-                              onColorChanged: (Color color) {
-                                weatherController.updateWidgetBackgroundColor(color.toHex());
-                              },
-                              hexInputBar: true,
-                              labelTypes: const [],
-                              pickerAreaHeightPercent: 0.7,
-                              pickerAreaBorderRadius: BorderRadius.circular(20),
-                            ),
                           ),
-                          IconButton(
-                            icon: const Icon(
-                              Iconsax.tick_square,
-                            ),
-                            onPressed: () {
-                              // setState(() => currentColor = pickerColor);
-                              Navigator.of(context).pop();
+                          child: ColorPicker(
+                            pickerColor: widgetBackgroundColor.isEmpty
+                                ? context.theme.primaryColor
+                                : HexColor.fromHex(widgetBackgroundColor),
+                            onColorChanged: (pickedColor) {
+                              color = pickedColor.toHex();
                             },
+                            hexInputBar: true,
+                            labelTypes: const [],
+                            pickerAreaHeightPercent: 0.7,
+                            pickerAreaBorderRadius: BorderRadius.circular(20),
                           ),
-                        ],
-                      ),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Iconsax.tick_square,
+                          ),
+                          onPressed: () {
+                            if (color != null) {
+                              weatherController.updateWidgetBackgroundColor(color!);
+                            }
+                            setState(() {});
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                );
-              },
-            );
-          }),
+                ),
+              );
+            },
+          ),
           SettingCard(
             icon: const Icon(Iconsax.language_square),
             text: 'language'.tr,
