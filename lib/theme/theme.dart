@@ -1,6 +1,6 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 
 final ThemeData baseLigth = ThemeData.light(useMaterial3: true);
 final ThemeData baseDark = ThemeData.dark(useMaterial3: true);
@@ -65,6 +65,7 @@ ThemeData lightTheme(Color? color, ColorScheme? colorScheme) {
       focusedBorder: InputBorder.none,
       enabledBorder: InputBorder.none,
     ),
+    indicatorColor: Colors.black,
   );
 }
 

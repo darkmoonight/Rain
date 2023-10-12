@@ -30,7 +30,6 @@ class WeatherController extends GetxController {
   final _city = ''.obs;
   final _latitude = 0.0.obs;
   final _longitude = 0.0.obs;
-  final widgetBackgroundColor = ''.obs;
 
   String get district => _district.value;
   String get city => _city.value;
@@ -462,8 +461,14 @@ class WeatherController extends GetxController {
   }
 
   Future<bool> updateWidgetBackgroundColor(String color) async {
-    widgetBackgroundColor.value = color;
+    print(settings.widgetBackgroundColor);
 
+    settings.widgetBackgroundColor = color;
+    isar.writeTxnSync(() {
+      isar.settings.putSync(settings);
+    });
+
+    print(settings.widgetBackgroundColor);
     return Future.wait<bool?>([
       HomeWidget.saveWidgetData(
         'background_color',
