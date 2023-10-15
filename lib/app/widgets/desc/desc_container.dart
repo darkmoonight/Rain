@@ -7,21 +7,21 @@ import 'package:rain/app/widgets/status/status_data.dart';
 class DescContainer extends StatefulWidget {
   const DescContainer({
     super.key,
-    required this.humidity,
-    required this.wind,
-    required this.visibility,
-    required this.feels,
-    required this.evaporation,
-    required this.precipitation,
-    required this.direction,
-    required this.pressure,
-    required this.rain,
-    required this.cloudcover,
-    required this.windgusts,
-    required this.uvIndex,
-    required this.dewpoint2M,
-    required this.precipitationProbability,
-    required this.shortwaveRadiation,
+    this.humidity,
+    this.wind,
+    this.visibility,
+    this.feels,
+    this.evaporation,
+    this.precipitation,
+    this.direction,
+    this.pressure,
+    this.rain,
+    this.cloudcover,
+    this.windgusts,
+    this.uvIndex,
+    this.dewpoint2M,
+    this.precipitationProbability,
+    this.shortwaveRadiation,
   });
   final int? humidity;
   final double? wind;
@@ -127,7 +127,7 @@ class _DescContainerState extends State<DescContainer> {
                 : DescWeather(
                     imageName: 'assets/images/precipitation_probability.png',
                     value: '${widget.precipitationProbability}%',
-                    desc: 'precipitationProbabilit'.tr,
+                    desc: 'precipitationProbability'.tr,
                   ),
             widget.humidity == null
                 ? const Offstage()

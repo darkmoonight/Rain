@@ -217,7 +217,7 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                                         imageName:
                                             'assets/images/precipitation_probability.png',
                                         value: '$precipitationProbabilityMax%',
-                                        desc: 'precipitationProbabilit'.tr,
+                                        desc: 'precipitationProbability'.tr,
                                       ),
                                 rainSum == null
                                     ? const Offstage()
