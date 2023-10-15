@@ -290,18 +290,23 @@ class WeatherController extends GetxController {
       isar.writeTxnSync(() {
         oldCard
           ..time = updatedCard.time
+          ..weathercode = updatedCard.weathercode
           ..temperature2M = updatedCard.temperature2M
-          ..relativehumidity2M = updatedCard.relativehumidity2M
           ..apparentTemperature = updatedCard.apparentTemperature
+          ..relativehumidity2M = updatedCard.relativehumidity2M
           ..precipitation = updatedCard.precipitation
           ..rain = updatedCard.rain
-          ..weathercode = updatedCard.weathercode
           ..surfacePressure = updatedCard.surfacePressure
           ..visibility = updatedCard.visibility
           ..evapotranspiration = updatedCard.evapotranspiration
           ..windspeed10M = updatedCard.windspeed10M
           ..winddirection10M = updatedCard.winddirection10M
           ..windgusts10M = updatedCard.windgusts10M
+          ..cloudcover = updatedCard.cloudcover
+          ..uvIndex = updatedCard.uvIndex
+          ..dewpoint2M = updatedCard.dewpoint2M
+          ..precipitationProbability = updatedCard.precipitationProbability
+          ..shortwaveRadiation = updatedCard.shortwaveRadiation
           ..timeDaily = updatedCard.timeDaily
           ..weathercodeDaily = updatedCard.weathercodeDaily
           ..temperature2MMax = updatedCard.temperature2MMax
@@ -346,18 +351,23 @@ class WeatherController extends GetxController {
     isar.writeTxnSync(() {
       weatherCard
         ..time = updatedCard.time
+        ..weathercode = updatedCard.weathercode
         ..temperature2M = updatedCard.temperature2M
-        ..relativehumidity2M = updatedCard.relativehumidity2M
         ..apparentTemperature = updatedCard.apparentTemperature
+        ..relativehumidity2M = updatedCard.relativehumidity2M
         ..precipitation = updatedCard.precipitation
         ..rain = updatedCard.rain
-        ..weathercode = updatedCard.weathercode
         ..surfacePressure = updatedCard.surfacePressure
         ..visibility = updatedCard.visibility
         ..evapotranspiration = updatedCard.evapotranspiration
         ..windspeed10M = updatedCard.windspeed10M
         ..winddirection10M = updatedCard.winddirection10M
         ..windgusts10M = updatedCard.windgusts10M
+        ..cloudcover = updatedCard.cloudcover
+        ..uvIndex = updatedCard.uvIndex
+        ..dewpoint2M = updatedCard.dewpoint2M
+        ..precipitationProbability = updatedCard.precipitationProbability
+        ..shortwaveRadiation = updatedCard.shortwaveRadiation
         ..timeDaily = updatedCard.timeDaily
         ..weathercodeDaily = updatedCard.weathercodeDaily
         ..temperature2MMax = updatedCard.temperature2MMax
