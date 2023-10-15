@@ -19,6 +19,9 @@ class DescContainer extends StatefulWidget {
     required this.cloudcover,
     required this.windgusts,
     required this.uvIndex,
+    required this.dewpoint2M,
+    required this.precipitationProbability,
+    required this.shortwaveRadiation,
   });
   final int? humidity;
   final double? wind;
@@ -32,6 +35,9 @@ class DescContainer extends StatefulWidget {
   final int? cloudcover;
   final double? windgusts;
   final double? uvIndex;
+  final double? dewpoint2M;
+  final int? precipitationProbability;
+  final double? shortwaveRadiation;
 
   @override
   State<DescContainer> createState() => _DescContainerState();
@@ -51,29 +57,29 @@ class _DescContainerState extends State<DescContainer> {
           alignment: WrapAlignment.spaceEvenly,
           spacing: 5,
           children: [
-            widget.humidity == null
-                ? Container()
+            widget.dewpoint2M == null
+                ? const Offstage()
                 : DescWeather(
-                    imageName: 'assets/images/humidity.png',
-                    value: '${widget.humidity}%',
-                    desc: 'humidity'.tr,
+                    imageName: 'assets/images/dew.png',
+                    value: statusData.getDegree(widget.dewpoint2M?.round()),
+                    desc: 'dewpoint'.tr,
                   ),
             widget.feels == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/temperature.png',
                     value: statusData.getDegree(widget.feels?.round()),
                     desc: 'feels'.tr,
                   ),
             widget.visibility == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/fog.png',
                     value: statusData.getVisibility(widget.visibility),
                     desc: 'visibility'.tr,
                   ),
             widget.direction == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/windsock.png',
                     value: '${widget.direction}°',
@@ -81,21 +87,21 @@ class _DescContainerState extends State<DescContainer> {
                     message: message.getDirection(widget.direction),
                   ),
             widget.wind == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/wind.png',
                     value: statusData.getSpeed(widget.wind?.round()),
                     desc: 'wind'.tr,
                   ),
             widget.windgusts == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/windgusts.png',
                     value: statusData.getSpeed(widget.windgusts?.round()),
                     desc: 'windgusts'.tr,
                   ),
             widget.evaporation == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/evaporation.png',
                     value:
@@ -103,28 +109,42 @@ class _DescContainerState extends State<DescContainer> {
                     desc: 'evaporation'.tr,
                   ),
             widget.precipitation == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/rainfall.png',
                     value: statusData.getPrecipitation(widget.precipitation),
                     desc: 'precipitation'.tr,
                   ),
             widget.rain == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/water.png',
                     value: statusData.getPrecipitation(widget.rain),
                     desc: 'rain'.tr,
                   ),
+            widget.precipitationProbability == null
+                ? const Offstage()
+                : DescWeather(
+                    imageName: 'assets/images/precipitation_probability.png',
+                    value: '${widget.precipitationProbability}%',
+                    desc: 'precipitationProbabilit'.tr,
+                  ),
+            widget.humidity == null
+                ? const Offstage()
+                : DescWeather(
+                    imageName: 'assets/images/humidity.png',
+                    value: '${widget.humidity}%',
+                    desc: 'humidity'.tr,
+                  ),
             widget.cloudcover == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/cloudy.png',
                     value: '${widget.cloudcover}%',
                     desc: 'cloudcover'.tr,
                   ),
             widget.pressure == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/atmospheric.png',
                     value: '${widget.pressure?.round()} ${'hPa'.tr}',
@@ -132,12 +152,19 @@ class _DescContainerState extends State<DescContainer> {
                     message: message.getPressure(widget.pressure?.round()),
                   ),
             widget.uvIndex == null
-                ? Container()
+                ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/uv.png',
                     value: '${widget.uvIndex?.round()}',
                     desc: 'uvIndex'.tr,
                     message: message.getUvIndex(widget.uvIndex?.round()),
+                  ),
+            widget.shortwaveRadiation == null
+                ? const Offstage()
+                : DescWeather(
+                    imageName: 'assets/images/shortwave_radiation.png',
+                    value: '${widget.shortwaveRadiation?.round()} ${'W/m2'.tr}',
+                    desc: 'shortwaveRadiation'.tr,
                   ),
           ],
         ),

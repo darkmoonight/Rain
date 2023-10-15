@@ -13,7 +13,7 @@ class WeatherAPI {
 
   Future<MainWeatherCache> getWeatherData(double? lat, double? lon) async {
     String url =
-        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,windgusts_10m,cloudcover,uv_index&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=12&timezone=auto';
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,windgusts_10m,cloudcover,uv_index,dewpoint_2m,precipitation_probability,shortwave_radiation&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=12&timezone=auto';
     String urlWeather;
     settings.measurements == 'imperial' && settings.degrees == 'fahrenheit'
         ? urlWeather =
@@ -42,6 +42,9 @@ class WeatherAPI {
         windgusts10M: weatherData.hourly.windgusts10M,
         cloudcover: weatherData.hourly.cloudcover,
         uvIndex: weatherData.hourly.uvIndex,
+        dewpoint2M: weatherData.hourly.dewpoint2M,
+        precipitationProbability: weatherData.hourly.precipitationProbability,
+        shortwaveRadiation: weatherData.hourly.shortwaveRadiation,
         timeDaily: weatherData.daily.time,
         weathercodeDaily: weatherData.daily.weathercode,
         temperature2MMax: weatherData.daily.temperature2MMax,
@@ -72,7 +75,7 @@ class WeatherAPI {
   Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
       String district, String timezone) async {
     String url =
-        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,windgusts_10m,cloudcover,uv_index&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=12&timezone=auto';
+        'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,windgusts_10m,cloudcover,uv_index,dewpoint_2m,precipitation_probability,shortwave_radiation&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=12&timezone=auto';
     String urlWeather;
     settings.measurements == 'imperial' && settings.degrees == 'fahrenheit'
         ? urlWeather =
@@ -101,6 +104,9 @@ class WeatherAPI {
         windgusts10M: weatherData.hourly.windgusts10M,
         cloudcover: weatherData.hourly.cloudcover,
         uvIndex: weatherData.hourly.uvIndex,
+        dewpoint2M: weatherData.hourly.dewpoint2M,
+        precipitationProbability: weatherData.hourly.precipitationProbability,
+        shortwaveRadiation: weatherData.hourly.shortwaveRadiation,
         timeDaily: weatherData.daily.time,
         weathercodeDaily: weatherData.daily.weathercode,
         temperature2MMax: weatherData.daily.temperature2MMax,

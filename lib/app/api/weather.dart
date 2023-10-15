@@ -32,6 +32,9 @@ class Hourly {
   List<double?>? windgusts10M;
   List<int?>? cloudcover;
   List<double?>? uvIndex;
+  List<double?>? dewpoint2M;
+  List<int?>? precipitationProbability;
+  List<double?>? shortwaveRadiation;
 
   Hourly({
     this.time,
@@ -49,6 +52,9 @@ class Hourly {
     this.windgusts10M,
     this.cloudcover,
     this.uvIndex,
+    this.dewpoint2M,
+    this.precipitationProbability,
+    this.shortwaveRadiation,
   });
 
   factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
@@ -72,6 +78,11 @@ class Hourly {
         windgusts10M: List<double?>.from(json['windgusts_10m'].map((x) => x)),
         cloudcover: List<int?>.from(json['cloudcover'].map((x) => x)),
         uvIndex: List<double?>.from(json['uv_index'].map((x) => x)),
+        dewpoint2M: List<double?>.from(json['dewpoint_2m'].map((x) => x)),
+        precipitationProbability:
+            List<int?>.from(json['precipitation_probability'].map((x) => x)),
+        shortwaveRadiation:
+            List<double?>.from(json['shortwave_radiation'].map((x) => x)),
       );
 }
 

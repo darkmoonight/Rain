@@ -39,6 +39,9 @@ class MainWeatherCache {
   List<double?>? windgusts10M;
   List<int?>? cloudcover;
   List<double?>? uvIndex;
+  List<double?>? dewpoint2M;
+  List<int?>? precipitationProbability;
+  List<double?>? shortwaveRadiation;
   List<DateTime>? timeDaily;
   List<int?>? weathercodeDaily;
   List<double?>? temperature2MMax;
@@ -73,6 +76,9 @@ class MainWeatherCache {
     this.windgusts10M,
     this.cloudcover,
     this.uvIndex,
+    this.dewpoint2M,
+    this.precipitationProbability,
+    this.shortwaveRadiation,
     this.timeDaily,
     this.weathercodeDaily,
     this.temperature2MMax,
@@ -109,6 +115,9 @@ class MainWeatherCache {
         'windgusts10M': windgusts10M,
         'cloudcover': cloudcover,
         'uvIndex': uvIndex,
+        'dewpoint2M': dewpoint2M,
+        'precipitationProbability': precipitationProbability,
+        'shortwaveRadiation': shortwaveRadiation,
         'timeDaily': timeDaily,
         'weathercodeDaily': weathercodeDaily,
         'temperature2MMax': temperature2MMax,
@@ -163,6 +172,9 @@ class WeatherCard {
   List<double?>? windgusts10M;
   List<int?>? cloudcover;
   List<double?>? uvIndex;
+  List<double?>? dewpoint2M;
+  List<int?>? precipitationProbability;
+  List<double?>? shortwaveRadiation;
   List<DateTime>? timeDaily;
   List<int?>? weathercodeDaily;
   List<double?>? temperature2MMax;
@@ -202,6 +214,9 @@ class WeatherCard {
     this.windgusts10M,
     this.cloudcover,
     this.uvIndex,
+    this.dewpoint2M,
+    this.precipitationProbability,
+    this.shortwaveRadiation,
     this.timeDaily,
     this.weathercodeDaily,
     this.temperature2MMax,
@@ -243,6 +258,9 @@ class WeatherCard {
         'windgusts10M': windgusts10M,
         'cloudcover': cloudcover,
         'uvIndex': uvIndex,
+        'dewpoint2M': dewpoint2M,
+        'precipitationProbability': precipitationProbability,
+        'shortwaveRadiation': shortwaveRadiation,
         'timeDaily': timeDaily,
         'weathercodeDaily': weathercodeDaily,
         'temperature2MMax': temperature2MMax,

@@ -151,6 +151,11 @@ class _WeatherPageState extends State<WeatherPage> {
                     cloudcover: mainWeather.cloudcover![hourOfDay],
                     windgusts: mainWeather.windgusts10M![hourOfDay],
                     uvIndex: mainWeather.uvIndex![hourOfDay],
+                    dewpoint2M: mainWeather.dewpoint2M![hourOfDay],
+                    precipitationProbability:
+                        mainWeather.precipitationProbability![hourOfDay],
+                    shortwaveRadiation:
+                        mainWeather.shortwaveRadiation![hourOfDay],
                   ),
                   WeatherDaily(
                     weatherData: mainWeather.toJson(),

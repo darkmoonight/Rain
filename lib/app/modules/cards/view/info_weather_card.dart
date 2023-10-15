@@ -164,6 +164,10 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   cloudcover: weatherCard.cloudcover?[timeNow],
                   windgusts: weatherCard.windgusts10M?[timeNow],
                   uvIndex: weatherCard.uvIndex?[timeNow],
+                  dewpoint2M: weatherCard.dewpoint2M?[timeNow],
+                  precipitationProbability:
+                      weatherCard.precipitationProbability?[timeNow],
+                  shortwaveRadiation: weatherCard.shortwaveRadiation?[timeNow],
                 ),
                 WeatherDaily(
                   weatherData: weatherCard.toJson(),

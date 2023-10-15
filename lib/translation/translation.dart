@@ -115,6 +115,9 @@ class Translation extends Translations {
           'widget': 'Виджет',
           'widgetBackground': 'Фон виджета',
           'widgetText': 'Текст виджета',
+          'dewpoint': 'Точка росы',
+          'shortwaveRadiation': 'Коротковолновое излучение',
+          'W/m2': 'Вт/м2',
         },
         'en_US': {
           'start': 'Get Started',
@@ -228,6 +231,9 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Widget background',
           'widgetText': 'Widget text',
+          'dewpoint': 'Dewpoint',
+          'shortwaveRadiation': 'Shortwave radiation',
+          'W/m2': 'W/m2',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -342,6 +348,8 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Fond du widget',
           'widgetText': 'Texte du widget',
+          'dewpoint': 'Point de rosée',
+          'shortwaveRadiation': 'Rayonnement à ondes courtes',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -456,6 +464,8 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Sfondo del widget',
           'widgetText': 'Testo del widget',
+          'dewpoint': 'Punto di rugiada',
+          'shortwaveRadiation': 'Radiazione a onde corte',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -570,6 +580,8 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Widget-Hintergrund',
           'widgetText': 'Widget-Text',
+          'dewpoint': 'Taupunkt',
+          'shortwaveRadiation': 'Kurzwellenstrahlung',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -683,6 +695,8 @@ class Translation extends Translations {
           'widget': 'Araç',
           'widgetBackground': 'Araç Arka Planı',
           'widgetText': 'Araç metni',
+          'dewpoint': 'Çiğ noktası',
+          'shortwaveRadiation': 'Kısa dalga radyasyonu',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -796,6 +810,8 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Fundo do widget',
           'widgetText': 'Texto do widget',
+          'dewpoint': 'Ponto de orvalho',
+          'shortwaveRadiation': 'Radiação de ondas curtas',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -814,7 +830,7 @@ class Translation extends Translations {
           'direction': 'Dirección',
           'pressure': 'Presión',
           'rain': 'Lluvia',
-          'clear_sky': 'Soleado',
+          'clear_sky': 'Cielo despejado',
           'cloudy': 'Nuboso',
           'overcast': 'Cubierto de nubes',
           'fog': 'Niebla',
@@ -910,6 +926,8 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Fondo del widget',
           'widgetText': 'Texto del widget',
+          'dewpoint': 'Punto de rocío',
+          'shortwaveRadiation': 'Radiación de onda corta',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -1023,6 +1041,8 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Pozadie widgetu',
           'widgetText': 'Text widgetu',
+          'dewpoint': 'Rosný bod',
+          'shortwaveRadiation': 'Krátka vlnová radiácia',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -1137,6 +1157,8 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Widget-achtergrond',
           'widgetText': 'Tekst van widget',
+          'dewpoint': 'Dauwpunt',
+          'shortwaveRadiation': 'Korte golfstraling',
         },
         'hi_IN': {
           'start': 'शुरू करें',
@@ -1248,6 +1270,8 @@ class Translation extends Translations {
           'widget': 'विजेट',
           'widgetBackground': 'विजेट का पृष्ठभूमि',
           'widgetText': 'विजेट पाठ',
+          'dewpoint': 'बर्फ़ के बिंदु',
+          'shortwaveRadiation': 'शॉर्टवेव विकिरण',
         },
         'ro_RO': {
           'start': 'Începe',
@@ -1360,6 +1384,8 @@ class Translation extends Translations {
           'widget': 'Widget',
           'widgetBackground': 'Fundal widget',
           'widgetText': 'Text widget',
+          'dewpoint': 'Punct de rouă',
+          'shortwaveRadiation': 'Radiație cu unde scurte',
         },
         'zh_CN': {
           'start': '开始',
@@ -1470,6 +1496,8 @@ class Translation extends Translations {
           'widget': '小部件',
           'widgetBackground': '小部件背景',
           'widgetText': '小部件文本',
+          'dewpoint': '露点',
+          'shortwaveRadiation': '短波辐射',
         },
         'pl_PL': {
           'start': 'Rozpocznij',
@@ -1581,7 +1609,9 @@ class Translation extends Translations {
           'license': 'Licencje',
           'widget': 'Widget',
           'widgetBackground': 'Tło widżetu',
-          'widgetText': 'Tekst widżetu'
+          'widgetText': 'Tekst widżetu',
+          'dewpoint': 'Punkt rosy',
+          'shortwaveRadiation': 'Promieniowanie krótkofalowe',
         },
       };
 }
