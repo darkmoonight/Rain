@@ -23,10 +23,10 @@ class OreoWidget : HomeWidgetProvider() {
     ) {
         for (appWidgetId in appWidgetIds) {
             val supportedSizes = listOf(
-                SizeFCompat(40.0f, 0.0f),
+                SizeFCompat(50.0f, 0.0f),
                 SizeFCompat(100.0f, 0.0f),
-                SizeFCompat(230.0f, 0.0f),
-                SizeFCompat(280.0f, 0.0f),
+                SizeFCompat(250.0f, 0.0f),
+                SizeFCompat(300.0f, 0.0f),
             )
             appWidgetManager.updateAppWidget(appWidgetId, supportedSizes) {
                 val layoutId = when (it) {
