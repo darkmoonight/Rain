@@ -39,6 +39,8 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^16.1.0
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:
@@ -52,10 +54,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.6
+  freezed: ^2.4.5
   flutter_lints: ^2.0.3
   isar_generator: ^3.1.0+1
   flutter_native_splash: ^2.3.3
   flutter_launcher_icons: ^0.13.1
+  json_serializable: ^6.7.1
 
 flutter_icons:
   android: true
