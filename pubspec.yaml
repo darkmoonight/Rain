@@ -39,6 +39,9 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^16.1.0
+  dynamic_icon_flutter:
+    git:
+      url: https://github.com/chuanpham/dynamic_icon_flutter.git
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:

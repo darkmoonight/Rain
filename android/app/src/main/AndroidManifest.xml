@@ -22,6 +22,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/oreo_widget_info" />
         </receiver>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -29,7 +30,8 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:enabled="true">
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
@@ -38,6 +40,140 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity-alias
+            android:icon="@mipmap/ic_launcher_sun"
+            android:name=".sunny"
+            android:enabled="false"
+            android:targetActivity=".MainActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <activity-alias
+            android:icon="@mipmap/ic_launcher_thunderstorm"
+            android:name=".thunderstorm"
+            android:enabled="false"
+            android:targetActivity=".MainActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <activity-alias
+            android:icon="@mipmap/ic_launcher_heavy_rains"
+            android:name=".heavy_rains"
+            android:enabled="false"
+            android:targetActivity=".MainActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <activity-alias
+            android:icon="@mipmap/ic_launcher_drizzle"
+            android:name=".drizzle"
+            android:enabled="false"
+            android:targetActivity=".MainActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <activity-alias
+            android:icon="@mipmap/ic_launcher_cloudy"
+            android:name=".cloudy"
+            android:enabled="false"
+            android:targetActivity=".MainActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <activity-alias
+            android:icon="@mipmap/ic_launcher_overcast"
+            android:name=".overcast"
+            android:enabled="false"
+            android:targetActivity=".MainActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <activity-alias
+            android:icon="@mipmap/ic_launcher_snow"
+            android:name=".snow"
+            android:enabled="false"
+            android:targetActivity=".MainActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

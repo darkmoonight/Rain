@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
+import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/main.dart';
 
 class ListDailyCard extends StatefulWidget {
@@ -49,8 +49,7 @@ class _ListDailyCardState extends State<ListDailyCard> {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          DateFormat.MMMMEEEEd(locale.languageCode)
-                              .format(widget.timeDaily),
+                          DateFormat.MMMMEEEEd(locale.languageCode).format(widget.timeDaily),
                           style: context.textTheme.titleMedium?.copyWith(
                             color: Colors.grey,
                             fontWeight: FontWeight.w400,
@@ -69,8 +68,7 @@ class _ListDailyCardState extends State<ListDailyCard> {
                   ),
                   const SizedBox(width: 5),
                   Image.asset(
-                    statusWeather.getImageNowDaily(
-                        widget.weathercodeDaily, widget.timeDaily),
+                    statusWeather.getImageNowDaily(widget.weathercodeDaily),
                     scale: 6.5,
                   ),
                 ],
