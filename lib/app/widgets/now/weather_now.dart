@@ -34,8 +34,14 @@ class _WeatherNowState extends State<WeatherNow> {
       children: [
         const SizedBox(height: 15),
         Image(
-          image: AssetImage(statusWeather.getImageNow(
-              widget.weather, widget.time, widget.timeDay, widget.timeNight)),
+          image: AssetImage(
+            statusWeather.getImageNow(
+              widget.weather,
+              widget.time,
+              widget.timeDay,
+              widget.timeNight,
+            ),
+          ),
           fit: BoxFit.fill,
           height: 200,
         ),

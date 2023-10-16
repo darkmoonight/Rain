@@ -80,8 +80,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     child: SizedBox(
                       height: 136,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: ScrollablePositionedList.separated(
                           key: const PageStorageKey(0),
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -93,8 +92,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             );
                           },
                           scrollDirection: Axis.horizontal,
-                          itemScrollController:
-                              weatherController.itemScrollController,
+                          itemScrollController: weatherController.itemScrollController,
                           itemCount: mainWeather.time!.length,
                           itemBuilder: (ctx, i) {
                             final i24 = (i / 24).floor();
@@ -112,10 +110,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                   vertical: 5,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: i == hourOfDay
-                                      ? context
-                                          .theme.colorScheme.primaryContainer
-                                      : Colors.transparent,
+                                  color:
+                                      i == hourOfDay ? context.theme.colorScheme.primaryContainer : Colors.transparent,
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(20),
                                   ),
@@ -152,10 +148,8 @@ class _WeatherPageState extends State<WeatherPage> {
                     windgusts: mainWeather.windgusts10M?[hourOfDay],
                     uvIndex: mainWeather.uvIndex?[hourOfDay],
                     dewpoint2M: mainWeather.dewpoint2M?[hourOfDay],
-                    precipitationProbability:
-                        mainWeather.precipitationProbability?[hourOfDay],
-                    shortwaveRadiation:
-                        mainWeather.shortwaveRadiation?[hourOfDay],
+                    precipitationProbability: mainWeather.precipitationProbability?[hourOfDay],
+                    shortwaveRadiation: mainWeather.shortwaveRadiation?[hourOfDay],
                   ),
                   WeatherDaily(
                     weatherData: mainWeather.toJson(),

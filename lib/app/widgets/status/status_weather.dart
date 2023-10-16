@@ -2,15 +2,17 @@ import 'package:get/get.dart';
 
 class StatusWeather {
   String getImageNow(
-      int weather, String time, String timeDay, String timeNight) {
+    int weather,
+    String time,
+    String timeDay,
+    String timeNight,
+  ) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime =
-        DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime =
-        DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
@@ -66,7 +68,7 @@ class StatusWeather {
     }
   }
 
-  String getImageNowDaily(int? weather, DateTime time) {
+  String getImageNowDaily(int? weather) {
     switch (weather) {
       case 0:
         return 'assets/images/sun.png';
@@ -109,16 +111,57 @@ class StatusWeather {
     }
   }
 
-  String getImageToday(
-      int weather, String time, String timeDay, String timeNight) {
+  String getAppIcon(int? weather) {
+    switch (weather) {
+      case 0:
+        return 'sunny';
+      case 1:
+      case 2:
+        return 'cloudy';
+      case 3:
+        return 'overcast';
+      // case 45:
+      // case 48:
+      // TODO fog icon missing. Uncomment once fog icon available
+      //  return 'fog';
+      case 51:
+      case 53:
+      case 55:
+      case 56:
+      case 57:
+      case 61:
+      case 63:
+      case 65:
+      case 66:
+      case 67:
+        return 'drizzle';
+      case 80:
+      case 81:
+      case 82:
+        return 'heavy_rains';
+      case 71:
+      case 73:
+      case 75:
+      case 77:
+      case 85:
+      case 86:
+        return 'snow';
+      case 95:
+      case 96:
+      case 99:
+        return 'thunderstorm';
+      default:
+        return 'MainActivity';
+    }
+  }
+
+  String getImageToday(int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime =
-        DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime =
-        DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
@@ -271,16 +314,13 @@ class StatusWeather {
     }
   }
 
-  String getImageNotification(
-      int weather, String time, String timeDay, String timeNight) {
+  String getImageNotification(int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime =
-        DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime =
-        DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
