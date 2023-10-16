@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rain/app/controller/controller.dart';
@@ -64,10 +62,6 @@ class _WeatherPageState extends State<WeatherPage> {
               }
 
               final mainWeather = weatherController.mainWeather;
-              log(
-                "MainWeather:\n\n${mainWeather.toJson()}",
-              );
-
               final weatherCard = WeatherCard.fromJson(mainWeather.toJson());
               final hourOfDay = weatherController.hourOfDay.value;
               final dayOfNow = weatherController.dayOfNow.value;

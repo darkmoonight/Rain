@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +15,7 @@ class WeatherDaily extends StatefulWidget {
   });
 
   final WeatherCard weatherData;
-  final Function() onTap;
+  final VoidCallback onTap;
 
   @override
   State<WeatherDaily> createState() => _WeatherDailyState();
@@ -58,16 +56,13 @@ class _WeatherDailyState extends State<WeatherDaily> {
                     return InkWell(
                       splashColor: splashColor,
                       borderRadius: inkWellBorderRadius,
-                      onTap: () {
-                        log(weatherData.toJson().toString());
-                        Get.to(
-                          () => InfoDailyCard(
-                            weatherData: weatherData,
-                            index: index,
-                          ),
-                          transition: Transition.downToUp,
-                        );
-                      },
+                      onTap: () => Get.to(
+                        () => InfoDailyCard(
+                          weatherData: weatherData,
+                          index: index,
+                        ),
+                        transition: Transition.downToUp,
+                      ),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 12),
                         child: Row(
