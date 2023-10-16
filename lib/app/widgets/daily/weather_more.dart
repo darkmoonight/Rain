@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/daily/info_daily_card.dart';
 import 'package:rain/app/widgets/daily/list_daily_card.dart';
 
@@ -9,7 +10,7 @@ class WeatherMore extends StatefulWidget {
     super.key,
     required this.weatherData,
   });
-  final Map<String, dynamic> weatherData;
+  final WeatherCard weatherData;
 
   @override
   State<WeatherMore> createState() => _WeatherMoreState();
@@ -20,7 +21,7 @@ class _WeatherMoreState extends State<WeatherMore> {
   Widget build(BuildContext context) {
     const transparent = Colors.transparent;
     final weatherData = widget.weatherData;
-    final timeDaily = weatherData['timeDaily'];
+    final timeDaily = weatherData.timeDaily ?? [];
 
     return Scaffold(
       appBar: AppBar(
@@ -58,9 +59,9 @@ class _WeatherMoreState extends State<WeatherMore> {
             ),
             child: ListDailyCard(
               timeDaily: timeDaily[index],
-              weathercodeDaily: weatherData['weathercodeDaily'][index],
-              temperature2MMax: weatherData['temperature2MMax'][index],
-              temperature2MMin: weatherData['temperature2MMin'][index],
+              weathercodeDaily: weatherData.weathercodeDaily![index],
+              temperature2MMax: weatherData.temperature2MMax![index],
+              temperature2MMin: weatherData.temperature2MMin![index],
             ),
           ),
         ),

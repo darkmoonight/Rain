@@ -3,6 +3,7 @@ import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/desc/desc.dart';
 import 'package:rain/app/widgets/desc/message.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
@@ -16,7 +17,8 @@ class InfoDailyCard extends StatefulWidget {
     required this.weatherData,
     required this.index,
   });
-  final Map<String, dynamic> weatherData;
+
+  final WeatherCard weatherData;
   final int index;
 
   @override
@@ -46,8 +48,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
   @override
   Widget build(BuildContext context) {
     final weatherData = widget.weatherData;
-    final timeDaily = weatherData['timeDaily'];
-    final weatherCodeDaily = weatherData['weathercodeDaily'];
+    final timeDaily = weatherData.timeDaily ?? [];
+    final weatherCodeDaily = weatherData.weathercodeDaily ?? [];
 
     final textTheme = context.textTheme;
 
@@ -85,15 +87,15 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
           itemCount: timeDaily.length,
           itemBuilder: (context, index) {
             final indexedWeatherCodeDaily = weatherCodeDaily[index];
-            final apparentTemperatureMin = weatherData['apparentTemperatureMin'][index];
-            final apparentTemperatureMax = weatherData['apparentTemperatureMax'][index];
-            final uvIndexMax = weatherData['uvIndexMax'][index];
-            final windDirection10MDominant = weatherData['winddirection10MDominant'][index];
-            final windSpeed10MMax = weatherData['windspeed10MMax'][index];
-            final windGusts10MMax = weatherData['windgusts10MMax'][index];
-            final precipitationProbabilityMax = weatherData['precipitationProbabilityMax'][index];
-            final rainSum = weatherData['rainSum'][index];
-            final precipitationSum = weatherData['precipitationSum'][index];
+            final apparentTemperatureMin = weatherData.apparentTemperatureMin?[index];
+            final apparentTemperatureMax = weatherData.apparentTemperatureMax?[index];
+            final uvIndexMax = weatherData.uvIndexMax?[index];
+            final windDirection10MDominant = weatherData.winddirection10MDominant?[index];
+            final windSpeed10MMax = weatherData.windspeed10MMax?[index];
+            final windGusts10MMax = weatherData.windgusts10MMax?[index];
+            final precipitationProbabilityMax = weatherData.precipitationProbabilityMax?[index];
+            final rainSum = weatherData.rainSum?[index];
+            final precipitationSum = weatherData.precipitationSum?[index];
 
             return indexedWeatherCodeDaily == null
                 ? null
@@ -116,7 +118,7 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                             ),
                             const SizedBox(height: 10),
                             GlowText(
-                              '${weatherData['temperature2MMin'][index].round()} / ${weatherData['temperature2MMax'][index].round()}',
+                              '${weatherData.temperature2MMin![index]?.round()} / ${weatherData.temperature2MMax![index]?.round()}',
                               style: textTheme.titleLarge?.copyWith(
                                 fontSize: 35,
                                 fontWeight: FontWeight.w800,
@@ -141,8 +143,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                         Padding(
                           padding: const EdgeInsets.only(top: 15),
                           child: SunsetSunrise(
-                            timeSunrise: weatherData['sunrise'][index],
-                            timeSunset: weatherData['sunset'][index],
+                            timeSunrise: weatherData.sunrise![index],
+                            timeSunset: weatherData.sunset![index],
                           ),
                         ),
                         Card(

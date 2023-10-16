@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/daily/weather_daily.dart';
 import 'package:rain/app/widgets/daily/weather_more.dart';
 import 'package:rain/app/widgets/desc/desc_container.dart';
@@ -61,6 +62,7 @@ class _WeatherPageState extends State<WeatherPage> {
               }
 
               final mainWeather = weatherController.mainWeather;
+              final weatherCard = WeatherCard.fromJson(mainWeather.toJson());
               final hourOfDay = weatherController.hourOfDay.value;
               final dayOfNow = weatherController.dayOfNow.value;
               final sunrise = mainWeather.sunrise![dayOfNow];
@@ -152,10 +154,10 @@ class _WeatherPageState extends State<WeatherPage> {
                     shortwaveRadiation: mainWeather.shortwaveRadiation?[hourOfDay],
                   ),
                   WeatherDaily(
-                    weatherData: mainWeather.toJson(),
+                    weatherData: weatherCard,
                     onTap: () => Get.to(
                       () => WeatherMore(
-                        weatherData: mainWeather.toJson(),
+                        weatherData: weatherCard,
                       ),
                       transition: Transition.downToUp,
                     ),

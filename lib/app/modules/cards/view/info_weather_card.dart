@@ -37,10 +37,8 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
   void getTime() {
     final weatherCard = widget.weatherCard;
 
-    timeNow =
-        weatherController.getTime(weatherCard.time!, weatherCard.timezone!);
-    dayNow =
-        weatherController.getDay(weatherCard.timeDaily!, weatherCard.timezone!);
+    timeNow = weatherController.getTime(weatherCard.time!, weatherCard.timezone!);
+    dayNow = weatherController.getDay(weatherCard.timeDaily!, weatherCard.timezone!);
     Future.delayed(const Duration(milliseconds: 30), () {
       itemScrollController.scrollTo(
         index: timeNow,
@@ -99,8 +97,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   child: SizedBox(
                     height: 136,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: ScrollablePositionedList.separated(
                         key: const PageStorageKey(1),
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -127,9 +124,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                               vertical: 5,
                             ),
                             decoration: BoxDecoration(
-                              color: i == timeNow
-                                  ? context.theme.colorScheme.primaryContainer
-                                  : Colors.transparent,
+                              color: i == timeNow ? context.theme.colorScheme.primaryContainer : Colors.transparent,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               ),
@@ -165,15 +160,14 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   windgusts: weatherCard.windgusts10M?[timeNow],
                   uvIndex: weatherCard.uvIndex?[timeNow],
                   dewpoint2M: weatherCard.dewpoint2M?[timeNow],
-                  precipitationProbability:
-                      weatherCard.precipitationProbability?[timeNow],
+                  precipitationProbability: weatherCard.precipitationProbability?[timeNow],
                   shortwaveRadiation: weatherCard.shortwaveRadiation?[timeNow],
                 ),
                 WeatherDaily(
-                  weatherData: weatherCard.toJson(),
+                  weatherData: weatherCard,
                   onTap: () => Get.to(
                     () => WeatherMore(
-                      weatherData: weatherCard.toJson(),
+                      weatherData: weatherCard,
                     ),
                     transition: Transition.downToUp,
                   ),
