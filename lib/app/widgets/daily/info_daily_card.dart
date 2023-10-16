@@ -87,15 +87,15 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
           itemCount: timeDaily.length,
           itemBuilder: (context, index) {
             final indexedWeatherCodeDaily = weatherCodeDaily[index];
-            final apparentTemperatureMin = weatherData.apparentTemperatureMin![index];
-            final apparentTemperatureMax = weatherData.apparentTemperatureMax![index];
-            final uvIndexMax = weatherData.uvIndexMax![index];
-            final windDirection10MDominant = weatherData.winddirection10MDominant![index];
-            final windSpeed10MMax = weatherData.windspeed10MMax![index];
-            final windGusts10MMax = weatherData.windgusts10MMax![index];
-            final precipitationProbabilityMax = weatherData.precipitationProbabilityMax![index];
-            final rainSum = weatherData.rainSum![index];
-            final precipitationSum = weatherData.precipitationSum![index];
+            final apparentTemperatureMin = weatherData.apparentTemperatureMin?[index];
+            final apparentTemperatureMax = weatherData.apparentTemperatureMax?[index];
+            final uvIndexMax = weatherData.uvIndexMax?[index];
+            final windDirection10MDominant = weatherData.winddirection10MDominant?[index];
+            final windSpeed10MMax = weatherData.windspeed10MMax?[index];
+            final windGusts10MMax = weatherData.windgusts10MMax?[index];
+            final precipitationProbabilityMax = weatherData.precipitationProbabilityMax?[index];
+            final rainSum = weatherData.rainSum?[index];
+            final precipitationSum = weatherData.precipitationSum?[index];
 
             return indexedWeatherCodeDaily == null
                 ? null
