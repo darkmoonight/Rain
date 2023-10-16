@@ -5,27 +5,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'weather.freezed.dart';
 part 'weather.g.dart';
 
-class WeatherDataApi {
-  Hourly hourly;
-  Daily daily;
-  String timezone;
+@freezed
+class WeatherDataApi with _$WeatherDataApi {
+  const factory WeatherDataApi({
+    required Hourly hourly,
+    required Daily daily,
+    required String timezone,
+  }) = _WeatherDataApi;
 
-  WeatherDataApi({
-    required this.hourly,
-    required this.daily,
-    required this.timezone,
-  });
-
-  factory WeatherDataApi.fromJson(Map<String, dynamic> json) => WeatherDataApi(
-        hourly: Hourly.fromJson(json['hourly']),
-        daily: Daily.fromJson(json['daily']),
-        timezone: json['timezone'],
-      );
-
-  @override
-  toString() {
-    return 'WeatherDataApi{hourly: $hourly, daily: $daily, timezone: $timezone}';
-  }
+  factory WeatherDataApi.fromJson(Map<String, dynamic> json) => _$WeatherDataApiFromJson(json);
 }
 
 @freezed
@@ -33,77 +21,48 @@ class Hourly with _$Hourly {
   const factory Hourly({
     List<String>? time,
     @JsonKey(name: 'weathercode') List<int>? weatherCode,
-    List<double>? temperature2M,
-    List<double?>? apparentTemperature,
+    @JsonKey(name: 'temperature_2m') List<double>? temperature2M,
+    @JsonKey(name: 'apparent_temperature') List<double?>? apparentTemperature,
     List<double?>? precipitation,
     List<double?>? rain,
-    @JsonKey(name: 'relativehumidity2M') List<int?>? relativeHumidity2M,
-    List<double?>? surfacePressure,
+    @JsonKey(name: 'relativehumidity_2m') List<int?>? relativeHumidity2M,
+    @JsonKey(name: 'surface_pressure') List<double?>? surfacePressure,
     List<double?>? visibility,
     List<double?>? evapotranspiration,
-    @JsonKey(name: 'windspeed10M') List<double?>? windSpeed10M,
-    @JsonKey(name: 'winddirection10M') List<int?>? windDirection10M,
-    @JsonKey(name: 'windgusts10M') List<double?>? windGusts10M,
+    @JsonKey(name: 'windspeed_10m') List<double?>? windSpeed10M,
+    @JsonKey(name: 'winddirection_10m') List<int?>? windDirection10M,
+    @JsonKey(name: 'windgusts_10m') List<double?>? windGusts10M,
     @JsonKey(name: 'cloudcover') List<int?>? cloudCover,
-    List<double?>? uvIndex,
-    @JsonKey(name: 'dewpoint2M') List<double?>? dewpoint2M,
-    List<int?>? precipitationProbability,
-    List<double?>? shortwaveRadiation,
+    @JsonKey(name: 'uv_index') List<double?>? uvIndex,
+    @JsonKey(name: 'dewpoint_2m') List<double?>? dewpoint2M,
+    @JsonKey(name: 'precipitation_probability') List<int?>? precipitationProbability,
+    @JsonKey(name: 'shortwave_radiation') List<double?>? shortwaveRadiation,
   }) = _Hourly;
 
   factory Hourly.fromJson(Map<String, dynamic> json) => _$HourlyFromJson(json);
 }
 
-class Daily {
-  List<DateTime>? time;
-  List<int?>? weathercode;
-  List<double?>? temperature2MMax;
-  List<double?>? temperature2MMin;
-  List<double?>? apparentTemperatureMax;
-  List<double?>? apparentTemperatureMin;
-  List<String>? sunrise;
-  List<String>? sunset;
-  List<double?>? precipitationSum;
-  List<int?>? precipitationProbabilityMax;
-  List<double?>? windspeed10MMax;
-  List<double?>? windgusts10MMax;
-  List<double?>? uvIndexMax;
-  List<double?>? rainSum;
-  List<int?>? winddirection10MDominant;
+List<DateTime> _dateTimeFromJson(List<dynamic>? json) => json?.map((x) => DateTime.parse(x)).toList() ?? [];
 
-  Daily({
-    this.time,
-    this.weathercode,
-    this.temperature2MMax,
-    this.temperature2MMin,
-    this.apparentTemperatureMax,
-    this.apparentTemperatureMin,
-    this.sunrise,
-    this.sunset,
-    this.precipitationSum,
-    this.precipitationProbabilityMax,
-    this.windspeed10MMax,
-    this.windgusts10MMax,
-    this.uvIndexMax,
-    this.rainSum,
-    this.winddirection10MDominant,
-  });
+@freezed
+class Daily with _$Daily {
+  const factory Daily({
+    @JsonKey(fromJson: _dateTimeFromJson) List<DateTime>? time,
+    @JsonKey(name: 'weathercode') List<int?>? weatherCode,
+    @JsonKey(name: 'temperature_2m_max') List<double?>? temperature2MMax,
+    @JsonKey(name: 'temperature_2m_min') List<double?>? temperature2MMin,
+    @JsonKey(name: 'apparent_temperature_max') List<double?>? apparentTemperatureMax,
+    @JsonKey(name: 'apparent_temperature_min') List<double?>? apparentTemperatureMin,
+    @JsonKey(name: 'precipitation_sum') List<double?>? precipitationSum,
+    List<String>? sunrise,
+    List<String>? sunset,
+    @JsonKey(name: 'precipitation_probability_max') List<int?>? precipitationProbabilityMax,
+    @JsonKey(name: 'windspeed_10m_max') List<double?>? windSpeed10MMax,
+    @JsonKey(name: 'windgusts_10m_max') List<double?>? windGusts10MMax,
+    @JsonKey(name: 'uv_index_max') List<double?>? uvIndexMax,
+    @JsonKey(name: 'rain_sum') List<double?>? rainSum,
+    @JsonKey(name: 'winddirection_10m_dominant') List<int?>? windDirection10MDominant,
+  }) = _Daily;
 
-  factory Daily.fromJson(Map<String, dynamic> json) => Daily(
-        time: List<DateTime>.from(json['time'].map((x) => DateTime.parse(x))),
-        weathercode: List<int?>.from(json['weathercode'].map((x) => x)),
-        temperature2MMax: List<double?>.from(json['temperature_2m_max'].map((x) => x)),
-        temperature2MMin: List<double?>.from(json['temperature_2m_min'].map((x) => x)),
-        apparentTemperatureMax: List<double?>.from(json['apparent_temperature_max'].map((x) => x)),
-        apparentTemperatureMin: List<double?>.from(json['apparent_temperature_min'].map((x) => x)),
-        sunrise: List<String>.from(json['sunrise'].map((x) => x)),
-        sunset: List<String>.from(json['sunset'].map((x) => x)),
-        precipitationSum: List<double?>.from(json['precipitation_sum'].map((x) => x)),
-        precipitationProbabilityMax: List<int?>.from(json['precipitation_probability_max'].map((x) => x)),
-        windspeed10MMax: List<double?>.from(json['windspeed_10m_max'].map((x) => x)),
-        windgusts10MMax: List<double?>.from(json['windgusts_10m_max'].map((x) => x)),
-        uvIndexMax: List<double?>.from(json['uv_index_max'].map((x) => x)),
-        rainSum: List<double?>.from(json['rain_sum'].map((x) => x)),
-        winddirection10MDominant: List<int?>.from(json['winddirection_10m_dominant'].map((x) => x)),
-      );
+  factory Daily.fromJson(Map<String, dynamic> json) => _$DailyFromJson(json);
 }
