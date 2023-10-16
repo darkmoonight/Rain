@@ -1,4 +1,5 @@
 import 'package:isar/isar.dart';
+
 part 'weather.g.dart';
 
 @collection
@@ -284,4 +285,49 @@ class WeatherCard {
         'district': district,
         'index': index,
       };
+
+  factory WeatherCard.fromJson(Map<String, dynamic> json) {
+    return WeatherCard(
+      time: List<String>.from(json['time'] ?? []),
+      weathercode: List<int>.from(json['weathercode'] ?? []),
+      temperature2M: List<double>.from(json['temperature2M'] ?? []),
+      apparentTemperature: List<double?>.from(json['apparentTemperature'] ?? []),
+      relativehumidity2M: List<int?>.from(json['relativehumidity2M'] ?? []),
+      precipitation: List<double>.from(json['precipitation'] ?? []),
+      rain: List<double?>.from(json['rain'] ?? []),
+      surfacePressure: List<double?>.from(json['surfacePressure'] ?? []),
+      visibility: List<double?>.from(json['visibility'] ?? []),
+      evapotranspiration: List<double?>.from(json['evapotranspiration'] ?? []),
+      windspeed10M: List<double?>.from(json['windspeed10M'] ?? []),
+      winddirection10M: List<int?>.from(json['winddirection10M'] ?? []),
+      windgusts10M: List<double?>.from(json['windgusts10M'] ?? []),
+      cloudcover: List<int?>.from(json['cloudcover'] ?? []),
+      uvIndex: List<double?>.from(json['uvIndex'] ?? []),
+      dewpoint2M: List<double?>.from(json['dewpoint2M'] ?? []),
+      precipitationProbability: List<int?>.from(json['precipitationProbability'] ?? []),
+      shortwaveRadiation: List<double?>.from(json['shortwaveRadiation'] ?? []),
+      timeDaily: List<DateTime>.from(json['timeDaily'] ?? []),
+      weathercodeDaily: List<int?>.from(json['weathercodeDaily'] ?? []),
+      temperature2MMax: List<double?>.from(json['temperature2MMax'] ?? []),
+      temperature2MMin: List<double?>.from(json['temperature2MMin'] ?? []),
+      apparentTemperatureMax: List<double?>.from(json['apparentTemperatureMax'] ?? []),
+      apparentTemperatureMin: List<double?>.from(json['apparentTemperatureMin'] ?? []),
+      windspeed10MMax: List<double?>.from(json['windspeed10MMax'] ?? []),
+      windgusts10MMax: List<double?>.from(json['windgusts10MMax'] ?? []),
+      uvIndexMax: List<double?>.from(json['uvIndexMax'] ?? []),
+      rainSum: List<double?>.from(json['rainSum'] ?? []),
+      winddirection10MDominant: List<int?>.from(json['winddirection10MDominant'] ?? []),
+      precipitationSum: List<double?>.from(json['precipitationSum'] ?? []),
+      precipitationProbabilityMax: List<int?>.from(json['precipitationProbabilityMax'] ?? []),
+      sunrise: List<String>.from(json['sunrise'] ?? []),
+      sunset: List<String>.from(json['sunset'] ?? []),
+      lat: json['lat'],
+      lon: json['lon'],
+      city: json['city'],
+      district: json['district'],
+      timezone: json['timezone'],
+      timestamp: json['timestamp'],
+      index: json['index'],
+    );
+  }
 }

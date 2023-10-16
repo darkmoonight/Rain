@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/daily/info_daily_card.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
 import 'package:rain/app/widgets/status/status_weather.dart';
@@ -12,7 +15,8 @@ class WeatherDaily extends StatefulWidget {
     required this.weatherData,
     required this.onTap,
   });
-  final Map<String, dynamic> weatherData;
+
+  final WeatherCard weatherData;
   final Function() onTap;
 
   @override
@@ -31,7 +35,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
     );
 
     final weatherData = widget.weatherData;
-    final weatherCodeDaily = weatherData['weathercodeDaily'];
+    final weatherCodeDaily = weatherData.weathercodeDaily ?? [];
     final textTheme = context.textTheme;
     final labelLarge = textTheme.labelLarge;
     final bodyMediumGrey = textTheme.bodyMedium?.copyWith(
@@ -54,13 +58,16 @@ class _WeatherDailyState extends State<WeatherDaily> {
                     return InkWell(
                       splashColor: splashColor,
                       borderRadius: inkWellBorderRadius,
-                      onTap: () => Get.to(
-                        () => InfoDailyCard(
-                          weatherData: weatherData,
-                          index: index,
-                        ),
-                        transition: Transition.downToUp,
-                      ),
+                      onTap: () {
+                        log(weatherData.toJson().toString());
+                        Get.to(
+                          () => InfoDailyCard(
+                            weatherData: weatherData,
+                            index: index,
+                          ),
+                          transition: Transition.downToUp,
+                        );
+                      },
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 12),
                         child: Row(
@@ -68,8 +75,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                           children: [
                             Expanded(
                               child: Text(
-                                DateFormat.EEEE(locale.languageCode)
-                                    .format(weatherData['timeDaily'][index]),
+                                DateFormat.EEEE(locale.languageCode).format((weatherData.timeDaily ?? [])[index]),
                                 style: labelLarge,
                               ),
                             ),
@@ -78,15 +84,13 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(
-                                    statusWeather
-                                        .getImage7Day(weatherCodeDaily[index]),
+                                    statusWeather.getImage7Day(weatherCodeDaily[index]),
                                     scale: 3,
                                   ),
                                   const SizedBox(width: 5),
                                   Expanded(
                                     child: Text(
-                                      statusWeather
-                                          .getText(weatherCodeDaily[index]),
+                                      statusWeather.getText(weatherCodeDaily[index]),
                                       style: labelLarge,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -99,9 +103,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    statusData.getDegree(
-                                        weatherData['temperature2MMin'][index]
-                                            .round()),
+                                    statusData.getDegree((weatherData.temperature2MMin ?? [])[index]?.round()),
                                     style: labelLarge,
                                   ),
                                   Text(
@@ -109,9 +111,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                     style: bodyMediumGrey,
                                   ),
                                   Text(
-                                    statusData.getDegree(
-                                        weatherData['temperature2MMax'][index]
-                                            .round()),
+                                    statusData.getDegree((weatherData.temperature2MMax ?? [])[index]?.round()),
                                     style: bodyMediumGrey,
                                   ),
                                 ],

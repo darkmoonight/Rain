@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/daily/weather_daily.dart';
 import 'package:rain/app/widgets/daily/weather_more.dart';
 import 'package:rain/app/widgets/desc/desc_container.dart';
@@ -61,6 +62,7 @@ class _WeatherPageState extends State<WeatherPage> {
               }
 
               final mainWeather = weatherController.mainWeather;
+              final weatherCard = WeatherCard.fromJson(mainWeather.toJson());
               final hourOfDay = weatherController.hourOfDay.value;
               final dayOfNow = weatherController.dayOfNow.value;
               final sunrise = mainWeather.sunrise![dayOfNow];
@@ -80,8 +82,7 @@ class _WeatherPageState extends State<WeatherPage> {
                     child: SizedBox(
                       height: 136,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: ScrollablePositionedList.separated(
                           key: const PageStorageKey(0),
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -93,8 +94,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             );
                           },
                           scrollDirection: Axis.horizontal,
-                          itemScrollController:
-                              weatherController.itemScrollController,
+                          itemScrollController: weatherController.itemScrollController,
                           itemCount: mainWeather.time!.length,
                           itemBuilder: (ctx, i) {
                             final i24 = (i / 24).floor();
@@ -112,10 +112,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                   vertical: 5,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: i == hourOfDay
-                                      ? context
-                                          .theme.colorScheme.primaryContainer
-                                      : Colors.transparent,
+                                  color:
+                                      i == hourOfDay ? context.theme.colorScheme.primaryContainer : Colors.transparent,
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(20),
                                   ),
@@ -152,16 +150,14 @@ class _WeatherPageState extends State<WeatherPage> {
                     windgusts: mainWeather.windgusts10M?[hourOfDay],
                     uvIndex: mainWeather.uvIndex?[hourOfDay],
                     dewpoint2M: mainWeather.dewpoint2M?[hourOfDay],
-                    precipitationProbability:
-                        mainWeather.precipitationProbability?[hourOfDay],
-                    shortwaveRadiation:
-                        mainWeather.shortwaveRadiation?[hourOfDay],
+                    precipitationProbability: mainWeather.precipitationProbability?[hourOfDay],
+                    shortwaveRadiation: mainWeather.shortwaveRadiation?[hourOfDay],
                   ),
                   WeatherDaily(
-                    weatherData: mainWeather.toJson(),
+                    weatherData: weatherCard,
                     onTap: () => Get.to(
                       () => WeatherMore(
-                        weatherData: mainWeather.toJson(),
+                        weatherData: weatherCard,
                       ),
                       transition: Transition.downToUp,
                     ),
