@@ -42,20 +42,22 @@ String widgetBackgroundColor = '';
 String widgetTextColor = '';
 
 final List appLanguages = [
-  {'name': 'English', 'locale': const Locale('en', 'US')},
-  {'name': 'Русский', 'locale': const Locale('ru', 'RU')},
-  {'name': 'italiano', 'locale': const Locale('it', 'IT')},
   {'name': 'Deutsch', 'locale': const Locale('de', 'DE')},
-  {'name': 'Français', 'locale': const Locale('fr', 'FR')},
-  {'name': 'Türkçe', 'locale': const Locale('tr', 'TR')},
-  {'name': 'Brasileiro', 'locale': const Locale('pt', 'BR')},
+  {'name': 'English', 'locale': const Locale('en', 'US')},
   {'name': 'Español', 'locale': const Locale('es', 'ES')},
-  {'name': 'Slovenčina', 'locale': const Locale('sk', 'SK')},
-  {'name': 'Nederlands', 'locale': const Locale('nl', 'NL')},
+  {'name': 'Français', 'locale': const Locale('fr', 'FR')},
   {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
-  {'name': 'Română', 'locale': const Locale('ro', 'RO')},
-  {'name': '中文', 'locale': const Locale('zh', 'CN')},
+  {'name': 'Italiano', 'locale': const Locale('it', 'IT')},
+  {'name': 'Nederlands', 'locale': const Locale('nl', 'NL')},
   {'name': 'Polski', 'locale': const Locale('pl', 'PL')},
+  {'name': 'Português (Brasil)', 'locale': const Locale('pt', 'BR')},
+  {'name': 'Română', 'locale': const Locale('ro', 'RO')},
+  {'name': 'Русский', 'locale': const Locale('ru', 'RU')},
+  {'name': 'Slovenčina', 'locale': const Locale('sk', 'SK')},
+  {'name': 'Türkçe', 'locale': const Locale('tr', 'TR')},
+  {'name': 'اردو', 'locale': const Locale('ur', 'PK')},
+  {'name': '中文', 'locale': const Locale('zh', 'CN')},
+  {'name': 'Čeština', 'locale': const Locale('cs', 'CZ')},
 ];
 
 const String appGroupId = 'DARK NIGHT';
@@ -138,7 +140,7 @@ Future<void> isarInit() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   static Future<void> updateAppState(
     BuildContext context, {
