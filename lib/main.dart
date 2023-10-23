@@ -42,6 +42,8 @@ String widgetBackgroundColor = '';
 String widgetTextColor = '';
 
 final List appLanguages = [
+  {'name': 'বাংলা', 'locale': const Locale('bn', 'IN')},
+  {'name': 'Čeština', 'locale': const Locale('cs', 'CZ')},
   {'name': 'Deutsch', 'locale': const Locale('de', 'DE')},
   {'name': 'English', 'locale': const Locale('en', 'US')},
   {'name': 'Español', 'locale': const Locale('es', 'ES')},
@@ -57,7 +59,6 @@ final List appLanguages = [
   {'name': 'Türkçe', 'locale': const Locale('tr', 'TR')},
   {'name': 'اردو', 'locale': const Locale('ur', 'PK')},
   {'name': '中文', 'locale': const Locale('zh', 'CN')},
-  {'name': 'Čeština', 'locale': const Locale('cs', 'CZ')},
 ];
 
 const String appGroupId = 'DARK NIGHT';
