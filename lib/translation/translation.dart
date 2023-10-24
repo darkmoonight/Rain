@@ -1961,7 +1961,8 @@ class Translation extends Translations {
         },
         'ga_IE': {
           'start': 'Tosaigh',
-          'description': 'Feidhmchlár aimsire a chuireann réamhaisnéis fíor-ama ar fáil, chomh maith le réamhaisnéis uairiúla, laethúla, agus seachtainiúla do gach áit.',
+          'description':
+              'Feidhmchlár aimsire a chuireann réamhaisnéis fíor-ama ar fáil, chomh maith le réamhaisnéis uairiúla, laethúla, agus seachtainiúla do gach áit.',
           'name': 'Aimsir',
           'search': 'Cuardaigh...',
           'loading': 'Ag Lódáil...',
@@ -1996,7 +1997,8 @@ class Translation extends Translations {
           'no_inter': 'Gan Idirlíon',
           'on_inter': 'Cuir ar Idirlíon chun sonraí aeráide a fháil.',
           'location': 'Áit',
-          'no_location': 'Cumasaigh seirbhís na háite chun sonraí aimsire a fháil don áit reatha.',
+          'no_location':
+              'Cumasaigh seirbhís na háite chun sonraí aimsire a fháil don áit reatha.',
           'theme': 'Téama',
           'low': 'Íseal',
           'high': 'Ard',
@@ -2008,7 +2010,8 @@ class Translation extends Translations {
           'district': 'Ceantar',
           'noWeatherCard': 'Cuir cathair leis',
           'deletedCardWeather': 'Áireamh cathair á scriosadh',
-          'deletedCardWeatherQuery': 'An bhfuil tú cinnte go bhfuil tú ag iarraidh an chathair a scriosadh?',
+          'deletedCardWeatherQuery':
+              'An bhfuil tú cinnte go bhfuil tú ag iarraidh an chathair a scriosadh?',
           'delete': 'Scrios',
           'cancel': 'Cealaigh',
           'time': 'Am sa chathair',
@@ -2071,7 +2074,6 @@ class Translation extends Translations {
           'dewpoint': 'Poinnte Dé',
           'shortwaveRadiation': 'Fuinneamh Ghearrfhad',
           'W/m2': 'W/m2',
-}
-
+        },
       };
 }
