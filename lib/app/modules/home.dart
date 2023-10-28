@@ -7,9 +7,9 @@ import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/cards/view/list_weather_card.dart';
-import 'package:rain/app/modules/settings/view/settings.dart';
-import 'package:rain/app/modules/main/view/weather.dart';
 import 'package:rain/app/modules/cards/widgets/create_card_weather.dart';
+import 'package:rain/app/modules/main/view/weather.dart';
+import 'package:rain/app/modules/settings/view/settings.dart';
 import 'package:rain/app/services/utils.dart';
 import 'package:rain/main.dart';
 
@@ -65,6 +65,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = context.textTheme;
+    final labelLarge = textTheme.labelLarge;
+
     return DefaultTabController(
       length: pages.length,
       child: ScaffoldMessenger(
@@ -81,15 +84,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ? RawAutocomplete<Result>(
                     focusNode: _focusNode,
                     textEditingController: _controller,
-                    fieldViewBuilder: (BuildContext context,
-                        TextEditingController fieldTextEditingController,
-                        FocusNode fieldFocusNode,
-                        VoidCallback onFieldSubmitted) {
+                    fieldViewBuilder: (_, __, ___, ____) {
                       return TextField(
                         controller: _controller,
                         focusNode: _focusNode,
-                        style: context.textTheme.labelLarge
-                            ?.copyWith(fontSize: 16),
+                        style: labelLarge?.copyWith(fontSize: 16),
                         decoration: InputDecoration(
                           hintText: 'search'.tr,
                         ),
@@ -138,7 +137,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   child: ListTile(
                                     title: Text(
                                       '${option.name}, ${option.admin1}',
-                                      style: context.textTheme.labelLarge,
+                                      style: labelLarge,
                                     ),
                                   ),
                                 );
@@ -149,28 +148,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       );
                     },
                   )
-                : Obx(() => Text(
-                      weatherController.isLoading.isFalse
-                          ? weatherController.location.district!.isEmpty
-                              ? '${weatherController.location.city}'
-                              : weatherController.location.city!.isEmpty
-                                  ? '${weatherController.location.district}'
-                                  : weatherController.location.city ==
-                                          weatherController.location.district
-                                      ? '${weatherController.location.city}'
-                                      : '${weatherController.location.city}'
-                                          ', ${weatherController.location.district}'
-                          : settings.location
-                              ? 'search'.tr
-                              : (isar.locationCaches.where().findAllSync())
-                                      .isNotEmpty
-                                  ? 'loading'.tr
-                                  : 'searchCity'.tr,
-                      style: context.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    )),
+                : Obx(
+                    () {
+                      final location = weatherController.location;
+                      final city = location.city;
+                      final district = location.district;
+                      return Text(
+                        weatherController.isLoading.isFalse
+                            ? district!.isEmpty
+                                ? '$city'
+                                : city!.isEmpty
+                                    ? district
+                                    : city == district
+                                        ? city
+                                        : '$city' ', $district'
+                            : settings.location
+                                ? 'search'.tr
+                                : (isar.locationCaches.where().findAllSync())
+                                        .isNotEmpty
+                                    ? 'loading'.tr
+                                    : 'searchCity'.tr,
+                        style: textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      );
+                    },
+                  ),
             actions: [
               IconButton(
                 onPressed: () {
@@ -226,7 +230,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     builder: (BuildContext context) =>
                         const CreateWeatherCard(),
                   ),
-                  child: const Icon(Iconsax.add),
+                  child: const Icon(
+                    Iconsax.add,
+                  ),
                 )
               : null,
         ),
