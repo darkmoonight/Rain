@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -58,6 +59,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    final textTheme = context.textTheme;
+    final titleMedium = textTheme.titleMedium;
+    final titleLarge = textTheme.titleLarge;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,7 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'appearance'.tr,
-                                style: context.textTheme.titleLarge?.copyWith(
+                                style: titleLarge?.copyWith(
                                   fontSize: 20,
                                 ),
                               ),
@@ -91,23 +96,21 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'theme'.tr,
                               dropdown: true,
                               dropdownName: settings.theme?.tr,
-                              dropdownList: <String>[
-                                'system'.tr,
-                                'dark'.tr,
-                                'light'.tr
-                              ],
+                              dropdownList: <String>['system'.tr, 'dark'.tr, 'light'.tr],
                               dropdownCange: (String? newValue) {
-                                ThemeMode themeMode =
-                                    newValue?.tr == 'system'.tr
-                                        ? ThemeMode.system
-                                        : newValue?.tr == 'dark'.tr
-                                            ? ThemeMode.dark
-                                            : ThemeMode.light;
-                                String theme = newValue?.tr == 'system'.tr
+                                final newThemeMode = newValue?.tr;
+                                final darkTheme = 'dark'.tr;
+                                final systemTheme = 'system'.tr;
+                                ThemeMode themeMode = newThemeMode == systemTheme
+                                    ? ThemeMode.system
+                                    : newThemeMode == darkTheme
+                                    ? ThemeMode.dark
+                                    : ThemeMode.light;
+                                String theme = newThemeMode == systemTheme
                                     ? 'system'
-                                    : newValue?.tr == 'dark'.tr
-                                        ? 'dark'
-                                        : 'light';
+                                    : newThemeMode == darkTheme
+                                    ? 'dark'
+                                    : 'light';
                                 themeController.saveTheme(theme);
                                 themeController.changeThemeMode(themeMode);
                                 setState(() {});
@@ -121,8 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               value: settings.amoledTheme,
                               onChange: (value) {
                                 themeController.saveOledTheme(value);
-                                MyApp.updateAppState(context,
-                                    newAmoledTheme: value);
+                                MyApp.updateAppState(context, newAmoledTheme: value);
                               },
                             ),
                             SettingCard(
@@ -133,8 +135,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               value: settings.materialColor,
                               onChange: (value) {
                                 themeController.saveMaterialTheme(value);
-                                MyApp.updateAppState(context,
-                                    newMaterialColor: value);
+                                MyApp.updateAppState(context, newMaterialColor: value);
                               },
                             ),
                             const SizedBox(height: 10),
@@ -165,7 +166,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'functions'.tr,
-                                style: context.textTheme.titleLarge?.copyWith(
+                                style: titleLarge?.copyWith(
                                   fontSize: 20,
                                 ),
                               ),
@@ -178,8 +179,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               value: settings.location,
                               onChange: (value) async {
                                 if (value) {
-                                  bool serviceEnabled = await Geolocator
-                                      .isLocationServiceEnabled();
+                                  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
                                   if (!serviceEnabled) {
                                     if (!mounted) return;
                                     await showAdaptiveDialog(
@@ -188,33 +188,27 @@ class _SettingsPageState extends State<SettingsPage> {
                                         return AlertDialog.adaptive(
                                           title: Text(
                                             'location'.tr,
-                                            style: context.textTheme.titleLarge,
+                                            style: titleLarge,
                                           ),
-                                          content: Text('no_location'.tr,
-                                              style: context
-                                                  .textTheme.titleMedium),
+                                          content: Text('no_location'.tr, style: titleMedium),
                                           actions: [
                                             TextButton(
-                                                onPressed: () =>
-                                                    Get.back(result: false),
-                                                child: Text('cancel'.tr,
-                                                    style: context.theme
-                                                        .textTheme.titleMedium
-                                                        ?.copyWith(
-                                                            color: Colors
-                                                                .blueAccent))),
+                                              onPressed: () => Get.back(result: false),
+                                              child: Text(
+                                                'cancel'.tr,
+                                                style: titleMedium?.copyWith(color: Colors.blueAccent),
+                                              ),
+                                            ),
                                             TextButton(
-                                                onPressed: () {
-                                                  Geolocator
-                                                      .openLocationSettings();
-                                                  Get.back(result: true);
-                                                },
-                                                child: Text('settings'.tr,
-                                                    style: context.theme
-                                                        .textTheme.titleMedium
-                                                        ?.copyWith(
-                                                            color:
-                                                                Colors.green))),
+                                              onPressed: () {
+                                                Geolocator.openLocationSettings();
+                                                Get.back(result: true);
+                                              },
+                                              child: Text(
+                                                'settings'.tr,
+                                                style: titleMedium?.copyWith(color: Colors.green),
+                                              ),
+                                            ),
                                           ],
                                         );
                                       },
@@ -238,28 +232,23 @@ class _SettingsPageState extends State<SettingsPage> {
                               switcher: true,
                               value: settings.notifications,
                               onChange: (value) async {
-                                final resultExact =
-                                    await flutterLocalNotificationsPlugin
-                                        .resolvePlatformSpecificImplementation<
-                                            AndroidFlutterLocalNotificationsPlugin>()
-                                        ?.requestExactAlarmsPermission();
+                                final resultExact = await flutterLocalNotificationsPlugin
+                                    .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+                                    ?.requestExactAlarmsPermission();
                                 final result = Platform.isIOS
                                     ? await flutterLocalNotificationsPlugin
-                                        .resolvePlatformSpecificImplementation<
-                                            IOSFlutterLocalNotificationsPlugin>()
-                                        ?.requestPermissions()
+                                    .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+                                    ?.requestPermissions()
                                     : await flutterLocalNotificationsPlugin
-                                        .resolvePlatformSpecificImplementation<
-                                            AndroidFlutterLocalNotificationsPlugin>()
-                                        ?.requestNotificationsPermission();
+                                    .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+                                    ?.requestNotificationsPermission();
                                 if (result != null && resultExact != null) {
                                   isar.writeTxnSync(() {
                                     settings.notifications = value;
                                     isar.settings.putSync(settings);
                                   });
                                   if (value) {
-                                    weatherController.notlification(
-                                        weatherController.mainWeather);
+                                    weatherController.notlification(weatherController.mainWeather);
                                   } else {
                                     flutterLocalNotificationsPlugin.cancelAll();
                                   }
@@ -285,12 +274,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                   settings.timeRange = int.parse(newValue!);
                                   isar.settings.putSync(settings);
                                 });
-                                MyApp.updateAppState(context,
-                                    newTimeRange: int.parse(newValue!));
+                                MyApp.updateAppState(context, newTimeRange: int.parse(newValue!));
                                 if (settings.notifications) {
                                   flutterLocalNotificationsPlugin.cancelAll();
-                                  weatherController.notlification(
-                                      weatherController.mainWeather);
+                                  weatherController.notlification(weatherController.mainWeather);
                                 }
                               },
                             ),
@@ -302,28 +289,19 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoSettings: true,
                               infoWidget: _TextInfo(
                                 info: settings.timeformat == '12'
-                                    ? DateFormat.jm().format(DateFormat.Hm()
-                                        .parse(weatherController
-                                            .timeConvert(timeStart)
-                                            .format(context)))
+                                    ? DateFormat.jm().format(
+                                    DateFormat.Hm().parse(weatherController.timeConvert(timeStart).format(context)))
                                     : DateFormat.Hm().format(DateFormat.Hm()
-                                        .parse(weatherController
-                                            .timeConvert(timeStart)
-                                            .format(context))),
+                                    .parse(weatherController.timeConvert(timeStart).format(context))),
                               ),
                               onPressed: () async {
-                                final TimeOfDay? timeStartPicker =
-                                    await showTimePicker(
+                                final TimeOfDay? timeStartPicker = await showTimePicker(
                                   context: context,
-                                  initialTime:
-                                      weatherController.timeConvert(timeStart),
+                                  initialTime: weatherController.timeConvert(timeStart),
                                   builder: (context, child) {
                                     final Widget mediaQueryWrapper = MediaQuery(
                                       data: MediaQuery.of(context).copyWith(
-                                        alwaysUse24HourFormat:
-                                            settings.timeformat == '12'
-                                                ? false
-                                                : true,
+                                        alwaysUse24HourFormat: settings.timeformat == '12' ? false : true,
                                       ),
                                       child: child!,
                                     );
@@ -332,18 +310,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                 );
                                 if (timeStartPicker != null) {
                                   isar.writeTxnSync(() {
-                                    settings.timeStart =
-                                        timeStartPicker.format(context);
+                                    settings.timeStart = timeStartPicker.format(context);
                                     isar.settings.putSync(settings);
                                   });
                                   if (!mounted) return;
-                                  MyApp.updateAppState(context,
-                                      newTimeStart:
-                                          timeStartPicker.format(context));
+                                  MyApp.updateAppState(context, newTimeStart: timeStartPicker.format(context));
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
-                                    weatherController.notlification(
-                                        weatherController.mainWeather);
+                                    weatherController.notlification(weatherController.mainWeather);
                                   }
                                 }
                               },
@@ -356,28 +330,19 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoSettings: true,
                               infoWidget: _TextInfo(
                                 info: settings.timeformat == '12'
-                                    ? DateFormat.jm().format(DateFormat.Hm()
-                                        .parse(weatherController
-                                            .timeConvert(timeEnd)
-                                            .format(context)))
-                                    : DateFormat.Hm().format(DateFormat.Hm()
-                                        .parse(weatherController
-                                            .timeConvert(timeEnd)
-                                            .format(context))),
+                                    ? DateFormat.jm().format(
+                                    DateFormat.Hm().parse(weatherController.timeConvert(timeEnd).format(context)))
+                                    : DateFormat.Hm().format(
+                                    DateFormat.Hm().parse(weatherController.timeConvert(timeEnd).format(context))),
                               ),
                               onPressed: () async {
-                                final TimeOfDay? timeEndPicker =
-                                    await showTimePicker(
+                                final TimeOfDay? timeEndPicker = await showTimePicker(
                                   context: context,
-                                  initialTime:
-                                      weatherController.timeConvert(timeEnd),
+                                  initialTime: weatherController.timeConvert(timeEnd),
                                   builder: (context, child) {
                                     final Widget mediaQueryWrapper = MediaQuery(
                                       data: MediaQuery.of(context).copyWith(
-                                        alwaysUse24HourFormat:
-                                            settings.timeformat == '12'
-                                                ? false
-                                                : true,
+                                        alwaysUse24HourFormat: settings.timeformat == '12' ? false : true,
                                       ),
                                       child: child!,
                                     );
@@ -386,18 +351,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                 );
                                 if (timeEndPicker != null) {
                                   isar.writeTxnSync(() {
-                                    settings.timeEnd =
-                                        timeEndPicker.format(context);
+                                    settings.timeEnd = timeEndPicker.format(context);
                                     isar.settings.putSync(settings);
                                   });
                                   if (!mounted) return;
-                                  MyApp.updateAppState(context,
-                                      newTimeEnd:
-                                          timeEndPicker.format(context));
+                                  MyApp.updateAppState(context, newTimeEnd: timeEndPicker.format(context));
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
-                                    weatherController.notlification(
-                                        weatherController.mainWeather);
+                                    weatherController.notlification(weatherController.mainWeather);
                                   }
                                 }
                               },
@@ -430,7 +391,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'data'.tr,
-                                style: context.textTheme.titleLarge?.copyWith(
+                                style: titleLarge?.copyWith(
                                   fontSize: 20,
                                 ),
                               ),
@@ -441,15 +402,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'degrees'.tr,
                               dropdown: true,
                               dropdownName: settings.degrees.tr,
-                              dropdownList: <String>[
-                                'celsius'.tr,
-                                'fahrenheit'.tr
-                              ],
+                              dropdownList: <String>['celsius'.tr, 'fahrenheit'.tr],
                               dropdownCange: (String? newValue) async {
                                 isar.writeTxnSync(() {
-                                  settings.degrees = newValue == 'celsius'.tr
-                                      ? 'celsius'
-                                      : 'fahrenheit';
+                                  settings.degrees = newValue == 'celsius'.tr ? 'celsius' : 'fahrenheit';
                                   isar.settings.putSync(settings);
                                 });
                                 await weatherController.deleteAll(false);
@@ -464,16 +420,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'measurements'.tr,
                               dropdown: true,
                               dropdownName: settings.measurements.tr,
-                              dropdownList: <String>[
-                                'metric'.tr,
-                                'imperial'.tr
-                              ],
+                              dropdownList: <String>['metric'.tr, 'imperial'.tr],
                               dropdownCange: (String? newValue) async {
                                 isar.writeTxnSync(() {
-                                  settings.measurements =
-                                      newValue == 'metric'.tr
-                                          ? 'metric'
-                                          : 'imperial';
+                                  settings.measurements = newValue == 'metric'.tr ? 'metric' : 'imperial';
                                   isar.settings.putSync(settings);
                                 });
                                 await weatherController.deleteAll(false);
@@ -491,8 +441,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               dropdownList: <String>['12'.tr, '24'.tr],
                               dropdownCange: (String? newValue) {
                                 isar.writeTxnSync(() {
-                                  settings.timeformat =
-                                      newValue == '12'.tr ? '12' : '24';
+                                  settings.timeformat = newValue == '12'.tr ? '12' : '24';
                                   isar.settings.putSync(settings);
                                 });
                                 setState(() {});
@@ -526,7 +475,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'widget'.tr,
-                                style: context.textTheme.titleLarge?.copyWith(
+                                style: titleLarge?.copyWith(
                                   fontSize: 20,
                                 ),
                               ),
@@ -537,11 +486,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'widgetBackground'.tr,
                               info: true,
                               infoWidget: CircleAvatar(
-                                backgroundColor: context.theme.indicatorColor,
+                                backgroundColor: theme.indicatorColor,
                                 radius: 11,
                                 child: CircleAvatar(
                                   backgroundColor: widgetBackgroundColor.isEmpty
-                                      ? context.theme.primaryColor
+                                      ? theme.primaryColor
                                       : HexColor.fromHex(widgetBackgroundColor),
                                   radius: 10,
                                 ),
@@ -554,48 +503,36 @@ class _SettingsPageState extends State<SettingsPage> {
                                     child: SingleChildScrollView(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 15),
+                                            padding: const EdgeInsets.symmetric(vertical: 15),
                                             child: Text(
                                               'widgetBackground'.tr,
-                                              style: context
-                                                  .textTheme.titleMedium
-                                                  ?.copyWith(fontSize: 18),
+                                              style: context.textTheme.titleMedium?.copyWith(fontSize: 18),
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
+                                            padding: const EdgeInsets.symmetric(horizontal: 15),
                                             child: Theme(
-                                              data: context.theme.copyWith(
-                                                inputDecorationTheme:
-                                                    InputDecorationTheme(
+                                              data: theme.copyWith(
+                                                inputDecorationTheme: InputDecorationTheme(
                                                   border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
+                                                    borderRadius: BorderRadius.circular(8),
                                                   ),
                                                 ),
                                               ),
                                               child: ColorPicker(
-                                                pickerColor: widgetBackgroundColor
-                                                        .isEmpty
-                                                    ? context.theme.primaryColor
-                                                    : HexColor.fromHex(
-                                                        widgetBackgroundColor),
+                                                pickerColor: widgetBackgroundColor.isEmpty
+                                                    ? theme.primaryColor
+                                                    : HexColor.fromHex(widgetBackgroundColor),
                                                 onColorChanged: (pickedColor) {
-                                                  colorBackground =
-                                                      pickedColor.toHex();
+                                                  colorBackground = pickedColor.toHex();
                                                 },
                                                 hexInputBar: true,
                                                 labelTypes: const [],
                                                 pickerAreaHeightPercent: 0.7,
-                                                pickerAreaBorderRadius:
-                                                    BorderRadius.circular(20),
+                                                pickerAreaBorderRadius: BorderRadius.circular(20),
                                               ),
                                             ),
                                           ),
@@ -607,12 +544,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                               if (colorBackground == null) {
                                                 return;
                                               }
-                                              weatherController
-                                                  .updateWidgetBackgroundColor(
-                                                      colorBackground!);
-                                              MyApp.updateAppState(context,
-                                                  newWidgetBackgroundColor:
-                                                      colorBackground);
+                                              weatherController.updateWidgetBackgroundColor(colorBackground!);
+                                              MyApp.updateAppState(context, newWidgetBackgroundColor: colorBackground);
                                               Get.back();
                                             },
                                           ),
@@ -629,12 +562,11 @@ class _SettingsPageState extends State<SettingsPage> {
                               text: 'widgetText'.tr,
                               info: true,
                               infoWidget: CircleAvatar(
-                                backgroundColor: context.theme.indicatorColor,
+                                backgroundColor: theme.indicatorColor,
                                 radius: 11,
                                 child: CircleAvatar(
-                                  backgroundColor: widgetTextColor.isEmpty
-                                      ? context.theme.primaryColor
-                                      : HexColor.fromHex(widgetTextColor),
+                                  backgroundColor:
+                                  widgetTextColor.isEmpty ? theme.primaryColor : HexColor.fromHex(widgetTextColor),
                                   radius: 10,
                                 ),
                               ),
@@ -646,48 +578,36 @@ class _SettingsPageState extends State<SettingsPage> {
                                     child: SingleChildScrollView(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 15),
+                                            padding: const EdgeInsets.symmetric(vertical: 15),
                                             child: Text(
                                               'widgetText'.tr,
-                                              style: context
-                                                  .textTheme.titleMedium
-                                                  ?.copyWith(fontSize: 18),
+                                              style: context.textTheme.titleMedium?.copyWith(fontSize: 18),
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
+                                            padding: const EdgeInsets.symmetric(horizontal: 15),
                                             child: Theme(
-                                              data: context.theme.copyWith(
-                                                inputDecorationTheme:
-                                                    InputDecorationTheme(
+                                              data: theme.copyWith(
+                                                inputDecorationTheme: InputDecorationTheme(
                                                   border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
+                                                    borderRadius: BorderRadius.circular(8),
                                                   ),
                                                 ),
                                               ),
                                               child: ColorPicker(
-                                                pickerColor: widgetTextColor
-                                                        .isEmpty
-                                                    ? context.theme.primaryColor
-                                                    : HexColor.fromHex(
-                                                        widgetTextColor),
+                                                pickerColor: widgetTextColor.isEmpty
+                                                    ? theme.primaryColor
+                                                    : HexColor.fromHex(widgetTextColor),
                                                 onColorChanged: (pickedColor) {
-                                                  colorText =
-                                                      pickedColor.toHex();
+                                                  colorText = pickedColor.toHex();
                                                 },
                                                 hexInputBar: true,
                                                 labelTypes: const [],
                                                 pickerAreaHeightPercent: 0.7,
-                                                pickerAreaBorderRadius:
-                                                    BorderRadius.circular(20),
+                                                pickerAreaBorderRadius: BorderRadius.circular(20),
                                               ),
                                             ),
                                           ),
@@ -697,12 +617,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                             ),
                                             onPressed: () {
                                               if (colorText == null) return;
-                                              weatherController
-                                                  .updateWidgetTextColor(
-                                                      colorText!);
-                                              MyApp.updateAppState(context,
-                                                  newWidgetTextColor:
-                                                      colorText);
+                                              weatherController.updateWidgetTextColor(colorText!);
+                                              MyApp.updateAppState(context, newWidgetTextColor: colorText);
                                               Get.back();
                                             },
                                           ),
@@ -729,8 +645,7 @@ class _SettingsPageState extends State<SettingsPage> {
             info: true,
             infoSettings: true,
             infoWidget: _TextInfo(
-              info: appLanguages.firstWhere(
-                  (element) => (element['locale'] == locale),
+              info: appLanguages.firstWhere((element) => (element['locale'] == locale),
                   orElse: () => appLanguages.first)['name'],
             ),
             onPressed: () {
@@ -745,7 +660,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             child: Text(
                               'language'.tr,
-                              style: context.textTheme.titleLarge?.copyWith(
+                              style: titleLarge?.copyWith(
                                 fontSize: 20,
                               ),
                               textAlign: TextAlign.center,
@@ -758,20 +673,16 @@ class _SettingsPageState extends State<SettingsPage> {
                             itemBuilder: (context, index) {
                               return Card(
                                 elevation: 4,
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
+                                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                 child: ListTile(
                                   title: Text(
                                     appLanguages[index]['name'],
-                                    style: context.textTheme.labelLarge,
+                                    style: textTheme.labelLarge,
                                     textAlign: TextAlign.center,
                                   ),
                                   onTap: () {
-                                    MyApp.updateAppState(context,
-                                        newLocale: appLanguages[index]
-                                            ['locale']);
-                                    updateLanguage(
-                                        appLanguages[index]['locale']);
+                                    MyApp.updateAppState(context, newLocale: appLanguages[index]['locale']);
+                                    updateLanguage(appLanguages[index]['locale']);
                                   },
                                 ),
                               );
@@ -804,7 +715,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 'support'.tr,
-                                style: context.textTheme.titleLarge?.copyWith(
+                                style: titleLarge?.copyWith(
                                   fontSize: 20,
                                 ),
                               ),
@@ -813,15 +724,13 @@ class _SettingsPageState extends State<SettingsPage> {
                               elevation: 4,
                               icon: const Icon(Iconsax.card),
                               text: 'DonationAlerts',
-                              onPressed: () => urlLauncher(
-                                  'https://www.donationalerts.com/r/yoshimok'),
+                              onPressed: () => urlLauncher('https://www.donationalerts.com/r/yoshimok'),
                             ),
                             SettingCard(
                               elevation: 4,
                               icon: const Icon(Iconsax.wallet),
                               text: 'ЮMoney',
-                              onPressed: () => urlLauncher(
-                                  'https://yoomoney.ru/to/4100117672775961'),
+                              onPressed: () => urlLauncher('https://yoomoney.ru/to/4100117672775961'),
                             ),
                             const SizedBox(height: 10),
                           ],
@@ -843,9 +752,11 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 100,
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      image: DecorationImage(
-                          image: AssetImage('assets/icons/icon.png'))),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    image: DecorationImage(
+                      image: AssetImage('assets/icons/icon.png'),
+                    ),
+                  ),
                 ),
                 applicationName: 'Rain',
                 applicationVersion: appVersion,
@@ -867,8 +778,7 @@ class _SettingsPageState extends State<SettingsPage> {
               scale: 20,
             ),
             text: '${'project'.tr} GitHub',
-            onPressed: () =>
-                urlLauncher('https://github.com/DarkMooNight/Rain'),
+            onPressed: () => urlLauncher('https://github.com/DarkMooNight/Rain'),
           ),
           const SizedBox(height: 10),
         ],
