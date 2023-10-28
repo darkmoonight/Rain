@@ -1,68 +1,46 @@
 <div align='center'>
 <img src='/assets/icons/icon.png' width='150'/>
-<h2>Rain</h2>
+<h2>🌦️ Rain</h2>
 </div>
 
-### Short Description:
+Tired of unpredictable weather? Rain's got you covered! Get ready for any forecast. 🌦️
 
-<!-- Приложение для просмотра погоды -->
+### 🌍 Discover Your World
 
-An application for viewing the weather
+With Rain, you can explore the weather in your city and beyond. We offer an array of features to keep you informed and prepared:
 
-### Description:
+- 🌟 **View Current Weather:** Stay up to date with real-time weather conditions in your area.
+- 🌅 **View Weather by Hour:** Plan your day effectively with hourly forecasts.
+- 📆 **View the Weather for the Week:** Get a week-long weather outlook at your fingertips.
+- 🌡️ **View Detailed Weather Data:** Dive deep into weather statistics for a comprehensive understanding.
+- 🌐 **Localization:** Choose your preferred language from a wide range of options.
+- 🏙️ **Data Caching:** Access weather information even when you're offline.
+- 🌆 **Choose Your City:** Set your location or add other cities to your list.
+- 🧮 **Metric or Imperial:** Customize your measurement system for temperature and more.
+- 🌡️ **Celsius or Fahrenheit:** Pick your preferred temperature unit.
+- 🕰️ **12-Hour or 24-Hour Time Formats:** Adjust the time display to your liking.
+- 🔔 **Notifications:** Receive weather alerts and stay informed.
+- 🧩 **Widget:** Add a weather widget to your home screen for quick updates.
+- 🎨 **Beautiful Design**
 
-<!-- Данное приложение позволяет смотреть погоду в вашем городе.
-Предоставлены следующие возможности:
-- Просмотр погоды на данный момент
-- Просмотр погоды по часам
-- Просмотр погоды на неделю
-- Просмотр подробных данных о погоде
-- Локализация (ru/en/it/de/fr/tr/pt/es/sk/nl/hi/ro/zh/pl)
-- Кэширование данных
-- Выбор города самостоятельно
-- Добавление карточек других городов
-- Выбор между метрической системой мер и имперской
-- Выбор между градусами Цельсия и Фаренгейта
-- Выбор между форматом времени 12 и 24-часовым
-- Уведомления
-- Виджет
+Our app is not just functional; it's also visually appealing. We've designed Rain with your user experience in mind, ensuring convenience and beauty in one package.
 
-Также мы постарались сделать дизайн максимально удобным и красивым. -->
+### 🌐 Reliable Data Sources
 
-This application allows you to view the weather in your city.
-The following options are provided:
+We fetch weather data from [Open-Meteo](https://open-meteo.com/en/docs) and use [Open-Meteo's Geocoding API](https://open-meteo.com/en/docs/geocoding-api) to help you find cities easily.
 
-- View current weather
-- View weather by hour
-- View the weather for the week
-- View detailed weather data
-- Localization (ru/en/it/de/fr/tr/pt/es/sk/nl/hi/ro/zh/pl)
-- Data caching
-- Choose the city yourself
-- Adding cards of other cities
-- The choice between the metric system of measures and the imperial
-- Choose between Celsius and Fahrenheit
-- Choosing between 12-hour and 24-hour time formats
-- Notifications
-- Widget
-
-We also tried to make the design as convenient and beautiful as possible.
-
-### Services used:
-
-- The app receives weather data from [Open-Meteo](https://open-meteo.com/en/docs)
-- Cities are searched using [Open-Meteo](https://open-meteo.com/en/docs/geocoding-api)
-
-### Screenshots:
+### 📸 Screenshots
 
 <img src='/readme/1.png' width='200'/> <img src='/readme/2.png' width='200'/> <img src='/readme/3.png' width='200'/> <img src='/readme/4.png' width='200'/>
 
-### Donations:
+### 💰 Support Us
 
-[![DonationAlerts](https://img.shields.io/badge/DonationAlerts-orange?style=for-the-badge)](https://www.donationalerts.com/r/yoshimok)
+If you find Rain valuable, consider supporting us through donations:
+
+[![DonationAlerts](https://img.shields.io/badge/DonationAlerts-orange?style=for-the-badge)](https://www.donationalerts.com/r/darkmoonight)
 [![ЮMoney](https://img.shields.io/badge/ЮMoney-violet?style=for-the-badge)](https://yoomoney.ru/to/4100117672775961)
 
-### Download:
+### 📥 Get Rain Now
 
 [![Play Store](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.yoshi.rain)
 [![RuStore](https://img.shields.io/badge/RuStore-blue?style=for-the-badge&logo=vk&logoColor=white)](https://apps.rustore.ru/app/com.yoshi.rain)
