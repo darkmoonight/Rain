@@ -23,7 +23,7 @@ With Rain, you can explore the weather in your city and beyond. We offer an arra
 - 🧩 **Widget:** Add a weather widget to your home screen for quick updates.
 - 🎨 **Beautiful Design**
 
-Our app is not just functional; it's also visually appealing. We've designed Rain with your user experience in mind, ensuring convenience and beauty in one package.
+Our application not only offers functionality but also boasts an aesthetically pleasing design. We have meticulously crafted Rain with your user experience as our top priority, guaranteeing both convenience and elegance in a single package.
 
 ### 🌐 Reliable Data Sources
 
@@ -35,7 +35,7 @@ We fetch weather data from [Open-Meteo](https://open-meteo.com/en/docs) and use 
 
 ### 💰 Support Us
 
-If you find Rain valuable, consider supporting us through donations:
+If you find Rain valuable and worthy for future innovation , consider supporting us through donations:
 
 [![DonationAlerts](https://img.shields.io/badge/DonationAlerts-orange?style=for-the-badge)](https://www.donationalerts.com/r/darkmoonight)
 [![ЮMoney](https://img.shields.io/badge/ЮMoney-violet?style=for-the-badge)](https://yoomoney.ru/to/4100117672775961)
@@ -47,7 +47,7 @@ If you find Rain valuable, consider supporting us through donations:
 
 Or get the latest APK from the [Releases Section](https://github.com/DarkMooNight/Rain/releases/latest). You can also find the app on IzzyOnDroid via a F-Droid client [here](https://apt.izzysoft.de/fdroid/index/apk/com.yoshi.rain).
 
-### 🫂 Our Contributors
+### 👨‍💻Our Contributors
 <a href="https://github.com/darkmoonight/Rain/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=darkmoonight/Rain" />
 </a>
