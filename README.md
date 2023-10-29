@@ -9,7 +9,7 @@ Tired of unpredictable weather? Rain's got you covered! Get ready for any foreca
 
 With Rain, you can explore the weather in your city and beyond. We offer an array of features to keep you informed and prepared:
 
-- 🌟 **View Current Weather:** Stay up to date with real-time weather conditions in your area.
+- 🌟 **View Current Weather:** Stay up-to-date with real-time weather conditions in your area.
 - 🌅 **View Weather by Hour:** Plan your day effectively with hourly forecasts.
 - 📆 **View the Weather for the Week:** Get a week-long weather outlook at your fingertips.
 - 🌡️ **View Detailed Weather Data:** Dive deep into weather statistics for a comprehensive understanding.
