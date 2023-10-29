@@ -3,10 +3,10 @@ description: Weather application
 
 publish_to: "none"
 
-version: 1.2.6+29
+version: 1.2.7+30
 
 environment:
-  sdk: ">=3.1.4 <4.0.0"
+  sdk: ">=3.1.5 <4.0.0"
 
 dependencies:
   flutter:

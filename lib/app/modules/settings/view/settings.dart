@@ -724,7 +724,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               elevation: 4,
                               icon: const Icon(Iconsax.card),
                               text: 'DonationAlerts',
-                              onPressed: () => urlLauncher('https://www.donationalerts.com/r/yoshimok'),
+                              onPressed: () => urlLauncher('https://www.donationalerts.com/r/darkmoonight'),
                             ),
                             SettingCard(
                               elevation: 4,
@@ -778,7 +778,7 @@ class _SettingsPageState extends State<SettingsPage> {
               scale: 20,
             ),
             text: '${'project'.tr} GitHub',
-            onPressed: () => urlLauncher('https://github.com/DarkMooNight/Rain'),
+            onPressed: () => urlLauncher('https://github.com/darkmoonight/Rain'),
           ),
           const SizedBox(height: 10),
         ],
