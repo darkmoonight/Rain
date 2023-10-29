@@ -47,7 +47,7 @@ If you find Rain valuable, consider supporting us through donations:
 
 Or get the latest APK from the [Releases Section](https://github.com/DarkMooNight/Rain/releases/latest). You can also find the app on IzzyOnDroid via a F-Droid client [here](https://apt.izzysoft.de/fdroid/index/apk/com.yoshi.rain).
 
-### Our Contributors
+### 🫂 Our Contributors
 <a href="https://github.com/darkmoonight/Rain/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=darkmoonight/Rain" />
 </a>
