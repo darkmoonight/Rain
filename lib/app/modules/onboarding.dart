@@ -15,6 +15,7 @@ class OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
+    final textTheme = context.textTheme;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -30,7 +31,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   const SizedBox(height: 15),
                   Text(
                     'Rain - ${'name'.tr}',
-                    style: context.textTheme.titleLarge?.copyWith(
+                    style: textTheme.titleLarge?.copyWith(
                       fontSize: 32,
                       fontWeight: FontWeight.w600,
                     ),
@@ -41,8 +42,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     width: 300,
                     child: Text(
                       'description'.tr,
-                      style:
-                          context.textTheme.labelMedium?.copyWith(fontSize: 14),
+                      style: textTheme.labelMedium?.copyWith(fontSize: 14),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -57,7 +57,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   settings.onboard = true;
                   isar.writeTxnSync(() => isar.settings.putSync(settings));
                   Get.off(
-                    () => const HomePage(),
+                        () => const HomePage(),
                     transition: Transition.downToUp,
                   );
                 },
