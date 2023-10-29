@@ -81,6 +81,16 @@ const SettingsSchema = CollectionSchema(
       id: 12,
       name: r'timeformat',
       type: IsarType.string,
+    ),
+    r'widgetBackgroundColor': PropertySchema(
+      id: 13,
+      name: r'widgetBackgroundColor',
+      type: IsarType.string,
+    ),
+    r'widgetTextColor': PropertySchema(
+      id: 14,
+      name: r'widgetTextColor',
+      type: IsarType.string,
     )
   },
   estimateSize: _settingsEstimateSize,
@@ -130,6 +140,18 @@ int _settingsEstimateSize(
     }
   }
   bytesCount += 3 + object.timeformat.length * 3;
+  {
+    final value = object.widgetBackgroundColor;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.widgetTextColor;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -152,6 +174,8 @@ void _settingsSerialize(
   writer.writeLong(offsets[10], object.timeRange);
   writer.writeString(offsets[11], object.timeStart);
   writer.writeString(offsets[12], object.timeformat);
+  writer.writeString(offsets[13], object.widgetBackgroundColor);
+  writer.writeString(offsets[14], object.widgetTextColor);
 }
 
 Settings _settingsDeserialize(
@@ -175,6 +199,8 @@ Settings _settingsDeserialize(
   object.timeRange = reader.readLongOrNull(offsets[10]);
   object.timeStart = reader.readStringOrNull(offsets[11]);
   object.timeformat = reader.readString(offsets[12]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[13]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[14]);
   return object;
 }
 
@@ -211,6 +237,10 @@ P _settingsDeserializeProp<P>(
       return (reader.readStringOrNull(offset)) as P;
     case 12:
       return (reader.readString(offset)) as P;
+    case 13:
+      return (reader.readStringOrNull(offset)) as P;
+    case 14:
+      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -1455,6 +1485,315 @@ extension SettingsQueryFilter
       ));
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'widgetBackgroundColor',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'widgetBackgroundColor',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'widgetBackgroundColor',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'widgetBackgroundColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorMatches(String pattern,
+          {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'widgetBackgroundColor',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'widgetBackgroundColor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetBackgroundColorIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'widgetBackgroundColor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'widgetTextColor',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'widgetTextColor',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'widgetTextColor',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'widgetTextColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'widgetTextColor',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'widgetTextColor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      widgetTextColorIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'widgetTextColor',
+        value: '',
+      ));
+    });
+  }
 }
 
 extension SettingsQueryObject
@@ -1617,6 +1956,31 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByTimeformatDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timeformat', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWidgetBackgroundColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetBackgroundColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+      sortByWidgetBackgroundColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetBackgroundColor', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWidgetTextColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetTextColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWidgetTextColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetTextColor', Sort.desc);
     });
   }
 }
@@ -1790,6 +2154,31 @@ extension SettingsQuerySortThenBy
       return query.addSortBy(r'timeformat', Sort.desc);
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWidgetBackgroundColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetBackgroundColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+      thenByWidgetBackgroundColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetBackgroundColor', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWidgetTextColor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetTextColor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWidgetTextColorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'widgetTextColor', Sort.desc);
+    });
+  }
 }
 
 extension SettingsQueryWhereDistinct
@@ -1876,6 +2265,22 @@ extension SettingsQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timeformat', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetBackgroundColor(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'widgetBackgroundColor',
+          caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetTextColor(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'widgetTextColor',
+          caseSensitive: caseSensitive);
     });
   }
 }
@@ -1965,6 +2370,19 @@ extension SettingsQueryProperty
       return query.addPropertyName(r'timeformat');
     });
   }
+
+  QueryBuilder<Settings, String?, QQueryOperations>
+      widgetBackgroundColorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'widgetBackgroundColor');
+    });
+  }
+
+  QueryBuilder<Settings, String?, QQueryOperations> widgetTextColorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'widgetTextColor');
+    });
+  }
 }
 
 // coverage:ignore-file
@@ -1998,143 +2416,158 @@ const MainWeatherCacheSchema = CollectionSchema(
       name: r'cloudcover',
       type: IsarType.longList,
     ),
-    r'evapotranspiration': PropertySchema(
+    r'dewpoint2M': PropertySchema(
       id: 4,
+      name: r'dewpoint2M',
+      type: IsarType.doubleList,
+    ),
+    r'evapotranspiration': PropertySchema(
+      id: 5,
       name: r'evapotranspiration',
       type: IsarType.doubleList,
     ),
     r'precipitation': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'precipitation',
       type: IsarType.doubleList,
     ),
+    r'precipitationProbability': PropertySchema(
+      id: 7,
+      name: r'precipitationProbability',
+      type: IsarType.longList,
+    ),
     r'precipitationProbabilityMax': PropertySchema(
-      id: 6,
+      id: 8,
       name: r'precipitationProbabilityMax',
       type: IsarType.longList,
     ),
     r'precipitationSum': PropertySchema(
-      id: 7,
+      id: 9,
       name: r'precipitationSum',
       type: IsarType.doubleList,
     ),
     r'rain': PropertySchema(
-      id: 8,
+      id: 10,
       name: r'rain',
       type: IsarType.doubleList,
     ),
     r'rainSum': PropertySchema(
-      id: 9,
+      id: 11,
       name: r'rainSum',
       type: IsarType.doubleList,
     ),
     r'relativehumidity2M': PropertySchema(
-      id: 10,
+      id: 12,
       name: r'relativehumidity2M',
       type: IsarType.longList,
     ),
+    r'shortwaveRadiation': PropertySchema(
+      id: 13,
+      name: r'shortwaveRadiation',
+      type: IsarType.doubleList,
+    ),
     r'sunrise': PropertySchema(
-      id: 11,
+      id: 14,
       name: r'sunrise',
       type: IsarType.stringList,
     ),
     r'sunset': PropertySchema(
-      id: 12,
+      id: 15,
       name: r'sunset',
       type: IsarType.stringList,
     ),
     r'surfacePressure': PropertySchema(
-      id: 13,
+      id: 16,
       name: r'surfacePressure',
       type: IsarType.doubleList,
     ),
     r'temperature2M': PropertySchema(
-      id: 14,
+      id: 17,
       name: r'temperature2M',
       type: IsarType.doubleList,
     ),
     r'temperature2MMax': PropertySchema(
-      id: 15,
+      id: 18,
       name: r'temperature2MMax',
       type: IsarType.doubleList,
     ),
     r'temperature2MMin': PropertySchema(
-      id: 16,
+      id: 19,
       name: r'temperature2MMin',
       type: IsarType.doubleList,
     ),
     r'time': PropertySchema(
-      id: 17,
+      id: 20,
       name: r'time',
       type: IsarType.stringList,
     ),
     r'timeDaily': PropertySchema(
-      id: 18,
+      id: 21,
       name: r'timeDaily',
       type: IsarType.dateTimeList,
     ),
     r'timestamp': PropertySchema(
-      id: 19,
+      id: 22,
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
     r'timezone': PropertySchema(
-      id: 20,
+      id: 23,
       name: r'timezone',
       type: IsarType.string,
     ),
     r'uvIndex': PropertySchema(
-      id: 21,
+      id: 24,
       name: r'uvIndex',
       type: IsarType.doubleList,
     ),
     r'uvIndexMax': PropertySchema(
-      id: 22,
+      id: 25,
       name: r'uvIndexMax',
       type: IsarType.doubleList,
     ),
     r'visibility': PropertySchema(
-      id: 23,
+      id: 26,
       name: r'visibility',
       type: IsarType.doubleList,
     ),
     r'weathercode': PropertySchema(
-      id: 24,
+      id: 27,
       name: r'weathercode',
       type: IsarType.longList,
     ),
     r'weathercodeDaily': PropertySchema(
-      id: 25,
+      id: 28,
       name: r'weathercodeDaily',
       type: IsarType.longList,
     ),
     r'winddirection10M': PropertySchema(
-      id: 26,
+      id: 29,
       name: r'winddirection10M',
       type: IsarType.longList,
     ),
     r'winddirection10MDominant': PropertySchema(
-      id: 27,
+      id: 30,
       name: r'winddirection10MDominant',
       type: IsarType.longList,
     ),
     r'windgusts10M': PropertySchema(
-      id: 28,
+      id: 31,
       name: r'windgusts10M',
       type: IsarType.doubleList,
     ),
     r'windgusts10MMax': PropertySchema(
-      id: 29,
+      id: 32,
       name: r'windgusts10MMax',
       type: IsarType.doubleList,
     ),
     r'windspeed10M': PropertySchema(
-      id: 30,
+      id: 33,
       name: r'windspeed10M',
       type: IsarType.doubleList,
     ),
     r'windspeed10MMax': PropertySchema(
-      id: 31,
+      id: 34,
       name: r'windspeed10MMax',
       type: IsarType.doubleList,
     )
@@ -2184,6 +2617,12 @@ int _mainWeatherCacheEstimateSize(
     }
   }
   {
+    final value = object.dewpoint2M;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
     final value = object.evapotranspiration;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
@@ -2191,6 +2630,12 @@ int _mainWeatherCacheEstimateSize(
   }
   {
     final value = object.precipitation;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final value = object.precipitationProbability;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
     }
@@ -2221,6 +2666,12 @@ int _mainWeatherCacheEstimateSize(
   }
   {
     final value = object.relativehumidity2M;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final value = object.shortwaveRadiation;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
     }
@@ -2376,34 +2827,37 @@ void _mainWeatherCacheSerialize(
   writer.writeDoubleList(offsets[1], object.apparentTemperatureMax);
   writer.writeDoubleList(offsets[2], object.apparentTemperatureMin);
   writer.writeLongList(offsets[3], object.cloudcover);
-  writer.writeDoubleList(offsets[4], object.evapotranspiration);
-  writer.writeDoubleList(offsets[5], object.precipitation);
-  writer.writeLongList(offsets[6], object.precipitationProbabilityMax);
-  writer.writeDoubleList(offsets[7], object.precipitationSum);
-  writer.writeDoubleList(offsets[8], object.rain);
-  writer.writeDoubleList(offsets[9], object.rainSum);
-  writer.writeLongList(offsets[10], object.relativehumidity2M);
-  writer.writeStringList(offsets[11], object.sunrise);
-  writer.writeStringList(offsets[12], object.sunset);
-  writer.writeDoubleList(offsets[13], object.surfacePressure);
-  writer.writeDoubleList(offsets[14], object.temperature2M);
-  writer.writeDoubleList(offsets[15], object.temperature2MMax);
-  writer.writeDoubleList(offsets[16], object.temperature2MMin);
-  writer.writeStringList(offsets[17], object.time);
-  writer.writeDateTimeList(offsets[18], object.timeDaily);
-  writer.writeDateTime(offsets[19], object.timestamp);
-  writer.writeString(offsets[20], object.timezone);
-  writer.writeDoubleList(offsets[21], object.uvIndex);
-  writer.writeDoubleList(offsets[22], object.uvIndexMax);
-  writer.writeDoubleList(offsets[23], object.visibility);
-  writer.writeLongList(offsets[24], object.weathercode);
-  writer.writeLongList(offsets[25], object.weathercodeDaily);
-  writer.writeLongList(offsets[26], object.winddirection10M);
-  writer.writeLongList(offsets[27], object.winddirection10MDominant);
-  writer.writeDoubleList(offsets[28], object.windgusts10M);
-  writer.writeDoubleList(offsets[29], object.windgusts10MMax);
-  writer.writeDoubleList(offsets[30], object.windspeed10M);
-  writer.writeDoubleList(offsets[31], object.windspeed10MMax);
+  writer.writeDoubleList(offsets[4], object.dewpoint2M);
+  writer.writeDoubleList(offsets[5], object.evapotranspiration);
+  writer.writeDoubleList(offsets[6], object.precipitation);
+  writer.writeLongList(offsets[7], object.precipitationProbability);
+  writer.writeLongList(offsets[8], object.precipitationProbabilityMax);
+  writer.writeDoubleList(offsets[9], object.precipitationSum);
+  writer.writeDoubleList(offsets[10], object.rain);
+  writer.writeDoubleList(offsets[11], object.rainSum);
+  writer.writeLongList(offsets[12], object.relativehumidity2M);
+  writer.writeDoubleList(offsets[13], object.shortwaveRadiation);
+  writer.writeStringList(offsets[14], object.sunrise);
+  writer.writeStringList(offsets[15], object.sunset);
+  writer.writeDoubleList(offsets[16], object.surfacePressure);
+  writer.writeDoubleList(offsets[17], object.temperature2M);
+  writer.writeDoubleList(offsets[18], object.temperature2MMax);
+  writer.writeDoubleList(offsets[19], object.temperature2MMin);
+  writer.writeStringList(offsets[20], object.time);
+  writer.writeDateTimeList(offsets[21], object.timeDaily);
+  writer.writeDateTime(offsets[22], object.timestamp);
+  writer.writeString(offsets[23], object.timezone);
+  writer.writeDoubleList(offsets[24], object.uvIndex);
+  writer.writeDoubleList(offsets[25], object.uvIndexMax);
+  writer.writeDoubleList(offsets[26], object.visibility);
+  writer.writeLongList(offsets[27], object.weathercode);
+  writer.writeLongList(offsets[28], object.weathercodeDaily);
+  writer.writeLongList(offsets[29], object.winddirection10M);
+  writer.writeLongList(offsets[30], object.winddirection10MDominant);
+  writer.writeDoubleList(offsets[31], object.windgusts10M);
+  writer.writeDoubleList(offsets[32], object.windgusts10MMax);
+  writer.writeDoubleList(offsets[33], object.windspeed10M);
+  writer.writeDoubleList(offsets[34], object.windspeed10MMax);
 }
 
 MainWeatherCache _mainWeatherCacheDeserialize(
@@ -2417,34 +2871,37 @@ MainWeatherCache _mainWeatherCacheDeserialize(
     apparentTemperatureMax: reader.readDoubleOrNullList(offsets[1]),
     apparentTemperatureMin: reader.readDoubleOrNullList(offsets[2]),
     cloudcover: reader.readLongOrNullList(offsets[3]),
-    evapotranspiration: reader.readDoubleOrNullList(offsets[4]),
-    precipitation: reader.readDoubleOrNullList(offsets[5]),
-    precipitationProbabilityMax: reader.readLongOrNullList(offsets[6]),
-    precipitationSum: reader.readDoubleOrNullList(offsets[7]),
-    rain: reader.readDoubleOrNullList(offsets[8]),
-    rainSum: reader.readDoubleOrNullList(offsets[9]),
-    relativehumidity2M: reader.readLongOrNullList(offsets[10]),
-    sunrise: reader.readStringList(offsets[11]),
-    sunset: reader.readStringList(offsets[12]),
-    surfacePressure: reader.readDoubleOrNullList(offsets[13]),
-    temperature2M: reader.readDoubleList(offsets[14]),
-    temperature2MMax: reader.readDoubleOrNullList(offsets[15]),
-    temperature2MMin: reader.readDoubleOrNullList(offsets[16]),
-    time: reader.readStringList(offsets[17]),
-    timeDaily: reader.readDateTimeList(offsets[18]),
-    timestamp: reader.readDateTimeOrNull(offsets[19]),
-    timezone: reader.readStringOrNull(offsets[20]),
-    uvIndex: reader.readDoubleOrNullList(offsets[21]),
-    uvIndexMax: reader.readDoubleOrNullList(offsets[22]),
-    visibility: reader.readDoubleOrNullList(offsets[23]),
-    weathercode: reader.readLongList(offsets[24]),
-    weathercodeDaily: reader.readLongOrNullList(offsets[25]),
-    winddirection10M: reader.readLongOrNullList(offsets[26]),
-    winddirection10MDominant: reader.readLongOrNullList(offsets[27]),
-    windgusts10M: reader.readDoubleOrNullList(offsets[28]),
-    windgusts10MMax: reader.readDoubleOrNullList(offsets[29]),
-    windspeed10M: reader.readDoubleOrNullList(offsets[30]),
-    windspeed10MMax: reader.readDoubleOrNullList(offsets[31]),
+    dewpoint2M: reader.readDoubleOrNullList(offsets[4]),
+    evapotranspiration: reader.readDoubleOrNullList(offsets[5]),
+    precipitation: reader.readDoubleOrNullList(offsets[6]),
+    precipitationProbability: reader.readLongOrNullList(offsets[7]),
+    precipitationProbabilityMax: reader.readLongOrNullList(offsets[8]),
+    precipitationSum: reader.readDoubleOrNullList(offsets[9]),
+    rain: reader.readDoubleOrNullList(offsets[10]),
+    rainSum: reader.readDoubleOrNullList(offsets[11]),
+    relativehumidity2M: reader.readLongOrNullList(offsets[12]),
+    shortwaveRadiation: reader.readDoubleOrNullList(offsets[13]),
+    sunrise: reader.readStringList(offsets[14]),
+    sunset: reader.readStringList(offsets[15]),
+    surfacePressure: reader.readDoubleOrNullList(offsets[16]),
+    temperature2M: reader.readDoubleList(offsets[17]),
+    temperature2MMax: reader.readDoubleOrNullList(offsets[18]),
+    temperature2MMin: reader.readDoubleOrNullList(offsets[19]),
+    time: reader.readStringList(offsets[20]),
+    timeDaily: reader.readDateTimeList(offsets[21]),
+    timestamp: reader.readDateTimeOrNull(offsets[22]),
+    timezone: reader.readStringOrNull(offsets[23]),
+    uvIndex: reader.readDoubleOrNullList(offsets[24]),
+    uvIndexMax: reader.readDoubleOrNullList(offsets[25]),
+    visibility: reader.readDoubleOrNullList(offsets[26]),
+    weathercode: reader.readLongList(offsets[27]),
+    weathercodeDaily: reader.readLongOrNullList(offsets[28]),
+    winddirection10M: reader.readLongOrNullList(offsets[29]),
+    winddirection10MDominant: reader.readLongOrNullList(offsets[30]),
+    windgusts10M: reader.readDoubleOrNullList(offsets[31]),
+    windgusts10MMax: reader.readDoubleOrNullList(offsets[32]),
+    windspeed10M: reader.readDoubleOrNullList(offsets[33]),
+    windspeed10MMax: reader.readDoubleOrNullList(offsets[34]),
   );
   object.id = id;
   return object;
@@ -2470,56 +2927,62 @@ P _mainWeatherCacheDeserializeProp<P>(
     case 5:
       return (reader.readDoubleOrNullList(offset)) as P;
     case 6:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 7:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 8:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 9:
       return (reader.readDoubleOrNullList(offset)) as P;
     case 10:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 11:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 12:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 13:
       return (reader.readDoubleOrNullList(offset)) as P;
     case 14:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 15:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 16:
       return (reader.readDoubleOrNullList(offset)) as P;
     case 17:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 18:
-      return (reader.readDateTimeList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 19:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 20:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 21:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readDateTimeList(offset)) as P;
     case 22:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 23:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 24:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 25:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 26:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 27:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 28:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 29:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 30:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 31:
+      return (reader.readDoubleOrNullList(offset)) as P;
+    case 32:
+      return (reader.readDoubleOrNullList(offset)) as P;
+    case 33:
+      return (reader.readDoubleOrNullList(offset)) as P;
+    case 34:
       return (reader.readDoubleOrNullList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -3375,6 +3838,197 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'dewpoint2M',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'dewpoint2M',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'dewpoint2M',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'dewpoint2M',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MElementEqualTo(
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dewpoint2M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MElementGreaterThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dewpoint2M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dewpoint2M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MElementBetween(
+    double? lower,
+    double? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dewpoint2M',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      dewpoint2MLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
       evapotranspirationIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -3804,6 +4458,187 @@ extension MainWeatherCacheQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitation',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'precipitationProbability',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'precipitationProbability',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'precipitationProbability',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'precipitationProbability',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityElementEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'precipitationProbability',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityElementGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'precipitationProbability',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityElementLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'precipitationProbability',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityElementBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'precipitationProbability',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      precipitationProbabilityLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
         lower,
         includeLower,
         upper,
@@ -4739,6 +5574,197 @@ extension MainWeatherCacheQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'relativehumidity2M',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'shortwaveRadiation',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'shortwaveRadiation',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'shortwaveRadiation',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'shortwaveRadiation',
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationElementEqualTo(
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'shortwaveRadiation',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationElementGreaterThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'shortwaveRadiation',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'shortwaveRadiation',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationElementBetween(
+    double? lower,
+    double? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'shortwaveRadiation',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+      shortwaveRadiationLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
         lower,
         includeLower,
         upper,
@@ -8769,6 +9795,13 @@ extension MainWeatherCacheQueryWhereDistinct
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
+      distinctByDewpoint2M() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dewpoint2M');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
       distinctByEvapotranspiration() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'evapotranspiration');
@@ -8779,6 +9812,13 @@ extension MainWeatherCacheQueryWhereDistinct
       distinctByPrecipitation() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitation');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
+      distinctByPrecipitationProbability() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'precipitationProbability');
     });
   }
 
@@ -8813,6 +9853,13 @@ extension MainWeatherCacheQueryWhereDistinct
       distinctByRelativehumidity2M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'relativehumidity2M');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
+      distinctByShortwaveRadiation() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'shortwaveRadiation');
     });
   }
 
@@ -9000,6 +10047,13 @@ extension MainWeatherCacheQueryProperty
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
+      dewpoint2MProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dewpoint2M');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
       evapotranspirationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'evapotranspiration');
@@ -9010,6 +10064,13 @@ extension MainWeatherCacheQueryProperty
       precipitationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitation');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
+      precipitationProbabilityProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'precipitationProbability');
     });
   }
 
@@ -9045,6 +10106,13 @@ extension MainWeatherCacheQueryProperty
       relativehumidity2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'relativehumidity2M');
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
+      shortwaveRadiationProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'shortwaveRadiation');
     });
   }
 
@@ -10150,163 +11218,178 @@ const WeatherCardSchema = CollectionSchema(
       name: r'cloudcover',
       type: IsarType.longList,
     ),
-    r'district': PropertySchema(
+    r'dewpoint2M': PropertySchema(
       id: 5,
+      name: r'dewpoint2M',
+      type: IsarType.doubleList,
+    ),
+    r'district': PropertySchema(
+      id: 6,
       name: r'district',
       type: IsarType.string,
     ),
     r'evapotranspiration': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'evapotranspiration',
       type: IsarType.doubleList,
     ),
     r'index': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'index',
       type: IsarType.long,
     ),
     r'lat': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'lat',
       type: IsarType.double,
     ),
     r'lon': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'lon',
       type: IsarType.double,
     ),
     r'precipitation': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'precipitation',
       type: IsarType.doubleList,
     ),
+    r'precipitationProbability': PropertySchema(
+      id: 12,
+      name: r'precipitationProbability',
+      type: IsarType.longList,
+    ),
     r'precipitationProbabilityMax': PropertySchema(
-      id: 11,
+      id: 13,
       name: r'precipitationProbabilityMax',
       type: IsarType.longList,
     ),
     r'precipitationSum': PropertySchema(
-      id: 12,
+      id: 14,
       name: r'precipitationSum',
       type: IsarType.doubleList,
     ),
     r'rain': PropertySchema(
-      id: 13,
+      id: 15,
       name: r'rain',
       type: IsarType.doubleList,
     ),
     r'rainSum': PropertySchema(
-      id: 14,
+      id: 16,
       name: r'rainSum',
       type: IsarType.doubleList,
     ),
     r'relativehumidity2M': PropertySchema(
-      id: 15,
+      id: 17,
       name: r'relativehumidity2M',
       type: IsarType.longList,
     ),
+    r'shortwaveRadiation': PropertySchema(
+      id: 18,
+      name: r'shortwaveRadiation',
+      type: IsarType.doubleList,
+    ),
     r'sunrise': PropertySchema(
-      id: 16,
+      id: 19,
       name: r'sunrise',
       type: IsarType.stringList,
     ),
     r'sunset': PropertySchema(
-      id: 17,
+      id: 20,
       name: r'sunset',
       type: IsarType.stringList,
     ),
     r'surfacePressure': PropertySchema(
-      id: 18,
+      id: 21,
       name: r'surfacePressure',
       type: IsarType.doubleList,
     ),
     r'temperature2M': PropertySchema(
-      id: 19,
+      id: 22,
       name: r'temperature2M',
       type: IsarType.doubleList,
     ),
     r'temperature2MMax': PropertySchema(
-      id: 20,
+      id: 23,
       name: r'temperature2MMax',
       type: IsarType.doubleList,
     ),
     r'temperature2MMin': PropertySchema(
-      id: 21,
+      id: 24,
       name: r'temperature2MMin',
       type: IsarType.doubleList,
     ),
     r'time': PropertySchema(
-      id: 22,
+      id: 25,
       name: r'time',
       type: IsarType.stringList,
     ),
     r'timeDaily': PropertySchema(
-      id: 23,
+      id: 26,
       name: r'timeDaily',
       type: IsarType.dateTimeList,
     ),
     r'timestamp': PropertySchema(
-      id: 24,
+      id: 27,
       name: r'timestamp',
       type: IsarType.dateTime,
     ),
     r'timezone': PropertySchema(
-      id: 25,
+      id: 28,
       name: r'timezone',
       type: IsarType.string,
     ),
     r'uvIndex': PropertySchema(
-      id: 26,
+      id: 29,
       name: r'uvIndex',
       type: IsarType.doubleList,
     ),
     r'uvIndexMax': PropertySchema(
-      id: 27,
+      id: 30,
       name: r'uvIndexMax',
       type: IsarType.doubleList,
     ),
     r'visibility': PropertySchema(
-      id: 28,
+      id: 31,
       name: r'visibility',
       type: IsarType.doubleList,
     ),
     r'weathercode': PropertySchema(
-      id: 29,
+      id: 32,
       name: r'weathercode',
       type: IsarType.longList,
     ),
     r'weathercodeDaily': PropertySchema(
-      id: 30,
+      id: 33,
       name: r'weathercodeDaily',
       type: IsarType.longList,
     ),
     r'winddirection10M': PropertySchema(
-      id: 31,
+      id: 34,
       name: r'winddirection10M',
       type: IsarType.longList,
     ),
     r'winddirection10MDominant': PropertySchema(
-      id: 32,
+      id: 35,
       name: r'winddirection10MDominant',
       type: IsarType.longList,
     ),
     r'windgusts10M': PropertySchema(
-      id: 33,
+      id: 36,
       name: r'windgusts10M',
       type: IsarType.doubleList,
     ),
     r'windgusts10MMax': PropertySchema(
-      id: 34,
+      id: 37,
       name: r'windgusts10MMax',
       type: IsarType.doubleList,
     ),
     r'windspeed10M': PropertySchema(
-      id: 35,
+      id: 38,
       name: r'windspeed10M',
       type: IsarType.doubleList,
     ),
     r'windspeed10MMax': PropertySchema(
-      id: 36,
+      id: 39,
       name: r'windspeed10MMax',
       type: IsarType.doubleList,
     )
@@ -10362,6 +11445,12 @@ int _weatherCardEstimateSize(
     }
   }
   {
+    final value = object.dewpoint2M;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
     final value = object.district;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -10375,6 +11464,12 @@ int _weatherCardEstimateSize(
   }
   {
     final value = object.precipitation;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final value = object.precipitationProbability;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
     }
@@ -10405,6 +11500,12 @@ int _weatherCardEstimateSize(
   }
   {
     final value = object.relativehumidity2M;
+    if (value != null) {
+      bytesCount += 3 + value.length * 8;
+    }
+  }
+  {
+    final value = object.shortwaveRadiation;
     if (value != null) {
       bytesCount += 3 + value.length * 8;
     }
@@ -10561,38 +11662,41 @@ void _weatherCardSerialize(
   writer.writeDoubleList(offsets[2], object.apparentTemperatureMin);
   writer.writeString(offsets[3], object.city);
   writer.writeLongList(offsets[4], object.cloudcover);
-  writer.writeString(offsets[5], object.district);
-  writer.writeDoubleList(offsets[6], object.evapotranspiration);
-  writer.writeLong(offsets[7], object.index);
-  writer.writeDouble(offsets[8], object.lat);
-  writer.writeDouble(offsets[9], object.lon);
-  writer.writeDoubleList(offsets[10], object.precipitation);
-  writer.writeLongList(offsets[11], object.precipitationProbabilityMax);
-  writer.writeDoubleList(offsets[12], object.precipitationSum);
-  writer.writeDoubleList(offsets[13], object.rain);
-  writer.writeDoubleList(offsets[14], object.rainSum);
-  writer.writeLongList(offsets[15], object.relativehumidity2M);
-  writer.writeStringList(offsets[16], object.sunrise);
-  writer.writeStringList(offsets[17], object.sunset);
-  writer.writeDoubleList(offsets[18], object.surfacePressure);
-  writer.writeDoubleList(offsets[19], object.temperature2M);
-  writer.writeDoubleList(offsets[20], object.temperature2MMax);
-  writer.writeDoubleList(offsets[21], object.temperature2MMin);
-  writer.writeStringList(offsets[22], object.time);
-  writer.writeDateTimeList(offsets[23], object.timeDaily);
-  writer.writeDateTime(offsets[24], object.timestamp);
-  writer.writeString(offsets[25], object.timezone);
-  writer.writeDoubleList(offsets[26], object.uvIndex);
-  writer.writeDoubleList(offsets[27], object.uvIndexMax);
-  writer.writeDoubleList(offsets[28], object.visibility);
-  writer.writeLongList(offsets[29], object.weathercode);
-  writer.writeLongList(offsets[30], object.weathercodeDaily);
-  writer.writeLongList(offsets[31], object.winddirection10M);
-  writer.writeLongList(offsets[32], object.winddirection10MDominant);
-  writer.writeDoubleList(offsets[33], object.windgusts10M);
-  writer.writeDoubleList(offsets[34], object.windgusts10MMax);
-  writer.writeDoubleList(offsets[35], object.windspeed10M);
-  writer.writeDoubleList(offsets[36], object.windspeed10MMax);
+  writer.writeDoubleList(offsets[5], object.dewpoint2M);
+  writer.writeString(offsets[6], object.district);
+  writer.writeDoubleList(offsets[7], object.evapotranspiration);
+  writer.writeLong(offsets[8], object.index);
+  writer.writeDouble(offsets[9], object.lat);
+  writer.writeDouble(offsets[10], object.lon);
+  writer.writeDoubleList(offsets[11], object.precipitation);
+  writer.writeLongList(offsets[12], object.precipitationProbability);
+  writer.writeLongList(offsets[13], object.precipitationProbabilityMax);
+  writer.writeDoubleList(offsets[14], object.precipitationSum);
+  writer.writeDoubleList(offsets[15], object.rain);
+  writer.writeDoubleList(offsets[16], object.rainSum);
+  writer.writeLongList(offsets[17], object.relativehumidity2M);
+  writer.writeDoubleList(offsets[18], object.shortwaveRadiation);
+  writer.writeStringList(offsets[19], object.sunrise);
+  writer.writeStringList(offsets[20], object.sunset);
+  writer.writeDoubleList(offsets[21], object.surfacePressure);
+  writer.writeDoubleList(offsets[22], object.temperature2M);
+  writer.writeDoubleList(offsets[23], object.temperature2MMax);
+  writer.writeDoubleList(offsets[24], object.temperature2MMin);
+  writer.writeStringList(offsets[25], object.time);
+  writer.writeDateTimeList(offsets[26], object.timeDaily);
+  writer.writeDateTime(offsets[27], object.timestamp);
+  writer.writeString(offsets[28], object.timezone);
+  writer.writeDoubleList(offsets[29], object.uvIndex);
+  writer.writeDoubleList(offsets[30], object.uvIndexMax);
+  writer.writeDoubleList(offsets[31], object.visibility);
+  writer.writeLongList(offsets[32], object.weathercode);
+  writer.writeLongList(offsets[33], object.weathercodeDaily);
+  writer.writeLongList(offsets[34], object.winddirection10M);
+  writer.writeLongList(offsets[35], object.winddirection10MDominant);
+  writer.writeDoubleList(offsets[36], object.windgusts10M);
+  writer.writeDoubleList(offsets[37], object.windgusts10MMax);
+  writer.writeDoubleList(offsets[38], object.windspeed10M);
+  writer.writeDoubleList(offsets[39], object.windspeed10MMax);
 }
 
 WeatherCard _weatherCardDeserialize(
@@ -10607,38 +11711,41 @@ WeatherCard _weatherCardDeserialize(
     apparentTemperatureMin: reader.readDoubleOrNullList(offsets[2]),
     city: reader.readStringOrNull(offsets[3]),
     cloudcover: reader.readLongOrNullList(offsets[4]),
-    district: reader.readStringOrNull(offsets[5]),
-    evapotranspiration: reader.readDoubleOrNullList(offsets[6]),
-    index: reader.readLongOrNull(offsets[7]),
-    lat: reader.readDoubleOrNull(offsets[8]),
-    lon: reader.readDoubleOrNull(offsets[9]),
-    precipitation: reader.readDoubleOrNullList(offsets[10]),
-    precipitationProbabilityMax: reader.readLongOrNullList(offsets[11]),
-    precipitationSum: reader.readDoubleOrNullList(offsets[12]),
-    rain: reader.readDoubleOrNullList(offsets[13]),
-    rainSum: reader.readDoubleOrNullList(offsets[14]),
-    relativehumidity2M: reader.readLongOrNullList(offsets[15]),
-    sunrise: reader.readStringList(offsets[16]),
-    sunset: reader.readStringList(offsets[17]),
-    surfacePressure: reader.readDoubleOrNullList(offsets[18]),
-    temperature2M: reader.readDoubleList(offsets[19]),
-    temperature2MMax: reader.readDoubleOrNullList(offsets[20]),
-    temperature2MMin: reader.readDoubleOrNullList(offsets[21]),
-    time: reader.readStringList(offsets[22]),
-    timeDaily: reader.readDateTimeList(offsets[23]),
-    timestamp: reader.readDateTimeOrNull(offsets[24]),
-    timezone: reader.readStringOrNull(offsets[25]),
-    uvIndex: reader.readDoubleOrNullList(offsets[26]),
-    uvIndexMax: reader.readDoubleOrNullList(offsets[27]),
-    visibility: reader.readDoubleOrNullList(offsets[28]),
-    weathercode: reader.readLongList(offsets[29]),
-    weathercodeDaily: reader.readLongOrNullList(offsets[30]),
-    winddirection10M: reader.readLongOrNullList(offsets[31]),
-    winddirection10MDominant: reader.readLongOrNullList(offsets[32]),
-    windgusts10M: reader.readDoubleOrNullList(offsets[33]),
-    windgusts10MMax: reader.readDoubleOrNullList(offsets[34]),
-    windspeed10M: reader.readDoubleOrNullList(offsets[35]),
-    windspeed10MMax: reader.readDoubleOrNullList(offsets[36]),
+    dewpoint2M: reader.readDoubleOrNullList(offsets[5]),
+    district: reader.readStringOrNull(offsets[6]),
+    evapotranspiration: reader.readDoubleOrNullList(offsets[7]),
+    index: reader.readLongOrNull(offsets[8]),
+    lat: reader.readDoubleOrNull(offsets[9]),
+    lon: reader.readDoubleOrNull(offsets[10]),
+    precipitation: reader.readDoubleOrNullList(offsets[11]),
+    precipitationProbability: reader.readLongOrNullList(offsets[12]),
+    precipitationProbabilityMax: reader.readLongOrNullList(offsets[13]),
+    precipitationSum: reader.readDoubleOrNullList(offsets[14]),
+    rain: reader.readDoubleOrNullList(offsets[15]),
+    rainSum: reader.readDoubleOrNullList(offsets[16]),
+    relativehumidity2M: reader.readLongOrNullList(offsets[17]),
+    shortwaveRadiation: reader.readDoubleOrNullList(offsets[18]),
+    sunrise: reader.readStringList(offsets[19]),
+    sunset: reader.readStringList(offsets[20]),
+    surfacePressure: reader.readDoubleOrNullList(offsets[21]),
+    temperature2M: reader.readDoubleList(offsets[22]),
+    temperature2MMax: reader.readDoubleOrNullList(offsets[23]),
+    temperature2MMin: reader.readDoubleOrNullList(offsets[24]),
+    time: reader.readStringList(offsets[25]),
+    timeDaily: reader.readDateTimeList(offsets[26]),
+    timestamp: reader.readDateTimeOrNull(offsets[27]),
+    timezone: reader.readStringOrNull(offsets[28]),
+    uvIndex: reader.readDoubleOrNullList(offsets[29]),
+    uvIndexMax: reader.readDoubleOrNullList(offsets[30]),
+    visibility: reader.readDoubleOrNullList(offsets[31]),
+    weathercode: reader.readLongList(offsets[32]),
+    weathercodeDaily: reader.readLongOrNullList(offsets[33]),
+    winddirection10M: reader.readLongOrNullList(offsets[34]),
+    winddirection10MDominant: reader.readLongOrNullList(offsets[35]),
+    windgusts10M: reader.readDoubleOrNullList(offsets[36]),
+    windgusts10MMax: reader.readDoubleOrNullList(offsets[37]),
+    windspeed10M: reader.readDoubleOrNullList(offsets[38]),
+    windspeed10MMax: reader.readDoubleOrNullList(offsets[39]),
   );
   object.id = id;
   return object;
@@ -10662,68 +11769,74 @@ P _weatherCardDeserializeProp<P>(
     case 4:
       return (reader.readLongOrNullList(offset)) as P;
     case 5:
-      return (reader.readStringOrNull(offset)) as P;
-    case 6:
       return (reader.readDoubleOrNullList(offset)) as P;
+    case 6:
+      return (reader.readStringOrNull(offset)) as P;
     case 7:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 8:
-      return (reader.readDoubleOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 9:
       return (reader.readDoubleOrNull(offset)) as P;
     case 10:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 11:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 12:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 13:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 14:
       return (reader.readDoubleOrNullList(offset)) as P;
     case 15:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 16:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 17:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 18:
       return (reader.readDoubleOrNullList(offset)) as P;
     case 19:
-      return (reader.readDoubleList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 20:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 21:
       return (reader.readDoubleOrNullList(offset)) as P;
     case 22:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readDoubleList(offset)) as P;
     case 23:
-      return (reader.readDateTimeList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 24:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 25:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 26:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readDateTimeList(offset)) as P;
     case 27:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 28:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 29:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 30:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 31:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readDoubleOrNullList(offset)) as P;
     case 32:
-      return (reader.readLongOrNullList(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 33:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 34:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 35:
-      return (reader.readDoubleOrNullList(offset)) as P;
+      return (reader.readLongOrNullList(offset)) as P;
     case 36:
+      return (reader.readDoubleOrNullList(offset)) as P;
+    case 37:
+      return (reader.readDoubleOrNullList(offset)) as P;
+    case 38:
+      return (reader.readDoubleOrNullList(offset)) as P;
+    case 39:
       return (reader.readDoubleOrNullList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -11726,6 +12839,197 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'dewpoint2M',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'dewpoint2M',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'dewpoint2M',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'dewpoint2M',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MElementEqualTo(
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dewpoint2M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MElementGreaterThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dewpoint2M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dewpoint2M',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MElementBetween(
+    double? lower,
+    double? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dewpoint2M',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      dewpoint2MLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'dewpoint2M',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
       districtIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -12532,6 +13836,187 @@ extension WeatherCardQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitation',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'precipitationProbability',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'precipitationProbability',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'precipitationProbability',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'precipitationProbability',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityElementEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'precipitationProbability',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityElementGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'precipitationProbability',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityElementLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'precipitationProbability',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityElementBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'precipitationProbability',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      precipitationProbabilityLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'precipitationProbability',
         lower,
         includeLower,
         upper,
@@ -13465,6 +14950,197 @@ extension WeatherCardQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'relativehumidity2M',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'shortwaveRadiation',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'shortwaveRadiation',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNull(
+        property: r'shortwaveRadiation',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
+        property: r'shortwaveRadiation',
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationElementEqualTo(
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'shortwaveRadiation',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationElementGreaterThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'shortwaveRadiation',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'shortwaveRadiation',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationElementBetween(
+    double? lower,
+    double? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'shortwaveRadiation',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+      shortwaveRadiationLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'shortwaveRadiation',
         lower,
         includeLower,
         upper,
@@ -17607,6 +19283,12 @@ extension WeatherCardQueryWhereDistinct
     });
   }
 
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByDewpoint2M() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dewpoint2M');
+    });
+  }
+
   QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByDistrict(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -17646,6 +19328,13 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
+      distinctByPrecipitationProbability() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'precipitationProbability');
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
       distinctByPrecipitationProbabilityMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationProbabilityMax');
@@ -17675,6 +19364,13 @@ extension WeatherCardQueryWhereDistinct
       distinctByRelativehumidity2M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'relativehumidity2M');
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct>
+      distinctByShortwaveRadiation() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'shortwaveRadiation');
     });
   }
 
@@ -17856,6 +19552,13 @@ extension WeatherCardQueryProperty
     });
   }
 
+  QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
+      dewpoint2MProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dewpoint2M');
+    });
+  }
+
   QueryBuilder<WeatherCard, String?, QQueryOperations> districtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'district');
@@ -17895,6 +19598,13 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
+      precipitationProbabilityProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'precipitationProbability');
+    });
+  }
+
+  QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
       precipitationProbabilityMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitationProbabilityMax');
@@ -17925,6 +19635,13 @@ extension WeatherCardQueryProperty
       relativehumidity2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'relativehumidity2M');
+    });
+  }
+
+  QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
+      shortwaveRadiationProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'shortwaveRadiation');
     });
   }
 

@@ -17,12 +17,13 @@ import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
 import 'package:rain/theme/theme.dart';
 import 'package:time_machine/time_machine.dart';
-import 'package:workmanager/workmanager.dart';
-import 'app/data/weather.dart';
-import 'translation/translation.dart';
-import 'theme/theme_controller.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:workmanager/workmanager.dart';
+
+import 'app/data/weather.dart';
+import 'theme/theme_controller.dart';
+import 'translation/translation.dart';
 
 late Isar isar;
 late Settings settings;
@@ -37,22 +38,29 @@ Locale locale = const Locale('en', 'US');
 int timeRange = 1;
 String timeStart = '09:00';
 String timeEnd = '21:00';
+String widgetBackgroundColor = '';
+String widgetTextColor = '';
 
 final List appLanguages = [
-  {'name': 'English', 'locale': const Locale('en', 'US')},
-  {'name': 'Русский', 'locale': const Locale('ru', 'RU')},
-  {'name': 'italiano', 'locale': const Locale('it', 'IT')},
+  {'name': 'বাংলা', 'locale': const Locale('bn', 'IN')},
+  {'name': 'Čeština', 'locale': const Locale('cs', 'CZ')},
   {'name': 'Deutsch', 'locale': const Locale('de', 'DE')},
-  {'name': 'Français', 'locale': const Locale('fr', 'FR')},
-  {'name': 'Türkçe', 'locale': const Locale('tr', 'TR')},
-  {'name': 'Brasileiro', 'locale': const Locale('pt', 'BR')},
+  {'name': 'English', 'locale': const Locale('en', 'US')},
   {'name': 'Español', 'locale': const Locale('es', 'ES')},
-  {'name': 'Slovenčina', 'locale': const Locale('sk', 'SK')},
-  {'name': 'Nederlands', 'locale': const Locale('nl', 'NL')},
+  {'name': 'Français', 'locale': const Locale('fr', 'FR')},
+  {'name': 'Gaeilge', 'locale': const Locale('ga', 'IE')},
   {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
-  {'name': 'Română', 'locale': const Locale('ro', 'RO')},
-  {'name': '中文', 'locale': const Locale('zh', 'CN')},
+  {'name': 'Italiano', 'locale': const Locale('it', 'IT')},
+  {'name': 'ქართული', 'locale': const Locale('ka', 'GE')},
+  {'name': 'Nederlands', 'locale': const Locale('nl', 'NL')},
   {'name': 'Polski', 'locale': const Locale('pl', 'PL')},
+  {'name': 'Português (Brasil)', 'locale': const Locale('pt', 'BR')},
+  {'name': 'Română', 'locale': const Locale('ro', 'RO')},
+  {'name': 'Русский', 'locale': const Locale('ru', 'RU')},
+  {'name': 'Slovenčina', 'locale': const Locale('sk', 'SK')},
+  {'name': 'Türkçe', 'locale': const Locale('tr', 'TR')},
+  {'name': 'اردو', 'locale': const Locale('ur', 'PK')},
+  {'name': '中文', 'locale': const Locale('zh', 'CN')},
 ];
 
 const String appGroupId = 'DARK NIGHT';
@@ -135,7 +143,7 @@ Future<void> isarInit() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   static Future<void> updateAppState(
     BuildContext context, {
@@ -145,6 +153,8 @@ class MyApp extends StatefulWidget {
     int? newTimeRange,
     String? newTimeStart,
     String? newTimeEnd,
+    String? newWidgetBackgroundColor,
+    String? newWidgetTextColor,
   }) async {
     final state = context.findAncestorStateOfType<_MyAppState>()!;
 
@@ -165,6 +175,12 @@ class MyApp extends StatefulWidget {
     }
     if (newTimeEnd != null) {
       state.changeTimeEnd(newTimeEnd);
+    }
+    if (newWidgetBackgroundColor != null) {
+      state.changeWidgetBackgroundColor(newWidgetBackgroundColor);
+    }
+    if (newWidgetTextColor != null) {
+      state.changeWidgetTextColor(newWidgetTextColor);
     }
   }
 
@@ -211,6 +227,18 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void changeWidgetBackgroundColor(String newWidgetBackgroundColor) {
+    setState(() {
+      widgetBackgroundColor = newWidgetBackgroundColor;
+    });
+  }
+
+  void changeWidgetTextColor(String newWidgetTextColor) {
+    setState(() {
+      widgetTextColor = newWidgetTextColor;
+    });
+  }
+
   @override
   void initState() {
     amoledTheme = settings.amoledTheme;
@@ -220,6 +248,8 @@ class _MyAppState extends State<MyApp> {
     timeRange = settings.timeRange ?? 1;
     timeStart = settings.timeStart ?? '09:00';
     timeEnd = settings.timeEnd ?? '21:00';
+    widgetBackgroundColor = settings.widgetBackgroundColor ?? '';
+    widgetTextColor = settings.widgetTextColor ?? '';
     if (Platform.isAndroid) {
       HomeWidget.setAppGroupId(appGroupId);
     }

@@ -8,19 +8,19 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:isar/isar.dart';
+import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/services/notification.dart';
 import 'package:rain/app/services/utils.dart';
-import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
+import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/main.dart';
-import 'package:timezone/standalone.dart' as tz;
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/standalone.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
 
 class WeatherController extends GetxController {
@@ -177,8 +177,8 @@ class WeatherController extends GetxController {
 
     if (Platform.isAndroid) {
       Workmanager().registerPeriodicTask(
-        "widgetUpdate",
-        "widgetBackgroundUpdate",
+        'widgetUpdate',
+        'widgetBackgroundUpdate',
         frequency: const Duration(minutes: 15),
         existingWorkPolicy: ExistingWorkPolicy.update,
       );
@@ -290,18 +290,23 @@ class WeatherController extends GetxController {
       isar.writeTxnSync(() {
         oldCard
           ..time = updatedCard.time
+          ..weathercode = updatedCard.weathercode
           ..temperature2M = updatedCard.temperature2M
-          ..relativehumidity2M = updatedCard.relativehumidity2M
           ..apparentTemperature = updatedCard.apparentTemperature
+          ..relativehumidity2M = updatedCard.relativehumidity2M
           ..precipitation = updatedCard.precipitation
           ..rain = updatedCard.rain
-          ..weathercode = updatedCard.weathercode
           ..surfacePressure = updatedCard.surfacePressure
           ..visibility = updatedCard.visibility
           ..evapotranspiration = updatedCard.evapotranspiration
           ..windspeed10M = updatedCard.windspeed10M
           ..winddirection10M = updatedCard.winddirection10M
           ..windgusts10M = updatedCard.windgusts10M
+          ..cloudcover = updatedCard.cloudcover
+          ..uvIndex = updatedCard.uvIndex
+          ..dewpoint2M = updatedCard.dewpoint2M
+          ..precipitationProbability = updatedCard.precipitationProbability
+          ..shortwaveRadiation = updatedCard.shortwaveRadiation
           ..timeDaily = updatedCard.timeDaily
           ..weathercodeDaily = updatedCard.weathercodeDaily
           ..temperature2MMax = updatedCard.temperature2MMax
@@ -346,18 +351,23 @@ class WeatherController extends GetxController {
     isar.writeTxnSync(() {
       weatherCard
         ..time = updatedCard.time
+        ..weathercode = updatedCard.weathercode
         ..temperature2M = updatedCard.temperature2M
-        ..relativehumidity2M = updatedCard.relativehumidity2M
         ..apparentTemperature = updatedCard.apparentTemperature
+        ..relativehumidity2M = updatedCard.relativehumidity2M
         ..precipitation = updatedCard.precipitation
         ..rain = updatedCard.rain
-        ..weathercode = updatedCard.weathercode
         ..surfacePressure = updatedCard.surfacePressure
         ..visibility = updatedCard.visibility
         ..evapotranspiration = updatedCard.evapotranspiration
         ..windspeed10M = updatedCard.windspeed10M
         ..winddirection10M = updatedCard.winddirection10M
         ..windgusts10M = updatedCard.windgusts10M
+        ..cloudcover = updatedCard.cloudcover
+        ..uvIndex = updatedCard.uvIndex
+        ..dewpoint2M = updatedCard.dewpoint2M
+        ..precipitationProbability = updatedCard.precipitationProbability
+        ..shortwaveRadiation = updatedCard.shortwaveRadiation
         ..timeDaily = updatedCard.timeDaily
         ..weathercodeDaily = updatedCard.weathercodeDaily
         ..temperature2MMax = updatedCard.temperature2MMax
@@ -484,6 +494,40 @@ class WeatherController extends GetxController {
       item.index = i;
       isar.writeTxnSync(() => isar.weatherCards.putSync(item));
     }
+  }
+
+  Future<bool> updateWidgetBackgroundColor(String color) async {
+    settings.widgetBackgroundColor = color;
+    isar.writeTxnSync(() {
+      isar.settings.putSync(settings);
+    });
+
+    return Future.wait<bool?>([
+      HomeWidget.saveWidgetData(
+        'background_color',
+        color,
+      ),
+      HomeWidget.updateWidget(androidName: androidWidgetName),
+    ]).then((value) {
+      return !value.contains(false);
+    });
+  }
+
+  Future<bool> updateWidgetTextColor(String color) async {
+    settings.widgetTextColor = color;
+    isar.writeTxnSync(() {
+      isar.settings.putSync(settings);
+    });
+
+    return Future.wait<bool?>([
+      HomeWidget.saveWidgetData(
+        'text_color',
+        color,
+      ),
+      HomeWidget.updateWidget(androidName: androidWidgetName),
+    ]).then((value) {
+      return !value.contains(false);
+    });
   }
 
   Future<bool> updateWidget() async {

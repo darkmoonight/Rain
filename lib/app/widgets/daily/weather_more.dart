@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/daily/info_daily_card.dart';
 import 'package:rain/app/widgets/daily/list_daily_card.dart';
 
@@ -9,7 +10,7 @@ class WeatherMore extends StatefulWidget {
     super.key,
     required this.weatherData,
   });
-  final Map<String, dynamic> weatherData;
+  final WeatherCard weatherData;
 
   @override
   State<WeatherMore> createState() => _WeatherMoreState();
@@ -18,6 +19,10 @@ class WeatherMore extends StatefulWidget {
 class _WeatherMoreState extends State<WeatherMore> {
   @override
   Widget build(BuildContext context) {
+    const transparent = Colors.transparent;
+    final weatherData = widget.weatherData;
+    final timeDaily = weatherData.timeDaily ?? [];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -30,8 +35,8 @@ class _WeatherMoreState extends State<WeatherMore> {
             Iconsax.arrow_left_1,
             size: 20,
           ),
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+          splashColor: transparent,
+          highlightColor: transparent,
         ),
         title: Text(
           'weatherMore'.tr,
@@ -43,20 +48,20 @@ class _WeatherMoreState extends State<WeatherMore> {
       ),
       body: SafeArea(
         child: ListView.builder(
-          itemCount: widget.weatherData['timeDaily'].length,
+          itemCount: timeDaily.length,
           itemBuilder: (context, index) => GestureDetector(
             onTap: () => Get.to(
               () => InfoDailyCard(
-                weatherData: widget.weatherData,
+                weatherData: weatherData,
                 index: index,
               ),
               transition: Transition.downToUp,
             ),
             child: ListDailyCard(
-              timeDaily: widget.weatherData['timeDaily'][index],
-              weathercodeDaily: widget.weatherData['weathercodeDaily'][index],
-              temperature2MMax: widget.weatherData['temperature2MMax'][index],
-              temperature2MMin: widget.weatherData['temperature2MMin'][index],
+              timeDaily: timeDaily[index],
+              weathercodeDaily: weatherData.weathercodeDaily![index],
+              temperature2MMax: weatherData.temperature2MMax![index],
+              temperature2MMin: weatherData.temperature2MMin![index],
             ),
           ),
         ),

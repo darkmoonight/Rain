@@ -3,10 +3,11 @@ import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/desc/desc.dart';
 import 'package:rain/app/widgets/desc/message.dart';
-import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
+import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/app/widgets/sun_moon/sunset_sunrise.dart';
 import 'package:rain/main.dart';
 
@@ -16,7 +17,8 @@ class InfoDailyCard extends StatefulWidget {
     required this.weatherData,
     required this.index,
   });
-  final Map<String, dynamic> weatherData;
+
+  final WeatherCard weatherData;
   final int index;
 
   @override
@@ -45,6 +47,12 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
 
   @override
   Widget build(BuildContext context) {
+    final weatherData = widget.weatherData;
+    final timeDaily = weatherData.timeDaily ?? [];
+    final weatherCodeDaily = weatherData.weathercodeDaily ?? [];
+
+    final textTheme = context.textTheme;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -61,9 +69,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
           highlightColor: Colors.transparent,
         ),
         title: Text(
-          DateFormat.MMMMEEEEd(locale.languageCode)
-              .format(widget.weatherData['timeDaily'][pageIndex]),
-          style: context.textTheme.titleMedium?.copyWith(
+          DateFormat.MMMMEEEEd(locale.languageCode).format(timeDaily[pageIndex]),
+          style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
@@ -77,9 +84,20 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
               pageIndex = index;
             });
           },
-          itemCount: widget.weatherData['timeDaily'].length,
+          itemCount: timeDaily.length,
           itemBuilder: (context, index) {
-            return widget.weatherData['weathercodeDaily'][index] == null
+            final indexedWeatherCodeDaily = weatherCodeDaily[index];
+            final apparentTemperatureMin = weatherData.apparentTemperatureMin?[index];
+            final apparentTemperatureMax = weatherData.apparentTemperatureMax?[index];
+            final uvIndexMax = weatherData.uvIndexMax?[index];
+            final windDirection10MDominant = weatherData.winddirection10MDominant?[index];
+            final windSpeed10MMax = weatherData.windspeed10MMax?[index];
+            final windGusts10MMax = weatherData.windgusts10MMax?[index];
+            final precipitationProbabilityMax = weatherData.precipitationProbabilityMax?[index];
+            final rainSum = weatherData.rainSum?[index];
+            final precipitationSum = weatherData.precipitationSum?[index];
+
+            return indexedWeatherCodeDaily == null
                 ? null
                 : Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -90,16 +108,19 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                           children: [
                             const SizedBox(height: 15),
                             Image(
-                              image: AssetImage(statusWeather.getImageNowDaily(
-                                  widget.weatherData['weathercodeDaily'][index],
-                                  widget.weatherData['timeDaily'][index])),
+                              image: AssetImage(
+                                statusWeather.getImageNowDaily(
+                                  indexedWeatherCodeDaily,
+                                  timeDaily[index],
+                                ),
+                              ),
                               fit: BoxFit.fill,
                               height: 200,
                             ),
                             const SizedBox(height: 10),
                             GlowText(
-                              '${widget.weatherData['temperature2MMin'][index].round()} / ${widget.weatherData['temperature2MMax'][index].round()}',
-                              style: context.textTheme.titleLarge?.copyWith(
+                              '${weatherData.temperature2MMin![index]?.round()} / ${weatherData.temperature2MMax![index]?.round()}',
+                              style: textTheme.titleLarge?.copyWith(
                                 fontSize: 35,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -107,15 +128,13 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              statusWeather.getText(widget
-                                  .weatherData['weathercodeDaily'][index]),
-                              style: context.textTheme.titleLarge,
+                              statusWeather.getText(indexedWeatherCodeDaily),
+                              style: textTheme.titleLarge,
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              DateFormat.MMMMEEEEd(locale.languageCode).format(
-                                  widget.weatherData['timeDaily'][index]),
-                              style: context.textTheme.labelLarge?.copyWith(
+                              DateFormat.MMMMEEEEd(locale.languageCode).format(timeDaily[index]),
+                              style: textTheme.labelLarge?.copyWith(
                                 color: Colors.grey,
                                 fontSize: 16,
                               ),
@@ -125,8 +144,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                         Padding(
                           padding: const EdgeInsets.only(top: 15),
                           child: SunsetSunrise(
-                            timeSunrise: widget.weatherData['sunrise'][index],
-                            timeSunset: widget.weatherData['sunset'][index],
+                            timeSunrise: weatherData.sunrise![index],
+                            timeSunset: weatherData.sunset![index],
                           ),
                         ),
                         Card(
@@ -137,105 +156,69 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                               alignment: WrapAlignment.spaceEvenly,
                               spacing: 5,
                               children: [
-                                widget.weatherData['apparentTemperatureMin']
-                                            [index] ==
-                                        null
-                                    ? Container()
+                                apparentTemperatureMin == null
+                                    ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/cold.png',
-                                        value: statusData.getDegree(widget
-                                            .weatherData[
-                                                'apparentTemperatureMin'][index]
-                                            .round()),
+                                        value: statusData.getDegree(apparentTemperatureMin.round()),
                                         desc: 'apparentTemperatureMin'.tr,
                                       ),
-                                widget.weatherData['apparentTemperatureMax']
-                                            [index] ==
-                                        null
-                                    ? Container()
+                                apparentTemperatureMax == null
+                                    ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/hot.png',
-                                        value: statusData.getDegree(widget
-                                            .weatherData[
-                                                'apparentTemperatureMax'][index]
-                                            .round()),
+                                        value: statusData.getDegree(apparentTemperatureMax.round()),
                                         desc: 'apparentTemperatureMax'.tr,
                                       ),
-                                widget.weatherData['uvIndexMax'][index] == null
-                                    ? Container()
+                                uvIndexMax == null
+                                    ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/uv.png',
-                                        value:
-                                            '${widget.weatherData['uvIndexMax'][index].round()}',
+                                        value: '${uvIndexMax.round()}',
                                         desc: 'uvIndex'.tr,
-                                        message: message.getUvIndex(widget
-                                            .weatherData['uvIndexMax'][index]
-                                            .round()),
+                                        message: message.getUvIndex(uvIndexMax.round()),
                                       ),
-                                widget.weatherData['winddirection10MDominant']
-                                            [index] ==
-                                        null
-                                    ? Container()
+                                windDirection10MDominant == null
+                                    ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/windsock.png',
-                                        value:
-                                            '${widget.weatherData['winddirection10MDominant'][index]}°',
+                                        value: '$windDirection10MDominant°',
                                         desc: 'direction'.tr,
-                                        message: message.getDirection(widget
-                                                .weatherData[
-                                            'winddirection10MDominant'][index]),
+                                        message: message.getDirection(windDirection10MDominant),
                                       ),
-                                widget.weatherData['windspeed10MMax'][index] ==
-                                        null
-                                    ? Container()
+                                windSpeed10MMax == null
+                                    ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/wind.png',
-                                        value: statusData.getSpeed(widget
-                                            .weatherData['windspeed10MMax']
-                                                [index]
-                                            .round()),
+                                        value: statusData.getSpeed(windSpeed10MMax.round()),
                                         desc: 'wind'.tr,
                                       ),
-                                widget.weatherData['windgusts10MMax'][index] ==
-                                        null
-                                    ? Container()
+                                windGusts10MMax == null
+                                    ? const Offstage()
                                     : DescWeather(
-                                        imageName:
-                                            'assets/images/windgusts.png',
-                                        value: statusData.getSpeed(widget
-                                            .weatherData['windgusts10MMax']
-                                                [index]
-                                            .round()),
+                                        imageName: 'assets/images/windgusts.png',
+                                        value: statusData.getSpeed(windGusts10MMax.round()),
                                         desc: 'windgusts'.tr,
                                       ),
-                                widget.weatherData[
-                                                'precipitationProbabilityMax']
-                                            [index] ==
-                                        null
-                                    ? Container()
+                                precipitationProbabilityMax == null
+                                    ? const Offstage()
                                     : DescWeather(
-                                        imageName: 'assets/images/humidity.png',
-                                        value:
-                                            '${widget.weatherData['precipitationProbabilityMax'][index]}%',
-                                        desc: 'precipitationProbabilit'.tr,
+                                        imageName: 'assets/images/precipitation_probability.png',
+                                        value: '$precipitationProbabilityMax%',
+                                        desc: 'precipitationProbability'.tr,
                                       ),
-                                widget.weatherData['rainSum'][index] == null
-                                    ? Container()
+                                rainSum == null
+                                    ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/water.png',
-                                        value: statusData.getPrecipitation(
-                                            widget.weatherData['rainSum']
-                                                [index]),
+                                        value: statusData.getPrecipitation(rainSum),
                                         desc: 'rain'.tr,
                                       ),
-                                widget.weatherData['precipitationSum'][index] ==
-                                        null
-                                    ? Container()
+                                precipitationSum == null
+                                    ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/rainfall.png',
-                                        value: statusData.getPrecipitation(
-                                            widget.weatherData[
-                                                'precipitationSum'][index]),
+                                        value: statusData.getPrecipitation(precipitationSum),
                                         desc: 'precipitation'.tr,
                                       ),
                               ],
