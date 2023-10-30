@@ -50,6 +50,7 @@ final List appLanguages = [
   {'name': 'Français', 'locale': const Locale('fr', 'FR')},
   {'name': 'Gaeilge', 'locale': const Locale('ga', 'IE')},
   {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
+  {'name': 'Magyar', 'locale': const Locale('hu', 'HU')},
   {'name': 'Italiano', 'locale': const Locale('it', 'IT')},
   {'name': 'ქართული', 'locale': const Locale('ka', 'GE')},
   {'name': 'Nederlands', 'locale': const Locale('nl', 'NL')},

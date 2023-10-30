@@ -47,7 +47,7 @@ If you find Rain valuable and worthy for future innovation , consider supporting
 
 Or get the latest APK from the [Releases Section](https://github.com/DarkMooNight/Rain/releases/latest). You can also find the app on IzzyOnDroid via a F-Droid client [here](https://apt.izzysoft.de/fdroid/index/apk/com.yoshi.rain).
 
-### License
+### 📃 License
 
 This project is licensed under the [MIT License](./LICENSE).
 
