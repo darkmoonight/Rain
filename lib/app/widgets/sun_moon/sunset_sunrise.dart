@@ -21,6 +21,11 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
 
   @override
   Widget build(BuildContext context) {
+    const crossAxisCenterAlignment = CrossAxisAlignment.center;
+    final textTheme = context.textTheme;
+    final titleSmall = textTheme.titleSmall;
+    final titleLarge = textTheme.titleLarge;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
       child: Padding(
@@ -29,22 +34,22 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
           children: [
             Expanded(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: crossAxisCenterAlignment,
                 children: [
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: crossAxisCenterAlignment,
                       children: [
                         Text(
                           'sunrise'.tr,
-                          style: context.textTheme.titleSmall,
+                          style: titleSmall,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 2),
                         Text(
                           statusData.getTimeFormat(widget.timeSunrise),
-                          style: context.textTheme.titleLarge,
+                          style: titleLarge,
                         ),
                       ],
                     ),
@@ -61,22 +66,22 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
             ),
             Expanded(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: crossAxisCenterAlignment,
                 children: [
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: crossAxisCenterAlignment,
                       children: [
                         Text(
                           'sunset'.tr,
-                          style: context.textTheme.titleSmall,
+                          style: titleSmall,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 2),
                         Text(
                           statusData.getTimeFormat(widget.timeSunset),
-                          style: context.textTheme.titleLarge,
+                          style: titleLarge,
                         ),
                       ],
                     ),
