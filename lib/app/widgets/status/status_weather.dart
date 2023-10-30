@@ -1,38 +1,37 @@
 import 'package:get/get.dart';
 
+const assetImageRoot = 'assets/images/';
+
 class StatusWeather {
-  String getImageNow(
-      int weather, String time, String timeDay, String timeNight) {
+  String getImageNow(int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime =
-        DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime =
-        DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/sun.png';
+          return '${assetImageRoot}sun.png';
         } else {
-          return 'assets/images/full-moon.png';
+          return '${assetImageRoot}full-moon.png';
         }
       case 1:
       case 2:
       case 3:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/cloud.png';
+          return '${assetImageRoot}cloud.png';
         } else {
-          return 'assets/images/moon.png';
+          return '${assetImageRoot}moon.png';
         }
       case 45:
       case 48:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/fog.png';
+          return '${assetImageRoot}fog.png';
         } else {
-          return 'assets/images/fog_moon.png';
+          return '${assetImageRoot}fog_moon.png';
         }
       case 51:
       case 53:
@@ -44,23 +43,23 @@ class StatusWeather {
       case 65:
       case 66:
       case 67:
-        return 'assets/images/rain.png';
+        return '${assetImageRoot}rain.png';
       case 80:
       case 81:
       case 82:
-        return 'assets/images/rain-fall.png';
+        return '${assetImageRoot}rain-fall.png';
       case 71:
       case 73:
       case 75:
       case 77:
       case 85:
       case 86:
-        return 'assets/images/snow.png';
+        return '${assetImageRoot}snow.png';
       case 95:
-        return 'assets/images/thunder.png';
+        return '${assetImageRoot}thunder.png';
       case 96:
       case 99:
-        return 'assets/images/storm.png';
+        return '${assetImageRoot}storm.png';
       default:
         return '';
     }
@@ -69,14 +68,14 @@ class StatusWeather {
   String getImageNowDaily(int? weather, DateTime time) {
     switch (weather) {
       case 0:
-        return 'assets/images/sun.png';
+        return '${assetImageRoot}sun.png';
       case 1:
       case 2:
       case 3:
-        return 'assets/images/cloud.png';
+        return '${assetImageRoot}cloud.png';
       case 45:
       case 48:
-        return 'assets/images/fog.png';
+        return '${assetImageRoot}fog.png';
       case 51:
       case 53:
       case 55:
@@ -87,60 +86,57 @@ class StatusWeather {
       case 65:
       case 66:
       case 67:
-        return 'assets/images/rain.png';
+        return '${assetImageRoot}rain.png';
       case 80:
       case 81:
       case 82:
-        return 'assets/images/rain-fall.png';
+        return '${assetImageRoot}rain-fall.png';
       case 71:
       case 73:
       case 75:
       case 77:
       case 85:
       case 86:
-        return 'assets/images/snow.png';
+        return '${assetImageRoot}snow.png';
       case 95:
-        return 'assets/images/thunder.png';
+        return '${assetImageRoot}thunder.png';
       case 96:
       case 99:
-        return 'assets/images/storm.png';
+        return '${assetImageRoot}storm.png';
       default:
         return '';
     }
   }
 
-  String getImageToday(
-      int weather, String time, String timeDay, String timeNight) {
+  String getImageToday(int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime =
-        DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime =
-        DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/clear_day.png';
+          return '${assetImageRoot}clear_day.png';
         } else {
-          return 'assets/images/clear_night.png';
+          return '${assetImageRoot}clear_night.png';
         }
       case 1:
       case 2:
       case 3:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/cloudy_day.png';
+          return '${assetImageRoot}cloudy_day.png';
         } else {
-          return 'assets/images/cloudy_night.png';
+          return '${assetImageRoot}cloudy_night.png';
         }
       case 45:
       case 48:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/fog_day.png';
+          return '${assetImageRoot}fog_day.png';
         } else {
-          return 'assets/images/fog_night.png';
+          return '${assetImageRoot}fog_night.png';
         }
       case 51:
       case 53:
@@ -156,9 +152,9 @@ class StatusWeather {
       case 81:
       case 82:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/rain_day.png';
+          return '${assetImageRoot}rain_day.png';
         } else {
-          return 'assets/images/rain_night.png';
+          return '${assetImageRoot}rain_night.png';
         }
       case 71:
       case 73:
@@ -167,17 +163,17 @@ class StatusWeather {
       case 85:
       case 86:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/snow_day.png';
+          return '${assetImageRoot}snow_day.png';
         } else {
-          return 'assets/images/snow_night.png';
+          return '${assetImageRoot}snow_night.png';
         }
       case 95:
       case 96:
       case 99:
         if (currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime)) {
-          return 'assets/images/thunder_day.png';
+          return '${assetImageRoot}thunder_day.png';
         } else {
-          return 'assets/images/thunder_night.png';
+          return '${assetImageRoot}thunder_night.png';
         }
       default:
         return '';
@@ -187,14 +183,14 @@ class StatusWeather {
   String getImage7Day(int? weather) {
     switch (weather) {
       case 0:
-        return 'assets/images/clear_day.png';
+        return '${assetImageRoot}clear_day.png';
       case 1:
       case 2:
       case 3:
-        return 'assets/images/cloudy_day.png';
+        return '${assetImageRoot}cloudy_day.png';
       case 45:
       case 48:
-        return 'assets/images/fog_day.png';
+        return '${assetImageRoot}fog_day.png';
       case 51:
       case 53:
       case 55:
@@ -208,18 +204,18 @@ class StatusWeather {
       case 80:
       case 81:
       case 82:
-        return 'assets/images/rain_day.png';
+        return '${assetImageRoot}rain_day.png';
       case 71:
       case 73:
       case 75:
       case 77:
       case 85:
       case 86:
-        return 'assets/images/snow_day.png';
+        return '${assetImageRoot}snow_day.png';
       case 95:
       case 96:
       case 99:
-        return 'assets/images/thunder_day.png';
+        return '${assetImageRoot}thunder_day.png';
       default:
         return '';
     }
@@ -271,16 +267,13 @@ class StatusWeather {
     }
   }
 
-  String getImageNotification(
-      int weather, String time, String timeDay, String timeNight) {
+  String getImageNotification(int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime =
-        DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime =
-        DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
