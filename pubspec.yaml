@@ -27,8 +27,8 @@ dependencies:
   google_fonts: ^6.1.0
   flutter_glow: ^0.3.0
   time_machine: ^0.9.17
-  url_launcher: ^6.1.14
-  dynamic_color: ^1.6.7
+  url_launcher: ^6.2.1
+  dynamic_color: ^1.6.8
   path_provider: ^2.1.1
   flutter_timezone: ^1.0.8
   package_info_plus: ^4.2.0
@@ -58,7 +58,7 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   isar_generator: ^3.1.0+1
   json_serializable: ^6.7.1
-  flutter_native_splash: ^2.3.4
+  flutter_native_splash: ^2.3.5
   flutter_launcher_icons: ^0.13.1
 
 flutter_icons:

@@ -3,13 +3,16 @@ import 'package:get/get.dart';
 const assetImageRoot = 'assets/images/';
 
 class StatusWeather {
-  String getImageNow(int weather, String time, String timeDay, String timeNight) {
+  String getImageNow(
+      int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime =
+        DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime =
+        DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
@@ -65,7 +68,7 @@ class StatusWeather {
     }
   }
 
-  String getImageNowDaily(int? weather, DateTime time) {
+  String getImageNowDaily(int? weather) {
     switch (weather) {
       case 0:
         return '${assetImageRoot}sun.png';
@@ -108,13 +111,16 @@ class StatusWeather {
     }
   }
 
-  String getImageToday(int weather, String time, String timeDay, String timeNight) {
+  String getImageToday(
+      int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime =
+        DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime =
+        DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:
@@ -267,13 +273,16 @@ class StatusWeather {
     }
   }
 
-  String getImageNotification(int weather, String time, String timeDay, String timeNight) {
+  String getImageNotification(
+      int weather, String time, String timeDay, String timeNight) {
     final currentTime = DateTime.parse(time);
     final day = DateTime.parse(timeDay);
     final night = DateTime.parse(timeNight);
 
-    final dayTime = DateTime(day.year, day.month, day.day, day.hour, day.minute);
-    final nightTime = DateTime(night.year, night.month, night.day, night.hour, night.minute);
+    final dayTime =
+        DateTime(day.year, day.month, day.day, day.hour, day.minute);
+    final nightTime =
+        DateTime(night.year, night.month, night.day, night.hour, night.minute);
 
     switch (weather) {
       case 0:

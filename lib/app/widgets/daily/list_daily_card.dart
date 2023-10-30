@@ -69,8 +69,7 @@ class _ListDailyCardState extends State<ListDailyCard> {
                   ),
                   const SizedBox(width: 5),
                   Image.asset(
-                    statusWeather.getImageNowDaily(
-                        widget.weathercodeDaily, widget.timeDaily),
+                    statusWeather.getImageNowDaily(widget.weathercodeDaily),
                     scale: 6.5,
                   ),
                 ],

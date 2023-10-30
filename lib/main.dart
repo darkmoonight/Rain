@@ -48,7 +48,7 @@ final List appLanguages = [
   {'name': 'English', 'locale': const Locale('en', 'US')},
   {'name': 'Español', 'locale': const Locale('es', 'ES')},
   {'name': 'Français', 'locale': const Locale('fr', 'FR')},
-  {'name': 'Gaeilge', 'locale': const Locale('ga', 'IE')},
+  // {'name': 'Gaeilge', 'locale': const Locale('ga', 'IE')},
   {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
   {'name': 'Magyar', 'locale': const Locale('hu', 'HU')},
   {'name': 'Italiano', 'locale': const Locale('it', 'IT')},
