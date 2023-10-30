@@ -44,6 +44,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
 
   @override
   Widget build(BuildContext context) {
+    const kTextFieldElevation = 4.0;
     return Form(
       key: formKey,
       child: SingleChildScrollView(
@@ -107,18 +108,15 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                   RawAutocomplete<Result>(
                     focusNode: _focusNode,
                     textEditingController: _controller,
-                    fieldViewBuilder: (BuildContext context,
-                        TextEditingController fieldTextEditingController,
-                        FocusNode fieldFocusNode,
-                        VoidCallback onFieldSubmitted) {
+                    fieldViewBuilder: (BuildContext context, TextEditingController fieldTextEditingController,
+                        FocusNode fieldFocusNode, VoidCallback onFieldSubmitted) {
                       return MyTextForm(
-                        elevation: 4,
+                        elevation: kTextFieldElevation,
                         labelText: 'search'.tr,
                         type: TextInputType.text,
                         icon: const Icon(Iconsax.global_search),
                         controller: _controller,
-                        margin:
-                            const EdgeInsets.only(left: 10, right: 10, top: 10),
+                        margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                         focusNode: _focusNode,
                       );
                     },
@@ -126,15 +124,12 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                       if (textEditingValue.text.isEmpty) {
                         return const Iterable<Result>.empty();
                       }
-                      return WeatherAPI()
-                          .getCity(textEditingValue.text, locale);
+                      return WeatherAPI().getCity(textEditingValue.text, locale);
                     },
                     onSelected: (Result selection) => fillController(selection),
-                    displayStringForOption: (Result option) =>
-                        '${option.name}, ${option.admin1}',
-                    optionsViewBuilder: (BuildContext context,
-                        AutocompleteOnSelected<Result> onSelected,
-                        Iterable<Result> options) {
+                    displayStringForOption: (Result option) => '${option.name}, ${option.admin1}',
+                    optionsViewBuilder:
+                        (BuildContext context, AutocompleteOnSelected<Result> onSelected, Iterable<Result> options) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Align(
@@ -165,7 +160,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     },
                   ),
                   MyTextForm(
-                    elevation: 4,
+                    elevation: kTextFieldElevation,
                     controller: _controllerLat,
                     labelText: 'lat'.tr,
                     type: TextInputType.number,
@@ -186,7 +181,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     },
                   ),
                   MyTextForm(
-                    elevation: 4,
+                    elevation: kTextFieldElevation,
                     controller: _controllerLon,
                     labelText: 'lon'.tr,
                     type: TextInputType.number,
@@ -207,7 +202,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     },
                   ),
                   MyTextForm(
-                    elevation: 4,
+                    elevation: kTextFieldElevation,
                     controller: _controllerCity,
                     labelText: 'city'.tr,
                     type: TextInputType.name,
@@ -221,7 +216,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     },
                   ),
                   MyTextForm(
-                    elevation: 4,
+                    elevation: kTextFieldElevation,
                     controller: _controllerDistrict,
                     labelText: 'district'.tr,
                     type: TextInputType.streetAddress,
