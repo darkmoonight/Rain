@@ -20,9 +20,10 @@ class DescWeather extends StatefulWidget {
 
 class _DescWeatherState extends State<DescWeather> {
   bool hide = true;
-  
+
   @override
   Widget build(BuildContext context) {
+    final textTheme = context.textTheme;
     return GestureDetector(
       onTap: () => setState(() => hide = !hide),
       child: Tooltip(
@@ -40,12 +41,12 @@ class _DescWeatherState extends State<DescWeather> {
               const SizedBox(height: 5),
               Text(
                 widget.value,
-                style: context.textTheme.labelLarge,
+                style: textTheme.labelLarge,
               ),
               Expanded(
                 child: Text(
                   widget.desc,
-                  style: context.textTheme.bodySmall,
+                  style: textTheme.bodySmall,
                   overflow: hide ? TextOverflow.ellipsis : TextOverflow.visible,
                   textAlign: TextAlign.center,
                 ),
