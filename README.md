@@ -41,7 +41,7 @@ If you find Rain valuable and worthy for future innovation , consider supporting
 [![ЮMoney](https://img.shields.io/badge/ЮMoney-violet?style=for-the-badge)](https://yoomoney.ru/to/4100117672775961)
 
 ### 📥 Get Rain Now
-LICENSE
+
 [![Play Store](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.yoshi.rain)
 [![RuStore](https://img.shields.io/badge/RuStore-blue?style=for-the-badge&logo=vk&logoColor=white)](https://apps.rustore.ru/app/com.yoshi.rain)
 
@@ -51,7 +51,8 @@ Or get the latest APK from the [Releases Section](https://github.com/DarkMooNigh
 
 This project is licensed under the [MIT License](./LICENSE).
 
-### 👨‍💻Our Contributors
+### 👨‍💻 Our Contributors
+
 <a href="https://github.com/darkmoonight/Rain/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=darkmoonight/Rain" />
 </a>
