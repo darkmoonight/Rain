@@ -35,7 +35,7 @@ We fetch weather data from [Open-Meteo](https://open-meteo.com/en/docs) and use 
 
 ### 💰 Support Us
 
-If you find Rain valuable and worthy for future innovation , consider supporting us through donations:
+If you find Rain valuable and worthy for future innovation, consider supporting us through donations:
 
 [![DonationAlerts](https://img.shields.io/badge/DonationAlerts-orange?style=for-the-badge)](https://www.donationalerts.com/r/darkmoonight)
 [![ЮMoney](https://img.shields.io/badge/ЮMoney-violet?style=for-the-badge)](https://yoomoney.ru/to/4100117672775961)
