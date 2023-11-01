@@ -441,10 +441,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_android
-      sha256: cf85c7d61c112cd9c50b97b85d6e91b337726005a986dbba6eba73bf7ed4168f
+      sha256: "741579fa6c9e412984d2bdb2fbaa54e3c3f7587c60aeacfe6e058358a11f40f8"
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.3"
+    version: "4.4.0"
   geolocator_apple:
     dependency: transitive
     description:

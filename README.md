@@ -3,9 +3,18 @@
 <h2>🌦️ Rain</h2>
 </div>
 
-Tired of unpredictable weather? Rain's got you covered! Get ready for any forecast. 🌦️
+<p align='center'>
+ <p align='center'>
+    <a href='https://github.com/darkmoonight/Rain/stargazers'><img alt='Stars' src='https://img.shields.io/github/stars/darkmoonight/Rain?style=flat-square&color=abc0d3'/></a>
+    <a href='https://github.com/darkmoonight/Rain/forks'><img alt='Forks' src='https://img.shields.io/github/forks/darkmoonight/Rain?style=flat-square&color=abc0d3'/></a>
+    <a href='https://github.com/darkmoonight/Rain/releases'><img alt='GitHub release' src='https://img.shields.io/github/v/release/darkmoonight/Rain?color=abc0d3'/></a>
+    <a href='https://github.com/darkmoonight/Rain/blob/main/LICENSE'><img alt='License' src='https://img.shields.io/github/license/darkmoonight/Rain?color=abc0d3'/></a>
+ </p>
+</p>
 
-### 🌍 Discover Your World
+<p align='center'> Tired of unpredictable weather? Rain's got you covered! Get ready for any forecast. 🌦️ </p>
+
+### 🌍 Be aware of the weather
 
 With Rain, you can explore the weather in your city and beyond. We offer an array of features to keep you informed and prepared:
 
@@ -53,6 +62,6 @@ This project is licensed under the [MIT License](./LICENSE).
 
 ### 👨‍💻 Our Contributors
 
-<a href="https://github.com/darkmoonight/Rain/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=darkmoonight/Rain" />
+<a href='https://github.com/darkmoonight/Rain/graphs/contributors'>
+  <img src='https://contrib.rocks/image?repo=darkmoonight/Rain' />
 </a>
