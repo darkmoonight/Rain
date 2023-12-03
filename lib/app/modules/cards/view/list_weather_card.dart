@@ -25,103 +25,108 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
         setState(() {});
       },
       child: Obx(
-            () => weatherController.weatherCards.isEmpty
+        () => weatherController.weatherCards.isEmpty
             ? Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Image.asset(
-                  'assets/images/add_weather.png',
-                  scale: 6,
-                ),
-                SizedBox(
-                  width: Get.size.width * 0.8,
-                  child: Text(
-                    'noWeatherCard'.tr,
-                    textAlign: TextAlign.center,
-                    style: titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-            : ReorderableListView(
-          onReorder: (oldIndex, newIndex) => weatherController.reorder(oldIndex, newIndex),
-          children: [
-            ...weatherController.weatherCards.map(
-                  (weatherCardList) => Dismissible(
-                key: ValueKey(weatherCardList),
-                direction: DismissDirection.endToStart,
-                background: Container(
-                  alignment: Alignment.centerRight,
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 15),
-                    child: Icon(
-                      Iconsax.trush_square,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-                confirmDismiss: (DismissDirection direction) async {
-                  return await showAdaptiveDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog.adaptive(
-                        title: Text(
-                          'deletedCardWeather'.tr,
-                          style: textTheme.titleLarge,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/add_weather.png',
+                        scale: 6,
+                      ),
+                      SizedBox(
+                        width: Get.size.width * 0.8,
+                        child: Text(
+                          'noWeatherCard'.tr,
+                          textAlign: TextAlign.center,
+                          style: titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
                         ),
-                        content: Text('deletedCardWeatherQuery'.tr, style: titleMedium),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Get.back(result: false),
-                            child: Text(
-                              'cancel'.tr,
-                              style: titleMedium?.copyWith(color: Colors.blueAccent),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => Get.back(result: true),
-                            child: Text(
-                              'delete'.tr,
-                              style: titleMedium?.copyWith(color: Colors.red),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                onDismissed: (DismissDirection direction) async {
-                  await weatherController.deleteCardWeather(weatherCardList);
-                },
-                child: GestureDetector(
-                  onTap: () => Get.to(
-                        () => InfoWeatherCard(
-                      weatherCard: weatherCardList,
-                    ),
-                    transition: Transition.downToUp,
-                  ),
-                  child: WeatherCardContainer(
-                    time: weatherCardList.time!,
-                    timeDaily: weatherCardList.timeDaily!,
-                    timeDay: weatherCardList.sunrise!,
-                    timeNight: weatherCardList.sunset!,
-                    weather: weatherCardList.weathercode!,
-                    degree: weatherCardList.temperature2M!,
-                    district: weatherCardList.district!,
-                    city: weatherCardList.city!,
-                    timezone: weatherCardList.timezone!,
+                      ),
+                    ],
                   ),
                 ),
+              )
+            : ReorderableListView(
+                onReorder: (oldIndex, newIndex) =>
+                    weatherController.reorder(oldIndex, newIndex),
+                children: [
+                  ...weatherController.weatherCards.map(
+                    (weatherCardList) => Dismissible(
+                      key: ValueKey(weatherCardList),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        child: const Padding(
+                          padding: EdgeInsets.only(right: 15),
+                          child: Icon(
+                            Iconsax.trush_square,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                      confirmDismiss: (DismissDirection direction) async {
+                        return await showAdaptiveDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog.adaptive(
+                              title: Text(
+                                'deletedCardWeather'.tr,
+                                style: textTheme.titleLarge,
+                              ),
+                              content: Text('deletedCardWeatherQuery'.tr,
+                                  style: titleMedium),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Get.back(result: false),
+                                  child: Text(
+                                    'cancel'.tr,
+                                    style: titleMedium?.copyWith(
+                                        color: Colors.blueAccent),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () => Get.back(result: true),
+                                  child: Text(
+                                    'delete'.tr,
+                                    style: titleMedium?.copyWith(
+                                        color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      onDismissed: (DismissDirection direction) async {
+                        await weatherController
+                            .deleteCardWeather(weatherCardList);
+                      },
+                      child: GestureDetector(
+                        onTap: () => Get.to(
+                          () => InfoWeatherCard(
+                            weatherCard: weatherCardList,
+                          ),
+                          transition: Transition.downToUp,
+                        ),
+                        child: WeatherCardContainer(
+                          time: weatherCardList.time!,
+                          timeDaily: weatherCardList.timeDaily!,
+                          timeDay: weatherCardList.sunrise!,
+                          timeNight: weatherCardList.sunset!,
+                          weather: weatherCardList.weathercode!,
+                          degree: weatherCardList.temperature2M!,
+                          district: weatherCardList.district!,
+                          city: weatherCardList.city!,
+                          timezone: weatherCardList.timezone!,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -57,7 +57,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   settings.onboard = true;
                   isar.writeTxnSync(() => isar.settings.putSync(settings));
                   Get.off(
-                        () => const HomePage(),
+                    () => const HomePage(),
                     transition: Transition.downToUp,
                   );
                 },

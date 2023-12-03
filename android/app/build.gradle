@@ -29,7 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdk 34
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -78,7 +78,7 @@ android {
     }
 
     namespace 'com.yoshi.rain'
-    }
+}
 
 flutter {
     source '../..'

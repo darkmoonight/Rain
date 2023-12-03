@@ -7,7 +7,8 @@ import 'package:rain/app/data/weather.dart';
 import 'package:rain/main.dart';
 
 class WeatherAPI {
-  final Dio dio = Dio()..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?';
+  final Dio dio = Dio()
+    ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?';
   final Dio dioLocation = Dio();
 
   Future<MainWeatherCache> getWeatherData(double? lat, double? lon) async {
@@ -15,7 +16,8 @@ class WeatherAPI {
         'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,windgusts_10m,cloudcover,uv_index,dewpoint_2m,precipitation_probability,shortwave_radiation&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=12&timezone=auto';
     String urlWeather;
     settings.measurements == 'imperial' && settings.degrees == 'fahrenheit'
-        ? urlWeather = '$url&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch'
+        ? urlWeather =
+            '$url&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch'
         : settings.measurements == 'imperial'
             ? urlWeather = '$url&windspeed_unit=mph&precipitation_unit=inch'
             : settings.degrees == 'fahrenheit'
@@ -52,7 +54,8 @@ class WeatherAPI {
         sunrise: weatherData.daily.sunrise,
         sunset: weatherData.daily.sunset,
         precipitationSum: weatherData.daily.precipitationSum,
-        precipitationProbabilityMax: weatherData.daily.precipitationProbabilityMax,
+        precipitationProbabilityMax:
+            weatherData.daily.precipitationProbabilityMax,
         windspeed10MMax: weatherData.daily.windSpeed10MMax,
         windgusts10MMax: weatherData.daily.windGusts10MMax,
         uvIndexMax: weatherData.daily.uvIndexMax,
@@ -69,12 +72,14 @@ class WeatherAPI {
     }
   }
 
-  Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city, String district, String timezone) async {
+  Future<WeatherCard> getWeatherCard(double? lat, double? lon, String city,
+      String district, String timezone) async {
     String url =
         'latitude=$lat&longitude=$lon&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,weathercode,surface_pressure,visibility,evapotranspiration,windspeed_10m,winddirection_10m,windgusts_10m,cloudcover,uv_index,dewpoint_2m,precipitation_probability,shortwave_radiation&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant&forecast_days=12&timezone=auto';
     String urlWeather;
     settings.measurements == 'imperial' && settings.degrees == 'fahrenheit'
-        ? urlWeather = '$url&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch'
+        ? urlWeather =
+            '$url&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch'
         : settings.measurements == 'imperial'
             ? urlWeather = '$url&windspeed_unit=mph&precipitation_unit=inch'
             : settings.degrees == 'fahrenheit'
@@ -111,7 +116,8 @@ class WeatherAPI {
         sunrise: weatherData.daily.sunrise,
         sunset: weatherData.daily.sunset,
         precipitationSum: weatherData.daily.precipitationSum,
-        precipitationProbabilityMax: weatherData.daily.precipitationProbabilityMax,
+        precipitationProbabilityMax:
+            weatherData.daily.precipitationProbabilityMax,
         windspeed10MMax: weatherData.daily.windSpeed10MMax,
         windgusts10MMax: weatherData.daily.windGusts10MMax,
         uvIndexMax: weatherData.daily.uvIndexMax,

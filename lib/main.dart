@@ -20,7 +20,6 @@ import 'package:time_machine/time_machine.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
-
 import 'app/data/weather.dart';
 import 'theme/theme_controller.dart';
 import 'translation/translation.dart';

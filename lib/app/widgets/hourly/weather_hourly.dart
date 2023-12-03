@@ -42,7 +42,8 @@ class _WeatherHourlyState extends State<WeatherHourly> {
               style: textTheme.labelLarge,
             ),
             Text(
-              DateFormat('E', locale.languageCode).format(DateTime.tryParse(time)!),
+              DateFormat('E', locale.languageCode)
+                  .format(DateTime.tryParse(time)!),
               style: textTheme.labelLarge?.copyWith(
                 color: Colors.grey,
               ),
