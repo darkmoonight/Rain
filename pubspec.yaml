@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.2.8+31
 
 environment:
-  sdk: ">=3.2.2 <4.0.0"
+  sdk: ">=3.2.3 <4.0.0"
 
 dependencies:
   flutter:
@@ -22,13 +22,13 @@ dependencies:
   timezone: ^0.9.2
   geocoding: ^2.1.1
   geolocator: ^10.1.0
-  home_widget: ^0.3.0
+  home_widget: ^0.4.1
   workmanager: ^0.5.2
   google_fonts: ^6.1.0
   flutter_glow: ^0.3.0
+  url_launcher: ^6.2.2
   time_machine: ^0.9.17
-  url_launcher: ^6.2.1
-  dynamic_color: ^1.6.8
+  dynamic_color: ^1.6.9
   path_provider: ^2.1.1
   json_annotation: ^4.8.1
   flutter_timezone: ^1.0.8
@@ -53,12 +53,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  freezed: ^2.4.5
+  freezed: ^2.4.6
   build_runner: ^2.4.7
   flutter_lints: ^3.0.1
   isar_generator: ^3.1.0+1
   json_serializable: ^6.7.1
-  flutter_native_splash: ^2.3.6
+  flutter_native_splash: ^2.3.8
   flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
