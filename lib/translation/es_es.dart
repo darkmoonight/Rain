@@ -2,8 +2,15 @@ class EsEs {
   Map<String, String> get messages => {
         'start': 'Empezar',
         'description':
-            'Aplicación del tiempo con la que obtener información en tiempo real sobre la predicción del clima por horas, días y semanas.',
+            'Aplicación meteorológica con un pronóstico actualizado para cada hora, día y semana para cualquier lugar.',
         'name': 'Tiempo',
+        'name2': 'Diseño Conveniente',
+        'name3': 'Contáctenos',
+        'description2':
+            'Toda la navegación está diseñada para interactuar con la aplicación de la manera más cómoda y rápida posible.',
+        'description3':
+            'Si encuentra algún problema, contáctenos por correo electrónico o en las reseñas de la aplicación.',
+        'next': 'Siguiente',
         'search': 'Buscar...',
         'loading': 'Cargando...',
         'searchCity': 'Busca tu ciudad',

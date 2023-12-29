@@ -2,8 +2,15 @@ class TrTr {
   Map<String, String> get messages => {
         'start': 'Başlat',
         'description':
-            'Herhangi bir konum için gerçek zamanlı, saatlik, günlük ve haftalık hava durumu tahminleri sunan bir hava durumu uygulaması.',
+            'Herhangi bir yer için her saat, gün ve hafta için güncel hava durumu tahmini sunan hava durumu uygulaması.',
         'name': 'Hava Durumu',
+        'name2': 'Pratik Tasarım',
+        'name3': 'Bizimle İletişime Geçin',
+        'description2':
+            'Tüm gezinme, uygulama ile mümkün olduğunca rahat ve hızlı etkileşim kurmak için tasarlanmıştır.',
+        'description3':
+            'Herhangi bir sorunla karşılaşırsanız, lütfen bize e-posta veya uygulama yorumları aracılığıyla ulaşın.',
+        'next': 'Devam',
         'search': 'Arayış...',
         'loading': 'Yükleniyor...',
         'searchCity': 'Şehrinizi bulun',

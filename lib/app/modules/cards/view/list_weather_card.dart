@@ -31,7 +31,7 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                   child: Column(
                     children: [
                       Image.asset(
-                        'assets/images/add_weather.png',
+                        'assets/icons/City.png',
                         scale: 6,
                       ),
                       SizedBox(

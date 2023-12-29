@@ -2,8 +2,15 @@ class PlPl {
   Map<String, String> get messages => {
         'start': 'Rozpocznij',
         'description':
-            'Aplikacja pogodowa zapewniająca prognozę w czasie rzeczywistym oraz prognozy godzinowe, dzienne i tygodniowe dla dowolnej lokalizacji.',
+            'Aplikacja pogodowa z aktualną prognozą na każdą godzinę, dzień i tydzień dla dowolnego miejsca.',
         'name': 'Pogoda',
+        'name2': 'Wygodny design',
+        'name3': 'Skontaktuj się z nami',
+        'description2':
+            'Cała nawigacja jest zaprojektowana tak, aby można było jak najwygodniej i najszybciej współdziałać z aplikacją.',
+        'description3':
+            'Jeśli napotkasz jakiekolwiek problemy, skontaktuj się z nami drogą e-mailową lub w recenzjach aplikacji.',
+        'next': 'Dalej',
         'search': 'Szukaj...',
         'loading': 'Ładowanie...',
         'searchCity': 'Znajdź swoje miasto',

@@ -2,8 +2,15 @@ class SkSk {
   Map<String, String> get messages => {
         'start': 'Začať',
         'description':
-            'Aplikácia, ktorá poskytuje predpoveď počasia v reálnom čase a aj hodinové, denné a týždenné predpovede pre akékoľvek miesto.',
+            'Aplikácia počasia s aktuálnym predpoveďou pre každú hodinu, deň a týždeň pre akékoľvek miesto.',
         'name': 'Počasie',
+        'name2': 'Pohodlný dizajn',
+        'name3': 'Kontaktujte nás',
+        'description2':
+            'Celá navigácia je navrhnutá tak, aby sa s aplikáciou dalo interagovať čo najpohodlnejšie a najrýchlejšie.',
+        'description3':
+            'Ak sa vyskytnú nejaké problémy, kontaktujte nás prosím e-mailom alebo v recenziách aplikácie.',
+        'next': 'Ďalej',
         'search': 'Hľadať...',
         'loading': 'Načítava sa...',
         'searchCity': 'Nájdite svoje miesto',

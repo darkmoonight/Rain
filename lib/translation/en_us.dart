@@ -2,8 +2,15 @@ class EnUs {
   Map<String, String> get messages => {
         'start': 'Get Started',
         'description':
-            'Weather app that provides real-time forecasts, and hourly, daily and weekly forecasts for any location.',
+            'Weather application with an up-to-date forecast for each hour, day, and week for any location.',
         'name': 'Weather',
+        'name2': 'Convenient Design',
+        'name3': 'Contact Us',
+        'description2':
+            'All navigation is designed to interact with the application as conveniently and quickly as possible.',
+        'description3':
+            'If you encounter any issues, please contact us via email or in the application reviews.',
+        'next': 'Next',
         'search': 'Search...',
         'loading': 'Loading...',
         'searchCity': 'Find your city',

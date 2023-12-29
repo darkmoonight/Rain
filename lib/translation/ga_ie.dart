@@ -2,8 +2,15 @@ class GaIe {
   Map<String, String> get messages => {
         'start': 'Tosaigh',
         'description':
-            'Feidhmchlár aimsire a chuireann réamhaisnéis fíor-ama ar fáil, chomh maith le réamhaisnéis uairiúla, laethúla, agus seachtainiúla do gach áit.',
+            'Aip aimsire le réamhaisnéis láithreach do gach uair, lá, agus seachtain do gach áit.',
         'name': 'Aimsir',
+        'name2': 'Dearadh Éasca',
+        'name3': 'Déan teagmháil linn',
+        'description2':
+            'Tá gach treoir déanta chun éascaíocht agus gniomhachtú a dhéanamh leis an aip chomh héasca agus chomh tapa agus is féidir.',
+        'description3':
+            'Má tá fadhb ar bith agat, déan teagmháil linn trí Ríomhphost nó trí phlé an aip.',
+        'next': 'Ar Aghaidh',
         'search': 'Cuardaigh...',
         'loading': 'Ag Lódáil...',
         'searchCity': 'Aimsigh do chathair',

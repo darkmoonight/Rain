@@ -2,8 +2,15 @@ class ItIt {
   Map<String, String> get messages => {
         'start': 'Clicca per iniziare',
         'description':
-            'App meteo che fornisce previsioni in tempo reale, oltre a previsioni orarie, giornaliere e settimanali per qualsiasi località.',
+            'Applicazione meteo con una previsione aggiornata per ogni ora, giorno e settimana per qualsiasi luogo.',
         'name': 'Meteo',
+        'name2': 'Design comodo',
+        'name3': 'Contattaci',
+        'description2':
+            'Tutta la navigazione è progettata per interagire con l\'applicazione nel modo più comodo e veloce possibile.',
+        'description3':
+            'Se incontri problemi, contattaci via email o nelle recensioni dell\'applicazione.',
+        'next': 'Avanti',
         'search': 'Cerca...',
         'loading': 'Caricamento...',
         'searchCity': 'Trova la tua città',

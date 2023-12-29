@@ -2,8 +2,15 @@ class FrFr {
   Map<String, String> get messages => {
         'start': 'Démarrer',
         'description':
-            'Application météo qui fournit des prévisions en temps réel, horaires, quotidiennes et hebdomadaires pour n\'importe quel lieu.',
+            'Application météo avec un pronostic à jour pour chaque heure, jour et semaine pour n\'importe quel endroit.',
         'name': 'Météo',
+        'name2': 'Design pratique',
+        'name3': 'Nous contacter',
+        'description2':
+            'Toute la navigation est conçue pour interagir avec l\'application de la manière la plus pratique et la plus rapide possible.',
+        'description3':
+            'Si vous rencontrez des problèmes, veuillez nous contacter par e-mail ou dans les avis de l\'application.',
+        'next': 'Suivant',
         'search': 'Rechercher...',
         'loading': 'Chargement...',
         'searchCity': 'Trouver votre ville',

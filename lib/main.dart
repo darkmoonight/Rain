@@ -295,7 +295,7 @@ class _MyAppState extends State<MyApp> {
           supportedLocales:
               appLanguages.map((e) => e['locale'] as Locale).toList(),
           debugShowCheckedModeBanner: false,
-          home: settings.onboard ? const HomePage() : const OnboardingPage(),
+          home: settings.onboard ? const HomePage() : const OnBording(),
         );
       },
     );

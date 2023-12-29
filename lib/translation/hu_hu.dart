@@ -2,8 +2,15 @@ class HuHu {
   Map<String, String> get messages => {
         'start': 'Kezdés',
         'description':
-            'Időjárás alkalmazás, amely valós idejű előrejelzéseket és óránkénti, napi és heti előrejelzéseket nyújt bármelyik helyszínre.',
+            'Időjárás alkalmazás a friss óránkénti, napi és heti előrejelzéssel bármely helyszínre.',
         'name': 'Időjárás',
+        'name2': 'Kényelmes tervezés',
+        'name3': 'Kapcsolatfelvétel velünk',
+        'description2':
+            'Az összes navigáció úgy van kialakítva, hogy maximálisan kényelmes és gyors legyen az alkalmazással való interakció.',
+        'description3':
+            'Ha bármilyen problémája adódik, kérjük, lépjen kapcsolatba velünk e-mailben vagy az alkalmazás értékeléseiben.',
+        'next': 'Tovább',
         'search': 'Keresés...',
         'loading': 'Betöltés...',
         'searchCity': 'Keresse meg a városát',

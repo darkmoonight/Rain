@@ -2,8 +2,15 @@ class PtBr {
   Map<String, String> get messages => {
         'start': 'Iniciar',
         'description':
-            'Aplicativo de clima em tempo real com previsões horárias, diárias e semanais para qualquer local.',
+            'Aplicativo de previsão do tempo com previsão atualizada para cada hora, dia e semana para qualquer local.',
         'name': 'Clima',
+        'name2': 'Design Conveniente',
+        'name3': 'Entre em Contato Conosco',
+        'description2':
+            'Toda a navegação é projetada para interagir com o aplicativo da maneira mais conveniente e rápida possível.',
+        'description3':
+            'Se você encontrar algum problema, entre em contato conosco por e-mail ou nas avaliações do aplicativo.',
+        'next': 'Próximo',
         'search': 'Pesquisar...',
         'loading': 'Carregando...',
         'searchCity': 'Procure sua cidade',

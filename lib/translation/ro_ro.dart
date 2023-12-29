@@ -2,8 +2,15 @@ class RoRo {
   Map<String, String> get messages => {
         'start': 'Începe',
         'description':
-            'Aplicație meteo care oferă prognoze în timp real și prognoze orare, zilnice și săptămânale pentru orice locație.',
+            'Aplicație meteo cu o prognoză actualizată pentru fiecare oră, zi și săptămână pentru orice loc.',
         'name': 'Vremea',
+        'name2': 'Design Convenabil',
+        'name3': 'Contactați-ne',
+        'description2':
+            'Toată navigarea este concepută pentru a interacționa cu aplicația în cel mai comod și rapid mod posibil.',
+        'description3':
+            'Dacă întâmpinați orice probleme, vă rugăm să ne contactați prin e-mail sau în recenziile aplicației.',
+        'next': 'Următorul',
         'search': 'Caută...',
         'loading': 'Încărcare...',
         'searchCity': 'Caută oraș',

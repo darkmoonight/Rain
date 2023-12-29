@@ -2,8 +2,15 @@ class DeDe {
   Map<String, String> get messages => {
         'start': 'Los gehts',
         'description':
-            'Wetter-App, die Echtzeit-Vorhersagen sowie stündliche, tägliche und wöchentliche Vorhersagen für jeden Standort bietet.',
+            'Wetteranwendung mit einer aktuellen Prognose für jede Stunde, Tag und Woche für jeden Ort.',
         'name': 'Wetter',
+        'name2': 'Bequemes Design',
+        'name3': 'Kontaktiere uns',
+        'description2':
+            'Die gesamte Navigation ist so gestaltet, dass die Interaktion mit der Anwendung so bequem und schnell wie möglich erfolgt.',
+        'description3':
+            'Wenn Sie auf Probleme stoßen, kontaktieren Sie uns bitte per E-Mail oder in den Bewertungen der Anwendung.',
+        'next': 'Weiter',
         'search': 'Suchen...',
         'loading': 'Lädt...',
         'searchCity': 'Finde deine Stadt',

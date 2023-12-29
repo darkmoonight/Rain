@@ -2,8 +2,15 @@ class CsCz {
   Map<String, String> get messages => {
         'start': 'Začít',
         'description':
-            'Aplikace, která poskytuje předpověď počasí v reálném čase a také hodinové, denní a týdenní předpovědi pro jakékoli místo.',
+            'Aplikace počasí s aktuálním předpovědí na každou hodinu, den a týden pro libovolné místo.',
         'name': 'Počasí',
+        'name2': 'Pohodlný design',
+        'name3': 'Kontaktujte nás',
+        'description2':
+            'Celá navigace je navržena tak, aby bylo možné s aplikací co nejpohodlněji a nejrychleji interagovat.',
+        'description3':
+            'Pokud narazíte na nějaké potíže, kontaktujte nás prosím e-mailem nebo v recenzích aplikace.',
+        'next': 'Další',
         'search': 'Hledat...',
         'loading': 'Načítá se...',
         'searchCity': 'Najděte své místo',

@@ -2,8 +2,15 @@ class NlNl {
   Map<String, String> get messages => {
         'start': 'Beginnen',
         'description':
-            'Weer app dat zowel real-time verwachtingen, als uurlijkse, dagelijkse en weekelijkse verwachtingen biedt voor elke locatie.',
+            'Weer-applicatie met een actuele prognose voor elk uur, dag en week voor elke locatie.',
         'name': 'Weer',
+        'name2': 'Handig Ontwerp',
+        'name3': 'Neem contact met ons op',
+        'description2':
+            'Alle navigatie is ontworpen om zo gemakkelijk en snel mogelijk met de applicatie te kunnen communiceren.',
+        'description3':
+            'Als u problemen ondervindt, neem dan contact met ons op via e-mail of in de recensies van de applicatie.',
+        'next': 'Volgende',
         'search': 'Zoeken...',
         'loading': 'Laden...',
         'searchCity': 'Vind jouw stad',

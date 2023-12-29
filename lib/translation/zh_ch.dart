@@ -1,8 +1,13 @@
 class ZhCh {
   Map<String, String> get messages => {
         'start': '开始',
-        'description': '天气应用程序，提供实时预报，以及任何地点的每小时、每日和每周预报。',
+        'description': '天气应用，提供每小时、每天和每周的实时预报，适用于任何地点。',
         'name': '天气',
+        'name2': '方便的设计',
+        'name3': '联系我们',
+        'description2': '所有导航均设计成能够尽可能方便快捷地与应用程序交互。',
+        'description3': '如果您遇到任何问题，请通过电子邮件或应用评论与我们联系。',
+        'next': '下一步',
         'search': '搜索...',
         'loading': '加载中...',
         'searchCity': '查找城市',
