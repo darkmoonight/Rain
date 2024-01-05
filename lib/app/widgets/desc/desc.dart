@@ -29,7 +29,7 @@ class _DescWeatherState extends State<DescWeather> {
       child: Tooltip(
         message: widget.message,
         child: SizedBox(
-          height: 85,
+          height: 90,
           width: 100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

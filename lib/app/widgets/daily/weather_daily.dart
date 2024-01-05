@@ -42,110 +42,103 @@ class _WeatherDailyState extends State<WeatherDaily> {
 
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
-      child: SizedBox(
-        height: 455,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 7,
-                  itemBuilder: (ctx, index) {
-                    return InkWell(
-                      splashColor: splashColor,
-                      borderRadius: inkWellBorderRadius,
-                      onTap: () => Get.to(
-                        () => InfoDailyCard(
-                          weatherData: weatherData,
-                          index: index,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        child: Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 7,
+              itemBuilder: (ctx, index) {
+                return InkWell(
+                  splashColor: splashColor,
+                  borderRadius: inkWellBorderRadius,
+                  onTap: () => Get.to(
+                    () => InfoDailyCard(
+                      weatherData: weatherData,
+                      index: index,
+                    ),
+                    transition: Transition.downToUp,
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            DateFormat.EEEE(locale.languageCode)
+                                .format((weatherData.timeDaily ?? [])[index]),
+                            style: labelLarge,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        transition: Transition.downToUp,
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                DateFormat.EEEE(locale.languageCode).format(
-                                    (weatherData.timeDaily ?? [])[index]),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                statusWeather
+                                    .getImage7Day(weatherCodeDaily[index]),
+                                scale: 3,
+                              ),
+                              const SizedBox(width: 5),
+                              Expanded(
+                                child: Text(
+                                  statusWeather
+                                      .getText(weatherCodeDaily[index]),
+                                  style: labelLarge,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                statusData.getDegree(
+                                    (weatherData.temperature2MMin ?? [])[index]
+                                        ?.round()),
                                 style: labelLarge,
                               ),
-                            ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    statusWeather
-                                        .getImage7Day(weatherCodeDaily[index]),
-                                    scale: 3,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Expanded(
-                                    child: Text(
-                                      statusWeather
-                                          .getText(weatherCodeDaily[index]),
-                                      style: labelLarge,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                ' / ',
+                                style: bodyMediumGrey,
                               ),
-                            ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    statusData.getDegree(
-                                        (weatherData.temperature2MMin ??
-                                                [])[index]
-                                            ?.round()),
-                                    style: labelLarge,
-                                  ),
-                                  Text(
-                                    ' / ',
-                                    style: bodyMediumGrey,
-                                  ),
-                                  Text(
-                                    statusData.getDegree(
-                                        (weatherData.temperature2MMax ??
-                                                [])[index]
-                                            ?.round()),
-                                    style: bodyMediumGrey,
-                                  ),
-                                ],
+                              Text(
+                                statusData.getDegree(
+                                    (weatherData.temperature2MMax ?? [])[index]
+                                        ?.round()),
+                                style: bodyMediumGrey,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const Divider(),
-              InkWell(
-                splashColor: splashColor,
-                borderRadius: inkWellBorderRadius,
-                onTap: widget.onTap,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    'weatherMore'.tr,
-                    style: textTheme.titleLarge?.copyWith(
-                      fontSize: 16,
+                      ],
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
+                );
+              },
+            ),
+            const Divider(),
+            InkWell(
+              splashColor: splashColor,
+              borderRadius: inkWellBorderRadius,
+              onTap: widget.onTap,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  'weatherMore'.tr,
+                  style: textTheme.titleMedium,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

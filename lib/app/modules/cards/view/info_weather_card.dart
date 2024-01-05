@@ -96,14 +96,13 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                 ),
                 Card(
                   margin: const EdgeInsets.symmetric(vertical: 15),
-                  child: SizedBox(
-                    height: 136,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: SizedBox(
+                      height: 135,
                       child: ScrollablePositionedList.separated(
                         key: const PageStorageKey(1),
-                        physics: const AlwaysScrollableScrollPhysics(),
                         separatorBuilder: (BuildContext context, int index) {
                           return const VerticalDivider(
                             width: 10,

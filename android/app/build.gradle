@@ -29,6 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    namespace 'com.yoshi.rain'
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
@@ -76,8 +77,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-
-    namespace 'com.yoshi.rain'
 }
 
 flutter {
@@ -86,7 +85,6 @@ flutter {
 
 dependencies {
     implementation "androidx.core:core-remoteviews:1.0.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 // Remove this for FLOSS version
