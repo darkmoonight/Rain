@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.2.8+31
 
 environment:
-  sdk: ">=3.2.3 <4.0.0"
+  sdk: ">=3.2.6 <4.0.0"
 
 dependencies:
   flutter:
@@ -26,10 +26,10 @@ dependencies:
   workmanager: ^0.5.2
   google_fonts: ^6.1.0
   flutter_glow: ^0.3.0
-  url_launcher: ^6.2.2
+  url_launcher: ^6.2.4
   time_machine: ^0.9.17
   dynamic_color: ^1.6.9
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   json_annotation: ^4.8.1
   flutter_timezone: ^1.0.8
   package_info_plus: ^5.0.1
@@ -40,7 +40,7 @@ dependencies:
   lat_lng_to_timezone: ^0.2.0
   flutter_colorpicker: ^1.0.3
   scrollable_positioned_list: ^0.3.8
-  flutter_local_notifications: ^16.3.0
+  flutter_local_notifications: ^16.3.2
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:
@@ -54,7 +54,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.4.6
-  build_runner: ^2.4.7
+  build_runner: ^2.4.8
   flutter_lints: ^3.0.1
   isar_generator: ^3.1.0+1
   json_serializable: ^6.7.1
