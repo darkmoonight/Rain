@@ -120,6 +120,7 @@ class HuHu {
         'widgetText': 'Widget szöveg',
         'dewpoint': 'Harmatpont',
         'shortwaveRadiation': 'Rövidhullámú sugárzás',
-        'W/m2': 'W/m2'
+        'W/m2': 'W/m2',
+        'roundDegree': 'Fokok Kerekítése',
       };
 }

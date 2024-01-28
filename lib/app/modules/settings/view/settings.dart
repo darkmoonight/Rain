@@ -446,6 +446,21 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             SettingCard(
                               elevation: 4,
+                              icon: const Icon(Iconsax.cloud_notif),
+                              text: 'roundDegree'.tr,
+                              switcher: true,
+                              value: settings.roundDegree,
+                              onChange: (value) {
+                                settings.roundDegree = value;
+                                isar.writeTxnSync(
+                                    () => isar.settings.putSync(settings));
+                                MyApp.updateAppState(context,
+                                    newRoundDegree: value);
+                                setState(() {});
+                              },
+                            ),
+                            SettingCard(
+                              elevation: 4,
                               icon: const Icon(Iconsax.sun_1),
                               text: 'degrees'.tr,
                               dropdown: true,

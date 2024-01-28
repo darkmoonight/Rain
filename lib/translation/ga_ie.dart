@@ -121,5 +121,6 @@ class GaIe {
         'dewpoint': 'Poinnte Dé',
         'shortwaveRadiation': 'Fuinneamh Ghearrfhad',
         'W/m2': 'W/m2',
+        'roundDegree': 'Timpeall na Gráid',
       };
 }

@@ -119,5 +119,6 @@ class PlPl {
         'widgetText': 'Tekst widżetu',
         'dewpoint': 'Punkt rosy',
         'shortwaveRadiation': 'Promieniowanie krótkofalowe',
+        'roundDegree': 'Zaokrąglaj stopnie',
       };
 }

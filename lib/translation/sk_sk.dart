@@ -119,5 +119,6 @@ class SkSk {
         'widgetText': 'Text widgetu',
         'dewpoint': 'Rosný bod',
         'shortwaveRadiation': 'Krátka vlnová radiácia',
+        'roundDegree': 'Zaokrúhliť stupne',
       };
 }

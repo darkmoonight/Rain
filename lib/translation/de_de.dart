@@ -121,5 +121,6 @@ class DeDe {
         'widgetText': 'Widget-Text',
         'dewpoint': 'Taupunkt',
         'shortwaveRadiation': 'Kurzwellenstrahlung',
+        'roundDegree': 'Grad runden',
       };
 }

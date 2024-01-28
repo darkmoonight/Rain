@@ -33,6 +33,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 bool amoledTheme = false;
 bool materialColor = false;
+bool roundDegree = false;
 Locale locale = const Locale('en', 'US');
 int timeRange = 1;
 String timeStart = '09:00';
@@ -149,6 +150,7 @@ class MyApp extends StatefulWidget {
     BuildContext context, {
     bool? newAmoledTheme,
     bool? newMaterialColor,
+    bool? newRoundDegree,
     Locale? newLocale,
     int? newTimeRange,
     String? newTimeStart,
@@ -163,6 +165,9 @@ class MyApp extends StatefulWidget {
     }
     if (newMaterialColor != null) {
       state.changeMarerialTheme(newMaterialColor);
+    }
+    if (newRoundDegree != null) {
+      state.changeRoundDegree(newRoundDegree);
     }
     if (newLocale != null) {
       state.changeLocale(newLocale);
@@ -200,6 +205,12 @@ class _MyAppState extends State<MyApp> {
   void changeMarerialTheme(bool newMaterialColor) {
     setState(() {
       materialColor = newMaterialColor;
+    });
+  }
+
+  void changeRoundDegree(bool newRoundDegree) {
+    setState(() {
+      roundDegree = newRoundDegree;
     });
   }
 
@@ -243,6 +254,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     amoledTheme = settings.amoledTheme;
     materialColor = settings.materialColor;
+    roundDegree = settings.roundDegree;
     locale = Locale(
         settings.language!.substring(0, 2), settings.language!.substring(3));
     timeRange = settings.timeRange ?? 1;

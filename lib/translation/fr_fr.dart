@@ -121,5 +121,6 @@ class FrFr {
         'widgetText': 'Texte du widget',
         'dewpoint': 'Point de rosée',
         'shortwaveRadiation': 'Rayonnement à ondes courtes',
+        'roundDegree': 'Arrondir les degrés',
       };
 }

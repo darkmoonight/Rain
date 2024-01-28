@@ -120,5 +120,6 @@ class PtBr {
         'widgetText': 'Texto do widget',
         'dewpoint': 'Ponto de orvalho',
         'shortwaveRadiation': 'Radiação de ondas curtas',
+        'roundDegree': 'Arredondar graus',
       };
 }

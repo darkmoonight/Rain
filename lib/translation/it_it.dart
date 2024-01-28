@@ -121,5 +121,6 @@ class ItIt {
         'widgetText': 'Testo del widget',
         'dewpoint': 'Punto di rugiada',
         'shortwaveRadiation': 'Radiazione a onde corte',
+        'roundDegree': 'Arrotonda i gradi',
       };
 }

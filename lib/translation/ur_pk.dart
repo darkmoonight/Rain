@@ -120,5 +120,6 @@ class UrPk {
         'dewpoint': 'دھوا پوائنٹ',
         'shortwaveRadiation': 'چھوٹی موجی شعاع',
         'W/m2': 'واٹ/میٹر مربع',
+        'roundDegree': 'ڈگری گھیریں',
       };
 }

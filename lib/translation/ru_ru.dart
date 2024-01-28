@@ -120,5 +120,6 @@ class RuRu {
         'dewpoint': 'Точка росы',
         'shortwaveRadiation': 'Коротковолновое излучение',
         'W/m2': 'Вт/м2',
+        'roundDegree': 'Округлить градусы',
       };
 }

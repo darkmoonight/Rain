@@ -119,5 +119,6 @@ class CsCz {
         'widgetText': 'Text widgetu',
         'dewpoint': 'Rosný bod',
         'shortwaveRadiation': 'Krátká vlnová radiace',
+        'roundDegree': 'Zaokrouhlit stupně',
       };
 }

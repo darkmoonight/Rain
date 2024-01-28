@@ -119,5 +119,6 @@ class TrTr {
         'widgetText': 'Araç metni',
         'dewpoint': 'Çiğ noktası',
         'shortwaveRadiation': 'Kısa dalga radyasyonu',
+        'roundDegree': 'Dereceleri yuvarla',
       };
 }

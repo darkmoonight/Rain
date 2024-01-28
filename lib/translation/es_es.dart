@@ -121,5 +121,6 @@ class EsEs {
         'widgetText': 'Texto del widget',
         'dewpoint': 'Punto de rocío',
         'shortwaveRadiation': 'Radiación de onda corta',
+        'roundDegree': 'Redondear grados',
       };
 }

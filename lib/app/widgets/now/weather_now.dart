@@ -40,7 +40,7 @@ class _WeatherNowState extends State<WeatherNow> {
           height: 200,
         ),
         GlowText(
-          '${widget.degree}',
+          '${roundDegree ? widget.degree.round() : widget.degree}',
           style: context.textTheme.displayLarge?.copyWith(
             fontSize: 90,
             fontWeight: FontWeight.w800,

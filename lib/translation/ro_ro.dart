@@ -119,5 +119,6 @@ class RoRo {
         'widgetText': 'Text widget',
         'dewpoint': 'Punct de rouă',
         'shortwaveRadiation': 'Radiație cu unde scurte',
+        'roundDegree': 'Rotunjire grade',
       };
 }

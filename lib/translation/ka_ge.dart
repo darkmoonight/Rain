@@ -120,5 +120,6 @@ class KaGe {
         'widgetText': 'ვიჯეტის ტექსტი',
         'dewpoint': 'დევპოინტი',
         'shortwaveRadiation': 'მოკლე ტალღის გამოსხივება',
+        'roundDegree': 'ხარისხი მიჯნურობა',
       };
 }

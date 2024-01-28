@@ -115,5 +115,6 @@ class ZhCh {
         'widgetText': '小部件文本',
         'dewpoint': '露点',
         'shortwaveRadiation': '短波辐射',
+        'roundDegree': '四舍五入度数',
       };
 }

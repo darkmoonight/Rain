@@ -120,5 +120,6 @@ class EnUs {
         'dewpoint': 'Dewpoint',
         'shortwaveRadiation': 'Shortwave radiation',
         'W/m2': 'W/m2',
+        'roundDegree': 'Round degrees',
       };
 }

@@ -121,5 +121,6 @@ class BnIn {
         'dewpoint': 'তুষার বিন্দু',
         'shortwaveRadiation': 'সংক্ষেপণ তরঙ্গ প্রকৃতি',
         'W/m2': 'ডব্লিউ/মিটার বর্গ',
+        'roundDegree': 'ডিগ্রি রাউন্ড করুন',
       };
 }

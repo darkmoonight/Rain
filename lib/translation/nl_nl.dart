@@ -121,5 +121,6 @@ class NlNl {
         'widgetText': 'Tekst van widget',
         'dewpoint': 'Dauwpunt',
         'shortwaveRadiation': 'Korte golfstraling',
+        'roundDegree': 'Rond graden af',
       };
 }

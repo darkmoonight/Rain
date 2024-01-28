@@ -118,5 +118,6 @@ class HiIn {
         'widgetText': 'विजेट पाठ',
         'dewpoint': 'बर्फ़ के बिंदु',
         'shortwaveRadiation': 'शॉर्टवेव विकिरण',
+        'roundDegree': 'डिग्री गोली मारें',
       };
 }

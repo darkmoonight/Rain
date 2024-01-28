@@ -162,7 +162,7 @@ class _$WeatherDataApiImpl implements _WeatherDataApi {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WeatherDataApiImpl &&
@@ -781,7 +781,7 @@ class _$HourlyImpl implements _Hourly {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HourlyImpl &&
@@ -1445,7 +1445,7 @@ class _$DailyImpl implements _Daily {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DailyImpl &&

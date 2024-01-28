@@ -57,38 +57,43 @@ const SettingsSchema = CollectionSchema(
       name: r'onboard',
       type: IsarType.bool,
     ),
-    r'theme': PropertySchema(
+    r'roundDegree': PropertySchema(
       id: 8,
+      name: r'roundDegree',
+      type: IsarType.bool,
+    ),
+    r'theme': PropertySchema(
+      id: 9,
       name: r'theme',
       type: IsarType.string,
     ),
     r'timeEnd': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'timeEnd',
       type: IsarType.string,
     ),
     r'timeRange': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'timeRange',
       type: IsarType.long,
     ),
     r'timeStart': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'timeStart',
       type: IsarType.string,
     ),
     r'timeformat': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'timeformat',
       type: IsarType.string,
     ),
     r'widgetBackgroundColor': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
     ),
     r'widgetTextColor': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'widgetTextColor',
       type: IsarType.string,
     )
@@ -169,13 +174,14 @@ void _settingsSerialize(
   writer.writeString(offsets[5], object.measurements);
   writer.writeBool(offsets[6], object.notifications);
   writer.writeBool(offsets[7], object.onboard);
-  writer.writeString(offsets[8], object.theme);
-  writer.writeString(offsets[9], object.timeEnd);
-  writer.writeLong(offsets[10], object.timeRange);
-  writer.writeString(offsets[11], object.timeStart);
-  writer.writeString(offsets[12], object.timeformat);
-  writer.writeString(offsets[13], object.widgetBackgroundColor);
-  writer.writeString(offsets[14], object.widgetTextColor);
+  writer.writeBool(offsets[8], object.roundDegree);
+  writer.writeString(offsets[9], object.theme);
+  writer.writeString(offsets[10], object.timeEnd);
+  writer.writeLong(offsets[11], object.timeRange);
+  writer.writeString(offsets[12], object.timeStart);
+  writer.writeString(offsets[13], object.timeformat);
+  writer.writeString(offsets[14], object.widgetBackgroundColor);
+  writer.writeString(offsets[15], object.widgetTextColor);
 }
 
 Settings _settingsDeserialize(
@@ -194,13 +200,14 @@ Settings _settingsDeserialize(
   object.measurements = reader.readString(offsets[5]);
   object.notifications = reader.readBool(offsets[6]);
   object.onboard = reader.readBool(offsets[7]);
-  object.theme = reader.readStringOrNull(offsets[8]);
-  object.timeEnd = reader.readStringOrNull(offsets[9]);
-  object.timeRange = reader.readLongOrNull(offsets[10]);
-  object.timeStart = reader.readStringOrNull(offsets[11]);
-  object.timeformat = reader.readString(offsets[12]);
-  object.widgetBackgroundColor = reader.readStringOrNull(offsets[13]);
-  object.widgetTextColor = reader.readStringOrNull(offsets[14]);
+  object.roundDegree = reader.readBool(offsets[8]);
+  object.theme = reader.readStringOrNull(offsets[9]);
+  object.timeEnd = reader.readStringOrNull(offsets[10]);
+  object.timeRange = reader.readLongOrNull(offsets[11]);
+  object.timeStart = reader.readStringOrNull(offsets[12]);
+  object.timeformat = reader.readString(offsets[13]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[14]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[15]);
   return object;
 }
 
@@ -228,18 +235,20 @@ P _settingsDeserializeProp<P>(
     case 7:
       return (reader.readBool(offset)) as P;
     case 8:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 9:
       return (reader.readStringOrNull(offset)) as P;
     case 10:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 11:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 12:
-      return (reader.readString(offset)) as P;
-    case 13:
       return (reader.readStringOrNull(offset)) as P;
+    case 13:
+      return (reader.readString(offset)) as P;
     case 14:
+      return (reader.readStringOrNull(offset)) as P;
+    case 15:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -842,6 +851,16 @@ extension SettingsQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'onboard',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> roundDegreeEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'roundDegree',
         value: value,
       ));
     });
@@ -1899,6 +1918,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByRoundDegree() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'roundDegree', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByRoundDegreeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'roundDegree', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByTheme() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'theme', Sort.asc);
@@ -2095,6 +2126,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByRoundDegree() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'roundDegree', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByRoundDegreeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'roundDegree', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByTheme() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'theme', Sort.asc);
@@ -2234,6 +2277,12 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByRoundDegree() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'roundDegree');
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByTheme(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2338,6 +2387,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, bool, QQueryOperations> onboardProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'onboard');
+    });
+  }
+
+  QueryBuilder<Settings, bool, QQueryOperations> roundDegreeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'roundDegree');
     });
   }
 
