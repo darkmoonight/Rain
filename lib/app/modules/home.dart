@@ -42,13 +42,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       length: pages.length,
       vsync: this,
     );
-    _tabController.animation
-      ..addListener(() {
-        setState(() {
-          value = _tabController.animation.value.round();
-          if (value != _currentIndex) setState(() => _currentIndex = value); //_tabController.animation.value returns double
-        });
+    tabController.animation?.addListener(() {
+      setState(() {
+        int value = (tabController.animation!.value).round();
+        if (value != tabIndex) setState(() => tabIndex = value);
       });
+    });
     tabController.addListener(() {
       setState(() {
         tabIndex = tabController.index;
@@ -208,7 +207,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
           bottomNavigationBar: NavigationBar(
-            onDestinationSelected: (int index) => changeTabIndex(index), // maybe here also something different
+            onDestinationSelected: (int index) => changeTabIndex(index),
             selectedIndex: tabIndex,
             destinations: [
               NavigationDestination(
