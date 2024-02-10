@@ -42,6 +42,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       length: pages.length,
       vsync: this,
     );
+    _tabController.animation
+      ..addListener(() {
+        setState(() {
+          value = _tabController.animation.value.round();
+          if (value != _currentIndex) setState(() => _currentIndex = value); //_tabController.animation.value returns double
+        });
+      });
     tabController.addListener(() {
       setState(() {
         tabIndex = tabController.index;
@@ -201,7 +208,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
           bottomNavigationBar: NavigationBar(
-            onDestinationSelected: (int index) => changeTabIndex(index),
+            onDestinationSelected: (int index) => changeTabIndex(index), // maybe here also something different
             selectedIndex: tabIndex,
             destinations: [
               NavigationDestination(
