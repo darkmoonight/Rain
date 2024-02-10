@@ -120,5 +120,7 @@ class PlPl {
         'dewpoint': 'Punkt rosy',
         'shortwaveRadiation': 'Promieniowanie krótkofalowe',
         'roundDegree': 'Zaokrąglaj stopnie',
+        'settings_full': 'Ustawienia',
+        'cities': 'Miasta',
       };
 }

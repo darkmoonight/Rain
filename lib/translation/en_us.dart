@@ -121,5 +121,7 @@ class EnUs {
         'shortwaveRadiation': 'Shortwave radiation',
         'W/m2': 'W/m2',
         'roundDegree': 'Round degrees',
+        'settings_full': 'Settings',
+        'cities': 'Cities',
       };
 }

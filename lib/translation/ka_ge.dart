@@ -121,5 +121,7 @@ class KaGe {
         'dewpoint': 'დევპოინტი',
         'shortwaveRadiation': 'მოკლე ტალღის გამოსხივება',
         'roundDegree': 'ხარისხი მიჯნურობა',
+        'settings_full': 'პარამეტრები',
+        'cities': 'ქალაქები',
       };
 }

@@ -122,5 +122,7 @@ class FrFr {
         'dewpoint': 'Point de rosée',
         'shortwaveRadiation': 'Rayonnement à ondes courtes',
         'roundDegree': 'Arrondir les degrés',
+        'settings_full': 'Paramètres',
+        'cities': 'Villes',
       };
 }

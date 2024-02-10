@@ -122,5 +122,7 @@ class GaIe {
         'shortwaveRadiation': 'Fuinneamh Ghearrfhad',
         'W/m2': 'W/m2',
         'roundDegree': 'Timpeall na Gráid',
+        'settings_full': 'Socruithe',
+        'cities': 'Cathracha',
       };
 }

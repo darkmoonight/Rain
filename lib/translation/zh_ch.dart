@@ -116,5 +116,7 @@ class ZhCh {
         'dewpoint': '露点',
         'shortwaveRadiation': '短波辐射',
         'roundDegree': '四舍五入度数',
+        'settings_full': '设置',
+        'cities': '城市',
       };
 }

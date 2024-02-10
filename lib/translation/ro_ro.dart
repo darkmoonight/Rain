@@ -120,5 +120,7 @@ class RoRo {
         'dewpoint': 'Punct de rouă',
         'shortwaveRadiation': 'Radiație cu unde scurte',
         'roundDegree': 'Rotunjire grade',
+        'settings_full': 'Setări',
+        'cities': 'Orașe',
       };
 }

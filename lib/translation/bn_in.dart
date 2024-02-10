@@ -122,5 +122,7 @@ class BnIn {
         'shortwaveRadiation': 'সংক্ষেপণ তরঙ্গ প্রকৃতি',
         'W/m2': 'ডব্লিউ/মিটার বর্গ',
         'roundDegree': 'ডিগ্রি রাউন্ড করুন',
+        'settings_full': 'সেটিংস',
+        'cities': 'শহর',
       };
 }

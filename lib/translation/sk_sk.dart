@@ -120,5 +120,7 @@ class SkSk {
         'dewpoint': 'Rosný bod',
         'shortwaveRadiation': 'Krátka vlnová radiácia',
         'roundDegree': 'Zaokrúhliť stupne',
+        'settings_full': 'Nastavenia',
+        'cities': 'Mestá',
       };
 }

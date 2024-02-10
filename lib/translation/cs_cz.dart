@@ -120,5 +120,7 @@ class CsCz {
         'dewpoint': 'Rosný bod',
         'shortwaveRadiation': 'Krátká vlnová radiace',
         'roundDegree': 'Zaokrouhlit stupně',
+        'settings_full': 'Nastavení',
+        'cities': 'Města',
       };
 }

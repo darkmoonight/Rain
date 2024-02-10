@@ -122,5 +122,7 @@ class ItIt {
         'dewpoint': 'Punto di rugiada',
         'shortwaveRadiation': 'Radiazione a onde corte',
         'roundDegree': 'Arrotonda i gradi',
+        'settings_full': 'Impostazioni',
+        'cities': 'Città',
       };
 }

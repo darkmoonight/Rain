@@ -121,5 +121,7 @@ class UrPk {
         'shortwaveRadiation': 'چھوٹی موجی شعاع',
         'W/m2': 'واٹ/میٹر مربع',
         'roundDegree': 'ڈگری گھیریں',
+        'settings_full': 'ترتیبات',
+        'cities': 'شہر',
       };
 }

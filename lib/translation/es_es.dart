@@ -122,5 +122,7 @@ class EsEs {
         'dewpoint': 'Punto de rocío',
         'shortwaveRadiation': 'Radiación de onda corta',
         'roundDegree': 'Redondear grados',
+        'settings_full': 'Configuración',
+        'cities': 'Ciudades',
       };
 }

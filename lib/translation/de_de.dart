@@ -122,5 +122,7 @@ class DeDe {
         'dewpoint': 'Taupunkt',
         'shortwaveRadiation': 'Kurzwellenstrahlung',
         'roundDegree': 'Grad runden',
+        'settings_full': 'Einstellungen',
+        'cities': 'Städte',
       };
 }

@@ -120,5 +120,7 @@ class TrTr {
         'dewpoint': 'Çiğ noktası',
         'shortwaveRadiation': 'Kısa dalga radyasyonu',
         'roundDegree': 'Dereceleri yuvarla',
+        'settings_full': 'Ayarlar',
+        'cities': 'Şehirler',
       };
 }

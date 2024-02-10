@@ -119,5 +119,7 @@ class HiIn {
         'dewpoint': 'बर्फ़ के बिंदु',
         'shortwaveRadiation': 'शॉर्टवेव विकिरण',
         'roundDegree': 'डिग्री गोली मारें',
+        'settings_full': 'सेटिंग्स',
+        'cities': 'शहर',
       };
 }

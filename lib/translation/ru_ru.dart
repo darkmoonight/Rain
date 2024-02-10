@@ -121,5 +121,7 @@ class RuRu {
         'shortwaveRadiation': 'Коротковолновое излучение',
         'W/m2': 'Вт/м2',
         'roundDegree': 'Округлить градусы',
+        'settings_full': 'Настройки',
+        'cities': 'Города',
       };
 }

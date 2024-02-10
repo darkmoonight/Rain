@@ -121,5 +121,7 @@ class PtBr {
         'dewpoint': 'Ponto de orvalho',
         'shortwaveRadiation': 'Radiação de ondas curtas',
         'roundDegree': 'Arredondar graus',
+        'settings_full': 'Configurações',
+        'cities': 'Cidades',
       };
 }

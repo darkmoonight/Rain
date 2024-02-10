@@ -122,5 +122,7 @@ class HuHu {
         'shortwaveRadiation': 'Rövidhullámú sugárzás',
         'W/m2': 'W/m2',
         'roundDegree': 'Fokok Kerekítése',
+        'settings_full': 'Beállítások',
+        'cities': 'Városok',
       };
 }

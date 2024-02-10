@@ -122,5 +122,7 @@ class NlNl {
         'dewpoint': 'Dauwpunt',
         'shortwaveRadiation': 'Korte golfstraling',
         'roundDegree': 'Rond graden af',
+        'settings_full': 'Instellingen',
+        'cities': 'Steden',
       };
 }
