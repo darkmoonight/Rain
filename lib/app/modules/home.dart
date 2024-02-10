@@ -42,6 +42,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       length: pages.length,
       vsync: this,
     );
+    tabController.animation?.addListener(() {
+      setState(() {
+        int value = (tabController.animation!.value).round();
+        if (value != tabIndex) setState(() => tabIndex = value);
+      });
+    });
     tabController.addListener(() {
       setState(() {
         tabIndex = tabController.index;
