@@ -118,5 +118,7 @@ class ZhCh {
         'roundDegree': '四舍五入度数',
         'settings_full': '设置',
         'cities': '城市',
+        'searchMethod': '使用搜索或地理定位',
+        'done': '完成',
       };
 }

@@ -122,5 +122,7 @@ class PlPl {
         'roundDegree': 'Zaokrąglaj stopnie',
         'settings_full': 'Ustawienia',
         'cities': 'Miasta',
+        'searchMethod': 'Użyj wyszukiwania lub geolokalizacji',
+        'done': 'Gotowe',
       };
 }

@@ -123,5 +123,7 @@ class UrPk {
         'roundDegree': 'ڈگری گھیریں',
         'settings_full': 'ترتیبات',
         'cities': 'شہر',
+        'searchMethod': 'تلاش یا جغرافیائی مقام استعمال کریں',
+        'done': 'ہوگیا',
       };
 }

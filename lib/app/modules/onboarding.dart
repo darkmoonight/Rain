@@ -1,5 +1,5 @@
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/modules/home.dart';
+import 'package:rain/app/modules/geolocation.dart';
 import 'package:rain/app/widgets/button.dart';
 import 'package:rain/main.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _OnBordingState extends State<OnBording> {
   void onBoardHome() {
     settings.onboard = true;
     isar.writeTxnSync(() => isar.settings.putSync(settings));
-    Get.off(() => const HomePage(), transition: Transition.downToUp);
+    Get.off(() => const SelectGeolocation(), transition: Transition.downToUp);
   }
 
   @override

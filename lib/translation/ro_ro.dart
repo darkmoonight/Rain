@@ -122,5 +122,7 @@ class RoRo {
         'roundDegree': 'Rotunjire grade',
         'settings_full': 'Setări',
         'cities': 'Orașe',
+        'searchMethod': 'Folosiți căutarea sau geolocația',
+        'done': 'Gata',
       };
 }

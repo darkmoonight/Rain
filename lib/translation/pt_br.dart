@@ -123,5 +123,7 @@ class PtBr {
         'roundDegree': 'Arredondar graus',
         'settings_full': 'Configurações',
         'cities': 'Cidades',
+        'searchMethod': 'Use a pesquisa ou a geolocalização',
+        'done': 'Concluído',
       };
 }

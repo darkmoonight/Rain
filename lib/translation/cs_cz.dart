@@ -122,5 +122,7 @@ class CsCz {
         'roundDegree': 'Zaokrouhlit stupně',
         'settings_full': 'Nastavení',
         'cities': 'Města',
+        'searchMethod': 'Použijte hledání nebo geolokaci',
+        'done': 'Hotovo',
       };
 }

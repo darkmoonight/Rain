@@ -124,5 +124,7 @@ class EsEs {
         'roundDegree': 'Redondear grados',
         'settings_full': 'Configuración',
         'cities': 'Ciudades',
+        'searchMethod': 'Usa la búsqueda o la geolocalización',
+        'done': 'Hecho',
       };
 }

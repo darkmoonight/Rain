@@ -124,5 +124,7 @@ class NlNl {
         'roundDegree': 'Rond graden af',
         'settings_full': 'Instellingen',
         'cities': 'Steden',
+        'searchMethod': 'Gebruik zoeken of geolocatie',
+        'done': 'Klaar',
       };
 }

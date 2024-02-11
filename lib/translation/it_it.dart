@@ -124,5 +124,7 @@ class ItIt {
         'roundDegree': 'Arrotonda i gradi',
         'settings_full': 'Impostazioni',
         'cities': 'Città',
+        'searchMethod': 'Utilizza la ricerca o la geolocalizzazione',
+        'done': 'Fatto',
       };
 }

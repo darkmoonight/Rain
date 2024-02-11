@@ -124,5 +124,7 @@ class HuHu {
         'roundDegree': 'Fokok Kerekítése',
         'settings_full': 'Beállítások',
         'cities': 'Városok',
+        'searchMethod': 'Használja a keresést vagy a földrajzi helyet',
+        'done': 'Kész',
       };
 }

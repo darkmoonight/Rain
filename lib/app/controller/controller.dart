@@ -131,6 +131,37 @@ class WeatherController extends GetxController {
     await readCache();
   }
 
+  Future<Map> getCurrentLocationSearch() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    double lat, lon;
+    String city, district;
+
+    if (!isOnline) {
+      showSnackBar(content: 'no_inter'.tr);
+    }
+
+    if (!serviceEnabled) {
+      showSnackBar(
+        content: 'no_location'.tr,
+        onPressed: () => Geolocator.openLocationSettings(),
+      );
+    }
+
+    Position position = await determinePosition();
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark place = placemarks[0];
+
+    lat = position.latitude;
+    lon = position.longitude;
+    city = '${place.administrativeArea}';
+    district = '${place.locality}';
+
+    Map location = {'lat': lat, 'lon': lon, 'city': city, 'district': district};
+
+    return location;
+  }
+
   Future<void> getLocation(double latitude, double longitude, String district,
       String locality) async {
     if (!isOnline) {

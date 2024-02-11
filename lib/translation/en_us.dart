@@ -123,5 +123,7 @@ class EnUs {
         'roundDegree': 'Round degrees',
         'settings_full': 'Settings',
         'cities': 'Cities',
+        'searchMethod': 'Use search or geolocation',
+        'done': 'Done',
       };
 }

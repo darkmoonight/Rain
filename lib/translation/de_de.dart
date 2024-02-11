@@ -124,5 +124,7 @@ class DeDe {
         'roundDegree': 'Grad runden',
         'settings_full': 'Einstellungen',
         'cities': 'Städte',
+        'searchMethod': 'Verwenden Sie die Suche oder die Geolokalisierung',
+        'done': 'Fertig',
       };
 }

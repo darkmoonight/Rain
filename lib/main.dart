@@ -13,6 +13,7 @@ import 'package:home_widget/home_widget.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/modules/geolocation.dart';
 import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
 import 'package:rain/theme/theme.dart';
@@ -26,6 +27,7 @@ import 'translation/translation.dart';
 
 late Isar isar;
 late Settings settings;
+late LocationCache locationCache;
 bool isOnline = false;
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -131,6 +133,8 @@ Future<void> isarInit() async {
     WeatherCardSchema,
   ], directory: (await getApplicationSupportDirectory()).path);
   settings = isar.settings.where().findFirstSync() ?? Settings();
+  locationCache =
+      isar.locationCaches.where().findFirstSync() ?? LocationCache();
 
   if (settings.language == null) {
     settings.language = '${Get.deviceLocale}';
@@ -307,7 +311,14 @@ class _MyAppState extends State<MyApp> {
           supportedLocales:
               appLanguages.map((e) => e['locale'] as Locale).toList(),
           debugShowCheckedModeBanner: false,
-          home: settings.onboard ? const HomePage() : const OnBording(),
+          home: settings.onboard
+              ? (locationCache.city == null) ||
+                      (locationCache.district == null) ||
+                      (locationCache.lat == null) ||
+                      (locationCache.lon == null)
+                  ? const SelectGeolocation()
+                  : const HomePage()
+              : const OnBording(),
         );
       },
     );

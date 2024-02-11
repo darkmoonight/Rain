@@ -124,5 +124,7 @@ class FrFr {
         'roundDegree': 'Arrondir les degrés',
         'settings_full': 'Paramètres',
         'cities': 'Villes',
+        'searchMethod': 'Utilisez la recherche ou la géolocalisation',
+        'done': 'Terminé',
       };
 }

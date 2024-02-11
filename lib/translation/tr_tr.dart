@@ -122,5 +122,7 @@ class TrTr {
         'roundDegree': 'Dereceleri yuvarla',
         'settings_full': 'Ayarlar',
         'cities': 'Şehirler',
+        'searchMethod': 'Arama veya konum belirleme kullanın',
+        'done': 'Tamam',
       };
 }

@@ -124,5 +124,7 @@ class GaIe {
         'roundDegree': 'Timpeall na Gráid',
         'settings_full': 'Socruithe',
         'cities': 'Cathracha',
+        'searchMethod': 'Úsáid ceangal nó geolocáid',
+        'done': 'Críochnaithe',
       };
 }

@@ -122,5 +122,7 @@ class SkSk {
         'roundDegree': 'Zaokrúhliť stupne',
         'settings_full': 'Nastavenia',
         'cities': 'Mestá',
+        'searchMethod': 'Použite vyhľadávanie alebo geolokáciu',
+        'done': 'Hotovo',
       };
 }

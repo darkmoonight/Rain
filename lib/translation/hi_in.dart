@@ -121,5 +121,7 @@ class HiIn {
         'roundDegree': 'डिग्री गोली मारें',
         'settings_full': 'सेटिंग्स',
         'cities': 'शहर',
+        'searchMethod': 'खोज या स्थानगति का उपयोग करें',
+        'done': 'किया',
       };
 }
