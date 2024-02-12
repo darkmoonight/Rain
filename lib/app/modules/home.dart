@@ -8,6 +8,7 @@ import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/cards/view/list_weather_card.dart';
 import 'package:rain/app/modules/cards/widgets/create_card_weather.dart';
+import 'package:rain/app/modules/geolocation.dart';
 import 'package:rain/app/modules/main/view/weather.dart';
 import 'package:rain/app/modules/settings/view/settings.dart';
 import 'package:rain/app/services/utils.dart';
@@ -81,9 +82,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             centerTitle: true,
             automaticallyImplyLeading: false,
             leading: switch (tabIndex) {
-              0 => const Icon(
-                  Iconsax.global_search,
-                  size: 18,
+              0 => IconButton(
+                  onPressed: () {
+                    Get.to(() => const SelectGeolocation(isStart: false),
+                        transition: Transition.downToUp);
+                  },
+                  icon: const Icon(
+                    Iconsax.global_search,
+                    size: 18,
+                  ),
                 ),
               int() => null,
             },

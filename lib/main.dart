@@ -316,7 +316,7 @@ class _MyAppState extends State<MyApp> {
                       (locationCache.district == null) ||
                       (locationCache.lat == null) ||
                       (locationCache.lon == null)
-                  ? const SelectGeolocation()
+                  ? const SelectGeolocation(isStart: true)
                   : const HomePage()
               : const OnBording(),
         );
