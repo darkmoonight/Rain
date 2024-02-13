@@ -2,14 +2,14 @@ class EnUs {
   Map<String, String> get messages => {
         'start': 'Kom i gang',
         'description':
-            'Weather application with an up-to-date forecast for each hour, day, and week for any location.',
+            'Vejr app med en opdateret vejrudsigt for hver time, dag og uge for ethvert sted.',
         'name': 'Vejr',
         'name2': 'Praktisk design',
         'name3': 'Kontakt os',
         'description2':
-            'All navigation is designed to interact with the application as conveniently and quickly as possible.',
+            'Al navigation er designet til at interagere med appen så bekvemt og hurtigt som muligt.',
         'description3':
-            'If you encounter any issues, please contact us via email or in the application reviews.',
+            'Hvis du støder på problemer, må du meget gerne kontakte os via e-mail eller i app anmeldelserne.',
         'next': 'Næste',
         'search': 'Søg...',
         'loading': 'Henter...',
@@ -80,7 +80,7 @@ class EnUs {
         '24': '24-timer',
         'cloudcover': 'skydække',
         'uvIndex': 'UV-index',
-        'materialColor': 'Dynamic colors',
+        'materialColor': 'Dynamiske farver',
         'uvLow': 'Lav',
         'uvAverage': 'Moderat',
         'uvHigh': 'Høj',
@@ -99,8 +99,8 @@ class EnUs {
         'project': 'Projektet findes på',
         'version': 'App version',
         'precipitationProbability': 'Sandsynlighed for nedbør',
-        'apparentTemperatureMin': 'Minimum apparent temperature',
-        'apparentTemperatureMax': 'Maximum apparent temperature',
+        'apparentTemperatureMin': 'Minimum temperature',
+        'apparentTemperatureMax': 'Maksimal temperatur',
         'amoledTheme': 'AMOLED-tema',
         'appearance': 'Udseende',
         'functions': 'Funktioner',
