@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:rain/translation/bn_in.dart';
 import 'package:rain/translation/cs_cz.dart';
+import 'package:rain/translation/da_dk.dart';
 import 'package:rain/translation/de_de.dart';
 import 'package:rain/translation/en_us.dart';
 import 'package:rain/translation/es_es.dart';
@@ -43,5 +44,6 @@ class Translation extends Translations {
         'bn_IN': BnIn().messages,
         'ga_IE': GaIe().messages,
         'hu_HU': HuHu().messages,
+        'da_DK': DaDk().messages,
       };
 }

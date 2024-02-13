@@ -46,6 +46,7 @@ String widgetTextColor = '';
 final List appLanguages = [
   {'name': 'বাংলা', 'locale': const Locale('bn', 'IN')},
   {'name': 'Čeština', 'locale': const Locale('cs', 'CZ')},
+  {'name': 'Dansk', 'locale': const Locale('da', 'DK')},
   {'name': 'Deutsch', 'locale': const Locale('de', 'DE')},
   {'name': 'English', 'locale': const Locale('en', 'US')},
   {'name': 'Español', 'locale': const Locale('es', 'ES')},

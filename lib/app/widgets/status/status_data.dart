@@ -55,22 +55,25 @@ class StatusData {
   String getTimeFormat(String time) {
     switch (settings.timeformat) {
       case '12':
-        return DateFormat.jm().format(DateTime.tryParse(time)!);
+        return DateFormat.jm(locale.languageCode)
+            .format(DateTime.tryParse(time)!);
       case '24':
-        return DateFormat.Hm().format(DateTime.tryParse(time)!);
+        return DateFormat.Hm(locale.languageCode)
+            .format(DateTime.tryParse(time)!);
       default:
-        return DateFormat.Hm().format(DateTime.tryParse(time)!);
+        return DateFormat.Hm(locale.languageCode)
+            .format(DateTime.tryParse(time)!);
     }
   }
 
   String getTimeFormatTz(TZDateTime time) {
     switch (settings.timeformat) {
       case '12':
-        return DateFormat.jm().format(time);
+        return DateFormat.jm(locale.languageCode).format(time);
       case '24':
-        return DateFormat.Hm().format(time);
+        return DateFormat.Hm(locale.languageCode).format(time);
       default:
-        return DateFormat.Hm().format(time);
+        return DateFormat.Hm(locale.languageCode).format(time);
     }
   }
 }

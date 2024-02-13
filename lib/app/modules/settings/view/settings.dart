@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -311,14 +310,16 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoSettings: true,
                               infoWidget: _TextInfo(
                                 info: settings.timeformat == '12'
-                                    ? DateFormat.jm().format(DateFormat.Hm()
-                                        .parse(weatherController
-                                            .timeConvert(timeStart)
-                                            .format(context)))
-                                    : DateFormat.Hm().format(DateFormat.Hm()
-                                        .parse(weatherController
-                                            .timeConvert(timeStart)
-                                            .format(context))),
+                                    ? DateFormat.jm(locale.languageCode).format(
+                                        DateFormat.Hm(locale.languageCode)
+                                            .parse(weatherController
+                                                .timeConvert(timeStart)
+                                                .format(context)))
+                                    : DateFormat.Hm(locale.languageCode).format(
+                                        DateFormat.Hm(locale.languageCode)
+                                            .parse(weatherController
+                                                .timeConvert(timeStart)
+                                                .format(context))),
                               ),
                               onPressed: () async {
                                 final TimeOfDay? timeStartPicker =
@@ -365,14 +366,16 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoSettings: true,
                               infoWidget: _TextInfo(
                                 info: settings.timeformat == '12'
-                                    ? DateFormat.jm().format(DateFormat.Hm()
-                                        .parse(weatherController
-                                            .timeConvert(timeEnd)
-                                            .format(context)))
-                                    : DateFormat.Hm().format(DateFormat.Hm()
-                                        .parse(weatherController
-                                            .timeConvert(timeEnd)
-                                            .format(context))),
+                                    ? DateFormat.jm(locale.languageCode).format(
+                                        DateFormat.Hm(locale.languageCode)
+                                            .parse(weatherController
+                                                .timeConvert(timeEnd)
+                                                .format(context)))
+                                    : DateFormat.Hm(locale.languageCode).format(
+                                        DateFormat.Hm(locale.languageCode)
+                                            .parse(weatherController
+                                                .timeConvert(timeEnd)
+                                                .format(context))),
                               ),
                               onPressed: () async {
                                 final TimeOfDay? timeEndPicker =
