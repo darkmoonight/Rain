@@ -31,7 +31,8 @@ class _OnBordingState extends State<OnBording> {
   void onBoardHome() {
     settings.onboard = true;
     isar.writeTxnSync(() => isar.settings.putSync(settings));
-    Get.off(() => const SelectGeolocation(), transition: Transition.downToUp);
+    Get.off(() => const SelectGeolocation(isStart: true),
+        transition: Transition.downToUp);
   }
 
   @override

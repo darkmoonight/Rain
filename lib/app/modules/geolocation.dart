@@ -12,7 +12,11 @@ import 'package:rain/app/widgets/text_form.dart';
 import 'package:rain/main.dart';
 
 class SelectGeolocation extends StatefulWidget {
-  const SelectGeolocation({super.key});
+  const SelectGeolocation({
+    super.key,
+    required this.isStart,
+  });
+  final bool isStart;
 
   @override
   State<SelectGeolocation> createState() => _SelectGeolocationState();
@@ -63,6 +67,19 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           centerTitle: true,
+          leading: widget.isStart
+              ? null
+              : IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(
+                    Iconsax.arrow_left_1,
+                    size: 20,
+                  ),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                ),
           automaticallyImplyLeading: false,
           title: Text(
             'searchCity'.tr,
@@ -359,8 +376,10 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                               _controllerDistrict.text,
                               _controllerCity.text,
                             );
-                            Get.off(() => const HomePage(),
-                                transition: Transition.downToUp);
+                            widget.isStart
+                                ? Get.off(() => const HomePage(),
+                                    transition: Transition.downToUp)
+                                : Get.back();
                           } catch (error) {
                             Future.error(error);
                           }
