@@ -209,7 +209,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                                 await Geolocator
                                                     .isLocationServiceEnabled();
                                             if (!serviceEnabled) {
-                                              if (!mounted) return;
+                                              if (!context.mounted) return;
                                               await showAdaptiveDialog(
                                                 context: context,
                                                 builder:

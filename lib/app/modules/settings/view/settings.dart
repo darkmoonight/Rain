@@ -184,7 +184,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   bool serviceEnabled = await Geolocator
                                       .isLocationServiceEnabled();
                                   if (!serviceEnabled) {
-                                    if (!mounted) return;
+                                    if (!context.mounted) return;
                                     await showAdaptiveDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -346,7 +346,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                         timeStartPicker.format(context);
                                     isar.settings.putSync(settings);
                                   });
-                                  if (!mounted) return;
+                                  if (!context.mounted) return;
                                   MyApp.updateAppState(context,
                                       newTimeStart:
                                           timeStartPicker.format(context));
@@ -402,7 +402,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                         timeEndPicker.format(context);
                                     isar.settings.putSync(settings);
                                   });
-                                  if (!mounted) return;
+                                  if (!context.mounted) return;
                                   MyApp.updateAppState(context,
                                       newTimeEnd:
                                           timeEndPicker.format(context));
