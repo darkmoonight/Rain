@@ -5,6 +5,7 @@ import 'package:rain/translation/da_dk.dart';
 import 'package:rain/translation/de_de.dart';
 import 'package:rain/translation/en_us.dart';
 import 'package:rain/translation/es_es.dart';
+import 'package:rain/translation/fa_ir.dart';
 import 'package:rain/translation/fr_fr.dart';
 import 'package:rain/translation/ga_ie.dart';
 import 'package:rain/translation/hi_in.dart';
@@ -27,6 +28,7 @@ class Translation extends Translations {
         'ru_RU': RuRu().messages,
         'en_US': EnUs().messages,
         'fr_FR': FrFr().messages,
+        'fa_IR': FaIr().messages,
         'it_IT': ItIt().messages,
         'de_DE': DeDe().messages,
         'tr_TR': TrTr().messages,
