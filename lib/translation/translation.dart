@@ -21,6 +21,7 @@ import 'package:rain/translation/sk_sk.dart';
 import 'package:rain/translation/tr_tr.dart';
 import 'package:rain/translation/ur_pk.dart';
 import 'package:rain/translation/zh_ch.dart';
+import 'package:rain/translation/zh_tw.dart';
 
 class Translation extends Translations {
   @override
@@ -39,6 +40,7 @@ class Translation extends Translations {
         'hi_IN': HiIn().messages,
         'ro_RO': RoRo().messages,
         'zh_CN': ZhCh().messages,
+        'zh_TW': ZhTw().messages,
         'pl_PL': PlPl().messages,
         'ur_PK': UrPk().messages,
         'cs_CZ': CsCz().messages,
