@@ -32,68 +32,73 @@ const SettingsSchema = CollectionSchema(
       name: r'degrees',
       type: IsarType.string,
     ),
-    r'language': PropertySchema(
+    r'enableDynamicIcon': PropertySchema(
       id: 3,
+      name: r'enableDynamicIcon',
+      type: IsarType.bool,
+    ),
+    r'language': PropertySchema(
+      id: 4,
       name: r'language',
       type: IsarType.string,
     ),
     r'location': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'location',
       type: IsarType.bool,
     ),
     r'materialColor': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'materialColor',
       type: IsarType.bool,
     ),
     r'measurements': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'measurements',
       type: IsarType.string,
     ),
     r'notifications': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'notifications',
       type: IsarType.bool,
     ),
     r'onboard': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'onboard',
       type: IsarType.bool,
     ),
     r'theme': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'theme',
       type: IsarType.string,
     ),
     r'timeEnd': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'timeEnd',
       type: IsarType.string,
     ),
     r'timeRange': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'timeRange',
       type: IsarType.long,
     ),
     r'timeStart': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'timeStart',
       type: IsarType.string,
     ),
     r'timeformat': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'timeformat',
       type: IsarType.string,
     ),
     r'widgetBackgroundColor': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
     ),
     r'widgetTextColor': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'widgetTextColor',
       type: IsarType.string,
     )
@@ -175,19 +180,20 @@ void _settingsSerialize(
   writer.writeBool(offsets[0], object.amoledTheme);
   writer.writeString(offsets[1], object.currentAppIcon);
   writer.writeString(offsets[2], object.degrees);
-  writer.writeString(offsets[3], object.language);
-  writer.writeBool(offsets[4], object.location);
-  writer.writeBool(offsets[5], object.materialColor);
-  writer.writeString(offsets[6], object.measurements);
-  writer.writeBool(offsets[7], object.notifications);
-  writer.writeBool(offsets[8], object.onboard);
-  writer.writeString(offsets[9], object.theme);
-  writer.writeString(offsets[10], object.timeEnd);
-  writer.writeLong(offsets[11], object.timeRange);
-  writer.writeString(offsets[12], object.timeStart);
-  writer.writeString(offsets[13], object.timeformat);
-  writer.writeString(offsets[14], object.widgetBackgroundColor);
-  writer.writeString(offsets[15], object.widgetTextColor);
+  writer.writeBool(offsets[3], object.enableDynamicIcon);
+  writer.writeString(offsets[4], object.language);
+  writer.writeBool(offsets[5], object.location);
+  writer.writeBool(offsets[6], object.materialColor);
+  writer.writeString(offsets[7], object.measurements);
+  writer.writeBool(offsets[8], object.notifications);
+  writer.writeBool(offsets[9], object.onboard);
+  writer.writeString(offsets[10], object.theme);
+  writer.writeString(offsets[11], object.timeEnd);
+  writer.writeLong(offsets[12], object.timeRange);
+  writer.writeString(offsets[13], object.timeStart);
+  writer.writeString(offsets[14], object.timeformat);
+  writer.writeString(offsets[15], object.widgetBackgroundColor);
+  writer.writeString(offsets[16], object.widgetTextColor);
 }
 
 Settings _settingsDeserialize(
@@ -200,20 +206,21 @@ Settings _settingsDeserialize(
   object.amoledTheme = reader.readBool(offsets[0]);
   object.currentAppIcon = reader.readStringOrNull(offsets[1]);
   object.degrees = reader.readString(offsets[2]);
+  object.enableDynamicIcon = reader.readBool(offsets[3]);
   object.id = id;
-  object.language = reader.readStringOrNull(offsets[3]);
-  object.location = reader.readBool(offsets[4]);
-  object.materialColor = reader.readBool(offsets[5]);
-  object.measurements = reader.readString(offsets[6]);
-  object.notifications = reader.readBool(offsets[7]);
-  object.onboard = reader.readBool(offsets[8]);
-  object.theme = reader.readStringOrNull(offsets[9]);
-  object.timeEnd = reader.readStringOrNull(offsets[10]);
-  object.timeRange = reader.readLongOrNull(offsets[11]);
-  object.timeStart = reader.readStringOrNull(offsets[12]);
-  object.timeformat = reader.readString(offsets[13]);
-  object.widgetBackgroundColor = reader.readStringOrNull(offsets[14]);
-  object.widgetTextColor = reader.readStringOrNull(offsets[15]);
+  object.language = reader.readStringOrNull(offsets[4]);
+  object.location = reader.readBool(offsets[5]);
+  object.materialColor = reader.readBool(offsets[6]);
+  object.measurements = reader.readString(offsets[7]);
+  object.notifications = reader.readBool(offsets[8]);
+  object.onboard = reader.readBool(offsets[9]);
+  object.theme = reader.readStringOrNull(offsets[10]);
+  object.timeEnd = reader.readStringOrNull(offsets[11]);
+  object.timeRange = reader.readLongOrNull(offsets[12]);
+  object.timeStart = reader.readStringOrNull(offsets[13]);
+  object.timeformat = reader.readString(offsets[14]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[15]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[16]);
   return object;
 }
 
@@ -231,30 +238,32 @@ P _settingsDeserializeProp<P>(
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readStringOrNull(offset)) as P;
-    case 4:
       return (reader.readBool(offset)) as P;
+    case 4:
+      return (reader.readStringOrNull(offset)) as P;
     case 5:
       return (reader.readBool(offset)) as P;
     case 6:
-      return (reader.readString(offset)) as P;
-    case 7:
       return (reader.readBool(offset)) as P;
+    case 7:
+      return (reader.readString(offset)) as P;
     case 8:
       return (reader.readBool(offset)) as P;
     case 9:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 10:
       return (reader.readStringOrNull(offset)) as P;
     case 11:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 12:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 13:
-      return (reader.readString(offset)) as P;
-    case 14:
       return (reader.readStringOrNull(offset)) as P;
+    case 14:
+      return (reader.readString(offset)) as P;
     case 15:
+      return (reader.readStringOrNull(offset)) as P;
+    case 16:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -639,6 +648,16 @@ extension SettingsQueryFilter
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'degrees',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      enableDynamicIconEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'enableDynamicIcon',
+        value: value,
       ));
     });
   }
@@ -2007,6 +2026,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByEnableDynamicIcon() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableDynamicIcon', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByEnableDynamicIconDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableDynamicIcon', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByLanguage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'language', Sort.asc);
@@ -2203,6 +2234,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByEnableDynamicIcon() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableDynamicIcon', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByEnableDynamicIconDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'enableDynamicIcon', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -2396,6 +2439,12 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByEnableDynamicIcon() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'enableDynamicIcon');
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByLanguage(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2508,6 +2557,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, String, QQueryOperations> degreesProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'degrees');
+    });
+  }
+
+  QueryBuilder<Settings, bool, QQueryOperations> enableDynamicIconProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'enableDynamicIcon');
     });
   }
 

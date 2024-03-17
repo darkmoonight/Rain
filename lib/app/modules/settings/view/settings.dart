@@ -104,13 +104,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                 ThemeMode themeMode = newThemeMode == systemTheme
                                     ? ThemeMode.system
                                     : newThemeMode == darkTheme
-                                    ? ThemeMode.dark
-                                    : ThemeMode.light;
+                                        ? ThemeMode.dark
+                                        : ThemeMode.light;
                                 String theme = newThemeMode == systemTheme
                                     ? 'system'
                                     : newThemeMode == darkTheme
-                                    ? 'dark'
-                                    : 'light';
+                                        ? 'dark'
+                                        : 'light';
                                 themeController.saveTheme(theme);
                                 themeController.changeThemeMode(themeMode);
                                 setState(() {});
@@ -136,6 +136,18 @@ class _SettingsPageState extends State<SettingsPage> {
                               onChange: (value) {
                                 themeController.saveMaterialTheme(value);
                                 MyApp.updateAppState(context, newMaterialColor: value);
+                              },
+                            ),
+                            SettingCard(
+                              elevation: 4,
+                              icon: const Icon(Iconsax.image),
+                              text: 'dynamicIcon'.tr,
+                              switcher: true,
+                              value: settings.enableDynamicIcon,
+                              onChange: (value) {
+                                settings.enableDynamicIcon = value;
+                                isar.writeTxnSync(() => isar.settings.putSync(settings));
+                                setState(() {});
                               },
                             ),
                             const SizedBox(height: 10),
@@ -237,11 +249,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                     ?.requestExactAlarmsPermission();
                                 final result = Platform.isIOS
                                     ? await flutterLocalNotificationsPlugin
-                                    .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
-                                    ?.requestPermissions()
+                                        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+                                        ?.requestPermissions()
                                     : await flutterLocalNotificationsPlugin
-                                    .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-                                    ?.requestNotificationsPermission();
+                                        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+                                        ?.requestNotificationsPermission();
                                 if (result != null && resultExact != null) {
                                   isar.writeTxnSync(() {
                                     settings.notifications = value;
@@ -290,9 +302,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoWidget: _TextInfo(
                                 info: settings.timeformat == '12'
                                     ? DateFormat.jm().format(
-                                    DateFormat.Hm().parse(weatherController.timeConvert(timeStart).format(context)))
+                                        DateFormat.Hm().parse(weatherController.timeConvert(timeStart).format(context)))
                                     : DateFormat.Hm().format(DateFormat.Hm()
-                                    .parse(weatherController.timeConvert(timeStart).format(context))),
+                                        .parse(weatherController.timeConvert(timeStart).format(context))),
                               ),
                               onPressed: () async {
                                 final TimeOfDay? timeStartPicker = await showTimePicker(
@@ -331,9 +343,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               infoWidget: _TextInfo(
                                 info: settings.timeformat == '12'
                                     ? DateFormat.jm().format(
-                                    DateFormat.Hm().parse(weatherController.timeConvert(timeEnd).format(context)))
+                                        DateFormat.Hm().parse(weatherController.timeConvert(timeEnd).format(context)))
                                     : DateFormat.Hm().format(
-                                    DateFormat.Hm().parse(weatherController.timeConvert(timeEnd).format(context))),
+                                        DateFormat.Hm().parse(weatherController.timeConvert(timeEnd).format(context))),
                               ),
                               onPressed: () async {
                                 final TimeOfDay? timeEndPicker = await showTimePicker(
@@ -566,7 +578,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 radius: 11,
                                 child: CircleAvatar(
                                   backgroundColor:
-                                  widgetTextColor.isEmpty ? theme.primaryColor : HexColor.fromHex(widgetTextColor),
+                                      widgetTextColor.isEmpty ? theme.primaryColor : HexColor.fromHex(widgetTextColor),
                                   radius: 10,
                                 ),
                               ),

@@ -21,6 +21,7 @@ class Settings {
   String? timeStart;
   String? timeEnd;
   String? currentAppIcon;
+  bool enableDynamicIcon = false;
 }
 
 @collection

@@ -39,8 +39,7 @@ class Translation extends Translations {
           'hPa': 'гПа',
           'settings': 'Настр.',
           'no_inter': 'Нет интернета',
-          'on_inter':
-              'Включите интернет для получения метеорологических данных.',
+          'on_inter': 'Включите интернет для получения метеорологических данных.',
           'location': 'Местоположение',
           'no_location':
               'Включите службу определения местоположения для получения метеорологических данных для текущего местоположения.',
@@ -118,6 +117,7 @@ class Translation extends Translations {
           'dewpoint': 'Точка росы',
           'shortwaveRadiation': 'Коротковолновое излучение',
           'W/m2': 'Вт/м2',
+          'dynamicIcon': 'Динамический значок',
         },
         'en_US': {
           'start': 'Get Started',
@@ -157,8 +157,7 @@ class Translation extends Translations {
           'no_inter': 'No Internet',
           'on_inter': 'Turn on the Internet to get meteorological data.',
           'location': 'Location',
-          'no_location':
-              'Enable the location service to get weather data for the current location.',
+          'no_location': 'Enable the location service to get weather data for the current location.',
           'theme': 'Theme',
           'low': 'Low',
           'high': 'High',
@@ -170,8 +169,7 @@ class Translation extends Translations {
           'district': 'District',
           'noWeatherCard': 'Add a city',
           'deletedCardWeather': 'Deleting a city',
-          'deletedCardWeatherQuery':
-              'Are you sure you want to delete the city?',
+          'deletedCardWeatherQuery': 'Are you sure you want to delete the city?',
           'delete': 'Delete',
           'cancel': 'Cancel',
           'time': 'Time in the city',
@@ -234,6 +232,7 @@ class Translation extends Translations {
           'dewpoint': 'Dewpoint',
           'shortwaveRadiation': 'Shortwave radiation',
           'W/m2': 'W/m2',
+          'dynamicIcon': 'Dynamic Icon',
         },
         'fr_FR': {
           'start': 'Démarrer',
@@ -271,8 +270,7 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Par.',
           'no_inter': 'Pas de réseau',
-          'on_inter':
-              'Connectez-vous à internet pour obtenir des données météorologiques.',
+          'on_inter': 'Connectez-vous à internet pour obtenir des données météorologiques.',
           'location': 'Localisation',
           'no_location':
               'Activez le service de localisation pour obtenir les données météorologiques de l\'endroit actuel.',
@@ -287,8 +285,7 @@ class Translation extends Translations {
           'district': 'District',
           'noWeatherCard': 'Ajouter une ville',
           'deletedCardWeather': 'Supprimer une ville',
-          'deletedCardWeatherQuery':
-              'Êtes-vous sûr de vouloir supprimer la ville ?',
+          'deletedCardWeatherQuery': 'Êtes-vous sûr de vouloir supprimer la ville ?',
           'delete': 'Supprimer',
           'cancel': 'Annuler',
           'time': 'Heure locale',
@@ -350,6 +347,8 @@ class Translation extends Translations {
           'widgetText': 'Texte du widget',
           'dewpoint': 'Point de rosée',
           'shortwaveRadiation': 'Rayonnement à ondes courtes',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'Icône dynamique',
         },
         'it_IT': {
           'start': 'Clicca per iniziare',
@@ -387,11 +386,9 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Imposta.',
           'no_inter': 'Non c\'è connessione Internet',
-          'on_inter':
-              'Attiva la connessione Internet per avere dati meteorologici.',
+          'on_inter': 'Attiva la connessione Internet per avere dati meteorologici.',
           'location': 'Posizione',
-          'no_location':
-              'Abilita il servizio di localizzazione per ottenere i dati meteo per la posizione corrente.',
+          'no_location': 'Abilita il servizio di localizzazione per ottenere i dati meteo per la posizione corrente.',
           'theme': 'Tema',
           'low': 'Basso',
           'high': 'Alto',
@@ -403,8 +400,7 @@ class Translation extends Translations {
           'district': 'Regione',
           'noWeatherCard': 'Aggiungi una città',
           'deletedCardWeather': 'Rimozione della città',
-          'deletedCardWeatherQuery':
-              'Sei sicuro di voler rimuovere questa città?',
+          'deletedCardWeatherQuery': 'Sei sicuro di voler rimuovere questa città?',
           'delete': 'Elimina',
           'cancel': 'Annulla',
           'time': 'Orario locale',
@@ -466,6 +462,8 @@ class Translation extends Translations {
           'widgetText': 'Testo del widget',
           'dewpoint': 'Punto di rugiada',
           'shortwaveRadiation': 'Radiazione a onde corte',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'Icona dinamica',
         },
         'de_DE': {
           'start': 'Los gehts',
@@ -503,11 +501,9 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Einstellungen',
           'no_inter': 'Keine Internetverbindung',
-          'on_inter':
-              'Schalte das Internet ein, um meteorologische Daten zu erhalten.',
+          'on_inter': 'Schalte das Internet ein, um meteorologische Daten zu erhalten.',
           'location': 'Standort',
-          'no_location':
-              'Aktiviere den Standortdienst, um Wetterdaten für den aktuellen Standort zu erhalten.',
+          'no_location': 'Aktiviere den Standortdienst, um Wetterdaten für den aktuellen Standort zu erhalten.',
           'theme': 'Thema',
           'low': 'Niedrig',
           'high': 'Hoch',
@@ -519,8 +515,7 @@ class Translation extends Translations {
           'district': 'Bezirk',
           'noWeatherCard': 'Füge eine Stadt hinzu',
           'deletedCardWeather': 'Stadt löschen',
-          'deletedCardWeatherQuery':
-              'Sind Sie sicher, dass Sie die Stadt löschen möchten?',
+          'deletedCardWeatherQuery': 'Sind Sie sicher, dass Sie die Stadt löschen möchten?',
           'delete': 'Löschen',
           'cancel': 'Abbrechen',
           'time': 'Ortszeit',
@@ -582,6 +577,8 @@ class Translation extends Translations {
           'widgetText': 'Widget-Text',
           'dewpoint': 'Taupunkt',
           'shortwaveRadiation': 'Kurzwellenstrahlung',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'Dynamisches Symbol',
         },
         'tr_TR': {
           'start': 'Başlat',
@@ -621,8 +618,7 @@ class Translation extends Translations {
           'no_inter': 'İnternet yok',
           'on_inter': 'Hava durumu verilerini almak için interneti açın.',
           'location': 'Konum',
-          'no_location':
-              'Mevcut konumun hava durumu verilerini almak için konum servisini açın.',
+          'no_location': 'Mevcut konumun hava durumu verilerini almak için konum servisini açın.',
           'theme': 'Tema',
           'low': 'Düşük',
           'high': 'Yüksek',
@@ -634,8 +630,7 @@ class Translation extends Translations {
           'district': 'İlçe',
           'noWeatherCard': 'Şehri ekle',
           'deletedCardWeather': 'Şehir silme',
-          'deletedCardWeatherQuery':
-              'Şehri silmek istediğinizden emin misiniz?',
+          'deletedCardWeatherQuery': 'Şehri silmek istediğinizden emin misiniz?',
           'delete': 'Sil',
           'cancel': 'İptal',
           'time': 'Şehirde Saat',
@@ -697,6 +692,8 @@ class Translation extends Translations {
           'widgetText': 'Araç metni',
           'dewpoint': 'Çiğ noktası',
           'shortwaveRadiation': 'Kısa dalga radyasyonu',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'Dinamik simge',
         },
         'pt_BR': {
           'start': 'Iniciar',
@@ -736,8 +733,7 @@ class Translation extends Translations {
           'no_inter': 'Sem conexão',
           'on_inter': 'Conecte-se a internet para atualizar os dados de clima.',
           'location': 'Localização',
-          'no_location':
-              'Habilite a localização para obter dados de clima do local atual.',
+          'no_location': 'Habilite a localização para obter dados de clima do local atual.',
           'theme': 'Tema',
           'low': 'Baixo',
           'high': 'Alto',
@@ -749,8 +745,7 @@ class Translation extends Translations {
           'district': 'Distrito',
           'noWeatherCard': 'Adicione uma cidade',
           'deletedCardWeather': 'Deletando a cidade',
-          'deletedCardWeatherQuery':
-              'Você tem certeza que deseja remover esta cidade?',
+          'deletedCardWeatherQuery': 'Você tem certeza que deseja remover esta cidade?',
           'delete': 'Deletar',
           'cancel': 'Cancelar',
           'time': 'Clima na cidade',
@@ -812,6 +807,8 @@ class Translation extends Translations {
           'widgetText': 'Texto do widget',
           'dewpoint': 'Ponto de orvalho',
           'shortwaveRadiation': 'Radiação de ondas curtas',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'ícone dinâmico',
         },
         'es_ES': {
           'start': 'Empezar',
@@ -849,11 +846,9 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Ajustes',
           'no_inter': 'Sin conexión a Internet',
-          'on_inter':
-              'Conéctate a Internet para obtener información meteorológica.',
+          'on_inter': 'Conéctate a Internet para obtener información meteorológica.',
           'location': 'Ubicación',
-          'no_location':
-              'Activa la localización para obtener información meteorológica para tu ubicación actual.',
+          'no_location': 'Activa la localización para obtener información meteorológica para tu ubicación actual.',
           'theme': 'Tema',
           'low': 'Bajo',
           'high': 'Alto',
@@ -865,8 +860,7 @@ class Translation extends Translations {
           'district': 'Distrito',
           'noWeatherCard': 'Añadir una ciudad',
           'deletedCardWeather': 'Eliminar una ciudad',
-          'deletedCardWeatherQuery':
-              '¿Estás seguro de que quieres eliminar la ciudad?',
+          'deletedCardWeatherQuery': '¿Estás seguro de que quieres eliminar la ciudad?',
           'delete': 'Eliminar',
           'cancel': 'Cancelar',
           'time': 'Hora en la ciudad',
@@ -928,6 +922,8 @@ class Translation extends Translations {
           'widgetText': 'Texto del widget',
           'dewpoint': 'Punto de rocío',
           'shortwaveRadiation': 'Radiación de onda corta',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'Icono dinámico',
         },
         'sk_SK': {
           'start': 'Začať',
@@ -965,11 +961,9 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Nast.',
           'no_inter': 'Žiadny internet',
-          'on_inter':
-              'Pripojte sa na internet a získajte meteorologické údaje.',
+          'on_inter': 'Pripojte sa na internet a získajte meteorologické údaje.',
           'location': 'Poloha',
-          'no_location':
-              'Ak chcete získať údaje o počasí pre aktuálnu polohu, povoľte službu určovania polohy.',
+          'no_location': 'Ak chcete získať údaje o počasí pre aktuálnu polohu, povoľte službu určovania polohy.',
           'theme': 'Téma',
           'low': 'Nízky',
           'high': 'Vysoký',
@@ -1043,6 +1037,8 @@ class Translation extends Translations {
           'widgetText': 'Text widgetu',
           'dewpoint': 'Rosný bod',
           'shortwaveRadiation': 'Krátka vlnová radiácia',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'dynamická ikona',
         },
         'nl_NL': {
           'start': 'Beginnen',
@@ -1080,11 +1076,9 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Instellingen.',
           'no_inter': 'Geen Internet',
-          'on_inter':
-              'Schakel Internet in om meteorologische gegevens te ontvangen.',
+          'on_inter': 'Schakel Internet in om meteorologische gegevens te ontvangen.',
           'location': 'Locatie',
-          'no_location':
-              'Schakel de locatiedienst in om weer gegevens voor de huidige locatie te ontvangen.',
+          'no_location': 'Schakel de locatiedienst in om weer gegevens voor de huidige locatie te ontvangen.',
           'theme': 'Thema',
           'low': 'Laag',
           'high': 'Hoog',
@@ -1096,8 +1090,7 @@ class Translation extends Translations {
           'district': 'District',
           'noWeatherCard': 'Voeg een stad toe',
           'deletedCardWeather': 'Verwijder een city',
-          'deletedCardWeatherQuery':
-              'Weet je zeker dat je de stad wilt verwijderen?',
+          'deletedCardWeatherQuery': 'Weet je zeker dat je de stad wilt verwijderen?',
           'delete': 'Verwijder',
           'cancel': 'Annuleer',
           'time': 'Tijd in de stad',
@@ -1159,6 +1152,8 @@ class Translation extends Translations {
           'widgetText': 'Tekst van widget',
           'dewpoint': 'Dauwpunt',
           'shortwaveRadiation': 'Korte golfstraling',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'Dynamisch icoon',
         },
         'hi_IN': {
           'start': 'शुरू करें',
@@ -1272,6 +1267,8 @@ class Translation extends Translations {
           'widgetText': 'विजेट पाठ',
           'dewpoint': 'बर्फ़ के बिंदु',
           'shortwaveRadiation': 'शॉर्टवेव विकिरण',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'गतिशील चिह्न',
         },
         'ro_RO': {
           'start': 'Începe',
@@ -1311,8 +1308,7 @@ class Translation extends Translations {
           'no_inter': 'Fără Internet',
           'on_inter': 'Pornește Internetul pentru a obține date meteorologice.',
           'location': 'Locație',
-          'no_location':
-              'Activează serviciul de localizare pentru a obține date meteorologice pentru locația curentă.',
+          'no_location': 'Activează serviciul de localizare pentru a obține date meteorologice pentru locația curentă.',
           'theme': 'Temă',
           'low': 'Scăzut',
           'high': 'Ridicat',
@@ -1386,6 +1382,8 @@ class Translation extends Translations {
           'widgetText': 'Text widget',
           'dewpoint': 'Punct de rouă',
           'shortwaveRadiation': 'Radiație cu unde scurte',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'Iconiță dinamică',
         },
         'zh_CN': {
           'start': '开始',
@@ -1498,6 +1496,8 @@ class Translation extends Translations {
           'widgetText': '小部件文本',
           'dewpoint': '露点',
           'shortwaveRadiation': '短波辐射',
+          'W/m2': 'W/m2',
+          'dynamicIcon': '动态图标',
         },
         'pl_PL': {
           'start': 'Rozpocznij',
@@ -1537,8 +1537,7 @@ class Translation extends Translations {
           'no_inter': 'Brak internetu',
           'on_inter': 'Włącz Internet, aby uzyskać dane meteorologiczne.',
           'location': 'Lokalizacja',
-          'no_location':
-              'Włącz usługę lokalizacyjną, aby uzyskać dane pogodowe dla bieżącej lokalizacji.',
+          'no_location': 'Włącz usługę lokalizacyjną, aby uzyskać dane pogodowe dla bieżącej lokalizacji.',
           'theme': 'Motyw',
           'low': 'Niski',
           'high': 'Wysoki',
@@ -1612,6 +1611,8 @@ class Translation extends Translations {
           'widgetText': 'Tekst widżetu',
           'dewpoint': 'Punkt rosy',
           'shortwaveRadiation': 'Promieniowanie krótkofalowe',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'Dynamiczna ikona',
         },
         'ur_PK': {
           'start': 'شروع',
@@ -1651,8 +1652,7 @@ class Translation extends Translations {
           'no_inter': 'انٹرنیٹ نہیں ہے',
           'on_inter': 'موسمی معلومات حاصل کرنے کے لئے انٹرنیٹ کو چالنے دیں۔',
           'location': 'مقام',
-          'no_location':
-              'موسمی معلومات حاصل کرنے کے لئے مقام کی تشخیص کی خدمات کو چالنے دیں۔',
+          'no_location': 'موسمی معلومات حاصل کرنے کے لئے مقام کی تشخیص کی خدمات کو چالنے دیں۔',
           'theme': 'تھیم',
           'low': 'کم',
           'high': 'زیادہ',
@@ -1727,6 +1727,7 @@ class Translation extends Translations {
           'dewpoint': 'دھوا پوائنٹ',
           'shortwaveRadiation': 'چھوٹی موجی شعاع',
           'W/m2': 'واٹ/میٹر مربع',
+          'dynamicIcon': 'متحرک آئیکن',
         },
         'cs_CZ': {
           'start': 'Začít',
@@ -1764,11 +1765,9 @@ class Translation extends Translations {
           'hPa': 'hPa',
           'settings': 'Nast.',
           'no_inter': 'Žádný internet',
-          'on_inter':
-              'Připojte se k internetu a získejte meteorologické údaje.',
+          'on_inter': 'Připojte se k internetu a získejte meteorologické údaje.',
           'location': 'Poloha',
-          'no_location':
-              'Chcete-li získat údaje o počasí pro aktuální polohu, povolte službu určování polohy.',
+          'no_location': 'Chcete-li získat údaje o počasí pro aktuální polohu, povolte službu určování polohy.',
           'theme': 'Téma',
           'low': 'Nízký',
           'high': 'Vysoký',
@@ -1842,6 +1841,8 @@ class Translation extends Translations {
           'widgetText': 'Text widgetu',
           'dewpoint': 'Rosný bod',
           'shortwaveRadiation': 'Krátká vlnová radiace',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'dynamická ikona',
         },
         'ka_GE': {
           'start': 'დაიწყე',
@@ -1881,8 +1882,7 @@ class Translation extends Translations {
           'no_inter': 'ინტერნეტი არ არის',
           'on_inter': 'ჩართეთ ინტერნეტი მეტეოროლოგიური მონაცემების მისაღებად.',
           'location': 'ადგილმდებარეობა',
-          'no_location':
-              'ჩართეთ მდებარეობის სერვისი, რომ მიიღოთ ამინდის მონაცემები მიმდინარე ადგილმდებარეობისთვის.',
+          'no_location': 'ჩართეთ მდებარეობის სერვისი, რომ მიიღოთ ამინდის მონაცემები მიმდინარე ადგილმდებარეობისთვის.',
           'theme': 'თემა',
           'low': 'დაბალი',
           'high': 'მაღალი',
@@ -1894,8 +1894,7 @@ class Translation extends Translations {
           'district': 'რაიონი',
           'noWeatherCard': 'დაამატეთ ქალაქი',
           'deletedCardWeather': 'ქალაქის წაშლა',
-          'deletedCardWeatherQuery':
-              'დარწმუნებული ხართ, რომ გსურთ ქალაქის წაშლა?',
+          'deletedCardWeatherQuery': 'დარწმუნებული ხართ, რომ გსურთ ქალაქის წაშლა?',
           'delete': 'ამოღება',
           'cancel': 'გაუქმება',
           'time': 'დრო ქალაქში',
@@ -1957,6 +1956,8 @@ class Translation extends Translations {
           'widgetText': 'ვიჯეტის ტექსტი',
           'dewpoint': 'დევპოინტი',
           'shortwaveRadiation': 'მოკლე ტალღის გამოსხივება',
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'დინამიური ხატულა',
         },
         'bn_IN': {
           'start': 'শুরু করুন',
@@ -1996,8 +1997,7 @@ class Translation extends Translations {
           'no_inter': 'ইন্টারনেট নেই',
           'on_inter': 'মেটিয়োরোলজিক তথ্য পেতে ইন্টারনেট চালু করুন।',
           'location': 'অবস্থান',
-          'no_location':
-              'বর্তমান অবস্থানের জন্য আবহাওয়া ডেটা পেতে অবস্থান সেবা সক্রিয় করুন।',
+          'no_location': 'বর্তমান অবস্থানের জন্য আবহাওয়া ডেটা পেতে অবস্থান সেবা সক্রিয় করুন।',
           'theme': 'থিম',
           'low': 'নিম্ন',
           'high': 'উচ্চ',
@@ -2051,8 +2051,7 @@ class Translation extends Translations {
           'project': 'প্রকল্প',
           'version': 'অ্যাপ্লিকেশন সংস্করণ',
           'precipitationProbability': 'বৃষ্টিপাতের সম্ভাবনা',
-          'apparentTemperatureMin':
-              'ন্যায্য ন্যায্য তাপমাত্রা ন্যায্য ন্যায্য ন্যায্য ন্যায্য ন্যায্য ন্যায্য ন্যায্য',
+          'apparentTemperatureMin': 'ন্যায্য ন্যায্য তাপমাত্রা ন্যায্য ন্যায্য ন্যায্য ন্যায্য ন্যায্য ন্যায্য ন্যায্য',
           'apparentTemperatureMax': 'সর্বাধিক ন্যায্য তাপমাত্রা',
           'amoledTheme': 'এমোলেড-থিম',
           'appearance': 'উপস্থিতি',
@@ -2073,6 +2072,7 @@ class Translation extends Translations {
           'dewpoint': 'তুষার বিন্দু',
           'shortwaveRadiation': 'সংক্ষেপণ তরঙ্গ প্রকৃতি',
           'W/m2': 'ডব্লিউ/মিটার বর্গ',
+          'dynamicIcon': 'গতিশীল আইকন',
         },
         'ga_IE': {
           'start': 'Tosaigh',
@@ -2112,8 +2112,7 @@ class Translation extends Translations {
           'no_inter': 'Gan Idirlíon',
           'on_inter': 'Cuir ar Idirlíon chun sonraí aeráide a fháil.',
           'location': 'Áit',
-          'no_location':
-              'Cumasaigh seirbhís na háite chun sonraí aimsire a fháil don áit reatha.',
+          'no_location': 'Cumasaigh seirbhís na háite chun sonraí aimsire a fháil don áit reatha.',
           'theme': 'Téama',
           'low': 'Íseal',
           'high': 'Ard',
@@ -2125,8 +2124,7 @@ class Translation extends Translations {
           'district': 'Ceantar',
           'noWeatherCard': 'Cuir cathair leis',
           'deletedCardWeather': 'Áireamh cathair á scriosadh',
-          'deletedCardWeatherQuery':
-              'An bhfuil tú cinnte go bhfuil tú ag iarraidh an chathair a scriosadh?',
+          'deletedCardWeatherQuery': 'An bhfuil tú cinnte go bhfuil tú ag iarraidh an chathair a scriosadh?',
           'delete': 'Scrios',
           'cancel': 'Cealaigh',
           'time': 'Am sa chathair',
@@ -2189,10 +2187,12 @@ class Translation extends Translations {
           'dewpoint': 'Poinnte Dé',
           'shortwaveRadiation': 'Fuinneamh Ghearrfhad',
           'W/m2': 'W/m2',
+          'dynamicIcon': 'deilbhín dinimiciúil',
         },
         'hu_HU': {
           'start': 'Kezdés',
-          'description': 'Időjárás alkalmazás, amely valós idejű előrejelzéseket és óránkénti, napi és heti előrejelzéseket nyújt bármelyik helyszínre.',
+          'description':
+              'Időjárás alkalmazás, amely valós idejű előrejelzéseket és óránkénti, napi és heti előrejelzéseket nyújt bármelyik helyszínre.',
           'name': 'Időjárás',
           'search': 'Keresés...',
           'loading': 'Betöltés...',
@@ -2301,7 +2301,8 @@ class Translation extends Translations {
           'widgetText': 'Widget szöveg',
           'dewpoint': 'Harmatpont',
           'shortwaveRadiation': 'Rövidhullámú sugárzás',
-          'W/m2': 'W/m2'
-         }
+          'W/m2': 'W/m2',
+          'dynamicIcon': 'dinamikus ikonra',
+        }
       };
 }
