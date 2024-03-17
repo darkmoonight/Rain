@@ -49,6 +49,22 @@ class _DescContainerState extends State<DescContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final dewpoint2M = widget.dewpoint2M?.round();
+    final feels = widget.feels;
+    final visibility = widget.visibility;
+    final direction = widget.direction;
+    final wind = widget.wind;
+    final windgusts = widget.windgusts;
+    final evaporation = widget.evaporation;
+    final precipitation = widget.precipitation;
+    final rain = widget.rain;
+    final precipitationProbability = widget.precipitationProbability;
+    final humidity = widget.humidity;
+    final cloudcover = widget.cloudcover;
+    final pressure = widget.pressure;
+    final uvIndex = widget.uvIndex;
+    final shortwaveRadiation = widget.shortwaveRadiation;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
       child: Padding(
@@ -57,113 +73,112 @@ class _DescContainerState extends State<DescContainer> {
           alignment: WrapAlignment.spaceEvenly,
           spacing: 5,
           children: [
-            widget.dewpoint2M == null
+            dewpoint2M == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/dew.png',
-                    value: statusData.getDegree(widget.dewpoint2M?.round()),
+                    value: statusData.getDegree(dewpoint2M.round()),
                     desc: 'dewpoint'.tr,
                   ),
-            widget.feels == null
+            feels == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/temperature.png',
-                    value: statusData.getDegree(widget.feels?.round()),
+                    value: statusData.getDegree(feels.round()),
                     desc: 'feels'.tr,
                   ),
-            widget.visibility == null
+            visibility == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/fog.png',
-                    value: statusData.getVisibility(widget.visibility),
+                    value: statusData.getVisibility(visibility),
                     desc: 'visibility'.tr,
                   ),
-            widget.direction == null
+            direction == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/windsock.png',
-                    value: '${widget.direction}°',
+                    value: '$direction°',
                     desc: 'direction'.tr,
-                    message: message.getDirection(widget.direction),
+                    message: message.getDirection(direction),
                   ),
-            widget.wind == null
+            wind == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/wind.png',
-                    value: statusData.getSpeed(widget.wind?.round()),
+                    value: statusData.getSpeed(wind.round()),
                     desc: 'wind'.tr,
                   ),
-            widget.windgusts == null
+            windgusts == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/windgusts.png',
-                    value: statusData.getSpeed(widget.windgusts?.round()),
+                    value: statusData.getSpeed(windgusts.round()),
                     desc: 'windgusts'.tr,
                   ),
-            widget.evaporation == null
+            evaporation == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/evaporation.png',
-                    value:
-                        statusData.getPrecipitation(widget.evaporation?.abs()),
+                    value: statusData.getPrecipitation(evaporation.abs()),
                     desc: 'evaporation'.tr,
                   ),
-            widget.precipitation == null
+            precipitation == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/rainfall.png',
-                    value: statusData.getPrecipitation(widget.precipitation),
+                    value: statusData.getPrecipitation(precipitation),
                     desc: 'precipitation'.tr,
                   ),
-            widget.rain == null
+            rain == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/water.png',
-                    value: statusData.getPrecipitation(widget.rain),
+                    value: statusData.getPrecipitation(rain),
                     desc: 'rain'.tr,
                   ),
-            widget.precipitationProbability == null
+            precipitationProbability == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/precipitation_probability.png',
-                    value: '${widget.precipitationProbability}%',
+                    value: '$precipitationProbability%',
                     desc: 'precipitationProbability'.tr,
                   ),
-            widget.humidity == null
+            humidity == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/humidity.png',
-                    value: '${widget.humidity}%',
+                    value: '$humidity%',
                     desc: 'humidity'.tr,
                   ),
-            widget.cloudcover == null
+            cloudcover == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/cloudy.png',
-                    value: '${widget.cloudcover}%',
+                    value: '$cloudcover%',
                     desc: 'cloudcover'.tr,
                   ),
-            widget.pressure == null
+            pressure == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/atmospheric.png',
-                    value: '${widget.pressure?.round()} ${'hPa'.tr}',
+                    value: '${pressure.round()} ${'hPa'.tr}',
                     desc: 'pressure'.tr,
-                    message: message.getPressure(widget.pressure?.round()),
+                    message: message.getPressure(pressure.round()),
                   ),
-            widget.uvIndex == null
+            uvIndex == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/uv.png',
-                    value: '${widget.uvIndex?.round()}',
+                    value: '${uvIndex.round()}',
                     desc: 'uvIndex'.tr,
-                    message: message.getUvIndex(widget.uvIndex?.round()),
+                    message: message.getUvIndex(uvIndex.round()),
                   ),
-            widget.shortwaveRadiation == null
+            shortwaveRadiation == null
                 ? const Offstage()
                 : DescWeather(
                     imageName: 'assets/images/shortwave_radiation.png',
-                    value: '${widget.shortwaveRadiation?.round()} ${'W/m2'.tr}',
+                    value: '${shortwaveRadiation.round()} ${'W/m2'.tr}',
                     desc: 'shortwaveRadiation'.tr,
                   ),
           ],

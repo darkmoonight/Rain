@@ -69,7 +69,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
           highlightColor: Colors.transparent,
         ),
         title: Text(
-          DateFormat.MMMMEEEEd(locale.languageCode).format(timeDaily[pageIndex]),
+          DateFormat.MMMMEEEEd(locale.languageCode)
+              .format(timeDaily[pageIndex]),
           style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: 18,
@@ -87,13 +88,17 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
           itemCount: timeDaily.length,
           itemBuilder: (context, index) {
             final indexedWeatherCodeDaily = weatherCodeDaily[index];
-            final apparentTemperatureMin = weatherData.apparentTemperatureMin?[index];
-            final apparentTemperatureMax = weatherData.apparentTemperatureMax?[index];
+            final apparentTemperatureMin =
+                weatherData.apparentTemperatureMin?[index];
+            final apparentTemperatureMax =
+                weatherData.apparentTemperatureMax?[index];
             final uvIndexMax = weatherData.uvIndexMax?[index];
-            final windDirection10MDominant = weatherData.winddirection10MDominant?[index];
+            final windDirection10MDominant =
+                weatherData.winddirection10MDominant?[index];
             final windSpeed10MMax = weatherData.windspeed10MMax?[index];
             final windGusts10MMax = weatherData.windgusts10MMax?[index];
-            final precipitationProbabilityMax = weatherData.precipitationProbabilityMax?[index];
+            final precipitationProbabilityMax =
+                weatherData.precipitationProbabilityMax?[index];
             final rainSum = weatherData.rainSum?[index];
             final precipitationSum = weatherData.precipitationSum?[index];
 
@@ -109,9 +114,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                             const SizedBox(height: 15),
                             Image(
                               image: AssetImage(
-                                statusWeather.getImageNowDaily(
-                                  indexedWeatherCodeDaily,
-                                ),
+                                statusWeather
+                                    .getImageNowDaily(indexedWeatherCodeDaily),
                               ),
                               fit: BoxFit.fill,
                               height: 200,
@@ -132,7 +136,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              DateFormat.MMMMEEEEd(locale.languageCode).format(timeDaily[index]),
+                              DateFormat.MMMMEEEEd(locale.languageCode)
+                                  .format(timeDaily[index]),
                               style: textTheme.labelLarge?.copyWith(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -159,14 +164,16 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                                     ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/cold.png',
-                                        value: statusData.getDegree(apparentTemperatureMin.round()),
+                                        value: statusData.getDegree(
+                                            apparentTemperatureMin.round()),
                                         desc: 'apparentTemperatureMin'.tr,
                                       ),
                                 apparentTemperatureMax == null
                                     ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/hot.png',
-                                        value: statusData.getDegree(apparentTemperatureMax.round()),
+                                        value: statusData.getDegree(
+                                            apparentTemperatureMax.round()),
                                         desc: 'apparentTemperatureMax'.tr,
                                       ),
                                 uvIndexMax == null
@@ -175,7 +182,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                                         imageName: 'assets/images/uv.png',
                                         value: '${uvIndexMax.round()}',
                                         desc: 'uvIndex'.tr,
-                                        message: message.getUvIndex(uvIndexMax.round()),
+                                        message: message
+                                            .getUvIndex(uvIndexMax.round()),
                                       ),
                                 windDirection10MDominant == null
                                     ? const Offstage()
@@ -183,26 +191,31 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                                         imageName: 'assets/images/windsock.png',
                                         value: '$windDirection10MDominant°',
                                         desc: 'direction'.tr,
-                                        message: message.getDirection(windDirection10MDominant),
+                                        message: message.getDirection(
+                                            windDirection10MDominant),
                                       ),
                                 windSpeed10MMax == null
                                     ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/wind.png',
-                                        value: statusData.getSpeed(windSpeed10MMax.round()),
+                                        value: statusData
+                                            .getSpeed(windSpeed10MMax.round()),
                                         desc: 'wind'.tr,
                                       ),
                                 windGusts10MMax == null
                                     ? const Offstage()
                                     : DescWeather(
-                                        imageName: 'assets/images/windgusts.png',
-                                        value: statusData.getSpeed(windGusts10MMax.round()),
+                                        imageName:
+                                            'assets/images/windgusts.png',
+                                        value: statusData
+                                            .getSpeed(windGusts10MMax.round()),
                                         desc: 'windgusts'.tr,
                                       ),
                                 precipitationProbabilityMax == null
                                     ? const Offstage()
                                     : DescWeather(
-                                        imageName: 'assets/images/precipitation_probability.png',
+                                        imageName:
+                                            'assets/images/precipitation_probability.png',
                                         value: '$precipitationProbabilityMax%',
                                         desc: 'precipitationProbability'.tr,
                                       ),
@@ -210,14 +223,16 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                                     ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/water.png',
-                                        value: statusData.getPrecipitation(rainSum),
+                                        value: statusData
+                                            .getPrecipitation(rainSum),
                                         desc: 'rain'.tr,
                                       ),
                                 precipitationSum == null
                                     ? const Offstage()
                                     : DescWeather(
                                         imageName: 'assets/images/rainfall.png',
-                                        value: statusData.getPrecipitation(precipitationSum),
+                                        value: statusData
+                                            .getPrecipitation(precipitationSum),
                                         desc: 'precipitation'.tr,
                                       ),
                               ],

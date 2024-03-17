@@ -31,19 +31,18 @@ class _WeatherHourlyState extends State<WeatherHourly> {
   @override
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
-
+    final time = widget.time;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Column(
           children: [
             Text(
-              statusData.getTimeFormat(widget.time),
+              statusData.getTimeFormat(time),
               style: textTheme.labelLarge,
             ),
             Text(
-              DateFormat('E', locale.languageCode)
-                  .format(DateTime.tryParse(widget.time)!),
+              DateFormat('E', locale.languageCode).format(DateTime.tryParse(time)!),
               style: textTheme.labelLarge?.copyWith(
                 color: Colors.grey,
               ),
@@ -53,7 +52,7 @@ class _WeatherHourlyState extends State<WeatherHourly> {
         Image.asset(
           statusWeather.getImageToday(
             widget.weather,
-            widget.time,
+            time,
             widget.timeDay,
             widget.timeNight,
           ),

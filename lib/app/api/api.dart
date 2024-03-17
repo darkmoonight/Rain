@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +24,6 @@ class WeatherAPI {
     try {
       Response response = await dio.get(urlWeather);
       WeatherDataApi weatherData = WeatherDataApi.fromJson(response.data);
-      log("weatherData: ${response.data}");
       return MainWeatherCache(
         time: weatherData.hourly.time,
         temperature2M: weatherData.hourly.temperature2M,
