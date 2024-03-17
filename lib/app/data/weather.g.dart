@@ -22,73 +22,78 @@ const SettingsSchema = CollectionSchema(
       name: r'amoledTheme',
       type: IsarType.bool,
     ),
-    r'degrees': PropertySchema(
+    r'currentAppIcon': PropertySchema(
       id: 1,
+      name: r'currentAppIcon',
+      type: IsarType.string,
+    ),
+    r'degrees': PropertySchema(
+      id: 2,
       name: r'degrees',
       type: IsarType.string,
     ),
     r'language': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'language',
       type: IsarType.string,
     ),
     r'location': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'location',
       type: IsarType.bool,
     ),
     r'materialColor': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'materialColor',
       type: IsarType.bool,
     ),
     r'measurements': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'measurements',
       type: IsarType.string,
     ),
     r'notifications': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'notifications',
       type: IsarType.bool,
     ),
     r'onboard': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'onboard',
       type: IsarType.bool,
     ),
     r'theme': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'theme',
       type: IsarType.string,
     ),
     r'timeEnd': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'timeEnd',
       type: IsarType.string,
     ),
     r'timeRange': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'timeRange',
       type: IsarType.long,
     ),
     r'timeStart': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'timeStart',
       type: IsarType.string,
     ),
     r'timeformat': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'timeformat',
       type: IsarType.string,
     ),
     r'widgetBackgroundColor': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
     ),
     r'widgetTextColor': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'widgetTextColor',
       type: IsarType.string,
     )
@@ -113,6 +118,12 @@ int _settingsEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  {
+    final value = object.currentAppIcon;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.degrees.length * 3;
   {
     final value = object.language;
@@ -162,20 +173,21 @@ void _settingsSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeBool(offsets[0], object.amoledTheme);
-  writer.writeString(offsets[1], object.degrees);
-  writer.writeString(offsets[2], object.language);
-  writer.writeBool(offsets[3], object.location);
-  writer.writeBool(offsets[4], object.materialColor);
-  writer.writeString(offsets[5], object.measurements);
-  writer.writeBool(offsets[6], object.notifications);
-  writer.writeBool(offsets[7], object.onboard);
-  writer.writeString(offsets[8], object.theme);
-  writer.writeString(offsets[9], object.timeEnd);
-  writer.writeLong(offsets[10], object.timeRange);
-  writer.writeString(offsets[11], object.timeStart);
-  writer.writeString(offsets[12], object.timeformat);
-  writer.writeString(offsets[13], object.widgetBackgroundColor);
-  writer.writeString(offsets[14], object.widgetTextColor);
+  writer.writeString(offsets[1], object.currentAppIcon);
+  writer.writeString(offsets[2], object.degrees);
+  writer.writeString(offsets[3], object.language);
+  writer.writeBool(offsets[4], object.location);
+  writer.writeBool(offsets[5], object.materialColor);
+  writer.writeString(offsets[6], object.measurements);
+  writer.writeBool(offsets[7], object.notifications);
+  writer.writeBool(offsets[8], object.onboard);
+  writer.writeString(offsets[9], object.theme);
+  writer.writeString(offsets[10], object.timeEnd);
+  writer.writeLong(offsets[11], object.timeRange);
+  writer.writeString(offsets[12], object.timeStart);
+  writer.writeString(offsets[13], object.timeformat);
+  writer.writeString(offsets[14], object.widgetBackgroundColor);
+  writer.writeString(offsets[15], object.widgetTextColor);
 }
 
 Settings _settingsDeserialize(
@@ -186,21 +198,22 @@ Settings _settingsDeserialize(
 ) {
   final object = Settings();
   object.amoledTheme = reader.readBool(offsets[0]);
-  object.degrees = reader.readString(offsets[1]);
+  object.currentAppIcon = reader.readStringOrNull(offsets[1]);
+  object.degrees = reader.readString(offsets[2]);
   object.id = id;
-  object.language = reader.readStringOrNull(offsets[2]);
-  object.location = reader.readBool(offsets[3]);
-  object.materialColor = reader.readBool(offsets[4]);
-  object.measurements = reader.readString(offsets[5]);
-  object.notifications = reader.readBool(offsets[6]);
-  object.onboard = reader.readBool(offsets[7]);
-  object.theme = reader.readStringOrNull(offsets[8]);
-  object.timeEnd = reader.readStringOrNull(offsets[9]);
-  object.timeRange = reader.readLongOrNull(offsets[10]);
-  object.timeStart = reader.readStringOrNull(offsets[11]);
-  object.timeformat = reader.readString(offsets[12]);
-  object.widgetBackgroundColor = reader.readStringOrNull(offsets[13]);
-  object.widgetTextColor = reader.readStringOrNull(offsets[14]);
+  object.language = reader.readStringOrNull(offsets[3]);
+  object.location = reader.readBool(offsets[4]);
+  object.materialColor = reader.readBool(offsets[5]);
+  object.measurements = reader.readString(offsets[6]);
+  object.notifications = reader.readBool(offsets[7]);
+  object.onboard = reader.readBool(offsets[8]);
+  object.theme = reader.readStringOrNull(offsets[9]);
+  object.timeEnd = reader.readStringOrNull(offsets[10]);
+  object.timeRange = reader.readLongOrNull(offsets[11]);
+  object.timeStart = reader.readStringOrNull(offsets[12]);
+  object.timeformat = reader.readString(offsets[13]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[14]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[15]);
   return object;
 }
 
@@ -214,32 +227,34 @@ P _settingsDeserializeProp<P>(
     case 0:
       return (reader.readBool(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
-    case 2:
       return (reader.readStringOrNull(offset)) as P;
+    case 2:
+      return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readBool(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
       return (reader.readBool(offset)) as P;
     case 5:
-      return (reader.readString(offset)) as P;
-    case 6:
       return (reader.readBool(offset)) as P;
+    case 6:
+      return (reader.readString(offset)) as P;
     case 7:
       return (reader.readBool(offset)) as P;
     case 8:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 9:
       return (reader.readStringOrNull(offset)) as P;
     case 10:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 11:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 12:
-      return (reader.readString(offset)) as P;
-    case 13:
       return (reader.readStringOrNull(offset)) as P;
+    case 13:
+      return (reader.readString(offset)) as P;
     case 14:
+      return (reader.readStringOrNull(offset)) as P;
+    case 15:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -341,6 +356,159 @@ extension SettingsQueryFilter
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'amoledTheme',
         value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'currentAppIcon',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'currentAppIcon',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> currentAppIconEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'currentAppIcon',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'currentAppIcon',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'currentAppIcon',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> currentAppIconBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'currentAppIcon',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'currentAppIcon',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'currentAppIcon',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'currentAppIcon',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> currentAppIconMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'currentAppIcon',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'currentAppIcon',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+      currentAppIconIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'currentAppIcon',
+        value: '',
       ));
     });
   }
@@ -1815,6 +1983,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByCurrentAppIcon() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'currentAppIcon', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByCurrentAppIconDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'currentAppIcon', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByDegrees() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'degrees', Sort.asc);
@@ -1996,6 +2176,18 @@ extension SettingsQuerySortThenBy
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByAmoledThemeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'amoledTheme', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByCurrentAppIcon() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'currentAppIcon', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByCurrentAppIconDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'currentAppIcon', Sort.desc);
     });
   }
 
@@ -2189,6 +2381,14 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByCurrentAppIcon(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'currentAppIcon',
+          caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByDegrees(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2296,6 +2496,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, bool, QQueryOperations> amoledThemeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'amoledTheme');
+    });
+  }
+
+  QueryBuilder<Settings, String?, QQueryOperations> currentAppIconProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'currentAppIcon');
     });
   }
 

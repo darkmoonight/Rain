@@ -20,6 +20,7 @@ class Settings {
   int? timeRange;
   String? timeStart;
   String? timeEnd;
+  String? currentAppIcon;
 }
 
 @collection

@@ -145,10 +145,17 @@ class WeatherController extends GetxController {
 
     _mainWeather.value = await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
 
+    /// Try setting the app icon based on the current weather
     final weatherCode = _mainWeather.value.weathercode![hourOfDay.value];
-    print(StatusWeather().getAppIcon(weatherCode));
-    print(StatusWeather().getText(weatherCode));
-    AppIconService().changeIcon(StatusWeather().getAppIcon(weatherCode));
+    final weatherIcon = StatusWeather().getAppIcon(weatherCode);
+    print("Stored app icon: ${settings.currentAppIcon}, Weather icon: $weatherIcon");
+    if (settings.currentAppIcon != weatherIcon) {
+      settings.currentAppIcon = weatherIcon;
+      isar.writeTxnSync(() {
+        isar.settings.putSync(settings);
+      });
+      AppIconService().changeIcon(StatusWeather().getAppIcon(weatherCode));
+    }
 
     notificationCheck();
 
