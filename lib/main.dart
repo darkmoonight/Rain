@@ -70,7 +70,7 @@ const String androidWidgetName = 'OreoWidget';
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) {
-    return WeatherController().updateWidget();
+    return WeatherController().runBackgroundTasks();
   });
 }
 

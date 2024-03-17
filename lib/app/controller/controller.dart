@@ -516,7 +516,7 @@ class WeatherController extends GetxController {
     });
   }
 
-  Future<bool> updateWidget() async {
+  Future<bool> runBackgroundTasks() async {
     final timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
@@ -530,8 +530,28 @@ class WeatherController extends GetxController {
 
     MainWeatherCache? mainWeatherCache;
     mainWeatherCache = isarWidget.mainWeatherCaches.where().findFirstSync();
-    if (mainWeatherCache == null) return false;
+    Settings? settings;
+    settings = isarWidget.settings.where().findFirstSync();
+    if (mainWeatherCache != null) {
+      final updateResult = await updateWidget(mainWeatherCache);
+      if (settings != null && settings.enableDynamicIcon) {
+        int hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
+        final dynamicIcon = StatusWeather().getAppIcon(mainWeatherCache.weathercode![hour]);
+        if (settings.currentAppIcon != dynamicIcon) {
+          settings.currentAppIcon = dynamicIcon;
+          isarWidget.writeTxnSync(() {
+            isarWidget.settings.putSync(settings!);
+          });
+          AppIconService().changeIcon(dynamicIcon);
+        }
+      }
+      return updateResult;
+    } else {
+      return false;
+    }
+  }
 
+  Future<bool> updateWidget(MainWeatherCache mainWeatherCache) async {
     int hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
     int day = getDay(mainWeatherCache.timeDaily!, mainWeatherCache.timezone!);
 
@@ -549,8 +569,8 @@ class WeatherController extends GetxController {
         '${mainWeatherCache.temperature2M?[hour].round()}°',
       ),
       HomeWidget.updateWidget(androidName: androidWidgetName),
-    ]).then((value) {
-      return !value.contains(false);
+    ]).then((values) {
+      return !values.contains(false);
     });
   }
 }
