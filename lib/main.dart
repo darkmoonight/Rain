@@ -82,8 +82,8 @@ void callbackDispatcher() {
 void main() async {
   final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
-  Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-    result == ConnectivityResult.none ? isOnline = false : isOnline = true;
+  Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
+    result.contains(ConnectivityResult.none) ? isOnline = false : isOnline = true;
   });
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black));
