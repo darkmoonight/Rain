@@ -84,7 +84,8 @@ flutter {
 }
 
 dependencies {
-    implementation "androidx.core:core-remoteviews:1.0.0"
+    implementation("androidx.core:core-remoteviews:1.0.0")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 }
 
 // Remove this for FLOSS version

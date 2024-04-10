@@ -92,7 +92,7 @@ class WeatherController extends GetxController {
   Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
-    if (!isOnline) {
+    if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
       await readCache();
       return;
@@ -136,7 +136,7 @@ class WeatherController extends GetxController {
     double lat, lon;
     String city, district;
 
-    if (!isOnline) {
+    if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
     }
 
@@ -164,7 +164,7 @@ class WeatherController extends GetxController {
 
   Future<void> getLocation(double latitude, double longitude, String district,
       String locality) async {
-    if (!isOnline) {
+    if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
       await readCache();
       return;
@@ -251,7 +251,7 @@ class WeatherController extends GetxController {
   }
 
   Future<void> deleteCache() async {
-    if (!isOnline) {
+    if (!(await isOnline.value)) {
       return;
     }
 
@@ -267,7 +267,7 @@ class WeatherController extends GetxController {
   }
 
   Future<void> deleteAll(bool changeCity) async {
-    if (!isOnline) {
+    if (!(await isOnline.value)) {
       return;
     }
 
@@ -288,7 +288,7 @@ class WeatherController extends GetxController {
   // Card Weather
   Future<void> addCardWeather(
       double latitude, double longitude, String city, String district) async {
-    if (!isOnline) {
+    if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
       return;
     }
@@ -311,7 +311,7 @@ class WeatherController extends GetxController {
             .sortByIndex()
             .findAllSync();
 
-    if (!isOnline || weatherCard.isEmpty) {
+    if ((!(await isOnline.value)) || weatherCard.isEmpty) {
       return;
     }
 
@@ -367,7 +367,7 @@ class WeatherController extends GetxController {
   }
 
   Future<void> updateCard(WeatherCard weatherCard) async {
-    if (!isOnline) {
+    if (!(await isOnline.value)) {
       return;
     }
 

@@ -32,8 +32,8 @@ dependencies:
   path_provider: ^2.1.2
   json_annotation: ^4.8.1
   flutter_timezone: ^1.0.8
-  package_info_plus: ^6.0.0
-  connectivity_plus: ^6.0.1
+  package_info_plus: ^7.0.0
+  connectivity_plus: ^6.0.2
   freezed_annotation: ^2.4.1
   isar_flutter_libs: ^3.1.0+1
   flutter_displaymode: ^0.6.0
@@ -41,6 +41,7 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^17.0.0
+  internet_connection_checker_plus: ^2.3.0
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:
@@ -53,7 +54,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  freezed: ^2.4.8
+  freezed: ^2.5.1
   build_runner: ^2.4.9
   flutter_lints: ^3.0.2
   isar_generator: ^3.1.0+1

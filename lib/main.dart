@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/controller/controller.dart';
@@ -28,7 +29,8 @@ import 'translation/translation.dart';
 late Isar isar;
 late Settings settings;
 late LocationCache locationCache;
-bool isOnline = false;
+final ValueNotifier<Future<bool>> isOnline =
+    ValueNotifier(InternetConnection().hasInternetAccess);
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -82,8 +84,12 @@ void callbackDispatcher() {
 void main() async {
   final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
-  Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
-    result.contains(ConnectivityResult.none) ? isOnline = false : isOnline = true;
+  Connectivity()
+      .onConnectivityChanged
+      .listen((List<ConnectivityResult> result) {
+    result.contains(ConnectivityResult.none)
+        ? isOnline.value = Future(() => false)
+        : isOnline.value = InternetConnection().hasInternetAccess;
   });
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black));
