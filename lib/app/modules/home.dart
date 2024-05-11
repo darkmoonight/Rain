@@ -252,7 +252,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               NavigationDestination(
                 icon: const Icon(Iconsax.category),
                 selectedIcon: const Icon(Iconsax.category5),
-                label: 'settings'.tr,
+                label: 'settings_full'.tr,
               ),
             ],
           ),
