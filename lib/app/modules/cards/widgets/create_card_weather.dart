@@ -228,6 +228,12 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     type: TextInputType.streetAddress,
                     icon: const Icon(Iconsax.global),
                     margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'validateName'.tr;
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
                 ],
