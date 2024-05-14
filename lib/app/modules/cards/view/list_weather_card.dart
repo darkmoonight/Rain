@@ -76,15 +76,18 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                                 'deletedCardWeather'.tr,
                                 style: textTheme.titleLarge,
                               ),
-                              content: Text('deletedCardWeatherQuery'.tr,
-                                  style: titleMedium),
+                              content: Text(
+                                'deletedCardWeatherQuery'.tr,
+                                style: titleMedium,
+                              ),
                               actions: [
                                 TextButton(
                                   onPressed: () => Get.back(result: false),
                                   child: Text(
                                     'cancel'.tr,
                                     style: titleMedium?.copyWith(
-                                        color: Colors.blueAccent),
+                                      color: Colors.blueAccent,
+                                    ),
                                   ),
                                 ),
                                 TextButton(
@@ -92,7 +95,8 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                                   child: Text(
                                     'delete'.tr,
                                     style: titleMedium?.copyWith(
-                                        color: Colors.red),
+                                      color: Colors.red,
+                                    ),
                                   ),
                                 ),
                               ],

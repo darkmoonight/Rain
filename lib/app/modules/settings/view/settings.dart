@@ -456,9 +456,12 @@ class _SettingsPageState extends State<SettingsPage> {
                               onChange: (value) {
                                 settings.roundDegree = value;
                                 isar.writeTxnSync(
-                                    () => isar.settings.putSync(settings));
-                                MyApp.updateAppState(context,
-                                    newRoundDegree: value);
+                                  () => isar.settings.putSync(settings),
+                                );
+                                MyApp.updateAppState(
+                                  context,
+                                  newRoundDegree: value,
+                                );
                                 setState(() {});
                               },
                             ),

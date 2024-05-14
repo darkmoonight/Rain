@@ -109,7 +109,7 @@ class EnUs {
         'timeRange': 'Frequency (in hours)',
         'timeStart': 'Start time',
         'timeEnd': 'End time',
-        'support': 'Support',
+        'support': 'Donate',
         'system': 'System',
         'dark': 'Dark',
         'light': 'Light',

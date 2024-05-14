@@ -35,6 +35,10 @@ class MyTextForm extends StatelessWidget {
         keyboardType: type,
         style: context.textTheme.labelLarge,
         decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 12.5,
+            vertical: 0,
+          ),
           prefixIcon: icon,
           suffixIcon: iconButton,
           labelText: labelText,

@@ -160,7 +160,8 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                                 Iterable<Result> options) {
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 10),
+                                              horizontal: 10,
+                                            ),
                                             child: Align(
                                               alignment: Alignment.topCenter,
                                               child: Material(
@@ -200,7 +201,9 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                     Card(
                                       elevation: kTextFieldElevation,
                                       margin: const EdgeInsets.only(
-                                          top: 10, right: 10),
+                                        top: 10,
+                                        right: 10,
+                                      ),
                                       child: Container(
                                         margin: const EdgeInsets.all(2.5),
                                         child: IconButton(
@@ -221,9 +224,10 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                                           .textTheme.titleLarge,
                                                     ),
                                                     content: Text(
-                                                        'no_location'.tr,
-                                                        style: context.textTheme
-                                                            .titleMedium),
+                                                      'no_location'.tr,
+                                                      style: context.textTheme
+                                                          .titleMedium,
+                                                    ),
                                                     actions: [
                                                       TextButton(
                                                         onPressed: () =>
@@ -235,8 +239,9 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                                               .textTheme
                                                               .titleMedium
                                                               ?.copyWith(
-                                                                  color: Colors
-                                                                      .blueAccent),
+                                                            color: Colors
+                                                                .blueAccent,
+                                                          ),
                                                         ),
                                                       ),
                                                       TextButton(
@@ -284,7 +289,10 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   type: TextInputType.number,
                                   icon: const Icon(Iconsax.location),
                                   margin: const EdgeInsets.only(
-                                      left: 10, right: 10, top: 10),
+                                    left: 10,
+                                    right: 10,
+                                    top: 10,
+                                  ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'validateValue'.tr;
@@ -308,7 +316,10 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   type: TextInputType.number,
                                   icon: const Icon(Iconsax.location),
                                   margin: const EdgeInsets.only(
-                                      left: 10, right: 10, top: 10),
+                                    left: 10,
+                                    right: 10,
+                                    top: 10,
+                                  ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'validateValue'.tr;
