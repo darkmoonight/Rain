@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -612,20 +612,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 ),
                                               ),
                                               child: ColorPicker(
-                                                pickerColor: widgetBackgroundColor
+                                                color: widgetBackgroundColor
                                                         .isEmpty
                                                     ? context.theme.primaryColor
                                                     : HexColor.fromHex(
                                                         widgetBackgroundColor),
-                                                onColorChanged: (pickedColor) {
+                                                onChanged: (pickedColor) {
                                                   colorBackground =
                                                       pickedColor.toHex();
                                                 },
-                                                hexInputBar: true,
-                                                labelTypes: const [],
-                                                pickerAreaHeightPercent: 0.7,
-                                                pickerAreaBorderRadius:
-                                                    BorderRadius.circular(20),
                                               ),
                                             ),
                                           ),
@@ -704,20 +699,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 ),
                                               ),
                                               child: ColorPicker(
-                                                pickerColor: widgetTextColor
-                                                        .isEmpty
+                                                color: widgetTextColor.isEmpty
                                                     ? context.theme.primaryColor
                                                     : HexColor.fromHex(
                                                         widgetTextColor),
-                                                onColorChanged: (pickedColor) {
+                                                onChanged: (pickedColor) {
                                                   colorText =
                                                       pickedColor.toHex();
                                                 },
-                                                hexInputBar: true,
-                                                labelTypes: const [],
-                                                pickerAreaHeightPercent: 0.7,
-                                                pickerAreaBorderRadius:
-                                                    BorderRadius.circular(20),
                                               ),
                                             ),
                                           ),

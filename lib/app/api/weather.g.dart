@@ -24,7 +24,7 @@ Map<String, dynamic> _$$WeatherDataApiImplToJson(
 _$HourlyImpl _$$HourlyImplFromJson(Map<String, dynamic> json) => _$HourlyImpl(
       time: (json['time'] as List<dynamic>?)?.map((e) => e as String).toList(),
       weatherCode: (json['weathercode'] as List<dynamic>?)
-          ?.map((e) => e as int)
+          ?.map((e) => (e as num).toInt())
           .toList(),
       temperature2M: (json['temperature_2m'] as List<dynamic>?)
           ?.map((e) => (e as num).toDouble())
@@ -39,7 +39,7 @@ _$HourlyImpl _$$HourlyImplFromJson(Map<String, dynamic> json) => _$HourlyImpl(
           ?.map((e) => (e as num?)?.toDouble())
           .toList(),
       relativeHumidity2M: (json['relativehumidity_2m'] as List<dynamic>?)
-          ?.map((e) => e as int?)
+          ?.map((e) => (e as num?)?.toInt())
           .toList(),
       surfacePressure: (json['surface_pressure'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toDouble())
@@ -54,13 +54,13 @@ _$HourlyImpl _$$HourlyImplFromJson(Map<String, dynamic> json) => _$HourlyImpl(
           ?.map((e) => (e as num?)?.toDouble())
           .toList(),
       windDirection10M: (json['winddirection_10m'] as List<dynamic>?)
-          ?.map((e) => e as int?)
+          ?.map((e) => (e as num?)?.toInt())
           .toList(),
       windGusts10M: (json['windgusts_10m'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toDouble())
           .toList(),
       cloudCover: (json['cloudcover'] as List<dynamic>?)
-          ?.map((e) => e as int?)
+          ?.map((e) => (e as num?)?.toInt())
           .toList(),
       uvIndex: (json['uv_index'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toDouble())
@@ -70,7 +70,7 @@ _$HourlyImpl _$$HourlyImplFromJson(Map<String, dynamic> json) => _$HourlyImpl(
           .toList(),
       precipitationProbability:
           (json['precipitation_probability'] as List<dynamic>?)
-              ?.map((e) => e as int?)
+              ?.map((e) => (e as num?)?.toInt())
               .toList(),
       shortwaveRadiation: (json['shortwave_radiation'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toDouble())
@@ -102,7 +102,7 @@ Map<String, dynamic> _$$HourlyImplToJson(_$HourlyImpl instance) =>
 _$DailyImpl _$$DailyImplFromJson(Map<String, dynamic> json) => _$DailyImpl(
       time: _dateTimeFromJson(json['time'] as List?),
       weatherCode: (json['weathercode'] as List<dynamic>?)
-          ?.map((e) => e as int?)
+          ?.map((e) => (e as num?)?.toInt())
           .toList(),
       temperature2MMax: (json['temperature_2m_max'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toDouble())
@@ -127,7 +127,7 @@ _$DailyImpl _$$DailyImplFromJson(Map<String, dynamic> json) => _$DailyImpl(
           (json['sunset'] as List<dynamic>?)?.map((e) => e as String).toList(),
       precipitationProbabilityMax:
           (json['precipitation_probability_max'] as List<dynamic>?)
-              ?.map((e) => e as int?)
+              ?.map((e) => (e as num?)?.toInt())
               .toList(),
       windSpeed10MMax: (json['windspeed_10m_max'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toDouble())
@@ -143,7 +143,7 @@ _$DailyImpl _$$DailyImplFromJson(Map<String, dynamic> json) => _$DailyImpl(
           .toList(),
       windDirection10MDominant:
           (json['winddirection_10m_dominant'] as List<dynamic>?)
-              ?.map((e) => e as int?)
+              ?.map((e) => (e as num?)?.toInt())
               .toList(),
     );
 
