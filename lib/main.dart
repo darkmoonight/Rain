@@ -328,6 +328,7 @@ class _MyAppState extends State<MyApp> {
                   ? const SelectGeolocation(isStart: true)
                   : const HomePage()
               : const OnBording(),
+          title: 'Rain',
         );
       },
     );
