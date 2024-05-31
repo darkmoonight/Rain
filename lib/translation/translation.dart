@@ -12,6 +12,7 @@ import 'package:rain/translation/hi_in.dart';
 import 'package:rain/translation/hu_hu.dart';
 import 'package:rain/translation/it_it.dart';
 import 'package:rain/translation/ka_ge.dart';
+import 'package:rain/translation/ko_kr.dart';
 import 'package:rain/translation/nl_nl.dart';
 import 'package:rain/translation/pl_pl.dart';
 import 'package:rain/translation/pt_br.dart';
@@ -49,5 +50,6 @@ class Translation extends Translations {
         'ga_IE': GaIe().messages,
         'hu_HU': HuHu().messages,
         'da_DK': DaDk().messages,
+        'ko_KR': KoKr().messages,
       };
 }
