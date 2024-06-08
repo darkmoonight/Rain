@@ -124,5 +124,7 @@ class TrTr {
         'cities': 'Şehirler',
         'searchMethod': 'Arama veya konum belirleme kullanın',
         'done': 'Tamam',
+        'groups': 'Gruplarımız',
+        'openMeteo': 'Open-Meteo\'dan veriler (CC-BY 4.0)',
       };
 }

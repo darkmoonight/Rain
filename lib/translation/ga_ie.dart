@@ -126,5 +126,7 @@ class GaIe {
         'cities': 'Cathracha',
         'searchMethod': 'Úsáid ceangal nó geolocáid',
         'done': 'Críochnaithe',
+        'groups': 'Ár ngrúpaí',
+        'openMeteo': 'Sonraí ó Open-Meteo (CC-BY 4.0)',
       };
 }

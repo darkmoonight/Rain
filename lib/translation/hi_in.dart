@@ -123,5 +123,7 @@ class HiIn {
         'cities': 'शहर',
         'searchMethod': 'खोज या स्थानगति का उपयोग करें',
         'done': 'किया',
+        'groups': 'हमारे समूह',
+        'openMeteo': 'Open-Meteo से डेटा (CC-BY 4.0)',
       };
 }

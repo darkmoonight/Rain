@@ -126,5 +126,7 @@ class NlNl {
         'cities': 'Steden',
         'searchMethod': 'Gebruik zoeken of geolocatie',
         'done': 'Klaar',
+        'groups': 'Onze groepen',
+        'openMeteo': 'Gegevens van Open-Meteo (CC-BY 4.0)',
       };
 }

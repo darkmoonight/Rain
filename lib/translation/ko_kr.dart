@@ -1,15 +1,12 @@
 class KoKr {
   Map<String, String> get messages => {
         'start': '시작하기',
-        'description':
-            '어떤 곳이든, 어느 순간이든, 날씨를 확인하세요.',
+        'description': '어떤 곳이든, 어느 순간이든, 날씨를 확인하세요.',
         'name': '날씨',
         'name2': '편리한 디자인',
         'name3': '문의하기',
-        'description2':
-            '모든 내비게이션은 가능한 한 편리하고 빠르게 애플리케이션과 상호 작용하도록 설계되었습니다.',
-        'description3':
-            '어떤 오류가 발생했다면, 이메일 또는 앱 리뷰로 문의해주세요.',
+        'description2': '모든 내비게이션은 가능한 한 편리하고 빠르게 애플리케이션과 상호 작용하도록 설계되었습니다.',
+        'description3': '어떤 오류가 발생했다면, 이메일 또는 앱 리뷰로 문의해주세요.',
         'next': '다음',
         'search': '검색...',
         'loading': '로딩 중...',
@@ -44,8 +41,7 @@ class KoKr {
         'no_inter': '인터넷 없음',
         'on_inter': '현재 위치에 대한 정보를 얻기 위해서는 인터넷이 필요합니다.',
         'location': '위치',
-        'no_location':
-            '현재 위치에 대한 정보를 얻기 위해서는 위치 서비스를 활성화해야 합니다.',
+        'no_location': '현재 위치에 대한 정보를 얻기 위해서는 위치 서비스를 활성화해야 합니다.',
         'theme': '테마',
         'low': '낮음',
         'high': '높음',
@@ -125,5 +121,7 @@ class KoKr {
         'cities': '도시',
         'searchMethod': '검색 또는 지리적 위치를 사용하세요',
         'done': '완료',
+        'groups': '우리 그룹',
+        'openMeteo': 'Open-Meteo의 데이터 (CC-BY 4.0)',
       };
 }

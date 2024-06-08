@@ -126,5 +126,7 @@ class ItIt {
         'cities': 'Città',
         'searchMethod': 'Utilizza la ricerca o la geolocalizzazione',
         'done': 'Fatto',
+        'groups': 'I nostri gruppi',
+        'openMeteo': 'Dati da Open-Meteo (CC-BY 4.0)',
       };
 }

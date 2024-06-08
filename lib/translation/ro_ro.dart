@@ -124,5 +124,7 @@ class RoRo {
         'cities': 'Orașe',
         'searchMethod': 'Folosiți căutarea sau geolocația',
         'done': 'Gata',
+        'groups': 'Grupurile noastre',
+        'openMeteo': 'Date de la Open-Meteo (CC-BY 4.0)',
       };
 }

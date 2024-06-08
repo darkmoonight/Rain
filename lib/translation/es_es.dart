@@ -126,5 +126,7 @@ class EsEs {
         'cities': 'Ciudades',
         'searchMethod': 'Usa la búsqueda o la geolocalización',
         'done': 'Hecho',
+        'groups': 'Nuestros grupos',
+        'openMeteo': 'Datos de Open-Meteo (CC-BY 4.0)',
       };
 }

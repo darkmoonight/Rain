@@ -124,5 +124,7 @@ class SkSk {
         'cities': 'Mestá',
         'searchMethod': 'Použite vyhľadávanie alebo geolokáciu',
         'done': 'Hotovo',
+        'groups': 'Naše skupiny',
+        'openMeteo': 'Údaje od Open-Meteo (CC-BY 4.0)',
       };
 }

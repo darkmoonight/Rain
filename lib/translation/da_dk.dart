@@ -125,5 +125,7 @@ class DaDk {
         'cities': 'Byer',
         'searchMethod': 'Brug søgning eller geolokation',
         'done': 'Færdig',
+        'groups': 'Vores grupper',
+        'openMeteo': 'Data fra Open-Meteo (CC-BY 4.0)',
       };
 }

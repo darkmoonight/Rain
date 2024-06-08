@@ -125,5 +125,7 @@ class RuRu {
         'cities': 'Города',
         'searchMethod': 'Воспользуйтесь поиском или геолокацией',
         'done': 'Готово',
+        'groups': 'Наши группы',
+        'openMeteo': 'Данные от Open-Meteo (CC-BY 4.0)',
       };
 }

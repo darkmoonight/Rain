@@ -125,5 +125,7 @@ class FaIr {
         'cities': 'شهر ها',
         'searchMethod': 'از جستجو یا موقعیت جغرافیایی استفاده کنید',
         'done': 'پایان',
+        'groups': 'گروه‌های ما',
+        'openMeteo': 'داده‌ها از Open-Meteo (CC-BY 4.0)',
       };
 }

@@ -1,15 +1,12 @@
 class ZhTw {
   Map<String, String> get messages => {
         'start': '開始使用',
-        'description':
-            '一個提供實時天氣資訊的天氣軟體。',
+        'description': '一個提供實時天氣資訊的天氣軟體。',
         'name': '天氣',
         'name2': '方便的設計',
         'name3': '聯絡我們',
-        'description2':
-            '所有導覽均設計得盡可能方便交互',
-        'description3':
-            '如遇到問題請透過電郵或軟體評論與我們聯絡',
+        'description2': '所有導覽均設計得盡可能方便交互',
+        'description3': '如遇到問題請透過電郵或軟體評論與我們聯絡',
         'next': '下一步',
         'search': '搜尋……',
         'loading': '載入中……',
@@ -44,8 +41,7 @@ class ZhTw {
         'no_inter': '沒有網路連線',
         'on_inter': '啟用網路以獲取氣象資料。',
         'location': '位置',
-        'no_location':
-            '啟用位置服務以獲取當前位置的天氣資訊。',
+        'no_location': '啟用位置服務以獲取當前位置的天氣資訊。',
         'theme': '主題',
         'low': '低',
         'high': '高',
@@ -125,5 +121,7 @@ class ZhTw {
         'cities': '城市',
         'searchMethod': '使用搜尋或地理位置',
         'done': '完成',
+        'groups': '我們的小組',
+        'openMeteo': '來自Open-Meteo的數據 (CC-BY 4.0)',
       };
 }

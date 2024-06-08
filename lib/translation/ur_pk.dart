@@ -125,5 +125,7 @@ class UrPk {
         'cities': 'شہر',
         'searchMethod': 'تلاش یا جغرافیائی مقام استعمال کریں',
         'done': 'ہوگیا',
+        'groups': 'ہماری گروپس',
+        'openMeteo': 'Open-Meteo سے ڈیٹا (CC-BY 4.0)',
       };
 }

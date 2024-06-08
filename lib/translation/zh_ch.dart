@@ -120,5 +120,7 @@ class ZhCh {
         'cities': '城市',
         'searchMethod': '使用搜索或地理定位',
         'done': '完成',
+        'groups': '我们的组',
+        'openMeteo': '来自Open-Meteo的数据 (CC-BY 4.0)',
       };
 }

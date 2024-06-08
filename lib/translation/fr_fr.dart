@@ -126,5 +126,7 @@ class FrFr {
         'cities': 'Villes',
         'searchMethod': 'Utilisez la recherche ou la géolocalisation',
         'done': 'Terminé',
+        'groups': 'Nos groupes',
+        'openMeteo': 'Données de Open-Meteo (CC-BY 4.0)',
       };
 }

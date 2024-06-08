@@ -124,5 +124,7 @@ class BnIn {
         'roundDegree': 'ডিগ্রি রাউন্ড করুন',
         'settings_full': 'সেটিংস',
         'cities': 'শহর',
+        'groups': 'আমাদের দলগুলি',
+        'openMeteo': 'Open-Meteo থেকে ডেটা (CC-BY 4.0)',
       };
 }

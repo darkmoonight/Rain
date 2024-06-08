@@ -124,5 +124,7 @@ class CsCz {
         'cities': 'Města',
         'searchMethod': 'Použijte hledání nebo geolokaci',
         'done': 'Hotovo',
+        'groups': 'Naše skupiny',
+        'openMeteo': 'Data z Open-Meteo (CC-BY 4.0)',
       };
 }

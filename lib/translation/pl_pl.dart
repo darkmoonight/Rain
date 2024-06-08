@@ -124,5 +124,7 @@ class PlPl {
         'cities': 'Miasta',
         'searchMethod': 'Użyj wyszukiwania lub geolokalizacji',
         'done': 'Gotowe',
+        'groups': 'Nasze grupy',
+        'openMeteo': 'Dane z Open-Meteo (CC-BY 4.0)',
       };
 }

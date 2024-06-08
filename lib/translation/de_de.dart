@@ -126,5 +126,7 @@ class DeDe {
         'cities': 'Städte',
         'searchMethod': 'Verwenden Sie die Suche oder die Geolokalisierung',
         'done': 'Fertig',
+        'groups': 'Unsere gruppen',
+        'openMeteo': 'Daten von Open-Meteo (CC-BY 4.0)',
       };
 }

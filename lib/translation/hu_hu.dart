@@ -126,5 +126,7 @@ class HuHu {
         'cities': 'Városok',
         'searchMethod': 'Használja a keresést vagy a földrajzi helyet',
         'done': 'Kész',
+        'groups': 'Csoportjaink',
+        'openMeteo': 'Adatok az Open-Meteo-tól (CC-BY 4.0)',
       };
 }

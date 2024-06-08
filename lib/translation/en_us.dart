@@ -78,7 +78,7 @@ class EnUs {
         'timeformat': 'Time format',
         '12': '12-hour',
         '24': '24-hour',
-        'cloudcover': 'Сloudcover',
+        'cloudcover': 'Cloudcover',
         'uvIndex': 'UV-index',
         'materialColor': 'Dynamic colors',
         'uvLow': 'Low',
@@ -125,5 +125,7 @@ class EnUs {
         'cities': 'Cities',
         'searchMethod': 'Use search or geolocation',
         'done': 'Done',
+        'groups': 'Our groups',
+        'openMeteo': 'Data by Open-Meteo (CC-BY 4.0)',
       };
 }

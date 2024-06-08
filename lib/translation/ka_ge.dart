@@ -125,5 +125,7 @@ class KaGe {
         'cities': 'ქალაქები',
         'searchMethod': 'გამოიყენეთ ძებნა ან გეოლოკაცია',
         'done': 'დასრულებულია',
+        'groups': 'ჩვენი ჯგუფები',
+        'openMeteo': 'მონაცემები Open-Meteo-დან (CC-BY 4.0)',
       };
 }
