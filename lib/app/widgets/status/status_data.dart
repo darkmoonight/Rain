@@ -4,7 +4,7 @@ import 'package:rain/main.dart';
 import 'package:timezone/timezone.dart';
 
 class StatusData {
-  String getDegree(int? degree) {
+  String getDegree(degree) {
     switch (settings.degrees) {
       case 'celsius':
         return '$degree°C';

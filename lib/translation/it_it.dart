@@ -128,5 +128,7 @@ class ItIt {
         'done': 'Fatto',
         'groups': 'I nostri gruppi',
         'openMeteo': 'Dati da Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Variabili meteorologiche orarie',
+        'dailyVariables': 'Variabili meteorologiche giornaliere',
       };
 }

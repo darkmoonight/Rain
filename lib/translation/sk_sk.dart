@@ -126,5 +126,7 @@ class SkSk {
         'done': 'Hotovo',
         'groups': 'Naše skupiny',
         'openMeteo': 'Údaje od Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Hodinové meteorologické premenné',
+        'dailyVariables': 'Denné meteorologické premenné',
       };
 }

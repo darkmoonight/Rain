@@ -126,5 +126,7 @@ class TrTr {
         'done': 'Tamam',
         'groups': 'Gruplarımız',
         'openMeteo': 'Open-Meteo\'dan veriler (CC-BY 4.0)',
+        'hourlyVariables': 'Saatlik hava değişkenleri',
+        'dailyVariables': 'Günlük hava değişkenleri',
       };
 }

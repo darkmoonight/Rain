@@ -127,5 +127,7 @@ class PtBr {
         'done': 'Concluído',
         'groups': 'Nossos grupos',
         'openMeteo': 'Dados do Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Variáveis meteorológicas horárias',
+        'dailyVariables': 'Variáveis meteorológicas diárias',
       };
 }

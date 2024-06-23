@@ -128,5 +128,7 @@ class FrFr {
         'done': 'Terminé',
         'groups': 'Nos groupes',
         'openMeteo': 'Données de Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Variables météorologiques horaires',
+        'dailyVariables': 'Variables météorologiques quotidiennes',
       };
 }

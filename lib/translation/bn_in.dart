@@ -126,5 +126,7 @@ class BnIn {
         'cities': 'শহর',
         'groups': 'আমাদের দলগুলি',
         'openMeteo': 'Open-Meteo থেকে ডেটা (CC-BY 4.0)',
+        'hourlyVariables': 'ঘণ্টায় আবহাওয়ার পরিবর্তনশীল',
+        'dailyVariables': 'দৈনিক আবহাওয়ার পরিবর্তনশীল',
       };
 }

@@ -128,5 +128,7 @@ class GaIe {
         'done': 'Críochnaithe',
         'groups': 'Ár ngrúpaí',
         'openMeteo': 'Sonraí ó Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Athrógacha aimsire uaireanta',
+        'dailyVariables': 'Athrógacha aimsire laethúla',
       };
 }

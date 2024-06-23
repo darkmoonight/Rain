@@ -127,5 +127,7 @@ class UrPk {
         'done': 'ہوگیا',
         'groups': 'ہماری گروپس',
         'openMeteo': 'Open-Meteo سے ڈیٹا (CC-BY 4.0)',
+        'hourlyVariables': 'ہر گھنٹے کے موسمی متغیرات',
+        'dailyVariables': 'روزانہ کے موسمی متغیرات',
       };
 }

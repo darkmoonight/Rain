@@ -113,7 +113,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                 statusData.getDegree(
                                     (weatherData.temperature2MMax ?? [])[index]
                                         ?.round()),
-                                style: bodyMediumGrey,
+                                style: labelLarge,
                               ),
                             ],
                           ),

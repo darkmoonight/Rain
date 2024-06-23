@@ -127,5 +127,7 @@ class RuRu {
         'done': 'Готово',
         'groups': 'Наши группы',
         'openMeteo': 'Данные от Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Почасовые погодные условия',
+        'dailyVariables': 'Ежедневные погодные условия',
       };
 }

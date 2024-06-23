@@ -128,5 +128,7 @@ class NlNl {
         'done': 'Klaar',
         'groups': 'Onze groepen',
         'openMeteo': 'Gegevens van Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Uurlijkse weervariabelen',
+        'dailyVariables': 'Dagelijkse weervariabelen',
       };
 }

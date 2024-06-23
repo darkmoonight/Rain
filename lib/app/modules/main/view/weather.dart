@@ -36,7 +36,7 @@ class _WeatherPageState extends State<WeatherPage> {
             return ListView(
               children: const [
                 MyShimmer(
-                  hight: 350,
+                  hight: 200,
                 ),
                 MyShimmer(
                   hight: 130,
@@ -64,6 +64,8 @@ class _WeatherPageState extends State<WeatherPage> {
           final dayOfNow = weatherController.dayOfNow.value;
           final sunrise = mainWeather.sunrise![dayOfNow];
           final sunset = mainWeather.sunset![dayOfNow];
+          final tempMax = mainWeather.temperature2MMax![dayOfNow];
+          final tempMin = mainWeather.temperature2MMin![dayOfNow];
 
           return ListView(
             children: [
@@ -73,9 +75,11 @@ class _WeatherPageState extends State<WeatherPage> {
                 degree: mainWeather.temperature2M![hourOfDay],
                 timeDay: sunrise,
                 timeNight: sunset,
+                tempMax: tempMax!,
+                tempMin: tempMin!,
               ),
               Card(
-                margin: const EdgeInsets.symmetric(vertical: 15),
+                margin: const EdgeInsets.only(bottom: 15),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -152,6 +156,8 @@ class _WeatherPageState extends State<WeatherPage> {
                 precipitationProbability:
                     mainWeather.precipitationProbability?[hourOfDay],
                 shortwaveRadiation: mainWeather.shortwaveRadiation?[hourOfDay],
+                initiallyExpanded: false,
+                title: 'hourlyVariables'.tr,
               ),
               WeatherDaily(
                 weatherData: weatherCard,

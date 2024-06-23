@@ -93,9 +93,11 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   degree: weatherCard.temperature2M![timeNow],
                   timeDay: weatherCard.sunrise![dayNow],
                   timeNight: weatherCard.sunset![dayNow],
+                  tempMax: weatherCard.temperature2MMax![dayNow]!,
+                  tempMin: weatherCard.temperature2MMin![dayNow]!,
                 ),
                 Card(
-                  margin: const EdgeInsets.symmetric(vertical: 15),
+                  margin: const EdgeInsets.only(bottom: 15),
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -167,6 +169,8 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   precipitationProbability:
                       weatherCard.precipitationProbability?[timeNow],
                   shortwaveRadiation: weatherCard.shortwaveRadiation?[timeNow],
+                  initiallyExpanded: false,
+                  title: 'hourlyVariables'.tr,
                 ),
                 WeatherDaily(
                   weatherData: weatherCard,

@@ -125,5 +125,7 @@ class HiIn {
         'done': 'किया',
         'groups': 'हमारे समूह',
         'openMeteo': 'Open-Meteo से डेटा (CC-BY 4.0)',
+        'hourlyVariables': 'घंटेवार मौसम चर',
+        'dailyVariables': 'दैनिक मौसम चर',
       };
 }

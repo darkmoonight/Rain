@@ -126,5 +126,7 @@ class PlPl {
         'done': 'Gotowe',
         'groups': 'Nasze grupy',
         'openMeteo': 'Dane z Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Godzinowe zmienne pogodowe',
+        'dailyVariables': 'Dzienne zmienne pogodowe',
       };
 }

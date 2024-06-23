@@ -126,5 +126,7 @@ class RoRo {
         'done': 'Gata',
         'groups': 'Grupurile noastre',
         'openMeteo': 'Date de la Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Variabile meteorologice orare',
+        'dailyVariables': 'Variabile meteorologice zilnice',
       };
 }

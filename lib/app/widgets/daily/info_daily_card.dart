@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/data/weather.dart';
-import 'package:rain/app/widgets/desc/desc.dart';
+import 'package:rain/app/widgets/desc/desc_container.dart';
 import 'package:rain/app/widgets/desc/message.dart';
+import 'package:rain/app/widgets/hourly/weather_hourly.dart';
+import 'package:rain/app/widgets/now/weather_now.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
 import 'package:rain/app/widgets/status/status_weather.dart';
 import 'package:rain/app/widgets/sun_moon/sunset_sunrise.dart';
 import 'package:rain/main.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class InfoDailyCard extends StatefulWidget {
   const InfoDailyCard({
@@ -31,6 +33,7 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
   final message = Message();
   late PageController pageController;
   int pageIndex = 0;
+  int hourOfDay = 0;
 
   @override
   void initState() {
@@ -83,6 +86,7 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
           onPageChanged: (index) {
             setState(() {
               pageIndex = index;
+              hourOfDay = 0;
             });
           },
           itemCount: timeDaily.length,
@@ -101,6 +105,10 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                 weatherData.precipitationProbabilityMax?[index];
             final rainSum = weatherData.rainSum?[index];
             final precipitationSum = weatherData.precipitationSum?[index];
+            final sunrise = weatherData.sunrise![index];
+            final sunset = weatherData.sunset![index];
+
+            final startIndex = index * 24;
 
             return indexedWeatherCodeDaily == null
                 ? null
@@ -108,136 +116,124 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: ListView(
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 15),
-                            Image(
-                              image: AssetImage(
-                                statusWeather
-                                    .getImageNowDaily(indexedWeatherCodeDaily),
-                              ),
-                              fit: BoxFit.fill,
-                              height: 200,
-                            ),
-                            const SizedBox(height: 10),
-                            GlowText(
-                              '${weatherData.temperature2MMin![index]?.round()} / ${weatherData.temperature2MMax![index]?.round()}',
-                              style: textTheme.titleLarge?.copyWith(
-                                fontSize: 35,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              blurRadius: 4,
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              statusWeather.getText(indexedWeatherCodeDaily),
-                              style: textTheme.titleLarge,
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              DateFormat.MMMMEEEEd(locale.languageCode)
-                                  .format(timeDaily[index]),
-                              style: textTheme.labelLarge?.copyWith(
-                                color: Colors.grey,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: SunsetSunrise(
-                            timeSunrise: weatherData.sunrise![index],
-                            timeSunset: weatherData.sunset![index],
-                          ),
+                        WeatherNow(
+                          weather:
+                              weatherData.weathercode![startIndex + hourOfDay],
+                          degree: weatherData
+                              .temperature2M![startIndex + hourOfDay],
+                          time: weatherData.time![startIndex + hourOfDay],
+                          timeDay: sunrise,
+                          timeNight: sunset,
+                          tempMax: apparentTemperatureMax!,
+                          tempMin: apparentTemperatureMin!,
                         ),
                         Card(
                           margin: const EdgeInsets.only(bottom: 15),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 5),
-                            child: Wrap(
-                              alignment: WrapAlignment.spaceEvenly,
-                              spacing: 5,
-                              children: [
-                                apparentTemperatureMin == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName: 'assets/images/cold.png',
-                                        value: statusData.getDegree(
-                                            apparentTemperatureMin.round()),
-                                        desc: 'apparentTemperatureMin'.tr,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            child: SizedBox(
+                              height: 135,
+                              child: ScrollablePositionedList.separated(
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return const VerticalDivider(
+                                    width: 10,
+                                    indent: 40,
+                                    endIndent: 40,
+                                  );
+                                },
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 24,
+                                itemBuilder: (ctx, i) {
+                                  int hourlyIndex = startIndex + i;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      hourOfDay = i;
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 5,
                                       ),
-                                apparentTemperatureMax == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName: 'assets/images/hot.png',
-                                        value: statusData.getDegree(
-                                            apparentTemperatureMax.round()),
-                                        desc: 'apparentTemperatureMax'.tr,
+                                      decoration: BoxDecoration(
+                                        color: i == hourOfDay
+                                            ? context.theme.colorScheme
+                                                .primaryContainer
+                                            : Colors.transparent,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
                                       ),
-                                uvIndexMax == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName: 'assets/images/uv.png',
-                                        value: '${uvIndexMax.round()}',
-                                        desc: 'uvIndex'.tr,
-                                        message: message
-                                            .getUvIndex(uvIndexMax.round()),
+                                      child: WeatherHourly(
+                                        time: weatherData.time![hourlyIndex],
+                                        weather: weatherData
+                                            .weathercode![hourlyIndex],
+                                        degree: weatherData
+                                            .temperature2M![hourlyIndex],
+                                        timeDay: sunrise,
+                                        timeNight: sunset,
                                       ),
-                                windDirection10MDominant == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName: 'assets/images/windsock.png',
-                                        value: '$windDirection10MDominant°',
-                                        desc: 'direction'.tr,
-                                        message: message.getDirection(
-                                            windDirection10MDominant),
-                                      ),
-                                windSpeed10MMax == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName: 'assets/images/wind.png',
-                                        value: statusData
-                                            .getSpeed(windSpeed10MMax.round()),
-                                        desc: 'wind'.tr,
-                                      ),
-                                windGusts10MMax == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName:
-                                            'assets/images/windgusts.png',
-                                        value: statusData
-                                            .getSpeed(windGusts10MMax.round()),
-                                        desc: 'windgusts'.tr,
-                                      ),
-                                precipitationProbabilityMax == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName:
-                                            'assets/images/precipitation_probability.png',
-                                        value: '$precipitationProbabilityMax%',
-                                        desc: 'precipitationProbability'.tr,
-                                      ),
-                                rainSum == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName: 'assets/images/water.png',
-                                        value: statusData
-                                            .getPrecipitation(rainSum),
-                                        desc: 'rain'.tr,
-                                      ),
-                                precipitationSum == null
-                                    ? const Offstage()
-                                    : DescWeather(
-                                        imageName: 'assets/images/rainfall.png',
-                                        value: statusData
-                                            .getPrecipitation(precipitationSum),
-                                        desc: 'precipitation'.tr,
-                                      ),
-                              ],
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
+                        ),
+                        SunsetSunrise(
+                          timeSunrise: sunrise,
+                          timeSunset: sunset,
+                        ),
+                        DescContainer(
+                          humidity: weatherData
+                              .relativehumidity2M?[startIndex + hourOfDay],
+                          wind:
+                              weatherData.windspeed10M?[startIndex + hourOfDay],
+                          visibility:
+                              weatherData.visibility?[startIndex + hourOfDay],
+                          feels: weatherData
+                              .apparentTemperature?[startIndex + hourOfDay],
+                          evaporation: weatherData
+                              .evapotranspiration?[startIndex + hourOfDay],
+                          precipitation: weatherData
+                              .precipitation?[startIndex + hourOfDay],
+                          direction: weatherData
+                              .winddirection10M?[startIndex + hourOfDay],
+                          pressure: weatherData
+                              .surfacePressure?[startIndex + hourOfDay],
+                          rain: weatherData.rain?[startIndex + hourOfDay],
+                          cloudcover:
+                              weatherData.cloudcover?[startIndex + hourOfDay],
+                          windgusts:
+                              weatherData.windgusts10M?[startIndex + hourOfDay],
+                          uvIndex: weatherData.uvIndex?[startIndex + hourOfDay],
+                          dewpoint2M:
+                              weatherData.dewpoint2M?[startIndex + hourOfDay],
+                          precipitationProbability:
+                              weatherData.precipitationProbability?[
+                                  startIndex + hourOfDay],
+                          shortwaveRadiation: weatherData
+                              .shortwaveRadiation?[startIndex + hourOfDay],
+                          initiallyExpanded: true,
+                          title: 'hourlyVariables'.tr,
+                        ),
+                        DescContainer(
+                          apparentTemperatureMin: apparentTemperatureMin,
+                          apparentTemperatureMax: apparentTemperatureMax,
+                          uvIndexMax: uvIndexMax,
+                          windDirection10MDominant: windDirection10MDominant,
+                          windSpeed10MMax: windSpeed10MMax,
+                          windGusts10MMax: windGusts10MMax,
+                          precipitationProbabilityMax:
+                              precipitationProbabilityMax,
+                          rainSum: rainSum,
+                          precipitationSum: precipitationSum,
+                          initiallyExpanded: true,
+                          title: 'dailyVariables'.tr,
                         ),
                       ],
                     ),

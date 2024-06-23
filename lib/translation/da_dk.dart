@@ -127,5 +127,7 @@ class DaDk {
         'done': 'Færdig',
         'groups': 'Vores grupper',
         'openMeteo': 'Data fra Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Timevise vejrfaktorer',
+        'dailyVariables': 'Daglige vejrfaktorer',
       };
 }

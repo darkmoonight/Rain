@@ -128,5 +128,7 @@ class EsEs {
         'done': 'Hecho',
         'groups': 'Nuestros grupos',
         'openMeteo': 'Datos de Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Variables meteorológicas horarias',
+        'dailyVariables': 'Variables meteorológicas diarias',
       };
 }

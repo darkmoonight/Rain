@@ -128,5 +128,7 @@ class DeDe {
         'done': 'Fertig',
         'groups': 'Unsere gruppen',
         'openMeteo': 'Daten von Open-Meteo (CC-BY 4.0)',
+        'hourlyVariables': 'Stündliche Wettervariablen',
+        'dailyVariables': 'Tägliche Wettervariablen',
       };
 }

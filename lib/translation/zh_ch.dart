@@ -122,5 +122,7 @@ class ZhCh {
         'done': '完成',
         'groups': '我们的组',
         'openMeteo': '来自Open-Meteo的数据 (CC-BY 4.0)',
+        'hourlyVariables': '每小时天气变量',
+        'dailyVariables': '每日天气变量',
       };
 }
