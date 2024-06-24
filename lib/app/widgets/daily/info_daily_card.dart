@@ -92,6 +92,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
           itemCount: timeDaily.length,
           itemBuilder: (context, index) {
             final indexedWeatherCodeDaily = weatherCodeDaily[index];
+            final temperature2MMin = weatherData.temperature2MMin?[index];
+            final temperature2MMax = weatherData.temperature2MMax?[index];
             final apparentTemperatureMin =
                 weatherData.apparentTemperatureMin?[index];
             final apparentTemperatureMax =
@@ -124,8 +126,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                           time: weatherData.time![startIndex + hourOfDay],
                           timeDay: sunrise,
                           timeNight: sunset,
-                          tempMax: apparentTemperatureMax!,
-                          tempMin: apparentTemperatureMin!,
+                          tempMax: temperature2MMax!,
+                          tempMin: temperature2MMin!,
                         ),
                         Card(
                           margin: const EdgeInsets.only(bottom: 15),
