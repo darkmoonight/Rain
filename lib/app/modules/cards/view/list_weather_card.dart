@@ -32,72 +32,72 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
     final titleMedium = textTheme.titleMedium;
-    return RefreshIndicator(
-      onRefresh: () async {
-        await weatherController.updateCacheCard(true);
-        setState(() {});
-      },
-      child: Obx(
-        () => weatherController.weatherCards.isEmpty
-            ? Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/icons/City.png',
-                        scale: 6,
-                      ),
-                      SizedBox(
-                        width: Get.size.width * 0.8,
-                        child: Text(
-                          'noWeatherCard'.tr,
-                          textAlign: TextAlign.center,
-                          style: titleMedium?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
+    return Obx(
+      () => weatherController.weatherCards.isEmpty
+          ? Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/icons/City.png',
+                      scale: 6,
+                    ),
+                    SizedBox(
+                      width: Get.size.width * 0.8,
+                      child: Text(
+                        'noWeatherCard'.tr,
+                        textAlign: TextAlign.center,
+                        style: titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            : NestedScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return [
-                    SliverToBoxAdapter(
-                      child: MyTextForm(
-                        labelText: 'search'.tr,
-                        type: TextInputType.text,
-                        icon: const Icon(
-                          Iconsax.search_normal_1,
-                          size: 20,
-                        ),
-                        controller: searchTasks,
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        onChanged: applyFilter,
-                        iconButton: searchTasks.text.isNotEmpty
-                            ? IconButton(
-                                onPressed: () {
-                                  searchTasks.clear();
-                                  applyFilter('');
-                                },
-                                icon: const Icon(
-                                  Iconsax.close_circle,
-                                  color: Colors.grey,
-                                  size: 20,
-                                ),
-                              )
-                            : null,
                       ),
                     ),
-                  ];
-                },
-                body: WeatherCardList(searchCity: filter),
+                  ],
+                ),
               ),
-      ),
+            )
+          : NestedScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  SliverToBoxAdapter(
+                    child: MyTextForm(
+                      labelText: 'search'.tr,
+                      type: TextInputType.text,
+                      icon: const Icon(
+                        Iconsax.search_normal_1,
+                        size: 20,
+                      ),
+                      controller: searchTasks,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      onChanged: applyFilter,
+                      iconButton: searchTasks.text.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                searchTasks.clear();
+                                applyFilter('');
+                              },
+                              icon: const Icon(
+                                Iconsax.close_circle,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                            )
+                          : null,
+                    ),
+                  ),
+                ];
+              },
+              body: RefreshIndicator(
+                onRefresh: () async {
+                  await weatherController.updateCacheCard(true);
+                  setState(() {});
+                },
+                child: WeatherCardList(searchCity: filter),
+              ),
+            ),
     );
   }
 }
