@@ -3,6 +3,7 @@
     style="@style/Widget.Android.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSecondaryContainer"
     android:theme="@style/Theme.Android.AppWidgetContainer"
     android:id="@+id/widget_day_oreo">
 

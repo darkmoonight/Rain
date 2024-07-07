@@ -115,7 +115,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             ),
                             decoration: BoxDecoration(
                               color: i == hourOfDay
-                                  ? context.theme.colorScheme.primaryContainer
+                                  ? context.theme.colorScheme.secondaryContainer
                                   : Colors.transparent,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),

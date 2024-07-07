@@ -129,7 +129,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                             ),
                             decoration: BoxDecoration(
                               color: i == timeNow
-                                  ? context.theme.colorScheme.primaryContainer
+                                  ? context.theme.colorScheme.secondaryContainer
                                   : Colors.transparent,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),

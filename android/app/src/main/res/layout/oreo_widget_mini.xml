@@ -3,6 +3,7 @@
     style="@style/Widget.Android.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSecondaryContainer"
     android:theme="@style/Theme.Android.AppWidgetContainer"
     android:id="@+id/widget_day_oreo">
 
@@ -32,8 +33,8 @@
             android:shadowRadius="1"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textSize="@dimen/widget_title_text_size"
-            tools:text="21°"
-            tools:ignore="ObsoleteLayoutParam" />
+            tools:ignore="ObsoleteLayoutParam"
+            tools:text="21°" />
 
     </LinearLayout>
 

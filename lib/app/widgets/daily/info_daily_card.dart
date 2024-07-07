@@ -164,7 +164,7 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                                       decoration: BoxDecoration(
                                         color: i == hourOfDay
                                             ? context.theme.colorScheme
-                                                .primaryContainer
+                                                .secondaryContainer
                                             : Colors.transparent,
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(20),
