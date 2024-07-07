@@ -13,6 +13,7 @@ class MyTextForm extends StatelessWidget {
     this.validator,
     this.elevation,
     this.focusNode,
+    this.onChanged,
   });
   final String labelText;
   final TextInputType type;
@@ -23,6 +24,7 @@ class MyTextForm extends StatelessWidget {
   final String? Function(String?)? validator;
   final double? elevation;
   final FocusNode? focusNode;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class MyTextForm extends StatelessWidget {
           labelText: labelText,
         ),
         validator: validator,
+        onChanged: onChanged,
       ),
     );
   }

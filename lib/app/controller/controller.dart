@@ -472,7 +472,7 @@ class WeatherController extends GetxController {
     return imagePath;
   }
 
-  void notlification(MainWeatherCache mainWeatherCache) async {
+  void notification(MainWeatherCache mainWeatherCache) async {
     DateTime now = DateTime.now();
     int startHour = timeConvert(timeStart).hour;
     int endHour = timeConvert(timeEnd).hour;
@@ -483,20 +483,20 @@ class WeatherController extends GetxController {
       if (notificationTime.isAfter(now) &&
           notificationTime.hour >= startHour &&
           notificationTime.hour <= endHour) {
-        for (var j = 0; j < mainWeatherCache.timeDaily!.length; j++) {
-          if (mainWeatherCache.timeDaily![j].day == notificationTime.day) {
-            NotificationShow().showNotification(
-              UniqueKey().hashCode,
-              '$city: ${mainWeatherCache.temperature2M![i]}°',
-              '${StatusWeather().getText(mainWeatherCache.weathercode![i])} · ${StatusData().getTimeFormat(mainWeatherCache.time![i])}',
-              notificationTime,
-              StatusWeather().getImageNotification(
-                mainWeatherCache.weathercode![i],
-                mainWeatherCache.time![i],
-                mainWeatherCache.sunrise![j],
-                mainWeatherCache.sunset![j],
-              ),
-            );
+          for (var j = 0; j < mainWeatherCache.timeDaily!.length; j++) {
+            if (mainWeatherCache.timeDaily![j].day == notificationTime.day) {
+              NotificationShow().showNotification(
+                UniqueKey().hashCode,
+                '$city: ${mainWeatherCache.temperature2M![i]}°',
+                '${StatusWeather().getText(mainWeatherCache.weathercode![i])} · ${StatusData().getTimeFormat(mainWeatherCache.time![i])}',
+                notificationTime,
+                StatusWeather().getImageNotification(
+                  mainWeatherCache.weathercode![i],
+                  mainWeatherCache.time![i],
+                  mainWeatherCache.sunrise![j],
+                  mainWeatherCache.sunset![j],
+                ),
+              );
           }
         }
       }
@@ -508,7 +508,7 @@ class WeatherController extends GetxController {
       final List<PendingNotificationRequest> pendingNotificationRequests =
           await flutterLocalNotificationsPlugin.pendingNotificationRequests();
       if (pendingNotificationRequests.isEmpty) {
-        notlification(_mainWeather.value);
+        notification(_mainWeather.value);
       }
     }
   }

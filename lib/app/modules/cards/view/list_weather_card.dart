@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/controller/controller.dart';
-import 'package:rain/app/modules/cards/view/info_weather_card.dart';
-import 'package:rain/app/modules/cards/widgets/weather_card_container.dart';
+import 'package:rain/app/modules/cards/widgets/weather_card_list.dart';
+import 'package:rain/app/widgets/text_form.dart';
 
 class ListWeatherCard extends StatefulWidget {
   const ListWeatherCard({super.key});
@@ -14,6 +14,19 @@ class ListWeatherCard extends StatefulWidget {
 
 class _ListWeatherCardState extends State<ListWeatherCard> {
   final weatherController = Get.put(WeatherController());
+  TextEditingController searchTasks = TextEditingController();
+  String filter = '';
+
+  applyFilter(String value) async {
+    filter = value.toLowerCase();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    applyFilter('');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,87 +62,40 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                   ),
                 ),
               )
-            : ReorderableListView(
-                onReorder: (oldIndex, newIndex) =>
-                    weatherController.reorder(oldIndex, newIndex),
-                children: [
-                  ...weatherController.weatherCards.map(
-                    (weatherCardList) => Dismissible(
-                      key: ValueKey(weatherCardList),
-                      direction: DismissDirection.endToStart,
-                      background: Container(
-                        alignment: Alignment.centerRight,
-                        child: const Padding(
-                          padding: EdgeInsets.only(right: 15),
-                          child: Icon(
-                            Iconsax.trush_square,
-                            color: Colors.red,
-                          ),
+            : NestedScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return [
+                    SliverToBoxAdapter(
+                      child: MyTextForm(
+                        labelText: 'search'.tr,
+                        type: TextInputType.text,
+                        icon: const Icon(
+                          Iconsax.search_normal_1,
+                          size: 20,
                         ),
-                      ),
-                      confirmDismiss: (DismissDirection direction) async {
-                        return await showAdaptiveDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog.adaptive(
-                              title: Text(
-                                'deletedCardWeather'.tr,
-                                style: textTheme.titleLarge,
-                              ),
-                              content: Text(
-                                'deletedCardWeatherQuery'.tr,
-                                style: titleMedium,
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Get.back(result: false),
-                                  child: Text(
-                                    'cancel'.tr,
-                                    style: titleMedium?.copyWith(
-                                      color: Colors.blueAccent,
-                                    ),
-                                  ),
+                        controller: searchTasks,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        onChanged: applyFilter,
+                        iconButton: searchTasks.text.isNotEmpty
+                            ? IconButton(
+                                onPressed: () {
+                                  searchTasks.clear();
+                                  applyFilter('');
+                                },
+                                icon: const Icon(
+                                  Iconsax.close_circle,
+                                  color: Colors.grey,
+                                  size: 20,
                                 ),
-                                TextButton(
-                                  onPressed: () => Get.back(result: true),
-                                  child: Text(
-                                    'delete'.tr,
-                                    style: titleMedium?.copyWith(
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      onDismissed: (DismissDirection direction) async {
-                        await weatherController
-                            .deleteCardWeather(weatherCardList);
-                      },
-                      child: GestureDetector(
-                        onTap: () => Get.to(
-                          () => InfoWeatherCard(
-                            weatherCard: weatherCardList,
-                          ),
-                          transition: Transition.downToUp,
-                        ),
-                        child: WeatherCardContainer(
-                          time: weatherCardList.time!,
-                          timeDaily: weatherCardList.timeDaily!,
-                          timeDay: weatherCardList.sunrise!,
-                          timeNight: weatherCardList.sunset!,
-                          weather: weatherCardList.weathercode!,
-                          degree: weatherCardList.temperature2M!,
-                          district: weatherCardList.district!,
-                          city: weatherCardList.city!,
-                          timezone: weatherCardList.timezone!,
-                        ),
+                              )
+                            : null,
                       ),
                     ),
-                  ),
-                ],
+                  ];
+                },
+                body: WeatherCardList(searchCity: filter),
               ),
       ),
     );

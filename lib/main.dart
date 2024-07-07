@@ -284,54 +284,57 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(
-      builder: (lightColorScheme, darkColorScheme) {
-        final lightMaterialTheme =
-            lightTheme(lightColorScheme?.surface, lightColorScheme);
-        final darkMaterialTheme =
-            darkTheme(darkColorScheme?.surface, darkColorScheme);
-        final darkMaterialThemeOled = darkTheme(oledColor, darkColorScheme);
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: DynamicColorBuilder(
+        builder: (lightColorScheme, darkColorScheme) {
+          final lightMaterialTheme =
+              lightTheme(lightColorScheme?.surface, lightColorScheme);
+          final darkMaterialTheme =
+              darkTheme(darkColorScheme?.surface, darkColorScheme);
+          final darkMaterialThemeOled = darkTheme(oledColor, darkColorScheme);
 
-        return GetMaterialApp(
-          themeMode: themeController.theme,
-          theme: materialColor
-              ? lightColorScheme != null
-                  ? lightMaterialTheme
-                  : lightTheme(lightColor, colorSchemeLight)
-              : lightTheme(lightColor, colorSchemeLight),
-          darkTheme: amoledTheme
-              ? materialColor
-                  ? darkColorScheme != null
-                      ? darkMaterialThemeOled
-                      : darkTheme(oledColor, colorSchemeDark)
-                  : darkTheme(oledColor, colorSchemeDark)
-              : materialColor
-                  ? darkColorScheme != null
-                      ? darkMaterialTheme
-                      : darkTheme(darkColor, colorSchemeDark)
-                  : darkTheme(darkColor, colorSchemeDark),
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          translations: Translation(),
-          locale: locale,
-          fallbackLocale: const Locale('en', 'US'),
-          supportedLocales:
-              appLanguages.map((e) => e['locale'] as Locale).toList(),
-          debugShowCheckedModeBanner: false,
-          home: settings.onboard
-              ? (locationCache.city == null) ||
-                      (locationCache.district == null) ||
-                      (locationCache.lat == null) ||
-                      (locationCache.lon == null)
-                  ? const SelectGeolocation(isStart: true)
-                  : const HomePage()
-              : const OnBording(),
-          title: 'Rain',
-        );
-      },
+          return GetMaterialApp(
+            themeMode: themeController.theme,
+            theme: materialColor
+                ? lightColorScheme != null
+                    ? lightMaterialTheme
+                    : lightTheme(lightColor, colorSchemeLight)
+                : lightTheme(lightColor, colorSchemeLight),
+            darkTheme: amoledTheme
+                ? materialColor
+                    ? darkColorScheme != null
+                        ? darkMaterialThemeOled
+                        : darkTheme(oledColor, colorSchemeDark)
+                    : darkTheme(oledColor, colorSchemeDark)
+                : materialColor
+                    ? darkColorScheme != null
+                        ? darkMaterialTheme
+                        : darkTheme(darkColor, colorSchemeDark)
+                    : darkTheme(darkColor, colorSchemeDark),
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            translations: Translation(),
+            locale: locale,
+            fallbackLocale: const Locale('en', 'US'),
+            supportedLocales:
+                appLanguages.map((e) => e['locale'] as Locale).toList(),
+            debugShowCheckedModeBanner: false,
+            home: settings.onboard
+                ? (locationCache.city == null) ||
+                        (locationCache.district == null) ||
+                        (locationCache.lat == null) ||
+                        (locationCache.lon == null)
+                    ? const SelectGeolocation(isStart: true)
+                    : const HomePage()
+                : const OnBording(),
+            title: 'Rain',
+          );
+        },
+      ),
     );
   }
 }

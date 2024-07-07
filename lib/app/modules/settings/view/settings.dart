@@ -266,7 +266,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     isar.settings.putSync(settings);
                                   });
                                   if (value) {
-                                    weatherController.notlification(
+                                    weatherController.notification(
                                         weatherController.mainWeather);
                                   } else {
                                     flutterLocalNotificationsPlugin.cancelAll();
@@ -297,7 +297,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     newTimeRange: int.parse(newValue!));
                                 if (settings.notifications) {
                                   flutterLocalNotificationsPlugin.cancelAll();
-                                  weatherController.notlification(
+                                  weatherController.notification(
                                       weatherController.mainWeather);
                                 }
                               },
@@ -352,7 +352,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                           timeStartPicker.format(context));
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
-                                    weatherController.notlification(
+                                    weatherController.notification(
                                         weatherController.mainWeather);
                                   }
                                 }
@@ -408,7 +408,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                           timeEndPicker.format(context));
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
-                                    weatherController.notlification(
+                                    weatherController.notification(
                                         weatherController.mainWeather);
                                   }
                                 }
