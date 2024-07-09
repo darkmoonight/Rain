@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 
@@ -18,7 +19,8 @@ ColorScheme colorSchemeDark = ColorScheme.fromSeed(
   brightness: Brightness.dark,
 );
 
-ThemeData lightTheme(Color? color, ColorScheme? colorScheme) {
+ThemeData lightTheme(
+    Color? color, ColorScheme? colorScheme, bool edgeToEdgeAvailable) {
   return baseLigth.copyWith(
     brightness: Brightness.light,
     colorScheme: colorScheme
@@ -34,6 +36,16 @@ ThemeData lightTheme(Color? color, ColorScheme? colorScheme) {
       shadowColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       elevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+        systemStatusBarContrastEnforced: false,
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor:
+            edgeToEdgeAvailable ? Colors.transparent : colorScheme?.surface,
+      ),
     ),
     primaryColor: color,
     canvasColor: color,
@@ -74,7 +86,8 @@ ThemeData lightTheme(Color? color, ColorScheme? colorScheme) {
   );
 }
 
-ThemeData darkTheme(Color? color, ColorScheme? colorScheme) {
+ThemeData darkTheme(
+    Color? color, ColorScheme? colorScheme, bool edgeToEdgeAvailable) {
   return baseDark.copyWith(
     brightness: Brightness.dark,
     colorScheme: colorScheme
@@ -90,6 +103,16 @@ ThemeData darkTheme(Color? color, ColorScheme? colorScheme) {
       shadowColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       elevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.transparent,
+        systemStatusBarContrastEnforced: false,
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarColor:
+            edgeToEdgeAvailable ? Colors.transparent : colorScheme?.surface,
+      ),
     ),
     primaryColor: color,
     canvasColor: color,
