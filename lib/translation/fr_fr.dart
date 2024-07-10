@@ -130,5 +130,6 @@ class FrFr {
         'openMeteo': 'Données de Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Variables météorologiques horaires',
         'dailyVariables': 'Variables météorologiques quotidiennes',
+        'largeElement': 'Affichage météo grand format',
       };
 }

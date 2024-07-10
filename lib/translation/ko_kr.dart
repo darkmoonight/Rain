@@ -125,5 +125,6 @@ class KoKr {
         'openMeteo': 'Open-Meteo의 데이터 (CC-BY 4.0)',
         'hourlyVariables': '시간별 날씨 변수',
         'dailyVariables': '일별 날씨 변수',
+        'largeElement': '큰 날씨 표시',
       };
 }

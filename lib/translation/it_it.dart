@@ -130,5 +130,6 @@ class ItIt {
         'openMeteo': 'Dati da Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Variabili meteorologiche orarie',
         'dailyVariables': 'Variabili meteorologiche giornaliere',
+        'largeElement': 'Visualizzazione grande elemento meteo',
       };
 }

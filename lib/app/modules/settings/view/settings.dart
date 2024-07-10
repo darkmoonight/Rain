@@ -70,7 +70,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -79,7 +80,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 15),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
                                 child: Text(
                                   'appearance'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -142,6 +144,24 @@ class _SettingsPageState extends State<SettingsPage> {
                                       newMaterialColor: value);
                                 },
                               ),
+                              SettingCard(
+                                elevation: 4,
+                                icon: const Icon(Iconsax.additem),
+                                text: 'largeElement'.tr,
+                                switcher: true,
+                                value: settings.largeElement,
+                                onChange: (value) {
+                                  settings.largeElement = value;
+                                  isar.writeTxnSync(
+                                    () => isar.settings.putSync(settings),
+                                  );
+                                  MyApp.updateAppState(
+                                    context,
+                                    newLargeElement: value,
+                                  );
+                                  setState(() {});
+                                },
+                              ),
                               const SizedBox(height: 10),
                             ],
                           ),
@@ -161,7 +181,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -170,7 +191,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 15),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
                                 child: Text(
                                   'functions'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -196,7 +218,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                           return AlertDialog.adaptive(
                                             title: Text(
                                               'location'.tr,
-                                              style: context.textTheme.titleLarge,
+                                              style:
+                                                  context.textTheme.titleLarge,
                                             ),
                                             content: Text('no_location'.tr,
                                                 style: context
@@ -210,8 +233,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                   style: context
                                                       .textTheme.titleMedium
                                                       ?.copyWith(
-                                                          color:
-                                                              Colors.blueAccent),
+                                                          color: Colors
+                                                              .blueAccent),
                                                 ),
                                               ),
                                               TextButton(
@@ -232,7 +255,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                           );
                                         },
                                       );
-                    
+
                                       return;
                                     }
                                     weatherController.getCurrentLocation();
@@ -274,7 +297,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                       weatherController.notification(
                                           weatherController.mainWeather);
                                     } else {
-                                      flutterLocalNotificationsPlugin.cancelAll();
+                                      flutterLocalNotificationsPlugin
+                                          .cancelAll();
                                     }
                                     setState(() {});
                                   }
@@ -315,25 +339,28 @@ class _SettingsPageState extends State<SettingsPage> {
                                 infoSettings: true,
                                 infoWidget: _TextInfo(
                                   info: settings.timeformat == '12'
-                                      ? DateFormat.jm(locale.languageCode).format(
-                                          DateFormat.Hm(locale.languageCode)
-                                              .parse(weatherController
-                                                  .timeConvert(timeStart)
-                                                  .format(context)))
-                                      : DateFormat.Hm(locale.languageCode).format(
-                                          DateFormat.Hm(locale.languageCode)
-                                              .parse(weatherController
-                                                  .timeConvert(timeStart)
-                                                  .format(context))),
+                                      ? DateFormat.jm(locale.languageCode)
+                                          .format(
+                                              DateFormat.Hm(locale.languageCode)
+                                                  .parse(weatherController
+                                                      .timeConvert(timeStart)
+                                                      .format(context)))
+                                      : DateFormat.Hm(locale.languageCode)
+                                          .format(
+                                              DateFormat.Hm(locale.languageCode)
+                                                  .parse(weatherController
+                                                      .timeConvert(timeStart)
+                                                      .format(context))),
                                 ),
                                 onPressed: () async {
                                   final TimeOfDay? timeStartPicker =
                                       await showTimePicker(
                                     context: context,
-                                    initialTime:
-                                        weatherController.timeConvert(timeStart),
+                                    initialTime: weatherController
+                                        .timeConvert(timeStart),
                                     builder: (context, child) {
-                                      final Widget mediaQueryWrapper = MediaQuery(
+                                      final Widget mediaQueryWrapper =
+                                          MediaQuery(
                                         data: MediaQuery.of(context).copyWith(
                                           alwaysUse24HourFormat:
                                               settings.timeformat == '12'
@@ -356,7 +383,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                         newTimeStart:
                                             timeStartPicker.format(context));
                                     if (settings.notifications) {
-                                      flutterLocalNotificationsPlugin.cancelAll();
+                                      flutterLocalNotificationsPlugin
+                                          .cancelAll();
                                       weatherController.notification(
                                           weatherController.mainWeather);
                                     }
@@ -371,16 +399,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                 infoSettings: true,
                                 infoWidget: _TextInfo(
                                   info: settings.timeformat == '12'
-                                      ? DateFormat.jm(locale.languageCode).format(
-                                          DateFormat.Hm(locale.languageCode)
-                                              .parse(weatherController
-                                                  .timeConvert(timeEnd)
-                                                  .format(context)))
-                                      : DateFormat.Hm(locale.languageCode).format(
-                                          DateFormat.Hm(locale.languageCode)
-                                              .parse(weatherController
-                                                  .timeConvert(timeEnd)
-                                                  .format(context))),
+                                      ? DateFormat.jm(locale.languageCode)
+                                          .format(
+                                              DateFormat.Hm(locale.languageCode)
+                                                  .parse(weatherController
+                                                      .timeConvert(timeEnd)
+                                                      .format(context)))
+                                      : DateFormat.Hm(locale.languageCode)
+                                          .format(
+                                              DateFormat.Hm(locale.languageCode)
+                                                  .parse(weatherController
+                                                      .timeConvert(timeEnd)
+                                                      .format(context))),
                                 ),
                                 onPressed: () async {
                                   final TimeOfDay? timeEndPicker =
@@ -389,7 +419,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     initialTime:
                                         weatherController.timeConvert(timeEnd),
                                     builder: (context, child) {
-                                      final Widget mediaQueryWrapper = MediaQuery(
+                                      final Widget mediaQueryWrapper =
+                                          MediaQuery(
                                         data: MediaQuery.of(context).copyWith(
                                           alwaysUse24HourFormat:
                                               settings.timeformat == '12'
@@ -412,7 +443,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                         newTimeEnd:
                                             timeEndPicker.format(context));
                                     if (settings.notifications) {
-                                      flutterLocalNotificationsPlugin.cancelAll();
+                                      flutterLocalNotificationsPlugin
+                                          .cancelAll();
                                       weatherController.notification(
                                           weatherController.mainWeather);
                                     }
@@ -438,7 +470,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -447,7 +480,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 15),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
                                 child: Text(
                                   'data'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -555,7 +589,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -564,7 +599,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 15),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
                                 child: Text(
                                   'widget'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -581,9 +617,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                   backgroundColor: context.theme.indicatorColor,
                                   radius: 11,
                                   child: CircleAvatar(
-                                    backgroundColor: widgetBackgroundColor.isEmpty
-                                        ? context.theme.primaryColor
-                                        : HexColor.fromHex(widgetBackgroundColor),
+                                    backgroundColor:
+                                        widgetBackgroundColor.isEmpty
+                                            ? context.theme.primaryColor
+                                            : HexColor.fromHex(
+                                                widgetBackgroundColor),
                                     radius: 10,
                                   ),
                                 ),
@@ -599,8 +637,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 15),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 15),
                                               child: Text(
                                                 'widgetBackground'.tr,
                                                 style: context
@@ -609,8 +648,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 15),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 15),
                                               child: Theme(
                                                 data: context.theme.copyWith(
                                                   inputDecorationTheme:
@@ -625,7 +665,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 child: ColorPicker(
                                                   color: widgetBackgroundColor
                                                           .isEmpty
-                                                      ? context.theme.primaryColor
+                                                      ? context
+                                                          .theme.primaryColor
                                                       : HexColor.fromHex(
                                                           widgetBackgroundColor),
                                                   onChanged: (pickedColor) {
@@ -686,8 +727,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 15),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 15),
                                               child: Text(
                                                 'widgetText'.tr,
                                                 style: context
@@ -696,8 +738,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 15),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 15),
                                               child: Theme(
                                                 data: context.theme.copyWith(
                                                   inputDecorationTheme:
@@ -711,7 +754,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 ),
                                                 child: ColorPicker(
                                                   color: widgetTextColor.isEmpty
-                                                      ? context.theme.primaryColor
+                                                      ? context
+                                                          .theme.primaryColor
                                                       : HexColor.fromHex(
                                                           widgetTextColor),
                                                   onChanged: (pickedColor) {
@@ -769,7 +813,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return ListView(
@@ -828,7 +873,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -837,7 +883,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 15),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
                                 child: Text(
                                   'support'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -878,7 +925,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -901,8 +949,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 icon: const Icon(Iconsax.voice_square),
                                 text: 'Discord',
                                 onPressed: () async {
-                                  final Uri url =
-                                      Uri.parse('https://discord.gg/JMMa9aHh8f');
+                                  final Uri url = Uri.parse(
+                                      'https://discord.gg/JMMa9aHh8f');
                                   if (!await launchUrl(url,
                                       mode: LaunchMode.externalApplication)) {
                                     throw Exception('Could not launch $url');

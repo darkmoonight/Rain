@@ -12,6 +12,7 @@ class Settings {
   bool materialColor = false;
   bool amoledTheme = false;
   bool roundDegree = false;
+  bool largeElement = false;
   String? widgetBackgroundColor;
   String? widgetTextColor;
   String measurements = 'metric';

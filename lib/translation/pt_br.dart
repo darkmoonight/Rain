@@ -129,5 +129,6 @@ class PtBr {
         'openMeteo': 'Dados do Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Variáveis meteorológicas horárias',
         'dailyVariables': 'Variáveis meteorológicas diárias',
+        'largeElement': 'Exibição grande do clima',
       };
 }

@@ -129,5 +129,6 @@ class KaGe {
         'openMeteo': 'მონაცემები Open-Meteo-დან (CC-BY 4.0)',
         'hourlyVariables': 'საათობრივი ამინდის ცვლადები',
         'dailyVariables': 'ყოველდღიური ამინდის ცვლადები',
+        'largeElement': 'გადიდი ამინდის გამოჩენა',
       };
 }

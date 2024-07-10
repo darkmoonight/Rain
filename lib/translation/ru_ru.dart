@@ -129,5 +129,6 @@ class RuRu {
         'openMeteo': 'Данные от Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Почасовые погодные условия',
         'dailyVariables': 'Ежедневные погодные условия',
+        'largeElement': 'Отображение погоды большим элементом',
       };
 }

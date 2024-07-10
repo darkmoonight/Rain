@@ -124,5 +124,6 @@ class ZhCh {
         'openMeteo': '来自Open-Meteo的数据 (CC-BY 4.0)',
         'hourlyVariables': '每小时天气变量',
         'dailyVariables': '每日天气变量',
+        'largeElement': '大天气显示',
       };
 }

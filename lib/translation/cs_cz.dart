@@ -128,5 +128,6 @@ class CsCz {
         'openMeteo': 'Data z Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Hodinové meteorologické proměnné',
         'dailyVariables': 'Denní meteorologické proměnné',
+        'largeElement': 'Velké zobrazení počasí',
       };
 }

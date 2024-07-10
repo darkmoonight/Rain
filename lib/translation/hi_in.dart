@@ -127,5 +127,6 @@ class HiIn {
         'openMeteo': 'Open-Meteo से डेटा (CC-BY 4.0)',
         'hourlyVariables': 'घंटेवार मौसम चर',
         'dailyVariables': 'दैनिक मौसम चर',
+        'largeElement': 'बड़े मौसम का प्रदर्शन',
       };
 }

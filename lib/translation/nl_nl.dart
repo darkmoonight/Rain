@@ -130,5 +130,6 @@ class NlNl {
         'openMeteo': 'Gegevens van Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Uurlijkse weervariabelen',
         'dailyVariables': 'Dagelijkse weervariabelen',
+        'largeElement': 'Groot weerbericht weergeven',
       };
 }

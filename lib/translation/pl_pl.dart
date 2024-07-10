@@ -128,5 +128,6 @@ class PlPl {
         'openMeteo': 'Dane z Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Godzinowe zmienne pogodowe',
         'dailyVariables': 'Dzienne zmienne pogodowe',
+        'largeElement': 'Duże wyświetlanie pogody',
       };
 }

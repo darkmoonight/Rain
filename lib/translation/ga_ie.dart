@@ -130,5 +130,6 @@ class GaIe {
         'openMeteo': 'Sonraí ó Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Athrógacha aimsire uaireanta',
         'dailyVariables': 'Athrógacha aimsire laethúla',
+        'largeElement': 'Taispeáint mór na haimsire',
       };
 }

@@ -128,5 +128,6 @@ class TrTr {
         'openMeteo': 'Open-Meteo\'dan veriler (CC-BY 4.0)',
         'hourlyVariables': 'Saatlik hava değişkenleri',
         'dailyVariables': 'Günlük hava değişkenleri',
+        'largeElement': 'Büyük hava durumu gösterimi',
       };
 }

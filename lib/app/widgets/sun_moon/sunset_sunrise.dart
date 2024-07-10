@@ -21,7 +21,6 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
 
   @override
   Widget build(BuildContext context) {
-    const crossAxisCenterAlignment = CrossAxisAlignment.center;
     final textTheme = context.textTheme;
     final titleSmall = textTheme.titleSmall;
     final titleLarge = textTheme.titleLarge;
@@ -34,17 +33,16 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
           children: [
             Expanded(
               child: Row(
-                crossAxisAlignment: crossAxisCenterAlignment,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: crossAxisCenterAlignment,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'sunrise'.tr,
                           style: titleSmall,
                           overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -66,17 +64,16 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
             ),
             Expanded(
               child: Row(
-                crossAxisAlignment: crossAxisCenterAlignment,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: crossAxisCenterAlignment,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'sunset'.tr,
                           style: titleSmall,
                           overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 2),
                         Text(

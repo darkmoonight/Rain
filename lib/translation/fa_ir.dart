@@ -129,5 +129,6 @@ class FaIr {
         'openMeteo': 'داده‌ها از Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'متغیرهای ساعتی هواشناسی',
         'dailyVariables': 'متغیرهای روزانه هواشناسی',
+        'largeElement': 'نمایش هواشناسی بزرگ',
       };
 }

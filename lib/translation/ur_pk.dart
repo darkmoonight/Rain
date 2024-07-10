@@ -129,5 +129,6 @@ class UrPk {
         'openMeteo': 'Open-Meteo سے ڈیٹا (CC-BY 4.0)',
         'hourlyVariables': 'ہر گھنٹے کے موسمی متغیرات',
         'dailyVariables': 'روزانہ کے موسمی متغیرات',
+        'largeElement': 'بڑے موسم کا ڈسپلے',
       };
 }

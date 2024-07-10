@@ -130,5 +130,6 @@ class HuHu {
         'openMeteo': 'Adatok az Open-Meteo-tól (CC-BY 4.0)',
         'hourlyVariables': 'Óránkénti időjárási változók',
         'dailyVariables': 'Napi időjárási változók',
+        'largeElement': 'Nagy méretű időjárás megjelenítése',
       };
 }

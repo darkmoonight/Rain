@@ -125,5 +125,6 @@ class ZhTw {
         'openMeteo': '來自Open-Meteo的數據 (CC-BY 4.0)',
         'hourlyVariables': '每小時天氣變量',
         'dailyVariables': '每日天氣變量',
+        'largeElement': '大型天氣顯示',
       };
 }

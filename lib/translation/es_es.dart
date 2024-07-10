@@ -130,5 +130,6 @@ class EsEs {
         'openMeteo': 'Datos de Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Variables meteorológicas horarias',
         'dailyVariables': 'Variables meteorológicas diarias',
+        'largeElement': 'Visualización grande del clima',
       };
 }

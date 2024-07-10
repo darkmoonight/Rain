@@ -128,5 +128,6 @@ class SkSk {
         'openMeteo': 'Údaje od Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Hodinové meteorologické premenné',
         'dailyVariables': 'Denné meteorologické premenné',
+        'largeElement': 'Veľké zobrazenie počasia',
       };
 }

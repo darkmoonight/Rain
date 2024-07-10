@@ -129,5 +129,6 @@ class EnUs {
         'openMeteo': 'Data by Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Hourly weather variables',
         'dailyVariables': 'Daily weather variables',
+        'largeElement': 'Large weather display',
       };
 }

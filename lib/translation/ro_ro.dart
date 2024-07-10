@@ -128,5 +128,6 @@ class RoRo {
         'openMeteo': 'Date de la Open-Meteo (CC-BY 4.0)',
         'hourlyVariables': 'Variabile meteorologice orare',
         'dailyVariables': 'Variabile meteorologice zilnice',
+        'largeElement': 'Afișare mare a vremii',
       };
 }
