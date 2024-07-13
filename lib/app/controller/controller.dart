@@ -316,8 +316,8 @@ class WeatherController extends GetxController {
     }
 
     for (var oldCard in weatherCard) {
-      var updatedCard = await WeatherAPI().getWeatherCard(oldCard.lat,
-          oldCard.lon, oldCard.city!, oldCard.district!, oldCard.timezone!);
+      var updatedCard = await WeatherAPI().getWeatherCard(oldCard.lat!,
+          oldCard.lon!, oldCard.city!, oldCard.district!, oldCard.timezone!);
       isar.writeTxnSync(() {
         oldCard
           ..time = updatedCard.time
@@ -372,8 +372,8 @@ class WeatherController extends GetxController {
     }
 
     final updatedCard = await WeatherAPI().getWeatherCard(
-      weatherCard.lat,
-      weatherCard.lon,
+      weatherCard.lat!,
+      weatherCard.lon!,
       weatherCard.city!,
       weatherCard.district!,
       weatherCard.timezone!,
