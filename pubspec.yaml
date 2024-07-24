@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.3.4+37
 
 environment:
-  sdk: ">=3.4.3 <4.0.0"
+  sdk: ">=3.4.4 <4.0.0"
 
 dependencies:
   flutter:
@@ -36,11 +36,11 @@ dependencies:
   path_provider: ^2.1.3
   # quick_settings: ^1.0.1
   json_annotation: ^4.9.0
-  flutter_timezone: ^2.0.1
+  flutter_timezone: ^2.1.0
   device_info_plus: ^10.1.0
   package_info_plus: ^8.0.0
   connectivity_plus: ^6.0.3
-  freezed_annotation: ^2.4.3
+  freezed_annotation: ^2.4.4
   isar_flutter_libs:
     version: ^3.1.7
     hosted: https://pub.isar-community.dev/
@@ -49,7 +49,7 @@ dependencies:
   # font_awesome_flutter: ^10.7.0
   flutter_hsvcolor_picker: ^1.5.1
   scrollable_positioned_list: ^0.3.8
-  flutter_local_notifications: ^17.2.1+1
+  flutter_local_notifications: ^17.2.1+2
   internet_connection_checker_plus: ^2.5.0
 
 # Uncomment this for publishing FLOSS variant

@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/widgets/button.dart';
 import 'package:rain/app/widgets/text_form.dart';
 import 'package:rain/main.dart';
 
@@ -61,50 +62,13 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: const Icon(
-                              Iconsax.close_square,
-                              size: 18,
-                            ),
-                          ),
-                          Text(
-                            'create'.tr,
-                            style: context.textTheme.titleLarge?.copyWith(
-                              fontSize: 20,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          IconButton(
-                            onPressed: () async {
-                              if (formKey.currentState!.validate()) {
-                                textTrim(_controllerLat);
-                                textTrim(_controllerLon);
-                                textTrim(_controllerCity);
-                                textTrim(_controllerDistrict);
-                                setState(() => isLoading = true);
-                                await weatherController.addCardWeather(
-                                  double.parse(_controllerLat.text),
-                                  double.parse(_controllerLon.text),
-                                  _controllerCity.text,
-                                  _controllerDistrict.text,
-                                );
-                                setState(() => isLoading = false);
-                                Get.back();
-                              }
-                            },
-                            icon: const Icon(
-                              Iconsax.tick_square,
-                              size: 18,
-                            ),
-                          ),
-                        ],
+                      padding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
+                      child: Text(
+                        'create'.tr,
+                        style: context.textTheme.titleLarge?.copyWith(
+                          fontSize: 20,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     RawAutocomplete<Result>(
@@ -120,8 +84,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                           type: TextInputType.text,
                           icon: const Icon(Iconsax.global_search),
                           controller: _controller,
-                          margin:
-                              const EdgeInsets.only(left: 10, right: 10, top: 10),
+                          margin: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10),
                           focusNode: _focusNode,
                         );
                       },
@@ -132,7 +96,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         return WeatherAPI()
                             .getCity(textEditingValue.text, locale);
                       },
-                      onSelected: (Result selection) => fillController(selection),
+                      onSelected: (Result selection) =>
+                          fillController(selection),
                       displayStringForOption: (Result option) =>
                           '${option.name}, ${option.admin1}',
                       optionsViewBuilder: (BuildContext context,
@@ -150,7 +115,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                                 shrinkWrap: true,
                                 itemCount: options.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final Result option = options.elementAt(index);
+                                  final Result option =
+                                      options.elementAt(index);
                                   return InkWell(
                                     onTap: () => onSelected(option),
                                     child: ListTile(
@@ -173,7 +139,9 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                       labelText: 'lat'.tr,
                       type: TextInputType.number,
                       icon: const Icon(Iconsax.location),
-                      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      onChanged: (value) => setState(() {}),
+                      margin:
+                          const EdgeInsets.only(left: 10, right: 10, top: 10),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'validateValue'.tr;
@@ -194,7 +162,9 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                       labelText: 'lon'.tr,
                       type: TextInputType.number,
                       icon: const Icon(Iconsax.location),
-                      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      onChanged: (value) => setState(() {}),
+                      margin:
+                          const EdgeInsets.only(left: 10, right: 10, top: 10),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'validateValue'.tr;
@@ -215,7 +185,9 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                       labelText: 'city'.tr,
                       type: TextInputType.name,
                       icon: const Icon(Icons.location_city_rounded),
-                      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      onChanged: (value) => setState(() {}),
+                      margin:
+                          const EdgeInsets.only(left: 10, right: 10, top: 10),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'validateName'.tr;
@@ -229,7 +201,9 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                       labelText: 'district'.tr,
                       type: TextInputType.streetAddress,
                       icon: const Icon(Iconsax.global),
-                      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      onChanged: (value) => setState(() {}),
+                      margin:
+                          const EdgeInsets.only(left: 10, right: 10, top: 10),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'validateName'.tr;
@@ -237,7 +211,36 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: Visibility(
+                        visible: _controllerLon.text.isNotEmpty &&
+                            _controllerLat.text.isNotEmpty &&
+                            _controllerCity.text.isNotEmpty &&
+                            _controllerDistrict.text.isNotEmpty,
+                        child: MyTextButton(
+                          buttonName: 'done'.tr,
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              textTrim(_controllerLat);
+                              textTrim(_controllerLon);
+                              textTrim(_controllerCity);
+                              textTrim(_controllerDistrict);
+                              setState(() => isLoading = true);
+                              await weatherController.addCardWeather(
+                                double.parse(_controllerLat.text),
+                                double.parse(_controllerLon.text),
+                                _controllerCity.text,
+                                _controllerDistrict.text,
+                              );
+                              setState(() => isLoading = false);
+                              Get.back();
+                            }
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

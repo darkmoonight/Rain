@@ -8,7 +8,7 @@ class MyTextButton extends StatelessWidget {
     required this.onPressed,
   });
   final String buttonName;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +16,11 @@ class MyTextButton extends StatelessWidget {
       height: 50,
       width: double.infinity,
       child: ElevatedButton(
+        style: ButtonStyle(
+          shadowColor: const WidgetStatePropertyAll(Colors.transparent),
+          backgroundColor: WidgetStatePropertyAll(
+              context.theme.colorScheme.secondaryContainer.withAlpha(80)),
+        ),
         onPressed: onPressed,
         child: Text(
           buttonName,
