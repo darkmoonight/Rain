@@ -91,6 +91,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
                   time: weatherCard.time![timeNow],
                   weather: weatherCard.weathercode![timeNow],
                   degree: weatherCard.temperature2M![timeNow],
+                  feels: weatherCard.apparentTemperature![timeNow]!,
                   timeDay: weatherCard.sunrise![dayNow],
                   timeNight: weatherCard.sunset![dayNow],
                   tempMax: weatherCard.temperature2MMax![dayNow]!,

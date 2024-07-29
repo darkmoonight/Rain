@@ -15,7 +15,8 @@ class CreateWeatherCard extends StatefulWidget {
   State<CreateWeatherCard> createState() => _CreateWeatherCardState();
 }
 
-class _CreateWeatherCardState extends State<CreateWeatherCard> {
+class _CreateWeatherCardState extends State<CreateWeatherCard>
+    with SingleTickerProviderStateMixin {
   bool isLoading = false;
   final formKey = GlobalKey<FormState>();
   final _focusNode = FocusNode();
@@ -26,14 +27,41 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
   final _controllerCity = TextEditingController();
   final _controllerDistrict = TextEditingController();
 
-  textTrim(value) {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _controller.dispose();
+    _controllerLat.dispose();
+    _controllerLon.dispose();
+    _controllerCity.dispose();
+    _controllerDistrict.dispose();
+    super.dispose();
+  }
+
+  void textTrim(TextEditingController value) {
     value.text = value.text.trim();
     while (value.text.contains('  ')) {
       value.text = value.text.replaceAll('  ', ' ');
     }
   }
 
-  void fillController(selection) {
+  void fillController(Result selection) {
     _controllerLat.text = '${selection.latitude}';
     _controllerLon.text = '${selection.longitude}';
     _controllerCity.text = selection.name;
@@ -46,6 +74,17 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
   @override
   Widget build(BuildContext context) {
     const kTextFieldElevation = 4.0;
+    bool showButton = _controllerLon.text.isNotEmpty &&
+        _controllerLat.text.isNotEmpty &&
+        _controllerCity.text.isNotEmpty &&
+        _controllerDistrict.text.isNotEmpty;
+
+    if (showButton) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       child: Form(
@@ -62,12 +101,11 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
+                      padding: const EdgeInsets.only(top: 14, bottom: 7),
                       child: Text(
                         'create'.tr,
-                        style: context.textTheme.titleLarge?.copyWith(
-                          fontSize: 20,
-                        ),
+                        style: context.textTheme.titleLarge
+                            ?.copyWith(fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -214,11 +252,9 @@ class _CreateWeatherCardState extends State<CreateWeatherCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),
-                      child: Visibility(
-                        visible: _controllerLon.text.isNotEmpty &&
-                            _controllerLat.text.isNotEmpty &&
-                            _controllerCity.text.isNotEmpty &&
-                            _controllerDistrict.text.isNotEmpty,
+                      child: SizeTransition(
+                        sizeFactor: _animation,
+                        axisAlignment: -1.0,
                         child: MyTextButton(
                           buttonName: 'done'.tr,
                           onPressed: () async {

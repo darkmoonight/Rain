@@ -36,9 +36,6 @@ class _WeatherDailyState extends State<WeatherDaily> {
     final weatherCodeDaily = weatherData.weathercodeDaily ?? [];
     final textTheme = context.textTheme;
     final labelLarge = textTheme.labelLarge;
-    final bodyMediumGrey = textTheme.bodyMedium?.copyWith(
-      color: Colors.grey,
-    );
 
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
@@ -107,7 +104,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                               ),
                               Text(
                                 ' / ',
-                                style: bodyMediumGrey,
+                                style: labelLarge,
                               ),
                               Text(
                                 statusData.getDegree(

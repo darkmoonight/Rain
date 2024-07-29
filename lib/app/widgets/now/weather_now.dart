@@ -16,6 +16,7 @@ class WeatherNow extends StatefulWidget {
     required this.timeNight,
     required this.tempMax,
     required this.tempMin,
+    required this.feels,
   });
   final String time;
   final String timeDay;
@@ -24,6 +25,7 @@ class WeatherNow extends StatefulWidget {
   final double degree;
   final double tempMax;
   final double tempMin;
+  final double feels;
 
   @override
   State<WeatherNow> createState() => _WeatherNowState();
@@ -97,6 +99,16 @@ class _WeatherNowState extends State<WeatherNow> {
                           style: context.textTheme.titleLarge
                               ?.copyWith(fontSize: 20),
                         ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('feels'.tr,
+                                style: context.textTheme.bodyMedium),
+                            Text(' • ', style: context.textTheme.bodyMedium),
+                            Text(statusData.getDegree(widget.feels.round()),
+                                style: context.textTheme.bodyMedium),
+                          ],
+                        ),
                         const SizedBox(height: 30),
                         Text(
                           statusData.getDegree(roundDegree
@@ -112,9 +124,7 @@ class _WeatherNowState extends State<WeatherNow> {
                           children: [
                             Text(statusData.getDegree((widget.tempMin.round())),
                                 style: context.textTheme.labelLarge),
-                            Text(' / ',
-                                style: context.textTheme.labelLarge
-                                    ?.copyWith(color: Colors.grey)),
+                            Text(' / ', style: context.textTheme.labelLarge),
                             Text(statusData.getDegree((widget.tempMax.round())),
                                 style: context.textTheme.labelLarge),
                           ],

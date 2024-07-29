@@ -73,6 +73,7 @@ class _WeatherPageState extends State<WeatherPage> {
                 time: mainWeather.time![hourOfDay],
                 weather: mainWeather.weathercode![hourOfDay],
                 degree: mainWeather.temperature2M![hourOfDay],
+                feels: mainWeather.apparentTemperature![hourOfDay]!,
                 timeDay: sunrise,
                 timeNight: sunset,
                 tempMax: tempMax!,

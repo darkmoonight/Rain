@@ -123,6 +123,8 @@ class _InfoDailyCardState extends State<InfoDailyCard> {
                               weatherData.weathercode![startIndex + hourOfDay],
                           degree: weatherData
                               .temperature2M![startIndex + hourOfDay],
+                          feels: weatherData
+                              .apparentTemperature![startIndex + hourOfDay]!,
                           time: weatherData.time![startIndex + hourOfDay],
                           timeDay: sunrise,
                           timeNight: sunset,
