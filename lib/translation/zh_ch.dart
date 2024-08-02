@@ -32,6 +32,8 @@ class ZhCh {
         'thunderstorm': '雷暴',
         'kph': '千米/小时',
         'mph': '英里/小时',
+        'm/s': '米/秒',
+        'mmHg': '毫米汞柱',
         'mi': '英里',
         'km': '千米',
         'inch': '英寸',

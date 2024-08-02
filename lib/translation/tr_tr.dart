@@ -35,6 +35,8 @@ class TrTr {
         'thunderstorm': 'Gök Gürültülü Fırtına',
         'kph': 'km/sa',
         'mph': 'mil/sa',
+        'm/s': 'm/s',
+        'mmHg': 'mmHg',
         'mi': 'mil',
         'km': 'km',
         'inch': 'inç',

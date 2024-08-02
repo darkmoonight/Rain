@@ -277,7 +277,7 @@ class _DescContainerState extends State<DescContainer> {
                     ? Container()
                     : DescWeather(
                         imageName: 'assets/images/atmospheric.png',
-                        value: '${pressure.round()} ${'hPa'.tr}',
+                        value: statusData.getPressure(pressure.round()),
                         desc: 'pressure'.tr,
                         message: message.getPressure(pressure.round()),
                       ),

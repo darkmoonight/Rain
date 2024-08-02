@@ -35,6 +35,8 @@ class NlNl {
         'thunderstorm': 'Onweersbui',
         'kph': 'km/h',
         'mph': 'mph',
+        'm/s': 'm/s',
+        'mmHg': 'mmHg',
         'mi': 'mi',
         'km': 'km',
         'inch': 'inch',

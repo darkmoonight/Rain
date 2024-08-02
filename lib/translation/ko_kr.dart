@@ -32,6 +32,8 @@ class KoKr {
         'thunderstorm': '천둥번개',
         'kph': 'km/h',
         'mph': 'mph',
+        'm/s': '미터/초',
+        'mmHg': '밀리미터 수은주',
         'mi': 'mi',
         'km': 'km',
         'inch': '인치',

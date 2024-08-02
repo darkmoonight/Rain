@@ -35,6 +35,8 @@ class HuHu {
         'thunderstorm': 'Zivatar',
         'kph': 'km/óra',
         'mph': 'mph',
+        'm/s': 'm/s',
+        'mmHg': 'mmHg',
         'mi': 'mérföld',
         'km': 'km',
         'inch': 'hüvelyk',

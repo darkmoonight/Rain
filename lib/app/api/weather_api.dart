@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 //ignore_for_file: invalid_annotation_target
 
-part 'weather.freezed.dart';
-part 'weather.g.dart';
+part 'weather_api.freezed.dart';
+part 'weather_api.g.dart';
 
 @freezed
 class WeatherDataApi with _$WeatherDataApi {

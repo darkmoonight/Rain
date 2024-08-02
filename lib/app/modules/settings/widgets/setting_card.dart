@@ -42,7 +42,7 @@ class SettingCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ListTile(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(15),
         ),
         onTap: onPressed,
         leading: icon,
@@ -61,6 +61,13 @@ class SettingCard extends StatelessWidget {
               )
             : dropdown
                 ? DropdownButton<String>(
+                    icon: const Padding(
+                      padding: EdgeInsets.only(left: 7),
+                      child: Icon(Iconsax.arrow_down_1),
+                    ),
+                    iconSize: 15,
+                    alignment: AlignmentDirectional.centerEnd,
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     underline: Container(),
                     value: dropdownName,
                     items: dropdownList!

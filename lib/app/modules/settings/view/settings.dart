@@ -556,6 +556,38 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
+                                icon: const Icon(Iconsax.wind),
+                                text: 'wind'.tr,
+                                dropdown: true,
+                                dropdownName: settings.wind.tr,
+                                dropdownList: <String>['kph'.tr, 'm/s'.tr],
+                                dropdownCange: (String? newValue) async {
+                                  isar.writeTxnSync(() {
+                                    settings.wind =
+                                        newValue == 'kph'.tr ? 'kph' : 'm/s';
+                                    isar.settings.putSync(settings);
+                                  });
+                                  setState(() {});
+                                },
+                              ),
+                              SettingCard(
+                                elevation: 4,
+                                icon: const Icon(Iconsax.ruler),
+                                text: 'pressure'.tr,
+                                dropdown: true,
+                                dropdownName: settings.pressure.tr,
+                                dropdownList: <String>['hPa'.tr, 'mmHg'.tr],
+                                dropdownCange: (String? newValue) async {
+                                  isar.writeTxnSync(() {
+                                    settings.pressure =
+                                        newValue == 'hPa'.tr ? 'hPa' : 'mmHg';
+                                    isar.settings.putSync(settings);
+                                  });
+                                  setState(() {});
+                                },
+                              ),
+                              SettingCard(
+                                elevation: 4,
                                 icon: const Icon(Iconsax.clock),
                                 text: 'timeformat'.tr,
                                 dropdown: true,

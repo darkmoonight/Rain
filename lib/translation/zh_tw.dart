@@ -32,6 +32,8 @@ class ZhTw {
         'thunderstorm': '雷暴',
         'kph': '公里/時',
         'mph': '英里/時',
+        'm/s': '米/秒',
+        'mmHg': '毫米汞柱',
         'mi': '英里',
         'km': '公里',
         'inch': '英呎',

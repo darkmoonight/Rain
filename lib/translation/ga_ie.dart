@@ -35,6 +35,8 @@ class GaIe {
         'thunderstorm': 'Tornaí',
         'kph': 'km/u',
         'mph': 'mi/u',
+        'm/s': 'm/s',
+        'mmHg': 'mmHg',
         'mi': 'míle',
         'km': 'km',
         'inch': 'úinse',

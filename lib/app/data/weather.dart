@@ -17,6 +17,8 @@ class Settings {
   String? widgetTextColor;
   String measurements = 'metric';
   String degrees = 'celsius';
+  String wind = 'kph';
+  String pressure = 'hPa';
   String timeformat = '24';
   String? language;
   int? timeRange;

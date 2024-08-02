@@ -18,12 +18,20 @@ class StatusData {
   String getSpeed(int? speed) {
     switch (settings.measurements) {
       case 'metric':
-        return '$speed ${'kph'.tr}';
+        return settings.wind == 'm/s'
+            ? '${(speed! * (5 / 18)).toPrecision(1)} ${'m/s'.tr}'
+            : '$speed ${'kph'.tr}';
       case 'imperial':
         return '$speed ${'mph'.tr}';
       default:
         return '$speed ${'kph'.tr}';
     }
+  }
+
+  String getPressure(int? pressure) {
+    return settings.pressure == 'mmHg'
+        ? '${(pressure! * (3 / 4)).toPrecision(1)} ${'mmHg'.tr}'
+        : '$pressure ${'hPa'.tr}';
   }
 
   String getVisibility(double? length) {

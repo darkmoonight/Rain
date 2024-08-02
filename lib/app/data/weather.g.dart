@@ -62,44 +62,54 @@ const SettingsSchema = CollectionSchema(
       name: r'onboard',
       type: IsarType.bool,
     ),
-    r'roundDegree': PropertySchema(
+    r'pressure': PropertySchema(
       id: 9,
+      name: r'pressure',
+      type: IsarType.string,
+    ),
+    r'roundDegree': PropertySchema(
+      id: 10,
       name: r'roundDegree',
       type: IsarType.bool,
     ),
     r'theme': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'theme',
       type: IsarType.string,
     ),
     r'timeEnd': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'timeEnd',
       type: IsarType.string,
     ),
     r'timeRange': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'timeRange',
       type: IsarType.long,
     ),
     r'timeStart': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'timeStart',
       type: IsarType.string,
     ),
     r'timeformat': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'timeformat',
       type: IsarType.string,
     ),
     r'widgetBackgroundColor': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
     ),
     r'widgetTextColor': PropertySchema(
-      id: 16,
+      id: 17,
       name: r'widgetTextColor',
+      type: IsarType.string,
+    ),
+    r'wind': PropertySchema(
+      id: 18,
+      name: r'wind',
       type: IsarType.string,
     )
   },
@@ -131,6 +141,7 @@ int _settingsEstimateSize(
     }
   }
   bytesCount += 3 + object.measurements.length * 3;
+  bytesCount += 3 + object.pressure.length * 3;
   {
     final value = object.theme;
     if (value != null) {
@@ -162,6 +173,7 @@ int _settingsEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
+  bytesCount += 3 + object.wind.length * 3;
   return bytesCount;
 }
 
@@ -180,14 +192,16 @@ void _settingsSerialize(
   writer.writeString(offsets[6], object.measurements);
   writer.writeBool(offsets[7], object.notifications);
   writer.writeBool(offsets[8], object.onboard);
-  writer.writeBool(offsets[9], object.roundDegree);
-  writer.writeString(offsets[10], object.theme);
-  writer.writeString(offsets[11], object.timeEnd);
-  writer.writeLong(offsets[12], object.timeRange);
-  writer.writeString(offsets[13], object.timeStart);
-  writer.writeString(offsets[14], object.timeformat);
-  writer.writeString(offsets[15], object.widgetBackgroundColor);
-  writer.writeString(offsets[16], object.widgetTextColor);
+  writer.writeString(offsets[9], object.pressure);
+  writer.writeBool(offsets[10], object.roundDegree);
+  writer.writeString(offsets[11], object.theme);
+  writer.writeString(offsets[12], object.timeEnd);
+  writer.writeLong(offsets[13], object.timeRange);
+  writer.writeString(offsets[14], object.timeStart);
+  writer.writeString(offsets[15], object.timeformat);
+  writer.writeString(offsets[16], object.widgetBackgroundColor);
+  writer.writeString(offsets[17], object.widgetTextColor);
+  writer.writeString(offsets[18], object.wind);
 }
 
 Settings _settingsDeserialize(
@@ -207,14 +221,16 @@ Settings _settingsDeserialize(
   object.measurements = reader.readString(offsets[6]);
   object.notifications = reader.readBool(offsets[7]);
   object.onboard = reader.readBool(offsets[8]);
-  object.roundDegree = reader.readBool(offsets[9]);
-  object.theme = reader.readStringOrNull(offsets[10]);
-  object.timeEnd = reader.readStringOrNull(offsets[11]);
-  object.timeRange = reader.readLongOrNull(offsets[12]);
-  object.timeStart = reader.readStringOrNull(offsets[13]);
-  object.timeformat = reader.readString(offsets[14]);
-  object.widgetBackgroundColor = reader.readStringOrNull(offsets[15]);
-  object.widgetTextColor = reader.readStringOrNull(offsets[16]);
+  object.pressure = reader.readString(offsets[9]);
+  object.roundDegree = reader.readBool(offsets[10]);
+  object.theme = reader.readStringOrNull(offsets[11]);
+  object.timeEnd = reader.readStringOrNull(offsets[12]);
+  object.timeRange = reader.readLongOrNull(offsets[13]);
+  object.timeStart = reader.readStringOrNull(offsets[14]);
+  object.timeformat = reader.readString(offsets[15]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[16]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[17]);
+  object.wind = reader.readString(offsets[18]);
   return object;
 }
 
@@ -244,21 +260,25 @@ P _settingsDeserializeProp<P>(
     case 8:
       return (reader.readBool(offset)) as P;
     case 9:
-      return (reader.readBool(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 10:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 11:
       return (reader.readStringOrNull(offset)) as P;
     case 12:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 13:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 14:
-      return (reader.readString(offset)) as P;
-    case 15:
       return (reader.readStringOrNull(offset)) as P;
+    case 15:
+      return (reader.readString(offset)) as P;
     case 16:
       return (reader.readStringOrNull(offset)) as P;
+    case 17:
+      return (reader.readStringOrNull(offset)) as P;
+    case 18:
+      return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -871,6 +891,136 @@ extension SettingsQueryFilter
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'onboard',
         value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'pressure',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'pressure',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'pressure',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'pressure',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'pressure',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'pressure',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'pressure',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'pressure',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'pressure',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'pressure',
+        value: '',
       ));
     });
   }
@@ -1832,6 +1982,136 @@ extension SettingsQueryFilter
       ));
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'wind',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'wind',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'wind',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'wind',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'wind',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'wind',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'wind',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'wind',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'wind',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> windIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'wind',
+        value: '',
+      ));
+    });
+  }
 }
 
 extension SettingsQueryObject
@@ -1949,6 +2229,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByPressure() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pressure', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByPressureDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pressure', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByRoundDegree() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'roundDegree', Sort.asc);
@@ -2043,6 +2335,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByWidgetTextColorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetTextColor', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWind() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'wind', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWindDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'wind', Sort.desc);
     });
   }
 }
@@ -2169,6 +2473,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByPressure() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pressure', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByPressureDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pressure', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByRoundDegree() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'roundDegree', Sort.asc);
@@ -2265,6 +2581,18 @@ extension SettingsQuerySortThenBy
       return query.addSortBy(r'widgetTextColor', Sort.desc);
     });
   }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWind() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'wind', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWindDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'wind', Sort.desc);
+    });
+  }
 }
 
 extension SettingsQueryWhereDistinct
@@ -2326,6 +2654,13 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByPressure(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'pressure', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByRoundDegree() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'roundDegree');
@@ -2379,6 +2714,13 @@ extension SettingsQueryWhereDistinct
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'widgetTextColor',
           caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWind(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'wind', caseSensitive: caseSensitive);
     });
   }
 }
@@ -2445,6 +2787,12 @@ extension SettingsQueryProperty
     });
   }
 
+  QueryBuilder<Settings, String, QQueryOperations> pressureProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'pressure');
+    });
+  }
+
   QueryBuilder<Settings, bool, QQueryOperations> roundDegreeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'roundDegree');
@@ -2491,6 +2839,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, String?, QQueryOperations> widgetTextColorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'widgetTextColor');
+    });
+  }
+
+  QueryBuilder<Settings, String, QQueryOperations> windProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'wind');
     });
   }
 }

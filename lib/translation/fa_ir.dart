@@ -37,6 +37,8 @@ class FaIr {
         'mph': 'mph',
         'mi': 'mi',
         'km': 'km',
+        'm/s': 'm/s',
+        'mmHg': 'mmHg',
         'inch': 'inch',
         'mm': 'mm',
         'hPa': 'hPa',

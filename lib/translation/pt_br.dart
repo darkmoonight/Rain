@@ -35,6 +35,8 @@ class PtBr {
         'thunderstorm': 'Tempestade',
         'kph': 'km/h',
         'mph': 'mph',
+        'm/s': 'm/s',
+        'mmHg': 'mmHg',
         'mi': 'mi',
         'km': 'km',
         'inch': 'inch',

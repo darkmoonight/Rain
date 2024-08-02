@@ -35,6 +35,8 @@ class PlPl {
         'thunderstorm': 'Burza z piorunami',
         'kph': 'km/h',
         'mph': 'mph',
+        'm/s': 'm/s',
+        'mmHg': 'mmHg',
         'mi': 'mi',
         'km': 'km',
         'inch': 'inch',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rain/app/api/api.dart';
-import 'package:rain/app/api/city.dart';
+import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/button.dart';
 import 'package:rain/app/widgets/text_form.dart';
