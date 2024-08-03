@@ -14,18 +14,18 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/geolocation.dart';
 import 'package:rain/app/modules/home.dart';
 import 'package:rain/app/modules/onboarding.dart';
 import 'package:rain/theme/theme.dart';
+import 'package:rain/theme/theme_controller.dart';
+import 'package:rain/translation/translation.dart';
 import 'package:rain/utils/device_info.dart';
 import 'package:time_machine/time_machine.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
-import 'app/data/weather.dart';
-import 'theme/theme_controller.dart';
-import 'translation/translation.dart';
 
 late Isar isar;
 late Settings settings;
