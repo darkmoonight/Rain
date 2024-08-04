@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
@@ -43,7 +44,7 @@ class _WeatherNowState extends State<WeatherNow> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 15),
+                const Gap(15),
                 Image(
                   image: AssetImage(statusWeather.getImageNow(widget.weather,
                       widget.time, widget.timeDay, widget.timeNight)),
@@ -61,7 +62,7 @@ class _WeatherNowState extends State<WeatherNow> {
                   statusWeather.getText(widget.weather),
                   style: context.textTheme.titleLarge,
                 ),
-                const SizedBox(height: 5),
+                const Gap(5),
                 Text(
                   DateFormat.MMMMEEEEd(locale.languageCode).format(
                     DateTime.parse(widget.time),
@@ -93,7 +94,7 @@ class _WeatherNowState extends State<WeatherNow> {
                             color: Colors.grey,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const Gap(5),
                         Text(
                           statusWeather.getText(widget.weather),
                           style: context.textTheme.titleLarge
@@ -109,7 +110,7 @@ class _WeatherNowState extends State<WeatherNow> {
                                 style: context.textTheme.bodyMedium),
                           ],
                         ),
-                        const SizedBox(height: 30),
+                        const Gap(30),
                         Text(
                           statusData.getDegree(roundDegree
                               ? widget.degree.round()
@@ -118,7 +119,7 @@ class _WeatherNowState extends State<WeatherNow> {
                             fontWeight: FontWeight.w800,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const Gap(5),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

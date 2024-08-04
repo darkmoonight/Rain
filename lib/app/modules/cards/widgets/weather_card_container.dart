@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/widgets/status/status_weather.dart';
@@ -62,7 +63,7 @@ class _WeatherCardContainerState extends State<WeatherCardContainer> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const SizedBox(width: 7),
+                      const Gap(7),
                       Text(
                         statusWeather.getText(widget.weather[weatherController
                             .getTime(widget.time, widget.timezone)]),
@@ -73,7 +74,7 @@ class _WeatherCardContainerState extends State<WeatherCardContainer> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  const Gap(10),
                   Text(
                     widget.district.isEmpty
                         ? widget.city
@@ -87,7 +88,7 @@ class _WeatherCardContainerState extends State<WeatherCardContainer> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const Gap(5),
                   StreamBuilder(
                     stream: Stream.periodic(const Duration(seconds: 1)),
                     builder: (context, snapshot) {
@@ -103,7 +104,7 @@ class _WeatherCardContainerState extends State<WeatherCardContainer> {
                 ],
               ),
             ),
-            const SizedBox(width: 5),
+            const Gap(5),
             Image.asset(
               statusWeather.getImageNow(
                   widget.weather[

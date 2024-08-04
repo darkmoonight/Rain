@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gap/gap.dart';
 import 'package:rain/app/widgets/status/status_data.dart';
 
 class SunsetSunrise extends StatefulWidget {
@@ -44,7 +45,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                           style: titleSmall,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 2),
+                        const Gap(2),
                         Text(
                           statusData.getTimeFormat(widget.timeSunrise),
                           style: titleLarge,
@@ -52,7 +53,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  const Gap(5),
                   Flexible(
                     child: Image.asset(
                       'assets/images/sunrise.png',
@@ -75,7 +76,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                           style: titleSmall,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 2),
+                        const Gap(2),
                         Text(
                           statusData.getTimeFormat(widget.timeSunset),
                           style: titleLarge,
@@ -83,7 +84,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  const Gap(5),
                   Flexible(
                     child: Image.asset(
                       'assets/images/sunset.png',

@@ -14,6 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get: ^4.6.6
+  gap: ^3.0.1
   dio: ^5.5.0+1
   intl: ^0.19.0
   isar: 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/data/weather.dart';
@@ -80,7 +81,7 @@ class _WeatherDailyState extends State<WeatherDaily> {
                                     .getImage7Day(weatherCodeDaily[index]),
                                 scale: 3,
                               ),
-                              const SizedBox(width: 5),
+                              const Gap(5),
                               Expanded(
                                 child: Text(
                                   statusWeather

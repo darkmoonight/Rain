@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/app/widgets/status/status_weather.dart';
@@ -47,7 +48,7 @@ class _ListDailyCardState extends State<ListDailyCard> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const Gap(5),
                         Text(
                           DateFormat.MMMMEEEEd(locale.languageCode)
                               .format(widget.timeDaily),
@@ -56,7 +57,7 @@ class _ListDailyCardState extends State<ListDailyCard> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const Gap(5),
                         Text(
                           statusWeather.getText(widget.weathercodeDaily),
                           style: context.textTheme.titleMedium?.copyWith(
@@ -67,7 +68,7 @@ class _ListDailyCardState extends State<ListDailyCard> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  const Gap(5),
                   Image.asset(
                     statusWeather.getImageNowDaily(widget.weathercodeDaily),
                     scale: 6.5,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class DescWeather extends StatefulWidget {
@@ -38,7 +39,7 @@ class _DescWeatherState extends State<DescWeather> {
                 widget.imageName,
                 scale: 20,
               ),
-              const SizedBox(height: 5),
+              const Gap(5),
               Text(
                 widget.value,
                 style: textTheme.labelLarge,

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -360,7 +361,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   margin: const EdgeInsets.only(
                                       left: 10, right: 10, top: 10),
                                 ),
-                                const SizedBox(height: 20),
+                                const Gap(20),
                               ],
                             ),
                           ),

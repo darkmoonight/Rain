@@ -1,3 +1,4 @@
+import 'package:gap/gap.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/geolocation.dart';
 import 'package:rain/app/widgets/button.dart';
@@ -166,7 +167,7 @@ class OnboardContent extends StatelessWidget {
                 style: context.textTheme.titleLarge
                     ?.copyWith(fontWeight: FontWeight.w600),
               ),
-              const SizedBox(height: 10),
+              const Gap(10),
               SizedBox(
                 width: 300,
                 child: Text(

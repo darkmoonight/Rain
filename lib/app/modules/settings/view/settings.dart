@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -162,7 +163,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   setState(() {});
                                 },
                               ),
-                              const SizedBox(height: 10),
+                              const Gap(10),
                             ],
                           ),
                         );
@@ -451,7 +452,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   }
                                 },
                               ),
-                              const SizedBox(height: 10),
+                              const Gap(10),
                             ],
                           ),
                         );
@@ -602,7 +603,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   setState(() {});
                                 },
                               ),
-                              const SizedBox(height: 10),
+                              const Gap(10),
                             ],
                           ),
                         );
@@ -819,7 +820,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   );
                                 },
                               ),
-                              const SizedBox(height: 10),
+                              const Gap(10),
                             ],
                           ),
                         );
@@ -887,7 +888,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 );
                               },
                             ),
-                            const SizedBox(height: 10),
+                            const Gap(10),
                           ],
                         );
                       },
@@ -938,7 +939,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 onPressed: () => urlLauncher(
                                     'https://yoomoney.ru/to/4100117672775961'),
                               ),
-                              const SizedBox(height: 10),
+                              const Gap(10),
                             ],
                           ),
                         );
@@ -1002,7 +1003,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   }
                                 },
                               ),
-                              const SizedBox(height: 10),
+                              const Gap(10),
                             ],
                           ),
                         );
@@ -1064,7 +1065,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () => urlLauncher('https://open-meteo.com/'),
             ),
           ),
-          const SizedBox(height: 10),
+          const Gap(10),
         ],
       ),
     );
