@@ -72,8 +72,7 @@ class WeatherController extends GetxController {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    return await Geolocator.getCurrentPosition();
   }
 
   Future<void> setLocation() async {
@@ -483,20 +482,20 @@ class WeatherController extends GetxController {
       if (notificationTime.isAfter(now) &&
           notificationTime.hour >= startHour &&
           notificationTime.hour <= endHour) {
-          for (var j = 0; j < mainWeatherCache.timeDaily!.length; j++) {
-            if (mainWeatherCache.timeDaily![j].day == notificationTime.day) {
-              NotificationShow().showNotification(
-                UniqueKey().hashCode,
-                '$city: ${mainWeatherCache.temperature2M![i]}°',
-                '${StatusWeather().getText(mainWeatherCache.weathercode![i])} · ${StatusData().getTimeFormat(mainWeatherCache.time![i])}',
-                notificationTime,
-                StatusWeather().getImageNotification(
-                  mainWeatherCache.weathercode![i],
-                  mainWeatherCache.time![i],
-                  mainWeatherCache.sunrise![j],
-                  mainWeatherCache.sunset![j],
-                ),
-              );
+        for (var j = 0; j < mainWeatherCache.timeDaily!.length; j++) {
+          if (mainWeatherCache.timeDaily![j].day == notificationTime.day) {
+            NotificationShow().showNotification(
+              UniqueKey().hashCode,
+              '$city: ${mainWeatherCache.temperature2M![i]}°',
+              '${StatusWeather().getText(mainWeatherCache.weathercode![i])} · ${StatusData().getTimeFormat(mainWeatherCache.time![i])}',
+              notificationTime,
+              StatusWeather().getImageNotification(
+                mainWeatherCache.weathercode![i],
+                mainWeatherCache.time![i],
+                mainWeatherCache.sunrise![j],
+                mainWeatherCache.sunset![j],
+              ),
+            );
           }
         }
       }

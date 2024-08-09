@@ -24,8 +24,12 @@ mixin _$WeatherDataApi {
   Daily get daily => throw _privateConstructorUsedError;
   String get timezone => throw _privateConstructorUsedError;
 
+  /// Serializes this WeatherDataApi to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of WeatherDataApi
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WeatherDataApiCopyWith<WeatherDataApi> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +56,8 @@ class _$WeatherDataApiCopyWithImpl<$Res, $Val extends WeatherDataApi>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WeatherDataApi
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +81,8 @@ class _$WeatherDataApiCopyWithImpl<$Res, $Val extends WeatherDataApi>
     ) as $Val);
   }
 
+  /// Create a copy of WeatherDataApi
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $HourlyCopyWith<$Res> get hourly {
@@ -83,6 +91,8 @@ class _$WeatherDataApiCopyWithImpl<$Res, $Val extends WeatherDataApi>
     });
   }
 
+  /// Create a copy of WeatherDataApi
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DailyCopyWith<$Res> get daily {
@@ -116,6 +126,8 @@ class __$$WeatherDataApiImplCopyWithImpl<$Res>
       _$WeatherDataApiImpl _value, $Res Function(_$WeatherDataApiImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of WeatherDataApi
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -172,11 +184,13 @@ class _$WeatherDataApiImpl implements _WeatherDataApi {
                 other.timezone == timezone));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, hourly, daily, timezone);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WeatherDataApi
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WeatherDataApiImplCopyWith<_$WeatherDataApiImpl> get copyWith =>
@@ -206,8 +220,11 @@ abstract class _WeatherDataApi implements WeatherDataApi {
   Daily get daily;
   @override
   String get timezone;
+
+  /// Create a copy of WeatherDataApi
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WeatherDataApiImplCopyWith<_$WeatherDataApiImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -251,8 +268,12 @@ mixin _$Hourly {
   @JsonKey(name: 'shortwave_radiation')
   List<double?>? get shortwaveRadiation => throw _privateConstructorUsedError;
 
+  /// Serializes this Hourly to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Hourly
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $HourlyCopyWith<Hourly> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -293,6 +314,8 @@ class _$HourlyCopyWithImpl<$Res, $Val extends Hourly>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Hourly
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -429,6 +452,8 @@ class __$$HourlyImplCopyWithImpl<$Res>
       _$HourlyImpl _value, $Res Function(_$HourlyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Hourly
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -820,7 +845,7 @@ class _$HourlyImpl implements _Hourly {
                 .equals(other._shortwaveRadiation, _shortwaveRadiation));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -843,7 +868,9 @@ class _$HourlyImpl implements _Hourly {
       const DeepCollectionEquality().hash(_precipitationProbability),
       const DeepCollectionEquality().hash(_shortwaveRadiation));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Hourly
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$HourlyImplCopyWith<_$HourlyImpl> get copyWith =>
@@ -933,8 +960,11 @@ abstract class _Hourly implements Hourly {
   @override
   @JsonKey(name: 'shortwave_radiation')
   List<double?>? get shortwaveRadiation;
+
+  /// Create a copy of Hourly
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$HourlyImplCopyWith<_$HourlyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -978,8 +1008,12 @@ mixin _$Daily {
   List<int?>? get windDirection10MDominant =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this Daily to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Daily
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DailyCopyWith<Daily> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1020,6 +1054,8 @@ class _$DailyCopyWithImpl<$Res, $Val extends Daily>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Daily
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1141,6 +1177,8 @@ class __$$DailyImplCopyWithImpl<$Res>
       _$DailyImpl _value, $Res Function(_$DailyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Daily
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1478,7 +1516,7 @@ class _$DailyImpl implements _Daily {
                 other._windDirection10MDominant, _windDirection10MDominant));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1498,7 +1536,9 @@ class _$DailyImpl implements _Daily {
       const DeepCollectionEquality().hash(_rainSum),
       const DeepCollectionEquality().hash(_windDirection10MDominant));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Daily
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DailyImplCopyWith<_$DailyImpl> get copyWith =>
@@ -1581,8 +1621,11 @@ abstract class _Daily implements Daily {
   @override
   @JsonKey(name: 'winddirection_10m_dominant')
   List<int?>? get windDirection10MDominant;
+
+  /// Create a copy of Daily
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DailyImplCopyWith<_$DailyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
