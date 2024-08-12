@@ -5,8 +5,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
@@ -64,7 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SettingCard(
-            icon: const Icon(Iconsax.brush_1),
+            icon: const Icon(IconsaxPlusLinear.brush_1),
             text: 'appearance'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -92,7 +93,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.moon),
+                                icon: const Icon(IconsaxPlusLinear.moon),
                                 text: 'theme'.tr,
                                 dropdown: true,
                                 dropdownName: settings.theme?.tr,
@@ -123,7 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.mobile),
+                                icon: const Icon(IconsaxPlusLinear.mobile),
                                 text: 'amoledTheme'.tr,
                                 switcher: true,
                                 value: settings.amoledTheme,
@@ -135,7 +136,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.colorfilter),
+                                icon: const Icon(IconsaxPlusLinear.colorfilter),
                                 text: 'materialColor'.tr,
                                 switcher: true,
                                 value: settings.materialColor,
@@ -147,7 +148,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.additem),
+                                icon: const Icon(IconsaxPlusLinear.additem),
                                 text: 'largeElement'.tr,
                                 switcher: true,
                                 value: settings.largeElement,
@@ -175,7 +176,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(Iconsax.code),
+            icon: const Icon(IconsaxPlusLinear.code_1),
             text: 'functions'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -203,7 +204,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.map_1),
+                                icon: const Icon(IconsaxPlusLinear.map),
                                 text: 'location'.tr,
                                 switcher: true,
                                 value: settings.location,
@@ -270,7 +271,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.notification_1),
+                                icon: const Icon(
+                                    IconsaxPlusLinear.notification_1),
                                 text: 'notifications'.tr,
                                 switcher: true,
                                 value: settings.notifications,
@@ -307,7 +309,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.notification_status),
+                                icon: const Icon(
+                                    IconsaxPlusLinear.notification_status),
                                 text: 'timeRange'.tr,
                                 dropdown: true,
                                 dropdownName: '$timeRange',
@@ -334,7 +337,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.timer_start),
+                                icon: const Icon(IconsaxPlusLinear.timer_start),
                                 text: 'timeStart'.tr,
                                 info: true,
                                 infoSettings: true,
@@ -394,7 +397,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.timer_pause),
+                                icon: const Icon(IconsaxPlusLinear.timer_pause),
                                 text: 'timeEnd'.tr,
                                 info: true,
                                 infoSettings: true,
@@ -464,7 +467,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(Iconsax.d_square),
+            icon: const Icon(IconsaxPlusLinear.d_square),
             text: 'data'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -492,7 +495,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.cloud_notif),
+                                icon: const Icon(IconsaxPlusLinear.cloud_notif),
                                 text: 'roundDegree'.tr,
                                 switcher: true,
                                 value: settings.roundDegree,
@@ -510,7 +513,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.sun_1),
+                                icon: const Icon(IconsaxPlusLinear.sun_1),
                                 text: 'degrees'.tr,
                                 dropdown: true,
                                 dropdownName: settings.degrees.tr,
@@ -533,7 +536,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.rulerpen),
+                                icon: const Icon(IconsaxPlusLinear.rulerpen),
                                 text: 'measurements'.tr,
                                 dropdown: true,
                                 dropdownName: settings.measurements.tr,
@@ -557,7 +560,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.wind),
+                                icon: const Icon(IconsaxPlusLinear.wind),
                                 text: 'wind'.tr,
                                 dropdown: true,
                                 dropdownName: settings.wind.tr,
@@ -573,7 +576,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.ruler),
+                                icon: const Icon(IconsaxPlusLinear.ruler),
                                 text: 'pressure'.tr,
                                 dropdown: true,
                                 dropdownName: settings.pressure.tr,
@@ -589,7 +592,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.clock),
+                                icon: const Icon(IconsaxPlusLinear.clock_1),
                                 text: 'timeformat'.tr,
                                 dropdown: true,
                                 dropdownName: settings.timeformat.tr,
@@ -615,7 +618,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(Iconsax.setting_3),
+            icon: const Icon(IconsaxPlusLinear.setting_3),
             text: 'widget'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -643,7 +646,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.bucket_square),
+                                icon:
+                                    const Icon(IconsaxPlusLinear.bucket_square),
                                 text: 'widgetBackground'.tr,
                                 info: true,
                                 infoWidget: CircleAvatar(
@@ -711,7 +715,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                             ),
                                             IconButton(
                                               icon: const Icon(
-                                                Iconsax.tick_square,
+                                                IconsaxPlusLinear.tick_square,
                                               ),
                                               onPressed: () {
                                                 if (colorBackground == null) {
@@ -735,7 +739,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.text_block),
+                                icon: const Icon(IconsaxPlusLinear.text_block),
                                 text: 'widgetText'.tr,
                                 info: true,
                                 infoWidget: CircleAvatar(
@@ -800,7 +804,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                             ),
                                             IconButton(
                                               icon: const Icon(
-                                                Iconsax.tick_square,
+                                                IconsaxPlusLinear.tick_square,
                                               ),
                                               onPressed: () {
                                                 if (colorText == null) return;
@@ -832,7 +836,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(Iconsax.language_square),
+            icon: const Icon(IconsaxPlusLinear.language_square),
             text: 'language'.tr,
             info: true,
             infoSettings: true,
@@ -899,7 +903,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(Iconsax.dollar_square),
+            icon: const Icon(IconsaxPlusLinear.dollar_square),
             text: 'support'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -927,14 +931,14 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.card),
+                                icon: const Icon(IconsaxPlusLinear.card),
                                 text: 'DonationAlerts',
                                 onPressed: () => urlLauncher(
                                     'https://www.donationalerts.com/r/darkmoonight'),
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.wallet),
+                                icon: const Icon(IconsaxPlusLinear.wallet),
                                 text: 'ЮMoney',
                                 onPressed: () => urlLauncher(
                                     'https://yoomoney.ru/to/4100117672775961'),
@@ -951,7 +955,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(Iconsax.link_square),
+            icon: const Icon(IconsaxPlusLinear.link_square),
             text: 'groups'.tr,
             onPressed: () {
               showModalBottomSheet(
@@ -979,7 +983,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.voice_square),
+                                icon: const Icon(LineAwesomeIcons.discord),
                                 text: 'Discord',
                                 onPressed: () async {
                                   final Uri url = Uri.parse(
@@ -992,7 +996,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon: const Icon(Iconsax.message_square),
+                                icon: const Icon(LineAwesomeIcons.telegram),
                                 text: 'Telegram',
                                 onPressed: () async {
                                   final Uri url =
@@ -1015,7 +1019,7 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(Iconsax.document),
+            icon: const Icon(IconsaxPlusLinear.document),
             text: 'license'.tr,
             onPressed: () => Get.to(
               LicensePage(
@@ -1037,7 +1041,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           SettingCard(
-            icon: const Icon(Iconsax.hierarchy_square_2),
+            icon: const Icon(IconsaxPlusLinear.hierarchy_square_2),
             text: 'version'.tr,
             info: true,
             infoWidget: _TextInfo(
@@ -1045,10 +1049,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           SettingCard(
-            icon: Image.asset(
-              'assets/images/github.png',
-              scale: 20,
-            ),
+            icon: const Icon(LineAwesomeIcons.github),
             text: '${'project'.tr} GitHub',
             onPressed: () =>
                 urlLauncher('https://github.com/darkmoonight/Rain'),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/modules/cards/widgets/weather_card_list.dart';
 import 'package:rain/app/widgets/text_form.dart';
@@ -66,7 +66,7 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                       labelText: 'search'.tr,
                       type: TextInputType.text,
                       icon: const Icon(
-                        Iconsax.search_normal_1,
+                        IconsaxPlusLinear.search_normal_1,
                         size: 20,
                       ),
                       controller: searchTasks,
@@ -80,7 +80,7 @@ class _ListWeatherCardState extends State<ListWeatherCard> {
                                 applyFilter('');
                               },
                               icon: const Icon(
-                                Iconsax.close_circle,
+                                IconsaxPlusLinear.close_circle,
                                 color: Colors.grey,
                                 size: 20,
                               ),

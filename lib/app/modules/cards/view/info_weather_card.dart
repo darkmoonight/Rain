@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/daily/weather_daily.dart';
@@ -67,7 +67,7 @@ class _InfoWeatherCardState extends State<InfoWeatherCard> {
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: const Icon(
-              Iconsax.arrow_left_1,
+              IconsaxPlusLinear.arrow_left_3,
               size: 20,
             ),
           ),

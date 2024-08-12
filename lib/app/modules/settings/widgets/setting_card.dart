@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 
 class SettingCard extends StatelessWidget {
   const SettingCard({
@@ -63,7 +63,7 @@ class SettingCard extends StatelessWidget {
                 ? DropdownButton<String>(
                     icon: const Padding(
                       padding: EdgeInsets.only(left: 7),
-                      child: Icon(Iconsax.arrow_down_1),
+                      child: Icon(IconsaxPlusLinear.arrow_down),
                     ),
                     iconSize: 15,
                     alignment: AlignmentDirectional.centerEnd,
@@ -85,14 +85,14 @@ class SettingCard extends StatelessWidget {
                             children: [
                               infoWidget!,
                               const Icon(
-                                Iconsax.arrow_right_3,
+                                IconsaxPlusLinear.arrow_right_3,
                                 size: 18,
                               ),
                             ],
                           )
                         : infoWidget!
                     : const Icon(
-                        Iconsax.arrow_right_3,
+                        IconsaxPlusLinear.arrow_right_3,
                         size: 18,
                       ),
       ),

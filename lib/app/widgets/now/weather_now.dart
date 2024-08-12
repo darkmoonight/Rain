@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_glow/flutter_glow.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -51,12 +50,17 @@ class _WeatherNowState extends State<WeatherNow> {
                   fit: BoxFit.fill,
                   height: 200,
                 ),
-                GlowText(
+                Text(
                   '${roundDegree ? widget.degree.round() : widget.degree}',
                   style: context.textTheme.displayLarge?.copyWith(
-                    fontSize: 90,
-                    fontWeight: FontWeight.w800,
-                  ),
+                      fontSize: 90,
+                      fontWeight: FontWeight.w800,
+                      shadows: const [
+                        Shadow(
+                          blurRadius: 15,
+                          offset: Offset(5, 5),
+                        )
+                      ]),
                 ),
                 Text(
                   statusWeather.getText(widget.weather),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:isar/isar.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city_api.dart';
@@ -10,6 +10,7 @@ import 'package:rain/app/modules/cards/view/list_weather_card.dart';
 import 'package:rain/app/modules/cards/widgets/create_card_weather.dart';
 import 'package:rain/app/modules/geolocation.dart';
 import 'package:rain/app/modules/main/view/weather_main.dart';
+import 'package:rain/app/modules/map/view/map.dart';
 import 'package:rain/app/modules/settings/view/settings.dart';
 import 'package:rain/app/services/utils.dart';
 import 'package:rain/main.dart';
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final pages = [
     const WeatherPage(),
     const ListWeatherCard(),
+    const MapWeather(),
     const SettingsPage(),
   ];
 
@@ -73,6 +75,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final textTheme = context.textTheme;
     final labelLarge = textTheme.labelLarge;
 
+    final textStyle = textTheme.titleMedium?.copyWith(
+      fontWeight: FontWeight.w600,
+      fontSize: 18,
+    );
+
     return DefaultTabController(
       length: pages.length,
       child: ScaffoldMessenger(
@@ -88,7 +95,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         transition: Transition.downToUp);
                   },
                   icon: const Icon(
-                    Iconsax.global_search,
+                    IconsaxPlusLinear.global_search,
                     size: 18,
                   ),
                 ),
@@ -184,26 +191,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           .isNotEmpty
                                       ? 'loading'.tr
                                       : 'searchCity'.tr,
-                          style: textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
+                          style: textStyle,
                         );
                       },
                     ),
               1 => Text(
                   'cities'.tr,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                  ),
+                  style: textStyle,
                 ),
               2 => Text(
+                  'map'.tr,
+                  style: textStyle,
+                ),
+              3 => Text(
                   'settings_full'.tr,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                  ),
+                  style: textStyle,
                 ),
               int() => null,
             },
@@ -221,7 +223,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       setState(() {});
                     },
                     icon: Icon(
-                      visible ? Icons.close : Iconsax.search_normal_1,
+                      visible
+                          ? IconsaxPlusLinear.close_circle
+                          : IconsaxPlusLinear.search_normal_1,
                       size: 18,
                     ),
                   )
@@ -240,18 +244,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             selectedIndex: tabIndex,
             destinations: [
               NavigationDestination(
-                icon: const Icon(Iconsax.cloud_sunny),
-                selectedIcon: const Icon(Iconsax.cloud_sunny5),
+                icon: const Icon(IconsaxPlusLinear.cloud_sunny),
+                selectedIcon: const Icon(IconsaxPlusBold.cloud_sunny),
                 label: 'name'.tr,
               ),
               NavigationDestination(
-                icon: const Icon(Iconsax.map_1),
-                selectedIcon: const Icon(Iconsax.map5),
+                icon: const Icon(IconsaxPlusLinear.buildings),
+                selectedIcon: const Icon(IconsaxPlusBold.buildings),
                 label: 'cities'.tr,
               ),
               NavigationDestination(
-                icon: const Icon(Iconsax.category),
-                selectedIcon: const Icon(Iconsax.category5),
+                icon: const Icon(IconsaxPlusLinear.map),
+                selectedIcon: const Icon(IconsaxPlusBold.map),
+                label: 'map'.tr,
+              ),
+              NavigationDestination(
+                icon: const Icon(IconsaxPlusLinear.category),
+                selectedIcon: const Icon(IconsaxPlusBold.category),
                 label: 'settings_full'.tr,
               ),
             ],
@@ -266,7 +275,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         const CreateWeatherCard(),
                   ),
                   child: const Icon(
-                    Iconsax.add,
+                    IconsaxPlusLinear.add,
                   ),
                 )
               : null,

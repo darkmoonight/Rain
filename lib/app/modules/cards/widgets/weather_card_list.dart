@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/modules/cards/view/info_weather_card.dart';
 import 'package:rain/app/modules/cards/widgets/weather_card_container.dart';
@@ -43,7 +43,7 @@ class _WeatherCardListState extends State<WeatherCardList> {
               child: const Padding(
                 padding: EdgeInsets.only(right: 15),
                 child: Icon(
-                  Iconsax.trush_square,
+                  IconsaxPlusLinear.trash_square,
                   color: Colors.red,
                 ),
               ),

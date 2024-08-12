@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';
@@ -75,7 +75,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                     Get.back();
                   },
                   icon: const Icon(
-                    Iconsax.arrow_left_1,
+                    IconsaxPlusLinear.arrow_left_3,
                     size: 20,
                   ),
                   splashColor: Colors.transparent,
@@ -132,8 +132,8 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                             elevation: kTextFieldElevation,
                                             labelText: 'search'.tr,
                                             type: TextInputType.text,
-                                            icon: const Icon(
-                                                Iconsax.global_search),
+                                            icon: const Icon(IconsaxPlusLinear
+                                                .global_search),
                                             controller: _controller,
                                             margin: const EdgeInsets.only(
                                                 left: 10, right: 10, top: 10),
@@ -276,7 +276,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                             setState(() => isLoading = false);
                                           },
                                           icon: const Icon(
-                                            Iconsax.location,
+                                            IconsaxPlusLinear.location,
                                           ),
                                         ),
                                       ),
@@ -288,7 +288,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   controller: _controllerLat,
                                   labelText: 'lat'.tr,
                                   type: TextInputType.number,
-                                  icon: const Icon(Iconsax.location),
+                                  icon: const Icon(IconsaxPlusLinear.location),
                                   margin: const EdgeInsets.only(
                                     left: 10,
                                     right: 10,
@@ -315,7 +315,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   controller: _controllerLon,
                                   labelText: 'lon'.tr,
                                   type: TextInputType.number,
-                                  icon: const Icon(Iconsax.location),
+                                  icon: const Icon(IconsaxPlusLinear.location),
                                   margin: const EdgeInsets.only(
                                     left: 10,
                                     right: 10,
@@ -342,7 +342,8 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   controller: _controllerCity,
                                   labelText: 'city'.tr,
                                   type: TextInputType.name,
-                                  icon: const Icon(Icons.location_city_rounded),
+                                  icon:
+                                      const Icon(IconsaxPlusLinear.building_3),
                                   margin: const EdgeInsets.only(
                                       left: 10, right: 10, top: 10),
                                   validator: (value) {
@@ -357,7 +358,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   controller: _controllerDistrict,
                                   labelText: 'district'.tr,
                                   type: TextInputType.streetAddress,
-                                  icon: const Icon(Iconsax.global),
+                                  icon: const Icon(IconsaxPlusLinear.global),
                                   margin: const EdgeInsets.only(
                                       left: 10, right: 10, top: 10),
                                 ),

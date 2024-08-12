@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';
@@ -120,7 +120,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard>
                           elevation: kTextFieldElevation,
                           labelText: 'search'.tr,
                           type: TextInputType.text,
-                          icon: const Icon(Iconsax.global_search),
+                          icon: const Icon(IconsaxPlusLinear.global_search),
                           controller: _controller,
                           margin: const EdgeInsets.only(
                               left: 10, right: 10, top: 10),
@@ -176,7 +176,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard>
                       controller: _controllerLat,
                       labelText: 'lat'.tr,
                       type: TextInputType.number,
-                      icon: const Icon(Iconsax.location),
+                      icon: const Icon(IconsaxPlusLinear.location),
                       onChanged: (value) => setState(() {}),
                       margin:
                           const EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -199,7 +199,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard>
                       controller: _controllerLon,
                       labelText: 'lon'.tr,
                       type: TextInputType.number,
-                      icon: const Icon(Iconsax.location),
+                      icon: const Icon(IconsaxPlusLinear.location),
                       onChanged: (value) => setState(() {}),
                       margin:
                           const EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -222,7 +222,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard>
                       controller: _controllerCity,
                       labelText: 'city'.tr,
                       type: TextInputType.name,
-                      icon: const Icon(Icons.location_city_rounded),
+                      icon: const Icon(IconsaxPlusLinear.building_3),
                       onChanged: (value) => setState(() {}),
                       margin:
                           const EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -238,7 +238,7 @@ class _CreateWeatherCardState extends State<CreateWeatherCard>
                       controller: _controllerDistrict,
                       labelText: 'district'.tr,
                       type: TextInputType.streetAddress,
-                      icon: const Icon(Iconsax.global),
+                      icon: const Icon(IconsaxPlusLinear.global),
                       onChanged: (value) => setState(() {}),
                       margin:
                           const EdgeInsets.only(left: 10, right: 10, top: 10),

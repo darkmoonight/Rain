@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/widgets/daily/info_daily_card.dart';
 import 'package:rain/app/widgets/daily/list_daily_card.dart';
@@ -32,7 +32,7 @@ class _WeatherMoreState extends State<WeatherMore> {
             Get.back();
           },
           icon: const Icon(
-            Iconsax.arrow_left_1,
+            IconsaxPlusLinear.arrow_left_3,
             size: 20,
           ),
           splashColor: transparent,
