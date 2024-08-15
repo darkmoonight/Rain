@@ -132,5 +132,6 @@ class EnUs {
         'hourlyVariables': 'Hourly weather variables',
         'dailyVariables': 'Daily weather variables',
         'largeElement': 'Large weather display',
+        'map': 'Map',
       };
 }

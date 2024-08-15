@@ -38,13 +38,6 @@ class _SettingsPageState extends State<SettingsPage> {
     });
   }
 
-  void urlLauncher(String uri) async {
-    final Uri url = Uri.parse(uri);
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-      throw Exception('Could not launch $url');
-    }
-  }
-
   @override
   void initState() {
     infoVersion();
@@ -933,14 +926,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                 elevation: 4,
                                 icon: const Icon(IconsaxPlusLinear.card),
                                 text: 'DonationAlerts',
-                                onPressed: () => urlLauncher(
+                                onPressed: () => weatherController.urlLauncher(
                                     'https://www.donationalerts.com/r/darkmoonight'),
                               ),
                               SettingCard(
                                 elevation: 4,
                                 icon: const Icon(IconsaxPlusLinear.wallet),
                                 text: 'ЮMoney',
-                                onPressed: () => urlLauncher(
+                                onPressed: () => weatherController.urlLauncher(
                                     'https://yoomoney.ru/to/4100117672775961'),
                               ),
                               const Gap(10),
@@ -1051,8 +1044,8 @@ class _SettingsPageState extends State<SettingsPage> {
           SettingCard(
             icon: const Icon(LineAwesomeIcons.github),
             text: '${'project'.tr} GitHub',
-            onPressed: () =>
-                urlLauncher('https://github.com/darkmoonight/Rain'),
+            onPressed: () => weatherController
+                .urlLauncher('https://github.com/darkmoonight/Rain'),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
@@ -1063,7 +1056,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 overflow: TextOverflow.visible,
                 textAlign: TextAlign.center,
               ),
-              onTap: () => urlLauncher('https://open-meteo.com/'),
+              onTap: () =>
+                  weatherController.urlLauncher('https://open-meteo.com/'),
             ),
           ),
           const Gap(10),

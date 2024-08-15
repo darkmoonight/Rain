@@ -1,15 +1,17 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
 import 'package:get/get.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cache_interceptor_file_store/dio_cache_interceptor_file_store.dart';
+import 'package:rain/app/modules/cards/widgets/create_card_weather.dart';
+import 'package:rain/secret_key.dart';
 
 class MapWeather extends StatefulWidget {
   const MapWeather({super.key});
@@ -21,6 +23,7 @@ class MapWeather extends StatefulWidget {
 class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
   late final _animatedMapController = AnimatedMapController(vsync: this);
   final weatherController = Get.put(WeatherController());
+  bool isDarkMode = Get.theme.brightness == Brightness.dark;
 
   final Future<CacheStore> _cacheStoreFuture = _getCacheStore();
 
@@ -32,7 +35,10 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final mainLocation = weatherController.location;
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    // final mainWeather = weatherController.mainWeather;
+    // final weatherCard = WeatherCard.fromJson({}
+    //   ..addAll(mainWeather.toJson())
+    //   ..addAll(mainLocation.toJson()));
 
     Widget darkModeTilesContainerBuilder(
       BuildContext context,
@@ -51,7 +57,8 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
 
     Widget openStreetMapTileLayer(CacheStore cacheStore) {
       return TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          urlTemplate:
+              'https://api.mapbox.com/styles/v1/yoshimok/clzvnt6ae000s01qsh52veh8f/tiles/256/{z}/{x}/{y}@2x?access_token=$accessToken',
           userAgentPackageName: 'com.darkmoonight.rain',
           tileProvider: CachedTileProvider(
             store: cacheStore,
@@ -76,12 +83,104 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                   const LatLng(90, 180),
                 ),
               ),
+              onLongPress: (tapPosition, point) => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                enableDrag: false,
+                builder: (BuildContext context) => CreateWeatherCard(
+                  latitude: '${point.latitude}',
+                  longitude: '${point.longitude}',
+                ),
+              ),
             ),
             children: [
               isDarkMode
                   ? darkModeTilesContainerBuilder(
                       context, openStreetMapTileLayer(cacheStore))
-                  : openStreetMapTileLayer(cacheStore)
+                  : openStreetMapTileLayer(cacheStore),
+              RichAttributionWidget(
+                animationConfig: const ScaleRAWA(),
+                attributions: [
+                  TextSourceAttribution(
+                    'Mapbox contributors',
+                    onTap: () => weatherController
+                        .urlLauncher('https://www.mapbox.com/legal/tos'),
+                  ),
+                ],
+              ),
+              Obx(
+                () {
+                  var weatherCards = weatherController.weatherCards.toList();
+                  return MarkerLayer(
+                    markers: [
+                      Marker(
+                        point: LatLng(mainLocation.lat!, mainLocation.lon!),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color:
+                                  context.theme.colorScheme.secondaryContainer,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(
+                              IconsaxPlusBold.home,
+                              color: context
+                                  .theme.colorScheme.onSecondaryContainer,
+                            ),
+                          ),
+                        ),
+                      ),
+                      ...weatherCards.map(
+                        (weatherCardList) => Marker(
+                          width: 35,
+                          height: 35,
+                          point: LatLng(
+                              weatherCardList.lat!, weatherCardList.lon!),
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: context
+                                    .theme.colorScheme.secondaryContainer,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Icon(
+                                IconsaxPlusBold.location,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
+              ),
+              // Positioned(
+              //   left: 0,
+              //   right: 0,
+              //   bottom: 0,
+              //   child: GestureDetector(
+              //     onTap: () => Get.to(
+              //       () => InfoWeatherCard(
+              //         weatherCard: weatherCard,
+              //       ),
+              //       transition: Transition.downToUp,
+              //     ),
+              //     child: WeatherCardContainer(
+              //       time: mainWeather.time!,
+              //       timeDaily: mainWeather.timeDaily!,
+              //       timeDay: mainWeather.sunrise!,
+              //       timeNight: mainWeather.sunset!,
+              //       weather: mainWeather.weathercode!,
+              //       degree: mainWeather.temperature2M!,
+              //       district: mainLocation.district!,
+              //       city: mainLocation.city!,
+              //       timezone: mainWeather.timezone!,
+              //     ),
+              //   ),
+              // )
             ],
           );
         }

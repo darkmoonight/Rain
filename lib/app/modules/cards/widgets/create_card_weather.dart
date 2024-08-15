@@ -9,7 +9,13 @@ import 'package:rain/app/widgets/text_form.dart';
 import 'package:rain/main.dart';
 
 class CreateWeatherCard extends StatefulWidget {
-  const CreateWeatherCard({super.key});
+  const CreateWeatherCard({
+    super.key,
+    this.latitude,
+    this.longitude,
+  });
+  final String? latitude;
+  final String? longitude;
 
   @override
   State<CreateWeatherCard> createState() => _CreateWeatherCardState();
@@ -21,11 +27,11 @@ class _CreateWeatherCardState extends State<CreateWeatherCard>
   final formKey = GlobalKey<FormState>();
   final _focusNode = FocusNode();
   final weatherController = Get.put(WeatherController());
-  final _controller = TextEditingController();
-  final _controllerLat = TextEditingController();
-  final _controllerLon = TextEditingController();
-  final _controllerCity = TextEditingController();
-  final _controllerDistrict = TextEditingController();
+  late final TextEditingController _controller = TextEditingController();
+  late TextEditingController _controllerLat = TextEditingController();
+  late TextEditingController _controllerLon = TextEditingController();
+  late final TextEditingController _controllerCity = TextEditingController();
+  late final TextEditingController _controllerDistrict = TextEditingController();
 
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -33,6 +39,10 @@ class _CreateWeatherCardState extends State<CreateWeatherCard>
   @override
   void initState() {
     super.initState();
+    if (widget.latitude != null && widget.longitude != null) {
+      _controllerLat = TextEditingController(text: widget.latitude);
+      _controllerLon = TextEditingController(text: widget.longitude);
+    }
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,

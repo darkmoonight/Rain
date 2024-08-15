@@ -157,6 +157,14 @@ class LocationCache {
     this.city,
     this.district,
   });
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'lat': lat,
+        'lon': lon,
+        'city': city,
+        'district': district,
+      };
 }
 
 @collection

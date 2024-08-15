@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   get: ^4.6.6
   gap: ^3.0.1
-  dio: ^5.5.0+1
+  dio: ^5.6.0
   intl: ^0.19.0
   shimmer: ^3.0.0
   latlong2: ^0.9.1
@@ -43,19 +43,17 @@ dependencies:
   lat_lng_to_timezone: ^0.2.0
   line_awesome_flutter: ^3.0.1
   dio_cache_interceptor: ^3.5.0
-  flutter_map_animations: ^0.7.0
+  flutter_map_animations: ^0.7.1
   flutter_hsvcolor_picker: ^1.5.1
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^17.2.2
-  material_floating_search_bar_2: ^0.5.0
   internet_connection_checker_plus: ^2.5.1
   dio_cache_interceptor_file_store: ^1.2.2
-  flutter_map_cancellable_tile_provider: ^3.0.0
   isar: 
-    version: ^3.1.7
+    version: ^3.1.8
     hosted: https://pub.isar-community.dev/
   isar_flutter_libs:
-    version: ^3.1.7
+    version: ^3.1.8
     hosted: https://pub.isar-community.dev/
 
 # Uncomment this for publishing FLOSS variant
@@ -76,7 +74,7 @@ dev_dependencies:
   flutter_native_splash: ^2.4.1
   flutter_launcher_icons: ^0.13.1
   isar_generator: 
-    version: ^3.1.7
+    version: ^3.1.8
     hosted: https://pub.isar-community.dev/
 
 flutter_launcher_icons:

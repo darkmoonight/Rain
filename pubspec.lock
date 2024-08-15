@@ -202,10 +202,10 @@ packages:
     dependency: transitive
     description:
       name: crypto
-      sha256: ff625774173754681d66daaf4a448684fb04b78f902da9cb3d308c19cc5e8bab
+      sha256: ec30d999af904f33454ba22ed9a86162b35e52b44ac4807d1d93c288041d7d27
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.5"
   csslib:
     dependency: transitive
     description:
@@ -266,10 +266,10 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: e17f6b3097b8c51b72c74c9f071a605c47bcc8893839bd66732457a5ebe73714
+      sha256: "0dfb6b6a1979dac1c1245e17cef824d7b452ea29bd33d3467269f9bef3715fb0"
       url: "https://pub.dev"
     source: hosted
-    version: "5.5.0+1"
+    version: "5.6.0"
   dio_cache_interceptor:
     dependency: "direct main"
     description:
@@ -290,10 +290,10 @@ packages:
     dependency: transitive
     description:
       name: dio_web_adapter
-      sha256: "36c5b2d79eb17cdae41e974b7a8284fec631651d2a6f39a8a2ff22327e90aeac"
+      sha256: "33259a9276d6cea88774a0000cfae0d861003497755969c92faa223108620dc8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "2.0.0"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -412,10 +412,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_map_animations
-      sha256: "826c10a551d9dbb686a8ed9ee8815b974475812c41beb4ce9fe19095fe1c5611"
+      sha256: a2135cd3cf36c07d821efeabb0be31aca380449528af80913c77b158e142eae9
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.0"
+    version: "0.7.1"
   flutter_map_cache:
     dependency: "direct main"
     description:
@@ -424,14 +424,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
-  flutter_map_cancellable_tile_provider:
-    dependency: "direct main"
-    description:
-      name: flutter_map_cancellable_tile_provider
-      sha256: "6a2221be8044bd2abfd6ec1de97483fe03f01c7f8b6c2adb4ba160f60d95699a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -686,26 +678,26 @@ packages:
     dependency: "direct main"
     description:
       name: isar
-      sha256: d06cca880885fe016d20a53847ce8605cde595e38de00a613b086fa8fd900790
+      sha256: e17a9555bc7f22ff26568b8c64d019b4ffa2dc6bd4cb1c8d9b269aefd32e53ad
       url: "https://pub.isar-community.dev"
     source: hosted
-    version: "3.1.7"
+    version: "3.1.8"
   isar_flutter_libs:
     dependency: "direct main"
     description:
       name: isar_flutter_libs
-      sha256: d5036c0cb92b15025301fb7260e7a7557393c855ed2f9903f2b1fbb56f423bc5
+      sha256: "78710781e658ce4bff59b3f38c5b2735e899e627f4e926e1221934e77b95231a"
       url: "https://pub.isar-community.dev"
     source: hosted
-    version: "3.1.7"
+    version: "3.1.8"
   isar_generator:
     dependency: "direct dev"
     description:
       name: isar_generator
-      sha256: c88bcdfc4a6407ff9672364bf62330d0314e88753dd0b442179f2f802a5f2179
+      sha256: "484e73d3b7e81dbd816852fe0b9497333118a9aeb646fd2d349a62cc8980ffe1"
       url: "https://pub.isar-community.dev"
     source: hosted
-    version: "3.1.7"
+    version: "3.1.8"
   js:
     dependency: transitive
     description:
@@ -834,14 +826,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.1"
-  material_floating_search_bar_2:
-    dependency: "direct main"
-    description:
-      name: material_floating_search_bar_2
-      sha256: ab0c6d209d9491f98dd4c72f2641d0ba1dd35c87effca1f23d8679bece43add0
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
   meta:
     dependency: transitive
     description:
@@ -1123,10 +1107,10 @@ packages:
     dependency: transitive
     description:
       name: synchronized
-      sha256: "539ef412b170d65ecdafd780f924e5be3f60032a1128df156adad6c5b373d558"
+      sha256: a824e842b8a054f91a728b783c177c1e4731f6b124f9192468457a8913371255
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0+1"
+    version: "3.2.0"
   term_glyph:
     dependency: transitive
     description:
@@ -1211,10 +1195,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "94d8ad05f44c6d4e2ffe5567ab4d741b82d62e3c8e288cc1fcea45965edf47c9"
+      sha256: f0c73347dfcfa5b3db8bc06e1502668265d39c08f310c29bff4e28eea9699f79
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.8"
+    version: "6.3.9"
   url_launcher_ios:
     dependency: transitive
     description:

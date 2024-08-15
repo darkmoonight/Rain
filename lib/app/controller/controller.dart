@@ -21,6 +21,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/standalone.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:workmanager/workmanager.dart';
 
 class WeatherController extends GetxController {
@@ -596,5 +597,12 @@ class WeatherController extends GetxController {
     ]).then((value) {
       return !value.contains(false);
     });
+  }
+
+  void urlLauncher(String uri) async {
+    final Uri url = Uri.parse(uri);
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

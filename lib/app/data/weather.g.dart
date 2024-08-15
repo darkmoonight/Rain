@@ -124,7 +124,7 @@ const SettingsSchema = CollectionSchema(
   getId: _settingsGetId,
   getLinks: _settingsGetLinks,
   attach: _settingsAttach,
-  version: '3.1.7',
+  version: '3.1.8',
 );
 
 int _settingsEstimateSize(
@@ -3047,7 +3047,7 @@ const MainWeatherCacheSchema = CollectionSchema(
   getId: _mainWeatherCacheGetId,
   getLinks: _mainWeatherCacheGetLinks,
   attach: _mainWeatherCacheAttach,
-  version: '3.1.7',
+  version: '3.1.8',
 );
 
 int _mainWeatherCacheEstimateSize(
@@ -10770,7 +10770,7 @@ const LocationCacheSchema = CollectionSchema(
   getId: _locationCacheGetId,
   getLinks: _locationCacheGetLinks,
   attach: _locationCacheAttach,
-  version: '3.1.7',
+  version: '3.1.8',
 );
 
 int _locationCacheEstimateSize(
@@ -11869,7 +11869,7 @@ const WeatherCardSchema = CollectionSchema(
   getId: _weatherCardGetId,
   getLinks: _weatherCardGetLinks,
   attach: _weatherCardAttach,
-  version: '3.1.7',
+  version: '3.1.8',
 );
 
 int _weatherCardEstimateSize(
