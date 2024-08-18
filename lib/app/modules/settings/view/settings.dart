@@ -15,7 +15,6 @@ import 'package:rain/app/modules/settings/widgets/setting_card.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:rain/utils/color_converter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -978,27 +977,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                 elevation: 4,
                                 icon: const Icon(LineAwesomeIcons.discord),
                                 text: 'Discord',
-                                onPressed: () async {
-                                  final Uri url = Uri.parse(
-                                      'https://discord.gg/JMMa9aHh8f');
-                                  if (!await launchUrl(url,
-                                      mode: LaunchMode.externalApplication)) {
-                                    throw Exception('Could not launch $url');
-                                  }
-                                },
+                                onPressed: () => weatherController.urlLauncher(
+                                    'https://discord.gg/JMMa9aHh8f'),
                               ),
                               SettingCard(
                                 elevation: 4,
                                 icon: const Icon(LineAwesomeIcons.telegram),
                                 text: 'Telegram',
-                                onPressed: () async {
-                                  final Uri url =
-                                      Uri.parse('https://t.me/darkmoonightX');
-                                  if (!await launchUrl(url,
-                                      mode: LaunchMode.externalApplication)) {
-                                    throw Exception('Could not launch $url');
-                                  }
-                                },
+                                onPressed: () => weatherController
+                                    .urlLauncher('https://t.me/darkmoonightX'),
                               ),
                               const Gap(10),
                             ],
