@@ -31,7 +31,8 @@ class _CreateWeatherCardState extends State<CreateWeatherCard>
   late TextEditingController _controllerLat = TextEditingController();
   late TextEditingController _controllerLon = TextEditingController();
   late final TextEditingController _controllerCity = TextEditingController();
-  late final TextEditingController _controllerDistrict = TextEditingController();
+  late final TextEditingController _controllerDistrict =
+      TextEditingController();
 
   late AnimationController _animationController;
   late Animation<double> _animation;

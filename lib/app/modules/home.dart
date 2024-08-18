@@ -85,156 +85,154 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       child: ScaffoldMessenger(
         key: globalKey,
         child: Scaffold(
-          appBar: tabIndex == 2
-              ? null
-              : AppBar(
-                  centerTitle: true,
-                  automaticallyImplyLeading: false,
-                  leading: switch (tabIndex) {
-                    0 => IconButton(
-                        onPressed: () {
-                          Get.to(() => const SelectGeolocation(isStart: false),
-                              transition: Transition.downToUp);
-                        },
-                        icon: const Icon(
-                          IconsaxPlusLinear.global_search,
-                          size: 18,
-                        ),
-                      ),
-                    int() => null,
+          appBar: AppBar(
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+            leading: switch (tabIndex) {
+              0 => IconButton(
+                  onPressed: () {
+                    Get.to(() => const SelectGeolocation(isStart: false),
+                        transition: Transition.downToUp);
                   },
-                  title: switch (tabIndex) {
-                    0 => visible
-                        ? RawAutocomplete<Result>(
-                            focusNode: _focusNode,
-                            textEditingController: _controller,
-                            fieldViewBuilder: (_, __, ___, ____) {
-                              return TextField(
-                                controller: _controller,
-                                focusNode: _focusNode,
-                                style: labelLarge?.copyWith(fontSize: 16),
-                                decoration: InputDecoration(
-                                  hintText: 'search'.tr,
-                                ),
-                              );
-                            },
-                            optionsBuilder:
-                                (TextEditingValue textEditingValue) {
-                              if (textEditingValue.text.isEmpty) {
-                                return const Iterable<Result>.empty();
-                              }
-                              return WeatherAPI()
-                                  .getCity(textEditingValue.text, locale);
-                            },
-                            onSelected: (Result selection) async {
-                              await weatherController.deleteAll(true);
-                              await weatherController.getLocation(
-                                double.parse('${selection.latitude}'),
-                                double.parse('${selection.longitude}'),
-                                selection.admin1,
-                                selection.name,
-                              );
-                              visible = false;
-                              _controller.clear();
-                              _focusNode.unfocus();
-                              setState(() {});
-                            },
-                            displayStringForOption: (Result option) =>
-                                '${option.name}, ${option.admin1}',
-                            optionsViewBuilder: (BuildContext context,
-                                AutocompleteOnSelected<Result> onSelected,
-                                Iterable<Result> options) {
-                              return Align(
-                                alignment: Alignment.topLeft,
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(20),
-                                  elevation: 4.0,
-                                  child: SizedBox(
-                                    width: 250,
-                                    child: ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      itemCount: options.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        final Result option =
-                                            options.elementAt(index);
-                                        return InkWell(
-                                          onTap: () => onSelected(option),
-                                          child: ListTile(
-                                            title: Text(
-                                              '${option.name}, ${option.admin1}',
-                                              style: labelLarge,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          )
-                        : Obx(
-                            () {
-                              final location = weatherController.location;
-                              final city = location.city;
-                              final district = location.district;
-                              return Text(
-                                weatherController.isLoading.isFalse
-                                    ? district!.isEmpty
-                                        ? '$city'
-                                        : city!.isEmpty
-                                            ? district
-                                            : city == district
-                                                ? city
-                                                : '$city' ', $district'
-                                    : settings.location
-                                        ? 'search'.tr
-                                        : (isar.locationCaches
-                                                    .where()
-                                                    .findAllSync())
-                                                .isNotEmpty
-                                            ? 'loading'.tr
-                                            : 'searchCity'.tr,
-                                style: textStyle,
-                              );
-                            },
-                          ),
-                    1 => Text(
-                        'cities'.tr,
-                        style: textStyle,
-                      ),
-                    3 => Text(
-                        'settings_full'.tr,
-                        style: textStyle,
-                      ),
-                    int() => null,
-                  },
-                  actions: switch (tabIndex) {
-                    0 => [
-                        IconButton(
-                          onPressed: () {
-                            if (visible) {
-                              _controller.clear();
-                              _focusNode.unfocus();
-                              visible = false;
-                            } else {
-                              visible = true;
-                            }
-                            setState(() {});
-                          },
-                          icon: Icon(
-                            visible
-                                ? IconsaxPlusLinear.close_circle
-                                : IconsaxPlusLinear.search_normal_1,
-                            size: 18,
-                          ),
-                        )
-                      ],
-                    int() => null,
-                  },
+                  icon: const Icon(
+                    IconsaxPlusLinear.global_search,
+                    size: 18,
+                  ),
                 ),
+              int() => null,
+            },
+            title: switch (tabIndex) {
+              0 => visible
+                  ? RawAutocomplete<Result>(
+                      focusNode: _focusNode,
+                      textEditingController: _controller,
+                      fieldViewBuilder: (_, __, ___, ____) {
+                        return TextField(
+                          controller: _controller,
+                          focusNode: _focusNode,
+                          style: labelLarge?.copyWith(fontSize: 16),
+                          decoration: InputDecoration(
+                            hintText: 'search'.tr,
+                          ),
+                        );
+                      },
+                      optionsBuilder: (TextEditingValue textEditingValue) {
+                        if (textEditingValue.text.isEmpty) {
+                          return const Iterable<Result>.empty();
+                        }
+                        return WeatherAPI()
+                            .getCity(textEditingValue.text, locale);
+                      },
+                      onSelected: (Result selection) async {
+                        await weatherController.deleteAll(true);
+                        await weatherController.getLocation(
+                          double.parse('${selection.latitude}'),
+                          double.parse('${selection.longitude}'),
+                          selection.admin1,
+                          selection.name,
+                        );
+                        visible = false;
+                        _controller.clear();
+                        _focusNode.unfocus();
+                        setState(() {});
+                      },
+                      displayStringForOption: (Result option) =>
+                          '${option.name}, ${option.admin1}',
+                      optionsViewBuilder: (BuildContext context,
+                          AutocompleteOnSelected<Result> onSelected,
+                          Iterable<Result> options) {
+                        return Align(
+                          alignment: Alignment.topLeft,
+                          child: Material(
+                            borderRadius: BorderRadius.circular(20),
+                            elevation: 4.0,
+                            child: SizedBox(
+                              width: 250,
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount: options.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final Result option =
+                                      options.elementAt(index);
+                                  return InkWell(
+                                    onTap: () => onSelected(option),
+                                    child: ListTile(
+                                      title: Text(
+                                        '${option.name}, ${option.admin1}',
+                                        style: labelLarge,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  : Obx(
+                      () {
+                        final location = weatherController.location;
+                        final city = location.city;
+                        final district = location.district;
+                        return Text(
+                          weatherController.isLoading.isFalse
+                              ? district!.isEmpty
+                                  ? '$city'
+                                  : city!.isEmpty
+                                      ? district
+                                      : city == district
+                                          ? city
+                                          : '$city' ', $district'
+                              : settings.location
+                                  ? 'search'.tr
+                                  : (isar.locationCaches.where().findAllSync())
+                                          .isNotEmpty
+                                      ? 'loading'.tr
+                                      : 'searchCity'.tr,
+                          style: textStyle,
+                        );
+                      },
+                    ),
+              1 => Text(
+                  'cities'.tr,
+                  style: textStyle,
+                ),
+              2 => Text(
+                  'map'.tr,
+                  style: textStyle,
+                ),
+              3 => Text(
+                  'settings_full'.tr,
+                  style: textStyle,
+                ),
+              int() => null,
+            },
+            actions: switch (tabIndex) {
+              0 => [
+                  IconButton(
+                    onPressed: () {
+                      if (visible) {
+                        _controller.clear();
+                        _focusNode.unfocus();
+                        visible = false;
+                      } else {
+                        visible = true;
+                      }
+                      setState(() {});
+                    },
+                    icon: Icon(
+                      visible
+                          ? IconsaxPlusLinear.close_circle
+                          : IconsaxPlusLinear.search_normal_1,
+                      size: 18,
+                    ),
+                  )
+                ],
+              int() => null,
+            },
+          ),
           body: SafeArea(
             child: TabBarView(
               controller: tabController,

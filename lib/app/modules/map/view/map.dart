@@ -5,15 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rain/app/api/api.dart';
+import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/cards/view/info_weather_card.dart';
 import 'package:rain/app/modules/cards/widgets/create_card_weather.dart';
 import 'package:rain/app/modules/cards/widgets/weather_card_container.dart';
+import 'package:rain/app/widgets/status/status_data.dart';
 import 'package:rain/app/widgets/status/status_weather.dart';
+import 'package:rain/app/widgets/text_form.dart';
+import 'package:rain/main.dart';
 
 class MapWeather extends StatefulWidget {
   const MapWeather({super.key});
@@ -27,6 +34,7 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
       AnimatedMapController(vsync: this);
   final weatherController = Get.put(WeatherController());
   final statusWeather = StatusWeather();
+  final statusData = StatusData();
   final Future<CacheStore> _cacheStoreFuture = _getCacheStore();
 
   final bool _isDarkMode = Get.theme.brightness == Brightness.dark;
@@ -34,9 +42,19 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
   bool _isCardVisible = false;
   double _cardBottomPosition = -200;
 
+  final _focusNode = FocusNode();
+  late final TextEditingController _controllerSearch = TextEditingController();
+
   static Future<CacheStore> _getCacheStore() async {
     final dir = await getTemporaryDirectory();
     return FileCacheStore('${dir.path}${Platform.pathSeparator}MapTiles');
+  }
+
+  @override
+  void dispose() {
+    _animatedMapController.dispose();
+    _controllerSearch.dispose();
+    super.dispose();
   }
 
   void _onMarkerTap(WeatherCard weatherCard) {
@@ -56,30 +74,52 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
         _isCardVisible = false;
       });
     });
+    _focusNode.unfocus();
+  }
+
+  Widget _buidStyleMarkers(int weathercode, String time, String sunrise,
+      String sunset, double temperature2M) {
+    return Card(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            statusWeather.getImageNow(
+              weathercode,
+              time,
+              sunrise,
+              sunset,
+            ),
+            scale: 18,
+          ),
+          const MaxGap(5),
+          Text(
+            statusData
+                .getDegree(roundDegree ? temperature2M.round() : temperature2M),
+            style: context.textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Marker _buildMainLocationMarker(
       WeatherCard weatherCard, int hourOfDay, int dayOfNow) {
     return Marker(
-      height: 40,
-      width: 40,
+      height: 50,
+      width: 100,
       point: LatLng(weatherCard.lat!, weatherCard.lon!),
       child: GestureDetector(
         onTap: () => _onMarkerTap(weatherCard),
-        child: Container(
-          decoration: BoxDecoration(
-            color: context.theme.colorScheme.onSecondary,
-            shape: BoxShape.circle,
-          ),
-          child: Image.asset(
-            statusWeather.getImageNow(
-              weatherCard.weathercode![hourOfDay],
-              weatherCard.time![hourOfDay],
-              weatherCard.sunrise![dayOfNow],
-              weatherCard.sunset![dayOfNow],
-            ),
-            scale: 15,
-          ),
+        child: _buidStyleMarkers(
+          weatherCard.weathercode![hourOfDay],
+          weatherCard.time![hourOfDay],
+          weatherCard.sunrise![dayOfNow],
+          weatherCard.sunset![dayOfNow],
+          weatherCard.temperature2M![hourOfDay],
         ),
       ),
     );
@@ -87,29 +127,22 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
 
   Marker _buildCardMarker(WeatherCard weatherCardList) {
     return Marker(
-      height: 40,
-      width: 40,
+      height: 50,
+      width: 100,
       point: LatLng(weatherCardList.lat!, weatherCardList.lon!),
       child: GestureDetector(
         onTap: () => _onMarkerTap(weatherCardList),
-        child: Container(
-          decoration: BoxDecoration(
-            color: context.theme.colorScheme.onSecondary,
-            shape: BoxShape.circle,
-          ),
-          child: Image.asset(
-            statusWeather.getImageNow(
-              weatherCardList.weathercode![weatherController.getTime(
-                  weatherCardList.time!, weatherCardList.timezone!)],
-              weatherCardList.time![weatherController.getTime(
-                  weatherCardList.time!, weatherCardList.timezone!)],
-              weatherCardList.sunrise![weatherController.getDay(
-                  weatherCardList.timeDaily!, weatherCardList.timezone!)],
-              weatherCardList.sunset![weatherController.getDay(
-                  weatherCardList.timeDaily!, weatherCardList.timezone!)],
-            ),
-            scale: 15,
-          ),
+        child: _buidStyleMarkers(
+          weatherCardList.weathercode![weatherController.getTime(
+              weatherCardList.time!, weatherCardList.timezone!)],
+          weatherCardList.time![weatherController.getTime(
+              weatherCardList.time!, weatherCardList.timezone!)],
+          weatherCardList.sunrise![weatherController.getDay(
+              weatherCardList.timeDaily!, weatherCardList.timezone!)],
+          weatherCardList.sunset![weatherController.getDay(
+              weatherCardList.timeDaily!, weatherCardList.timezone!)],
+          weatherCardList.temperature2M![weatherController.getTime(
+              weatherCardList.time!, weatherCardList.timezone!)],
         ),
       ),
     );
@@ -180,71 +213,152 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
 
         final cacheStore = snapshot.data!;
 
-        return FlutterMap(
-          mapController: _animatedMapController.mapController,
-          options: MapOptions(
-            backgroundColor: context.theme.scaffoldBackgroundColor,
-            initialCenter: LatLng(mainLocation.lat!, mainLocation.lon!),
-            initialZoom: 12,
-            cameraConstraint: CameraConstraint.contain(
-              bounds: LatLngBounds(
-                const LatLng(-90, -180),
-                const LatLng(90, 180),
-              ),
-            ),
-            onTap: (_, __) => _hideCard(),
-            onLongPress: (tapPosition, point) => showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              enableDrag: false,
-              builder: (BuildContext context) => CreateWeatherCard(
-                latitude: '${point.latitude}',
-                longitude: '${point.longitude}',
-              ),
-            ),
-          ),
+        return Stack(
           children: [
-            if (_isDarkMode)
-              ColorFiltered(
-                colorFilter: const ColorFilter.matrix(<double>[
-                  -0.2126, -0.7152, -0.0722, 0, 255, // Red channel
-                  -0.2126, -0.7152, -0.0722, 0, 255, // Green channel
-                  -0.2126, -0.7152, -0.0722, 0, 255, // Blue channel
-                  0, 0, 0, 1, 0, // Alpha channel
-                ]),
-                child: _buildMapTileLayer(cacheStore),
-              )
-            else
-              _buildMapTileLayer(cacheStore),
-            RichAttributionWidget(
-              animationConfig: const ScaleRAWA(),
-              attributions: [
-                TextSourceAttribution(
-                  'OpenStreetMap contributors',
-                  onTap: () => weatherController
-                      .urlLauncher('https://openstreetmap.org/copyright'),
+            FlutterMap(
+              mapController: _animatedMapController.mapController,
+              options: MapOptions(
+                backgroundColor: context.theme.scaffoldBackgroundColor,
+                initialCenter: LatLng(mainLocation.lat!, mainLocation.lon!),
+                initialZoom: 12,
+                cameraConstraint: CameraConstraint.contain(
+                  bounds: LatLngBounds(
+                    const LatLng(-90, -180),
+                    const LatLng(90, 180),
+                  ),
                 ),
+                onTap: (_, __) => _hideCard(),
+                onLongPress: (tapPosition, point) => showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  enableDrag: false,
+                  builder: (BuildContext context) => CreateWeatherCard(
+                    latitude: '${point.latitude}',
+                    longitude: '${point.longitude}',
+                  ),
+                ),
+              ),
+              children: [
+                if (_isDarkMode)
+                  ColorFiltered(
+                    colorFilter: const ColorFilter.matrix(<double>[
+                      -0.2126, -0.7152, -0.0722, 0, 255, // Red channel
+                      -0.2126, -0.7152, -0.0722, 0, 255, // Green channel
+                      -0.2126, -0.7152, -0.0722, 0, 255, // Blue channel
+                      0, 0, 0, 1, 0, // Alpha channel
+                    ]),
+                    child: _buildMapTileLayer(cacheStore),
+                  )
+                else
+                  _buildMapTileLayer(cacheStore),
+                RichAttributionWidget(
+                  animationConfig: const ScaleRAWA(),
+                  attributions: [
+                    TextSourceAttribution(
+                      'OpenStreetMap contributors',
+                      onTap: () => weatherController
+                          .urlLauncher('https://openstreetmap.org/copyright'),
+                    ),
+                  ],
+                ),
+                Obx(() {
+                  final mainMarker = _buildMainLocationMarker(
+                    WeatherCard.fromJson({
+                      ...mainWeather.toJson(),
+                      ...mainLocation.toJson(),
+                    }),
+                    hourOfDay,
+                    dayOfNow,
+                  );
+
+                  final cardMarkers = weatherController.weatherCards
+                      .map((weatherCardList) =>
+                          _buildCardMarker(weatherCardList))
+                      .toList();
+
+                  return MarkerLayer(
+                    markers: [mainMarker, ...cardMarkers],
+                  );
+                }),
+                _buildWeatherCard(),
               ],
             ),
-            Obx(() {
-              final mainMarker = _buildMainLocationMarker(
-                WeatherCard.fromJson({
-                  ...mainWeather.toJson(),
-                  ...mainLocation.toJson(),
-                }),
-                hourOfDay,
-                dayOfNow,
-              );
-
-              final cardMarkers = weatherController.weatherCards
-                  .map((weatherCardList) => _buildCardMarker(weatherCardList))
-                  .toList();
-
-              return MarkerLayer(
-                markers: [mainMarker, ...cardMarkers],
-              );
-            }),
-            _buildWeatherCard(),
+            RawAutocomplete<Result>(
+              focusNode: _focusNode,
+              textEditingController: _controllerSearch,
+              fieldViewBuilder: (BuildContext context,
+                  TextEditingController fieldTextEditingController,
+                  FocusNode fieldFocusNode,
+                  VoidCallback onFieldSubmitted) {
+                return MyTextForm(
+                  labelText: 'search'.tr,
+                  type: TextInputType.text,
+                  icon: const Icon(IconsaxPlusLinear.global_search),
+                  controller: _controllerSearch,
+                  margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                  focusNode: _focusNode,
+                  onChanged: (value) => setState(() {}),
+                  iconButton: _controllerSearch.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            _controllerSearch.clear();
+                          },
+                          icon: const Icon(
+                            IconsaxPlusLinear.close_circle,
+                            color: Colors.grey,
+                            size: 20,
+                          ),
+                        )
+                      : null,
+                );
+              },
+              optionsBuilder: (TextEditingValue textEditingValue) {
+                if (textEditingValue.text.isEmpty) {
+                  return const Iterable<Result>.empty();
+                }
+                return WeatherAPI().getCity(textEditingValue.text, locale);
+              },
+              onSelected: (Result selection) {
+                _animatedMapController.mapController
+                    .move(LatLng(selection.latitude, selection.longitude), 12);
+                _controllerSearch.clear();
+                _focusNode.unfocus();
+              },
+              displayStringForOption: (Result option) =>
+                  '${option.name}, ${option.admin1}',
+              optionsViewBuilder: (BuildContext context,
+                  AutocompleteOnSelected<Result> onSelected,
+                  Iterable<Result> options) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Material(
+                      borderRadius: BorderRadius.circular(20),
+                      elevation: 4.0,
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: options.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final Result option = options.elementAt(index);
+                          return InkWell(
+                            onTap: () => onSelected(option),
+                            child: ListTile(
+                              title: Text(
+                                '${option.name}, ${option.admin1}',
+                                style: context.textTheme.labelLarge,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         );
       },
