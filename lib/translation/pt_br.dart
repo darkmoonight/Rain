@@ -132,5 +132,9 @@ class PtBr {
         'hourlyVariables': 'Variáveis meteorológicas horárias',
         'dailyVariables': 'Variáveis meteorológicas diárias',
         'largeElement': 'Exibição grande do clima',
+        'map': 'Mapa',
+        'clearCacheStore': 'Limpar cache',
+        'deletedCacheStore': 'Limpando cache',
+        'deletedCacheStoreQuery': 'Tem certeza de que deseja limpar o cache?',
       };
 }

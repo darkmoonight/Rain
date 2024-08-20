@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';
@@ -34,6 +36,17 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
   final _controllerCity = TextEditingController();
   final _controllerDistrict = TextEditingController();
 
+  static const colorFilter = ColorFilter.matrix(<double>[
+    -0.2, -0.7, -0.08, 0, 255, // Red channel
+    -0.2, -0.7, -0.08, 0, 255, // Green channel
+    -0.2, -0.7, -0.08, 0, 255, // Blue channel
+    0, 0, 0, 1, 0, // Alpha channel
+  ]);
+
+  final bool _isDarkMode = Get.theme.brightness == Brightness.dark;
+
+  final mapController = MapController();
+
   textTrim(value) {
     value.text = value.text.trim();
     while (value.text.contains('  ')) {
@@ -57,6 +70,19 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
     _controllerCity.text = location['district'];
     _controllerDistrict.text = location['city'];
     setState(() {});
+  }
+
+  void fillMap(double latitude, double longitude) {
+    _controllerLat.text = '$latitude';
+    _controllerLon.text = '$longitude';
+    setState(() {});
+  }
+
+  Widget _buildMapTileLayer() {
+    return TileLayer(
+      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      userAgentPackageName: 'com.darkmoonight.rain',
+    );
   }
 
   @override
@@ -103,13 +129,63 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                Image.asset(
-                                  'assets/icons/Search.png',
-                                  scale: 7,
-                                ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
+                                      horizontal: 10),
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    child: SizedBox(
+                                      height: Get.size.height * 0.3,
+                                      child: FlutterMap(
+                                        mapController: mapController,
+                                        options: MapOptions(
+                                          backgroundColor:
+                                              context.theme.colorScheme.surface,
+                                          initialCenter: const LatLng(
+                                            55.7522,
+                                            37.6156,
+                                          ),
+                                          initialZoom: 3,
+                                          cameraConstraint:
+                                              CameraConstraint.contain(
+                                            bounds: LatLngBounds(
+                                              const LatLng(-90, -180),
+                                              const LatLng(90, 180),
+                                            ),
+                                          ),
+                                          onLongPress: (tapPosition, point) =>
+                                              fillMap(point.latitude,
+                                                  point.longitude),
+                                        ),
+                                        children: [
+                                          if (_isDarkMode)
+                                            ColorFiltered(
+                                              colorFilter: colorFilter,
+                                              child: _buildMapTileLayer(),
+                                            )
+                                          else
+                                            _buildMapTileLayer(),
+                                          RichAttributionWidget(
+                                            animationConfig: const ScaleRAWA(),
+                                            attributions: [
+                                              TextSourceAttribution(
+                                                'OpenStreetMap contributors',
+                                                onTap: () => weatherController
+                                                    .urlLauncher(
+                                                        'https://openstreetmap.org/copyright'),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 15, 10, 5),
                                   child: Text(
                                     'searchMethod'.tr,
                                     style: context.theme.textTheme.bodyLarge
@@ -162,6 +238,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 10,
+                                              vertical: 5,
                                             ),
                                             child: Align(
                                               alignment: Alignment.topCenter,

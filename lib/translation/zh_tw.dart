@@ -128,5 +128,9 @@ class ZhTw {
         'hourlyVariables': '每小時天氣變量',
         'dailyVariables': '每日天氣變量',
         'largeElement': '大型天氣顯示',
+        'map': '地圖',
+        'clearCacheStore': '清除快取',
+        'deletedCacheStore': '正在清除快取',
+        'deletedCacheStoreQuery': '您確定要清除快取嗎？',
       };
 }

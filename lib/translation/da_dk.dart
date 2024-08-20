@@ -132,5 +132,9 @@ class DaDk {
         'hourlyVariables': 'Timevise vejrfaktorer',
         'dailyVariables': 'Daglige vejrfaktorer',
         'largeElement': 'Stort vejrdisplay',
+        'map': 'Kort',
+        'clearCacheStore': 'Ryd cache',
+        'deletedCacheStore': 'Rydder cache',
+        'deletedCacheStoreQuery': 'Er du sikker på, at du vil rydde cachen?',
       };
 }

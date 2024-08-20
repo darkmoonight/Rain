@@ -133,5 +133,10 @@ class EsEs {
         'hourlyVariables': 'Variables meteorológicas horarias',
         'dailyVariables': 'Variables meteorológicas diarias',
         'largeElement': 'Visualización grande del clima',
+        'map': 'Mapa',
+        'clearCacheStore': 'Borrar caché',
+        'deletedCacheStore': 'Borrando caché',
+        'deletedCacheStoreQuery':
+            '¿Estás seguro de que quieres borrar el caché?',
       };
 }

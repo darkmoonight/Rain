@@ -132,5 +132,10 @@ class KaGe {
         'hourlyVariables': 'საათობრივი ამინდის ცვლადები',
         'dailyVariables': 'ყოველდღიური ამინდის ცვლადები',
         'largeElement': 'გადიდი ამინდის გამოჩენა',
+        'map': 'რუკა',
+        'clearCacheStore': 'ქეშის გასუფთავება',
+        'deletedCacheStore': 'ქეშის გასუფთავება მიმდინარეობს',
+        'deletedCacheStoreQuery':
+            'დარწმუნებული ხართ, რომ გსურთ ქეშის გასუფთავება?',
       };
 }

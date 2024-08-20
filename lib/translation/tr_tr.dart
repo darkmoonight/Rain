@@ -131,5 +131,10 @@ class TrTr {
         'hourlyVariables': 'Saatlik hava değişkenleri',
         'dailyVariables': 'Günlük hava değişkenleri',
         'largeElement': 'Büyük hava durumu gösterimi',
+        'map': 'Harita',
+        'clearCacheStore': 'Önbelleği temizle',
+        'deletedCacheStore': 'Önbellek temizleniyor',
+        'deletedCacheStoreQuery':
+            'Önbelleği temizlemek istediğinizden emin misiniz?',
       };
 }

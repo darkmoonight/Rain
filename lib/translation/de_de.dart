@@ -133,5 +133,10 @@ class DeDe {
         'hourlyVariables': 'Stündliche Wettervariablen',
         'dailyVariables': 'Tägliche Wettervariablen',
         'largeElement': 'Große Wetteranzeige',
+        'map': 'Karte',
+        'clearCacheStore': 'Cache leeren',
+        'deletedCacheStore': 'Cache wird geleert',
+        'deletedCacheStoreQuery':
+            'Sind Sie sicher, dass Sie den Cache leeren möchten?',
       };
 }

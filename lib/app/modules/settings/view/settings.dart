@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dio_cache_interceptor_file_store/dio_cache_interceptor_file_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -9,6 +10,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/weather.dart';
 import 'package:rain/app/modules/settings/widgets/setting_card.dart';
@@ -826,6 +828,49 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               );
             },
+          ),
+          SettingCard(
+            icon: const Icon(IconsaxPlusLinear.trash_square),
+            text: 'clearCacheStore'.tr,
+            onPressed: () => showAdaptiveDialog(
+              context: context,
+              builder: (context) => AlertDialog.adaptive(
+                title: Text(
+                  'deletedCacheStore'.tr,
+                  style: context.textTheme.titleLarge,
+                ),
+                content: Text(
+                  'deletedCacheStoreQuery'.tr,
+                  style: context.textTheme.titleMedium,
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Get.back(),
+                    child: Text(
+                      'cancel'.tr,
+                      style: context.textTheme.titleMedium?.copyWith(
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final dir = await getTemporaryDirectory();
+                      final cacheStoreFuture = FileCacheStore(
+                          '${dir.path}${Platform.pathSeparator}MapTiles');
+                      cacheStoreFuture.clean();
+                      Get.back();
+                    },
+                    child: Text(
+                      'delete'.tr,
+                      style: context.textTheme.titleMedium?.copyWith(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           SettingCard(
             icon: const Icon(IconsaxPlusLinear.language_square),

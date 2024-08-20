@@ -133,5 +133,9 @@ class ItIt {
         'hourlyVariables': 'Variabili meteorologiche orarie',
         'dailyVariables': 'Variabili meteorologiche giornaliere',
         'largeElement': 'Visualizzazione grande elemento meteo',
+        'map': 'Mappa',
+        'clearCacheStore': 'Cancella cache',
+        'deletedCacheStore': 'Cancellazione della cache',
+        'deletedCacheStoreQuery': 'Sei sicuro di voler cancellare la cache?',
       };
 }

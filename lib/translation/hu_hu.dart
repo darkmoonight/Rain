@@ -133,5 +133,9 @@ class HuHu {
         'hourlyVariables': 'Óránkénti időjárási változók',
         'dailyVariables': 'Napi időjárási változók',
         'largeElement': 'Nagy méretű időjárás megjelenítése',
+        'map': 'Térkép',
+        'clearCacheStore': 'Gyorsítótár törlése',
+        'deletedCacheStore': 'Gyorsítótár törlése folyamatban',
+        'deletedCacheStoreQuery': 'Biztosan törölni szeretné a gyorsítótárat?',
       };
 }

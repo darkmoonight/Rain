@@ -131,5 +131,10 @@ class PlPl {
         'hourlyVariables': 'Godzinowe zmienne pogodowe',
         'dailyVariables': 'Dzienne zmienne pogodowe',
         'largeElement': 'Duże wyświetlanie pogody',
+        'map': 'Mapa',
+        'clearCacheStore': 'Wyczyść pamięć podręczną',
+        'deletedCacheStore': 'Czyszczenie pamięci podręcznej',
+        'deletedCacheStoreQuery':
+            'Czy na pewno chcesz wyczyścić pamięć podręczną?',
       };
 }

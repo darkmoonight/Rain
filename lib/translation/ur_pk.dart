@@ -132,5 +132,9 @@ class UrPk {
         'hourlyVariables': 'ہر گھنٹے کے موسمی متغیرات',
         'dailyVariables': 'روزانہ کے موسمی متغیرات',
         'largeElement': 'بڑے موسم کا ڈسپلے',
+        'map': 'نقشہ',
+        'clearCacheStore': 'کیچ صاف کریں',
+        'deletedCacheStore': 'کیچ صاف کی جارہی ہے',
+        'deletedCacheStoreQuery': 'کیا آپ واقعی کیچ صاف کرنا چاہتے ہیں؟',
       };
 }

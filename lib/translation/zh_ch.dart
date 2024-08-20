@@ -127,5 +127,9 @@ class ZhCh {
         'hourlyVariables': '每小时天气变量',
         'dailyVariables': '每日天气变量',
         'largeElement': '大天气显示',
+        'map': '地图',
+        'clearCacheStore': '清除缓存',
+        'deletedCacheStore': '正在清除缓存',
+        'deletedCacheStoreQuery': '您确定要清除缓存吗？',
       };
 }

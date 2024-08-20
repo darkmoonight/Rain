@@ -133,5 +133,8 @@ class RuRu {
         'dailyVariables': 'Ежедневные погодные условия',
         'largeElement': 'Отображение погоды большим элементом',
         'map': 'Карта',
+        'clearCacheStore': 'Очистить кэш',
+        'deletedCacheStore': 'Очистка кэша',
+        'deletedCacheStoreQuery': 'Вы уверены, что хотите очистить кэш?',
       };
 }

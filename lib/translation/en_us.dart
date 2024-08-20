@@ -133,5 +133,8 @@ class EnUs {
         'dailyVariables': 'Daily weather variables',
         'largeElement': 'Large weather display',
         'map': 'Map',
+        'clearCacheStore': 'Clear cache',
+        'deletedCacheStore': 'Clearing the cache',
+        'deletedCacheStoreQuery': 'Are you sure you want to clear the cache?',
       };
 }

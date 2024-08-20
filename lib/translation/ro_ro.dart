@@ -131,5 +131,9 @@ class RoRo {
         'hourlyVariables': 'Variabile meteorologice orare',
         'dailyVariables': 'Variabile meteorologice zilnice',
         'largeElement': 'Afișare mare a vremii',
+        'map': 'Hartă',
+        'clearCacheStore': 'Șterge cache-ul',
+        'deletedCacheStore': 'Ștergerea cache-ului',
+        'deletedCacheStoreQuery': 'Ești sigur că vrei să ștergi cache-ul?',
       };
 }

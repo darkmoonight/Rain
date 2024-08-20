@@ -128,5 +128,9 @@ class KoKr {
         'hourlyVariables': '시간별 날씨 변수',
         'dailyVariables': '일별 날씨 변수',
         'largeElement': '큰 날씨 표시',
+        'map': '지도',
+        'clearCacheStore': '캐시 지우기',
+        'deletedCacheStore': '캐시 삭제 중',
+        'deletedCacheStoreQuery': '캐시를 정말로 지우시겠습니까?',
       };
 }

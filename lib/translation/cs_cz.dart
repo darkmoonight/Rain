@@ -131,5 +131,9 @@ class CsCz {
         'hourlyVariables': 'Hodinové meteorologické proměnné',
         'dailyVariables': 'Denní meteorologické proměnné',
         'largeElement': 'Velké zobrazení počasí',
+        'map': 'Mapa',
+        'clearCacheStore': 'Vymazat mezipaměť',
+        'deletedCacheStore': 'Čištění mezipaměti',
+        'deletedCacheStoreQuery': 'Opravdu chcete vymazat mezipaměť?',
       };
 }

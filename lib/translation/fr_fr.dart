@@ -133,5 +133,9 @@ class FrFr {
         'hourlyVariables': 'Variables météorologiques horaires',
         'dailyVariables': 'Variables météorologiques quotidiennes',
         'largeElement': 'Affichage météo grand format',
+        'map': 'Carte',
+        'clearCacheStore': 'Effacer le cache',
+        'deletedCacheStore': 'Effacement du cache',
+        'deletedCacheStoreQuery': 'Êtes-vous sûr de vouloir effacer le cache?',
       };
 }

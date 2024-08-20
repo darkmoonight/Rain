@@ -218,7 +218,7 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
             FlutterMap(
               mapController: _animatedMapController.mapController,
               options: MapOptions(
-                backgroundColor: context.theme.scaffoldBackgroundColor,
+                backgroundColor: context.theme.colorScheme.surface,
                 initialCenter: LatLng(mainLocation.lat!, mainLocation.lon!),
                 initialZoom: 12,
                 cameraConstraint: CameraConstraint.contain(
@@ -242,9 +242,9 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                 if (_isDarkMode)
                   ColorFiltered(
                     colorFilter: const ColorFilter.matrix(<double>[
-                      -0.2126, -0.7152, -0.0722, 0, 255, // Red channel
-                      -0.2126, -0.7152, -0.0722, 0, 255, // Green channel
-                      -0.2126, -0.7152, -0.0722, 0, 255, // Blue channel
+                      -0.2, -0.7, -0.08, 0, 255, // Red channel
+                      -0.2, -0.7, -0.08, 0, 255, // Green channel
+                      -0.2, -0.7, -0.08, 0, 255, // Blue channel
                       0, 0, 0, 1, 0, // Alpha channel
                     ]),
                     child: _buildMapTileLayer(cacheStore),
@@ -320,7 +320,7 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
               },
               onSelected: (Result selection) {
                 _animatedMapController.mapController
-                    .move(LatLng(selection.latitude, selection.longitude), 12);
+                    .move(LatLng(selection.latitude, selection.longitude), 14);
                 _controllerSearch.clear();
                 _focusNode.unfocus();
               },
