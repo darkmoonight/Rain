@@ -76,6 +76,16 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  void _resetMapOrientation({LatLng? center, double? zoom}) {
+    _animatedMapController.animateTo(
+      dest: center,
+      zoom: zoom,
+      rotation: 0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
   void _onMarkerTap(WeatherCard weatherCard) {
     setState(() {
       _selectedWeatherCard = weatherCard;
@@ -262,6 +272,7 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                   _buildMapTileLayer(cacheStore),
                 RichAttributionWidget(
                   animationConfig: const ScaleRAWA(),
+                  alignment: AttributionAlignment.bottomLeft,
                   attributions: [
                     TextSourceAttribution(
                       'OpenStreetMap contributors',
@@ -289,6 +300,24 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                     markers: [mainMarker, ...cardMarkers],
                   );
                 }),
+                Positioned(
+                  bottom: 15,
+                  right: 15,
+                  child: FloatingActionButton(
+                    child: const Icon(IconsaxPlusLinear.gps),
+                    onPressed: () => _resetMapOrientation(
+                        center: LatLng(mainLocation.lat!, mainLocation.lon!),
+                        zoom: 12),
+                  ),
+                ),
+                Positioned(
+                  bottom: 15,
+                  right: 85,
+                  child: FloatingActionButton(
+                    child: const Icon(IconsaxPlusLinear.refresh_square_2),
+                    onPressed: () => _resetMapOrientation(),
+                  ),
+                ),
                 Positioned(
                   left: 0,
                   right: 0,
