@@ -40,7 +40,8 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
   final bool _isDarkMode = Get.theme.brightness == Brightness.dark;
   WeatherCard? _selectedWeatherCard;
   bool _isCardVisible = false;
-  double _cardBottomPosition = -200;
+  late final AnimationController _animationController;
+  late final Animation<Offset> _offsetAnimation;
 
   final _focusNode = FocusNode();
   late final TextEditingController _controllerSearch = TextEditingController();
@@ -51,27 +52,43 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
   }
 
   @override
+  void initState() {
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 1.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _animatedMapController.dispose();
     _controllerSearch.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
   void _onMarkerTap(WeatherCard weatherCard) {
     setState(() {
       _selectedWeatherCard = weatherCard;
-      _cardBottomPosition = 0;
-      _isCardVisible = true;
     });
+    _animationController.forward();
+    _isCardVisible = true;
   }
 
   void _hideCard() {
-    setState(() {
-      _cardBottomPosition = -200;
-    });
-    Future.delayed(const Duration(milliseconds: 300), () {
+    _animationController.reverse().then((_) {
       setState(() {
         _isCardVisible = false;
+        _selectedWeatherCard = null;
       });
     });
     _focusNode.unfocus();
@@ -160,36 +177,28 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
   }
 
   Widget _buildWeatherCard() {
-    return AnimatedPositioned(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-      left: 0,
-      right: 0,
-      bottom: _cardBottomPosition,
-      child: AnimatedOpacity(
-        opacity: _isCardVisible ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 300),
-        child: _isCardVisible
-            ? GestureDetector(
-                onTap: () => Get.to(
-                  () => InfoWeatherCard(weatherCard: _selectedWeatherCard!),
-                  transition: Transition.downToUp,
-                ),
-                child: WeatherCardContainer(
-                  time: _selectedWeatherCard!.time!,
-                  timeDaily: _selectedWeatherCard!.timeDaily!,
-                  timeDay: _selectedWeatherCard!.sunrise!,
-                  timeNight: _selectedWeatherCard!.sunset!,
-                  weather: _selectedWeatherCard!.weathercode!,
-                  degree: _selectedWeatherCard!.temperature2M!,
-                  district: _selectedWeatherCard!.district!,
-                  city: _selectedWeatherCard!.city!,
-                  timezone: _selectedWeatherCard!.timezone!,
-                ),
-              )
-            : const SizedBox.shrink(),
-      ),
-    );
+    return _isCardVisible && _selectedWeatherCard != null
+        ? SlideTransition(
+            position: _offsetAnimation,
+            child: GestureDetector(
+              onTap: () => Get.to(
+                () => InfoWeatherCard(weatherCard: _selectedWeatherCard!),
+                transition: Transition.downToUp,
+              ),
+              child: WeatherCardContainer(
+                time: _selectedWeatherCard!.time!,
+                timeDaily: _selectedWeatherCard!.timeDaily!,
+                timeDay: _selectedWeatherCard!.sunrise!,
+                timeNight: _selectedWeatherCard!.sunset!,
+                weather: _selectedWeatherCard!.weathercode!,
+                degree: _selectedWeatherCard!.temperature2M!,
+                district: _selectedWeatherCard!.district!,
+                city: _selectedWeatherCard!.city!,
+                timezone: _selectedWeatherCard!.timezone!,
+              ),
+            ),
+          )
+        : const SizedBox.shrink();
   }
 
   @override
@@ -280,7 +289,12 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                     markers: [mainMarker, ...cardMarkers],
                   );
                 }),
-                _buildWeatherCard(),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: _buildWeatherCard(),
+                ),
               ],
             ),
             RawAutocomplete<Result>(
