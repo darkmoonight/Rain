@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cache_interceptor_file_store/dio_cache_interceptor_file_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
@@ -177,7 +178,9 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
 
   Widget _buildMapTileLayer(CacheStore cacheStore) {
     return TileLayer(
-      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      urlTemplate: settings.language == 'ru_RU'
+          ? 'https://tile2.maps.2gis.com/tiles?x={x}&y={y}&z={z}'
+          : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
       userAgentPackageName: 'com.darkmoonight.rain',
       tileProvider: CachedTileProvider(
         store: cacheStore,
@@ -219,192 +222,210 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
     final hourOfDay = weatherController.hourOfDay.value;
     final dayOfNow = weatherController.dayOfNow.value;
 
-    return FutureBuilder<CacheStore>(
-      future: _cacheStoreFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
+    return Scaffold(
+      body: FutureBuilder<CacheStore>(
+        future: _cacheStoreFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-        if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
-        }
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          }
 
-        final cacheStore = snapshot.data!;
+          final cacheStore = snapshot.data!;
 
-        return Stack(
-          children: [
-            FlutterMap(
-              mapController: _animatedMapController.mapController,
-              options: MapOptions(
-                backgroundColor: context.theme.colorScheme.surface,
-                initialCenter: LatLng(mainLocation.lat!, mainLocation.lon!),
-                initialZoom: 12,
-                cameraConstraint: CameraConstraint.contain(
-                  bounds: LatLngBounds(
-                    const LatLng(-90, -180),
-                    const LatLng(90, 180),
+          return Stack(
+            children: [
+              FlutterMap(
+                mapController: _animatedMapController.mapController,
+                options: MapOptions(
+                  backgroundColor: context.theme.colorScheme.surface,
+                  initialCenter: LatLng(mainLocation.lat!, mainLocation.lon!),
+                  initialZoom: 12,
+                  cameraConstraint: CameraConstraint.contain(
+                    bounds: LatLngBounds(
+                      const LatLng(-90, -180),
+                      const LatLng(90, 180),
+                    ),
+                  ),
+                  onTap: (_, __) => _hideCard(),
+                  onLongPress: (tapPosition, point) => showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    enableDrag: false,
+                    builder: (BuildContext context) => CreateWeatherCard(
+                      latitude: '${point.latitude}',
+                      longitude: '${point.longitude}',
+                    ),
                   ),
                 ),
-                onTap: (_, __) => _hideCard(),
-                onLongPress: (tapPosition, point) => showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  enableDrag: false,
-                  builder: (BuildContext context) => CreateWeatherCard(
-                    latitude: '${point.latitude}',
-                    longitude: '${point.longitude}',
+                children: [
+                  if (_isDarkMode)
+                    ColorFiltered(
+                      colorFilter: const ColorFilter.matrix(<double>[
+                        -0.2, -0.7, -0.08, 0, 255, // Red channel
+                        -0.2, -0.7, -0.08, 0, 255, // Green channel
+                        -0.2, -0.7, -0.08, 0, 255, // Blue channel
+                        0, 0, 0, 1, 0, // Alpha channel
+                      ]),
+                      child: _buildMapTileLayer(cacheStore),
+                    )
+                  else
+                    _buildMapTileLayer(cacheStore),
+                  RichAttributionWidget(
+                    animationConfig: const ScaleRAWA(),
+                    alignment: AttributionAlignment.bottomLeft,
+                    attributions: [
+                      TextSourceAttribution(
+                        settings.language == 'ru_RU'
+                            ? '2GIS contributors'
+                            : 'OpenStreetMap contributors',
+                        onTap: () => weatherController.urlLauncher(
+                            settings.language == 'ru_RU'
+                                ? 'https://law.2gis.ru/copyright'
+                                : 'https://openstreetmap.org/copyright'),
+                      ),
+                    ],
                   ),
-                ),
+                  Obx(() {
+                    final mainMarker = _buildMainLocationMarker(
+                      WeatherCard.fromJson({
+                        ...mainWeather.toJson(),
+                        ...mainLocation.toJson(),
+                      }),
+                      hourOfDay,
+                      dayOfNow,
+                    );
+
+                    final cardMarkers = weatherController.weatherCards
+                        .map((weatherCardList) =>
+                            _buildCardMarker(weatherCardList))
+                        .toList();
+
+                    return MarkerLayer(
+                      markers: [mainMarker, ...cardMarkers],
+                    );
+                  }),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: _buildWeatherCard(),
+                  ),
+                ],
+              ),
+              RawAutocomplete<Result>(
+                focusNode: _focusNode,
+                textEditingController: _controllerSearch,
+                fieldViewBuilder: (BuildContext context,
+                    TextEditingController fieldTextEditingController,
+                    FocusNode fieldFocusNode,
+                    VoidCallback onFieldSubmitted) {
+                  return MyTextForm(
+                    labelText: 'search'.tr,
+                    type: TextInputType.text,
+                    icon: const Icon(IconsaxPlusLinear.global_search),
+                    controller: _controllerSearch,
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    focusNode: _focusNode,
+                    onChanged: (value) => setState(() {}),
+                    iconButton: _controllerSearch.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              _controllerSearch.clear();
+                            },
+                            icon: const Icon(
+                              IconsaxPlusLinear.close_circle,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
+                          )
+                        : null,
+                  );
+                },
+                optionsBuilder: (TextEditingValue textEditingValue) {
+                  if (textEditingValue.text.isEmpty) {
+                    return const Iterable<Result>.empty();
+                  }
+                  return WeatherAPI().getCity(textEditingValue.text, locale);
+                },
+                onSelected: (Result selection) {
+                  _animatedMapController.mapController.move(
+                      LatLng(selection.latitude, selection.longitude), 14);
+                  _controllerSearch.clear();
+                  _focusNode.unfocus();
+                },
+                displayStringForOption: (Result option) =>
+                    '${option.name}, ${option.admin1}',
+                optionsViewBuilder: (BuildContext context,
+                    AutocompleteOnSelected<Result> onSelected,
+                    Iterable<Result> options) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Material(
+                        borderRadius: BorderRadius.circular(20),
+                        elevation: 4.0,
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          itemCount: options.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final Result option = options.elementAt(index);
+                            return InkWell(
+                              onTap: () => onSelected(option),
+                              child: ListTile(
+                                title: Text(
+                                  '${option.name}, ${option.admin1}',
+                                  style: context.textTheme.labelLarge,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      ),
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: _isCardVisible
+          ? null
+          : ExpandableFab(
+              pos: ExpandableFabPos.right,
+              type: ExpandableFabType.up,
+              distance: 70,
+              openButtonBuilder: RotateFloatingActionButtonBuilder(
+                child: const Icon(IconsaxPlusLinear.menu),
+                fabSize: ExpandableFabSize.regular,
+              ),
+              closeButtonBuilder: DefaultFloatingActionButtonBuilder(
+                child: const Icon(Icons.close),
+                fabSize: ExpandableFabSize.regular,
               ),
               children: [
-                if (_isDarkMode)
-                  ColorFiltered(
-                    colorFilter: const ColorFilter.matrix(<double>[
-                      -0.2, -0.7, -0.08, 0, 255, // Red channel
-                      -0.2, -0.7, -0.08, 0, 255, // Green channel
-                      -0.2, -0.7, -0.08, 0, 255, // Blue channel
-                      0, 0, 0, 1, 0, // Alpha channel
-                    ]),
-                    child: _buildMapTileLayer(cacheStore),
-                  )
-                else
-                  _buildMapTileLayer(cacheStore),
-                RichAttributionWidget(
-                  animationConfig: const ScaleRAWA(),
-                  alignment: AttributionAlignment.bottomLeft,
-                  attributions: [
-                    TextSourceAttribution(
-                      'OpenStreetMap contributors',
-                      onTap: () => weatherController
-                          .urlLauncher('https://openstreetmap.org/copyright'),
-                    ),
-                  ],
+                FloatingActionButton(
+                  heroTag: null,
+                  child: const Icon(IconsaxPlusLinear.gps),
+                  onPressed: () => _resetMapOrientation(
+                      center: LatLng(mainLocation.lat!, mainLocation.lon!),
+                      zoom: 12),
                 ),
-                Obx(() {
-                  final mainMarker = _buildMainLocationMarker(
-                    WeatherCard.fromJson({
-                      ...mainWeather.toJson(),
-                      ...mainLocation.toJson(),
-                    }),
-                    hourOfDay,
-                    dayOfNow,
-                  );
-
-                  final cardMarkers = weatherController.weatherCards
-                      .map((weatherCardList) =>
-                          _buildCardMarker(weatherCardList))
-                      .toList();
-
-                  return MarkerLayer(
-                    markers: [mainMarker, ...cardMarkers],
-                  );
-                }),
-                Positioned(
-                  bottom: 15,
-                  right: 15,
-                  child: FloatingActionButton(
-                    child: const Icon(IconsaxPlusLinear.gps),
-                    onPressed: () => _resetMapOrientation(
-                        center: LatLng(mainLocation.lat!, mainLocation.lon!),
-                        zoom: 12),
-                  ),
-                ),
-                Positioned(
-                  bottom: 15,
-                  right: 85,
-                  child: FloatingActionButton(
-                    child: const Icon(IconsaxPlusLinear.refresh_square_2),
-                    onPressed: () => _resetMapOrientation(),
-                  ),
-                ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: _buildWeatherCard(),
+                FloatingActionButton(
+                  heroTag: null,
+                  child: const Icon(IconsaxPlusLinear.refresh_2),
+                  onPressed: () => _resetMapOrientation(),
                 ),
               ],
             ),
-            RawAutocomplete<Result>(
-              focusNode: _focusNode,
-              textEditingController: _controllerSearch,
-              fieldViewBuilder: (BuildContext context,
-                  TextEditingController fieldTextEditingController,
-                  FocusNode fieldFocusNode,
-                  VoidCallback onFieldSubmitted) {
-                return MyTextForm(
-                  labelText: 'search'.tr,
-                  type: TextInputType.text,
-                  icon: const Icon(IconsaxPlusLinear.global_search),
-                  controller: _controllerSearch,
-                  margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                  focusNode: _focusNode,
-                  onChanged: (value) => setState(() {}),
-                  iconButton: _controllerSearch.text.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            _controllerSearch.clear();
-                          },
-                          icon: const Icon(
-                            IconsaxPlusLinear.close_circle,
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                        )
-                      : null,
-                );
-              },
-              optionsBuilder: (TextEditingValue textEditingValue) {
-                if (textEditingValue.text.isEmpty) {
-                  return const Iterable<Result>.empty();
-                }
-                return WeatherAPI().getCity(textEditingValue.text, locale);
-              },
-              onSelected: (Result selection) {
-                _animatedMapController.mapController
-                    .move(LatLng(selection.latitude, selection.longitude), 14);
-                _controllerSearch.clear();
-                _focusNode.unfocus();
-              },
-              displayStringForOption: (Result option) =>
-                  '${option.name}, ${option.admin1}',
-              optionsViewBuilder: (BuildContext context,
-                  AutocompleteOnSelected<Result> onSelected,
-                  Iterable<Result> options) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Material(
-                      borderRadius: BorderRadius.circular(20),
-                      elevation: 4.0,
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        itemCount: options.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final Result option = options.elementAt(index);
-                          return InkWell(
-                            onTap: () => onSelected(option),
-                            child: ListTile(
-                              title: Text(
-                                '${option.name}, ${option.admin1}',
-                                style: context.textTheme.labelLarge,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

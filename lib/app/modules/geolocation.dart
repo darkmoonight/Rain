@@ -80,7 +80,9 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
 
   Widget _buildMapTileLayer() {
     return TileLayer(
-      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      urlTemplate: settings.language == 'ru_RU'
+          ? 'https://tile2.maps.2gis.com/tiles?x={x}&y={y}&z={z}'
+          : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
       userAgentPackageName: 'com.darkmoonight.rain',
     );
   }
@@ -171,10 +173,15 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                             animationConfig: const ScaleRAWA(),
                                             attributions: [
                                               TextSourceAttribution(
-                                                'OpenStreetMap contributors',
+                                                settings.language == 'ru_RU'
+                                                    ? '2GIS contributors'
+                                                    : 'OpenStreetMap contributors',
                                                 onTap: () => weatherController
-                                                    .urlLauncher(
-                                                        'https://openstreetmap.org/copyright'),
+                                                    .urlLauncher(settings
+                                                                .language ==
+                                                            'ru_RU'
+                                                        ? 'https://law.2gis.ru/copyright'
+                                                        : 'https://openstreetmap.org/copyright'),
                                               ),
                                             ],
                                           ),

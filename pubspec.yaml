@@ -33,7 +33,7 @@ dependencies:
   path_provider: ^2.1.4
   # quick_settings: ^1.0.1
   json_annotation: ^4.9.0
-  flutter_timezone: ^2.1.0
+  flutter_timezone: ^3.0.0
   device_info_plus: ^10.1.2
   package_info_plus: ^8.0.2
   connectivity_plus: ^6.0.5
@@ -44,6 +44,7 @@ dependencies:
   line_awesome_flutter: ^3.0.1
   dio_cache_interceptor: ^3.5.0
   flutter_map_animations: ^0.7.1
+  flutter_expandable_fab: ^2.2.0
   flutter_hsvcolor_picker: ^1.5.1
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^17.2.2
