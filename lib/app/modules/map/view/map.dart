@@ -308,6 +308,34 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                       markers: [mainMarker, ...cardMarkers],
                     );
                   }),
+                  ExpandableFab(
+                    pos: ExpandableFabPos.right,
+                    type: ExpandableFabType.fan,
+                    distance: 70,
+                    openButtonBuilder: RotateFloatingActionButtonBuilder(
+                      child: const Icon(IconsaxPlusLinear.menu),
+                      fabSize: ExpandableFabSize.regular,
+                    ),
+                    closeButtonBuilder: DefaultFloatingActionButtonBuilder(
+                      child: const Icon(Icons.close),
+                      fabSize: ExpandableFabSize.regular,
+                    ),
+                    children: [
+                      FloatingActionButton(
+                        heroTag: null,
+                        child: const Icon(IconsaxPlusLinear.gps),
+                        onPressed: () => _resetMapOrientation(
+                            center:
+                                LatLng(mainLocation.lat!, mainLocation.lon!),
+                            zoom: 12),
+                      ),
+                      FloatingActionButton(
+                        heroTag: null,
+                        child: const Icon(IconsaxPlusLinear.refresh_2),
+                        onPressed: () => _resetMapOrientation(),
+                      ),
+                    ],
+                  ),
                   Positioned(
                     left: 0,
                     right: 0,
@@ -397,35 +425,6 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
         },
       ),
       floatingActionButtonLocation: ExpandableFab.location,
-      floatingActionButton: _isCardVisible
-          ? null
-          : ExpandableFab(
-              pos: ExpandableFabPos.right,
-              type: ExpandableFabType.up,
-              distance: 70,
-              openButtonBuilder: RotateFloatingActionButtonBuilder(
-                child: const Icon(IconsaxPlusLinear.menu),
-                fabSize: ExpandableFabSize.regular,
-              ),
-              closeButtonBuilder: DefaultFloatingActionButtonBuilder(
-                child: const Icon(Icons.close),
-                fabSize: ExpandableFabSize.regular,
-              ),
-              children: [
-                FloatingActionButton(
-                  heroTag: null,
-                  child: const Icon(IconsaxPlusLinear.gps),
-                  onPressed: () => _resetMapOrientation(
-                      center: LatLng(mainLocation.lat!, mainLocation.lon!),
-                      zoom: 12),
-                ),
-                FloatingActionButton(
-                  heroTag: null,
-                  child: const Icon(IconsaxPlusLinear.refresh_2),
-                  onPressed: () => _resetMapOrientation(),
-                ),
-              ],
-            ),
     );
   }
 }
