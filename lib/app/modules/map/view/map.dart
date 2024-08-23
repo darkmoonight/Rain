@@ -178,9 +178,7 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
 
   Widget _buildMapTileLayer(CacheStore cacheStore) {
     return TileLayer(
-      urlTemplate: settings.language == 'ru_RU'
-          ? 'https://tile2.maps.2gis.com/tiles?x={x}&y={y}&z={z}'
-          : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
       userAgentPackageName: 'com.darkmoonight.rain',
       tileProvider: CachedTileProvider(
         store: cacheStore,
@@ -279,13 +277,9 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                     alignment: AttributionAlignment.bottomLeft,
                     attributions: [
                       TextSourceAttribution(
-                        settings.language == 'ru_RU'
-                            ? '2GIS contributors'
-                            : 'OpenStreetMap contributors',
-                        onTap: () => weatherController.urlLauncher(
-                            settings.language == 'ru_RU'
-                                ? 'https://law.2gis.ru/copyright'
-                                : 'https://openstreetmap.org/copyright'),
+                        'OpenStreetMap contributors',
+                        onTap: () => weatherController
+                            .urlLauncher('https://openstreetmap.org/copyright'),
                       ),
                     ],
                   ),
