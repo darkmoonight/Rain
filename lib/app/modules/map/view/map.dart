@@ -38,11 +38,15 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
   final statusData = StatusData();
   final Future<CacheStore> _cacheStoreFuture = _getCacheStore();
 
+  final GlobalKey<ExpandableFabState> _fabKey = GlobalKey<ExpandableFabState>();
+
   final bool _isDarkMode = Get.theme.brightness == Brightness.dark;
   WeatherCard? _selectedWeatherCard;
   bool _isCardVisible = false;
   late final AnimationController _animationController;
   late final Animation<Offset> _offsetAnimation;
+  static const _useTransformerId = 'useTransformerId';
+  final bool _useTransformer = true;
 
   final _focusNode = FocusNode();
   late final TextEditingController _controllerSearch = TextEditingController();
@@ -79,6 +83,7 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
 
   void _resetMapOrientation({LatLng? center, double? zoom}) {
     _animatedMapController.animateTo(
+      customId: _useTransformer ? _useTransformerId : null,
       dest: center,
       zoom: zoom,
       rotation: 0,
@@ -93,6 +98,10 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
     });
     _animationController.forward();
     _isCardVisible = true;
+
+    if (_fabKey.currentState?.isOpen == true) {
+      _fabKey.currentState?.toggle();
+    }
   }
 
   void _hideCard() {
@@ -241,7 +250,10 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                 options: MapOptions(
                   backgroundColor: context.theme.colorScheme.surface,
                   initialCenter: LatLng(mainLocation.lat!, mainLocation.lon!),
-                  initialZoom: 12,
+                  initialZoom: 8,
+                  interactionOptions: const InteractionOptions(
+                    flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+                  ),
                   cameraConstraint: CameraConstraint.contain(
                     bounds: LatLngBounds(
                       const LatLng(-90, -180),
@@ -303,8 +315,9 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                     );
                   }),
                   ExpandableFab(
+                    key: _fabKey,
                     pos: ExpandableFabPos.right,
-                    type: ExpandableFabType.fan,
+                    type: ExpandableFabType.up,
                     distance: 70,
                     openButtonBuilder: RotateFloatingActionButtonBuilder(
                       child: const Icon(IconsaxPlusLinear.menu),
@@ -317,16 +330,25 @@ class _MapWeatherState extends State<MapWeather> with TickerProviderStateMixin {
                     children: [
                       FloatingActionButton(
                         heroTag: null,
-                        child: const Icon(IconsaxPlusLinear.gps),
+                        child: const Icon(IconsaxPlusLinear.home_2),
                         onPressed: () => _resetMapOrientation(
                             center:
                                 LatLng(mainLocation.lat!, mainLocation.lon!),
-                            zoom: 12),
+                            zoom: 8),
                       ),
                       FloatingActionButton(
                         heroTag: null,
-                        child: const Icon(IconsaxPlusLinear.refresh_2),
-                        onPressed: () => _resetMapOrientation(),
+                        child: const Icon(IconsaxPlusLinear.search_zoom_out_1),
+                        onPressed: () => _animatedMapController.animatedZoomOut(
+                          customId: _useTransformer ? _useTransformerId : null,
+                        ),
+                      ),
+                      FloatingActionButton(
+                        heroTag: null,
+                        child: const Icon(IconsaxPlusLinear.search_zoom_in),
+                        onPressed: () => _animatedMapController.animatedZoomIn(
+                          customId: _useTransformer ? _useTransformerId : null,
+                        ),
                       ),
                     ],
                   ),

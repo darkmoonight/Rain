@@ -148,6 +148,11 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                             37.6156,
                                           ),
                                           initialZoom: 3,
+                                          interactionOptions:
+                                              const InteractionOptions(
+                                            flags: InteractiveFlag.all &
+                                                ~InteractiveFlag.rotate,
+                                          ),
                                           cameraConstraint:
                                               CameraConstraint.contain(
                                             bounds: LatLngBounds(
