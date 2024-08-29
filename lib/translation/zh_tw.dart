@@ -132,5 +132,7 @@ class ZhTw {
         'clearCacheStore': '清除快取',
         'deletedCacheStore': '正在清除快取',
         'deletedCacheStoreQuery': '您確定要清除快取嗎？',
+        'addWidget': '新增小工具',
+        'hideMap': '隱藏地圖',
       };
 }

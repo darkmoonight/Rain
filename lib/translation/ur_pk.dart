@@ -136,5 +136,7 @@ class UrPk {
         'clearCacheStore': 'کیچ صاف کریں',
         'deletedCacheStore': 'کیچ صاف کی جارہی ہے',
         'deletedCacheStoreQuery': 'کیا آپ واقعی کیچ صاف کرنا چاہتے ہیں؟',
+        'addWidget': 'ویجٹ شامل کریں',
+        'hideMap': 'نقشہ چھپائیں',
       };
 }

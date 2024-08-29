@@ -137,5 +137,7 @@ class HuHu {
         'clearCacheStore': 'Gyorsítótár törlése',
         'deletedCacheStore': 'Gyorsítótár törlése folyamatban',
         'deletedCacheStoreQuery': 'Biztosan törölni szeretné a gyorsítótárat?',
+        'addWidget': 'Widget hozzáadása',
+        'hideMap': 'Térkép elrejtése',
       };
 }

@@ -137,5 +137,7 @@ class KaGe {
         'deletedCacheStore': 'ქეშის გასუფთავება მიმდინარეობს',
         'deletedCacheStoreQuery':
             'დარწმუნებული ხართ, რომ გსურთ ქეშის გასუფთავება?',
+        'addWidget': 'ვიდჯეტის დამატება',
+        'hideMap': 'რუკის დამალვა',
       };
 }

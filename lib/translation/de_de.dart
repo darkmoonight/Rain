@@ -138,5 +138,7 @@ class DeDe {
         'deletedCacheStore': 'Cache wird geleert',
         'deletedCacheStoreQuery':
             'Sind Sie sicher, dass Sie den Cache leeren möchten?',
+        'addWidget': 'Widget hinzufügen',
+        'hideMap': 'Karte ausblenden',
       };
 }

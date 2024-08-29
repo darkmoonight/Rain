@@ -137,5 +137,7 @@ class FaIr {
         'deletedCacheStore': 'در حال پاک کردن حافظه نهان',
         'deletedCacheStoreQuery':
             'آیا مطمئن هستید که می‌خواهید حافظه نهان را پاک کنید؟',
+        'addWidget': 'افزودن ویجت',
+        'hideMap': 'پنهان کردن نقشه',
       };
 }

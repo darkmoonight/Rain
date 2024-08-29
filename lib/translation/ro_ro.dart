@@ -135,5 +135,7 @@ class RoRo {
         'clearCacheStore': 'Șterge cache-ul',
         'deletedCacheStore': 'Ștergerea cache-ului',
         'deletedCacheStoreQuery': 'Ești sigur că vrei să ștergi cache-ul?',
+        'addWidget': 'Adaugă widget',
+        'hideMap': 'Ascunde harta',
       };
 }

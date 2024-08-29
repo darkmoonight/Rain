@@ -136,5 +136,7 @@ class PtBr {
         'clearCacheStore': 'Limpar cache',
         'deletedCacheStore': 'Limpando cache',
         'deletedCacheStoreQuery': 'Tem certeza de que deseja limpar o cache?',
+        'addWidget': 'Adicionar widget',
+        'hideMap': 'Ocultar mapa',
       };
 }

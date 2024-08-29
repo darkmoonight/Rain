@@ -137,5 +137,7 @@ class NlNl {
         'clearCacheStore': 'Cache wissen',
         'deletedCacheStore': 'Cache wissen',
         'deletedCacheStoreQuery': 'Weet je zeker dat je de cache wilt wissen?',
+        'addWidget': 'Widget toevoegen',
+        'hideMap': 'Kaart verbergen',
       };
 }

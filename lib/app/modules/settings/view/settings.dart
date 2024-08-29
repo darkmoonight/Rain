@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -637,6 +638,19 @@ class _SettingsPageState extends State<SettingsPage> {
                                     fontSize: 20,
                                   ),
                                 ),
+                              ),
+                              SettingCard(
+                                elevation: 4,
+                                icon: const Icon(IconsaxPlusLinear.add_square),
+                                text: 'addWidget'.tr,
+                                onPressed: () {
+                                  HomeWidget.requestPinWidget(
+                                    name: androidWidgetName,
+                                    androidName: androidWidgetName,
+                                    qualifiedAndroidName:
+                                        'com.yoshi.rain.OreoWidget',
+                                  );
+                                },
                               ),
                               SettingCard(
                                 elevation: 4,

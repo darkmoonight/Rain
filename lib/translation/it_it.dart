@@ -137,5 +137,7 @@ class ItIt {
         'clearCacheStore': 'Cancella cache',
         'deletedCacheStore': 'Cancellazione della cache',
         'deletedCacheStoreQuery': 'Sei sicuro di voler cancellare la cache?',
+        'addWidget': 'Aggiungi widget',
+        'hideMap': 'Nascondi mappa',
       };
 }

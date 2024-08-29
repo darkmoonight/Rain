@@ -136,5 +136,7 @@ class EnUs {
         'clearCacheStore': 'Clear cache',
         'deletedCacheStore': 'Clearing the cache',
         'deletedCacheStoreQuery': 'Are you sure you want to clear the cache?',
+        'addWidget': 'Add widget',
+        'hideMap': 'Hide map',
       };
 }

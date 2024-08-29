@@ -138,5 +138,7 @@ class GaIe {
         'deletedCacheStore': 'Ag glanadh an taisce',
         'deletedCacheStoreQuery':
             'An bhfuil tú cinnte gur mian leat an taisce a ghlanadh?',
+        'addWidget': 'Cuir giuirléid leis',
+        'hideMap': 'Folaigh léarscáil',
       };
 }

@@ -136,5 +136,7 @@ class PlPl {
         'deletedCacheStore': 'Czyszczenie pamięci podręcznej',
         'deletedCacheStoreQuery':
             'Czy na pewno chcesz wyczyścić pamięć podręczną?',
+        'addWidget': 'Dodaj widget',
+        'hideMap': 'Ukryj mapę',
       };
 }

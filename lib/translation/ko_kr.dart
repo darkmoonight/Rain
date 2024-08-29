@@ -132,5 +132,7 @@ class KoKr {
         'clearCacheStore': '캐시 지우기',
         'deletedCacheStore': '캐시 삭제 중',
         'deletedCacheStoreQuery': '캐시를 정말로 지우시겠습니까?',
+        'addWidget': '위젯 추가',
+        'hideMap': '지도를 숨기기',
       };
 }

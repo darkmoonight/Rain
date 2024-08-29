@@ -137,5 +137,7 @@ class FrFr {
         'clearCacheStore': 'Effacer le cache',
         'deletedCacheStore': 'Effacement du cache',
         'deletedCacheStoreQuery': 'Êtes-vous sûr de vouloir effacer le cache?',
+        'addWidget': 'Ajouter un widget',
+        'hideMap': 'Cacher la carte',
       };
 }

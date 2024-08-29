@@ -136,5 +136,7 @@ class RuRu {
         'clearCacheStore': 'Очистить кэш',
         'deletedCacheStore': 'Очистка кэша',
         'deletedCacheStoreQuery': 'Вы уверены, что хотите очистить кэш?',
+        'addWidget': 'Добавить виджет',
+        'hideMap': 'Скрыть карту',
       };
 }

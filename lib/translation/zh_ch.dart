@@ -131,5 +131,7 @@ class ZhCh {
         'clearCacheStore': '清除缓存',
         'deletedCacheStore': '正在清除缓存',
         'deletedCacheStoreQuery': '您确定要清除缓存吗？',
+        'addWidget': '添加小部件',
+        'hideMap': '隐藏地图',
       };
 }

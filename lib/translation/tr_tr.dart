@@ -136,5 +136,7 @@ class TrTr {
         'deletedCacheStore': 'Önbellek temizleniyor',
         'deletedCacheStoreQuery':
             'Önbelleği temizlemek istediğinizden emin misiniz?',
+        'addWidget': 'Widget ekle',
+        'hideMap': 'Haritayı gizle',
       };
 }

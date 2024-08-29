@@ -136,5 +136,7 @@ class SkSk {
         'deletedCacheStore': 'Vymazávanie vyrovnávacej pamäte',
         'deletedCacheStoreQuery':
             'Ste si istí, že chcete vymazať vyrovnávaciu pamäť?',
+        'addWidget': 'Pridať widget',
+        'hideMap': 'Skryť mapu',
       };
 }

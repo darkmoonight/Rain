@@ -134,5 +134,7 @@ class HiIn {
         'clearCacheStore': 'कैश साफ़ करें',
         'deletedCacheStore': 'कैश साफ़ हो रहा है',
         'deletedCacheStoreQuery': 'क्या आप वाकई कैश साफ़ करना चाहते हैं?',
+        'addWidget': 'विजेट जोड़ें',
+        'hideMap': 'मानचित्र छिपाएँ',
       };
 }
