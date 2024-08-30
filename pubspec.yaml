@@ -24,6 +24,7 @@ dependencies:
   geolocator: ^13.0.1
   home_widget: ^0.7.0
   workmanager: ^0.5.2
+  restart_app: ^1.2.1
   flutter_map: ^7.0.2
   google_fonts: ^6.2.1
   url_launcher: ^6.3.0
@@ -33,7 +34,7 @@ dependencies:
   path_provider: ^2.1.4
   # quick_settings: ^1.0.1
   json_annotation: ^4.9.0
-  flutter_timezone: ^3.0.0
+  flutter_timezone: ^3.0.1
   device_info_plus: ^10.1.2
   package_info_plus: ^8.0.2
   connectivity_plus: ^6.0.5

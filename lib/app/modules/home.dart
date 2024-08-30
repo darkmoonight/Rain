@@ -30,31 +30,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final weatherController = Get.put(WeatherController());
   final _controller = TextEditingController();
 
-  final pages = [
+  final List<Widget> pages = [
     const WeatherPage(),
     const ListWeatherCard(),
-    const MapWeather(),
+    if (!settings.hideMap) const MapWeather(),
     const SettingsPage(),
   ];
 
   @override
   void initState() {
+    super.initState();
     getData();
+    setupTabController();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
+  void setupTabController() {
     tabController = TabController(
       initialIndex: tabIndex,
       length: pages.length,
       vsync: this,
     );
+
     tabController.animation?.addListener(() {
       int value = (tabController.animation!.value).round();
       if (value != tabIndex) setState(() => tabIndex = value);
     });
+
     tabController.addListener(() {
       setState(() {
         tabIndex = tabController.index;
       });
     });
-    super.initState();
   }
 
   void getData() async {
@@ -199,10 +211,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   'cities'.tr,
                   style: textStyle,
                 ),
-              2 => Text(
-                  'map'.tr,
-                  style: textStyle,
-                ),
+              2 => settings.hideMap
+                  ? Text(
+                      'settings_full'.tr,
+                      style: textStyle,
+                    )
+                  : Text(
+                      'map'.tr,
+                      style: textStyle,
+                    ),
               3 => Text(
                   'settings_full'.tr,
                   style: textStyle,
@@ -253,11 +270,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 selectedIcon: const Icon(IconsaxPlusBold.buildings),
                 label: 'cities'.tr,
               ),
-              NavigationDestination(
-                icon: const Icon(IconsaxPlusLinear.map),
-                selectedIcon: const Icon(IconsaxPlusBold.map),
-                label: 'map'.tr,
-              ),
+              if (!settings.hideMap)
+                NavigationDestination(
+                  icon: const Icon(IconsaxPlusLinear.map),
+                  selectedIcon: const Icon(IconsaxPlusBold.map),
+                  label: 'map'.tr,
+                ),
               NavigationDestination(
                 icon: const Icon(IconsaxPlusLinear.category),
                 selectedIcon: const Icon(IconsaxPlusBold.category),

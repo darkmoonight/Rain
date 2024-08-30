@@ -18,6 +18,7 @@ import 'package:rain/app/modules/settings/widgets/setting_card.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:rain/utils/color_converter.dart';
+import 'package:restart_app/restart_app.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -844,47 +845,109 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           SettingCard(
-            icon: const Icon(IconsaxPlusLinear.trash_square),
-            text: 'clearCacheStore'.tr,
-            onPressed: () => showAdaptiveDialog(
-              context: context,
-              builder: (context) => AlertDialog.adaptive(
-                title: Text(
-                  'deletedCacheStore'.tr,
-                  style: context.textTheme.titleLarge,
-                ),
-                content: Text(
-                  'deletedCacheStoreQuery'.tr,
-                  style: context.textTheme.titleMedium,
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Get.back(),
-                    child: Text(
-                      'cancel'.tr,
-                      style: context.textTheme.titleMedium?.copyWith(
-                        color: Colors.blueAccent,
-                      ),
+            icon: const Icon(IconsaxPlusLinear.map),
+            text: 'map'.tr,
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
+                    child: StatefulBuilder(
+                      builder: (BuildContext context, setState) {
+                        return SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  'map'.tr,
+                                  style: context.textTheme.titleLarge?.copyWith(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              SettingCard(
+                                elevation: 4,
+                                icon: const Icon(
+                                    IconsaxPlusLinear.location_slash),
+                                text: 'hideMap'.tr,
+                                switcher: true,
+                                value: settings.hideMap,
+                                onChange: (value) {
+                                  settings.hideMap = value;
+                                  isar.writeTxnSync(
+                                    () => isar.settings.putSync(settings),
+                                  );
+                                  setState(() {});
+                                  Future.delayed(
+                                    const Duration(milliseconds: 500),
+                                    () => Restart.restartApp(),
+                                  );
+                                },
+                              ),
+                              SettingCard(
+                                elevation: 4,
+                                icon:
+                                    const Icon(IconsaxPlusLinear.trash_square),
+                                text: 'clearCacheStore'.tr,
+                                onPressed: () => showAdaptiveDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog.adaptive(
+                                    title: Text(
+                                      'deletedCacheStore'.tr,
+                                      style: context.textTheme.titleLarge,
+                                    ),
+                                    content: Text(
+                                      'deletedCacheStoreQuery'.tr,
+                                      style: context.textTheme.titleMedium,
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Get.back(),
+                                        child: Text(
+                                          'cancel'.tr,
+                                          style: context.textTheme.titleMedium
+                                              ?.copyWith(
+                                            color: Colors.blueAccent,
+                                          ),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          final dir =
+                                              await getTemporaryDirectory();
+                                          final cacheStoreFuture = FileCacheStore(
+                                              '${dir.path}${Platform.pathSeparator}MapTiles');
+                                          cacheStoreFuture.clean();
+                                          Get.back();
+                                        },
+                                        child: Text(
+                                          'delete'.tr,
+                                          style: context.textTheme.titleMedium
+                                              ?.copyWith(
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const Gap(10),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      final dir = await getTemporaryDirectory();
-                      final cacheStoreFuture = FileCacheStore(
-                          '${dir.path}${Platform.pathSeparator}MapTiles');
-                      cacheStoreFuture.clean();
-                      Get.back();
-                    },
-                    child: Text(
-                      'delete'.tr,
-                      style: context.textTheme.titleMedium?.copyWith(
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                  );
+                },
+              );
+            },
           ),
           SettingCard(
             icon: const Icon(IconsaxPlusLinear.language_square),
