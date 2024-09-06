@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:rain/app/data/weather.dart';
+import 'package:rain/app/data/db.dart';
 import 'package:rain/main.dart';
 
 class ThemeController extends GetxController {
