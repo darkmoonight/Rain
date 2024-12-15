@@ -22,7 +22,6 @@ import 'package:rain/theme/theme.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:rain/translation/translation.dart';
 import 'package:rain/app/utils/device_info.dart';
-import 'package:time_machine/time_machine.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
@@ -99,11 +98,7 @@ void main() async {
     Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
     await setOptimalDisplayMode();
   }
-  if (Platform.isAndroid || Platform.isIOS) {
-    timeZoneName = await FlutterTimezone.getLocalTimezone();
-  } else {
-    timeZoneName = '${DateTimeZone.local}';
-  }
+  timeZoneName = await FlutterTimezone.getLocalTimezone();
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
   await isarInit();
