@@ -69,7 +69,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom),
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -78,8 +79,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 15,
+                                ),
                                 child: Text(
                                   'appearance'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -96,7 +98,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 dropdownList: <String>[
                                   'system'.tr,
                                   'dark'.tr,
-                                  'light'.tr
+                                  'light'.tr,
                                 ],
                                 dropdownCange: (String? newValue) {
                                   final newThemeMode = newValue?.tr;
@@ -106,11 +108,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                       newThemeMode == systemTheme
                                           ? ThemeMode.system
                                           : newThemeMode == darkTheme
-                                              ? ThemeMode.dark
-                                              : ThemeMode.light;
-                                  String theme = newThemeMode == systemTheme
-                                      ? 'system'
-                                      : newThemeMode == darkTheme
+                                          ? ThemeMode.dark
+                                          : ThemeMode.light;
+                                  String theme =
+                                      newThemeMode == systemTheme
+                                          ? 'system'
+                                          : newThemeMode == darkTheme
                                           ? 'dark'
                                           : 'light';
                                   themeController.saveTheme(theme);
@@ -126,8 +129,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                 value: settings.amoledTheme,
                                 onChange: (value) {
                                   themeController.saveOledTheme(value);
-                                  MyApp.updateAppState(context,
-                                      newAmoledTheme: value);
+                                  MyApp.updateAppState(
+                                    context,
+                                    newAmoledTheme: value,
+                                  );
                                 },
                               ),
                               SettingCard(
@@ -138,8 +143,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                 value: settings.materialColor,
                                 onChange: (value) {
                                   themeController.saveMaterialTheme(value);
-                                  MyApp.updateAppState(context,
-                                      newMaterialColor: value);
+                                  MyApp.updateAppState(
+                                    context,
+                                    newMaterialColor: value,
+                                  );
                                 },
                               ),
                               SettingCard(
@@ -180,7 +187,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom),
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -189,8 +197,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 15,
+                                ),
                                 child: Text(
                                   'functions'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -206,8 +215,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 value: settings.location,
                                 onChange: (value) async {
                                   if (value) {
-                                    bool serviceEnabled = await Geolocator
-                                        .isLocationServiceEnabled();
+                                    bool serviceEnabled =
+                                        await Geolocator.isLocationServiceEnabled();
                                     if (!serviceEnabled) {
                                       if (!context.mounted) return;
                                       await showAdaptiveDialog(
@@ -219,34 +228,40 @@ class _SettingsPageState extends State<SettingsPage> {
                                               style:
                                                   context.textTheme.titleLarge,
                                             ),
-                                            content: Text('no_location'.tr,
-                                                style: context
-                                                    .textTheme.titleMedium),
+                                            content: Text(
+                                              'no_location'.tr,
+                                              style:
+                                                  context.textTheme.titleMedium,
+                                            ),
                                             actions: [
                                               TextButton(
-                                                onPressed: () =>
-                                                    Get.back(result: false),
+                                                onPressed:
+                                                    () =>
+                                                        Get.back(result: false),
                                                 child: Text(
                                                   'cancel'.tr,
                                                   style: context
-                                                      .textTheme.titleMedium
+                                                      .textTheme
+                                                      .titleMedium
                                                       ?.copyWith(
-                                                          color: Colors
-                                                              .blueAccent),
+                                                        color:
+                                                            Colors.blueAccent,
+                                                      ),
                                                 ),
                                               ),
                                               TextButton(
                                                 onPressed: () {
-                                                  Geolocator
-                                                      .openLocationSettings();
+                                                  Geolocator.openLocationSettings();
                                                   Get.back(result: true);
                                                 },
                                                 child: Text(
                                                   'settings'.tr,
                                                   style: context
-                                                      .textTheme.titleMedium
+                                                      .textTheme
+                                                      .titleMedium
                                                       ?.copyWith(
-                                                          color: Colors.green),
+                                                        color: Colors.green,
+                                                      ),
                                                 ),
                                               ),
                                             ],
@@ -268,7 +283,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               SettingCard(
                                 elevation: 4,
                                 icon: const Icon(
-                                    IconsaxPlusLinear.notification_1),
+                                  IconsaxPlusLinear.notification_1,
+                                ),
                                 text: 'notifications'.tr,
                                 switcher: true,
                                 value: settings.notifications,
@@ -276,17 +292,21 @@ class _SettingsPageState extends State<SettingsPage> {
                                   final resultExact =
                                       await flutterLocalNotificationsPlugin
                                           .resolvePlatformSpecificImplementation<
-                                              AndroidFlutterLocalNotificationsPlugin>()
+                                            AndroidFlutterLocalNotificationsPlugin
+                                          >()
                                           ?.requestExactAlarmsPermission();
-                                  final result = Platform.isIOS
-                                      ? await flutterLocalNotificationsPlugin
-                                          .resolvePlatformSpecificImplementation<
-                                              IOSFlutterLocalNotificationsPlugin>()
-                                          ?.requestPermissions()
-                                      : await flutterLocalNotificationsPlugin
-                                          .resolvePlatformSpecificImplementation<
-                                              AndroidFlutterLocalNotificationsPlugin>()
-                                          ?.requestNotificationsPermission();
+                                  final result =
+                                      Platform.isIOS
+                                          ? await flutterLocalNotificationsPlugin
+                                              .resolvePlatformSpecificImplementation<
+                                                IOSFlutterLocalNotificationsPlugin
+                                              >()
+                                              ?.requestPermissions()
+                                          : await flutterLocalNotificationsPlugin
+                                              .resolvePlatformSpecificImplementation<
+                                                AndroidFlutterLocalNotificationsPlugin
+                                              >()
+                                              ?.requestNotificationsPermission();
                                   if (result != null && resultExact != null) {
                                     isar.writeTxnSync(() {
                                       settings.notifications = value;
@@ -294,7 +314,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     });
                                     if (value) {
                                       weatherController.notification(
-                                          weatherController.mainWeather);
+                                        weatherController.mainWeather,
+                                      );
                                     } else {
                                       flutterLocalNotificationsPlugin
                                           .cancelAll();
@@ -306,7 +327,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               SettingCard(
                                 elevation: 4,
                                 icon: const Icon(
-                                    IconsaxPlusLinear.notification_status),
+                                  IconsaxPlusLinear.notification_status,
+                                ),
                                 text: 'timeRange'.tr,
                                 dropdown: true,
                                 dropdownName: '$timeRange',
@@ -322,12 +344,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                     settings.timeRange = int.parse(newValue!);
                                     isar.settings.putSync(settings);
                                   });
-                                  MyApp.updateAppState(context,
-                                      newTimeRange: int.parse(newValue!));
+                                  MyApp.updateAppState(
+                                    context,
+                                    newTimeRange: int.parse(newValue!),
+                                  );
                                   if (settings.notifications) {
                                     flutterLocalNotificationsPlugin.cancelAll();
                                     weatherController.notification(
-                                        weatherController.mainWeather);
+                                      weatherController.mainWeather,
+                                    );
                                   }
                                 },
                               ),
@@ -338,55 +363,73 @@ class _SettingsPageState extends State<SettingsPage> {
                                 info: true,
                                 infoSettings: true,
                                 infoWidget: _TextInfo(
-                                  info: settings.timeformat == '12'
-                                      ? DateFormat.jm(locale.languageCode)
-                                          .format(
-                                              DateFormat.Hm(locale.languageCode)
-                                                  .parse(weatherController
-                                                      .timeConvert(timeStart)
-                                                      .format(context)))
-                                      : DateFormat.Hm(locale.languageCode)
-                                          .format(
-                                              DateFormat.Hm(locale.languageCode)
-                                                  .parse(weatherController
-                                                      .timeConvert(timeStart)
-                                                      .format(context))),
+                                  info:
+                                      settings.timeformat == '12'
+                                          ? DateFormat.jm(
+                                            locale.languageCode,
+                                          ).format(
+                                            DateFormat.Hm(
+                                              locale.languageCode,
+                                            ).parse(
+                                              weatherController
+                                                  .timeConvert(timeStart)
+                                                  .format(context),
+                                            ),
+                                          )
+                                          : DateFormat.Hm(
+                                            locale.languageCode,
+                                          ).format(
+                                            DateFormat.Hm(
+                                              locale.languageCode,
+                                            ).parse(
+                                              weatherController
+                                                  .timeConvert(timeStart)
+                                                  .format(context),
+                                            ),
+                                          ),
                                 ),
                                 onPressed: () async {
                                   final TimeOfDay? timeStartPicker =
                                       await showTimePicker(
-                                    context: context,
-                                    initialTime: weatherController
-                                        .timeConvert(timeStart),
-                                    builder: (context, child) {
-                                      final Widget mediaQueryWrapper =
-                                          MediaQuery(
-                                        data: MediaQuery.of(context).copyWith(
-                                          alwaysUse24HourFormat:
-                                              settings.timeformat == '12'
-                                                  ? false
-                                                  : true,
-                                        ),
-                                        child: child!,
+                                        context: context,
+                                        initialTime: weatherController
+                                            .timeConvert(timeStart),
+                                        builder: (context, child) {
+                                          final Widget mediaQueryWrapper =
+                                              MediaQuery(
+                                                data: MediaQuery.of(
+                                                  context,
+                                                ).copyWith(
+                                                  alwaysUse24HourFormat:
+                                                      settings.timeformat ==
+                                                              '12'
+                                                          ? false
+                                                          : true,
+                                                ),
+                                                child: child!,
+                                              );
+                                          return mediaQueryWrapper;
+                                        },
                                       );
-                                      return mediaQueryWrapper;
-                                    },
-                                  );
                                   if (timeStartPicker != null) {
                                     isar.writeTxnSync(() {
-                                      settings.timeStart =
-                                          timeStartPicker.format(context);
+                                      settings.timeStart = timeStartPicker
+                                          .format(context);
                                       isar.settings.putSync(settings);
                                     });
                                     if (!context.mounted) return;
-                                    MyApp.updateAppState(context,
-                                        newTimeStart:
-                                            timeStartPicker.format(context));
+                                    MyApp.updateAppState(
+                                      context,
+                                      newTimeStart: timeStartPicker.format(
+                                        context,
+                                      ),
+                                    );
                                     if (settings.notifications) {
                                       flutterLocalNotificationsPlugin
                                           .cancelAll();
                                       weatherController.notification(
-                                          weatherController.mainWeather);
+                                        weatherController.mainWeather,
+                                      );
                                     }
                                   }
                                 },
@@ -398,55 +441,72 @@ class _SettingsPageState extends State<SettingsPage> {
                                 info: true,
                                 infoSettings: true,
                                 infoWidget: _TextInfo(
-                                  info: settings.timeformat == '12'
-                                      ? DateFormat.jm(locale.languageCode)
-                                          .format(
-                                              DateFormat.Hm(locale.languageCode)
-                                                  .parse(weatherController
-                                                      .timeConvert(timeEnd)
-                                                      .format(context)))
-                                      : DateFormat.Hm(locale.languageCode)
-                                          .format(
-                                              DateFormat.Hm(locale.languageCode)
-                                                  .parse(weatherController
-                                                      .timeConvert(timeEnd)
-                                                      .format(context))),
+                                  info:
+                                      settings.timeformat == '12'
+                                          ? DateFormat.jm(
+                                            locale.languageCode,
+                                          ).format(
+                                            DateFormat.Hm(
+                                              locale.languageCode,
+                                            ).parse(
+                                              weatherController
+                                                  .timeConvert(timeEnd)
+                                                  .format(context),
+                                            ),
+                                          )
+                                          : DateFormat.Hm(
+                                            locale.languageCode,
+                                          ).format(
+                                            DateFormat.Hm(
+                                              locale.languageCode,
+                                            ).parse(
+                                              weatherController
+                                                  .timeConvert(timeEnd)
+                                                  .format(context),
+                                            ),
+                                          ),
                                 ),
                                 onPressed: () async {
                                   final TimeOfDay? timeEndPicker =
                                       await showTimePicker(
-                                    context: context,
-                                    initialTime:
-                                        weatherController.timeConvert(timeEnd),
-                                    builder: (context, child) {
-                                      final Widget mediaQueryWrapper =
-                                          MediaQuery(
-                                        data: MediaQuery.of(context).copyWith(
-                                          alwaysUse24HourFormat:
-                                              settings.timeformat == '12'
-                                                  ? false
-                                                  : true,
-                                        ),
-                                        child: child!,
+                                        context: context,
+                                        initialTime: weatherController
+                                            .timeConvert(timeEnd),
+                                        builder: (context, child) {
+                                          final Widget mediaQueryWrapper =
+                                              MediaQuery(
+                                                data: MediaQuery.of(
+                                                  context,
+                                                ).copyWith(
+                                                  alwaysUse24HourFormat:
+                                                      settings.timeformat ==
+                                                              '12'
+                                                          ? false
+                                                          : true,
+                                                ),
+                                                child: child!,
+                                              );
+                                          return mediaQueryWrapper;
+                                        },
                                       );
-                                      return mediaQueryWrapper;
-                                    },
-                                  );
                                   if (timeEndPicker != null) {
                                     isar.writeTxnSync(() {
-                                      settings.timeEnd =
-                                          timeEndPicker.format(context);
+                                      settings.timeEnd = timeEndPicker.format(
+                                        context,
+                                      );
                                       isar.settings.putSync(settings);
                                     });
                                     if (!context.mounted) return;
-                                    MyApp.updateAppState(context,
-                                        newTimeEnd:
-                                            timeEndPicker.format(context));
+                                    MyApp.updateAppState(
+                                      context,
+                                      newTimeEnd: timeEndPicker.format(context),
+                                    );
                                     if (settings.notifications) {
                                       flutterLocalNotificationsPlugin
                                           .cancelAll();
                                       weatherController.notification(
-                                          weatherController.mainWeather);
+                                        weatherController.mainWeather,
+                                      );
                                     }
                                   }
                                 },
@@ -471,7 +531,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom),
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -480,8 +541,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 15,
+                                ),
                                 child: Text(
                                   'data'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -515,13 +577,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                 dropdownName: settings.degrees.tr,
                                 dropdownList: <String>[
                                   'celsius'.tr,
-                                  'fahrenheit'.tr
+                                  'fahrenheit'.tr,
                                 ],
                                 dropdownCange: (String? newValue) async {
                                   isar.writeTxnSync(() {
-                                    settings.degrees = newValue == 'celsius'.tr
-                                        ? 'celsius'
-                                        : 'fahrenheit';
+                                    settings.degrees =
+                                        newValue == 'celsius'.tr
+                                            ? 'celsius'
+                                            : 'fahrenheit';
                                     isar.settings.putSync(settings);
                                   });
                                   await weatherController.deleteAll(false);
@@ -538,7 +601,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 dropdownName: settings.measurements.tr,
                                 dropdownList: <String>[
                                   'metric'.tr,
-                                  'imperial'.tr
+                                  'imperial'.tr,
                                 ],
                                 dropdownCange: (String? newValue) async {
                                   isar.writeTxnSync(() {
@@ -622,7 +685,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom),
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -631,8 +695,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 15,
+                                ),
                                 child: Text(
                                   'widget'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -655,8 +720,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon:
-                                    const Icon(IconsaxPlusLinear.bucket_square),
+                                icon: const Icon(
+                                  IconsaxPlusLinear.bucket_square,
+                                ),
                                 text: 'widgetBackground'.tr,
                                 info: true,
                                 infoWidget: CircleAvatar(
@@ -667,7 +733,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                         widgetBackgroundColor.isEmpty
                                             ? context.theme.primaryColor
                                             : HexColor.fromHex(
-                                                widgetBackgroundColor),
+                                              widgetBackgroundColor,
+                                            ),
                                     radius: 10,
                                   ),
                                 ),
@@ -675,74 +742,89 @@ class _SettingsPageState extends State<SettingsPage> {
                                   colorBackground = null;
                                   showDialog(
                                     context: context,
-                                    builder: (context) => Dialog(
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 15),
-                                              child: Text(
-                                                'widgetBackground'.tr,
-                                                style: context
-                                                    .textTheme.titleMedium
-                                                    ?.copyWith(fontSize: 18),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 15),
-                                              child: Theme(
-                                                data: context.theme.copyWith(
-                                                  inputDecorationTheme:
-                                                      InputDecorationTheme(
-                                                    border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
+                                    builder:
+                                        (context) => Dialog(
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        vertical: 15,
+                                                      ),
+                                                  child: Text(
+                                                    'widgetBackground'.tr,
+                                                    style: context
+                                                        .textTheme
+                                                        .titleMedium
+                                                        ?.copyWith(
+                                                          fontSize: 18,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 15,
+                                                      ),
+                                                  child: Theme(
+                                                    data: context.theme.copyWith(
+                                                      inputDecorationTheme:
+                                                          InputDecorationTheme(
+                                                            border: OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                    8,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                    ),
+                                                    child: ColorPicker(
+                                                      color:
+                                                          widgetBackgroundColor
+                                                                  .isEmpty
+                                                              ? context
+                                                                  .theme
+                                                                  .primaryColor
+                                                              : HexColor.fromHex(
+                                                                widgetBackgroundColor,
+                                                              ),
+                                                      onChanged: (pickedColor) {
+                                                        colorBackground =
+                                                            pickedColor.toHex();
+                                                      },
                                                     ),
                                                   ),
                                                 ),
-                                                child: ColorPicker(
-                                                  color: widgetBackgroundColor
-                                                          .isEmpty
-                                                      ? context
-                                                          .theme.primaryColor
-                                                      : HexColor.fromHex(
-                                                          widgetBackgroundColor),
-                                                  onChanged: (pickedColor) {
-                                                    colorBackground =
-                                                        pickedColor.toHex();
+                                                IconButton(
+                                                  icon: const Icon(
+                                                    IconsaxPlusLinear
+                                                        .tick_square,
+                                                  ),
+                                                  onPressed: () {
+                                                    if (colorBackground ==
+                                                        null) {
+                                                      return;
+                                                    }
+                                                    weatherController
+                                                        .updateWidgetBackgroundColor(
+                                                          colorBackground!,
+                                                        );
+                                                    MyApp.updateAppState(
+                                                      context,
+                                                      newWidgetBackgroundColor:
+                                                          colorBackground,
+                                                    );
+                                                    Get.back();
                                                   },
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                            IconButton(
-                                              icon: const Icon(
-                                                IconsaxPlusLinear.tick_square,
-                                              ),
-                                              onPressed: () {
-                                                if (colorBackground == null) {
-                                                  return;
-                                                }
-                                                weatherController
-                                                    .updateWidgetBackgroundColor(
-                                                        colorBackground!);
-                                                MyApp.updateAppState(context,
-                                                    newWidgetBackgroundColor:
-                                                        colorBackground);
-                                                Get.back();
-                                              },
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
                                   );
                                 },
                               ),
@@ -755,9 +837,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                   backgroundColor: context.theme.indicatorColor,
                                   radius: 11,
                                   child: CircleAvatar(
-                                    backgroundColor: widgetTextColor.isEmpty
-                                        ? context.theme.primaryColor
-                                        : HexColor.fromHex(widgetTextColor),
+                                    backgroundColor:
+                                        widgetTextColor.isEmpty
+                                            ? context.theme.primaryColor
+                                            : HexColor.fromHex(widgetTextColor),
                                     radius: 10,
                                   ),
                                 ),
@@ -765,71 +848,87 @@ class _SettingsPageState extends State<SettingsPage> {
                                   colorText = null;
                                   showDialog(
                                     context: context,
-                                    builder: (context) => Dialog(
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 15),
-                                              child: Text(
-                                                'widgetText'.tr,
-                                                style: context
-                                                    .textTheme.titleMedium
-                                                    ?.copyWith(fontSize: 18),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 15),
-                                              child: Theme(
-                                                data: context.theme.copyWith(
-                                                  inputDecorationTheme:
-                                                      InputDecorationTheme(
-                                                    border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
+                                    builder:
+                                        (context) => Dialog(
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        vertical: 15,
+                                                      ),
+                                                  child: Text(
+                                                    'widgetText'.tr,
+                                                    style: context
+                                                        .textTheme
+                                                        .titleMedium
+                                                        ?.copyWith(
+                                                          fontSize: 18,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 15,
+                                                      ),
+                                                  child: Theme(
+                                                    data: context.theme.copyWith(
+                                                      inputDecorationTheme:
+                                                          InputDecorationTheme(
+                                                            border: OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                    8,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                    ),
+                                                    child: ColorPicker(
+                                                      color:
+                                                          widgetTextColor
+                                                                  .isEmpty
+                                                              ? context
+                                                                  .theme
+                                                                  .primaryColor
+                                                              : HexColor.fromHex(
+                                                                widgetTextColor,
+                                                              ),
+                                                      onChanged: (pickedColor) {
+                                                        colorText =
+                                                            pickedColor.toHex();
+                                                      },
                                                     ),
                                                   ),
                                                 ),
-                                                child: ColorPicker(
-                                                  color: widgetTextColor.isEmpty
-                                                      ? context
-                                                          .theme.primaryColor
-                                                      : HexColor.fromHex(
-                                                          widgetTextColor),
-                                                  onChanged: (pickedColor) {
-                                                    colorText =
-                                                        pickedColor.toHex();
+                                                IconButton(
+                                                  icon: const Icon(
+                                                    IconsaxPlusLinear
+                                                        .tick_square,
+                                                  ),
+                                                  onPressed: () {
+                                                    if (colorText == null)
+                                                      return;
+                                                    weatherController
+                                                        .updateWidgetTextColor(
+                                                          colorText!,
+                                                        );
+                                                    MyApp.updateAppState(
+                                                      context,
+                                                      newWidgetTextColor:
+                                                          colorText,
+                                                    );
+                                                    Get.back();
                                                   },
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                            IconButton(
-                                              icon: const Icon(
-                                                IconsaxPlusLinear.tick_square,
-                                              ),
-                                              onPressed: () {
-                                                if (colorText == null) return;
-                                                weatherController
-                                                    .updateWidgetTextColor(
-                                                        colorText!);
-                                                MyApp.updateAppState(context,
-                                                    newWidgetTextColor:
-                                                        colorText);
-                                                Get.back();
-                                              },
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
                                   );
                                 },
                               ),
@@ -853,7 +952,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom),
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -862,8 +962,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 15,
+                                ),
                                 child: Text(
                                   'map'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -874,7 +975,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               SettingCard(
                                 elevation: 4,
                                 icon: const Icon(
-                                    IconsaxPlusLinear.location_slash),
+                                  IconsaxPlusLinear.location_slash,
+                                ),
                                 text: 'hideMap'.tr,
                                 switcher: true,
                                 value: settings.hideMap,
@@ -892,51 +994,63 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               SettingCard(
                                 elevation: 4,
-                                icon:
-                                    const Icon(IconsaxPlusLinear.trash_square),
-                                text: 'clearCacheStore'.tr,
-                                onPressed: () => showAdaptiveDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog.adaptive(
-                                    title: Text(
-                                      'deletedCacheStore'.tr,
-                                      style: context.textTheme.titleLarge,
-                                    ),
-                                    content: Text(
-                                      'deletedCacheStoreQuery'.tr,
-                                      style: context.textTheme.titleMedium,
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Get.back(),
-                                        child: Text(
-                                          'cancel'.tr,
-                                          style: context.textTheme.titleMedium
-                                              ?.copyWith(
-                                            color: Colors.blueAccent,
-                                          ),
-                                        ),
-                                      ),
-                                      TextButton(
-                                        onPressed: () async {
-                                          final dir =
-                                              await getTemporaryDirectory();
-                                          final cacheStoreFuture = FileCacheStore(
-                                              '${dir.path}${Platform.pathSeparator}MapTiles');
-                                          cacheStoreFuture.clean();
-                                          Get.back();
-                                        },
-                                        child: Text(
-                                          'delete'.tr,
-                                          style: context.textTheme.titleMedium
-                                              ?.copyWith(
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                icon: const Icon(
+                                  IconsaxPlusLinear.trash_square,
                                 ),
+                                text: 'clearCacheStore'.tr,
+                                onPressed:
+                                    () => showAdaptiveDialog(
+                                      context: context,
+                                      builder:
+                                          (context) => AlertDialog.adaptive(
+                                            title: Text(
+                                              'deletedCacheStore'.tr,
+                                              style:
+                                                  context.textTheme.titleLarge,
+                                            ),
+                                            content: Text(
+                                              'deletedCacheStoreQuery'.tr,
+                                              style:
+                                                  context.textTheme.titleMedium,
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Get.back(),
+                                                child: Text(
+                                                  'cancel'.tr,
+                                                  style: context
+                                                      .textTheme
+                                                      .titleMedium
+                                                      ?.copyWith(
+                                                        color:
+                                                            Colors.blueAccent,
+                                                      ),
+                                                ),
+                                              ),
+                                              TextButton(
+                                                onPressed: () async {
+                                                  final dir =
+                                                      await getTemporaryDirectory();
+                                                  final cacheStoreFuture =
+                                                      FileCacheStore(
+                                                        '${dir.path}${Platform.pathSeparator}MapTiles',
+                                                      );
+                                                  cacheStoreFuture.clean();
+                                                  Get.back();
+                                                },
+                                                child: Text(
+                                                  'delete'.tr,
+                                                  style: context
+                                                      .textTheme
+                                                      .titleMedium
+                                                      ?.copyWith(
+                                                        color: Colors.red,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                    ),
                               ),
                               const Gap(10),
                             ],
@@ -955,9 +1069,11 @@ class _SettingsPageState extends State<SettingsPage> {
             info: true,
             infoSettings: true,
             infoWidget: _TextInfo(
-              info: appLanguages.firstWhere(
-                  (element) => (element['locale'] == locale),
-                  orElse: () => appLanguages.first)['name'],
+              info:
+                  appLanguages.firstWhere(
+                    (element) => (element['locale'] == locale),
+                    orElse: () => appLanguages.first,
+                  )['name'],
             ),
             onPressed: () {
               showModalBottomSheet(
@@ -965,7 +1081,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom),
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return ListView(
@@ -988,7 +1105,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 return Card(
                                   elevation: 4,
                                   margin: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
+                                    horizontal: 10,
+                                    vertical: 5,
+                                  ),
                                   child: ListTile(
                                     title: Text(
                                       appLanguages[index]['name'],
@@ -996,11 +1115,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                       textAlign: TextAlign.center,
                                     ),
                                     onTap: () {
-                                      MyApp.updateAppState(context,
-                                          newLocale: appLanguages[index]
-                                              ['locale']);
+                                      MyApp.updateAppState(
+                                        context,
+                                        newLocale:
+                                            appLanguages[index]['locale'],
+                                      );
                                       updateLanguage(
-                                          appLanguages[index]['locale']);
+                                        appLanguages[index]['locale'],
+                                      );
                                     },
                                   ),
                                 );
@@ -1008,58 +1130,6 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             const Gap(10),
                           ],
-                        );
-                      },
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          SettingCard(
-            icon: const Icon(IconsaxPlusLinear.dollar_square),
-            text: 'support'.tr,
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom),
-                    child: StatefulBuilder(
-                      builder: (BuildContext context, setState) {
-                        return SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
-                                child: Text(
-                                  'support'.tr,
-                                  style: context.textTheme.titleLarge?.copyWith(
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                              SettingCard(
-                                elevation: 4,
-                                icon: const Icon(IconsaxPlusLinear.card),
-                                text: 'DonationAlerts',
-                                onPressed: () => weatherController.urlLauncher(
-                                    'https://www.donationalerts.com/r/darkmoonight'),
-                              ),
-                              SettingCard(
-                                elevation: 4,
-                                icon: const Icon(IconsaxPlusLinear.wallet),
-                                text: 'ЮMoney',
-                                onPressed: () => weatherController.urlLauncher(
-                                    'https://yoomoney.ru/to/4100117672775961'),
-                              ),
-                              const Gap(10),
-                            ],
-                          ),
                         );
                       },
                     ),
@@ -1077,7 +1147,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).padding.bottom),
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
                     child: StatefulBuilder(
                       builder: (BuildContext context, setState) {
                         return SingleChildScrollView(
@@ -1087,7 +1158,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 15),
+                                  horizontal: 20,
+                                  vertical: 15,
+                                ),
                                 child: Text(
                                   'groups'.tr,
                                   style: context.textTheme.titleLarge?.copyWith(
@@ -1099,15 +1172,19 @@ class _SettingsPageState extends State<SettingsPage> {
                                 elevation: 4,
                                 icon: const Icon(LineAwesomeIcons.discord),
                                 text: 'Discord',
-                                onPressed: () => weatherController.urlLauncher(
-                                    'https://discord.gg/JMMa9aHh8f'),
+                                onPressed:
+                                    () => weatherController.urlLauncher(
+                                      'https://discord.gg/JMMa9aHh8f',
+                                    ),
                               ),
                               SettingCard(
                                 elevation: 4,
                                 icon: const Icon(LineAwesomeIcons.telegram),
                                 text: 'Telegram',
-                                onPressed: () => weatherController
-                                    .urlLauncher('https://t.me/darkmoonightX'),
+                                onPressed:
+                                    () => weatherController.urlLauncher(
+                                      'https://t.me/darkmoonightX',
+                                    ),
                               ),
                               const Gap(10),
                             ],
@@ -1123,38 +1200,39 @@ class _SettingsPageState extends State<SettingsPage> {
           SettingCard(
             icon: const Icon(IconsaxPlusLinear.document),
             text: 'license'.tr,
-            onPressed: () => Get.to(
-              () => LicensePage(
-                applicationIcon: Container(
-                  width: 100,
-                  height: 100,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    image: DecorationImage(
-                      image: AssetImage('assets/icons/icon.png'),
+            onPressed:
+                () => Get.to(
+                  () => LicensePage(
+                    applicationIcon: Container(
+                      width: 100,
+                      height: 100,
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        image: DecorationImage(
+                          image: AssetImage('assets/icons/icon.png'),
+                        ),
+                      ),
                     ),
+                    applicationName: 'Rain',
+                    applicationVersion: appVersion,
                   ),
+                  transition: Transition.downToUp,
                 ),
-                applicationName: 'Rain',
-                applicationVersion: appVersion,
-              ),
-              transition: Transition.downToUp,
-            ),
           ),
           SettingCard(
             icon: const Icon(IconsaxPlusLinear.hierarchy_square_2),
             text: 'version'.tr,
             info: true,
-            infoWidget: _TextInfo(
-              info: '$appVersion',
-            ),
+            infoWidget: _TextInfo(info: '$appVersion'),
           ),
           SettingCard(
             icon: const Icon(LineAwesomeIcons.github),
             text: '${'project'.tr} GitHub',
-            onPressed: () => weatherController
-                .urlLauncher('https://github.com/darkmoonight/Rain'),
+            onPressed:
+                () => weatherController.urlLauncher(
+                  'https://github.com/darkmoonight/Rain',
+                ),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
@@ -1165,8 +1243,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 overflow: TextOverflow.visible,
                 textAlign: TextAlign.center,
               ),
-              onTap: () =>
-                  weatherController.urlLauncher('https://open-meteo.com/'),
+              onTap:
+                  () =>
+                      weatherController.urlLauncher('https://open-meteo.com/'),
             ),
           ),
           const Gap(10),

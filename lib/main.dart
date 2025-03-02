@@ -29,8 +29,9 @@ import 'package:workmanager/workmanager.dart';
 late Isar isar;
 late Settings settings;
 late LocationCache locationCache;
-final ValueNotifier<Future<bool>> isOnline =
-    ValueNotifier(InternetConnection().hasInternetAccess);
+final ValueNotifier<Future<bool>> isOnline = ValueNotifier(
+  InternetConnection().hasInternetAccess,
+);
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -86,9 +87,9 @@ void callbackDispatcher() {
 void main() async {
   final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
-  Connectivity()
-      .onConnectivityChanged
-      .listen((List<ConnectivityResult> result) {
+  Connectivity().onConnectivityChanged.listen((
+    List<ConnectivityResult> result,
+  ) {
     result.contains(ConnectivityResult.none)
         ? isOnline.value = Future(() => false)
         : isOnline.value = InternetConnection().hasInternetAccess;
@@ -120,12 +121,17 @@ void main() async {
 Future<void> setOptimalDisplayMode() async {
   final List<DisplayMode> supported = await FlutterDisplayMode.supported;
   final DisplayMode active = await FlutterDisplayMode.active;
-  final List<DisplayMode> sameResolution = supported
-      .where((DisplayMode m) =>
-          m.width == active.width && m.height == active.height)
-      .toList()
-    ..sort((DisplayMode a, DisplayMode b) =>
-        b.refreshRate.compareTo(a.refreshRate));
+  final List<DisplayMode> sameResolution =
+      supported
+          .where(
+            (DisplayMode m) =>
+                m.width == active.width && m.height == active.height,
+          )
+          .toList()
+        ..sort(
+          (DisplayMode a, DisplayMode b) =>
+              b.refreshRate.compareTo(a.refreshRate),
+        );
   final DisplayMode mostOptimalMode =
       sameResolution.isNotEmpty ? sameResolution.first : active;
   await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
@@ -277,7 +283,9 @@ class _MyAppState extends State<MyApp> {
     roundDegree = settings.roundDegree;
     largeElement = settings.largeElement;
     locale = Locale(
-        settings.language!.substring(0, 2), settings.language!.substring(3));
+      settings.language!.substring(0, 2),
+      settings.language!.substring(3),
+    );
     timeRange = settings.timeRange ?? 1;
     timeStart = settings.timeStart ?? '09:00';
     timeEnd = settings.timeEnd ?? '21:00';
@@ -299,34 +307,65 @@ class _MyAppState extends State<MyApp> {
       child: DynamicColorBuilder(
         builder: (lightColorScheme, darkColorScheme) {
           final lightMaterialTheme = lightTheme(
-              lightColorScheme?.surface, lightColorScheme, edgeToEdgeAvailable);
+            lightColorScheme?.surface,
+            lightColorScheme,
+            edgeToEdgeAvailable,
+          );
           final darkMaterialTheme = darkTheme(
-              darkColorScheme?.surface, darkColorScheme, edgeToEdgeAvailable);
-          final darkMaterialThemeOled =
-              darkTheme(oledColor, darkColorScheme, edgeToEdgeAvailable);
+            darkColorScheme?.surface,
+            darkColorScheme,
+            edgeToEdgeAvailable,
+          );
+          final darkMaterialThemeOled = darkTheme(
+            oledColor,
+            darkColorScheme,
+            edgeToEdgeAvailable,
+          );
 
           return GetMaterialApp(
             themeMode: themeController.theme,
-            theme: materialColor
-                ? lightColorScheme != null
-                    ? lightMaterialTheme
+            theme:
+                materialColor
+                    ? lightColorScheme != null
+                        ? lightMaterialTheme
+                        : lightTheme(
+                          lightColor,
+                          colorSchemeLight,
+                          edgeToEdgeAvailable,
+                        )
                     : lightTheme(
-                        lightColor, colorSchemeLight, edgeToEdgeAvailable)
-                : lightTheme(lightColor, colorSchemeLight, edgeToEdgeAvailable),
-            darkTheme: amoledTheme
-                ? materialColor
-                    ? darkColorScheme != null
-                        ? darkMaterialThemeOled
+                      lightColor,
+                      colorSchemeLight,
+                      edgeToEdgeAvailable,
+                    ),
+            darkTheme:
+                amoledTheme
+                    ? materialColor
+                        ? darkColorScheme != null
+                            ? darkMaterialThemeOled
+                            : darkTheme(
+                              oledColor,
+                              colorSchemeDark,
+                              edgeToEdgeAvailable,
+                            )
                         : darkTheme(
-                            oledColor, colorSchemeDark, edgeToEdgeAvailable)
-                    : darkTheme(oledColor, colorSchemeDark, edgeToEdgeAvailable)
-                : materialColor
+                          oledColor,
+                          colorSchemeDark,
+                          edgeToEdgeAvailable,
+                        )
+                    : materialColor
                     ? darkColorScheme != null
                         ? darkMaterialTheme
                         : darkTheme(
-                            darkColor, colorSchemeDark, edgeToEdgeAvailable)
+                          darkColor,
+                          colorSchemeDark,
+                          edgeToEdgeAvailable,
+                        )
                     : darkTheme(
-                        darkColor, colorSchemeDark, edgeToEdgeAvailable),
+                      darkColor,
+                      colorSchemeDark,
+                      edgeToEdgeAvailable,
+                    ),
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
@@ -338,14 +377,15 @@ class _MyAppState extends State<MyApp> {
             supportedLocales:
                 appLanguages.map((e) => e['locale'] as Locale).toList(),
             debugShowCheckedModeBanner: false,
-            home: settings.onboard
-                ? (locationCache.city == null) ||
-                        (locationCache.district == null) ||
-                        (locationCache.lat == null) ||
-                        (locationCache.lon == null)
-                    ? const SelectGeolocation(isStart: true)
-                    : const HomePage()
-                : const OnBording(),
+            home:
+                settings.onboard
+                    ? (locationCache.city == null) ||
+                            (locationCache.district == null) ||
+                            (locationCache.lat == null) ||
+                            (locationCache.lon == null)
+                        ? const SelectGeolocation(isStart: true)
+                        : const HomePage()
+                    : const OnBording(),
             title: 'Rain',
           );
         },
