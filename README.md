@@ -1,15 +1,15 @@
 <div align='center'>
-<img src='/assets/icons/icon.png' width='150'/>
-<h2>🌦️ Rain</h2>
+    <img src='/readme/icon.png' width='150'/>
+    <h2>🌦️ Rain</h2>
 </div>
 
 <p align='center'>
- <p align='center'>
-    <a href='https://github.com/darkmoonight/Rain/stargazers'><img alt='Stars' src='https://img.shields.io/github/stars/darkmoonight/Rain?color=abc0d3'/></a>
-    <a href='https://github.com/darkmoonight/Rain/forks'><img alt='Forks' src='https://img.shields.io/github/forks/darkmoonight/Rain?color=abc0d3'/></a>
-    <a href='https://github.com/darkmoonight/Rain/releases'><img alt='GitHub release' src='https://img.shields.io/github/v/release/darkmoonight/Rain?color=abc0d3'/></a>
-    <a href='https://github.com/darkmoonight/Rain/blob/main/LICENSE'><img alt='License' src='https://img.shields.io/github/license/darkmoonight/Rain?color=abc0d3'/></a>
- </p>
+    <p align='center'>
+        <a href='https://github.com/darkmoonight/Rain/stargazers'><img alt='Stars' src='https://img.shields.io/github/stars/darkmoonight/Rain?color=abc0d3'/></a>
+        <a href='https://github.com/darkmoonight/Rain/forks'><img alt='Forks' src='https://img.shields.io/github/forks/darkmoonight/Rain?color=abc0d3'/></a>
+        <a href='https://github.com/darkmoonight/Rain/releases'><img alt='GitHub release' src='https://img.shields.io/github/v/release/darkmoonight/Rain?color=abc0d3'/></a>
+        <a href='https://github.com/darkmoonight/Rain/blob/main/LICENSE'><img alt='License' src='https://img.shields.io/github/license/darkmoonight/Rain?color=abc0d3'/></a>
+    </p>
 </p>
 
 <p align='center'> Tired of unpredictable weather? Rain's got you covered! Get ready for any forecast. 🌦️ </p>
@@ -62,5 +62,5 @@ This project is licensed under the [MIT License](./LICENSE).
 ### 👨‍💻 Our Contributors
 
 <a href='https://github.com/darkmoonight/Rain/graphs/contributors'>
-  <img src='https://contrib.rocks/image?repo=darkmoonight/Rain' />
+    <img src='https://contrib.rocks/image?repo=darkmoonight/Rain' />
 </a>
