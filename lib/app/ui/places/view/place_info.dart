@@ -12,10 +12,7 @@ import 'package:rain/app/ui/widgets/weather/sunset_sunrise.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class PlaceInfo extends StatefulWidget {
-  const PlaceInfo({
-    super.key,
-    required this.weatherCard,
-  });
+  const PlaceInfo({super.key, required this.weatherCard});
   final WeatherCard weatherCard;
 
   @override
@@ -37,10 +34,14 @@ class _PlaceInfoState extends State<PlaceInfo> {
   void getTime() {
     final weatherCard = widget.weatherCard;
 
-    timeNow =
-        weatherController.getTime(weatherCard.time!, weatherCard.timezone!);
-    dayNow =
-        weatherController.getDay(weatherCard.timeDaily!, weatherCard.timezone!);
+    timeNow = weatherController.getTime(
+      weatherCard.time!,
+      weatherCard.timezone!,
+    );
+    dayNow = weatherController.getDay(
+      weatherCard.timeDaily!,
+      weatherCard.timezone!,
+    );
     Future.delayed(const Duration(milliseconds: 30), () {
       itemScrollController.scrollTo(
         index: timeNow,
@@ -66,10 +67,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () => Get.back(),
-            icon: const Icon(
-              IconsaxPlusLinear.arrow_left_3,
-              size: 20,
-            ),
+            icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
           ),
           title: Text(
             weatherCard.district!.isNotEmpty
@@ -100,8 +98,10 @@ class _PlaceInfoState extends State<PlaceInfo> {
                 Card(
                   margin: const EdgeInsets.only(bottom: 15),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
                     child: SizedBox(
                       height: 135,
                       child: ScrollablePositionedList.separated(
@@ -116,35 +116,42 @@ class _PlaceInfoState extends State<PlaceInfo> {
                         scrollDirection: Axis.horizontal,
                         itemScrollController: itemScrollController,
                         itemCount: weatherCard.time!.length,
-                        itemBuilder: (ctx, i) => GestureDetector(
-                          onTap: () {
-                            timeNow = i;
-                            dayNow = (i / 24).floor();
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(vertical: 5),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: i == timeNow
-                                  ? context.theme.colorScheme.secondaryContainer
-                                  : Colors.transparent,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
+                        itemBuilder:
+                            (ctx, i) => GestureDetector(
+                              onTap: () {
+                                timeNow = i;
+                                dayNow = (i / 24).floor();
+                                setState(() {});
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 5),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 5,
+                                ),
+                                decoration: BoxDecoration(
+                                  color:
+                                      i == timeNow
+                                          ? context
+                                              .theme
+                                              .colorScheme
+                                              .secondaryContainer
+                                          : Colors.transparent,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                child: Hourly(
+                                  time: weatherCard.time![i],
+                                  weather: weatherCard.weathercode![i],
+                                  degree: weatherCard.temperature2M![i],
+                                  timeDay:
+                                      weatherCard.sunrise![(i / 24).floor()],
+                                  timeNight:
+                                      weatherCard.sunset![(i / 24).floor()],
+                                ),
                               ),
                             ),
-                            child: Hourly(
-                              time: weatherCard.time![i],
-                              weather: weatherCard.weathercode![i],
-                              degree: weatherCard.temperature2M![i],
-                              timeDay: weatherCard.sunrise![(i / 24).floor()],
-                              timeNight: weatherCard.sunset![(i / 24).floor()],
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ),
@@ -175,12 +182,11 @@ class _PlaceInfoState extends State<PlaceInfo> {
                 ),
                 DailyContainer(
                   weatherData: weatherCard,
-                  onTap: () => Get.to(
-                    () => DailyCardList(
-                      weatherData: weatherCard,
-                    ),
-                    transition: Transition.downToUp,
-                  ),
+                  onTap:
+                      () => Get.to(
+                        () => DailyCardList(weatherData: weatherCard),
+                        transition: Transition.downToUp,
+                      ),
                 ),
               ],
             ),

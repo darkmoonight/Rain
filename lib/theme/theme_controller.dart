@@ -4,9 +4,10 @@ import 'package:rain/app/data/db.dart';
 import 'package:rain/main.dart';
 
 class ThemeController extends GetxController {
-  ThemeMode get theme => settings.theme == 'system'
-      ? ThemeMode.system
-      : settings.theme == 'dark'
+  ThemeMode get theme =>
+      settings.theme == 'system'
+          ? ThemeMode.system
+          : settings.theme == 'dark'
           ? ThemeMode.dark
           : ThemeMode.light;
 

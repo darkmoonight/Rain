@@ -64,16 +64,14 @@ class _DailyCardInfoState extends State<DailyCardInfo> {
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(
-            IconsaxPlusLinear.arrow_left_3,
-            size: 20,
-          ),
+          icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
         ),
         title: Text(
-          DateFormat.MMMMEEEEd(locale.languageCode)
-              .format(timeDaily[pageIndex]),
+          DateFormat.MMMMEEEEd(
+            locale.languageCode,
+          ).format(timeDaily[pageIndex]),
           style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: 18,
@@ -115,133 +113,145 @@ class _DailyCardInfoState extends State<DailyCardInfo> {
             return indexedWeatherCodeDaily == null
                 ? null
                 : Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: ListView(
-                      children: [
-                        Now(
-                          weather:
-                              weatherData.weathercode![startIndex + hourOfDay],
-                          degree: weatherData
-                              .temperature2M![startIndex + hourOfDay],
-                          feels: weatherData
-                              .apparentTemperature![startIndex + hourOfDay]!,
-                          time: weatherData.time![startIndex + hourOfDay],
-                          timeDay: sunrise,
-                          timeNight: sunset,
-                          tempMax: temperature2MMax!,
-                          tempMin: temperature2MMin!,
-                        ),
-                        Card(
-                          margin: const EdgeInsets.only(bottom: 15),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            child: SizedBox(
-                              height: 135,
-                              child: ScrollablePositionedList.separated(
-                                separatorBuilder:
-                                    (BuildContext context, int index) {
-                                  return const VerticalDivider(
-                                    width: 10,
-                                    indent: 40,
-                                    endIndent: 40,
-                                  );
-                                },
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 24,
-                                itemBuilder: (ctx, i) {
-                                  int hourlyIndex = startIndex + i;
-                                  return GestureDetector(
-                                    onTap: () {
-                                      hourOfDay = i;
-                                      setState(() {});
-                                    },
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                        vertical: 5,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: i == hourOfDay
-                                            ? context.theme.colorScheme
-                                                .secondaryContainer
-                                            : Colors.transparent,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(20),
-                                        ),
-                                      ),
-                                      child: Hourly(
-                                        time: weatherData.time![hourlyIndex],
-                                        weather: weatherData
-                                            .weathercode![hourlyIndex],
-                                        degree: weatherData
-                                            .temperature2M![hourlyIndex],
-                                        timeDay: sunrise,
-                                        timeNight: sunset,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ListView(
+                    children: [
+                      Now(
+                        weather:
+                            weatherData.weathercode![startIndex + hourOfDay],
+                        degree:
+                            weatherData.temperature2M![startIndex + hourOfDay],
+                        feels:
+                            weatherData.apparentTemperature![startIndex +
+                                hourOfDay]!,
+                        time: weatherData.time![startIndex + hourOfDay],
+                        timeDay: sunrise,
+                        timeNight: sunset,
+                        tempMax: temperature2MMax!,
+                        tempMin: temperature2MMin!,
+                      ),
+                      Card(
+                        margin: const EdgeInsets.only(bottom: 15),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          child: SizedBox(
+                            height: 135,
+                            child: ScrollablePositionedList.separated(
+                              separatorBuilder: (
+                                BuildContext context,
+                                int index,
+                              ) {
+                                return const VerticalDivider(
+                                  width: 10,
+                                  indent: 40,
+                                  endIndent: 40,
+                                );
+                              },
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 24,
+                              itemBuilder: (ctx, i) {
+                                int hourlyIndex = startIndex + i;
+                                return GestureDetector(
+                                  onTap: () {
+                                    hourOfDay = i;
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 5,
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 5,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          i == hourOfDay
+                                              ? context
+                                                  .theme
+                                                  .colorScheme
+                                                  .secondaryContainer
+                                              : Colors.transparent,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(20),
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
+                                    child: Hourly(
+                                      time: weatherData.time![hourlyIndex],
+                                      weather:
+                                          weatherData.weathercode![hourlyIndex],
+                                      degree:
+                                          weatherData
+                                              .temperature2M![hourlyIndex],
+                                      timeDay: sunrise,
+                                      timeNight: sunset,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
-                        SunsetSunrise(
-                          timeSunrise: sunrise,
-                          timeSunset: sunset,
-                        ),
-                        DescContainer(
-                          humidity: weatherData
-                              .relativehumidity2M?[startIndex + hourOfDay],
-                          wind:
-                              weatherData.windspeed10M?[startIndex + hourOfDay],
-                          visibility:
-                              weatherData.visibility?[startIndex + hourOfDay],
-                          feels: weatherData
-                              .apparentTemperature?[startIndex + hourOfDay],
-                          evaporation: weatherData
-                              .evapotranspiration?[startIndex + hourOfDay],
-                          precipitation: weatherData
-                              .precipitation?[startIndex + hourOfDay],
-                          direction: weatherData
-                              .winddirection10M?[startIndex + hourOfDay],
-                          pressure: weatherData
-                              .surfacePressure?[startIndex + hourOfDay],
-                          rain: weatherData.rain?[startIndex + hourOfDay],
-                          cloudcover:
-                              weatherData.cloudcover?[startIndex + hourOfDay],
-                          windgusts:
-                              weatherData.windgusts10M?[startIndex + hourOfDay],
-                          uvIndex: weatherData.uvIndex?[startIndex + hourOfDay],
-                          dewpoint2M:
-                              weatherData.dewpoint2M?[startIndex + hourOfDay],
-                          precipitationProbability:
-                              weatherData.precipitationProbability?[
-                                  startIndex + hourOfDay],
-                          shortwaveRadiation: weatherData
-                              .shortwaveRadiation?[startIndex + hourOfDay],
-                          initiallyExpanded: true,
-                          title: 'hourlyVariables'.tr,
-                        ),
-                        DescContainer(
-                          apparentTemperatureMin: apparentTemperatureMin,
-                          apparentTemperatureMax: apparentTemperatureMax,
-                          uvIndexMax: uvIndexMax,
-                          windDirection10MDominant: windDirection10MDominant,
-                          windSpeed10MMax: windSpeed10MMax,
-                          windGusts10MMax: windGusts10MMax,
-                          precipitationProbabilityMax:
-                              precipitationProbabilityMax,
-                          rainSum: rainSum,
-                          precipitationSum: precipitationSum,
-                          initiallyExpanded: true,
-                          title: 'dailyVariables'.tr,
-                        ),
-                      ],
-                    ),
-                  );
+                      ),
+                      SunsetSunrise(timeSunrise: sunrise, timeSunset: sunset),
+                      DescContainer(
+                        humidity:
+                            weatherData.relativehumidity2M?[startIndex +
+                                hourOfDay],
+                        wind: weatherData.windspeed10M?[startIndex + hourOfDay],
+                        visibility:
+                            weatherData.visibility?[startIndex + hourOfDay],
+                        feels:
+                            weatherData.apparentTemperature?[startIndex +
+                                hourOfDay],
+                        evaporation:
+                            weatherData.evapotranspiration?[startIndex +
+                                hourOfDay],
+                        precipitation:
+                            weatherData.precipitation?[startIndex + hourOfDay],
+                        direction:
+                            weatherData.winddirection10M?[startIndex +
+                                hourOfDay],
+                        pressure:
+                            weatherData.surfacePressure?[startIndex +
+                                hourOfDay],
+                        rain: weatherData.rain?[startIndex + hourOfDay],
+                        cloudcover:
+                            weatherData.cloudcover?[startIndex + hourOfDay],
+                        windgusts:
+                            weatherData.windgusts10M?[startIndex + hourOfDay],
+                        uvIndex: weatherData.uvIndex?[startIndex + hourOfDay],
+                        dewpoint2M:
+                            weatherData.dewpoint2M?[startIndex + hourOfDay],
+                        precipitationProbability:
+                            weatherData.precipitationProbability?[startIndex +
+                                hourOfDay],
+                        shortwaveRadiation:
+                            weatherData.shortwaveRadiation?[startIndex +
+                                hourOfDay],
+                        initiallyExpanded: true,
+                        title: 'hourlyVariables'.tr,
+                      ),
+                      DescContainer(
+                        apparentTemperatureMin: apparentTemperatureMin,
+                        apparentTemperatureMax: apparentTemperatureMax,
+                        uvIndexMax: uvIndexMax,
+                        windDirection10MDominant: windDirection10MDominant,
+                        windSpeed10MMax: windSpeed10MMax,
+                        windGusts10MMax: windGusts10MMax,
+                        precipitationProbabilityMax:
+                            precipitationProbabilityMax,
+                        rainSum: rainSum,
+                        precipitationSum: precipitationSum,
+                        initiallyExpanded: true,
+                        title: 'dailyVariables'.tr,
+                      ),
+                    ],
+                  ),
+                );
           },
         ),
       ),

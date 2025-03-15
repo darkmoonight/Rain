@@ -37,16 +37,13 @@ class _HourlyState extends State<Hourly> {
       children: [
         Column(
           children: [
+            Text(statusData.getTimeFormat(time), style: textTheme.labelLarge),
             Text(
-              statusData.getTimeFormat(time),
-              style: textTheme.labelLarge,
-            ),
-            Text(
-              DateFormat('E', locale.languageCode)
-                  .format(DateTime.tryParse(time)!),
-              style: textTheme.labelLarge?.copyWith(
-                color: Colors.grey,
-              ),
+              DateFormat(
+                'E',
+                locale.languageCode,
+              ).format(DateTime.tryParse(time)!),
+              style: textTheme.labelLarge?.copyWith(color: Colors.grey),
             ),
           ],
         ),
@@ -61,9 +58,7 @@ class _HourlyState extends State<Hourly> {
         ),
         Text(
           statusData.getDegree(widget.degree.round()),
-          style: textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+          style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
         ),
       ],
     );

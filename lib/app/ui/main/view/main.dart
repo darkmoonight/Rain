@@ -35,9 +35,7 @@ class _MainPageState extends State<MainPage> {
           if (weatherController.isLoading.isTrue) {
             return ListView(
               children: const [
-                MyShimmer(
-                  hight: 200,
-                ),
+                MyShimmer(hight: 200),
                 MyShimmer(
                   hight: 130,
                   edgeInsetsMargin: EdgeInsets.symmetric(vertical: 15),
@@ -53,7 +51,7 @@ class _MainPageState extends State<MainPage> {
                 MyShimmer(
                   hight: 450,
                   edgeInsetsMargin: EdgeInsets.only(bottom: 15),
-                )
+                ),
               ],
             );
           }
@@ -82,8 +80,10 @@ class _MainPageState extends State<MainPage> {
               Card(
                 margin: const EdgeInsets.only(bottom: 15),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   child: SizedBox(
                     height: 135,
                     child: ScrollablePositionedList.separated(
@@ -115,9 +115,13 @@ class _MainPageState extends State<MainPage> {
                               vertical: 5,
                             ),
                             decoration: BoxDecoration(
-                              color: i == hourOfDay
-                                  ? context.theme.colorScheme.secondaryContainer
-                                  : Colors.transparent,
+                              color:
+                                  i == hourOfDay
+                                      ? context
+                                          .theme
+                                          .colorScheme
+                                          .secondaryContainer
+                                      : Colors.transparent,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               ),
@@ -136,10 +140,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
               ),
-              SunsetSunrise(
-                timeSunrise: sunrise,
-                timeSunset: sunset,
-              ),
+              SunsetSunrise(timeSunrise: sunrise, timeSunset: sunset),
               DescContainer(
                 humidity: mainWeather.relativehumidity2M?[hourOfDay],
                 wind: mainWeather.windspeed10M?[hourOfDay],
@@ -162,13 +163,12 @@ class _MainPageState extends State<MainPage> {
               ),
               DailyContainer(
                 weatherData: weatherCard,
-                onTap: () => Get.to(
-                  () => DailyCardList(
-                    weatherData: weatherCard,
-                  ),
-                  transition: Transition.downToUp,
-                ),
-              )
+                onTap:
+                    () => Get.to(
+                      () => DailyCardList(weatherData: weatherCard),
+                      transition: Transition.downToUp,
+                    ),
+              ),
             ],
           );
         }),

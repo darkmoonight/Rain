@@ -54,10 +54,15 @@ class _PlaceCardState extends State<PlaceCard> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        statusData.getDegree(widget.degree[weatherController
-                                .getTime(widget.time, widget.timezone)]
-                            .round()
-                            .toInt()),
+                        statusData.getDegree(
+                          widget
+                              .degree[weatherController.getTime(
+                                widget.time,
+                                widget.timezone,
+                              )]
+                              .round()
+                              .toInt(),
+                        ),
                         style: context.textTheme.titleLarge?.copyWith(
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
@@ -65,8 +70,12 @@ class _PlaceCardState extends State<PlaceCard> {
                       ),
                       const Gap(7),
                       Text(
-                        statusWeather.getText(widget.weather[weatherController
-                            .getTime(widget.time, widget.timezone)]),
+                        statusWeather.getText(
+                          widget.weather[weatherController.getTime(
+                            widget.time,
+                            widget.timezone,
+                          )],
+                        ),
                         style: context.textTheme.titleMedium?.copyWith(
                           color: Colors.grey,
                           fontWeight: FontWeight.w400,
@@ -79,11 +88,11 @@ class _PlaceCardState extends State<PlaceCard> {
                     widget.district.isEmpty
                         ? widget.city
                         : widget.city.isEmpty
-                            ? widget.district
-                            : widget.city == widget.district
-                                ? widget.city
-                                : '${widget.city}'
-                                    ', ${widget.district}',
+                        ? widget.district
+                        : widget.city == widget.district
+                        ? widget.city
+                        : '${widget.city}'
+                            ', ${widget.district}',
                     style: context.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
@@ -107,14 +116,23 @@ class _PlaceCardState extends State<PlaceCard> {
             const Gap(5),
             Image.asset(
               statusWeather.getImageNow(
-                  widget.weather[
-                      weatherController.getTime(widget.time, widget.timezone)],
-                  widget.time[
-                      weatherController.getTime(widget.time, widget.timezone)],
-                  widget.timeDay[weatherController.getDay(
-                      widget.timeDaily, widget.timezone)],
-                  widget.timeNight[weatherController.getDay(
-                      widget.timeDaily, widget.timezone)]),
+                widget.weather[weatherController.getTime(
+                  widget.time,
+                  widget.timezone,
+                )],
+                widget.time[weatherController.getTime(
+                  widget.time,
+                  widget.timezone,
+                )],
+                widget.timeDay[weatherController.getDay(
+                  widget.timeDaily,
+                  widget.timezone,
+                )],
+                widget.timeNight[weatherController.getDay(
+                  widget.timeDaily,
+                  widget.timezone,
+                )],
+              ),
               scale: 6.5,
             ),
           ],

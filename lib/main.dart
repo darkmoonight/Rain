@@ -33,7 +33,7 @@ final ValueNotifier<Future<bool>> isOnline = ValueNotifier(
   InternetConnection().hasInternetAccess,
 );
 
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 bool amoledTheme = false;
@@ -47,35 +47,35 @@ String timeEnd = '21:00';
 String widgetBackgroundColor = '';
 String widgetTextColor = '';
 
-final List appLanguages = [
-  {'name': 'বাংলা', 'locale': const Locale('bn', 'IN')},
-  {'name': 'Čeština', 'locale': const Locale('cs', 'CZ')},
-  {'name': 'Dansk', 'locale': const Locale('da', 'DK')},
-  {'name': 'Deutsch', 'locale': const Locale('de', 'DE')},
-  {'name': 'English', 'locale': const Locale('en', 'US')},
-  {'name': 'Español', 'locale': const Locale('es', 'ES')},
-  {'name': 'Français', 'locale': const Locale('fr', 'FR')},
-  // {'name': 'Gaeilge', 'locale': const Locale('ga', 'IE')},
-  {'name': 'हिन्दी', 'locale': const Locale('hi', 'IN')},
-  {'name': 'Magyar', 'locale': const Locale('hu', 'HU')},
-  {'name': 'Italiano', 'locale': const Locale('it', 'IT')},
-  {'name': '한국어', 'locale': const Locale('ko', 'KR')},
-  {'name': 'فارسی', 'locale': const Locale('fa', 'IR')},
-  {'name': 'ქართული', 'locale': const Locale('ka', 'GE')},
-  {'name': 'Nederlands', 'locale': const Locale('nl', 'NL')},
-  {'name': 'Polski', 'locale': const Locale('pl', 'PL')},
-  {'name': 'Português (Brasil)', 'locale': const Locale('pt', 'BR')},
-  {'name': 'Română', 'locale': const Locale('ro', 'RO')},
-  {'name': 'Русский', 'locale': const Locale('ru', 'RU')},
-  {'name': 'Slovenčina', 'locale': const Locale('sk', 'SK')},
-  {'name': 'Türkçe', 'locale': const Locale('tr', 'TR')},
-  {'name': 'اردو', 'locale': const Locale('ur', 'PK')},
-  {'name': '中文(简体)', 'locale': const Locale('zh', 'CN')},
-  {'name': '中文(繁體)', 'locale': const Locale('zh', 'TW')},
-];
-
 const String appGroupId = 'DARK NIGHT';
 const String androidWidgetName = 'OreoWidget';
+
+const List<Map<String, dynamic>> appLanguages = [
+  {'name': 'বাংলা', 'locale': Locale('bn', 'IN')},
+  {'name': 'Čeština', 'locale': Locale('cs', 'CZ')},
+  {'name': 'Dansk', 'locale': Locale('da', 'DK')},
+  {'name': 'Deutsch', 'locale': Locale('de', 'DE')},
+  {'name': 'English', 'locale': Locale('en', 'US')},
+  {'name': 'Español', 'locale': Locale('es', 'ES')},
+  {'name': 'Français', 'locale': Locale('fr', 'FR')},
+  // {'name': 'Gaeilge', 'locale':  Locale('ga', 'IE')},
+  {'name': 'हिन्दी', 'locale': Locale('hi', 'IN')},
+  {'name': 'Magyar', 'locale': Locale('hu', 'HU')},
+  {'name': 'Italiano', 'locale': Locale('it', 'IT')},
+  {'name': '한국어', 'locale': Locale('ko', 'KR')},
+  {'name': 'فارسی', 'locale': Locale('fa', 'IR')},
+  {'name': 'ქართული', 'locale': Locale('ka', 'GE')},
+  {'name': 'Nederlands', 'locale': Locale('nl', 'NL')},
+  {'name': 'Polski', 'locale': Locale('pl', 'PL')},
+  {'name': 'Português (Brasil)', 'locale': Locale('pt', 'BR')},
+  {'name': 'Română', 'locale': Locale('ro', 'RO')},
+  {'name': 'Русский', 'locale': Locale('ru', 'RU')},
+  {'name': 'Slovenčina', 'locale': Locale('sk', 'SK')},
+  {'name': 'Türkçe', 'locale': Locale('tr', 'TR')},
+  {'name': 'اردو', 'locale': Locale('ur', 'PK')},
+  {'name': '中文(简体)', 'locale': Locale('zh', 'CN')},
+  {'name': '中文(繁體)', 'locale': Locale('zh', 'TW')},
+];
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
@@ -85,59 +85,40 @@ void callbackDispatcher() {
 }
 
 void main() async {
-  final String timeZoneName;
   WidgetsFlutterBinding.ensureInitialized();
-  Connectivity().onConnectivityChanged.listen((
-    List<ConnectivityResult> result,
-  ) {
-    result.contains(ConnectivityResult.none)
-        ? isOnline.value = Future(() => false)
-        : isOnline.value = InternetConnection().hasInternetAccess;
-  });
-  DeviceFeature().init();
-  if (Platform.isAndroid) {
-    Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
-    await setOptimalDisplayMode();
-  }
-  timeZoneName = await FlutterTimezone.getLocalTimezone();
-  tz.initializeTimeZones();
-  tz.setLocalLocation(tz.getLocation(timeZoneName));
-  await isarInit();
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-  const DarwinInitializationSettings initializationSettingsDarwin =
-      DarwinInitializationSettings();
-  const LinuxInitializationSettings initializationSettingsLinux =
-      LinuxInitializationSettings(defaultActionName: 'Rain');
-  const InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsDarwin,
-    linux: initializationSettingsLinux,
-  );
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  await _initializeApp();
   runApp(const MyApp());
 }
 
-Future<void> setOptimalDisplayMode() async {
-  final List<DisplayMode> supported = await FlutterDisplayMode.supported;
-  final DisplayMode active = await FlutterDisplayMode.active;
-  final List<DisplayMode> sameResolution =
-      supported
-          .where(
-            (DisplayMode m) =>
-                m.width == active.width && m.height == active.height,
-          )
-          .toList()
-        ..sort(
-          (DisplayMode a, DisplayMode b) =>
-              b.refreshRate.compareTo(a.refreshRate),
-        );
-  final DisplayMode mostOptimalMode =
-      sameResolution.isNotEmpty ? sameResolution.first : active;
-  await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
+Future<void> _initializeApp() async {
+  _setupConnectivityListener();
+  await _initializeTimeZone();
+  await _initializeIsar();
+  await _initializeNotifications();
+  if (Platform.isAndroid) {
+    await _setOptimalDisplayMode();
+    Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
+    HomeWidget.setAppGroupId(appGroupId);
+  }
+  DeviceFeature().init();
 }
 
-Future<void> isarInit() async {
+void _setupConnectivityListener() {
+  Connectivity().onConnectivityChanged.listen((result) {
+    isOnline.value =
+        result.contains(ConnectivityResult.none)
+            ? Future.value(false)
+            : InternetConnection().hasInternetAccess;
+  });
+}
+
+Future<void> _initializeTimeZone() async {
+  final timeZoneName = await FlutterTimezone.getLocalTimezone();
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
+}
+
+Future<void> _initializeIsar() async {
   isar = await Isar.open([
     SettingsSchema,
     MainWeatherCacheSchema,
@@ -159,6 +140,28 @@ Future<void> isarInit() async {
   }
 }
 
+Future<void> _initializeNotifications() async {
+  const initializationSettings = InitializationSettings(
+    android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+    iOS: DarwinInitializationSettings(),
+    linux: LinuxInitializationSettings(defaultActionName: 'Rain'),
+  );
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+}
+
+Future<void> _setOptimalDisplayMode() async {
+  final supported = await FlutterDisplayMode.supported;
+  final active = await FlutterDisplayMode.active;
+  final sameResolution =
+      supported
+          .where((m) => m.width == active.width && m.height == active.height)
+          .toList()
+        ..sort((a, b) => b.refreshRate.compareTo(a.refreshRate));
+  final mostOptimalMode =
+      sameResolution.isNotEmpty ? sameResolution.first : active;
+  await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
+}
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -177,30 +180,14 @@ class MyApp extends StatefulWidget {
   }) async {
     final state = context.findAncestorStateOfType<_MyAppState>()!;
 
-    if (newAmoledTheme != null) {
-      state.changeAmoledTheme(newAmoledTheme);
-    }
-    if (newMaterialColor != null) {
-      state.changeMarerialTheme(newMaterialColor);
-    }
-    if (newRoundDegree != null) {
-      state.changeRoundDegree(newRoundDegree);
-    }
-    if (newLargeElement != null) {
-      state.changeLargeElement(newLargeElement);
-    }
-    if (newLocale != null) {
-      state.changeLocale(newLocale);
-    }
-    if (newTimeRange != null) {
-      state.changeTimeRange(newTimeRange);
-    }
-    if (newTimeStart != null) {
-      state.changeTimeStart(newTimeStart);
-    }
-    if (newTimeEnd != null) {
-      state.changeTimeEnd(newTimeEnd);
-    }
+    if (newAmoledTheme != null) state.changeAmoledTheme(newAmoledTheme);
+    if (newMaterialColor != null) state.changeMarerialTheme(newMaterialColor);
+    if (newRoundDegree != null) state.changeRoundDegree(newRoundDegree);
+    if (newLargeElement != null) state.changeLargeElement(newLargeElement);
+    if (newLocale != null) state.changeLocale(newLocale);
+    if (newTimeRange != null) state.changeTimeRange(newTimeRange);
+    if (newTimeStart != null) state.changeTimeStart(newTimeStart);
+    if (newTimeEnd != null) state.changeTimeEnd(newTimeEnd);
     if (newWidgetBackgroundColor != null) {
       state.changeWidgetBackgroundColor(newWidgetBackgroundColor);
     }
@@ -216,68 +203,28 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final themeController = Get.put(ThemeController());
 
-  void changeAmoledTheme(bool newAmoledTheme) {
-    setState(() {
-      amoledTheme = newAmoledTheme;
-    });
-  }
-
-  void changeMarerialTheme(bool newMaterialColor) {
-    setState(() {
-      materialColor = newMaterialColor;
-    });
-  }
-
-  void changeRoundDegree(bool newRoundDegree) {
-    setState(() {
-      roundDegree = newRoundDegree;
-    });
-  }
-
-  void changeLargeElement(bool newLargeElement) {
-    setState(() {
-      largeElement = newLargeElement;
-    });
-  }
-
-  void changeTimeRange(int newTimeRange) {
-    setState(() {
-      timeRange = newTimeRange;
-    });
-  }
-
-  void changeTimeStart(String newTimeStart) {
-    setState(() {
-      timeStart = newTimeStart;
-    });
-  }
-
-  void changeTimeEnd(String newTimeEnd) {
-    setState(() {
-      timeEnd = newTimeEnd;
-    });
-  }
-
-  void changeLocale(Locale newLocale) {
-    setState(() {
-      locale = newLocale;
-    });
-  }
-
-  void changeWidgetBackgroundColor(String newWidgetBackgroundColor) {
-    setState(() {
-      widgetBackgroundColor = newWidgetBackgroundColor;
-    });
-  }
-
-  void changeWidgetTextColor(String newWidgetTextColor) {
-    setState(() {
-      widgetTextColor = newWidgetTextColor;
-    });
-  }
+  void changeAmoledTheme(bool newAmoledTheme) =>
+      setState(() => amoledTheme = newAmoledTheme);
+  void changeMarerialTheme(bool newMaterialColor) =>
+      setState(() => materialColor = newMaterialColor);
+  void changeRoundDegree(bool newRoundDegree) =>
+      setState(() => roundDegree = newRoundDegree);
+  void changeLargeElement(bool newLargeElement) =>
+      setState(() => largeElement = newLargeElement);
+  void changeTimeRange(int newTimeRange) =>
+      setState(() => timeRange = newTimeRange);
+  void changeTimeStart(String newTimeStart) =>
+      setState(() => timeStart = newTimeStart);
+  void changeTimeEnd(String newTimeEnd) => setState(() => timeEnd = newTimeEnd);
+  void changeLocale(Locale newLocale) => setState(() => locale = newLocale);
+  void changeWidgetBackgroundColor(String newWidgetBackgroundColor) =>
+      setState(() => widgetBackgroundColor = newWidgetBackgroundColor);
+  void changeWidgetTextColor(String newWidgetTextColor) =>
+      setState(() => widgetTextColor = newWidgetTextColor);
 
   @override
   void initState() {
+    super.initState();
     amoledTheme = settings.amoledTheme;
     materialColor = settings.materialColor;
     roundDegree = settings.roundDegree;
@@ -291,10 +238,6 @@ class _MyAppState extends State<MyApp> {
     timeEnd = settings.timeEnd ?? '21:00';
     widgetBackgroundColor = settings.widgetBackgroundColor ?? '';
     widgetTextColor = settings.widgetTextColor ?? '';
-    if (Platform.isAndroid) {
-      HomeWidget.setAppGroupId(appGroupId);
-    }
-    super.initState();
   }
 
   @override
@@ -379,10 +322,10 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             home:
                 settings.onboard
-                    ? (locationCache.city == null) ||
-                            (locationCache.district == null) ||
-                            (locationCache.lat == null) ||
-                            (locationCache.lon == null)
+                    ? (locationCache.city == null ||
+                            locationCache.district == null ||
+                            locationCache.lat == null ||
+                            locationCache.lon == null)
                         ? const SelectGeolocation(isStart: true)
                         : const HomePage()
                     : const OnBording(),

@@ -35,14 +35,12 @@ class _DescWeatherState extends State<DescWeather> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                widget.imageName,
-                scale: 20,
-              ),
+              Image.asset(widget.imageName, scale: 20),
               const Gap(5),
               Text(
                 widget.value,
                 style: textTheme.labelLarge,
+                overflow: TextOverflow.ellipsis,
               ),
               Expanded(
                 child: Text(

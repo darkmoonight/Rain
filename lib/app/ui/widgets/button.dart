@@ -19,13 +19,11 @@ class MyTextButton extends StatelessWidget {
         style: ButtonStyle(
           shadowColor: const WidgetStatePropertyAll(Colors.transparent),
           backgroundColor: WidgetStatePropertyAll(
-              context.theme.colorScheme.secondaryContainer.withAlpha(80)),
+            context.theme.colorScheme.secondaryContainer.withAlpha(80),
+          ),
         ),
         onPressed: onPressed,
-        child: Text(
-          buttonName,
-          style: context.textTheme.titleMedium,
-        ),
+        child: Text(buttonName, style: context.textTheme.titleMedium),
       ),
     );
   }

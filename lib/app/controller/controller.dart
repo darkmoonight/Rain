@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -53,15 +52,14 @@ class WeatherController extends GetxController {
 
   @override
   void onInit() {
-    weatherCards
-        .assignAll(isar.weatherCards.where().sortByIndex().findAllSync());
+    weatherCards.assignAll(
+      isar.weatherCards.where().sortByIndex().findAllSync(),
+    );
     super.onInit();
   }
 
-  Future<Position> determinePosition() async {
-    LocationPermission permission;
-
-    permission = await Geolocator.checkPermission();
+  Future<Position> _determinePosition() async {
+    LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
@@ -71,7 +69,8 @@ class WeatherController extends GetxController {
 
     if (permission == LocationPermission.deniedForever) {
       return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+        'Location permissions are permanently denied, we cannot request permissions.',
+      );
     }
     return await Geolocator.getCurrentPosition();
   }
@@ -80,25 +79,26 @@ class WeatherController extends GetxController {
     if (settings.location) {
       await getCurrentLocation();
     } else {
-      if ((isar.locationCaches.where().findAllSync()).isNotEmpty) {
-        LocationCache locationCity =
-            (isar.locationCaches.where().findFirstSync())!;
-        await getLocation(locationCity.lat!, locationCity.lon!,
-            locationCity.district!, locationCity.city!);
+      final locationCity = isar.locationCaches.where().findFirstSync();
+      if (locationCity != null) {
+        await getLocation(
+          locationCity.lat!,
+          locationCity.lon!,
+          locationCity.district!,
+          locationCity.city!,
+        );
       }
     }
   }
 
   Future<void> getCurrentLocation() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
     if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
       await readCache();
       return;
     }
 
-    if (!serviceEnabled) {
+    if (!await Geolocator.isLocationServiceEnabled()) {
       showSnackBar(
         content: 'no_location'.tr,
         onPressed: () => Geolocator.openLocationSettings(),
@@ -107,70 +107,73 @@ class WeatherController extends GetxController {
       return;
     }
 
-    if ((isar.mainWeatherCaches.where().findAllSync()).isNotEmpty) {
+    if (isar.mainWeatherCaches.where().findAllSync().isNotEmpty) {
       await readCache();
       return;
     }
 
-    Position position = await determinePosition();
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-    Placemark place = placemarks[0];
+    final position = await _determinePosition();
+    final placemarks = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
+    final place = placemarks[0];
 
     _latitude.value = position.latitude;
     _longitude.value = position.longitude;
-    _district.value = '${place.administrativeArea}';
-    _city.value = '${place.locality}';
+    _district.value = place.administrativeArea ?? '';
+    _city.value = place.locality ?? '';
 
-    _mainWeather.value =
-        await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
+    _mainWeather.value = await WeatherAPI().getWeatherData(
+      _latitude.value,
+      _longitude.value,
+    );
 
     notificationCheck();
-
     await writeCache();
     await readCache();
   }
 
   Future<Map> getCurrentLocationSearch() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    double lat, lon;
-    String city, district;
-
     if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
     }
 
-    if (!serviceEnabled) {
+    if (!await Geolocator.isLocationServiceEnabled()) {
       showSnackBar(
         content: 'no_location'.tr,
         onPressed: () => Geolocator.openLocationSettings(),
       );
     }
 
-    Position position = await determinePosition();
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-    Placemark place = placemarks[0];
+    final position = await _determinePosition();
+    final placemarks = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
+    final place = placemarks[0];
 
-    lat = position.latitude;
-    lon = position.longitude;
-    city = '${place.administrativeArea}';
-    district = '${place.locality}';
-
-    Map location = {'lat': lat, 'lon': lon, 'city': city, 'district': district};
-
-    return location;
+    return {
+      'lat': position.latitude,
+      'lon': position.longitude,
+      'city': place.administrativeArea ?? '',
+      'district': place.locality ?? '',
+    };
   }
 
-  Future<void> getLocation(double latitude, double longitude, String district,
-      String locality) async {
+  Future<void> getLocation(
+    double latitude,
+    double longitude,
+    String district,
+    String locality,
+  ) async {
     if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
       await readCache();
       return;
     }
 
-    if ((isar.mainWeatherCaches.where().findAllSync()).isNotEmpty) {
+    if (isar.mainWeatherCaches.where().findAllSync().isNotEmpty) {
       await readCache();
       return;
     }
@@ -180,11 +183,12 @@ class WeatherController extends GetxController {
     _district.value = district;
     _city.value = locality;
 
-    _mainWeather.value =
-        await WeatherAPI().getWeatherData(_latitude.value, _longitude.value);
+    _mainWeather.value = await WeatherAPI().getWeatherData(
+      _latitude.value,
+      _longitude.value,
+    );
 
     notificationCheck();
-
     await writeCache();
     await readCache();
   }
@@ -201,10 +205,14 @@ class WeatherController extends GetxController {
     _mainWeather.value = mainWeatherCache;
     _location.value = locationCache;
 
-    hourOfDay.value =
-        getTime(_mainWeather.value.time!, _mainWeather.value.timezone!);
-    dayOfNow.value =
-        getDay(_mainWeather.value.timeDaily!, _mainWeather.value.timezone!);
+    hourOfDay.value = getTime(
+      _mainWeather.value.time!,
+      _mainWeather.value.timezone!,
+    );
+    dayOfNow.value = getDay(
+      _mainWeather.value.timeDaily!,
+      _mainWeather.value.timezone!,
+    );
 
     if (Platform.isAndroid) {
       Workmanager().registerPeriodicTask(
@@ -235,16 +243,10 @@ class WeatherController extends GetxController {
     );
 
     isar.writeTxnSync(() {
-      final mainWeatherCachesIsEmpty =
-          (isar.mainWeatherCaches.where().findAllSync()).isEmpty;
-      final locationCachesIsEmpty =
-          (isar.locationCaches.where().findAllSync()).isEmpty;
-
-      if (mainWeatherCachesIsEmpty) {
+      if (isar.mainWeatherCaches.where().findAllSync().isEmpty) {
         isar.mainWeatherCaches.putSync(_mainWeather.value);
       }
-
-      if (locationCachesIsEmpty) {
+      if (isar.locationCaches.where().findAllSync().isEmpty) {
         isar.locationCaches.putSync(locationCaches);
       }
     });
@@ -261,7 +263,7 @@ class WeatherController extends GetxController {
           .timestampLessThan(cacheExpiry)
           .deleteAllSync();
     });
-    if ((isar.mainWeatherCaches.where().findAllSync()).isEmpty) {
+    if (isar.mainWeatherCaches.where().findAllSync().isEmpty) {
       await flutterLocalNotificationsPlugin.cancelAll();
     }
   }
@@ -271,31 +273,39 @@ class WeatherController extends GetxController {
       return;
     }
 
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     await flutterLocalNotificationsPlugin.cancelAll();
 
     isar.writeTxnSync(() {
       if (!settings.location) {
         isar.mainWeatherCaches.where().deleteAllSync();
       }
-      if ((settings.location && serviceEnabled) || changeCity) {
+      if (settings.location && serviceEnabled || changeCity) {
         isar.mainWeatherCaches.where().deleteAllSync();
         isar.locationCaches.where().deleteAllSync();
       }
     });
   }
 
-  // Card Weather
   Future<void> addCardWeather(
-      double latitude, double longitude, String city, String district) async {
+    double latitude,
+    double longitude,
+    String city,
+    String district,
+  ) async {
     if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
       return;
     }
 
-    String tz = tzmap.latLngToTimezoneString(latitude, longitude);
-    _weatherCard.value = await WeatherAPI()
-        .getWeatherCard(latitude, longitude, city, district, tz);
+    final tz = tzmap.latLngToTimezoneString(latitude, longitude);
+    _weatherCard.value = await WeatherAPI().getWeatherCard(
+      latitude,
+      longitude,
+      city,
+      district,
+      tz,
+    );
     isar.writeTxnSync(() {
       weatherCards.add(_weatherCard.value);
       isar.weatherCards.putSync(_weatherCard.value);
@@ -303,21 +313,27 @@ class WeatherController extends GetxController {
   }
 
   Future<void> updateCacheCard(bool refresh) async {
-    List<WeatherCard> weatherCard = refresh
-        ? isar.weatherCards.where().sortByIndex().findAllSync()
-        : isar.weatherCards
-            .filter()
-            .timestampLessThan(cacheExpiry)
-            .sortByIndex()
-            .findAllSync();
+    final weatherCard =
+        refresh
+            ? isar.weatherCards.where().sortByIndex().findAllSync()
+            : isar.weatherCards
+                .filter()
+                .timestampLessThan(cacheExpiry)
+                .sortByIndex()
+                .findAllSync();
 
-    if ((!(await isOnline.value)) || weatherCard.isEmpty) {
+    if (!(await isOnline.value) || weatherCard.isEmpty) {
       return;
     }
 
     for (var oldCard in weatherCard) {
-      var updatedCard = await WeatherAPI().getWeatherCard(oldCard.lat!,
-          oldCard.lon!, oldCard.city!, oldCard.district!, oldCard.timezone!);
+      final updatedCard = await WeatherAPI().getWeatherCard(
+        oldCard.lat!,
+        oldCard.lon!,
+        oldCard.city!,
+        oldCard.district!,
+        oldCard.timezone!,
+      );
       isar.writeTxnSync(() {
         oldCard
           ..time = updatedCard.time
@@ -358,8 +374,8 @@ class WeatherController extends GetxController {
 
         isar.weatherCards.putSync(oldCard);
 
-        var newCard = oldCard;
-        int oldIdx = weatherCard.indexOf(oldCard);
+        final newCard = oldCard;
+        final oldIdx = weatherCard.indexOf(oldCard);
         weatherCards[oldIdx] = newCard;
         weatherCards.refresh();
       });
@@ -428,35 +444,26 @@ class WeatherController extends GetxController {
   }
 
   int getTime(List<String> time, String timezone) {
-    int getTime = 0;
-    for (var i = 0; i < time.length; i++) {
-      if (tz.TZDateTime.now(tz.getLocation(timezone)).hour ==
-              DateTime.parse(time[i]).hour &&
-          tz.TZDateTime.now(tz.getLocation(timezone)).day ==
-              DateTime.parse(time[i]).day) {
-        getTime = i;
-      }
-    }
-    return getTime;
+    return time.indexWhere((t) {
+      final dateTime = DateTime.parse(t);
+      return tz.TZDateTime.now(tz.getLocation(timezone)).hour ==
+              dateTime.hour &&
+          tz.TZDateTime.now(tz.getLocation(timezone)).day == dateTime.day;
+    });
   }
 
   int getDay(List<DateTime> time, String timezone) {
-    int getDay = 0;
-    for (var i = 0; i < time.length; i++) {
-      if (tz.TZDateTime.now(tz.getLocation(timezone)).day == time[i].day) {
-        getDay = i;
-      }
-    }
-    return getDay;
+    return time.indexWhere(
+      (t) => tz.TZDateTime.now(tz.getLocation(timezone)).day == t.day,
+    );
   }
 
   TimeOfDay timeConvert(String normTime) {
-    int hh = 0;
-    if (normTime.endsWith('PM')) hh = 12;
-    normTime = normTime.split(' ')[0];
+    final hh = normTime.endsWith('PM') ? 12 : 0;
+    final timeParts = normTime.split(' ')[0].split(':');
     return TimeOfDay(
-      hour: hh + int.parse(normTime.split(':')[0]) % 24,
-      minute: int.parse(normTime.split(':')[1]) % 60,
+      hour: hh + int.parse(timeParts[0]) % 24,
+      minute: int.parse(timeParts[1]) % 60,
     );
   }
 
@@ -464,8 +471,8 @@ class WeatherController extends GetxController {
     final directory = await getTemporaryDirectory();
     final imagePath = '${directory.path}/$icon';
 
-    final ByteData data = await rootBundle.load('assets/images/$icon');
-    final List<int> bytes = data.buffer.asUint8List();
+    final data = await rootBundle.load('assets/images/$icon');
+    final bytes = data.buffer.asUint8List();
 
     await File(imagePath).writeAsBytes(bytes);
 
@@ -473,12 +480,12 @@ class WeatherController extends GetxController {
   }
 
   void notification(MainWeatherCache mainWeatherCache) async {
-    DateTime now = DateTime.now();
-    int startHour = timeConvert(timeStart).hour;
-    int endHour = timeConvert(timeEnd).hour;
+    final now = DateTime.now();
+    final startHour = timeConvert(timeStart).hour;
+    final endHour = timeConvert(timeEnd).hour;
 
     for (var i = 0; i < mainWeatherCache.time!.length; i += timeRange) {
-      DateTime notificationTime = DateTime.parse(mainWeatherCache.time![i]);
+      final notificationTime = DateTime.parse(mainWeatherCache.time![i]);
 
       if (notificationTime.isAfter(now) &&
           notificationTime.hour >= startHour &&
@@ -505,7 +512,7 @@ class WeatherController extends GetxController {
 
   void notificationCheck() async {
     if (settings.notifications) {
-      final List<PendingNotificationRequest> pendingNotificationRequests =
+      final pendingNotificationRequests =
           await flutterLocalNotificationsPlugin.pendingNotificationRequests();
       if (pendingNotificationRequests.isEmpty) {
         notification(_mainWeather.value);
@@ -513,7 +520,7 @@ class WeatherController extends GetxController {
     }
   }
 
-  void reorder(oldIndex, newIndex) {
+  void reorder(int oldIndex, int newIndex) {
     if (newIndex > oldIndex) {
       newIndex -= 1;
     }
@@ -533,15 +540,11 @@ class WeatherController extends GetxController {
       isar.settings.putSync(settings);
     });
 
-    return Future.wait<bool?>([
-      HomeWidget.saveWidgetData(
-        'background_color',
-        color,
-      ),
+    final results = await Future.wait<bool?>([
+      HomeWidget.saveWidgetData('background_color', color),
       HomeWidget.updateWidget(androidName: androidWidgetName),
-    ]).then((value) {
-      return !value.contains(false);
-    });
+    ]);
+    return !results.contains(false);
   }
 
   Future<bool> updateWidgetTextColor(String color) async {
@@ -550,15 +553,11 @@ class WeatherController extends GetxController {
       isar.settings.putSync(settings);
     });
 
-    return Future.wait<bool?>([
-      HomeWidget.saveWidgetData(
-        'text_color',
-        color,
-      ),
+    final results = await Future.wait<bool?>([
+      HomeWidget.saveWidgetData('text_color', color),
       HomeWidget.updateWidget(androidName: androidWidgetName),
-    ]).then((value) {
-      return !value.contains(false);
-    });
+    ]);
+    return !results.contains(false);
   }
 
   Future<bool> updateWidget() async {
@@ -573,34 +572,36 @@ class WeatherController extends GetxController {
       WeatherCardSchema,
     ], directory: (await getApplicationSupportDirectory()).path);
 
-    MainWeatherCache? mainWeatherCache;
-    mainWeatherCache = isarWidget.mainWeatherCaches.where().findFirstSync();
+    final mainWeatherCache =
+        isarWidget.mainWeatherCaches.where().findFirstSync();
     if (mainWeatherCache == null) return false;
 
-    int hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
-    int day = getDay(mainWeatherCache.timeDaily!, mainWeatherCache.timezone!);
+    final hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
+    final day = getDay(mainWeatherCache.timeDaily!, mainWeatherCache.timezone!);
 
-    return Future.wait<bool?>([
+    final results = await Future.wait<bool?>([
       HomeWidget.saveWidgetData(
-          'weather_icon',
-          await getLocalImagePath(StatusWeather().getImageNotification(
+        'weather_icon',
+        await getLocalImagePath(
+          StatusWeather().getImageNotification(
             mainWeatherCache.weathercode![hour],
             mainWeatherCache.time![hour],
             mainWeatherCache.sunrise![day],
             mainWeatherCache.sunset![day],
-          ))),
+          ),
+        ),
+      ),
       HomeWidget.saveWidgetData(
         'weather_degree',
         '${mainWeatherCache.temperature2M?[hour].round()}°',
       ),
       HomeWidget.updateWidget(androidName: androidWidgetName),
-    ]).then((value) {
-      return !value.contains(false);
-    });
+    ]);
+    return !results.contains(false);
   }
 
   void urlLauncher(String uri) async {
-    final Uri url = Uri.parse(uri);
+    final url = Uri.parse(uri);
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }

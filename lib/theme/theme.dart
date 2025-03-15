@@ -20,15 +20,19 @@ ColorScheme colorSchemeDark = ColorScheme.fromSeed(
 );
 
 ThemeData lightTheme(
-    Color? color, ColorScheme? colorScheme, bool edgeToEdgeAvailable) {
+  Color? color,
+  ColorScheme? colorScheme,
+  bool edgeToEdgeAvailable,
+) {
   return baseLigth.copyWith(
     brightness: Brightness.light,
-    colorScheme: colorScheme
-        ?.copyWith(
-          brightness: Brightness.light,
-          surface: baseLigth.colorScheme.surface,
-        )
-        .harmonized(),
+    colorScheme:
+        colorScheme
+            ?.copyWith(
+              brightness: Brightness.light,
+              surface: baseLigth.colorScheme.surface,
+            )
+            .harmonized(),
     textTheme: GoogleFonts.ubuntuTextTheme(baseLigth.textTheme),
     appBarTheme: AppBarTheme(
       backgroundColor: color,
@@ -54,9 +58,7 @@ ThemeData lightTheme(
       color: color,
       surfaceTintColor:
           color == oledColor ? Colors.transparent : colorScheme?.surfaceTint,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       shadowColor: Colors.transparent,
     ),
     bottomSheetTheme: baseLigth.bottomSheetTheme.copyWith(
@@ -73,11 +75,9 @@ ThemeData lightTheme(
           color == oledColor ? Colors.transparent : colorScheme?.surfaceTint,
     ),
     inputDecorationTheme: baseLigth.inputDecorationTheme.copyWith(
-      labelStyle: WidgetStateTextStyle.resolveWith(
-        (Set<WidgetState> states) {
-          return const TextStyle(fontSize: 14);
-        },
-      ),
+      labelStyle: WidgetStateTextStyle.resolveWith((Set<WidgetState> states) {
+        return const TextStyle(fontSize: 14);
+      }),
       border: InputBorder.none,
       focusedBorder: InputBorder.none,
       enabledBorder: InputBorder.none,
@@ -87,15 +87,19 @@ ThemeData lightTheme(
 }
 
 ThemeData darkTheme(
-    Color? color, ColorScheme? colorScheme, bool edgeToEdgeAvailable) {
+  Color? color,
+  ColorScheme? colorScheme,
+  bool edgeToEdgeAvailable,
+) {
   return baseDark.copyWith(
     brightness: Brightness.dark,
-    colorScheme: colorScheme
-        ?.copyWith(
-          brightness: Brightness.dark,
-          surface: baseDark.colorScheme.surface,
-        )
-        .harmonized(),
+    colorScheme:
+        colorScheme
+            ?.copyWith(
+              brightness: Brightness.dark,
+              surface: baseDark.colorScheme.surface,
+            )
+            .harmonized(),
     textTheme: GoogleFonts.ubuntuTextTheme(baseDark.textTheme),
     appBarTheme: AppBarTheme(
       backgroundColor: color,
@@ -121,9 +125,7 @@ ThemeData darkTheme(
       color: color,
       surfaceTintColor:
           color == oledColor ? Colors.transparent : colorScheme?.surfaceTint,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       shadowColor: Colors.transparent,
     ),
     bottomSheetTheme: baseDark.bottomSheetTheme.copyWith(
@@ -140,11 +142,9 @@ ThemeData darkTheme(
           color == oledColor ? Colors.transparent : colorScheme?.surfaceTint,
     ),
     inputDecorationTheme: baseDark.inputDecorationTheme.copyWith(
-      labelStyle: WidgetStateTextStyle.resolveWith(
-        (Set<WidgetState> states) {
-          return const TextStyle(fontSize: 14);
-        },
-      ),
+      labelStyle: WidgetStateTextStyle.resolveWith((Set<WidgetState> states) {
+        return const TextStyle(fontSize: 14);
+      }),
       border: InputBorder.none,
       focusedBorder: InputBorder.none,
       enabledBorder: InputBorder.none,

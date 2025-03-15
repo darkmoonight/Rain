@@ -55,10 +55,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                   ),
                   const Gap(5),
                   Flexible(
-                    child: Image.asset(
-                      'assets/images/sunrise.png',
-                      scale: 10,
-                    ),
+                    child: Image.asset('assets/images/sunrise.png', scale: 10),
                   ),
                 ],
               ),
@@ -86,10 +83,7 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
                   ),
                   const Gap(5),
                   Flexible(
-                    child: Image.asset(
-                      'assets/images/sunset.png',
-                      scale: 10,
-                    ),
+                    child: Image.asset('assets/images/sunset.png', scale: 10),
                   ),
                 ],
               ),

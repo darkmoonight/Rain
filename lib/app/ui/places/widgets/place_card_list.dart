@@ -6,10 +6,7 @@ import 'package:rain/app/ui/places/view/place_info.dart';
 import 'package:rain/app/ui/places/widgets/place_card.dart';
 
 class PlaceCardList extends StatefulWidget {
-  const PlaceCardList({
-    super.key,
-    required this.searchCity,
-  });
+  const PlaceCardList({super.key, required this.searchCity});
   final String searchCity;
 
   @override
@@ -24,15 +21,21 @@ class _PlaceCardListState extends State<PlaceCardList> {
     final textTheme = context.textTheme;
     final titleMedium = textTheme.titleMedium;
 
-    var weatherCards = weatherController.weatherCards
-        .where((weatherCard) => (widget.searchCity.isEmpty ||
-            weatherCard.city!.toLowerCase().contains(widget.searchCity)))
-        .toList()
-        .obs;
+    var weatherCards =
+        weatherController.weatherCards
+            .where(
+              (weatherCard) =>
+                  (widget.searchCity.isEmpty ||
+                      weatherCard.city!.toLowerCase().contains(
+                        widget.searchCity,
+                      )),
+            )
+            .toList()
+            .obs;
 
     return ReorderableListView(
-      onReorder: (oldIndex, newIndex) =>
-          weatherController.reorder(oldIndex, newIndex),
+      onReorder:
+          (oldIndex, newIndex) => weatherController.reorder(oldIndex, newIndex),
       children: [
         ...weatherCards.map(
           (weatherCardList) => Dismissible(
@@ -42,10 +45,7 @@ class _PlaceCardListState extends State<PlaceCardList> {
               alignment: Alignment.centerRight,
               child: const Padding(
                 padding: EdgeInsets.only(right: 15),
-                child: Icon(
-                  IconsaxPlusLinear.trash_square,
-                  color: Colors.red,
-                ),
+                child: Icon(IconsaxPlusLinear.trash_square, color: Colors.red),
               ),
             ),
             confirmDismiss: (DismissDirection direction) async {
@@ -75,9 +75,7 @@ class _PlaceCardListState extends State<PlaceCardList> {
                         onPressed: () => Get.back(result: true),
                         child: Text(
                           'delete'.tr,
-                          style: titleMedium?.copyWith(
-                            color: Colors.red,
-                          ),
+                          style: titleMedium?.copyWith(color: Colors.red),
                         ),
                       ),
                     ],
@@ -89,12 +87,11 @@ class _PlaceCardListState extends State<PlaceCardList> {
               await weatherController.deleteCardWeather(weatherCardList);
             },
             child: GestureDetector(
-              onTap: () => Get.to(
-                () => PlaceInfo(
-                  weatherCard: weatherCardList,
-                ),
-                transition: Transition.downToUp,
-              ),
+              onTap:
+                  () => Get.to(
+                    () => PlaceInfo(weatherCard: weatherCardList),
+                    transition: Transition.downToUp,
+                  ),
               child: PlaceCard(
                 time: weatherCardList.time!,
                 timeDaily: weatherCardList.timeDaily!,

@@ -15,16 +15,17 @@ class NotificationShow {
 
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
-      'Rain',
-      'DARK NIGHT',
-      priority: Priority.high,
-      importance: Importance.max,
-      playSound: false,
-      enableVibration: false,
-      largeIcon: FilePathAndroidBitmap(imagePath),
+          'Rain',
+          'DARK NIGHT',
+          priority: Priority.high,
+          importance: Importance.max,
+          playSound: false,
+          enableVibration: false,
+          largeIcon: FilePathAndroidBitmap(imagePath),
+        );
+    NotificationDetails notificationDetails = NotificationDetails(
+      android: androidNotificationDetails,
     );
-    NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
 
     var scheduledTime = tz.TZDateTime.from(date, tz.local);
     flutterLocalNotificationsPlugin.zonedSchedule(

@@ -29,9 +29,7 @@ class _DailyContainerState extends State<DailyContainer> {
   @override
   Widget build(BuildContext context) {
     final splashColor = context.theme.colorScheme.primary.withOpacity(0.4);
-    const inkWellBorderRadius = BorderRadius.all(
-      Radius.circular(16),
-    );
+    const inkWellBorderRadius = BorderRadius.all(Radius.circular(16));
 
     final weatherData = widget.weatherData;
     final weatherCodeDaily = weatherData.weathercodeDaily ?? [];
@@ -52,13 +50,14 @@ class _DailyContainerState extends State<DailyContainer> {
                 return InkWell(
                   splashColor: splashColor,
                   borderRadius: inkWellBorderRadius,
-                  onTap: () => Get.to(
-                    () => DailyCardInfo(
-                      weatherData: weatherData,
-                      index: index,
-                    ),
-                    transition: Transition.downToUp,
-                  ),
+                  onTap:
+                      () => Get.to(
+                        () => DailyCardInfo(
+                          weatherData: weatherData,
+                          index: index,
+                        ),
+                        transition: Transition.downToUp,
+                      ),
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 12),
                     child: Row(
@@ -66,8 +65,9 @@ class _DailyContainerState extends State<DailyContainer> {
                       children: [
                         Expanded(
                           child: Text(
-                            DateFormat.EEEE(locale.languageCode)
-                                .format((weatherData.timeDaily ?? [])[index]),
+                            DateFormat.EEEE(
+                              locale.languageCode,
+                            ).format((weatherData.timeDaily ?? [])[index]),
                             style: labelLarge,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -77,15 +77,17 @@ class _DailyContainerState extends State<DailyContainer> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                statusWeather
-                                    .getImage7Day(weatherCodeDaily[index]),
+                                statusWeather.getImage7Day(
+                                  weatherCodeDaily[index],
+                                ),
                                 scale: 3,
                               ),
                               const Gap(5),
                               Expanded(
                                 child: Text(
-                                  statusWeather
-                                      .getText(weatherCodeDaily[index]),
+                                  statusWeather.getText(
+                                    weatherCodeDaily[index],
+                                  ),
                                   style: labelLarge,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -99,18 +101,17 @@ class _DailyContainerState extends State<DailyContainer> {
                             children: [
                               Text(
                                 statusData.getDegree(
-                                    (weatherData.temperature2MMin ?? [])[index]
-                                        ?.round()),
+                                  (weatherData.temperature2MMin ?? [])[index]
+                                      ?.round(),
+                                ),
                                 style: labelLarge,
                               ),
-                              Text(
-                                ' / ',
-                                style: labelLarge,
-                              ),
+                              Text(' / ', style: labelLarge),
                               Text(
                                 statusData.getDegree(
-                                    (weatherData.temperature2MMax ?? [])[index]
-                                        ?.round()),
+                                  (weatherData.temperature2MMax ?? [])[index]
+                                      ?.round(),
+                                ),
                                 style: labelLarge,
                               ),
                             ],

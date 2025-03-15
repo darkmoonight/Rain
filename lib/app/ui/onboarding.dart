@@ -32,8 +32,10 @@ class _OnBordingState extends State<OnBording> {
   void onBoardHome() {
     settings.onboard = true;
     isar.writeTxnSync(() => isar.settings.putSync(settings));
-    Get.off(() => const SelectGeolocation(isStart: true),
-        transition: Transition.downToUp);
+    Get.off(
+      () => const SelectGeolocation(isStart: true),
+      transition: Transition.downToUp,
+    );
   }
 
   @override
@@ -52,22 +54,24 @@ class _OnBordingState extends State<OnBording> {
                     pageIndex = index;
                   });
                 },
-                itemBuilder: (context, index) => OnboardContent(
-                  image: data[index].image,
-                  title: data[index].title,
-                  description: data[index].description,
-                ),
+                itemBuilder:
+                    (context, index) => OnboardContent(
+                      image: data[index].image,
+                      title: data[index].title,
+                      description: data[index].description,
+                    ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ...List.generate(
-                    data.length,
-                    (index) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: DotIndicator(isActive: index == pageIndex),
-                        )),
+                  data.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: DotIndicator(isActive: index == pageIndex),
+                  ),
+                ),
               ],
             ),
             Padding(
@@ -79,12 +83,12 @@ class _OnBordingState extends State<OnBording> {
                   pageIndex == data.length - 1
                       ? onBoardHome()
                       : pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease,
-                        );
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
                 },
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -93,10 +97,7 @@ class _OnBordingState extends State<OnBording> {
 }
 
 class DotIndicator extends StatelessWidget {
-  const DotIndicator({
-    super.key,
-    this.isActive = false,
-  });
+  const DotIndicator({super.key, this.isActive = false});
 
   final bool isActive;
 
@@ -107,9 +108,10 @@ class DotIndicator extends StatelessWidget {
       height: 8,
       width: 8,
       decoration: BoxDecoration(
-        color: isActive
-            ? context.theme.colorScheme.secondary
-            : context.theme.colorScheme.secondaryContainer,
+        color:
+            isActive
+                ? context.theme.colorScheme.secondary
+                : context.theme.colorScheme.secondaryContainer,
         shape: BoxShape.circle,
       ),
     );
@@ -128,17 +130,20 @@ class Onboard {
 
 final List<Onboard> data = [
   Onboard(
-      image: 'assets/icons/Rain.png',
-      title: 'name'.tr,
-      description: 'description'.tr),
+    image: 'assets/icons/Rain.png',
+    title: 'name'.tr,
+    description: 'description'.tr,
+  ),
   Onboard(
-      image: 'assets/icons/Design.png',
-      title: 'name2'.tr,
-      description: 'description2'.tr),
+    image: 'assets/icons/Design.png',
+    title: 'name2'.tr,
+    description: 'description2'.tr,
+  ),
   Onboard(
-      image: 'assets/icons/Team.png',
-      title: 'name3'.tr,
-      description: 'description3'.tr),
+    image: 'assets/icons/Team.png',
+    title: 'name3'.tr,
+    description: 'description3'.tr,
+  ),
 ];
 
 class OnboardContent extends StatelessWidget {
@@ -158,14 +163,12 @@ class OnboardContent extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                image,
-                scale: 5,
-              ),
+              Image.asset(image, scale: 5),
               Text(
                 title,
-                style: context.textTheme.titleLarge
-                    ?.copyWith(fontWeight: FontWeight.w600),
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const Gap(10),
               SizedBox(

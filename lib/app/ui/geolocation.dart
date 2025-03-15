@@ -15,10 +15,7 @@ import 'package:rain/app/ui/widgets/text_form.dart';
 import 'package:rain/main.dart';
 
 class SelectGeolocation extends StatefulWidget {
-  const SelectGeolocation({
-    super.key,
-    required this.isStart,
-  });
+  const SelectGeolocation({super.key, required this.isStart});
   final bool isStart;
 
   @override
@@ -94,19 +91,17 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           centerTitle: true,
-          leading: widget.isStart
-              ? null
-              : IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    IconsaxPlusLinear.arrow_left_3,
-                    size: 20,
+          leading:
+              widget.isStart
+                  ? null
+                  : IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                   ),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                ),
           automaticallyImplyLeading: false,
           title: Text(
             'searchCity'.tr,
@@ -131,7 +126,8 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
+                                    horizontal: 10,
+                                  ),
                                   child: ClipRRect(
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(20),
@@ -150,19 +146,22 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                           initialZoom: 3,
                                           interactionOptions:
                                               const InteractionOptions(
-                                            flags: InteractiveFlag.all &
-                                                ~InteractiveFlag.rotate,
-                                          ),
+                                                flags:
+                                                    InteractiveFlag.all &
+                                                    ~InteractiveFlag.rotate,
+                                              ),
                                           cameraConstraint:
                                               CameraConstraint.contain(
-                                            bounds: LatLngBounds(
-                                              const LatLng(-90, -180),
-                                              const LatLng(90, 180),
-                                            ),
-                                          ),
-                                          onLongPress: (tapPosition, point) =>
-                                              fillMap(point.latitude,
-                                                  point.longitude),
+                                                bounds: LatLngBounds(
+                                                  const LatLng(-90, -180),
+                                                  const LatLng(90, 180),
+                                                ),
+                                              ),
+                                          onLongPress:
+                                              (tapPosition, point) => fillMap(
+                                                point.latitude,
+                                                point.longitude,
+                                              ),
                                         ),
                                         children: [
                                           if (_isDarkMode)
@@ -177,9 +176,11 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                             attributions: [
                                               TextSourceAttribution(
                                                 'OpenStreetMap contributors',
-                                                onTap: () => weatherController
-                                                    .urlLauncher(
-                                                        'https://openstreetmap.org/copyright'),
+                                                onTap:
+                                                    () => weatherController
+                                                        .urlLauncher(
+                                                          'https://openstreetmap.org/copyright',
+                                                        ),
                                               ),
                                             ],
                                           ),
@@ -189,8 +190,12 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 15, 10, 5),
+                                  padding: const EdgeInsets.fromLTRB(
+                                    10,
+                                    15,
+                                    10,
+                                    5,
+                                  ),
                                   child: Text(
                                     'searchMethod'.tr,
                                     style: context.theme.textTheme.bodyLarge
@@ -204,42 +209,54 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                       child: RawAutocomplete<Result>(
                                         focusNode: _focusNode,
                                         textEditingController: _controller,
-                                        fieldViewBuilder: (BuildContext context,
-                                            TextEditingController
-                                                fieldTextEditingController,
-                                            FocusNode fieldFocusNode,
-                                            VoidCallback onFieldSubmitted) {
+                                        fieldViewBuilder: (
+                                          BuildContext context,
+                                          TextEditingController
+                                          fieldTextEditingController,
+                                          FocusNode fieldFocusNode,
+                                          VoidCallback onFieldSubmitted,
+                                        ) {
                                           return MyTextForm(
                                             elevation: kTextFieldElevation,
                                             labelText: 'search'.tr,
                                             type: TextInputType.text,
-                                            icon: const Icon(IconsaxPlusLinear
-                                                .global_search),
+                                            icon: const Icon(
+                                              IconsaxPlusLinear.global_search,
+                                            ),
                                             controller: _controller,
                                             margin: const EdgeInsets.only(
-                                                left: 10, right: 10, top: 10),
+                                              left: 10,
+                                              right: 10,
+                                              top: 10,
+                                            ),
                                             focusNode: _focusNode,
                                           );
                                         },
-                                        optionsBuilder: (TextEditingValue
-                                            textEditingValue) {
+                                        optionsBuilder: (
+                                          TextEditingValue textEditingValue,
+                                        ) {
                                           if (textEditingValue.text.isEmpty) {
                                             return const Iterable<
-                                                Result>.empty();
+                                              Result
+                                            >.empty();
                                           }
                                           return WeatherAPI().getCity(
-                                              textEditingValue.text, locale);
+                                            textEditingValue.text,
+                                            locale,
+                                          );
                                         },
-                                        onSelected: (Result selection) =>
-                                            fillController(selection),
-                                        displayStringForOption: (Result
-                                                option) =>
-                                            '${option.name}, ${option.admin1}',
-                                        optionsViewBuilder:
-                                            (BuildContext context,
-                                                AutocompleteOnSelected<Result>
-                                                    onSelected,
-                                                Iterable<Result> options) {
+                                        onSelected:
+                                            (Result selection) =>
+                                                fillController(selection),
+                                        displayStringForOption:
+                                            (Result option) =>
+                                                '${option.name}, ${option.admin1}',
+                                        optionsViewBuilder: (
+                                          BuildContext context,
+                                          AutocompleteOnSelected<Result>
+                                          onSelected,
+                                          Iterable<Result> options,
+                                        ) {
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 10,
@@ -255,21 +272,26 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                                   padding: EdgeInsets.zero,
                                                   shrinkWrap: true,
                                                   itemCount: options.length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
+                                                  itemBuilder: (
+                                                    BuildContext context,
+                                                    int index,
+                                                  ) {
                                                     final Result option =
-                                                        options
-                                                            .elementAt(index);
+                                                        options.elementAt(
+                                                          index,
+                                                        );
                                                     return InkWell(
-                                                      onTap: () =>
-                                                          onSelected(option),
+                                                      onTap:
+                                                          () => onSelected(
+                                                            option,
+                                                          ),
                                                       child: ListTile(
                                                         title: Text(
                                                           '${option.name}, ${option.admin1}',
-                                                          style: context
-                                                              .textTheme
-                                                              .labelLarge,
+                                                          style:
+                                                              context
+                                                                  .textTheme
+                                                                  .labelLarge,
                                                         ),
                                                       ),
                                                     );
@@ -292,47 +314,53 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                         child: IconButton(
                                           onPressed: () async {
                                             bool serviceEnabled =
-                                                await Geolocator
-                                                    .isLocationServiceEnabled();
+                                                await Geolocator.isLocationServiceEnabled();
                                             if (!serviceEnabled) {
                                               if (!context.mounted) return;
                                               await showAdaptiveDialog(
                                                 context: context,
-                                                builder:
-                                                    (BuildContext context) {
+                                                builder: (
+                                                  BuildContext context,
+                                                ) {
                                                   return AlertDialog.adaptive(
                                                     title: Text(
                                                       'location'.tr,
-                                                      style: context
-                                                          .textTheme.titleLarge,
+                                                      style:
+                                                          context
+                                                              .textTheme
+                                                              .titleLarge,
                                                     ),
                                                     content: Text(
                                                       'no_location'.tr,
-                                                      style: context.textTheme
-                                                          .titleMedium,
+                                                      style:
+                                                          context
+                                                              .textTheme
+                                                              .titleMedium,
                                                     ),
                                                     actions: [
                                                       TextButton(
-                                                        onPressed: () =>
-                                                            Get.back(
-                                                                result: false),
+                                                        onPressed:
+                                                            () => Get.back(
+                                                              result: false,
+                                                            ),
                                                         child: Text(
                                                           'cancel'.tr,
                                                           style: context
                                                               .textTheme
                                                               .titleMedium
                                                               ?.copyWith(
-                                                            color: Colors
-                                                                .blueAccent,
-                                                          ),
+                                                                color:
+                                                                    Colors
+                                                                        .blueAccent,
+                                                              ),
                                                         ),
                                                       ),
                                                       TextButton(
                                                         onPressed: () {
-                                                          Geolocator
-                                                              .openLocationSettings();
+                                                          Geolocator.openLocationSettings();
                                                           Get.back(
-                                                              result: true);
+                                                            result: true,
+                                                          );
                                                         },
                                                         child: Text(
                                                           'settings'.tr,
@@ -340,8 +368,10 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                                               .textTheme
                                                               .titleMedium
                                                               ?.copyWith(
-                                                                  color: Colors
-                                                                      .green),
+                                                                color:
+                                                                    Colors
+                                                                        .green,
+                                                              ),
                                                         ),
                                                       ),
                                                     ],
@@ -380,8 +410,9 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                     if (value == null || value.isEmpty) {
                                       return 'validateValue'.tr;
                                     }
-                                    double? numericValue =
-                                        double.tryParse(value);
+                                    double? numericValue = double.tryParse(
+                                      value,
+                                    );
                                     if (numericValue == null) {
                                       return 'validateNumber'.tr;
                                     }
@@ -407,8 +438,9 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                     if (value == null || value.isEmpty) {
                                       return 'validateValue'.tr;
                                     }
-                                    double? numericValue =
-                                        double.tryParse(value);
+                                    double? numericValue = double.tryParse(
+                                      value,
+                                    );
                                     if (numericValue == null) {
                                       return 'validateNumber'.tr;
                                     }
@@ -424,10 +456,14 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   controller: _controllerCity,
                                   labelText: 'city'.tr,
                                   type: TextInputType.name,
-                                  icon:
-                                      const Icon(IconsaxPlusLinear.building_3),
+                                  icon: const Icon(
+                                    IconsaxPlusLinear.building_3,
+                                  ),
                                   margin: const EdgeInsets.only(
-                                      left: 10, right: 10, top: 10),
+                                    left: 10,
+                                    right: 10,
+                                    top: 10,
+                                  ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'validateName'.tr;
@@ -442,7 +478,10 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                                   type: TextInputType.streetAddress,
                                   icon: const Icon(IconsaxPlusLinear.global),
                                   margin: const EdgeInsets.only(
-                                      left: 10, right: 10, top: 10),
+                                    left: 10,
+                                    right: 10,
+                                    top: 10,
+                                  ),
                                 ),
                                 const Gap(20),
                               ],
@@ -453,8 +492,10 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
                     child: MyTextButton(
                       buttonName: 'done'.tr,
                       onPressed: () async {
@@ -472,8 +513,10 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
                               _controllerCity.text,
                             );
                             widget.isStart
-                                ? Get.off(() => const HomePage(),
-                                    transition: Transition.downToUp)
+                                ? Get.off(
+                                  () => const HomePage(),
+                                  transition: Transition.downToUp,
+                                )
                                 : Get.back();
                           } catch (error) {
                             Future.error(error);
@@ -487,9 +530,7 @@ class _SelectGeolocationState extends State<SelectGeolocation> {
               if (isLoading)
                 BackdropFilter(
                   filter: ImageFilter.blur(sigmaY: 3, sigmaX: 3),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
             ],
           ),

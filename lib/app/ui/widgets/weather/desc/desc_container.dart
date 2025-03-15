@@ -107,10 +107,7 @@ class _DescContainerState extends State<DescContainer> {
       margin: const EdgeInsets.only(bottom: 15),
       child: ExpansionTile(
         shape: const Border(),
-        title: Text(
-          title,
-          style: context.textTheme.labelLarge,
-        ),
+        title: Text(title, style: context.textTheme.labelLarge),
         initiallyExpanded: initiallyExpanded,
         children: [
           Padding(
@@ -122,180 +119,180 @@ class _DescContainerState extends State<DescContainer> {
                 apparentTemperatureMin == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/cold.png',
-                        value: statusData
-                            .getDegree(apparentTemperatureMin.round()),
-                        desc: 'apparentTemperatureMin'.tr,
+                      imageName: 'assets/images/cold.png',
+                      value: statusData.getDegree(
+                        apparentTemperatureMin.round(),
                       ),
+                      desc: 'apparentTemperatureMin'.tr,
+                    ),
                 apparentTemperatureMax == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/hot.png',
-                        value: statusData
-                            .getDegree(apparentTemperatureMax.round()),
-                        desc: 'apparentTemperatureMax'.tr,
+                      imageName: 'assets/images/hot.png',
+                      value: statusData.getDegree(
+                        apparentTemperatureMax.round(),
                       ),
+                      desc: 'apparentTemperatureMax'.tr,
+                    ),
                 uvIndexMax == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/uv.png',
-                        value: '${uvIndexMax.round()}',
-                        desc: 'uvIndex'.tr,
-                        message: message.getUvIndex(uvIndexMax.round()),
-                      ),
+                      imageName: 'assets/images/uv.png',
+                      value: '${uvIndexMax.round()}',
+                      desc: 'uvIndex'.tr,
+                      message: message.getUvIndex(uvIndexMax.round()),
+                    ),
                 windDirection10MDominant == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/windsock.png',
-                        value: '$windDirection10MDominant°',
-                        desc: 'direction'.tr,
-                        message: message.getDirection(windDirection10MDominant),
-                      ),
+                      imageName: 'assets/images/windsock.png',
+                      value: '$windDirection10MDominant°',
+                      desc: 'direction'.tr,
+                      message: message.getDirection(windDirection10MDominant),
+                    ),
                 windSpeed10MMax == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/wind.png',
-                        value: statusData.getSpeed(windSpeed10MMax.round()),
-                        desc: 'wind'.tr,
-                      ),
+                      imageName: 'assets/images/wind.png',
+                      value: statusData.getSpeed(windSpeed10MMax.round()),
+                      desc: 'wind'.tr,
+                    ),
                 windGusts10MMax == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/windgusts.png',
-                        value: statusData.getSpeed(windGusts10MMax.round()),
-                        desc: 'windgusts'.tr,
-                      ),
+                      imageName: 'assets/images/windgusts.png',
+                      value: statusData.getSpeed(windGusts10MMax.round()),
+                      desc: 'windgusts'.tr,
+                    ),
                 precipitationProbabilityMax == null
                     ? Container()
                     : DescWeather(
-                        imageName:
-                            'assets/images/precipitation_probability.png',
-                        value: '$precipitationProbabilityMax%',
-                        desc: 'precipitationProbability'.tr,
-                      ),
+                      imageName: 'assets/images/precipitation_probability.png',
+                      value: '$precipitationProbabilityMax%',
+                      desc: 'precipitationProbability'.tr,
+                    ),
                 rainSum == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/water.png',
-                        value: statusData.getPrecipitation(rainSum),
-                        desc: 'rain'.tr,
-                      ),
+                      imageName: 'assets/images/water.png',
+                      value: statusData.getPrecipitation(rainSum),
+                      desc: 'rain'.tr,
+                    ),
                 precipitationSum == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/rainfall.png',
-                        value: statusData.getPrecipitation(precipitationSum),
-                        desc: 'precipitation'.tr,
-                      ),
+                      imageName: 'assets/images/rainfall.png',
+                      value: statusData.getPrecipitation(precipitationSum),
+                      desc: 'precipitation'.tr,
+                    ),
                 dewpoint2M == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/dew.png',
-                        value: statusData.getDegree(dewpoint2M.round()),
-                        desc: 'dewpoint'.tr,
-                      ),
+                      imageName: 'assets/images/dew.png',
+                      value: statusData.getDegree(dewpoint2M.round()),
+                      desc: 'dewpoint'.tr,
+                    ),
                 feels == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/temperature.png',
-                        value: statusData.getDegree(feels.round()),
-                        desc: 'feels'.tr,
-                      ),
+                      imageName: 'assets/images/temperature.png',
+                      value: statusData.getDegree(feels.round()),
+                      desc: 'feels'.tr,
+                    ),
                 visibility == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/fog.png',
-                        value: statusData.getVisibility(visibility),
-                        desc: 'visibility'.tr,
-                      ),
+                      imageName: 'assets/images/fog.png',
+                      value: statusData.getVisibility(visibility),
+                      desc: 'visibility'.tr,
+                    ),
                 direction == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/windsock.png',
-                        value: '$direction°',
-                        desc: 'direction'.tr,
-                        message: message.getDirection(direction),
-                      ),
+                      imageName: 'assets/images/windsock.png',
+                      value: '$direction°',
+                      desc: 'direction'.tr,
+                      message: message.getDirection(direction),
+                    ),
                 wind == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/wind.png',
-                        value: statusData.getSpeed(wind.round()),
-                        desc: 'wind'.tr,
-                      ),
+                      imageName: 'assets/images/wind.png',
+                      value: statusData.getSpeed(wind.round()),
+                      desc: 'wind'.tr,
+                    ),
                 windgusts == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/windgusts.png',
-                        value: statusData.getSpeed(windgusts.round()),
-                        desc: 'windgusts'.tr,
-                      ),
+                      imageName: 'assets/images/windgusts.png',
+                      value: statusData.getSpeed(windgusts.round()),
+                      desc: 'windgusts'.tr,
+                    ),
                 evaporation == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/evaporation.png',
-                        value: statusData.getPrecipitation(evaporation.abs()),
-                        desc: 'evaporation'.tr,
-                      ),
+                      imageName: 'assets/images/evaporation.png',
+                      value: statusData.getPrecipitation(evaporation.abs()),
+                      desc: 'evaporation'.tr,
+                    ),
                 precipitation == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/rainfall.png',
-                        value: statusData.getPrecipitation(precipitation),
-                        desc: 'precipitation'.tr,
-                      ),
+                      imageName: 'assets/images/rainfall.png',
+                      value: statusData.getPrecipitation(precipitation),
+                      desc: 'precipitation'.tr,
+                    ),
                 rain == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/water.png',
-                        value: statusData.getPrecipitation(rain),
-                        desc: 'rain'.tr,
-                      ),
+                      imageName: 'assets/images/water.png',
+                      value: statusData.getPrecipitation(rain),
+                      desc: 'rain'.tr,
+                    ),
                 precipitationProbability == null
                     ? Container()
                     : DescWeather(
-                        imageName:
-                            'assets/images/precipitation_probability.png',
-                        value: '$precipitationProbability%',
-                        desc: 'precipitationProbability'.tr,
-                      ),
+                      imageName: 'assets/images/precipitation_probability.png',
+                      value: '$precipitationProbability%',
+                      desc: 'precipitationProbability'.tr,
+                    ),
                 humidity == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/humidity.png',
-                        value: '$humidity%',
-                        desc: 'humidity'.tr,
-                      ),
+                      imageName: 'assets/images/humidity.png',
+                      value: '$humidity%',
+                      desc: 'humidity'.tr,
+                    ),
                 cloudcover == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/cloudy.png',
-                        value: '$cloudcover%',
-                        desc: 'cloudcover'.tr,
-                      ),
+                      imageName: 'assets/images/cloudy.png',
+                      value: '$cloudcover%',
+                      desc: 'cloudcover'.tr,
+                    ),
                 pressure == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/atmospheric.png',
-                        value: statusData.getPressure(pressure.round()),
-                        desc: 'pressure'.tr,
-                        message: message.getPressure(pressure.round()),
-                      ),
+                      imageName: 'assets/images/atmospheric.png',
+                      value: statusData.getPressure(pressure.round()),
+                      desc: 'pressure'.tr,
+                      message: message.getPressure(pressure.round()),
+                    ),
                 uvIndex == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/uv.png',
-                        value: '${uvIndex.round()}',
-                        desc: 'uvIndex'.tr,
-                        message: message.getUvIndex(uvIndex.round()),
-                      ),
+                      imageName: 'assets/images/uv.png',
+                      value: '${uvIndex.round()}',
+                      desc: 'uvIndex'.tr,
+                      message: message.getUvIndex(uvIndex.round()),
+                    ),
                 shortwaveRadiation == null
                     ? Container()
                     : DescWeather(
-                        imageName: 'assets/images/shortwave_radiation.png',
-                        value: '${shortwaveRadiation.round()} ${'W/m2'.tr}',
-                        desc: 'shortwaveRadiation'.tr,
-                      ),
+                      imageName: 'assets/images/shortwave_radiation.png',
+                      value: '${shortwaveRadiation.round()} ${'W/m2'.tr}',
+                      desc: 'shortwaveRadiation'.tr,
+                    ),
               ],
             ),
           ),

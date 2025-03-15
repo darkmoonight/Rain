@@ -6,10 +6,7 @@ import 'package:rain/app/ui/widgets/weather/daily/daily_card_info.dart';
 import 'package:rain/app/ui/widgets/weather/daily/daily_card.dart';
 
 class DailyCardList extends StatefulWidget {
-  const DailyCardList({
-    super.key,
-    required this.weatherData,
-  });
+  const DailyCardList({super.key, required this.weatherData});
   final WeatherCard weatherData;
 
   @override
@@ -31,10 +28,7 @@ class _DailyCardListState extends State<DailyCardList> {
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(
-            IconsaxPlusLinear.arrow_left_3,
-            size: 20,
-          ),
+          icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
           splashColor: transparent,
           highlightColor: transparent,
         ),
@@ -49,21 +43,21 @@ class _DailyCardListState extends State<DailyCardList> {
       body: SafeArea(
         child: ListView.builder(
           itemCount: timeDaily.length,
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () => Get.to(
-              () => DailyCardInfo(
-                weatherData: weatherData,
-                index: index,
+          itemBuilder:
+              (context, index) => GestureDetector(
+                onTap:
+                    () => Get.to(
+                      () =>
+                          DailyCardInfo(weatherData: weatherData, index: index),
+                      transition: Transition.downToUp,
+                    ),
+                child: DailyCard(
+                  timeDaily: timeDaily[index],
+                  weathercodeDaily: weatherData.weathercodeDaily![index],
+                  temperature2MMax: weatherData.temperature2MMax![index],
+                  temperature2MMin: weatherData.temperature2MMin![index],
+                ),
               ),
-              transition: Transition.downToUp,
-            ),
-            child: DailyCard(
-              timeDaily: timeDaily[index],
-              weathercodeDaily: weatherData.weathercodeDaily![index],
-              temperature2MMax: weatherData.temperature2MMax![index],
-              temperature2MMin: weatherData.temperature2MMin![index],
-            ),
-          ),
         ),
       ),
     );

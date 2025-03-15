@@ -102,20 +102,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             automaticallyImplyLeading: false,
             leading: switch (tabIndex) {
               0 => IconButton(
-                  onPressed: () {
-                    Get.to(() => const SelectGeolocation(isStart: false),
-                        transition: Transition.downToUp);
-                  },
-                  icon: const Icon(
-                    IconsaxPlusLinear.global_search,
-                    size: 18,
-                  ),
-                ),
+                onPressed: () {
+                  Get.to(
+                    () => const SelectGeolocation(isStart: false),
+                    transition: Transition.downToUp,
+                  );
+                },
+                icon: const Icon(IconsaxPlusLinear.global_search, size: 18),
+              ),
               int() => null,
             },
             title: switch (tabIndex) {
-              0 => visible
-                  ? RawAutocomplete<Result>(
+              0 =>
+                visible
+                    ? RawAutocomplete<Result>(
                       focusNode: _focusNode,
                       textEditingController: _controller,
                       fieldViewBuilder: (_, __, ___, ____) {
@@ -123,17 +123,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           controller: _controller,
                           focusNode: _focusNode,
                           style: labelLarge?.copyWith(fontSize: 16),
-                          decoration: InputDecoration(
-                            hintText: 'search'.tr,
-                          ),
+                          decoration: InputDecoration(hintText: 'search'.tr),
                         );
                       },
                       optionsBuilder: (TextEditingValue textEditingValue) {
                         if (textEditingValue.text.isEmpty) {
                           return const Iterable<Result>.empty();
                         }
-                        return WeatherAPI()
-                            .getCity(textEditingValue.text, locale);
+                        return WeatherAPI().getCity(
+                          textEditingValue.text,
+                          locale,
+                        );
                       },
                       onSelected: (Result selection) async {
                         await weatherController.deleteAll(true);
@@ -148,11 +148,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         _focusNode.unfocus();
                         setState(() {});
                       },
-                      displayStringForOption: (Result option) =>
-                          '${option.name}, ${option.admin1}',
-                      optionsViewBuilder: (BuildContext context,
-                          AutocompleteOnSelected<Result> onSelected,
-                          Iterable<Result> options) {
+                      displayStringForOption:
+                          (Result option) => '${option.name}, ${option.admin1}',
+                      optionsViewBuilder: (
+                        BuildContext context,
+                        AutocompleteOnSelected<Result> onSelected,
+                        Iterable<Result> options,
+                      ) {
                         return Align(
                           alignment: Alignment.topLeft,
                           child: Material(
@@ -165,8 +167,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 shrinkWrap: true,
                                 itemCount: options.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final Result option =
-                                      options.elementAt(index);
+                                  final Result option = options.elementAt(
+                                    index,
+                                  );
                                   return InkWell(
                                     onTap: () => onSelected(option),
                                     child: ListTile(
@@ -183,78 +186,63 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         );
                       },
                     )
-                  : Obx(
-                      () {
-                        final location = weatherController.location;
-                        final city = location.city;
-                        final district = location.district;
-                        return Text(
-                          weatherController.isLoading.isFalse
-                              ? district!.isEmpty
-                                  ? '$city'
-                                  : city!.isEmpty
-                                      ? district
-                                      : city == district
-                                          ? city
-                                          : '$city' ', $district'
-                              : settings.location
-                                  ? 'search'.tr
-                                  : (isar.locationCaches.where().findAllSync())
-                                          .isNotEmpty
-                                      ? 'loading'.tr
-                                      : 'searchCity'.tr,
-                          style: textStyle,
-                        );
-                      },
-                    ),
-              1 => Text(
-                  'cities'.tr,
-                  style: textStyle,
-                ),
-              2 => settings.hideMap
-                  ? Text(
-                      'settings_full'.tr,
-                      style: textStyle,
-                    )
-                  : Text(
-                      'map'.tr,
-                      style: textStyle,
-                    ),
-              3 => Text(
-                  'settings_full'.tr,
-                  style: textStyle,
-                ),
+                    : Obx(() {
+                      final location = weatherController.location;
+                      final city = location.city;
+                      final district = location.district;
+                      return Text(
+                        weatherController.isLoading.isFalse
+                            ? district!.isEmpty
+                                ? '$city'
+                                : city!.isEmpty
+                                ? district
+                                : city == district
+                                ? city
+                                : '$city'
+                                    ', $district'
+                            : settings.location
+                            ? 'search'.tr
+                            : (isar.locationCaches.where().findAllSync())
+                                .isNotEmpty
+                            ? 'loading'.tr
+                            : 'searchCity'.tr,
+                        style: textStyle,
+                      );
+                    }),
+              1 => Text('cities'.tr, style: textStyle),
+              2 =>
+                settings.hideMap
+                    ? Text('settings_full'.tr, style: textStyle)
+                    : Text('map'.tr, style: textStyle),
+              3 => Text('settings_full'.tr, style: textStyle),
               int() => null,
             },
             actions: switch (tabIndex) {
               0 => [
-                  IconButton(
-                    onPressed: () {
-                      if (visible) {
-                        _controller.clear();
-                        _focusNode.unfocus();
-                        visible = false;
-                      } else {
-                        visible = true;
-                      }
-                      setState(() {});
-                    },
-                    icon: Icon(
-                      visible
-                          ? IconsaxPlusLinear.close_circle
-                          : IconsaxPlusLinear.search_normal_1,
-                      size: 18,
-                    ),
-                  )
-                ],
+                IconButton(
+                  onPressed: () {
+                    if (visible) {
+                      _controller.clear();
+                      _focusNode.unfocus();
+                      visible = false;
+                    } else {
+                      visible = true;
+                    }
+                    setState(() {});
+                  },
+                  icon: Icon(
+                    visible
+                        ? IconsaxPlusLinear.close_circle
+                        : IconsaxPlusLinear.search_normal_1,
+                    size: 18,
+                  ),
+                ),
+              ],
               int() => null,
             },
           ),
           body: SafeArea(
-            child: TabBarView(
-              controller: tabController,
-              children: pages,
-            ),
+            child: TabBarView(controller: tabController, children: pages),
           ),
           bottomNavigationBar: NavigationBar(
             onDestinationSelected: (int index) => changeTabIndex(index),
@@ -283,19 +271,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ],
           ),
-          floatingActionButton: tabIndex == 1
-              ? FloatingActionButton(
-                  onPressed: () => showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    enableDrag: false,
-                    builder: (BuildContext context) => const CreatePlace(),
-                  ),
-                  child: const Icon(
-                    IconsaxPlusLinear.add,
-                  ),
-                )
-              : null,
+          floatingActionButton:
+              tabIndex == 1
+                  ? FloatingActionButton(
+                    onPressed:
+                        () => showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          enableDrag: false,
+                          builder:
+                              (BuildContext context) => const CreatePlace(),
+                        ),
+                    child: const Icon(IconsaxPlusLinear.add),
+                  )
+                  : null,
         ),
       ),
     );

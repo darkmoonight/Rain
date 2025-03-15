@@ -9,11 +9,7 @@ import 'package:rain/app/ui/widgets/text_form.dart';
 import 'package:rain/main.dart';
 
 class CreatePlace extends StatefulWidget {
-  const CreatePlace({
-    super.key,
-    this.latitude,
-    this.longitude,
-  });
+  const CreatePlace({super.key, this.latitude, this.longitude});
   final String? latitude;
   final String? longitude;
 
@@ -85,7 +81,8 @@ class _CreatePlaceState extends State<CreatePlace>
   @override
   Widget build(BuildContext context) {
     const kTextFieldElevation = 4.0;
-    bool showButton = _controllerLon.text.isNotEmpty &&
+    bool showButton =
+        _controllerLon.text.isNotEmpty &&
         _controllerLat.text.isNotEmpty &&
         _controllerCity.text.isNotEmpty &&
         _controllerDistrict.text.isNotEmpty;
@@ -115,18 +112,21 @@ class _CreatePlaceState extends State<CreatePlace>
                       padding: const EdgeInsets.only(top: 14, bottom: 7),
                       child: Text(
                         'create'.tr,
-                        style: context.textTheme.titleLarge
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                        style: context.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
                     RawAutocomplete<Result>(
                       focusNode: _focusNode,
                       textEditingController: _controller,
-                      fieldViewBuilder: (BuildContext context,
-                          TextEditingController fieldTextEditingController,
-                          FocusNode fieldFocusNode,
-                          VoidCallback onFieldSubmitted) {
+                      fieldViewBuilder: (
+                        BuildContext context,
+                        TextEditingController fieldTextEditingController,
+                        FocusNode fieldFocusNode,
+                        VoidCallback onFieldSubmitted,
+                      ) {
                         return MyTextForm(
                           elevation: kTextFieldElevation,
                           labelText: 'search'.tr,
@@ -134,7 +134,10 @@ class _CreatePlaceState extends State<CreatePlace>
                           icon: const Icon(IconsaxPlusLinear.global_search),
                           controller: _controller,
                           margin: const EdgeInsets.only(
-                              left: 10, right: 10, top: 10),
+                            left: 10,
+                            right: 10,
+                            top: 10,
+                          ),
                           focusNode: _focusNode,
                         );
                       },
@@ -142,16 +145,20 @@ class _CreatePlaceState extends State<CreatePlace>
                         if (textEditingValue.text.isEmpty) {
                           return const Iterable<Result>.empty();
                         }
-                        return WeatherAPI()
-                            .getCity(textEditingValue.text, locale);
+                        return WeatherAPI().getCity(
+                          textEditingValue.text,
+                          locale,
+                        );
                       },
-                      onSelected: (Result selection) =>
-                          fillController(selection),
-                      displayStringForOption: (Result option) =>
-                          '${option.name}, ${option.admin1}',
-                      optionsViewBuilder: (BuildContext context,
-                          AutocompleteOnSelected<Result> onSelected,
-                          Iterable<Result> options) {
+                      onSelected:
+                          (Result selection) => fillController(selection),
+                      displayStringForOption:
+                          (Result option) => '${option.name}, ${option.admin1}',
+                      optionsViewBuilder: (
+                        BuildContext context,
+                        AutocompleteOnSelected<Result> onSelected,
+                        Iterable<Result> options,
+                      ) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Align(
@@ -164,8 +171,9 @@ class _CreatePlaceState extends State<CreatePlace>
                                 shrinkWrap: true,
                                 itemCount: options.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final Result option =
-                                      options.elementAt(index);
+                                  final Result option = options.elementAt(
+                                    index,
+                                  );
                                   return InkWell(
                                     onTap: () => onSelected(option),
                                     child: ListTile(
@@ -189,8 +197,11 @@ class _CreatePlaceState extends State<CreatePlace>
                       type: TextInputType.number,
                       icon: const Icon(IconsaxPlusLinear.location),
                       onChanged: (value) => setState(() {}),
-                      margin:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'validateValue'.tr;
@@ -212,8 +223,11 @@ class _CreatePlaceState extends State<CreatePlace>
                       type: TextInputType.number,
                       icon: const Icon(IconsaxPlusLinear.location),
                       onChanged: (value) => setState(() {}),
-                      margin:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'validateValue'.tr;
@@ -235,8 +249,11 @@ class _CreatePlaceState extends State<CreatePlace>
                       type: TextInputType.name,
                       icon: const Icon(IconsaxPlusLinear.building_3),
                       onChanged: (value) => setState(() {}),
-                      margin:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'validateName'.tr;
@@ -251,8 +268,11 @@ class _CreatePlaceState extends State<CreatePlace>
                       type: TextInputType.streetAddress,
                       icon: const Icon(IconsaxPlusLinear.global),
                       onChanged: (value) => setState(() {}),
-                      margin:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'validateName'.tr;
@@ -262,7 +282,9 @@ class _CreatePlaceState extends State<CreatePlace>
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
                       child: SizeTransition(
                         sizeFactor: _animation,
                         axisAlignment: -1.0,
@@ -291,10 +313,7 @@ class _CreatePlaceState extends State<CreatePlace>
                   ],
                 ),
               ),
-              if (isLoading)
-                const Center(
-                  child: CircularProgressIndicator(),
-                ),
+              if (isLoading) const Center(child: CircularProgressIndicator()),
             ],
           ),
         ),

@@ -7,8 +7,8 @@ import 'package:rain/app/data/db.dart';
 import 'package:rain/main.dart';
 
 class WeatherAPI {
-  final Dio dio = Dio()
-    ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?';
+  final Dio dio =
+      Dio()..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?';
   final Dio dioLocation = Dio();
 
   static const String _weatherParams =
@@ -41,14 +41,25 @@ class WeatherAPI {
     }
   }
 
-  Future<WeatherCard> getWeatherCard(double lat, double lon, String city,
-      String district, String timezone) async {
+  Future<WeatherCard> getWeatherCard(
+    double lat,
+    double lon,
+    String city,
+    String district,
+    String timezone,
+  ) async {
     final String urlWeather = _buildWeatherUrl(lat, lon);
     try {
       Response response = await dio.get(urlWeather);
       WeatherDataApi weatherData = WeatherDataApi.fromJson(response.data);
       return _mapWeatherDataToCard(
-          weatherData, lat, lon, city, district, timezone);
+        weatherData,
+        lat,
+        lon,
+        city,
+        district,
+        timezone,
+      );
     } on DioException catch (e) {
       if (kDebugMode) {
         print(e);
@@ -124,8 +135,14 @@ class WeatherAPI {
     );
   }
 
-  WeatherCard _mapWeatherDataToCard(WeatherDataApi weatherData, double lat,
-      double lon, String city, String district, String timezone) {
+  WeatherCard _mapWeatherDataToCard(
+    WeatherDataApi weatherData,
+    double lat,
+    double lon,
+    String city,
+    String district,
+    String timezone,
+  ) {
     return WeatherCard(
       time: weatherData.hourly.time,
       temperature2M: weatherData.hourly.temperature2M,

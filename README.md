@@ -62,5 +62,5 @@ This project is licensed under the [MIT License](./LICENSE).
 ### 👨‍💻 Our Contributors
 
 <a href='https://github.com/darkmoonight/Rain/graphs/contributors'>
-    <img src='https://contrib.rocks/image?repo=darkmoonight/Rain' />
+    <img src='https://contrib.rocks/image?repo=darkmoonight/Rain'/>
 </a>
