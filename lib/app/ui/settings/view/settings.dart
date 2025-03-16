@@ -1072,7 +1072,7 @@ class _SettingsPageState extends State<SettingsPage> {
               info:
                   appLanguages.firstWhere(
                     (element) => (element['locale'] == locale),
-                    orElse: () => appLanguages.first,
+                    orElse: () => {'name': ''},
                   )['name'],
             ),
             onPressed: () {

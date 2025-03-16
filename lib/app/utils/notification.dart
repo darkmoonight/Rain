@@ -34,8 +34,6 @@ class NotificationShow {
       body,
       scheduledTime,
       notificationDetails,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       payload: imagePath,
     );
