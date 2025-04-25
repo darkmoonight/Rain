@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:dio_cache_interceptor_file_store/dio_cache_interceptor_file_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -7,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:http_cache_file_store/http_cache_file_store.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -911,8 +911,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         .tick_square,
                                                   ),
                                                   onPressed: () {
-                                                    if (colorText == null)
+                                                    if (colorText == null) {
                                                       return;
+                                                    }
                                                     weatherController
                                                         .updateWidgetTextColor(
                                                           colorText!,
