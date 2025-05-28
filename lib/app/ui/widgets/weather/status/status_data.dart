@@ -4,7 +4,35 @@ import 'package:rain/main.dart';
 import 'package:timezone/timezone.dart';
 
 class StatusData {
-  String getDegree(degree) {
+  String getDegree(dynamic degree) {
+    return _formatDegree(degree);
+  }
+
+  String getSpeed(int? speed) {
+    return _formatSpeed(speed);
+  }
+
+  String getPressure(int? pressure) {
+    return _formatPressure(pressure);
+  }
+
+  String getVisibility(double? length) {
+    return _formatVisibility(length);
+  }
+
+  String getPrecipitation(double? precipitation) {
+    return _formatPrecipitation(precipitation);
+  }
+
+  String getTimeFormat(String time) {
+    return _formatTime(time);
+  }
+
+  String getTimeFormatTz(TZDateTime time) {
+    return _formatTimeTz(time);
+  }
+
+  String _formatDegree(dynamic degree) {
     switch (settings.degrees) {
       case 'celsius':
         return '$degree°C';
@@ -15,11 +43,13 @@ class StatusData {
     }
   }
 
-  String getSpeed(int? speed) {
+  String _formatSpeed(int? speed) {
+    if (speed == null) return '';
+
     switch (settings.measurements) {
       case 'metric':
         return settings.wind == 'm/s'
-            ? '${(speed! * (5 / 18)).toPrecision(1)} ${'m/s'.tr}'
+            ? '${(speed * (5 / 18)).toPrecision(1)} ${'m/s'.tr}'
             : '$speed ${'kph'.tr}';
       case 'imperial':
         return '$speed ${'mph'.tr}';
@@ -28,28 +58,38 @@ class StatusData {
     }
   }
 
-  String getPressure(int? pressure) {
+  String _formatPressure(int? pressure) {
+    if (pressure == null) return '';
+
     return settings.pressure == 'mmHg'
-        ? '${(pressure! * (3 / 4)).toPrecision(1)} ${'mmHg'.tr}'
+        ? '${(pressure * (3 / 4)).toPrecision(1)} ${'mmHg'.tr}'
         : '$pressure ${'hPa'.tr}';
   }
 
-  String getVisibility(double? length) {
-    if (length != null) {
-      switch (settings.measurements) {
-        case 'metric':
-          return '${length > 1000 ? (length / 1000).round() : (length / 1000).toStringAsFixed(2)} ${'km'.tr}';
-        case 'imperial':
-          return '${length > 5280 ? (length / 5280).round() : (length / 5280).toStringAsFixed(2)} ${'mi'.tr}';
-        default:
-          return '${length > 1000 ? (length / 1000).round() : (length / 1000).toStringAsFixed(2)} ${'km'.tr}';
-      }
-    } else {
-      return '';
+  String _formatVisibility(double? length) {
+    if (length == null) return '';
+
+    switch (settings.measurements) {
+      case 'metric':
+        return _formatMetricVisibility(length);
+      case 'imperial':
+        return _formatImperialVisibility(length);
+      default:
+        return _formatMetricVisibility(length);
     }
   }
 
-  String getPrecipitation(double? precipitation) {
+  String _formatMetricVisibility(double length) {
+    return '${length > 1000 ? (length / 1000).round() : (length / 1000).toStringAsFixed(2)} ${'km'.tr}';
+  }
+
+  String _formatImperialVisibility(double length) {
+    return '${length > 5280 ? (length / 5280).round() : (length / 5280).toStringAsFixed(2)} ${'mi'.tr}';
+  }
+
+  String _formatPrecipitation(double? precipitation) {
+    if (precipitation == null) return '';
+
     switch (settings.measurements) {
       case 'metric':
         return '$precipitation ${'mm'.tr}';
@@ -60,24 +100,21 @@ class StatusData {
     }
   }
 
-  String getTimeFormat(String time) {
+  String _formatTime(String time) {
+    final parsedTime = DateTime.tryParse(time);
+    if (parsedTime == null) return '';
+
     switch (settings.timeformat) {
       case '12':
-        return DateFormat.jm(
-          locale.languageCode,
-        ).format(DateTime.tryParse(time)!);
+        return DateFormat.jm(locale.languageCode).format(parsedTime);
       case '24':
-        return DateFormat.Hm(
-          locale.languageCode,
-        ).format(DateTime.tryParse(time)!);
+        return DateFormat.Hm(locale.languageCode).format(parsedTime);
       default:
-        return DateFormat.Hm(
-          locale.languageCode,
-        ).format(DateTime.tryParse(time)!);
+        return DateFormat.Hm(locale.languageCode).format(parsedTime);
     }
   }
 
-  String getTimeFormatTz(TZDateTime time) {
+  String _formatTimeTz(TZDateTime time) {
     switch (settings.timeformat) {
       case '12':
         return DateFormat.jm(locale.languageCode).format(time);

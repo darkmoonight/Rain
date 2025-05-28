@@ -10,6 +10,7 @@ class DescWeather extends StatefulWidget {
     required this.desc,
     this.message = '',
   });
+
   final String imageName;
   final String value;
   final String desc;
@@ -26,34 +27,42 @@ class _DescWeatherState extends State<DescWeather> {
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
     return GestureDetector(
-      onTap: () => setState(() => hide = !hide),
+      onTap: _toggleDescriptionVisibility,
       child: Tooltip(
         message: widget.message,
         child: SizedBox(
           height: 90,
           width: 100,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(widget.imageName, scale: 20),
-              const Gap(5),
-              Text(
-                widget.value,
-                style: textTheme.labelLarge,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Expanded(
-                child: Text(
-                  widget.desc,
-                  style: textTheme.bodySmall,
-                  overflow: hide ? TextOverflow.ellipsis : TextOverflow.visible,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
+          child: _buildContent(textTheme),
         ),
       ),
+    );
+  }
+
+  void _toggleDescriptionVisibility() {
+    setState(() => hide = !hide);
+  }
+
+  Widget _buildContent(TextTheme textTheme) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(widget.imageName, scale: 20),
+        const Gap(5),
+        Text(
+          widget.value,
+          style: textTheme.labelLarge,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Expanded(
+          child: Text(
+            widget.desc,
+            style: textTheme.bodySmall,
+            overflow: hide ? TextOverflow.ellipsis : TextOverflow.visible,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     );
   }
 }

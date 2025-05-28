@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rain/app/data/db.dart';
 import 'package:rain/app/ui/geolocation.dart';
 import 'package:rain/app/ui/widgets/button.dart';
 import 'package:rain/main.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OnBording extends StatefulWidget {
@@ -19,8 +19,8 @@ class _OnBordingState extends State<OnBording> {
 
   @override
   void initState() {
-    pageController = PageController(initialPage: 0);
     super.initState();
+    pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -45,52 +45,62 @@ class _OnBordingState extends State<OnBording> {
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              child: PageView.builder(
-                controller: pageController,
-                itemCount: data.length,
-                onPageChanged: (index) {
-                  setState(() {
-                    pageIndex = index;
-                  });
-                },
-                itemBuilder:
-                    (context, index) => OnboardContent(
-                      image: data[index].image,
-                      title: data[index].title,
-                      description: data[index].description,
-                    ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ...List.generate(
-                  data.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: DotIndicator(isActive: index == pageIndex),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              child: MyTextButton(
-                buttonName:
-                    pageIndex == data.length - 1 ? 'start'.tr : 'next'.tr,
-                onPressed: () {
-                  pageIndex == data.length - 1
-                      ? onBoardHome()
-                      : pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.ease,
-                      );
-                },
-              ),
-            ),
+            _buildPageView(),
+            _buildDotIndicators(),
+            _buildActionButton(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildPageView() {
+    return Expanded(
+      child: PageView.builder(
+        controller: pageController,
+        itemCount: data.length,
+        onPageChanged: (index) {
+          setState(() {
+            pageIndex = index;
+          });
+        },
+        itemBuilder: (context, index) => OnboardContent(
+          image: data[index].image,
+          title: data[index].title,
+          description: data[index].description,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDotIndicators() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+        data.length,
+        (index) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: DotIndicator(isActive: index == pageIndex),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      child: MyTextButton(
+        buttonName: pageIndex == data.length - 1 ? 'start'.tr : 'next'.tr,
+        onPressed: () {
+          if (pageIndex == data.length - 1) {
+            onBoardHome();
+          } else {
+            pageController.nextPage(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.ease,
+            );
+          }
+        },
       ),
     );
   }
@@ -108,10 +118,9 @@ class DotIndicator extends StatelessWidget {
       height: 8,
       width: 8,
       decoration: BoxDecoration(
-        color:
-            isActive
-                ? context.theme.colorScheme.secondary
-                : context.theme.colorScheme.secondaryContainer,
+        color: isActive
+            ? context.theme.colorScheme.secondary
+            : context.theme.colorScheme.secondaryContainer,
         shape: BoxShape.circle,
       ),
     );
@@ -153,6 +162,7 @@ class OnboardContent extends StatelessWidget {
     required this.title,
     required this.description,
   });
+
   final String image, title, description;
 
   @override

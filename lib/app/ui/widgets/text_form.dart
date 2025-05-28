@@ -15,6 +15,7 @@ class MyTextForm extends StatelessWidget {
     this.focusNode,
     this.onChanged,
   });
+
   final String labelText;
   final TextInputType type;
   final Icon icon;
@@ -31,23 +32,28 @@ class MyTextForm extends StatelessWidget {
     return Card(
       elevation: elevation,
       margin: margin,
-      child: TextFormField(
-        focusNode: focusNode,
-        controller: controller,
-        keyboardType: type,
-        style: context.textTheme.labelLarge,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 12.5,
-            vertical: 0,
-          ),
-          prefixIcon: icon,
-          suffixIcon: iconButton,
-          labelText: labelText,
-        ),
-        validator: validator,
-        onChanged: onChanged,
-      ),
+      child: _buildTextFormField(context),
+    );
+  }
+
+  Widget _buildTextFormField(BuildContext context) {
+    return TextFormField(
+      focusNode: focusNode,
+      controller: controller,
+      keyboardType: type,
+      style: context.textTheme.labelLarge,
+      decoration: _buildInputDecoration(),
+      validator: validator,
+      onChanged: onChanged,
+    );
+  }
+
+  InputDecoration _buildInputDecoration() {
+    return InputDecoration(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12.5, vertical: 0),
+      prefixIcon: icon,
+      suffixIcon: iconButton,
+      labelText: labelText,
     );
   }
 }

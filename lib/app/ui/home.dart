@@ -82,6 +82,148 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     tabController.animateTo(tabIndex);
   }
 
+  Widget _buildAppBarTitle(
+    int tabIndex,
+    TextStyle? textStyle,
+    TextStyle? labelLarge,
+  ) {
+    switch (tabIndex) {
+      case 0:
+        return visible
+            ? _buildSearchField(labelLarge)
+            : Obx(() {
+              final location = weatherController.location;
+              final city = location.city;
+              final district = location.district;
+              return Text(
+                weatherController.isLoading.isFalse
+                    ? district!.isEmpty
+                        ? '$city'
+                        : city!.isEmpty
+                        ? district
+                        : city == district
+                        ? city
+                        : '$city, $district'
+                    : settings.location
+                    ? 'search'.tr
+                    : (isar.locationCaches.where().findAllSync()).isNotEmpty
+                    ? 'loading'.tr
+                    : 'searchCity'.tr,
+                style: textStyle,
+              );
+            });
+      case 1:
+        return Text('cities'.tr, style: textStyle);
+      case 2:
+        return settings.hideMap
+            ? Text('settings_full'.tr, style: textStyle)
+            : Text('map'.tr, style: textStyle);
+      case 3:
+        return Text('settings_full'.tr, style: textStyle);
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
+  Widget _buildSearchField(TextStyle? labelLarge) {
+    return RawAutocomplete<Result>(
+      focusNode: _focusNode,
+      textEditingController: _controller,
+      fieldViewBuilder: (_, __, ___, ____) {
+        return TextField(
+          controller: _controller,
+          focusNode: _focusNode,
+          style: labelLarge?.copyWith(fontSize: 16),
+          decoration: InputDecoration(hintText: 'search'.tr),
+        );
+      },
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text.isEmpty) {
+          return const Iterable<Result>.empty();
+        }
+        return WeatherAPI().getCity(textEditingValue.text, locale);
+      },
+      onSelected: (Result selection) async {
+        await weatherController.deleteAll(true);
+        await weatherController.getLocation(
+          double.parse('${selection.latitude}'),
+          double.parse('${selection.longitude}'),
+          selection.admin1,
+          selection.name,
+        );
+        visible = false;
+        _controller.clear();
+        _focusNode.unfocus();
+        setState(() {});
+      },
+      displayStringForOption:
+          (Result option) => '${option.name}, ${option.admin1}',
+      optionsViewBuilder: (
+        BuildContext context,
+        AutocompleteOnSelected<Result> onSelected,
+        Iterable<Result> options,
+      ) {
+        return _buildOptionsView(context, onSelected, options, labelLarge);
+      },
+    );
+  }
+
+  Widget _buildOptionsView(
+    BuildContext context,
+    AutocompleteOnSelected<Result> onSelected,
+    Iterable<Result> options,
+    TextStyle? labelLarge,
+  ) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Material(
+        borderRadius: BorderRadius.circular(20),
+        elevation: 4.0,
+        child: SizedBox(
+          width: 250,
+          child: ListView.builder(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: options.length,
+            itemBuilder: (BuildContext context, int index) {
+              final Result option = options.elementAt(index);
+              return InkWell(
+                onTap: () => onSelected(option),
+                child: ListTile(
+                  title: Text(
+                    '${option.name}, ${option.admin1}',
+                    style: labelLarge,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchIconButton() {
+    return IconButton(
+      onPressed: () {
+        if (visible) {
+          _controller.clear();
+          _focusNode.unfocus();
+          visible = false;
+        } else {
+          visible = true;
+        }
+        setState(() {});
+      },
+      icon: Icon(
+        visible
+            ? IconsaxPlusLinear.close_circle
+            : IconsaxPlusLinear.search_normal_1,
+        size: 18,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
@@ -100,146 +242,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           appBar: AppBar(
             centerTitle: true,
             automaticallyImplyLeading: false,
-            leading: switch (tabIndex) {
-              0 => IconButton(
-                onPressed: () {
-                  Get.to(
-                    () => const SelectGeolocation(isStart: false),
-                    transition: Transition.downToUp,
-                  );
-                },
-                icon: const Icon(IconsaxPlusLinear.global_search, size: 18),
-              ),
-              int() => null,
-            },
-            title: switch (tabIndex) {
-              0 =>
-                visible
-                    ? RawAutocomplete<Result>(
-                      focusNode: _focusNode,
-                      textEditingController: _controller,
-                      fieldViewBuilder: (_, __, ___, ____) {
-                        return TextField(
-                          controller: _controller,
-                          focusNode: _focusNode,
-                          style: labelLarge?.copyWith(fontSize: 16),
-                          decoration: InputDecoration(hintText: 'search'.tr),
+            leading:
+                tabIndex == 0
+                    ? IconButton(
+                      onPressed: () {
+                        Get.to(
+                          () => const SelectGeolocation(isStart: false),
+                          transition: Transition.downToUp,
                         );
                       },
-                      optionsBuilder: (TextEditingValue textEditingValue) {
-                        if (textEditingValue.text.isEmpty) {
-                          return const Iterable<Result>.empty();
-                        }
-                        return WeatherAPI().getCity(
-                          textEditingValue.text,
-                          locale,
-                        );
-                      },
-                      onSelected: (Result selection) async {
-                        await weatherController.deleteAll(true);
-                        await weatherController.getLocation(
-                          double.parse('${selection.latitude}'),
-                          double.parse('${selection.longitude}'),
-                          selection.admin1,
-                          selection.name,
-                        );
-                        visible = false;
-                        _controller.clear();
-                        _focusNode.unfocus();
-                        setState(() {});
-                      },
-                      displayStringForOption:
-                          (Result option) => '${option.name}, ${option.admin1}',
-                      optionsViewBuilder: (
-                        BuildContext context,
-                        AutocompleteOnSelected<Result> onSelected,
-                        Iterable<Result> options,
-                      ) {
-                        return Align(
-                          alignment: Alignment.topLeft,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20),
-                            elevation: 4.0,
-                            child: SizedBox(
-                              width: 250,
-                              child: ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                itemCount: options.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final Result option = options.elementAt(
-                                    index,
-                                  );
-                                  return InkWell(
-                                    onTap: () => onSelected(option),
-                                    child: ListTile(
-                                      title: Text(
-                                        '${option.name}, ${option.admin1}',
-                                        style: labelLarge,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+                      icon: const Icon(
+                        IconsaxPlusLinear.global_search,
+                        size: 18,
+                      ),
                     )
-                    : Obx(() {
-                      final location = weatherController.location;
-                      final city = location.city;
-                      final district = location.district;
-                      return Text(
-                        weatherController.isLoading.isFalse
-                            ? district!.isEmpty
-                                ? '$city'
-                                : city!.isEmpty
-                                ? district
-                                : city == district
-                                ? city
-                                : '$city'
-                                    ', $district'
-                            : settings.location
-                            ? 'search'.tr
-                            : (isar.locationCaches.where().findAllSync())
-                                .isNotEmpty
-                            ? 'loading'.tr
-                            : 'searchCity'.tr,
-                        style: textStyle,
-                      );
-                    }),
-              1 => Text('cities'.tr, style: textStyle),
-              2 =>
-                settings.hideMap
-                    ? Text('settings_full'.tr, style: textStyle)
-                    : Text('map'.tr, style: textStyle),
-              3 => Text('settings_full'.tr, style: textStyle),
-              int() => null,
-            },
-            actions: switch (tabIndex) {
-              0 => [
-                IconButton(
-                  onPressed: () {
-                    if (visible) {
-                      _controller.clear();
-                      _focusNode.unfocus();
-                      visible = false;
-                    } else {
-                      visible = true;
-                    }
-                    setState(() {});
-                  },
-                  icon: Icon(
-                    visible
-                        ? IconsaxPlusLinear.close_circle
-                        : IconsaxPlusLinear.search_normal_1,
-                    size: 18,
-                  ),
-                ),
-              ],
-              int() => null,
-            },
+                    : null,
+            title: _buildAppBarTitle(tabIndex, textStyle, labelLarge),
+            actions: tabIndex == 0 ? [_buildSearchIconButton()] : null,
           ),
           body: SafeArea(
             child: TabBarView(controller: tabController, children: pages),

@@ -16,49 +16,68 @@ class DailyCardList extends StatefulWidget {
 class _DailyCardListState extends State<DailyCardList> {
   @override
   Widget build(BuildContext context) {
-    const transparent = Colors.transparent;
     final weatherData = widget.weatherData;
     final timeDaily = weatherData.timeDaily ?? [];
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
-          splashColor: transparent,
-          highlightColor: transparent,
-        ),
-        title: Text(
-          'weatherMore'.tr,
-          style: context.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
-        ),
-      ),
+      appBar: _buildAppBar(context),
       body: SafeArea(
         child: ListView.builder(
           itemCount: timeDaily.length,
-          itemBuilder:
-              (context, index) => GestureDetector(
-                onTap:
-                    () => Get.to(
-                      () =>
-                          DailyCardInfo(weatherData: weatherData, index: index),
-                      transition: Transition.downToUp,
-                    ),
-                child: DailyCard(
-                  timeDaily: timeDaily[index],
-                  weathercodeDaily: weatherData.weathercodeDaily![index],
-                  temperature2MMax: weatherData.temperature2MMax![index],
-                  temperature2MMin: weatherData.temperature2MMin![index],
-                ),
-              ),
+          itemBuilder: (context, index) =>
+              _buildDailyCardItem(context, weatherData, index),
         ),
+      ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      centerTitle: true,
+      leading: IconButton(
+        onPressed: () => Get.back(),
+        icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+      ),
+      title: Text(
+        'weatherMore'.tr,
+        style: context.textTheme.titleMedium?.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: 18,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDailyCardItem(
+    BuildContext context,
+    WeatherCard weatherData,
+    int index,
+  ) {
+    final timeDaily = weatherData.timeDaily?[index];
+    final weathercodeDaily = weatherData.weathercodeDaily?[index];
+    final temperature2MMax = weatherData.temperature2MMax?[index];
+    final temperature2MMin = weatherData.temperature2MMin?[index];
+
+    if (timeDaily == null ||
+        weathercodeDaily == null ||
+        temperature2MMax == null ||
+        temperature2MMin == null) {
+      return Container();
+    }
+
+    return GestureDetector(
+      onTap: () => Get.to(
+        () => DailyCardInfo(weatherData: weatherData, index: index),
+        transition: Transition.downToUp,
+      ),
+      child: DailyCard(
+        timeDaily: timeDaily,
+        weathercodeDaily: weathercodeDaily,
+        temperature2MMax: temperature2MMax,
+        temperature2MMin: temperature2MMin,
       ),
     );
   }

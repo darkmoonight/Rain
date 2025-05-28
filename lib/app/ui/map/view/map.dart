@@ -113,7 +113,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
     _focusNode.unfocus();
   }
 
-  Widget _buidStyleMarkers(
+  Widget _buildStyleMarkers(
     int weathercode,
     String time,
     String sunrise,
@@ -154,7 +154,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
       point: LatLng(weatherCard.lat!, weatherCard.lon!),
       child: GestureDetector(
         onTap: () => _onMarkerTap(weatherCard),
-        child: _buidStyleMarkers(
+        child: _buildStyleMarkers(
           weatherCard.weathercode![hourOfDay],
           weatherCard.time![hourOfDay],
           weatherCard.sunrise![dayOfNow],
@@ -166,33 +166,27 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
   }
 
   Marker _buildCardMarker(WeatherCard weatherCardList) {
+    final hourOfDay = weatherController.getTime(
+      weatherCardList.time!,
+      weatherCardList.timezone!,
+    );
+    final dayOfNow = weatherController.getDay(
+      weatherCardList.timeDaily!,
+      weatherCardList.timezone!,
+    );
+
     return Marker(
       height: 50,
       width: 100,
       point: LatLng(weatherCardList.lat!, weatherCardList.lon!),
       child: GestureDetector(
         onTap: () => _onMarkerTap(weatherCardList),
-        child: _buidStyleMarkers(
-          weatherCardList.weathercode![weatherController.getTime(
-            weatherCardList.time!,
-            weatherCardList.timezone!,
-          )],
-          weatherCardList.time![weatherController.getTime(
-            weatherCardList.time!,
-            weatherCardList.timezone!,
-          )],
-          weatherCardList.sunrise![weatherController.getDay(
-            weatherCardList.timeDaily!,
-            weatherCardList.timezone!,
-          )],
-          weatherCardList.sunset![weatherController.getDay(
-            weatherCardList.timeDaily!,
-            weatherCardList.timezone!,
-          )],
-          weatherCardList.temperature2M![weatherController.getTime(
-            weatherCardList.time!,
-            weatherCardList.timezone!,
-          )],
+        child: _buildStyleMarkers(
+          weatherCardList.weathercode![hourOfDay],
+          weatherCardList.time![hourOfDay],
+          weatherCardList.sunrise![dayOfNow],
+          weatherCardList.sunset![dayOfNow],
+          weatherCardList.temperature2M![hourOfDay],
         ),
       ),
     );
@@ -233,6 +227,91 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
           ),
         )
         : const SizedBox.shrink();
+  }
+
+  Widget _buildSearchField() {
+    return RawAutocomplete<Result>(
+      focusNode: _focusNode,
+      textEditingController: _controllerSearch,
+      fieldViewBuilder: (
+        BuildContext context,
+        TextEditingController fieldTextEditingController,
+        FocusNode fieldFocusNode,
+        VoidCallback onFieldSubmitted,
+      ) {
+        return MyTextForm(
+          labelText: 'search'.tr,
+          type: TextInputType.text,
+          icon: const Icon(IconsaxPlusLinear.global_search),
+          controller: _controllerSearch,
+          margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+          focusNode: _focusNode,
+          onChanged: (value) => setState(() {}),
+          iconButton:
+              _controllerSearch.text.isNotEmpty
+                  ? IconButton(
+                    onPressed: () {
+                      _controllerSearch.clear();
+                    },
+                    icon: const Icon(
+                      IconsaxPlusLinear.close_circle,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                  )
+                  : null,
+        );
+      },
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text.isEmpty) {
+          return const Iterable<Result>.empty();
+        }
+        return WeatherAPI().getCity(textEditingValue.text, locale);
+      },
+      onSelected: (Result selection) {
+        _animatedMapController.mapController.move(
+          LatLng(selection.latitude, selection.longitude),
+          14,
+        );
+        _controllerSearch.clear();
+        _focusNode.unfocus();
+      },
+      displayStringForOption:
+          (Result option) => '${option.name}, ${option.admin1}',
+      optionsViewBuilder: (
+        BuildContext context,
+        AutocompleteOnSelected<Result> onSelected,
+        Iterable<Result> options,
+      ) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Material(
+              borderRadius: BorderRadius.circular(20),
+              elevation: 4.0,
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                itemCount: options.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final Result option = options.elementAt(index);
+                  return InkWell(
+                    onTap: () => onSelected(option),
+                    child: ListTile(
+                      title: Text(
+                        '${option.name}, ${option.admin1}',
+                        style: context.textTheme.labelLarge,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -387,91 +466,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              RawAutocomplete<Result>(
-                focusNode: _focusNode,
-                textEditingController: _controllerSearch,
-                fieldViewBuilder: (
-                  BuildContext context,
-                  TextEditingController fieldTextEditingController,
-                  FocusNode fieldFocusNode,
-                  VoidCallback onFieldSubmitted,
-                ) {
-                  return MyTextForm(
-                    labelText: 'search'.tr,
-                    type: TextInputType.text,
-                    icon: const Icon(IconsaxPlusLinear.global_search),
-                    controller: _controllerSearch,
-                    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                    focusNode: _focusNode,
-                    onChanged: (value) => setState(() {}),
-                    iconButton:
-                        _controllerSearch.text.isNotEmpty
-                            ? IconButton(
-                              onPressed: () {
-                                _controllerSearch.clear();
-                              },
-                              icon: const Icon(
-                                IconsaxPlusLinear.close_circle,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
-                            )
-                            : null,
-                  );
-                },
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text.isEmpty) {
-                    return const Iterable<Result>.empty();
-                  }
-                  return WeatherAPI().getCity(textEditingValue.text, locale);
-                },
-                onSelected: (Result selection) {
-                  _animatedMapController.mapController.move(
-                    LatLng(selection.latitude, selection.longitude),
-                    14,
-                  );
-                  _controllerSearch.clear();
-                  _focusNode.unfocus();
-                },
-                displayStringForOption:
-                    (Result option) => '${option.name}, ${option.admin1}',
-                optionsViewBuilder: (
-                  BuildContext context,
-                  AutocompleteOnSelected<Result> onSelected,
-                  Iterable<Result> options,
-                ) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 5,
-                    ),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20),
-                        elevation: 4.0,
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          itemCount: options.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final Result option = options.elementAt(index);
-                            return InkWell(
-                              onTap: () => onSelected(option),
-                              child: ListTile(
-                                title: Text(
-                                  '${option.name}, ${option.admin1}',
-                                  style: context.textTheme.labelLarge,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+              _buildSearchField(),
             ],
           );
         },

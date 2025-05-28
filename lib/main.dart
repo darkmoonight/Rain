@@ -86,24 +86,24 @@ void callbackDispatcher() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _initializeApp();
+  await initializeApp();
   runApp(const MyApp());
 }
 
-Future<void> _initializeApp() async {
-  _setupConnectivityListener();
-  await _initializeTimeZone();
-  await _initializeIsar();
-  await _initializeNotifications();
+Future<void> initializeApp() async {
+  setupConnectivityListener();
+  await initializeTimeZone();
+  await initializeIsar();
+  await initializeNotifications();
   if (Platform.isAndroid) {
-    await _setOptimalDisplayMode();
+    await setOptimalDisplayMode();
     Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
     HomeWidget.setAppGroupId(appGroupId);
   }
   DeviceFeature().init();
 }
 
-void _setupConnectivityListener() {
+void setupConnectivityListener() {
   Connectivity().onConnectivityChanged.listen((result) {
     isOnline.value =
         result.contains(ConnectivityResult.none)
@@ -112,13 +112,13 @@ void _setupConnectivityListener() {
   });
 }
 
-Future<void> _initializeTimeZone() async {
+Future<void> initializeTimeZone() async {
   final timeZoneName = await FlutterTimezone.getLocalTimezone();
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
 }
 
-Future<void> _initializeIsar() async {
+Future<void> initializeIsar() async {
   isar = await Isar.open([
     SettingsSchema,
     MainWeatherCacheSchema,
@@ -140,7 +140,7 @@ Future<void> _initializeIsar() async {
   }
 }
 
-Future<void> _initializeNotifications() async {
+Future<void> initializeNotifications() async {
   const initializationSettings = InitializationSettings(
     android: AndroidInitializationSettings('@mipmap/ic_launcher'),
     iOS: DarwinInitializationSettings(),
@@ -149,7 +149,7 @@ Future<void> _initializeNotifications() async {
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 }
 
-Future<void> _setOptimalDisplayMode() async {
+Future<void> setOptimalDisplayMode() async {
   final supported = await FlutterDisplayMode.supported;
   final active = await FlutterDisplayMode.active;
   final sameResolution =

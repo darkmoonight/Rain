@@ -134,7 +134,7 @@ class WeatherController extends GetxController {
     await readCache();
   }
 
-  Future<Map> getCurrentLocationSearch() async {
+  Future<Map<String, dynamic>> getCurrentLocationSearch() async {
     if (!(await isOnline.value)) {
       showSnackBar(content: 'no_inter'.tr);
     }
@@ -313,14 +313,13 @@ class WeatherController extends GetxController {
   }
 
   Future<void> updateCacheCard(bool refresh) async {
-    final weatherCard =
-        refresh
-            ? isar.weatherCards.where().sortByIndex().findAllSync()
-            : isar.weatherCards
-                .filter()
-                .timestampLessThan(cacheExpiry)
-                .sortByIndex()
-                .findAllSync();
+    final weatherCard = refresh
+        ? isar.weatherCards.where().sortByIndex().findAllSync()
+        : isar.weatherCards
+              .filter()
+              .timestampLessThan(cacheExpiry)
+              .sortByIndex()
+              .findAllSync();
 
     if (!(await isOnline.value) || weatherCard.isEmpty) {
       return;
@@ -335,51 +334,50 @@ class WeatherController extends GetxController {
         oldCard.timezone!,
       );
       isar.writeTxnSync(() {
-        oldCard
-          ..time = updatedCard.time
-          ..weathercode = updatedCard.weathercode
-          ..temperature2M = updatedCard.temperature2M
-          ..apparentTemperature = updatedCard.apparentTemperature
-          ..relativehumidity2M = updatedCard.relativehumidity2M
-          ..precipitation = updatedCard.precipitation
-          ..rain = updatedCard.rain
-          ..surfacePressure = updatedCard.surfacePressure
-          ..visibility = updatedCard.visibility
-          ..evapotranspiration = updatedCard.evapotranspiration
-          ..windspeed10M = updatedCard.windspeed10M
-          ..winddirection10M = updatedCard.winddirection10M
-          ..windgusts10M = updatedCard.windgusts10M
-          ..cloudcover = updatedCard.cloudcover
-          ..uvIndex = updatedCard.uvIndex
-          ..dewpoint2M = updatedCard.dewpoint2M
-          ..precipitationProbability = updatedCard.precipitationProbability
-          ..shortwaveRadiation = updatedCard.shortwaveRadiation
-          ..timeDaily = updatedCard.timeDaily
-          ..weathercodeDaily = updatedCard.weathercodeDaily
-          ..temperature2MMax = updatedCard.temperature2MMax
-          ..temperature2MMin = updatedCard.temperature2MMin
-          ..apparentTemperatureMax = updatedCard.apparentTemperatureMax
-          ..apparentTemperatureMin = updatedCard.apparentTemperatureMin
-          ..sunrise = updatedCard.sunrise
-          ..sunset = updatedCard.sunset
-          ..precipitationSum = updatedCard.precipitationSum
-          ..precipitationProbabilityMax =
-              updatedCard.precipitationProbabilityMax
-          ..windspeed10MMax = updatedCard.windspeed10MMax
-          ..windgusts10MMax = updatedCard.windgusts10MMax
-          ..uvIndexMax = updatedCard.uvIndexMax
-          ..rainSum = updatedCard.rainSum
-          ..winddirection10MDominant = updatedCard.winddirection10MDominant
-          ..timestamp = DateTime.now();
-
-        isar.weatherCards.putSync(oldCard);
-
-        final newCard = oldCard;
-        final oldIdx = weatherCard.indexOf(oldCard);
-        weatherCards[oldIdx] = newCard;
+        _updateWeatherCard(oldCard, updatedCard);
         weatherCards.refresh();
       });
     }
+  }
+
+  void _updateWeatherCard(WeatherCard oldCard, WeatherCard updatedCard) {
+    oldCard
+      ..time = updatedCard.time
+      ..weathercode = updatedCard.weathercode
+      ..temperature2M = updatedCard.temperature2M
+      ..apparentTemperature = updatedCard.apparentTemperature
+      ..relativehumidity2M = updatedCard.relativehumidity2M
+      ..precipitation = updatedCard.precipitation
+      ..rain = updatedCard.rain
+      ..surfacePressure = updatedCard.surfacePressure
+      ..visibility = updatedCard.visibility
+      ..evapotranspiration = updatedCard.evapotranspiration
+      ..windspeed10M = updatedCard.windspeed10M
+      ..winddirection10M = updatedCard.winddirection10M
+      ..windgusts10M = updatedCard.windgusts10M
+      ..cloudcover = updatedCard.cloudcover
+      ..uvIndex = updatedCard.uvIndex
+      ..dewpoint2M = updatedCard.dewpoint2M
+      ..precipitationProbability = updatedCard.precipitationProbability
+      ..shortwaveRadiation = updatedCard.shortwaveRadiation
+      ..timeDaily = updatedCard.timeDaily
+      ..weathercodeDaily = updatedCard.weathercodeDaily
+      ..temperature2MMax = updatedCard.temperature2MMax
+      ..temperature2MMin = updatedCard.temperature2MMin
+      ..apparentTemperatureMax = updatedCard.apparentTemperatureMax
+      ..apparentTemperatureMin = updatedCard.apparentTemperatureMin
+      ..sunrise = updatedCard.sunrise
+      ..sunset = updatedCard.sunset
+      ..precipitationSum = updatedCard.precipitationSum
+      ..precipitationProbabilityMax = updatedCard.precipitationProbabilityMax
+      ..windspeed10MMax = updatedCard.windspeed10MMax
+      ..windgusts10MMax = updatedCard.windgusts10MMax
+      ..uvIndexMax = updatedCard.uvIndexMax
+      ..rainSum = updatedCard.rainSum
+      ..winddirection10MDominant = updatedCard.winddirection10MDominant
+      ..timestamp = DateTime.now();
+
+    isar.weatherCards.putSync(oldCard);
   }
 
   Future<void> updateCard(WeatherCard weatherCard) async {
@@ -396,43 +394,7 @@ class WeatherController extends GetxController {
     );
 
     isar.writeTxnSync(() {
-      weatherCard
-        ..time = updatedCard.time
-        ..weathercode = updatedCard.weathercode
-        ..temperature2M = updatedCard.temperature2M
-        ..apparentTemperature = updatedCard.apparentTemperature
-        ..relativehumidity2M = updatedCard.relativehumidity2M
-        ..precipitation = updatedCard.precipitation
-        ..rain = updatedCard.rain
-        ..surfacePressure = updatedCard.surfacePressure
-        ..visibility = updatedCard.visibility
-        ..evapotranspiration = updatedCard.evapotranspiration
-        ..windspeed10M = updatedCard.windspeed10M
-        ..winddirection10M = updatedCard.winddirection10M
-        ..windgusts10M = updatedCard.windgusts10M
-        ..cloudcover = updatedCard.cloudcover
-        ..uvIndex = updatedCard.uvIndex
-        ..dewpoint2M = updatedCard.dewpoint2M
-        ..precipitationProbability = updatedCard.precipitationProbability
-        ..shortwaveRadiation = updatedCard.shortwaveRadiation
-        ..timeDaily = updatedCard.timeDaily
-        ..weathercodeDaily = updatedCard.weathercodeDaily
-        ..temperature2MMax = updatedCard.temperature2MMax
-        ..temperature2MMin = updatedCard.temperature2MMin
-        ..apparentTemperatureMax = updatedCard.apparentTemperatureMax
-        ..apparentTemperatureMin = updatedCard.apparentTemperatureMin
-        ..sunrise = updatedCard.sunrise
-        ..sunset = updatedCard.sunset
-        ..precipitationSum = updatedCard.precipitationSum
-        ..precipitationProbabilityMax = updatedCard.precipitationProbabilityMax
-        ..windspeed10MMax = updatedCard.windspeed10MMax
-        ..windgusts10MMax = updatedCard.windgusts10MMax
-        ..uvIndexMax = updatedCard.uvIndexMax
-        ..rainSum = updatedCard.rainSum
-        ..winddirection10MDominant = updatedCard.winddirection10MDominant
-        ..timestamp = DateTime.now();
-
-      isar.weatherCards.putSync(weatherCard);
+      _updateWeatherCard(weatherCard, updatedCard);
     });
   }
 
@@ -512,8 +474,8 @@ class WeatherController extends GetxController {
 
   void notificationCheck() async {
     if (settings.notifications) {
-      final pendingNotificationRequests =
-          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+      final pendingNotificationRequests = await flutterLocalNotificationsPlugin
+          .pendingNotificationRequests();
       if (pendingNotificationRequests.isEmpty) {
         notification(_mainWeather.value);
       }
@@ -572,8 +534,9 @@ class WeatherController extends GetxController {
       WeatherCardSchema,
     ], directory: (await getApplicationSupportDirectory()).path);
 
-    final mainWeatherCache =
-        isarWidget.mainWeatherCaches.where().findFirstSync();
+    final mainWeatherCache = isarWidget.mainWeatherCaches
+        .where()
+        .findFirstSync();
     if (mainWeatherCache == null) return false;
 
     final hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);

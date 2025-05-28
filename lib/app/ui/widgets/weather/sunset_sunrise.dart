@@ -32,64 +32,53 @@ class _SunsetSunriseState extends State<SunsetSunrise> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Row(
           children: [
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'sunrise'.tr,
-                          style: titleSmall,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Gap(2),
-                        Text(
-                          statusData.getTimeFormat(widget.timeSunrise),
-                          style: titleLarge,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Gap(5),
-                  Flexible(
-                    child: Image.asset('assets/images/sunrise.png', scale: 10),
-                  ),
-                ],
-              ),
+            _buildSunTimeColumn(
+              context,
+              'sunrise'.tr,
+              statusData.getTimeFormat(widget.timeSunrise),
+              'assets/images/sunrise.png',
+              titleSmall,
+              titleLarge,
             ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'sunset'.tr,
-                          style: titleSmall,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Gap(2),
-                        Text(
-                          statusData.getTimeFormat(widget.timeSunset),
-                          style: titleLarge,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Gap(5),
-                  Flexible(
-                    child: Image.asset('assets/images/sunset.png', scale: 10),
-                  ),
-                ],
-              ),
+            _buildSunTimeColumn(
+              context,
+              'sunset'.tr,
+              statusData.getTimeFormat(widget.timeSunset),
+              'assets/images/sunset.png',
+              titleSmall,
+              titleLarge,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSunTimeColumn(
+    BuildContext context,
+    String label,
+    String time,
+    String imagePath,
+    TextStyle? labelStyle,
+    TextStyle? timeStyle,
+  ) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label, style: labelStyle, overflow: TextOverflow.ellipsis),
+                const Gap(2),
+                Text(time, style: timeStyle),
+              ],
+            ),
+          ),
+          const Gap(5),
+          Flexible(child: Image.asset(imagePath, scale: 10)),
+        ],
       ),
     );
   }
