@@ -219,7 +219,7 @@ class WeatherController extends GetxController {
         'widgetUpdate',
         'widgetBackgroundUpdate',
         frequency: const Duration(minutes: 15),
-        existingWorkPolicy: ExistingWorkPolicy.update,
+        existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
       );
     }
 

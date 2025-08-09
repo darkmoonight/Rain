@@ -63,12 +63,13 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
       vsync: this,
     );
 
-    _offsetAnimation = Tween<Offset>(
-      begin: const Offset(0.0, 1.0),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
+    _offsetAnimation =
+        Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
     super.initState();
   }
 
@@ -206,26 +207,25 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
   Widget _buildWeatherCard() {
     return _isCardVisible && _selectedWeatherCard != null
         ? SlideTransition(
-          position: _offsetAnimation,
-          child: GestureDetector(
-            onTap:
-                () => Get.to(
-                  () => PlaceInfo(weatherCard: _selectedWeatherCard!),
-                  transition: Transition.downToUp,
-                ),
-            child: PlaceCard(
-              time: _selectedWeatherCard!.time!,
-              timeDaily: _selectedWeatherCard!.timeDaily!,
-              timeDay: _selectedWeatherCard!.sunrise!,
-              timeNight: _selectedWeatherCard!.sunset!,
-              weather: _selectedWeatherCard!.weathercode!,
-              degree: _selectedWeatherCard!.temperature2M!,
-              district: _selectedWeatherCard!.district!,
-              city: _selectedWeatherCard!.city!,
-              timezone: _selectedWeatherCard!.timezone!,
+            position: _offsetAnimation,
+            child: GestureDetector(
+              onTap: () => Get.to(
+                () => PlaceInfo(weatherCard: _selectedWeatherCard!),
+                transition: Transition.downToUp,
+              ),
+              child: PlaceCard(
+                time: _selectedWeatherCard!.time!,
+                timeDaily: _selectedWeatherCard!.timeDaily!,
+                timeDay: _selectedWeatherCard!.sunrise!,
+                timeNight: _selectedWeatherCard!.sunset!,
+                weather: _selectedWeatherCard!.weathercode!,
+                degree: _selectedWeatherCard!.temperature2M!,
+                district: _selectedWeatherCard!.district!,
+                city: _selectedWeatherCard!.city!,
+                timezone: _selectedWeatherCard!.timezone!,
+              ),
             ),
-          ),
-        )
+          )
         : const SizedBox.shrink();
   }
 
@@ -233,35 +233,35 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
     return RawAutocomplete<Result>(
       focusNode: _focusNode,
       textEditingController: _controllerSearch,
-      fieldViewBuilder: (
-        BuildContext context,
-        TextEditingController fieldTextEditingController,
-        FocusNode fieldFocusNode,
-        VoidCallback onFieldSubmitted,
-      ) {
-        return MyTextForm(
-          labelText: 'search'.tr,
-          type: TextInputType.text,
-          icon: const Icon(IconsaxPlusLinear.global_search),
-          controller: _controllerSearch,
-          margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-          focusNode: _focusNode,
-          onChanged: (value) => setState(() {}),
-          iconButton:
-              _controllerSearch.text.isNotEmpty
+      fieldViewBuilder:
+          (
+            BuildContext context,
+            TextEditingController fieldTextEditingController,
+            FocusNode fieldFocusNode,
+            VoidCallback onFieldSubmitted,
+          ) {
+            return MyTextForm(
+              labelText: 'search'.tr,
+              type: TextInputType.text,
+              icon: const Icon(IconsaxPlusLinear.global_search),
+              controller: _controllerSearch,
+              margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              focusNode: _focusNode,
+              onChanged: (value) => setState(() {}),
+              iconButton: _controllerSearch.text.isNotEmpty
                   ? IconButton(
-                    onPressed: () {
-                      _controllerSearch.clear();
-                    },
-                    icon: const Icon(
-                      IconsaxPlusLinear.close_circle,
-                      color: Colors.grey,
-                      size: 20,
-                    ),
-                  )
+                      onPressed: () {
+                        _controllerSearch.clear();
+                      },
+                      icon: const Icon(
+                        IconsaxPlusLinear.close_circle,
+                        color: Colors.grey,
+                        size: 20,
+                      ),
+                    )
                   : null,
-        );
-      },
+            );
+          },
       optionsBuilder: (TextEditingValue textEditingValue) {
         if (textEditingValue.text.isEmpty) {
           return const Iterable<Result>.empty();
@@ -276,41 +276,42 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
         _controllerSearch.clear();
         _focusNode.unfocus();
       },
-      displayStringForOption:
-          (Result option) => '${option.name}, ${option.admin1}',
-      optionsViewBuilder: (
-        BuildContext context,
-        AutocompleteOnSelected<Result> onSelected,
-        Iterable<Result> options,
-      ) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Material(
-              borderRadius: BorderRadius.circular(20),
-              elevation: 4.0,
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: options.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final Result option = options.elementAt(index);
-                  return InkWell(
-                    onTap: () => onSelected(option),
-                    child: ListTile(
-                      title: Text(
-                        '${option.name}, ${option.admin1}',
-                        style: context.textTheme.labelLarge,
-                      ),
-                    ),
-                  );
-                },
+      displayStringForOption: (Result option) =>
+          '${option.name}, ${option.admin1}',
+      optionsViewBuilder:
+          (
+            BuildContext context,
+            AutocompleteOnSelected<Result> onSelected,
+            Iterable<Result> options,
+          ) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Material(
+                  borderRadius: BorderRadius.circular(20),
+                  elevation: 4.0,
+                  child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    itemCount: options.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final Result option = options.elementAt(index);
+                      return InkWell(
+                        onTap: () => onSelected(option),
+                        child: ListTile(
+                          title: Text(
+                            '${option.name}, ${option.admin1}',
+                            style: context.textTheme.labelLarge,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
-          ),
-        );
-      },
+            );
+          },
     );
   }
 
@@ -353,18 +354,16 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                       const LatLng(90, 180),
                     ),
                   ),
-                  onTap: (_, __) => _hideCard(),
-                  onLongPress:
-                      (tapPosition, point) => showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        enableDrag: false,
-                        builder:
-                            (BuildContext context) => CreatePlace(
-                              latitude: '${point.latitude}',
-                              longitude: '${point.longitude}',
-                            ),
-                      ),
+                  onTap: (_, _) => _hideCard(),
+                  onLongPress: (tapPosition, point) => showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    enableDrag: false,
+                    builder: (BuildContext context) => CreatePlace(
+                      latitude: '${point.latitude}',
+                      longitude: '${point.longitude}',
+                    ),
+                  ),
                 ),
                 children: [
                   if (_isDarkMode)
@@ -385,10 +384,9 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                     attributions: [
                       TextSourceAttribution(
                         'OpenStreetMap contributors',
-                        onTap:
-                            () => weatherController.urlLauncher(
-                              'https://openstreetmap.org/copyright',
-                            ),
+                        onTap: () => weatherController.urlLauncher(
+                          'https://openstreetmap.org/copyright',
+                        ),
                       ),
                     ],
                   ),
@@ -402,13 +400,12 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                       dayOfNow,
                     );
 
-                    final cardMarkers =
-                        weatherController.weatherCards
-                            .map(
-                              (weatherCardList) =>
-                                  _buildCardMarker(weatherCardList),
-                            )
-                            .toList();
+                    final cardMarkers = weatherController.weatherCards
+                        .map(
+                          (weatherCardList) =>
+                              _buildCardMarker(weatherCardList),
+                        )
+                        .toList();
 
                     return MarkerLayer(markers: [mainMarker, ...cardMarkers]);
                   }),
@@ -429,32 +426,24 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                       FloatingActionButton(
                         heroTag: null,
                         child: const Icon(IconsaxPlusLinear.home_2),
-                        onPressed:
-                            () => _resetMapOrientation(
-                              center: LatLng(
-                                mainLocation.lat!,
-                                mainLocation.lon!,
-                              ),
-                              zoom: 8,
-                            ),
+                        onPressed: () => _resetMapOrientation(
+                          center: LatLng(mainLocation.lat!, mainLocation.lon!),
+                          zoom: 8,
+                        ),
                       ),
                       FloatingActionButton(
                         heroTag: null,
                         child: const Icon(IconsaxPlusLinear.search_zoom_out_1),
-                        onPressed:
-                            () => _animatedMapController.animatedZoomOut(
-                              customId:
-                                  _useTransformer ? _useTransformerId : null,
-                            ),
+                        onPressed: () => _animatedMapController.animatedZoomOut(
+                          customId: _useTransformer ? _useTransformerId : null,
+                        ),
                       ),
                       FloatingActionButton(
                         heroTag: null,
                         child: const Icon(IconsaxPlusLinear.search_zoom_in),
-                        onPressed:
-                            () => _animatedMapController.animatedZoomIn(
-                              customId:
-                                  _useTransformer ? _useTransformerId : null,
-                            ),
+                        onPressed: () => _animatedMapController.animatedZoomIn(
+                          customId: _useTransformer ? _useTransformerId : null,
+                        ),
                       ),
                     ],
                   ),

@@ -7,8 +7,8 @@ import 'package:rain/app/data/db.dart';
 import 'package:rain/main.dart';
 
 class WeatherAPI {
-  final Dio dio =
-      Dio()..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?';
+  final Dio dio = Dio()
+    ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?';
   final Dio dioLocation = Dio();
 
   static const String _weatherParams =

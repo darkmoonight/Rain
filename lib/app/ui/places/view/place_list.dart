@@ -94,17 +94,16 @@ class _PlaceListState extends State<PlaceList> {
         controller: searchTasks,
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         onChanged: applyFilter,
-        iconButton:
-            searchTasks.text.isNotEmpty
-                ? IconButton(
-                  onPressed: clearSearch,
-                  icon: const Icon(
-                    IconsaxPlusLinear.close_circle,
-                    color: Colors.grey,
-                    size: 20,
-                  ),
-                )
-                : null,
+        iconButton: searchTasks.text.isNotEmpty
+            ? IconButton(
+                onPressed: clearSearch,
+                icon: const Icon(
+                  IconsaxPlusLinear.close_circle,
+                  color: Colors.grey,
+                  size: 20,
+                ),
+              )
+            : null,
       ),
     );
   }

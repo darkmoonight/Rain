@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/main.dart';
@@ -29,7 +30,9 @@ class NotificationShow {
         payload: imagePath,
       );
     } catch (e) {
-      print('Error showing notification: $e');
+      if (kDebugMode) {
+        print('Error showing notification: $e');
+      }
     }
   }
 

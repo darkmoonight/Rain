@@ -151,22 +151,23 @@ class _CreatePlaceState extends State<CreatePlace>
     return RawAutocomplete<Result>(
       focusNode: _focusNode,
       textEditingController: _controller,
-      fieldViewBuilder: (
-        BuildContext context,
-        TextEditingController fieldTextEditingController,
-        FocusNode fieldFocusNode,
-        VoidCallback onFieldSubmitted,
-      ) {
-        return MyTextForm(
-          elevation: kTextFieldElevation,
-          labelText: 'search'.tr,
-          type: TextInputType.text,
-          icon: const Icon(IconsaxPlusLinear.global_search),
-          controller: _controller,
-          margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-          focusNode: _focusNode,
-        );
-      },
+      fieldViewBuilder:
+          (
+            BuildContext context,
+            TextEditingController fieldTextEditingController,
+            FocusNode fieldFocusNode,
+            VoidCallback onFieldSubmitted,
+          ) {
+            return MyTextForm(
+              elevation: kTextFieldElevation,
+              labelText: 'search'.tr,
+              type: TextInputType.text,
+              icon: const Icon(IconsaxPlusLinear.global_search),
+              controller: _controller,
+              margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              focusNode: _focusNode,
+            );
+          },
       optionsBuilder: (TextEditingValue textEditingValue) {
         if (textEditingValue.text.isEmpty) {
           return const Iterable<Result>.empty();
@@ -174,15 +175,16 @@ class _CreatePlaceState extends State<CreatePlace>
         return WeatherAPI().getCity(textEditingValue.text, locale);
       },
       onSelected: (Result selection) => fillController(selection),
-      displayStringForOption:
-          (Result option) => '${option.name}, ${option.admin1}',
-      optionsViewBuilder: (
-        BuildContext context,
-        AutocompleteOnSelected<Result> onSelected,
-        Iterable<Result> options,
-      ) {
-        return _buildOptionsView(context, onSelected, options);
-      },
+      displayStringForOption: (Result option) =>
+          '${option.name}, ${option.admin1}',
+      optionsViewBuilder:
+          (
+            BuildContext context,
+            AutocompleteOnSelected<Result> onSelected,
+            Iterable<Result> options,
+          ) {
+            return _buildOptionsView(context, onSelected, options);
+          },
     );
   }
 

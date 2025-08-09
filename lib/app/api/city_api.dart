@@ -4,10 +4,9 @@ class CityApi {
   List<Result> results;
 
   factory CityApi.fromJson(Map<String, dynamic> json) => CityApi(
-    results:
-        json['results'] == null
-            ? List<Result>.empty()
-            : List<Result>.from(json['results'].map((x) => Result.fromJson(x))),
+    results: json['results'] == null
+        ? List<Result>.empty()
+        : List<Result>.from(json['results'].map((x) => Result.fromJson(x))),
   );
 }
 

@@ -764,7 +764,7 @@ class _SettingsPageState extends State<SettingsPage> {
       text: 'widgetBackground'.tr,
       info: true,
       infoWidget: CircleAvatar(
-        backgroundColor: context.theme.indicatorColor,
+        backgroundColor: context.theme.dividerColor,
         radius: 11,
         child: CircleAvatar(
           backgroundColor: widgetBackgroundColor.isEmpty
@@ -853,7 +853,7 @@ class _SettingsPageState extends State<SettingsPage> {
       text: 'widgetText'.tr,
       info: true,
       infoWidget: CircleAvatar(
-        backgroundColor: context.theme.indicatorColor,
+        backgroundColor: context.theme.dividerColor,
         radius: 11,
         child: CircleAvatar(
           backgroundColor: widgetTextColor.isEmpty

@@ -153,10 +153,9 @@ class _PlaceInfoState extends State<PlaceInfo> {
         margin: const EdgeInsets.symmetric(vertical: 5),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         decoration: BoxDecoration(
-          color:
-              i == timeNow
-                  ? context.theme.colorScheme.secondaryContainer
-                  : Colors.transparent,
+          color: i == timeNow
+              ? context.theme.colorScheme.secondaryContainer
+              : Colors.transparent,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         child: Hourly(
@@ -202,11 +201,10 @@ class _PlaceInfoState extends State<PlaceInfo> {
   Widget _buildDailyContainer(WeatherCard weatherCard) {
     return DailyContainer(
       weatherData: weatherCard,
-      onTap:
-          () => Get.to(
-            () => DailyCardList(weatherData: weatherCard),
-            transition: Transition.downToUp,
-          ),
+      onTap: () => Get.to(
+        () => DailyCardList(weatherData: weatherCard),
+        transition: Transition.downToUp,
+      ),
     );
   }
 }

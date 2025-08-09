@@ -18,6 +18,9 @@ class MyShimmer extends StatelessWidget {
   }
 
   Widget _buildShimmerCard() {
-    return Card(margin: margin, child: SizedBox(height: height));
+    return Card(
+      margin: margin,
+      child: SizedBox(height: height),
+    );
   }
 }

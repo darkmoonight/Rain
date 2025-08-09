@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
@@ -97,7 +96,7 @@ Future<void> initializeApp() async {
   await initializeNotifications();
   if (Platform.isAndroid) {
     await setOptimalDisplayMode();
-    Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
+    Workmanager().initialize(callbackDispatcher);
     HomeWidget.setAppGroupId(appGroupId);
   }
   DeviceFeature().init();
@@ -105,10 +104,9 @@ Future<void> initializeApp() async {
 
 void setupConnectivityListener() {
   Connectivity().onConnectivityChanged.listen((result) {
-    isOnline.value =
-        result.contains(ConnectivityResult.none)
-            ? Future.value(false)
-            : InternetConnection().hasInternetAccess;
+    isOnline.value = result.contains(ConnectivityResult.none)
+        ? Future.value(false)
+        : InternetConnection().hasInternetAccess;
   });
 }
 
@@ -157,8 +155,9 @@ Future<void> setOptimalDisplayMode() async {
           .where((m) => m.width == active.width && m.height == active.height)
           .toList()
         ..sort((a, b) => b.refreshRate.compareTo(a.refreshRate));
-  final mostOptimalMode =
-      sameResolution.isNotEmpty ? sameResolution.first : active;
+  final mostOptimalMode = sameResolution.isNotEmpty
+      ? sameResolution.first
+      : active;
   await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
 }
 
@@ -267,48 +266,38 @@ class _MyAppState extends State<MyApp> {
 
           return GetMaterialApp(
             themeMode: themeController.theme,
-            theme:
-                materialColor
-                    ? lightColorScheme != null
-                        ? lightMaterialTheme
-                        : lightTheme(
+            theme: materialColor
+                ? lightColorScheme != null
+                      ? lightMaterialTheme
+                      : lightTheme(
                           lightColor,
                           colorSchemeLight,
                           edgeToEdgeAvailable,
                         )
-                    : lightTheme(
-                      lightColor,
-                      colorSchemeLight,
-                      edgeToEdgeAvailable,
-                    ),
-            darkTheme:
-                amoledTheme
-                    ? materialColor
-                        ? darkColorScheme != null
+                : lightTheme(lightColor, colorSchemeLight, edgeToEdgeAvailable),
+            darkTheme: amoledTheme
+                ? materialColor
+                      ? darkColorScheme != null
                             ? darkMaterialThemeOled
                             : darkTheme(
-                              oledColor,
-                              colorSchemeDark,
-                              edgeToEdgeAvailable,
-                            )
-                        : darkTheme(
+                                oledColor,
+                                colorSchemeDark,
+                                edgeToEdgeAvailable,
+                              )
+                      : darkTheme(
                           oledColor,
                           colorSchemeDark,
                           edgeToEdgeAvailable,
                         )
-                    : materialColor
-                    ? darkColorScheme != null
-                        ? darkMaterialTheme
-                        : darkTheme(
+                : materialColor
+                ? darkColorScheme != null
+                      ? darkMaterialTheme
+                      : darkTheme(
                           darkColor,
                           colorSchemeDark,
                           edgeToEdgeAvailable,
                         )
-                    : darkTheme(
-                      darkColor,
-                      colorSchemeDark,
-                      edgeToEdgeAvailable,
-                    ),
+                : darkTheme(darkColor, colorSchemeDark, edgeToEdgeAvailable),
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
@@ -317,18 +306,18 @@ class _MyAppState extends State<MyApp> {
             translations: Translation(),
             locale: locale,
             fallbackLocale: const Locale('en', 'US'),
-            supportedLocales:
-                appLanguages.map((e) => e['locale'] as Locale).toList(),
+            supportedLocales: appLanguages
+                .map((e) => e['locale'] as Locale)
+                .toList(),
             debugShowCheckedModeBanner: false,
-            home:
-                settings.onboard
-                    ? (locationCache.city == null ||
-                            locationCache.district == null ||
-                            locationCache.lat == null ||
-                            locationCache.lon == null)
-                        ? const SelectGeolocation(isStart: true)
-                        : const HomePage()
-                    : const OnBording(),
+            home: settings.onboard
+                ? (locationCache.city == null ||
+                          locationCache.district == null ||
+                          locationCache.lat == null ||
+                          locationCache.lon == null)
+                      ? const SelectGeolocation(isStart: true)
+                      : const HomePage()
+                : const OnBording(),
             title: 'Rain',
           );
         },

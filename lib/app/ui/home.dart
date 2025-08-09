@@ -92,26 +92,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return visible
             ? _buildSearchField(labelLarge)
             : Obx(() {
-              final location = weatherController.location;
-              final city = location.city;
-              final district = location.district;
-              return Text(
-                weatherController.isLoading.isFalse
-                    ? district!.isEmpty
-                        ? '$city'
-                        : city!.isEmpty
-                        ? district
-                        : city == district
-                        ? city
-                        : '$city, $district'
-                    : settings.location
-                    ? 'search'.tr
-                    : (isar.locationCaches.where().findAllSync()).isNotEmpty
-                    ? 'loading'.tr
-                    : 'searchCity'.tr,
-                style: textStyle,
-              );
-            });
+                final location = weatherController.location;
+                final city = location.city;
+                final district = location.district;
+                return Text(
+                  weatherController.isLoading.isFalse
+                      ? district!.isEmpty
+                            ? '$city'
+                            : city!.isEmpty
+                            ? district
+                            : city == district
+                            ? city
+                            : '$city, $district'
+                      : settings.location
+                      ? 'search'.tr
+                      : (isar.locationCaches.where().findAllSync()).isNotEmpty
+                      ? 'loading'.tr
+                      : 'searchCity'.tr,
+                  style: textStyle,
+                );
+              });
       case 1:
         return Text('cities'.tr, style: textStyle);
       case 2:
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return RawAutocomplete<Result>(
       focusNode: _focusNode,
       textEditingController: _controller,
-      fieldViewBuilder: (_, __, ___, ____) {
+      fieldViewBuilder: (_, _, _, _) {
         return TextField(
           controller: _controller,
           focusNode: _focusNode,
@@ -156,15 +156,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         _focusNode.unfocus();
         setState(() {});
       },
-      displayStringForOption:
-          (Result option) => '${option.name}, ${option.admin1}',
-      optionsViewBuilder: (
-        BuildContext context,
-        AutocompleteOnSelected<Result> onSelected,
-        Iterable<Result> options,
-      ) {
-        return _buildOptionsView(context, onSelected, options, labelLarge);
-      },
+      displayStringForOption: (Result option) =>
+          '${option.name}, ${option.admin1}',
+      optionsViewBuilder:
+          (
+            BuildContext context,
+            AutocompleteOnSelected<Result> onSelected,
+            Iterable<Result> options,
+          ) {
+            return _buildOptionsView(context, onSelected, options, labelLarge);
+          },
     );
   }
 
@@ -242,21 +243,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           appBar: AppBar(
             centerTitle: true,
             automaticallyImplyLeading: false,
-            leading:
-                tabIndex == 0
-                    ? IconButton(
-                      onPressed: () {
-                        Get.to(
-                          () => const SelectGeolocation(isStart: false),
-                          transition: Transition.downToUp,
-                        );
-                      },
-                      icon: const Icon(
-                        IconsaxPlusLinear.global_search,
-                        size: 18,
-                      ),
-                    )
-                    : null,
+            leading: tabIndex == 0
+                ? IconButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const SelectGeolocation(isStart: false),
+                        transition: Transition.downToUp,
+                      );
+                    },
+                    icon: const Icon(IconsaxPlusLinear.global_search, size: 18),
+                  )
+                : null,
             title: _buildAppBarTitle(tabIndex, textStyle, labelLarge),
             actions: tabIndex == 0 ? [_buildSearchIconButton()] : null,
           ),
@@ -290,20 +287,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ],
           ),
-          floatingActionButton:
-              tabIndex == 1
-                  ? FloatingActionButton(
-                    onPressed:
-                        () => showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          enableDrag: false,
-                          builder:
-                              (BuildContext context) => const CreatePlace(),
-                        ),
-                    child: const Icon(IconsaxPlusLinear.add),
-                  )
-                  : null,
+          floatingActionButton: tabIndex == 1
+              ? FloatingActionButton(
+                  onPressed: () => showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    enableDrag: false,
+                    builder: (BuildContext context) => const CreatePlace(),
+                  ),
+                  child: const Icon(IconsaxPlusLinear.add),
+                )
+              : null,
         ),
       ),
     );

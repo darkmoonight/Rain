@@ -28,8 +28,8 @@ class _PlaceCardListState extends State<PlaceCardList> {
     );
 
     return ReorderableListView(
-      onReorder:
-          (oldIndex, newIndex) => weatherController.reorder(oldIndex, newIndex),
+      onReorder: (oldIndex, newIndex) =>
+          weatherController.reorder(oldIndex, newIndex),
       children: _buildWeatherCardList(
         weatherCards,
         context,
@@ -47,7 +47,7 @@ class _PlaceCardListState extends State<PlaceCardList> {
         .where(
           (weatherCard) =>
               (searchCity.isEmpty ||
-                  weatherCard.city!.toLowerCase().contains(searchCity)),
+              weatherCard.city!.toLowerCase().contains(searchCity)),
         )
         .toList();
   }
@@ -80,9 +80,8 @@ class _PlaceCardListState extends State<PlaceCardList> {
       key: ValueKey(weatherCardList),
       direction: DismissDirection.endToStart,
       background: _buildDismissibleBackground(),
-      confirmDismiss:
-          (DismissDirection direction) =>
-              _showDeleteConfirmationDialog(context, textTheme, titleMedium),
+      confirmDismiss: (DismissDirection direction) =>
+          _showDeleteConfirmationDialog(context, textTheme, titleMedium),
       onDismissed: (DismissDirection direction) async {
         await weatherController.deleteCardWeather(weatherCardList);
       },
@@ -134,11 +133,10 @@ class _PlaceCardListState extends State<PlaceCardList> {
 
   Widget _buildCardGestureDetector(WeatherCard weatherCardList) {
     return GestureDetector(
-      onTap:
-          () => Get.to(
-            () => PlaceInfo(weatherCard: weatherCardList),
-            transition: Transition.downToUp,
-          ),
+      onTap: () => Get.to(
+        () => PlaceInfo(weatherCard: weatherCardList),
+        transition: Transition.downToUp,
+      ),
       child: PlaceCard(
         time: weatherCardList.time!,
         timeDaily: weatherCardList.timeDaily!,
