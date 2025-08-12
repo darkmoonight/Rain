@@ -6,7 +6,7 @@ part 'weather_api.freezed.dart';
 part 'weather_api.g.dart';
 
 @freezed
-class WeatherDataApi with _$WeatherDataApi {
+abstract class WeatherDataApi with _$WeatherDataApi {
   const factory WeatherDataApi({
     required Hourly hourly,
     required Daily daily,
@@ -18,7 +18,7 @@ class WeatherDataApi with _$WeatherDataApi {
 }
 
 @freezed
-class Hourly with _$Hourly {
+abstract class Hourly with _$Hourly {
   const factory Hourly({
     List<String>? time,
     @JsonKey(name: 'weathercode') List<int>? weatherCode,
@@ -48,7 +48,7 @@ List<DateTime> _dateTimeFromJson(List<dynamic>? json) =>
     json?.map((x) => DateTime.parse(x)).toList() ?? [];
 
 @freezed
-class Daily with _$Daily {
+abstract class Daily with _$Daily {
   const factory Daily({
     @JsonKey(fromJson: _dateTimeFromJson) List<DateTime>? time,
     @JsonKey(name: 'weathercode') List<int?>? weatherCode,

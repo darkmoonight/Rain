@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';

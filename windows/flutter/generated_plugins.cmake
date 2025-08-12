@@ -7,7 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   flutter_timezone
   geolocator_windows
-  isar_flutter_libs
+  isar_community_flutter_libs
   url_launcher_windows
 )
 

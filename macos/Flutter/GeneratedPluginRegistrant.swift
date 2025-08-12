@@ -11,7 +11,7 @@ import dynamic_color
 import flutter_local_notifications
 import flutter_timezone
 import geolocator_apple
-import isar_flutter_libs
+import isar_community_flutter_libs
 import package_info_plus
 import path_provider_foundation
 import url_launcher_macos

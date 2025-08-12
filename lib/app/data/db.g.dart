@@ -22,16 +22,8 @@ const SettingsSchema = CollectionSchema(
       name: r'amoledTheme',
       type: IsarType.bool,
     ),
-    r'degrees': PropertySchema(
-      id: 1,
-      name: r'degrees',
-      type: IsarType.string,
-    ),
-    r'hideMap': PropertySchema(
-      id: 2,
-      name: r'hideMap',
-      type: IsarType.bool,
-    ),
+    r'degrees': PropertySchema(id: 1, name: r'degrees', type: IsarType.string),
+    r'hideMap': PropertySchema(id: 2, name: r'hideMap', type: IsarType.bool),
     r'language': PropertySchema(
       id: 3,
       name: r'language',
@@ -42,11 +34,7 @@ const SettingsSchema = CollectionSchema(
       name: r'largeElement',
       type: IsarType.bool,
     ),
-    r'location': PropertySchema(
-      id: 5,
-      name: r'location',
-      type: IsarType.bool,
-    ),
+    r'location': PropertySchema(id: 5, name: r'location', type: IsarType.bool),
     r'materialColor': PropertySchema(
       id: 6,
       name: r'materialColor',
@@ -62,11 +50,7 @@ const SettingsSchema = CollectionSchema(
       name: r'notifications',
       type: IsarType.bool,
     ),
-    r'onboard': PropertySchema(
-      id: 9,
-      name: r'onboard',
-      type: IsarType.bool,
-    ),
+    r'onboard': PropertySchema(id: 9, name: r'onboard', type: IsarType.bool),
     r'pressure': PropertySchema(
       id: 10,
       name: r'pressure',
@@ -77,16 +61,8 @@ const SettingsSchema = CollectionSchema(
       name: r'roundDegree',
       type: IsarType.bool,
     ),
-    r'theme': PropertySchema(
-      id: 12,
-      name: r'theme',
-      type: IsarType.string,
-    ),
-    r'timeEnd': PropertySchema(
-      id: 13,
-      name: r'timeEnd',
-      type: IsarType.string,
-    ),
+    r'theme': PropertySchema(id: 12, name: r'theme', type: IsarType.string),
+    r'timeEnd': PropertySchema(id: 13, name: r'timeEnd', type: IsarType.string),
     r'timeRange': PropertySchema(
       id: 14,
       name: r'timeRange',
@@ -112,12 +88,9 @@ const SettingsSchema = CollectionSchema(
       name: r'widgetTextColor',
       type: IsarType.string,
     ),
-    r'wind': PropertySchema(
-      id: 19,
-      name: r'wind',
-      type: IsarType.string,
-    )
+    r'wind': PropertySchema(id: 19, name: r'wind', type: IsarType.string),
   },
+
   estimateSize: _settingsEstimateSize,
   serialize: _settingsSerialize,
   deserialize: _settingsDeserialize,
@@ -126,10 +99,11 @@ const SettingsSchema = CollectionSchema(
   indexes: {},
   links: {},
   embeddedSchemas: {},
+
   getId: _settingsGetId,
   getLinks: _settingsGetLinks,
   attach: _settingsAttach,
-  version: '3.1.8',
+  version: '3.2.0-dev.1',
 );
 
 int _settingsEstimateSize(
@@ -316,10 +290,7 @@ extension SettingsQueryWhereSort on QueryBuilder<Settings, Settings, QWhere> {
 extension SettingsQueryWhere on QueryBuilder<Settings, Settings, QWhereClause> {
   QueryBuilder<Settings, Settings, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
+      return query.addWhereClause(IdWhereClause.between(lower: id, upper: id));
     });
   }
 
@@ -345,8 +316,10 @@ extension SettingsQueryWhere on QueryBuilder<Settings, Settings, QWhereClause> {
     });
   }
 
-  QueryBuilder<Settings, Settings, QAfterWhereClause> idGreaterThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<Settings, Settings, QAfterWhereClause> idGreaterThan(
+    Id id, {
+    bool include = false,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -354,8 +327,10 @@ extension SettingsQueryWhere on QueryBuilder<Settings, Settings, QWhereClause> {
     });
   }
 
-  QueryBuilder<Settings, Settings, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<Settings, Settings, QAfterWhereClause> idLessThan(
+    Id id, {
+    bool include = false,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -370,12 +345,14 @@ extension SettingsQueryWhere on QueryBuilder<Settings, Settings, QWhereClause> {
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
+      return query.addWhereClause(
+        IdWhereClause.between(
+          lower: lowerId,
+          includeLower: includeLower,
+          upper: upperId,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 }
@@ -383,12 +360,12 @@ extension SettingsQueryWhere on QueryBuilder<Settings, Settings, QWhereClause> {
 extension SettingsQueryFilter
     on QueryBuilder<Settings, Settings, QFilterCondition> {
   QueryBuilder<Settings, Settings, QAfterFilterCondition> amoledThemeEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'amoledTheme',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'amoledTheme', value: value),
+      );
     });
   }
 
@@ -397,11 +374,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'degrees',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'degrees',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -411,12 +390,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'degrees',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'degrees',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -426,12 +407,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'degrees',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'degrees',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -443,14 +426,16 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'degrees',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'degrees',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -459,11 +444,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'degrees',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'degrees',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -472,72 +459,77 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'degrees',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'degrees',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> degreesContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'degrees',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'degrees',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> degreesMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'degrees',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'degrees',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> degreesIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'degrees',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'degrees', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> degreesIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'degrees',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'degrees', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> hideMapEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'hideMap',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'hideMap', value: value),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'id', value: value),
+      );
     });
   }
 
@@ -546,11 +538,13 @@ extension SettingsQueryFilter
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -559,11 +553,13 @@ extension SettingsQueryFilter
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -574,29 +570,31 @@ extension SettingsQueryFilter
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'id',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> languageIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'language',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'language'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> languageIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'language',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'language'),
+      );
     });
   }
 
@@ -605,11 +603,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'language',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -619,12 +619,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'language',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -634,12 +636,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'language',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -651,14 +655,16 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'language',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'language',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -667,11 +673,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'language',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -680,83 +688,89 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'language',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> languageContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'language',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> languageMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'language',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'language',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> languageIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'language',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'language', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> languageIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'language',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'language', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> largeElementEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'largeElement',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'largeElement', value: value),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> locationEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'location',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'location', value: value),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> materialColorEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'materialColor',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'materialColor', value: value),
+      );
     });
   }
 
@@ -765,27 +779,31 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'measurements',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'measurements',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      measurementsGreaterThan(
+  measurementsGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'measurements',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'measurements',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -795,12 +813,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'measurements',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'measurements',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -812,28 +832,29 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'measurements',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'measurements',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      measurementsStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  measurementsStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'measurements',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'measurements',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -842,75 +863,81 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'measurements',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'measurements',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> measurementsContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'measurements',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'measurements',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> measurementsMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'measurements',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'measurements',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      measurementsIsEmpty() {
+  measurementsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'measurements',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'measurements', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      measurementsIsNotEmpty() {
+  measurementsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'measurements',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'measurements', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> notificationsEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'notifications',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'notifications', value: value),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> onboardEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'onboard',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'onboard', value: value),
+      );
     });
   }
 
@@ -919,11 +946,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pressure',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'pressure',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -933,12 +962,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pressure',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'pressure',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -948,12 +979,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pressure',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'pressure',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -965,14 +998,16 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pressure',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'pressure',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -981,11 +1016,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'pressure',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'pressure',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -994,79 +1031,85 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'pressure',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'pressure',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'pressure',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'pressure',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'pressure',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'pressure',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pressure',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'pressure', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> pressureIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'pressure',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'pressure', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> roundDegreeEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'roundDegree',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'roundDegree', value: value),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> themeIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'theme',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'theme'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> themeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'theme',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'theme'),
+      );
     });
   }
 
@@ -1075,11 +1118,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'theme',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'theme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1089,12 +1134,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'theme',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'theme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1104,12 +1151,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'theme',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'theme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1121,14 +1170,16 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'theme',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'theme',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1137,11 +1188,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'theme',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'theme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1150,69 +1203,75 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'theme',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'theme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> themeContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'theme',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'theme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> themeMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'theme',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'theme',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> themeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'theme',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'theme', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> themeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'theme',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'theme', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timeEnd',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timeEnd'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timeEnd',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timeEnd'),
+      );
     });
   }
 
@@ -1221,11 +1280,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeEnd',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'timeEnd',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1235,12 +1296,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timeEnd',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timeEnd',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1250,12 +1313,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timeEnd',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timeEnd',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1267,14 +1332,16 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timeEnd',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timeEnd',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1283,11 +1350,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'timeEnd',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'timeEnd',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1296,79 +1365,85 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'timeEnd',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'timeEnd',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'timeEnd',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'timeEnd',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'timeEnd',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'timeEnd',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeEnd',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timeEnd', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeEndIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'timeEnd',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'timeEnd', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timeRange',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timeRange'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timeRange',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timeRange'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeRangeEqualTo(
-      int? value) {
+    int? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeRange',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timeRange', value: value),
+      );
     });
   }
 
@@ -1377,11 +1452,13 @@ extension SettingsQueryFilter
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timeRange',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timeRange',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -1390,11 +1467,13 @@ extension SettingsQueryFilter
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timeRange',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timeRange',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -1405,29 +1484,31 @@ extension SettingsQueryFilter
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timeRange',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timeRange',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timeStart',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timeStart'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timeStart',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timeStart'),
+      );
     });
   }
 
@@ -1436,11 +1517,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeStart',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'timeStart',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1450,12 +1533,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timeStart',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timeStart',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1465,12 +1550,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timeStart',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timeStart',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1482,14 +1569,16 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timeStart',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timeStart',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1498,11 +1587,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'timeStart',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'timeStart',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1511,54 +1602,60 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'timeStart',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'timeStart',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'timeStart',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'timeStart',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'timeStart',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'timeStart',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeStartIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeStart',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timeStart', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      timeStartIsNotEmpty() {
+  timeStartIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'timeStart',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'timeStart', value: ''),
+      );
     });
   }
 
@@ -1567,11 +1664,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeformat',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'timeformat',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1581,12 +1680,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timeformat',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timeformat',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1596,12 +1697,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timeformat',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timeformat',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1613,14 +1716,16 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timeformat',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timeformat',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1629,11 +1734,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'timeformat',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'timeformat',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -1642,123 +1749,132 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'timeformat',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'timeformat',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'timeformat',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'timeformat',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'timeformat',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'timeformat',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> timeformatIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeformat',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timeformat', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      timeformatIsNotEmpty() {
+  timeformatIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'timeformat',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'timeformat', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorIsNull() {
+  widgetBackgroundColorIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'widgetBackgroundColor',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'widgetBackgroundColor'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorIsNotNull() {
+  widgetBackgroundColorIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'widgetBackgroundColor',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'widgetBackgroundColor'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+  widgetBackgroundColorEqualTo(String? value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'widgetBackgroundColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'widgetBackgroundColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorGreaterThan(
+  widgetBackgroundColorGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'widgetBackgroundColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'widgetBackgroundColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorLessThan(
+  widgetBackgroundColorLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'widgetBackgroundColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'widgetBackgroundColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorBetween(
+  widgetBackgroundColorBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1766,154 +1882,161 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'widgetBackgroundColor',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'widgetBackgroundColor',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  widgetBackgroundColorStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'widgetBackgroundColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'widgetBackgroundColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  widgetBackgroundColorEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'widgetBackgroundColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'widgetBackgroundColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorContains(String value, {bool caseSensitive = true}) {
+  widgetBackgroundColorContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'widgetBackgroundColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'widgetBackgroundColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorMatches(String pattern,
-          {bool caseSensitive = true}) {
+  widgetBackgroundColorMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'widgetBackgroundColor',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'widgetBackgroundColor',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorIsEmpty() {
+  widgetBackgroundColorIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'widgetBackgroundColor',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'widgetBackgroundColor', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetBackgroundColorIsNotEmpty() {
+  widgetBackgroundColorIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'widgetBackgroundColor',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          property: r'widgetBackgroundColor',
+          value: '',
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorIsNull() {
+  widgetTextColorIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'widgetTextColor',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'widgetTextColor'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorIsNotNull() {
+  widgetTextColorIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'widgetTextColor',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'widgetTextColor'),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+  widgetTextColorEqualTo(String? value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'widgetTextColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'widgetTextColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'widgetTextColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorLessThan(
+  widgetTextColorGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'widgetTextColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'widgetTextColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorBetween(
+  widgetTextColorLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'widgetTextColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  widgetTextColorBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1921,84 +2044,86 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'widgetTextColor',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'widgetTextColor',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  widgetTextColorStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'widgetTextColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'widgetTextColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  widgetTextColorEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'widgetTextColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'widgetTextColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorContains(String value, {bool caseSensitive = true}) {
+  widgetTextColorContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'widgetTextColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'widgetTextColor',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorMatches(String pattern, {bool caseSensitive = true}) {
+  widgetTextColorMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'widgetTextColor',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'widgetTextColor',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorIsEmpty() {
+  widgetTextColorIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'widgetTextColor',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'widgetTextColor', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
-      widgetTextColorIsNotEmpty() {
+  widgetTextColorIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'widgetTextColor',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'widgetTextColor', value: ''),
+      );
     });
   }
 
@@ -2007,11 +2132,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'wind',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'wind',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -2021,12 +2148,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'wind',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'wind',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -2036,12 +2165,14 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'wind',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'wind',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -2053,14 +2184,16 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'wind',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'wind',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -2069,11 +2202,13 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'wind',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'wind',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -2082,53 +2217,59 @@ extension SettingsQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'wind',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'wind',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> windContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'wind',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'wind',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> windMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'wind',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'wind',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> windIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'wind',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'wind', value: ''),
+      );
     });
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition> windIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'wind',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'wind', value: ''),
+      );
     });
   }
 }
@@ -2351,7 +2492,7 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
   }
 
   QueryBuilder<Settings, Settings, QAfterSortBy>
-      sortByWidgetBackgroundColorDesc() {
+  sortByWidgetBackgroundColorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetBackgroundColor', Sort.desc);
     });
@@ -2607,7 +2748,7 @@ extension SettingsQuerySortThenBy
   }
 
   QueryBuilder<Settings, Settings, QAfterSortBy>
-      thenByWidgetBackgroundColorDesc() {
+  thenByWidgetBackgroundColorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetBackgroundColor', Sort.desc);
     });
@@ -2646,8 +2787,9 @@ extension SettingsQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByDegrees(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByDegrees({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'degrees', caseSensitive: caseSensitive);
     });
@@ -2659,8 +2801,9 @@ extension SettingsQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByLanguage(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByLanguage({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'language', caseSensitive: caseSensitive);
     });
@@ -2684,8 +2827,9 @@ extension SettingsQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByMeasurements(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByMeasurements({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'measurements', caseSensitive: caseSensitive);
     });
@@ -2703,8 +2847,9 @@ extension SettingsQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByPressure(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByPressure({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'pressure', caseSensitive: caseSensitive);
     });
@@ -2716,15 +2861,17 @@ extension SettingsQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByTheme(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTheme({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'theme', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeEnd(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeEnd({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timeEnd', caseSensitive: caseSensitive);
     });
@@ -2736,38 +2883,47 @@ extension SettingsQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeStart(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeStart({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timeStart', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeformat(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByTimeformat({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timeformat', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetBackgroundColor(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetBackgroundColor({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'widgetBackgroundColor',
-          caseSensitive: caseSensitive);
+      return query.addDistinctBy(
+        r'widgetBackgroundColor',
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetTextColor(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetTextColor({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'widgetTextColor',
-          caseSensitive: caseSensitive);
+      return query.addDistinctBy(
+        r'widgetTextColor',
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
-  QueryBuilder<Settings, Settings, QDistinct> distinctByWind(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWind({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'wind', caseSensitive: caseSensitive);
     });
@@ -2885,7 +3041,7 @@ extension SettingsQueryProperty
   }
 
   QueryBuilder<Settings, String?, QQueryOperations>
-      widgetBackgroundColorProperty() {
+  widgetBackgroundColorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'widgetBackgroundColor');
     });
@@ -2965,11 +3121,7 @@ const MainWeatherCacheSchema = CollectionSchema(
       name: r'precipitationSum',
       type: IsarType.doubleList,
     ),
-    r'rain': PropertySchema(
-      id: 10,
-      name: r'rain',
-      type: IsarType.doubleList,
-    ),
+    r'rain': PropertySchema(id: 10, name: r'rain', type: IsarType.doubleList),
     r'rainSum': PropertySchema(
       id: 11,
       name: r'rainSum',
@@ -3015,11 +3167,7 @@ const MainWeatherCacheSchema = CollectionSchema(
       name: r'temperature2MMin',
       type: IsarType.doubleList,
     ),
-    r'time': PropertySchema(
-      id: 20,
-      name: r'time',
-      type: IsarType.stringList,
-    ),
+    r'time': PropertySchema(id: 20, name: r'time', type: IsarType.stringList),
     r'timeDaily': PropertySchema(
       id: 21,
       name: r'timeDaily',
@@ -3089,8 +3237,9 @@ const MainWeatherCacheSchema = CollectionSchema(
       id: 34,
       name: r'windspeed10MMax',
       type: IsarType.doubleList,
-    )
+    ),
   },
+
   estimateSize: _mainWeatherCacheEstimateSize,
   serialize: _mainWeatherCacheSerialize,
   deserialize: _mainWeatherCacheDeserialize,
@@ -3099,10 +3248,11 @@ const MainWeatherCacheSchema = CollectionSchema(
   indexes: {},
   links: {},
   embeddedSchemas: {},
+
   getId: _mainWeatherCacheGetId,
   getLinks: _mainWeatherCacheGetLinks,
   attach: _mainWeatherCacheAttach,
-  version: '3.1.8',
+  version: '3.2.0-dev.1',
 );
 
 int _mainWeatherCacheEstimateSize(
@@ -3517,7 +3667,10 @@ List<IsarLinkBase<dynamic>> _mainWeatherCacheGetLinks(MainWeatherCache object) {
 }
 
 void _mainWeatherCacheAttach(
-    IsarCollection<dynamic> col, Id id, MainWeatherCache object) {
+  IsarCollection<dynamic> col,
+  Id id,
+  MainWeatherCache object,
+) {
   object.id = id;
 }
 
@@ -3533,17 +3686,15 @@ extension MainWeatherCacheQueryWhereSort
 extension MainWeatherCacheQueryWhere
     on QueryBuilder<MainWeatherCache, MainWeatherCache, QWhereClause> {
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterWhereClause> idEqualTo(
-      Id id) {
+    Id id,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
+      return query.addWhereClause(IdWhereClause.between(lower: id, upper: id));
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterWhereClause>
-      idNotEqualTo(Id id) {
+  idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -3566,7 +3717,7 @@ extension MainWeatherCacheQueryWhere
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterWhereClause>
-      idGreaterThan(Id id, {bool include = false}) {
+  idGreaterThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -3575,7 +3726,7 @@ extension MainWeatherCacheQueryWhere
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterWhereClause>
-      idLessThan(Id id, {bool include = false}) {
+  idLessThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -3590,12 +3741,14 @@ extension MainWeatherCacheQueryWhere
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
+      return query.addWhereClause(
+        IdWhereClause.between(
+          lower: lowerId,
+          includeLower: includeLower,
+          upper: upperId,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 }
@@ -3603,89 +3756,100 @@ extension MainWeatherCacheQueryWhere
 extension MainWeatherCacheQueryFilter
     on QueryBuilder<MainWeatherCache, MainWeatherCache, QFilterCondition> {
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureIsNull() {
+  apparentTemperatureIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'apparentTemperature',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'apparentTemperature'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureIsNotNull() {
+  apparentTemperatureIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'apparentTemperature',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'apparentTemperature'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureElementIsNull() {
+  apparentTemperatureElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'apparentTemperature',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'apparentTemperature'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureElementIsNotNull() {
+  apparentTemperatureElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'apparentTemperature',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'apparentTemperature',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureElementEqualTo(
+  apparentTemperatureElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'apparentTemperature',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureElementLessThan(
+  apparentTemperatureElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'apparentTemperature',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureElementBetween(
+  apparentTemperatureElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'apparentTemperature',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  apparentTemperatureElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -3693,19 +3857,22 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'apparentTemperature',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'apparentTemperature',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureLengthEqualTo(int length) {
+  apparentTemperatureLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperature',
@@ -3718,52 +3885,28 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureIsEmpty() {
+  apparentTemperatureIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'apparentTemperature', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureIsNotEmpty() {
+  apparentTemperatureIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'apparentTemperature', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'apparentTemperature', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperature',
@@ -3776,7 +3919,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureLengthBetween(
+  apparentTemperatureLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -3794,89 +3937,102 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxIsNull() {
+  apparentTemperatureMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'apparentTemperatureMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'apparentTemperatureMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxIsNotNull() {
+  apparentTemperatureMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'apparentTemperatureMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'apparentTemperatureMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxElementIsNull() {
+  apparentTemperatureMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'apparentTemperatureMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'apparentTemperatureMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxElementIsNotNull() {
+  apparentTemperatureMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'apparentTemperatureMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'apparentTemperatureMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxElementEqualTo(
+  apparentTemperatureMaxElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'apparentTemperatureMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'apparentTemperatureMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'apparentTemperatureMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxElementLessThan(
+  apparentTemperatureMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'apparentTemperatureMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'apparentTemperatureMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxElementBetween(
+  apparentTemperatureMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'apparentTemperatureMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  apparentTemperatureMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -3884,19 +4040,22 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'apparentTemperatureMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'apparentTemperatureMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxLengthEqualTo(int length) {
+  apparentTemperatureMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMax',
@@ -3909,20 +4068,14 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxIsEmpty() {
+  apparentTemperatureMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperatureMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'apparentTemperatureMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxIsNotEmpty() {
+  apparentTemperatureMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMax',
@@ -3935,10 +4088,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureMaxLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMax',
@@ -3951,10 +4101,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureMaxLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMax',
@@ -3967,7 +4114,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMaxLengthBetween(
+  apparentTemperatureMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -3985,89 +4132,102 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinIsNull() {
+  apparentTemperatureMinIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'apparentTemperatureMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'apparentTemperatureMin'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinIsNotNull() {
+  apparentTemperatureMinIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'apparentTemperatureMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'apparentTemperatureMin'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinElementIsNull() {
+  apparentTemperatureMinElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'apparentTemperatureMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'apparentTemperatureMin',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinElementIsNotNull() {
+  apparentTemperatureMinElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'apparentTemperatureMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'apparentTemperatureMin',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinElementEqualTo(
+  apparentTemperatureMinElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'apparentTemperatureMin',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'apparentTemperatureMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'apparentTemperatureMin',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinElementLessThan(
+  apparentTemperatureMinElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'apparentTemperatureMin',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'apparentTemperatureMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinElementBetween(
+  apparentTemperatureMinElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'apparentTemperatureMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  apparentTemperatureMinElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -4075,19 +4235,22 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'apparentTemperatureMin',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'apparentTemperatureMin',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinLengthEqualTo(int length) {
+  apparentTemperatureMinLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMin',
@@ -4100,20 +4263,14 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinIsEmpty() {
+  apparentTemperatureMinIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperatureMin',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'apparentTemperatureMin', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinIsNotEmpty() {
+  apparentTemperatureMinIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMin',
@@ -4126,10 +4283,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureMinLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMin',
@@ -4142,10 +4296,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureMinLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMin',
@@ -4158,7 +4309,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      apparentTemperatureMinLengthBetween(
+  apparentTemperatureMinLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -4176,170 +4327,133 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverIsNull() {
+  cloudcoverIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'cloudcover',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'cloudcover'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverIsNotNull() {
+  cloudcoverIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'cloudcover',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'cloudcover'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverElementIsNull() {
+  cloudcoverElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'cloudcover',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'cloudcover'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverElementIsNotNull() {
+  cloudcoverElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'cloudcover',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'cloudcover'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverElementEqualTo(int? value) {
+  cloudcoverElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'cloudcover',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'cloudcover', value: value),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverElementGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  cloudcoverElementGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'cloudcover',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'cloudcover',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  cloudcoverElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'cloudcover',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'cloudcover',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverElementBetween(
+  cloudcoverElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'cloudcover',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'cloudcover',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverIsEmpty() {
+  cloudcoverLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'cloudcover', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverIsNotEmpty() {
+  cloudcoverIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'cloudcover', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  cloudcoverIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'cloudcover', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  cloudcoverLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'cloudcover', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      cloudcoverLengthBetween(
+  cloudcoverLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'cloudcover', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  cloudcoverLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -4357,89 +4471,95 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MIsNull() {
+  dewpoint2MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'dewpoint2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'dewpoint2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MIsNotNull() {
+  dewpoint2MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'dewpoint2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'dewpoint2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MElementIsNull() {
+  dewpoint2MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'dewpoint2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'dewpoint2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MElementIsNotNull() {
+  dewpoint2MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'dewpoint2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'dewpoint2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  dewpoint2MElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'dewpoint2M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'dewpoint2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'dewpoint2M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MElementLessThan(
+  dewpoint2MElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'dewpoint2M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'dewpoint2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MElementBetween(
+  dewpoint2MElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'dewpoint2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  dewpoint2MElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -4447,90 +4567,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'dewpoint2M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'dewpoint2M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MIsEmpty() {
+  dewpoint2MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'dewpoint2M', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MIsNotEmpty() {
+  dewpoint2MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'dewpoint2M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  dewpoint2MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'dewpoint2M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  dewpoint2MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'dewpoint2M', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      dewpoint2MLengthBetween(
+  dewpoint2MLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'dewpoint2M', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  dewpoint2MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -4548,89 +4635,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationIsNull() {
+  evapotranspirationIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'evapotranspiration',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'evapotranspiration'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationIsNotNull() {
+  evapotranspirationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'evapotranspiration',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'evapotranspiration'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationElementIsNull() {
+  evapotranspirationElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'evapotranspiration',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'evapotranspiration'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationElementIsNotNull() {
+  evapotranspirationElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'evapotranspiration',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'evapotranspiration'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationElementEqualTo(
+  evapotranspirationElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'evapotranspiration',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationElementLessThan(
+  evapotranspirationElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'evapotranspiration',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationElementBetween(
+  evapotranspirationElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'evapotranspiration',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  evapotranspirationElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -4638,19 +4734,22 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'evapotranspiration',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'evapotranspiration',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationLengthEqualTo(int length) {
+  evapotranspirationLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'evapotranspiration',
@@ -4663,52 +4762,28 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationIsEmpty() {
+  evapotranspirationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'evapotranspiration', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationIsNotEmpty() {
+  evapotranspirationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'evapotranspiration', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  evapotranspirationLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'evapotranspiration', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  evapotranspirationLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'evapotranspiration',
@@ -4721,7 +4796,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      evapotranspirationLengthBetween(
+  evapotranspirationLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -4739,145 +4814,150 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      idEqualTo(Id value) {
+  idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'id', value: value),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      idGreaterThan(
-    Id value, {
-    bool include = false,
-  }) {
+  idGreaterThan(Id value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      idLessThan(
-    Id value, {
-    bool include = false,
-  }) {
+  idLessThan(Id value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      idBetween(
+  idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'id',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationIsNull() {
+  precipitationIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'precipitation'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationIsNotNull() {
+  precipitationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'precipitation'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationElementIsNull() {
+  precipitationElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'precipitation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'precipitation'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationElementIsNotNull() {
+  precipitationElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'precipitation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'precipitation'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  precipitationElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'precipitation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationElementLessThan(
+  precipitationElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'precipitation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationElementBetween(
+  precipitationElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'precipitation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  precipitationElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -4885,90 +4965,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitation',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'precipitation',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationIsEmpty() {
+  precipitationLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'precipitation', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationIsNotEmpty() {
+  precipitationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'precipitation', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'precipitation', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'precipitation', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationLengthBetween(
+  precipitationLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'precipitation', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  precipitationLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -4986,99 +5033,108 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityIsNull() {
+  precipitationProbabilityIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitationProbability',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'precipitationProbability'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityIsNotNull() {
+  precipitationProbabilityIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitationProbability',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'precipitationProbability'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityElementIsNull() {
+  precipitationProbabilityElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'precipitationProbability',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'precipitationProbability',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityElementIsNotNull() {
+  precipitationProbabilityElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'precipitationProbability',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'precipitationProbability',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityElementEqualTo(int? value) {
+  precipitationProbabilityElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitationProbability',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'precipitationProbability',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityElementGreaterThan(
+  precipitationProbabilityElementGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitationProbability',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'precipitationProbability',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  precipitationProbabilityElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitationProbability',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'precipitationProbability',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityElementBetween(
+  precipitationProbabilityElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitationProbability',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'precipitationProbability',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityLengthEqualTo(int length) {
+  precipitationProbabilityLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbability',
@@ -5091,20 +5147,14 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityIsEmpty() {
+  precipitationProbabilityIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationProbability',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'precipitationProbability', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityIsNotEmpty() {
+  precipitationProbabilityIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbability',
@@ -5117,10 +5167,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationProbabilityLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbability',
@@ -5133,7 +5180,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityLengthGreaterThan(
+  precipitationProbabilityLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -5149,7 +5196,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityLengthBetween(
+  precipitationProbabilityLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -5167,99 +5214,113 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxIsNull() {
+  precipitationProbabilityMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitationProbabilityMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'precipitationProbabilityMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxIsNotNull() {
+  precipitationProbabilityMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitationProbabilityMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(
+          property: r'precipitationProbabilityMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxElementIsNull() {
+  precipitationProbabilityMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'precipitationProbabilityMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'precipitationProbabilityMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxElementIsNotNull() {
+  precipitationProbabilityMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'precipitationProbabilityMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'precipitationProbabilityMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxElementEqualTo(int? value) {
+  precipitationProbabilityMaxElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitationProbabilityMax',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'precipitationProbabilityMax',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxElementGreaterThan(
+  precipitationProbabilityMaxElementGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitationProbabilityMax',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'precipitationProbabilityMax',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxElementLessThan(
+  precipitationProbabilityMaxElementLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitationProbabilityMax',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'precipitationProbabilityMax',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxElementBetween(
+  precipitationProbabilityMaxElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitationProbabilityMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'precipitationProbabilityMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxLengthEqualTo(int length) {
+  precipitationProbabilityMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbabilityMax',
@@ -5272,20 +5333,14 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxIsEmpty() {
+  precipitationProbabilityMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationProbabilityMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'precipitationProbabilityMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxIsNotEmpty() {
+  precipitationProbabilityMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbabilityMax',
@@ -5298,7 +5353,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxLengthLessThan(
+  precipitationProbabilityMaxLengthLessThan(
     int length, {
     bool include = false,
   }) {
@@ -5314,7 +5369,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxLengthGreaterThan(
+  precipitationProbabilityMaxLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -5330,7 +5385,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationProbabilityMaxLengthBetween(
+  precipitationProbabilityMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -5348,89 +5403,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumIsNull() {
+  precipitationSumIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitationSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'precipitationSum'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumIsNotNull() {
+  precipitationSumIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitationSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'precipitationSum'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumElementIsNull() {
+  precipitationSumElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'precipitationSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'precipitationSum'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumElementIsNotNull() {
+  precipitationSumElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'precipitationSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'precipitationSum'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumElementEqualTo(
+  precipitationSumElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitationSum',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'precipitationSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitationSum',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumElementLessThan(
+  precipitationSumElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitationSum',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'precipitationSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumElementBetween(
+  precipitationSumElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'precipitationSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  precipitationSumElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -5438,77 +5502,50 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitationSum',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'precipitationSum',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationSum',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumIsEmpty() {
+  precipitationSumLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationSum',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'precipitationSum', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumIsNotEmpty() {
+  precipitationSumIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationSum',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'precipitationSum', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationSumIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationSum',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'precipitationSum', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationSumLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'precipitationSum', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  precipitationSumLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationSum',
@@ -5521,7 +5558,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      precipitationSumLengthBetween(
+  precipitationSumLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -5539,89 +5576,95 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainIsNull() {
+  rainIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'rain',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'rain'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainIsNotNull() {
+  rainIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'rain',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'rain'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainElementIsNull() {
+  rainElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'rain',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'rain'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainElementIsNotNull() {
+  rainElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'rain',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'rain'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  rainElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'rain',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainElementLessThan(
+  rainElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'rain',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainElementBetween(
+  rainElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'rain',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  rainElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -5629,90 +5672,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'rain',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'rain',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainIsEmpty() {
+  rainLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'rain', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainIsNotEmpty() {
+  rainIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'rain', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  rainIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'rain', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  rainLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'rain', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainLengthBetween(
+  rainLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'rain', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  rainLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -5730,89 +5740,95 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumIsNull() {
+  rainSumIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'rainSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'rainSum'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumIsNotNull() {
+  rainSumIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'rainSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'rainSum'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumElementIsNull() {
+  rainSumElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'rainSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'rainSum'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumElementIsNotNull() {
+  rainSumElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'rainSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'rainSum'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  rainSumElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'rainSum',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'rainSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'rainSum',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumElementLessThan(
+  rainSumElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'rainSum',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'rainSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumElementBetween(
+  rainSumElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'rainSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  rainSumElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -5820,90 +5836,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'rainSum',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'rainSum',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumIsEmpty() {
+  rainSumLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'rainSum', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumIsNotEmpty() {
+  rainSumIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'rainSum', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  rainSumIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'rainSum', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  rainSumLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'rainSum', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      rainSumLengthBetween(
+  rainSumLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'rainSum', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  rainSumLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -5921,99 +5904,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MIsNull() {
+  relativehumidity2MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'relativehumidity2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'relativehumidity2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MIsNotNull() {
+  relativehumidity2MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'relativehumidity2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'relativehumidity2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MElementIsNull() {
+  relativehumidity2MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'relativehumidity2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'relativehumidity2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MElementIsNotNull() {
+  relativehumidity2MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'relativehumidity2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'relativehumidity2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MElementEqualTo(int? value) {
+  relativehumidity2MElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'relativehumidity2M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'relativehumidity2M', value: value),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MElementGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  relativehumidity2MElementGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'relativehumidity2M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'relativehumidity2M',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  relativehumidity2MElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'relativehumidity2M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'relativehumidity2M',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MElementBetween(
+  relativehumidity2MElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'relativehumidity2M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'relativehumidity2M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MLengthEqualTo(int length) {
+  relativehumidity2MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'relativehumidity2M',
@@ -6026,52 +6008,28 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MIsEmpty() {
+  relativehumidity2MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'relativehumidity2M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MIsNotEmpty() {
+  relativehumidity2MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'relativehumidity2M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  relativehumidity2MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'relativehumidity2M', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  relativehumidity2MLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'relativehumidity2M',
@@ -6084,7 +6042,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      relativehumidity2MLengthBetween(
+  relativehumidity2MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -6102,89 +6060,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationIsNull() {
+  shortwaveRadiationIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'shortwaveRadiation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'shortwaveRadiation'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationIsNotNull() {
+  shortwaveRadiationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'shortwaveRadiation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'shortwaveRadiation'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationElementIsNull() {
+  shortwaveRadiationElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'shortwaveRadiation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'shortwaveRadiation'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationElementIsNotNull() {
+  shortwaveRadiationElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'shortwaveRadiation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'shortwaveRadiation'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationElementEqualTo(
+  shortwaveRadiationElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'shortwaveRadiation',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'shortwaveRadiation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'shortwaveRadiation',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationElementLessThan(
+  shortwaveRadiationElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'shortwaveRadiation',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'shortwaveRadiation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationElementBetween(
+  shortwaveRadiationElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'shortwaveRadiation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  shortwaveRadiationElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -6192,19 +6159,22 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'shortwaveRadiation',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'shortwaveRadiation',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationLengthEqualTo(int length) {
+  shortwaveRadiationLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'shortwaveRadiation',
@@ -6217,52 +6187,28 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationIsEmpty() {
+  shortwaveRadiationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'shortwaveRadiation',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'shortwaveRadiation', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationIsNotEmpty() {
+  shortwaveRadiationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'shortwaveRadiation',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'shortwaveRadiation', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  shortwaveRadiationLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'shortwaveRadiation',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'shortwaveRadiation', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  shortwaveRadiationLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'shortwaveRadiation',
@@ -6275,7 +6221,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      shortwaveRadiationLengthBetween(
+  shortwaveRadiationLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -6293,71 +6239,74 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseIsNull() {
+  sunriseIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'sunrise',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'sunrise'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseIsNotNull() {
+  sunriseIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'sunrise',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'sunrise'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  sunriseElementEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementLessThan(
+  sunriseElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementBetween(
+  sunriseElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunriseElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -6365,160 +6314,126 @@ extension MainWeatherCacheQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'sunrise',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'sunrise',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'sunrise',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseElementIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'sunrise',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'sunrise',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseIsEmpty() {
+  sunriseElementStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        0,
-        true,
-        0,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseIsNotEmpty() {
+  sunriseElementEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        0,
-        false,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  sunriseElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        0,
-        true,
-        length,
-        include,
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  sunriseElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        length,
-        include,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'sunrise',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunriseLengthBetween(
+  sunriseElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'sunrise', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunriseElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'sunrise', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunriseLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunriseIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunriseIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunriseLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunriseLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunriseLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -6536,71 +6451,74 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetIsNull() {
+  sunsetIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'sunset',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'sunset'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetIsNotNull() {
+  sunsetIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'sunset',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'sunset'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  sunsetElementEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementLessThan(
+  sunsetElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementBetween(
+  sunsetElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunsetElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -6608,160 +6526,126 @@ extension MainWeatherCacheQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'sunset',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'sunset',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'sunset',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetElementIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'sunset',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'sunset',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetIsEmpty() {
+  sunsetElementStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        0,
-        true,
-        0,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetIsNotEmpty() {
+  sunsetElementEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        0,
-        false,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  sunsetElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        0,
-        true,
-        length,
-        include,
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  sunsetElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        length,
-        include,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'sunset',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      sunsetLengthBetween(
+  sunsetElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'sunset', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunsetElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'sunset', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunsetLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunsetIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunsetIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunsetLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunsetLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  sunsetLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -6779,89 +6663,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureIsNull() {
+  surfacePressureIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'surfacePressure',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'surfacePressure'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureIsNotNull() {
+  surfacePressureIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'surfacePressure',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'surfacePressure'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureElementIsNull() {
+  surfacePressureElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'surfacePressure',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'surfacePressure'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureElementIsNotNull() {
+  surfacePressureElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'surfacePressure',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'surfacePressure'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureElementEqualTo(
+  surfacePressureElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'surfacePressure',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureElementLessThan(
+  surfacePressureElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'surfacePressure',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureElementBetween(
+  surfacePressureElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'surfacePressure',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  surfacePressureElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -6869,77 +6762,50 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'surfacePressure',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'surfacePressure',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureIsEmpty() {
+  surfacePressureLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'surfacePressure', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureIsNotEmpty() {
+  surfacePressureIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'surfacePressure', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  surfacePressureIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'surfacePressure', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  surfacePressureLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'surfacePressure', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  surfacePressureLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'surfacePressure',
@@ -6952,7 +6818,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      surfacePressureLengthBetween(
+  surfacePressureLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -6970,71 +6836,77 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MIsNull() {
+  temperature2MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'temperature2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'temperature2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MIsNotNull() {
+  temperature2MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'temperature2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'temperature2M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
+  temperature2MElementEqualTo(double value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'temperature2M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'temperature2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MElementGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'temperature2M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MElementLessThan(
+  temperature2MElementGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'temperature2M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'temperature2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MElementBetween(
+  temperature2MElementLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'temperature2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  temperature2MElementBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -7042,90 +6914,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'temperature2M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'temperature2M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MIsEmpty() {
+  temperature2MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'temperature2M', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MIsNotEmpty() {
+  temperature2MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'temperature2M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'temperature2M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'temperature2M', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MLengthBetween(
+  temperature2MLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'temperature2M', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  temperature2MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -7143,89 +6982,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxIsNull() {
+  temperature2MMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'temperature2MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'temperature2MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxIsNotNull() {
+  temperature2MMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'temperature2MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'temperature2MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxElementIsNull() {
+  temperature2MMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'temperature2MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'temperature2MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxElementIsNotNull() {
+  temperature2MMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'temperature2MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'temperature2MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxElementEqualTo(
+  temperature2MMaxElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'temperature2MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'temperature2MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'temperature2MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxElementLessThan(
+  temperature2MMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'temperature2MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'temperature2MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxElementBetween(
+  temperature2MMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'temperature2MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  temperature2MMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -7233,77 +7081,50 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'temperature2MMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'temperature2MMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMax',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxIsEmpty() {
+  temperature2MMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'temperature2MMax', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxIsNotEmpty() {
+  temperature2MMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMax',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'temperature2MMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMax',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'temperature2MMax', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MMaxLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'temperature2MMax', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  temperature2MMaxLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'temperature2MMax',
@@ -7316,7 +7137,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMaxLengthBetween(
+  temperature2MMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -7334,89 +7155,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinIsNull() {
+  temperature2MMinIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'temperature2MMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'temperature2MMin'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinIsNotNull() {
+  temperature2MMinIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'temperature2MMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'temperature2MMin'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinElementIsNull() {
+  temperature2MMinElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'temperature2MMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'temperature2MMin'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinElementIsNotNull() {
+  temperature2MMinElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'temperature2MMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'temperature2MMin'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinElementEqualTo(
+  temperature2MMinElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'temperature2MMin',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'temperature2MMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'temperature2MMin',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinElementLessThan(
+  temperature2MMinElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'temperature2MMin',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'temperature2MMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinElementBetween(
+  temperature2MMinElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'temperature2MMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  temperature2MMinElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -7424,77 +7254,50 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'temperature2MMin',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'temperature2MMin',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMin',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinIsEmpty() {
+  temperature2MMinLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMin',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'temperature2MMin', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinIsNotEmpty() {
+  temperature2MMinIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMin',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'temperature2MMin', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MMinIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMin',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'temperature2MMin', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MMinLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'temperature2MMin', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  temperature2MMinLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'temperature2MMin',
@@ -7507,7 +7310,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      temperature2MMinLengthBetween(
+  temperature2MMinLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -7525,71 +7328,74 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeIsNull() {
+  timeIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'time',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'time'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeIsNotNull() {
+  timeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'time',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'time'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  timeElementEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementLessThan(
+  timeElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementBetween(
+  timeElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -7597,160 +7403,126 @@ extension MainWeatherCacheQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'time',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'time',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'time',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeElementIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'time',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'time',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeIsEmpty() {
+  timeElementStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        0,
-        true,
-        0,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeIsNotEmpty() {
+  timeElementEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        0,
-        false,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  timeElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        0,
-        true,
-        length,
-        include,
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  timeElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        length,
-        include,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'time',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeLengthBetween(
+  timeElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'time', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'time', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'time', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'time', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'time', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'time', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'time', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -7768,152 +7540,115 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyIsNull() {
+  timeDailyIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timeDaily'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyIsNotNull() {
+  timeDailyIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timeDaily'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyElementEqualTo(DateTime value) {
+  timeDailyElementEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timeDaily', value: value),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyElementGreaterThan(
-    DateTime value, {
-    bool include = false,
-  }) {
+  timeDailyElementGreaterThan(DateTime value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timeDaily',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyElementLessThan(
-    DateTime value, {
-    bool include = false,
-  }) {
+  timeDailyElementLessThan(DateTime value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timeDaily',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyElementBetween(
+  timeDailyElementBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timeDaily',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timeDaily',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyIsEmpty() {
+  timeDailyLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'timeDaily', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyIsNotEmpty() {
+  timeDailyIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'timeDaily', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  timeDailyIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'timeDaily', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  timeDailyLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'timeDaily', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timeDailyLengthBetween(
+  timeDailyLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'timeDaily', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timeDailyLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -7931,145 +7666,147 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timestampIsNull() {
+  timestampIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timestamp',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timestamp'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timestampIsNotNull() {
+  timestampIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timestamp',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timestamp'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timestampEqualTo(DateTime? value) {
+  timestampEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timestamp',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timestamp', value: value),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timestampGreaterThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
+  timestampGreaterThan(DateTime? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timestamp',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timestamp',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timestampLessThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
+  timestampLessThan(DateTime? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timestamp',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timestamp',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timestampBetween(
+  timestampBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timestamp',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timestamp',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneIsNull() {
+  timezoneIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timezone',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timezone'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneIsNotNull() {
+  timezoneIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timezone',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timezone'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+  timezoneEqualTo(String? value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneLessThan(
+  timezoneGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneBetween(
+  timezoneLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  timezoneBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -8077,171 +7814,179 @@ extension MainWeatherCacheQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timezone',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timezone',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  timezoneStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  timezoneEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneContains(String value, {bool caseSensitive = true}) {
+  timezoneContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneMatches(String pattern, {bool caseSensitive = true}) {
+  timezoneMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'timezone',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'timezone',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneIsEmpty() {
+  timezoneIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timezone',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timezone', value: ''),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      timezoneIsNotEmpty() {
+  timezoneIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'timezone',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'timezone', value: ''),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexIsNull() {
+  uvIndexIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'uvIndex',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'uvIndex'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexIsNotNull() {
+  uvIndexIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'uvIndex',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'uvIndex'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexElementIsNull() {
+  uvIndexElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'uvIndex',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'uvIndex'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexElementIsNotNull() {
+  uvIndexElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'uvIndex',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'uvIndex'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  uvIndexElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uvIndex',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'uvIndex',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'uvIndex',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexElementLessThan(
+  uvIndexElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'uvIndex',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'uvIndex',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexElementBetween(
+  uvIndexElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'uvIndex',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  uvIndexElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -8249,90 +7994,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'uvIndex',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'uvIndex',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexIsEmpty() {
+  uvIndexLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'uvIndex', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexIsNotEmpty() {
+  uvIndexIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'uvIndex', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  uvIndexIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'uvIndex', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  uvIndexLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'uvIndex', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexLengthBetween(
+  uvIndexLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'uvIndex', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  uvIndexLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -8350,89 +8062,95 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxIsNull() {
+  uvIndexMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'uvIndexMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'uvIndexMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxIsNotNull() {
+  uvIndexMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'uvIndexMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'uvIndexMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxElementIsNull() {
+  uvIndexMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'uvIndexMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'uvIndexMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxElementIsNotNull() {
+  uvIndexMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'uvIndexMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'uvIndexMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  uvIndexMaxElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uvIndexMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'uvIndexMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'uvIndexMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxElementLessThan(
+  uvIndexMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'uvIndexMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'uvIndexMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxElementBetween(
+  uvIndexMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'uvIndexMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  uvIndexMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -8440,90 +8158,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'uvIndexMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'uvIndexMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxIsEmpty() {
+  uvIndexMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'uvIndexMax', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxIsNotEmpty() {
+  uvIndexMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'uvIndexMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  uvIndexMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'uvIndexMax', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  uvIndexMaxLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'uvIndexMax', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      uvIndexMaxLengthBetween(
+  uvIndexMaxLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'uvIndexMax', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  uvIndexMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -8541,89 +8226,95 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityIsNull() {
+  visibilityIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'visibility',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'visibility'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityIsNotNull() {
+  visibilityIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'visibility',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'visibility'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityElementIsNull() {
+  visibilityElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'visibility',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'visibility'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityElementIsNotNull() {
+  visibilityElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'visibility',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'visibility'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  visibilityElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'visibility',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'visibility',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'visibility',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityElementLessThan(
+  visibilityElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'visibility',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'visibility',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityElementBetween(
+  visibilityElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'visibility',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  visibilityElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -8631,90 +8322,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'visibility',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'visibility',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityIsEmpty() {
+  visibilityLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'visibility', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityIsNotEmpty() {
+  visibilityIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'visibility', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  visibilityIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'visibility', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  visibilityLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'visibility', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      visibilityLengthBetween(
+  visibilityLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'visibility', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  visibilityLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -8732,152 +8390,115 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeIsNull() {
+  weathercodeIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'weathercode',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'weathercode'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeIsNotNull() {
+  weathercodeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'weathercode',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'weathercode'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeElementEqualTo(int value) {
+  weathercodeElementEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'weathercode',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'weathercode', value: value),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeElementGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
+  weathercodeElementGreaterThan(int value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'weathercode',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'weathercode',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeElementLessThan(
-    int value, {
-    bool include = false,
-  }) {
+  weathercodeElementLessThan(int value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'weathercode',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'weathercode',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeElementBetween(
+  weathercodeElementBetween(
     int lower,
     int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'weathercode',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'weathercode',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeIsEmpty() {
+  weathercodeLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'weathercode', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeIsNotEmpty() {
+  weathercodeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'weathercode', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  weathercodeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'weathercode', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  weathercodeLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'weathercode', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeLengthBetween(
+  weathercodeLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'weathercode', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  weathercodeLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -8895,157 +8516,126 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyIsNull() {
+  weathercodeDailyIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'weathercodeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'weathercodeDaily'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyIsNotNull() {
+  weathercodeDailyIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'weathercodeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'weathercodeDaily'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyElementIsNull() {
+  weathercodeDailyElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'weathercodeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'weathercodeDaily'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyElementIsNotNull() {
+  weathercodeDailyElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'weathercodeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'weathercodeDaily'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyElementEqualTo(int? value) {
+  weathercodeDailyElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'weathercodeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'weathercodeDaily', value: value),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyElementGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  weathercodeDailyElementGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'weathercodeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'weathercodeDaily',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  weathercodeDailyElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'weathercodeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'weathercodeDaily',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyElementBetween(
+  weathercodeDailyElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'weathercodeDaily',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercodeDaily',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'weathercodeDaily',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyIsEmpty() {
+  weathercodeDailyLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercodeDaily',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'weathercodeDaily', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyIsNotEmpty() {
+  weathercodeDailyIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercodeDaily',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'weathercodeDaily', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  weathercodeDailyIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercodeDaily',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'weathercodeDaily', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  weathercodeDailyLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'weathercodeDaily', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  weathercodeDailyLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'weathercodeDaily',
@@ -9058,7 +8648,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      weathercodeDailyLengthBetween(
+  weathercodeDailyLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -9076,157 +8666,126 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MIsNull() {
+  winddirection10MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'winddirection10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'winddirection10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MIsNotNull() {
+  winddirection10MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'winddirection10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'winddirection10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MElementIsNull() {
+  winddirection10MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'winddirection10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'winddirection10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MElementIsNotNull() {
+  winddirection10MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'winddirection10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'winddirection10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MElementEqualTo(int? value) {
+  winddirection10MElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'winddirection10M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'winddirection10M', value: value),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MElementGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  winddirection10MElementGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'winddirection10M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'winddirection10M',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  winddirection10MElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'winddirection10M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'winddirection10M',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MElementBetween(
+  winddirection10MElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'winddirection10M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'winddirection10M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MIsEmpty() {
+  winddirection10MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'winddirection10M', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MIsNotEmpty() {
+  winddirection10MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'winddirection10M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  winddirection10MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'winddirection10M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  winddirection10MLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'winddirection10M', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  winddirection10MLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'winddirection10M',
@@ -9239,7 +8798,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MLengthBetween(
+  winddirection10MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -9257,99 +8816,108 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantIsNull() {
+  winddirection10MDominantIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'winddirection10MDominant',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'winddirection10MDominant'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantIsNotNull() {
+  winddirection10MDominantIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'winddirection10MDominant',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'winddirection10MDominant'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantElementIsNull() {
+  winddirection10MDominantElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'winddirection10MDominant',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'winddirection10MDominant',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantElementIsNotNull() {
+  winddirection10MDominantElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'winddirection10MDominant',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'winddirection10MDominant',
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantElementEqualTo(int? value) {
+  winddirection10MDominantElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'winddirection10MDominant',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'winddirection10MDominant',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantElementGreaterThan(
+  winddirection10MDominantElementGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'winddirection10MDominant',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'winddirection10MDominant',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  winddirection10MDominantElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'winddirection10MDominant',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'winddirection10MDominant',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantElementBetween(
+  winddirection10MDominantElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'winddirection10MDominant',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'winddirection10MDominant',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantLengthEqualTo(int length) {
+  winddirection10MDominantLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'winddirection10MDominant',
@@ -9362,20 +8930,14 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantIsEmpty() {
+  winddirection10MDominantIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10MDominant',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'winddirection10MDominant', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantIsNotEmpty() {
+  winddirection10MDominantIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'winddirection10MDominant',
@@ -9388,10 +8950,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  winddirection10MDominantLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'winddirection10MDominant',
@@ -9404,7 +8963,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantLengthGreaterThan(
+  winddirection10MDominantLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -9420,7 +8979,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      winddirection10MDominantLengthBetween(
+  winddirection10MDominantLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -9438,89 +8997,95 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MIsNull() {
+  windgusts10MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windgusts10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'windgusts10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MIsNotNull() {
+  windgusts10MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windgusts10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'windgusts10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MElementIsNull() {
+  windgusts10MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'windgusts10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'windgusts10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MElementIsNotNull() {
+  windgusts10MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'windgusts10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'windgusts10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  windgusts10MElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windgusts10M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'windgusts10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windgusts10M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MElementLessThan(
+  windgusts10MElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windgusts10M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'windgusts10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MElementBetween(
+  windgusts10MElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'windgusts10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  windgusts10MElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -9528,90 +9093,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windgusts10M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'windgusts10M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MIsEmpty() {
+  windgusts10MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'windgusts10M', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MIsNotEmpty() {
+  windgusts10MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'windgusts10M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  windgusts10MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'windgusts10M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  windgusts10MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'windgusts10M', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MLengthBetween(
+  windgusts10MLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'windgusts10M', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  windgusts10MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -9629,89 +9161,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxIsNull() {
+  windgusts10MMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windgusts10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'windgusts10MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxIsNotNull() {
+  windgusts10MMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windgusts10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'windgusts10MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxElementIsNull() {
+  windgusts10MMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'windgusts10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'windgusts10MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxElementIsNotNull() {
+  windgusts10MMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'windgusts10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'windgusts10MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxElementEqualTo(
+  windgusts10MMaxElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windgusts10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'windgusts10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windgusts10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxElementLessThan(
+  windgusts10MMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windgusts10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'windgusts10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxElementBetween(
+  windgusts10MMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'windgusts10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  windgusts10MMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -9719,77 +9260,50 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windgusts10MMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'windgusts10MMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10MMax',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxIsEmpty() {
+  windgusts10MMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10MMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'windgusts10MMax', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxIsNotEmpty() {
+  windgusts10MMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10MMax',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'windgusts10MMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  windgusts10MMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10MMax',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'windgusts10MMax', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  windgusts10MMaxLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'windgusts10MMax', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  windgusts10MMaxLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'windgusts10MMax',
@@ -9802,7 +9316,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windgusts10MMaxLengthBetween(
+  windgusts10MMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -9820,89 +9334,95 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MIsNull() {
+  windspeed10MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windspeed10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'windspeed10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MIsNotNull() {
+  windspeed10MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windspeed10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'windspeed10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MElementIsNull() {
+  windspeed10MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'windspeed10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'windspeed10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MElementIsNotNull() {
+  windspeed10MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'windspeed10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'windspeed10M'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  windspeed10MElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'windspeed10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MElementLessThan(
+  windspeed10MElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'windspeed10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MElementBetween(
+  windspeed10MElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'windspeed10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  windspeed10MElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -9910,90 +9430,57 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windspeed10M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'windspeed10M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MIsEmpty() {
+  windspeed10MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'windspeed10M', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MIsNotEmpty() {
+  windspeed10MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'windspeed10M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  windspeed10MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'windspeed10M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  windspeed10MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'windspeed10M', 0, true, length, include);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MLengthBetween(
+  windspeed10MLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'windspeed10M', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  windspeed10MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -10011,89 +9498,98 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxIsNull() {
+  windspeed10MMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windspeed10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'windspeed10MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxIsNotNull() {
+  windspeed10MMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windspeed10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'windspeed10MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxElementIsNull() {
+  windspeed10MMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'windspeed10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'windspeed10MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxElementIsNotNull() {
+  windspeed10MMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'windspeed10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'windspeed10MMax'),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxElementEqualTo(
+  windspeed10MMaxElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windspeed10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'windspeed10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windspeed10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxElementLessThan(
+  windspeed10MMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windspeed10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'windspeed10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxElementBetween(
+  windspeed10MMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'windspeed10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  windspeed10MMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -10101,77 +9597,50 @@ extension MainWeatherCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windspeed10MMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'windspeed10MMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10MMax',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxIsEmpty() {
+  windspeed10MMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10MMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'windspeed10MMax', length, true, length, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxIsNotEmpty() {
+  windspeed10MMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10MMax',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'windspeed10MMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  windspeed10MMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10MMax',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'windspeed10MMax', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  windspeed10MMaxLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'windspeed10MMax', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
+  windspeed10MMaxLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'windspeed10MMax',
@@ -10184,7 +9653,7 @@ extension MainWeatherCacheQueryFilter
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterFilterCondition>
-      windspeed10MMaxLengthBetween(
+  windspeed10MMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -10211,28 +9680,28 @@ extension MainWeatherCacheQueryLinks
 extension MainWeatherCacheQuerySortBy
     on QueryBuilder<MainWeatherCache, MainWeatherCache, QSortBy> {
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      sortByTimestamp() {
+  sortByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.asc);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      sortByTimestampDesc() {
+  sortByTimestampDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.desc);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      sortByTimezone() {
+  sortByTimezone() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timezone', Sort.asc);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      sortByTimezoneDesc() {
+  sortByTimezoneDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timezone', Sort.desc);
     });
@@ -10248,35 +9717,35 @@ extension MainWeatherCacheQuerySortThenBy
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      thenByIdDesc() {
+  thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      thenByTimestamp() {
+  thenByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.asc);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      thenByTimestampDesc() {
+  thenByTimestampDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.desc);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      thenByTimezone() {
+  thenByTimezone() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timezone', Sort.asc);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QAfterSortBy>
-      thenByTimezoneDesc() {
+  thenByTimezoneDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timezone', Sort.desc);
     });
@@ -10286,70 +9755,70 @@ extension MainWeatherCacheQuerySortThenBy
 extension MainWeatherCacheQueryWhereDistinct
     on QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct> {
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByApparentTemperature() {
+  distinctByApparentTemperature() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'apparentTemperature');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByApparentTemperatureMax() {
+  distinctByApparentTemperatureMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'apparentTemperatureMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByApparentTemperatureMin() {
+  distinctByApparentTemperatureMin() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'apparentTemperatureMin');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByCloudcover() {
+  distinctByCloudcover() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'cloudcover');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByDewpoint2M() {
+  distinctByDewpoint2M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'dewpoint2M');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByEvapotranspiration() {
+  distinctByEvapotranspiration() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'evapotranspiration');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByPrecipitation() {
+  distinctByPrecipitation() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitation');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByPrecipitationProbability() {
+  distinctByPrecipitationProbability() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationProbability');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByPrecipitationProbabilityMax() {
+  distinctByPrecipitationProbabilityMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationProbabilityMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByPrecipitationSum() {
+  distinctByPrecipitationSum() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationSum');
     });
@@ -10362,63 +9831,63 @@ extension MainWeatherCacheQueryWhereDistinct
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByRainSum() {
+  distinctByRainSum() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'rainSum');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByRelativehumidity2M() {
+  distinctByRelativehumidity2M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'relativehumidity2M');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByShortwaveRadiation() {
+  distinctByShortwaveRadiation() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'shortwaveRadiation');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctBySunrise() {
+  distinctBySunrise() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'sunrise');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctBySunset() {
+  distinctBySunset() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'sunset');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctBySurfacePressure() {
+  distinctBySurfacePressure() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'surfacePressure');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByTemperature2M() {
+  distinctByTemperature2M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'temperature2M');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByTemperature2MMax() {
+  distinctByTemperature2MMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'temperature2MMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByTemperature2MMin() {
+  distinctByTemperature2MMin() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'temperature2MMin');
     });
@@ -10431,98 +9900,98 @@ extension MainWeatherCacheQueryWhereDistinct
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByTimeDaily() {
+  distinctByTimeDaily() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timeDaily');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByTimestamp() {
+  distinctByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timestamp');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByTimezone({bool caseSensitive = true}) {
+  distinctByTimezone({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timezone', caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByUvIndex() {
+  distinctByUvIndex() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'uvIndex');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByUvIndexMax() {
+  distinctByUvIndexMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'uvIndexMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByVisibility() {
+  distinctByVisibility() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'visibility');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByWeathercode() {
+  distinctByWeathercode() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'weathercode');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByWeathercodeDaily() {
+  distinctByWeathercodeDaily() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'weathercodeDaily');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByWinddirection10M() {
+  distinctByWinddirection10M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'winddirection10M');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByWinddirection10MDominant() {
+  distinctByWinddirection10MDominant() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'winddirection10MDominant');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByWindgusts10M() {
+  distinctByWindgusts10M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'windgusts10M');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByWindgusts10MMax() {
+  distinctByWindgusts10MMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'windgusts10MMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByWindspeed10M() {
+  distinctByWindspeed10M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'windspeed10M');
     });
   }
 
   QueryBuilder<MainWeatherCache, MainWeatherCache, QDistinct>
-      distinctByWindspeed10MMax() {
+  distinctByWindspeed10MMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'windspeed10MMax');
     });
@@ -10538,161 +10007,161 @@ extension MainWeatherCacheQueryProperty
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      apparentTemperatureProperty() {
+  apparentTemperatureProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'apparentTemperature');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      apparentTemperatureMaxProperty() {
+  apparentTemperatureMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'apparentTemperatureMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      apparentTemperatureMinProperty() {
+  apparentTemperatureMinProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'apparentTemperatureMin');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
-      cloudcoverProperty() {
+  cloudcoverProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cloudcover');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      dewpoint2MProperty() {
+  dewpoint2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'dewpoint2M');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      evapotranspirationProperty() {
+  evapotranspirationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'evapotranspiration');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      precipitationProperty() {
+  precipitationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitation');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
-      precipitationProbabilityProperty() {
+  precipitationProbabilityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitationProbability');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
-      precipitationProbabilityMaxProperty() {
+  precipitationProbabilityMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitationProbabilityMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      precipitationSumProperty() {
+  precipitationSumProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitationSum');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      rainProperty() {
+  rainProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'rain');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      rainSumProperty() {
+  rainSumProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'rainSum');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
-      relativehumidity2MProperty() {
+  relativehumidity2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'relativehumidity2M');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      shortwaveRadiationProperty() {
+  shortwaveRadiationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'shortwaveRadiation');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<String>?, QQueryOperations>
-      sunriseProperty() {
+  sunriseProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'sunrise');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<String>?, QQueryOperations>
-      sunsetProperty() {
+  sunsetProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'sunset');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      surfacePressureProperty() {
+  surfacePressureProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'surfacePressure');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double>?, QQueryOperations>
-      temperature2MProperty() {
+  temperature2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2M');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      temperature2MMaxProperty() {
+  temperature2MMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2MMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      temperature2MMinProperty() {
+  temperature2MMinProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2MMin');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<String>?, QQueryOperations>
-      timeProperty() {
+  timeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'time');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<DateTime>?, QQueryOperations>
-      timeDailyProperty() {
+  timeDailyProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'timeDaily');
     });
   }
 
   QueryBuilder<MainWeatherCache, DateTime?, QQueryOperations>
-      timestampProperty() {
+  timestampProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'timestamp');
     });
@@ -10705,77 +10174,77 @@ extension MainWeatherCacheQueryProperty
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      uvIndexProperty() {
+  uvIndexProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'uvIndex');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      uvIndexMaxProperty() {
+  uvIndexMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'uvIndexMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      visibilityProperty() {
+  visibilityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'visibility');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<int>?, QQueryOperations>
-      weathercodeProperty() {
+  weathercodeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weathercode');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
-      weathercodeDailyProperty() {
+  weathercodeDailyProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weathercodeDaily');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
-      winddirection10MProperty() {
+  winddirection10MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'winddirection10M');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<int?>?, QQueryOperations>
-      winddirection10MDominantProperty() {
+  winddirection10MDominantProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'winddirection10MDominant');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      windgusts10MProperty() {
+  windgusts10MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'windgusts10M');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      windgusts10MMaxProperty() {
+  windgusts10MMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'windgusts10MMax');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      windspeed10MProperty() {
+  windspeed10MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'windspeed10M');
     });
   }
 
   QueryBuilder<MainWeatherCache, List<double?>?, QQueryOperations>
-      windspeed10MMaxProperty() {
+  windspeed10MMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'windspeed10MMax');
     });
@@ -10793,27 +10262,16 @@ const LocationCacheSchema = CollectionSchema(
   name: r'LocationCache',
   id: 6756051892239209721,
   properties: {
-    r'city': PropertySchema(
-      id: 0,
-      name: r'city',
-      type: IsarType.string,
-    ),
+    r'city': PropertySchema(id: 0, name: r'city', type: IsarType.string),
     r'district': PropertySchema(
       id: 1,
       name: r'district',
       type: IsarType.string,
     ),
-    r'lat': PropertySchema(
-      id: 2,
-      name: r'lat',
-      type: IsarType.double,
-    ),
-    r'lon': PropertySchema(
-      id: 3,
-      name: r'lon',
-      type: IsarType.double,
-    )
+    r'lat': PropertySchema(id: 2, name: r'lat', type: IsarType.double),
+    r'lon': PropertySchema(id: 3, name: r'lon', type: IsarType.double),
   },
+
   estimateSize: _locationCacheEstimateSize,
   serialize: _locationCacheSerialize,
   deserialize: _locationCacheDeserialize,
@@ -10822,10 +10280,11 @@ const LocationCacheSchema = CollectionSchema(
   indexes: {},
   links: {},
   embeddedSchemas: {},
+
   getId: _locationCacheGetId,
   getLinks: _locationCacheGetLinks,
   attach: _locationCacheAttach,
-  version: '3.1.8',
+  version: '3.2.0-dev.1',
 );
 
 int _locationCacheEstimateSize(
@@ -10906,7 +10365,10 @@ List<IsarLinkBase<dynamic>> _locationCacheGetLinks(LocationCache object) {
 }
 
 void _locationCacheAttach(
-    IsarCollection<dynamic> col, Id id, LocationCache object) {
+  IsarCollection<dynamic> col,
+  Id id,
+  LocationCache object,
+) {
   object.id = id;
 }
 
@@ -10922,17 +10384,16 @@ extension LocationCacheQueryWhereSort
 extension LocationCacheQueryWhere
     on QueryBuilder<LocationCache, LocationCache, QWhereClause> {
   QueryBuilder<LocationCache, LocationCache, QAfterWhereClause> idEqualTo(
-      Id id) {
+    Id id,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
+      return query.addWhereClause(IdWhereClause.between(lower: id, upper: id));
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterWhereClause> idNotEqualTo(
-      Id id) {
+    Id id,
+  ) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -10955,8 +10416,9 @@ extension LocationCacheQueryWhere
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterWhereClause> idGreaterThan(
-      Id id,
-      {bool include = false}) {
+    Id id, {
+    bool include = false,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -10965,8 +10427,9 @@ extension LocationCacheQueryWhere
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterWhereClause> idLessThan(
-      Id id,
-      {bool include = false}) {
+    Id id, {
+    bool include = false,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -10981,12 +10444,14 @@ extension LocationCacheQueryWhere
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
+      return query.addWhereClause(
+        IdWhereClause.between(
+          lower: lowerId,
+          includeLower: includeLower,
+          upper: upperId,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 }
@@ -10994,20 +10459,20 @@ extension LocationCacheQueryWhere
 extension LocationCacheQueryFilter
     on QueryBuilder<LocationCache, LocationCache, QFilterCondition> {
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityIsNull() {
+  cityIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'city',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'city'),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityIsNotNull() {
+  cityIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'city',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'city'),
+      );
     });
   }
 
@@ -11016,43 +10481,49 @@ extension LocationCacheQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityGreaterThan(
+  cityGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityLessThan(
+  cityLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -11064,154 +10535,160 @@ extension LocationCacheQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'city',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'city',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  cityStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  cityEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityContains(String value, {bool caseSensitive = true}) {
+  cityContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition> cityMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'city',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'city',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      cityIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'city',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'district',
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'district',
-      ));
-    });
-  }
-
-  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtEqualTo(
-    String? value, {
+    String pattern, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'city',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
+  cityIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'city', value: ''),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtLessThan(
+  cityIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'city', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  districtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'district'),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  districtIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'district'),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  districtEqualTo(String? value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  districtGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtBetween(
+  districtLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  districtBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -11219,108 +10696,109 @@ extension LocationCacheQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'district',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'district',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  districtStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  districtEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtContains(String value, {bool caseSensitive = true}) {
+  districtContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtMatches(String pattern, {bool caseSensitive = true}) {
+  districtMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'district',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'district',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtIsEmpty() {
+  districtIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'district',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'district', value: ''),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      districtIsNotEmpty() {
+  districtIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'district',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'district', value: ''),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition> idEqualTo(
-      Id value) {
+    Id value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'id', value: value),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      idGreaterThan(
-    Id value, {
-    bool include = false,
-  }) {
+  idGreaterThan(Id value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -11329,11 +10807,13 @@ extension LocationCacheQueryFilter
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -11344,31 +10824,33 @@ extension LocationCacheQueryFilter
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'id',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      latIsNull() {
+  latIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'lat',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'lat'),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      latIsNotNull() {
+  latIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'lat',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'lat'),
+      );
     });
   }
 
@@ -11377,27 +10859,33 @@ extension LocationCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'lat',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'lat',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      latGreaterThan(
+  latGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'lat',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'lat',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -11407,12 +10895,15 @@ extension LocationCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'lat',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'lat',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -11424,32 +10915,35 @@ extension LocationCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'lat',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'lat',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      lonIsNull() {
+  lonIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'lon',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'lon'),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      lonIsNotNull() {
+  lonIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'lon',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'lon'),
+      );
     });
   }
 
@@ -11458,27 +10952,33 @@ extension LocationCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'lon',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'lon',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
-      lonGreaterThan(
+  lonGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'lon',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'lon',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -11488,12 +10988,15 @@ extension LocationCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'lon',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'lon',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -11505,14 +11008,17 @@ extension LocationCacheQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'lon',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'lon',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 }
@@ -11544,7 +11050,7 @@ extension LocationCacheQuerySortBy
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
-      sortByDistrictDesc() {
+  sortByDistrictDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'district', Sort.desc);
     });
@@ -11596,7 +11102,7 @@ extension LocationCacheQuerySortThenBy
   }
 
   QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
-      thenByDistrictDesc() {
+  thenByDistrictDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'district', Sort.desc);
     });
@@ -11641,15 +11147,17 @@ extension LocationCacheQuerySortThenBy
 
 extension LocationCacheQueryWhereDistinct
     on QueryBuilder<LocationCache, LocationCache, QDistinct> {
-  QueryBuilder<LocationCache, LocationCache, QDistinct> distinctByCity(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocationCache, LocationCache, QDistinct> distinctByCity({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'city', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<LocationCache, LocationCache, QDistinct> distinctByDistrict(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocationCache, LocationCache, QDistinct> distinctByDistrict({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'district', caseSensitive: caseSensitive);
     });
@@ -11727,11 +11235,7 @@ const WeatherCardSchema = CollectionSchema(
       name: r'apparentTemperatureMin',
       type: IsarType.doubleList,
     ),
-    r'city': PropertySchema(
-      id: 3,
-      name: r'city',
-      type: IsarType.string,
-    ),
+    r'city': PropertySchema(id: 3, name: r'city', type: IsarType.string),
     r'cloudcover': PropertySchema(
       id: 4,
       name: r'cloudcover',
@@ -11752,21 +11256,9 @@ const WeatherCardSchema = CollectionSchema(
       name: r'evapotranspiration',
       type: IsarType.doubleList,
     ),
-    r'index': PropertySchema(
-      id: 8,
-      name: r'index',
-      type: IsarType.long,
-    ),
-    r'lat': PropertySchema(
-      id: 9,
-      name: r'lat',
-      type: IsarType.double,
-    ),
-    r'lon': PropertySchema(
-      id: 10,
-      name: r'lon',
-      type: IsarType.double,
-    ),
+    r'index': PropertySchema(id: 8, name: r'index', type: IsarType.long),
+    r'lat': PropertySchema(id: 9, name: r'lat', type: IsarType.double),
+    r'lon': PropertySchema(id: 10, name: r'lon', type: IsarType.double),
     r'precipitation': PropertySchema(
       id: 11,
       name: r'precipitation',
@@ -11787,11 +11279,7 @@ const WeatherCardSchema = CollectionSchema(
       name: r'precipitationSum',
       type: IsarType.doubleList,
     ),
-    r'rain': PropertySchema(
-      id: 15,
-      name: r'rain',
-      type: IsarType.doubleList,
-    ),
+    r'rain': PropertySchema(id: 15, name: r'rain', type: IsarType.doubleList),
     r'rainSum': PropertySchema(
       id: 16,
       name: r'rainSum',
@@ -11837,11 +11325,7 @@ const WeatherCardSchema = CollectionSchema(
       name: r'temperature2MMin',
       type: IsarType.doubleList,
     ),
-    r'time': PropertySchema(
-      id: 25,
-      name: r'time',
-      type: IsarType.stringList,
-    ),
+    r'time': PropertySchema(id: 25, name: r'time', type: IsarType.stringList),
     r'timeDaily': PropertySchema(
       id: 26,
       name: r'timeDaily',
@@ -11911,8 +11395,9 @@ const WeatherCardSchema = CollectionSchema(
       id: 39,
       name: r'windspeed10MMax',
       type: IsarType.doubleList,
-    )
+    ),
   },
+
   estimateSize: _weatherCardEstimateSize,
   serialize: _weatherCardSerialize,
   deserialize: _weatherCardDeserialize,
@@ -11921,10 +11406,11 @@ const WeatherCardSchema = CollectionSchema(
   indexes: {},
   links: {},
   embeddedSchemas: {},
+
   getId: _weatherCardGetId,
   getLinks: _weatherCardGetLinks,
   attach: _weatherCardAttach,
-  version: '3.1.8',
+  version: '3.2.0-dev.1',
 );
 
 int _weatherCardEstimateSize(
@@ -12371,7 +11857,10 @@ List<IsarLinkBase<dynamic>> _weatherCardGetLinks(WeatherCard object) {
 }
 
 void _weatherCardAttach(
-    IsarCollection<dynamic> col, Id id, WeatherCard object) {
+  IsarCollection<dynamic> col,
+  Id id,
+  WeatherCard object,
+) {
   object.id = id;
 }
 
@@ -12388,15 +11877,13 @@ extension WeatherCardQueryWhere
     on QueryBuilder<WeatherCard, WeatherCard, QWhereClause> {
   QueryBuilder<WeatherCard, WeatherCard, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
+      return query.addWhereClause(IdWhereClause.between(lower: id, upper: id));
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterWhereClause> idNotEqualTo(
-      Id id) {
+    Id id,
+  ) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -12418,8 +11905,10 @@ extension WeatherCardQueryWhere
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterWhereClause> idGreaterThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<WeatherCard, WeatherCard, QAfterWhereClause> idGreaterThan(
+    Id id, {
+    bool include = false,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -12427,8 +11916,10 @@ extension WeatherCardQueryWhere
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<WeatherCard, WeatherCard, QAfterWhereClause> idLessThan(
+    Id id, {
+    bool include = false,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -12443,12 +11934,14 @@ extension WeatherCardQueryWhere
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
+      return query.addWhereClause(
+        IdWhereClause.between(
+          lower: lowerId,
+          includeLower: includeLower,
+          upper: upperId,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 }
@@ -12456,89 +11949,100 @@ extension WeatherCardQueryWhere
 extension WeatherCardQueryFilter
     on QueryBuilder<WeatherCard, WeatherCard, QFilterCondition> {
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureIsNull() {
+  apparentTemperatureIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'apparentTemperature',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'apparentTemperature'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureIsNotNull() {
+  apparentTemperatureIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'apparentTemperature',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'apparentTemperature'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementIsNull() {
+  apparentTemperatureElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'apparentTemperature',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'apparentTemperature'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementIsNotNull() {
+  apparentTemperatureElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'apparentTemperature',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'apparentTemperature',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementEqualTo(
+  apparentTemperatureElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'apparentTemperature',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementLessThan(
+  apparentTemperatureElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'apparentTemperature',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'apparentTemperature',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureElementBetween(
+  apparentTemperatureElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'apparentTemperature',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  apparentTemperatureElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -12546,19 +12050,22 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'apparentTemperature',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'apparentTemperature',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureLengthEqualTo(int length) {
+  apparentTemperatureLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperature',
@@ -12571,52 +12078,28 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureIsEmpty() {
+  apparentTemperatureIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'apparentTemperature', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureIsNotEmpty() {
+  apparentTemperatureIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'apparentTemperature', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperature',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'apparentTemperature', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperature',
@@ -12629,7 +12112,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureLengthBetween(
+  apparentTemperatureLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -12647,89 +12130,102 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxIsNull() {
+  apparentTemperatureMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'apparentTemperatureMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'apparentTemperatureMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxIsNotNull() {
+  apparentTemperatureMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'apparentTemperatureMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'apparentTemperatureMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxElementIsNull() {
+  apparentTemperatureMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'apparentTemperatureMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'apparentTemperatureMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxElementIsNotNull() {
+  apparentTemperatureMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'apparentTemperatureMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'apparentTemperatureMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxElementEqualTo(
+  apparentTemperatureMaxElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'apparentTemperatureMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'apparentTemperatureMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'apparentTemperatureMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxElementLessThan(
+  apparentTemperatureMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'apparentTemperatureMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'apparentTemperatureMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxElementBetween(
+  apparentTemperatureMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'apparentTemperatureMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  apparentTemperatureMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -12737,19 +12233,22 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'apparentTemperatureMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'apparentTemperatureMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxLengthEqualTo(int length) {
+  apparentTemperatureMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMax',
@@ -12762,20 +12261,14 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxIsEmpty() {
+  apparentTemperatureMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperatureMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'apparentTemperatureMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxIsNotEmpty() {
+  apparentTemperatureMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMax',
@@ -12788,10 +12281,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureMaxLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMax',
@@ -12804,10 +12294,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureMaxLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMax',
@@ -12820,7 +12307,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMaxLengthBetween(
+  apparentTemperatureMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -12838,89 +12325,102 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinIsNull() {
+  apparentTemperatureMinIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'apparentTemperatureMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'apparentTemperatureMin'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinIsNotNull() {
+  apparentTemperatureMinIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'apparentTemperatureMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'apparentTemperatureMin'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinElementIsNull() {
+  apparentTemperatureMinElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'apparentTemperatureMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'apparentTemperatureMin',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinElementIsNotNull() {
+  apparentTemperatureMinElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'apparentTemperatureMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'apparentTemperatureMin',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinElementEqualTo(
+  apparentTemperatureMinElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'apparentTemperatureMin',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'apparentTemperatureMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'apparentTemperatureMin',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinElementLessThan(
+  apparentTemperatureMinElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'apparentTemperatureMin',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'apparentTemperatureMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinElementBetween(
+  apparentTemperatureMinElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'apparentTemperatureMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  apparentTemperatureMinElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -12928,19 +12428,22 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'apparentTemperatureMin',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'apparentTemperatureMin',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinLengthEqualTo(int length) {
+  apparentTemperatureMinLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMin',
@@ -12953,20 +12456,14 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinIsEmpty() {
+  apparentTemperatureMinIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'apparentTemperatureMin',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'apparentTemperatureMin', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinIsNotEmpty() {
+  apparentTemperatureMinIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMin',
@@ -12979,10 +12476,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureMinLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMin',
@@ -12995,10 +12489,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  apparentTemperatureMinLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'apparentTemperatureMin',
@@ -13011,7 +12502,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      apparentTemperatureMinLengthBetween(
+  apparentTemperatureMinLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -13030,18 +12521,18 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> cityIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'city',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'city'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cityIsNotNull() {
+  cityIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'city',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'city'),
+      );
     });
   }
 
@@ -13050,11 +12541,13 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -13064,12 +12557,14 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -13079,12 +12574,14 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -13096,14 +12593,16 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'city',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'city',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -13112,11 +12611,13 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -13125,222 +12626,191 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> cityContains(
-      String value,
-      {bool caseSensitive = true}) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'city',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'city',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> cityMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'city',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'city',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> cityIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'city',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'city', value: ''),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cityIsNotEmpty() {
+  cityIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'city',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'city', value: ''),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverIsNull() {
+  cloudcoverIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'cloudcover',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'cloudcover'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverIsNotNull() {
+  cloudcoverIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'cloudcover',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'cloudcover'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverElementIsNull() {
+  cloudcoverElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'cloudcover',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'cloudcover'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverElementIsNotNull() {
+  cloudcoverElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'cloudcover',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'cloudcover'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverElementEqualTo(int? value) {
+  cloudcoverElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'cloudcover',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'cloudcover', value: value),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverElementGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  cloudcoverElementGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'cloudcover',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'cloudcover',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  cloudcoverElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'cloudcover',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'cloudcover',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverElementBetween(
+  cloudcoverElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'cloudcover',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'cloudcover',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverIsEmpty() {
+  cloudcoverLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'cloudcover', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverIsNotEmpty() {
+  cloudcoverIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'cloudcover', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  cloudcoverIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'cloudcover', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  cloudcoverLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'cloudcover',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'cloudcover', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      cloudcoverLengthBetween(
+  cloudcoverLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'cloudcover', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  cloudcoverLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -13358,89 +12828,95 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MIsNull() {
+  dewpoint2MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'dewpoint2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'dewpoint2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MIsNotNull() {
+  dewpoint2MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'dewpoint2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'dewpoint2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MElementIsNull() {
+  dewpoint2MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'dewpoint2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'dewpoint2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MElementIsNotNull() {
+  dewpoint2MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'dewpoint2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'dewpoint2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  dewpoint2MElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'dewpoint2M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'dewpoint2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'dewpoint2M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MElementLessThan(
+  dewpoint2MElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'dewpoint2M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'dewpoint2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MElementBetween(
+  dewpoint2MElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'dewpoint2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  dewpoint2MElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -13448,90 +12924,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'dewpoint2M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'dewpoint2M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MIsEmpty() {
+  dewpoint2MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'dewpoint2M', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MIsNotEmpty() {
+  dewpoint2MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'dewpoint2M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  dewpoint2MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'dewpoint2M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  dewpoint2MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'dewpoint2M',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'dewpoint2M', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      dewpoint2MLengthBetween(
+  dewpoint2MLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'dewpoint2M', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  dewpoint2MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -13549,20 +12992,20 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtIsNull() {
+  districtIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'district',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'district'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtIsNotNull() {
+  districtIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'district',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'district'),
+      );
     });
   }
 
@@ -13571,43 +13014,49 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtGreaterThan(
+  districtGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtLessThan(
+  districtLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -13619,172 +13068,184 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'district',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'district',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  districtStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  districtEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtContains(String value, {bool caseSensitive = true}) {
+  districtContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'district',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'district',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> districtMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'district',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'district',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtIsEmpty() {
+  districtIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'district',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'district', value: ''),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      districtIsNotEmpty() {
+  districtIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'district',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'district', value: ''),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationIsNull() {
+  evapotranspirationIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'evapotranspiration',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'evapotranspiration'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationIsNotNull() {
+  evapotranspirationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'evapotranspiration',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'evapotranspiration'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementIsNull() {
+  evapotranspirationElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'evapotranspiration',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'evapotranspiration'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementIsNotNull() {
+  evapotranspirationElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'evapotranspiration',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'evapotranspiration'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementEqualTo(
+  evapotranspirationElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'evapotranspiration',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementLessThan(
+  evapotranspirationElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'evapotranspiration',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'evapotranspiration',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationElementBetween(
+  evapotranspirationElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'evapotranspiration',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  evapotranspirationElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -13792,19 +13253,22 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'evapotranspiration',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'evapotranspiration',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationLengthEqualTo(int length) {
+  evapotranspirationLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'evapotranspiration',
@@ -13817,52 +13281,28 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationIsEmpty() {
+  evapotranspirationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'evapotranspiration', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationIsNotEmpty() {
+  evapotranspirationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'evapotranspiration', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  evapotranspirationLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'evapotranspiration',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'evapotranspiration', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  evapotranspirationLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'evapotranspiration',
@@ -13875,7 +13315,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      evapotranspirationLengthBetween(
+  evapotranspirationLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -13893,12 +13333,12 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> idEqualTo(
-      Id value) {
+    Id value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'id', value: value),
+      );
     });
   }
 
@@ -13907,11 +13347,13 @@ extension WeatherCardQueryFilter
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -13920,11 +13362,13 @@ extension WeatherCardQueryFilter
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -13935,54 +13379,55 @@ extension WeatherCardQueryFilter
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'id',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> indexIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'index',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'index'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      indexIsNotNull() {
+  indexIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'index',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'index'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> indexEqualTo(
-      int? value) {
+    int? value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'index',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'index', value: value),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      indexGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  indexGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'index',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'index',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -13991,11 +13436,13 @@ extension WeatherCardQueryFilter
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'index',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'index',
+          value: value,
+        ),
+      );
     });
   }
 
@@ -14006,29 +13453,31 @@ extension WeatherCardQueryFilter
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'index',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'index',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> latIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'lat',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'lat'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> latIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'lat',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'lat'),
+      );
     });
   }
 
@@ -14037,11 +13486,14 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'lat',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'lat',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -14051,12 +13503,15 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'lat',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'lat',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -14066,12 +13521,15 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'lat',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'lat',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -14083,30 +13541,33 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'lat',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'lat',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> lonIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'lon',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'lon'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> lonIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'lon',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'lon'),
+      );
     });
   }
 
@@ -14115,11 +13576,14 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'lon',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'lon',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -14129,12 +13593,15 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'lon',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'lon',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -14144,12 +13611,15 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'lon',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'lon',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -14161,101 +13631,110 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'lon',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'lon',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationIsNull() {
+  precipitationIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'precipitation'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationIsNotNull() {
+  precipitationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'precipitation'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementIsNull() {
+  precipitationElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'precipitation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'precipitation'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementIsNotNull() {
+  precipitationElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'precipitation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'precipitation'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  precipitationElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'precipitation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementLessThan(
+  precipitationElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitation',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'precipitation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationElementBetween(
+  precipitationElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'precipitation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  precipitationElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -14263,90 +13742,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitation',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'precipitation',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationIsEmpty() {
+  precipitationLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'precipitation', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationIsNotEmpty() {
+  precipitationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'precipitation', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'precipitation', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitation',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'precipitation', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationLengthBetween(
+  precipitationLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'precipitation', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  precipitationLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -14364,99 +13810,108 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityIsNull() {
+  precipitationProbabilityIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitationProbability',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'precipitationProbability'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityIsNotNull() {
+  precipitationProbabilityIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitationProbability',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'precipitationProbability'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityElementIsNull() {
+  precipitationProbabilityElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'precipitationProbability',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'precipitationProbability',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityElementIsNotNull() {
+  precipitationProbabilityElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'precipitationProbability',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'precipitationProbability',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityElementEqualTo(int? value) {
+  precipitationProbabilityElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitationProbability',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'precipitationProbability',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityElementGreaterThan(
+  precipitationProbabilityElementGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitationProbability',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'precipitationProbability',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  precipitationProbabilityElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitationProbability',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'precipitationProbability',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityElementBetween(
+  precipitationProbabilityElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitationProbability',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'precipitationProbability',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityLengthEqualTo(int length) {
+  precipitationProbabilityLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbability',
@@ -14469,20 +13924,14 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityIsEmpty() {
+  precipitationProbabilityIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationProbability',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'precipitationProbability', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityIsNotEmpty() {
+  precipitationProbabilityIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbability',
@@ -14495,10 +13944,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationProbabilityLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbability',
@@ -14511,7 +13957,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityLengthGreaterThan(
+  precipitationProbabilityLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -14527,7 +13973,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityLengthBetween(
+  precipitationProbabilityLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -14545,99 +13991,113 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxIsNull() {
+  precipitationProbabilityMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitationProbabilityMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'precipitationProbabilityMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxIsNotNull() {
+  precipitationProbabilityMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitationProbabilityMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(
+          property: r'precipitationProbabilityMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxElementIsNull() {
+  precipitationProbabilityMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'precipitationProbabilityMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'precipitationProbabilityMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxElementIsNotNull() {
+  precipitationProbabilityMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'precipitationProbabilityMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'precipitationProbabilityMax',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxElementEqualTo(int? value) {
+  precipitationProbabilityMaxElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitationProbabilityMax',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'precipitationProbabilityMax',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxElementGreaterThan(
+  precipitationProbabilityMaxElementGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitationProbabilityMax',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'precipitationProbabilityMax',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxElementLessThan(
+  precipitationProbabilityMaxElementLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitationProbabilityMax',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'precipitationProbabilityMax',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxElementBetween(
+  precipitationProbabilityMaxElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitationProbabilityMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'precipitationProbabilityMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxLengthEqualTo(int length) {
+  precipitationProbabilityMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbabilityMax',
@@ -14650,20 +14110,14 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxIsEmpty() {
+  precipitationProbabilityMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationProbabilityMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'precipitationProbabilityMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxIsNotEmpty() {
+  precipitationProbabilityMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationProbabilityMax',
@@ -14676,7 +14130,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxLengthLessThan(
+  precipitationProbabilityMaxLengthLessThan(
     int length, {
     bool include = false,
   }) {
@@ -14692,7 +14146,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxLengthGreaterThan(
+  precipitationProbabilityMaxLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -14708,7 +14162,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationProbabilityMaxLengthBetween(
+  precipitationProbabilityMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -14726,89 +14180,98 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumIsNull() {
+  precipitationSumIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'precipitationSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'precipitationSum'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumIsNotNull() {
+  precipitationSumIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'precipitationSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'precipitationSum'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumElementIsNull() {
+  precipitationSumElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'precipitationSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'precipitationSum'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumElementIsNotNull() {
+  precipitationSumElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'precipitationSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'precipitationSum'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumElementEqualTo(
+  precipitationSumElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'precipitationSum',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'precipitationSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'precipitationSum',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumElementLessThan(
+  precipitationSumElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'precipitationSum',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'precipitationSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumElementBetween(
+  precipitationSumElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'precipitationSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  precipitationSumElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -14816,77 +14279,50 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'precipitationSum',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'precipitationSum',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationSum',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumIsEmpty() {
+  precipitationSumLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationSum',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'precipitationSum', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumIsNotEmpty() {
+  precipitationSumIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationSum',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'precipitationSum', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationSumIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'precipitationSum',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'precipitationSum', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  precipitationSumLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'precipitationSum', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  precipitationSumLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'precipitationSum',
@@ -14899,7 +14335,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      precipitationSumLengthBetween(
+  precipitationSumLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -14918,87 +14354,93 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> rainIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'rain',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'rain'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainIsNotNull() {
+  rainIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'rain',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'rain'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementIsNull() {
+  rainElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'rain',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'rain'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementIsNotNull() {
+  rainElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'rain',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'rain'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  rainElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'rain',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementLessThan(
+  rainElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'rain',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'rain',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainElementBetween(
+  rainElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'rain',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  rainElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -15006,89 +14448,56 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'rain',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'rain',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainLengthEqualTo(int length) {
+  rainLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        length,
-        true,
-        length,
-        true,
-      );
+      return query.listLength(r'rain', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> rainIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'rain', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainIsNotEmpty() {
+  rainIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'rain', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  rainLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'rain', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  rainLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rain',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'rain', length, include, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainLengthBetween(
+  rainLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -15106,89 +14515,95 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumIsNull() {
+  rainSumIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'rainSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'rainSum'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumIsNotNull() {
+  rainSumIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'rainSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'rainSum'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumElementIsNull() {
+  rainSumElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'rainSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'rainSum'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumElementIsNotNull() {
+  rainSumElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'rainSum',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'rainSum'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  rainSumElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'rainSum',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'rainSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'rainSum',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumElementLessThan(
+  rainSumElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'rainSum',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'rainSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumElementBetween(
+  rainSumElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'rainSum',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  rainSumElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -15196,90 +14611,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'rainSum',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'rainSum',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumIsEmpty() {
+  rainSumLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'rainSum', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumIsNotEmpty() {
+  rainSumIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'rainSum', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  rainSumIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'rainSum', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  rainSumLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'rainSum',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'rainSum', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      rainSumLengthBetween(
+  rainSumLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'rainSum', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  rainSumLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -15297,99 +14679,98 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MIsNull() {
+  relativehumidity2MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'relativehumidity2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'relativehumidity2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MIsNotNull() {
+  relativehumidity2MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'relativehumidity2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'relativehumidity2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementIsNull() {
+  relativehumidity2MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'relativehumidity2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'relativehumidity2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementIsNotNull() {
+  relativehumidity2MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'relativehumidity2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'relativehumidity2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementEqualTo(int? value) {
+  relativehumidity2MElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'relativehumidity2M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'relativehumidity2M', value: value),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  relativehumidity2MElementGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'relativehumidity2M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'relativehumidity2M',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  relativehumidity2MElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'relativehumidity2M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'relativehumidity2M',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MElementBetween(
+  relativehumidity2MElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'relativehumidity2M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'relativehumidity2M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MLengthEqualTo(int length) {
+  relativehumidity2MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'relativehumidity2M',
@@ -15402,52 +14783,28 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MIsEmpty() {
+  relativehumidity2MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'relativehumidity2M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MIsNotEmpty() {
+  relativehumidity2MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'relativehumidity2M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  relativehumidity2MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'relativehumidity2M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'relativehumidity2M', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  relativehumidity2MLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'relativehumidity2M',
@@ -15460,7 +14817,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      relativehumidity2MLengthBetween(
+  relativehumidity2MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -15478,89 +14835,98 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationIsNull() {
+  shortwaveRadiationIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'shortwaveRadiation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'shortwaveRadiation'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationIsNotNull() {
+  shortwaveRadiationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'shortwaveRadiation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'shortwaveRadiation'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationElementIsNull() {
+  shortwaveRadiationElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'shortwaveRadiation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'shortwaveRadiation'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationElementIsNotNull() {
+  shortwaveRadiationElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'shortwaveRadiation',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'shortwaveRadiation'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationElementEqualTo(
+  shortwaveRadiationElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'shortwaveRadiation',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'shortwaveRadiation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'shortwaveRadiation',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationElementLessThan(
+  shortwaveRadiationElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'shortwaveRadiation',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'shortwaveRadiation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationElementBetween(
+  shortwaveRadiationElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'shortwaveRadiation',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  shortwaveRadiationElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -15568,19 +14934,22 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'shortwaveRadiation',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'shortwaveRadiation',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationLengthEqualTo(int length) {
+  shortwaveRadiationLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'shortwaveRadiation',
@@ -15593,52 +14962,28 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationIsEmpty() {
+  shortwaveRadiationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'shortwaveRadiation',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'shortwaveRadiation', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationIsNotEmpty() {
+  shortwaveRadiationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'shortwaveRadiation',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'shortwaveRadiation', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  shortwaveRadiationLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'shortwaveRadiation',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'shortwaveRadiation', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  shortwaveRadiationLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'shortwaveRadiation',
@@ -15651,7 +14996,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      shortwaveRadiationLengthBetween(
+  shortwaveRadiationLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -15669,71 +15014,74 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseIsNull() {
+  sunriseIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'sunrise',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'sunrise'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseIsNotNull() {
+  sunriseIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'sunrise',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'sunrise'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  sunriseElementEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementLessThan(
+  sunriseElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementBetween(
+  sunriseElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunriseElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -15741,160 +15089,126 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'sunrise',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'sunrise',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'sunrise',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'sunrise',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseElementIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'sunrise',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'sunrise',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseIsEmpty() {
+  sunriseElementStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        0,
-        true,
-        0,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseIsNotEmpty() {
+  sunriseElementEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        0,
-        false,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  sunriseElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        0,
-        true,
-        length,
-        include,
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'sunrise',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  sunriseElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunrise',
-        length,
-        include,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'sunrise',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunriseLengthBetween(
+  sunriseElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'sunrise', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunriseElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'sunrise', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunriseLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunriseIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunriseIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunriseLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunriseLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunrise', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunriseLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -15913,69 +15227,72 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> sunsetIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'sunset',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'sunset'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetIsNotNull() {
+  sunsetIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'sunset',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'sunset'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  sunsetElementEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementLessThan(
+  sunsetElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementBetween(
+  sunsetElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunsetElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -15983,160 +15300,126 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'sunset',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'sunset',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'sunset',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'sunset',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetElementIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'sunset',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'sunset',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetIsEmpty() {
+  sunsetElementStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        0,
-        true,
-        0,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetIsNotEmpty() {
+  sunsetElementEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        0,
-        false,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  sunsetElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        0,
-        true,
-        length,
-        include,
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'sunset',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  sunsetElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'sunset',
-        length,
-        include,
-        999999,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'sunset',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      sunsetLengthBetween(
+  sunsetElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'sunset', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunsetElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'sunset', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunsetLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunsetIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunsetIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunsetLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunsetLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'sunset', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  sunsetLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -16154,89 +15437,98 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureIsNull() {
+  surfacePressureIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'surfacePressure',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'surfacePressure'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureIsNotNull() {
+  surfacePressureIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'surfacePressure',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'surfacePressure'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementIsNull() {
+  surfacePressureElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'surfacePressure',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'surfacePressure'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementIsNotNull() {
+  surfacePressureElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'surfacePressure',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'surfacePressure'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementEqualTo(
+  surfacePressureElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'surfacePressure',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementLessThan(
+  surfacePressureElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'surfacePressure',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'surfacePressure',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureElementBetween(
+  surfacePressureElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'surfacePressure',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  surfacePressureElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -16244,77 +15536,50 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'surfacePressure',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'surfacePressure',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureIsEmpty() {
+  surfacePressureLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'surfacePressure', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureIsNotEmpty() {
+  surfacePressureIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'surfacePressure', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  surfacePressureIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'surfacePressure',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'surfacePressure', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  surfacePressureLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'surfacePressure', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  surfacePressureLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'surfacePressure',
@@ -16327,7 +15592,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      surfacePressureLengthBetween(
+  surfacePressureLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -16345,71 +15610,77 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MIsNull() {
+  temperature2MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'temperature2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'temperature2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MIsNotNull() {
+  temperature2MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'temperature2M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'temperature2M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MElementEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
+  temperature2MElementEqualTo(double value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'temperature2M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'temperature2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MElementGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'temperature2M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MElementLessThan(
+  temperature2MElementGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'temperature2M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'temperature2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MElementBetween(
+  temperature2MElementLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'temperature2M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  temperature2MElementBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -16417,90 +15688,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'temperature2M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'temperature2M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MIsEmpty() {
+  temperature2MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'temperature2M', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MIsNotEmpty() {
+  temperature2MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'temperature2M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'temperature2M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2M',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'temperature2M', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MLengthBetween(
+  temperature2MLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'temperature2M', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  temperature2MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -16518,89 +15756,98 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxIsNull() {
+  temperature2MMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'temperature2MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'temperature2MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxIsNotNull() {
+  temperature2MMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'temperature2MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'temperature2MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxElementIsNull() {
+  temperature2MMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'temperature2MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'temperature2MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxElementIsNotNull() {
+  temperature2MMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'temperature2MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'temperature2MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxElementEqualTo(
+  temperature2MMaxElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'temperature2MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'temperature2MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'temperature2MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxElementLessThan(
+  temperature2MMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'temperature2MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'temperature2MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxElementBetween(
+  temperature2MMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'temperature2MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  temperature2MMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -16608,77 +15855,50 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'temperature2MMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'temperature2MMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMax',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxIsEmpty() {
+  temperature2MMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'temperature2MMax', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxIsNotEmpty() {
+  temperature2MMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMax',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'temperature2MMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMax',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'temperature2MMax', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MMaxLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'temperature2MMax', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  temperature2MMaxLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'temperature2MMax',
@@ -16691,7 +15911,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMaxLengthBetween(
+  temperature2MMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -16709,89 +15929,98 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinIsNull() {
+  temperature2MMinIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'temperature2MMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'temperature2MMin'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinIsNotNull() {
+  temperature2MMinIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'temperature2MMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'temperature2MMin'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinElementIsNull() {
+  temperature2MMinElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'temperature2MMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'temperature2MMin'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinElementIsNotNull() {
+  temperature2MMinElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'temperature2MMin',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'temperature2MMin'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinElementEqualTo(
+  temperature2MMinElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'temperature2MMin',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'temperature2MMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'temperature2MMin',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinElementLessThan(
+  temperature2MMinElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'temperature2MMin',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'temperature2MMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinElementBetween(
+  temperature2MMinElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'temperature2MMin',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  temperature2MMinElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -16799,77 +16028,50 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'temperature2MMin',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'temperature2MMin',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMin',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinIsEmpty() {
+  temperature2MMinLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMin',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'temperature2MMin', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinIsNotEmpty() {
+  temperature2MMinIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMin',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'temperature2MMin', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MMinIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'temperature2MMin',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'temperature2MMin', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  temperature2MMinLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'temperature2MMin', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  temperature2MMinLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'temperature2MMin',
@@ -16882,7 +16084,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      temperature2MMinLengthBetween(
+  temperature2MMinLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -16901,69 +16103,72 @@ extension WeatherCardQueryFilter
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> timeIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'time',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'time'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeIsNotNull() {
+  timeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'time',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'time'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  timeElementEqualTo(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementLessThan(
+  timeElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementBetween(
+  timeElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -16971,159 +16176,125 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'time',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'time',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'time',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'time',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeElementIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'time',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'time',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
       );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeElementStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeElementEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeElementContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'time',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeElementMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'time',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'time', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'time', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'time', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> timeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'time', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeIsNotEmpty() {
+  timeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'time', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  timeLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'time', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  timeLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'time',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'time', length, include, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeLengthBetween(
+  timeLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -17141,152 +16312,115 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyIsNull() {
+  timeDailyIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timeDaily'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyIsNotNull() {
+  timeDailyIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timeDaily'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyElementEqualTo(DateTime value) {
+  timeDailyElementEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timeDaily', value: value),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyElementGreaterThan(
-    DateTime value, {
-    bool include = false,
-  }) {
+  timeDailyElementGreaterThan(DateTime value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timeDaily',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyElementLessThan(
-    DateTime value, {
-    bool include = false,
-  }) {
+  timeDailyElementLessThan(DateTime value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timeDaily',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyElementBetween(
+  timeDailyElementBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timeDaily',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timeDaily',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyIsEmpty() {
+  timeDailyLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'timeDaily', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyIsNotEmpty() {
+  timeDailyIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'timeDaily', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  timeDailyIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'timeDaily', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  timeDailyLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'timeDaily',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'timeDaily', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timeDailyLengthBetween(
+  timeDailyLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'timeDaily', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  timeDailyLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -17304,94 +16438,93 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timestampIsNull() {
+  timestampIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timestamp',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timestamp'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timestampIsNotNull() {
+  timestampIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timestamp',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timestamp'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timestampEqualTo(DateTime? value) {
+  timestampEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timestamp',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timestamp', value: value),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timestampGreaterThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
+  timestampGreaterThan(DateTime? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timestamp',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timestamp',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timestampLessThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
+  timestampLessThan(DateTime? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timestamp',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timestamp',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timestampBetween(
+  timestampBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timestamp',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timestamp',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneIsNull() {
+  timezoneIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'timezone',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'timezone'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneIsNotNull() {
+  timezoneIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'timezone',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'timezone'),
+      );
     });
   }
 
@@ -17400,43 +16533,49 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneGreaterThan(
+  timezoneGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneLessThan(
+  timezoneLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -17448,172 +16587,181 @@ extension WeatherCardQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'timezone',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'timezone',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  timezoneStartsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  timezoneEndsWith(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneContains(String value, {bool caseSensitive = true}) {
+  timezoneContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'timezone',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'timezone',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition> timezoneMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'timezone',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'timezone',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      timezoneIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'timezone',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'uvIndex',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'uvIndex',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexElementIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'uvIndex',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexElementIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'uvIndex',
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
+    String pattern, {
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uvIndex',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'timezone',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
+  timezoneIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'uvIndex',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'timezone', value: ''),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexElementLessThan(
+  timezoneIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'timezone', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'uvIndex'),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'uvIndex'),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexElementIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'uvIndex'),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexElementIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'uvIndex'),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'uvIndex',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'uvIndex',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'uvIndex',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexElementBetween(
+  uvIndexElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'uvIndex',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -17621,90 +16769,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'uvIndex',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'uvIndex',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexIsEmpty() {
+  uvIndexLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'uvIndex', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexIsNotEmpty() {
+  uvIndexIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'uvIndex', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  uvIndexIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'uvIndex', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  uvIndexLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndex',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'uvIndex', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexLengthBetween(
+  uvIndexLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'uvIndex', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -17722,89 +16837,95 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxIsNull() {
+  uvIndexMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'uvIndexMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'uvIndexMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxIsNotNull() {
+  uvIndexMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'uvIndexMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'uvIndexMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxElementIsNull() {
+  uvIndexMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'uvIndexMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'uvIndexMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxElementIsNotNull() {
+  uvIndexMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'uvIndexMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'uvIndexMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  uvIndexMaxElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'uvIndexMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'uvIndexMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'uvIndexMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxElementLessThan(
+  uvIndexMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'uvIndexMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'uvIndexMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxElementBetween(
+  uvIndexMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'uvIndexMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -17812,90 +16933,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'uvIndexMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'uvIndexMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxIsEmpty() {
+  uvIndexMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'uvIndexMax', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxIsNotEmpty() {
+  uvIndexMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'uvIndexMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  uvIndexMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'uvIndexMax', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  uvIndexMaxLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'uvIndexMax',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'uvIndexMax', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      uvIndexMaxLengthBetween(
+  uvIndexMaxLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'uvIndexMax', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  uvIndexMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -17913,89 +17001,95 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityIsNull() {
+  visibilityIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'visibility',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'visibility'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityIsNotNull() {
+  visibilityIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'visibility',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'visibility'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementIsNull() {
+  visibilityElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'visibility',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'visibility'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementIsNotNull() {
+  visibilityElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'visibility',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'visibility'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  visibilityElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'visibility',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'visibility',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'visibility',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementLessThan(
+  visibilityElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'visibility',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'visibility',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityElementBetween(
+  visibilityElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'visibility',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  visibilityElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -18003,90 +17097,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'visibility',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'visibility',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityIsEmpty() {
+  visibilityLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'visibility', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityIsNotEmpty() {
+  visibilityIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'visibility', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  visibilityIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'visibility', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  visibilityLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'visibility',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'visibility', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      visibilityLengthBetween(
+  visibilityLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'visibility', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  visibilityLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -18104,152 +17165,115 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeIsNull() {
+  weathercodeIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'weathercode',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'weathercode'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeIsNotNull() {
+  weathercodeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'weathercode',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'weathercode'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeElementEqualTo(int value) {
+  weathercodeElementEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'weathercode',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'weathercode', value: value),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeElementGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
+  weathercodeElementGreaterThan(int value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'weathercode',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'weathercode',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeElementLessThan(
-    int value, {
-    bool include = false,
-  }) {
+  weathercodeElementLessThan(int value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'weathercode',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'weathercode',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeElementBetween(
+  weathercodeElementBetween(
     int lower,
     int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'weathercode',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'weathercode',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeIsEmpty() {
+  weathercodeLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'weathercode', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeIsNotEmpty() {
+  weathercodeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'weathercode', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  weathercodeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'weathercode', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  weathercodeLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercode',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'weathercode', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeLengthBetween(
+  weathercodeLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'weathercode', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  weathercodeLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -18267,157 +17291,126 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyIsNull() {
+  weathercodeDailyIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'weathercodeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'weathercodeDaily'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyIsNotNull() {
+  weathercodeDailyIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'weathercodeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'weathercodeDaily'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyElementIsNull() {
+  weathercodeDailyElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'weathercodeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'weathercodeDaily'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyElementIsNotNull() {
+  weathercodeDailyElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'weathercodeDaily',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'weathercodeDaily'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyElementEqualTo(int? value) {
+  weathercodeDailyElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'weathercodeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'weathercodeDaily', value: value),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyElementGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  weathercodeDailyElementGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'weathercodeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'weathercodeDaily',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  weathercodeDailyElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'weathercodeDaily',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'weathercodeDaily',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyElementBetween(
+  weathercodeDailyElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'weathercodeDaily',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercodeDaily',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'weathercodeDaily',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyIsEmpty() {
+  weathercodeDailyLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercodeDaily',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'weathercodeDaily', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyIsNotEmpty() {
+  weathercodeDailyIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercodeDaily',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'weathercodeDaily', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  weathercodeDailyIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'weathercodeDaily',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'weathercodeDaily', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  weathercodeDailyLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'weathercodeDaily', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  weathercodeDailyLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'weathercodeDaily',
@@ -18430,7 +17423,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      weathercodeDailyLengthBetween(
+  weathercodeDailyLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -18448,157 +17441,126 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MIsNull() {
+  winddirection10MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'winddirection10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'winddirection10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MIsNotNull() {
+  winddirection10MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'winddirection10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'winddirection10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementIsNull() {
+  winddirection10MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'winddirection10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'winddirection10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementIsNotNull() {
+  winddirection10MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'winddirection10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'winddirection10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementEqualTo(int? value) {
+  winddirection10MElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'winddirection10M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'winddirection10M', value: value),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
+  winddirection10MElementGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'winddirection10M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'winddirection10M',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  winddirection10MElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'winddirection10M',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'winddirection10M',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MElementBetween(
+  winddirection10MElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'winddirection10M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        length,
-        true,
-        length,
-        true,
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'winddirection10M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MIsEmpty() {
+  winddirection10MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'winddirection10M', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MIsNotEmpty() {
+  winddirection10MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'winddirection10M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  winddirection10MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'winddirection10M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  winddirection10MLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'winddirection10M', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  winddirection10MLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'winddirection10M',
@@ -18611,7 +17573,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MLengthBetween(
+  winddirection10MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -18629,99 +17591,108 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantIsNull() {
+  winddirection10MDominantIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'winddirection10MDominant',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'winddirection10MDominant'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantIsNotNull() {
+  winddirection10MDominantIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'winddirection10MDominant',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'winddirection10MDominant'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantElementIsNull() {
+  winddirection10MDominantElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'winddirection10MDominant',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(
+          property: r'winddirection10MDominant',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantElementIsNotNull() {
+  winddirection10MDominantElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'winddirection10MDominant',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(
+          property: r'winddirection10MDominant',
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantElementEqualTo(int? value) {
+  winddirection10MDominantElementEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'winddirection10MDominant',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'winddirection10MDominant',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantElementGreaterThan(
+  winddirection10MDominantElementGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'winddirection10MDominant',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'winddirection10MDominant',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantElementLessThan(
-    int? value, {
-    bool include = false,
-  }) {
+  winddirection10MDominantElementLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'winddirection10MDominant',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'winddirection10MDominant',
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantElementBetween(
+  winddirection10MDominantElementBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'winddirection10MDominant',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'winddirection10MDominant',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantLengthEqualTo(int length) {
+  winddirection10MDominantLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'winddirection10MDominant',
@@ -18734,20 +17705,14 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantIsEmpty() {
+  winddirection10MDominantIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'winddirection10MDominant',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'winddirection10MDominant', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantIsNotEmpty() {
+  winddirection10MDominantIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'winddirection10MDominant',
@@ -18760,10 +17725,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  winddirection10MDominantLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'winddirection10MDominant',
@@ -18776,7 +17738,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantLengthGreaterThan(
+  winddirection10MDominantLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -18792,7 +17754,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      winddirection10MDominantLengthBetween(
+  winddirection10MDominantLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -18810,89 +17772,95 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MIsNull() {
+  windgusts10MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windgusts10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'windgusts10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MIsNotNull() {
+  windgusts10MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windgusts10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'windgusts10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MElementIsNull() {
+  windgusts10MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'windgusts10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'windgusts10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MElementIsNotNull() {
+  windgusts10MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'windgusts10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'windgusts10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  windgusts10MElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windgusts10M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'windgusts10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windgusts10M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MElementLessThan(
+  windgusts10MElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windgusts10M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'windgusts10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MElementBetween(
+  windgusts10MElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'windgusts10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  windgusts10MElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -18900,90 +17868,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windgusts10M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'windgusts10M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MIsEmpty() {
+  windgusts10MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'windgusts10M', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MIsNotEmpty() {
+  windgusts10MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'windgusts10M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  windgusts10MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'windgusts10M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  windgusts10MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10M',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'windgusts10M', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MLengthBetween(
+  windgusts10MLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'windgusts10M', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  windgusts10MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -19001,89 +17936,98 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxIsNull() {
+  windgusts10MMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windgusts10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'windgusts10MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxIsNotNull() {
+  windgusts10MMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windgusts10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'windgusts10MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxElementIsNull() {
+  windgusts10MMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'windgusts10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'windgusts10MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxElementIsNotNull() {
+  windgusts10MMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'windgusts10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'windgusts10MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxElementEqualTo(
+  windgusts10MMaxElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windgusts10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'windgusts10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windgusts10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxElementLessThan(
+  windgusts10MMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windgusts10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'windgusts10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxElementBetween(
+  windgusts10MMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'windgusts10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  windgusts10MMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -19091,77 +18035,50 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windgusts10MMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'windgusts10MMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10MMax',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxIsEmpty() {
+  windgusts10MMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10MMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'windgusts10MMax', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxIsNotEmpty() {
+  windgusts10MMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10MMax',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'windgusts10MMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  windgusts10MMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windgusts10MMax',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'windgusts10MMax', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  windgusts10MMaxLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'windgusts10MMax', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  windgusts10MMaxLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'windgusts10MMax',
@@ -19174,7 +18091,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windgusts10MMaxLengthBetween(
+  windgusts10MMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -19192,89 +18109,95 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MIsNull() {
+  windspeed10MIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windspeed10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'windspeed10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MIsNotNull() {
+  windspeed10MIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windspeed10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'windspeed10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementIsNull() {
+  windspeed10MElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'windspeed10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'windspeed10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementIsNotNull() {
+  windspeed10MElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'windspeed10M',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'windspeed10M'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  windspeed10MElementEqualTo(double? value, {double epsilon = Query.epsilon}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'windspeed10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementLessThan(
+  windspeed10MElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windspeed10M',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'windspeed10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MElementBetween(
+  windspeed10MElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'windspeed10M',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  windspeed10MElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -19282,90 +18205,57 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windspeed10M',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'windspeed10M',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MIsEmpty() {
+  windspeed10MLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'windspeed10M', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MIsNotEmpty() {
+  windspeed10MIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'windspeed10M', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  windspeed10MIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'windspeed10M', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  windspeed10MLengthLessThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10M',
-        length,
-        include,
-        999999,
-        true,
-      );
+      return query.listLength(r'windspeed10M', 0, true, length, include);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MLengthBetween(
+  windspeed10MLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'windspeed10M', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  windspeed10MLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -19383,89 +18273,98 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxIsNull() {
+  windspeed10MMaxIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'windspeed10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'windspeed10MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxIsNotNull() {
+  windspeed10MMaxIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'windspeed10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'windspeed10MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxElementIsNull() {
+  windspeed10MMaxElementIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNull(
-        property: r'windspeed10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNull(property: r'windspeed10MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxElementIsNotNull() {
+  windspeed10MMaxElementIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.elementIsNotNull(
-        property: r'windspeed10MMax',
-      ));
+      return query.addFilterCondition(
+        const FilterCondition.elementIsNotNull(property: r'windspeed10MMax'),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxElementEqualTo(
+  windspeed10MMaxElementEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'windspeed10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'windspeed10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxElementGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'windspeed10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxElementLessThan(
+  windspeed10MMaxElementGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'windspeed10MMax',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'windspeed10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxElementBetween(
+  windspeed10MMaxElementLessThan(
+    double? value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'windspeed10MMax',
+          value: value,
+
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  windspeed10MMaxElementBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -19473,77 +18372,50 @@ extension WeatherCardQueryFilter
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'windspeed10MMax',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'windspeed10MMax',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
 
-  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10MMax',
-        length,
-        true,
-        length,
-        true,
+          epsilon: epsilon,
+        ),
       );
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxIsEmpty() {
+  windspeed10MMaxLengthEqualTo(int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10MMax',
-        0,
-        true,
-        0,
-        true,
-      );
+      return query.listLength(r'windspeed10MMax', length, true, length, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxIsNotEmpty() {
+  windspeed10MMaxIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10MMax',
-        0,
-        false,
-        999999,
-        true,
-      );
+      return query.listLength(r'windspeed10MMax', 0, true, 0, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
+  windspeed10MMaxIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'windspeed10MMax',
-        0,
-        true,
-        length,
-        include,
-      );
+      return query.listLength(r'windspeed10MMax', 0, false, 999999, true);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
+  windspeed10MMaxLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'windspeed10MMax', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
+  windspeed10MMaxLengthGreaterThan(int length, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'windspeed10MMax',
@@ -19556,7 +18428,7 @@ extension WeatherCardQueryFilter
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QAfterFilterCondition>
-      windspeed10MMaxLengthBetween(
+  windspeed10MMaxLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -19769,28 +18641,29 @@ extension WeatherCardQuerySortThenBy
 extension WeatherCardQueryWhereDistinct
     on QueryBuilder<WeatherCard, WeatherCard, QDistinct> {
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByApparentTemperature() {
+  distinctByApparentTemperature() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'apparentTemperature');
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByApparentTemperatureMax() {
+  distinctByApparentTemperatureMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'apparentTemperatureMax');
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByApparentTemperatureMin() {
+  distinctByApparentTemperatureMin() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'apparentTemperatureMin');
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByCity(
-      {bool caseSensitive = true}) {
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByCity({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'city', caseSensitive: caseSensitive);
     });
@@ -19808,15 +18681,16 @@ extension WeatherCardQueryWhereDistinct
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByDistrict(
-      {bool caseSensitive = true}) {
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByDistrict({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'district', caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByEvapotranspiration() {
+  distinctByEvapotranspiration() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'evapotranspiration');
     });
@@ -19847,21 +18721,21 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByPrecipitationProbability() {
+  distinctByPrecipitationProbability() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationProbability');
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByPrecipitationProbabilityMax() {
+  distinctByPrecipitationProbabilityMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationProbabilityMax');
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByPrecipitationSum() {
+  distinctByPrecipitationSum() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'precipitationSum');
     });
@@ -19880,14 +18754,14 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByRelativehumidity2M() {
+  distinctByRelativehumidity2M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'relativehumidity2M');
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByShortwaveRadiation() {
+  distinctByShortwaveRadiation() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'shortwaveRadiation');
     });
@@ -19906,7 +18780,7 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctBySurfacePressure() {
+  distinctBySurfacePressure() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'surfacePressure');
     });
@@ -19919,14 +18793,14 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByTemperature2MMax() {
+  distinctByTemperature2MMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'temperature2MMax');
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByTemperature2MMin() {
+  distinctByTemperature2MMin() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'temperature2MMin');
     });
@@ -19950,8 +18824,9 @@ extension WeatherCardQueryWhereDistinct
     });
   }
 
-  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByTimezone(
-      {bool caseSensitive = true}) {
+  QueryBuilder<WeatherCard, WeatherCard, QDistinct> distinctByTimezone({
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timezone', caseSensitive: caseSensitive);
     });
@@ -19982,21 +18857,21 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByWeathercodeDaily() {
+  distinctByWeathercodeDaily() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'weathercodeDaily');
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByWinddirection10M() {
+  distinctByWinddirection10M() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'winddirection10M');
     });
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByWinddirection10MDominant() {
+  distinctByWinddirection10MDominant() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'winddirection10MDominant');
     });
@@ -20009,7 +18884,7 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByWindgusts10MMax() {
+  distinctByWindgusts10MMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'windgusts10MMax');
     });
@@ -20022,7 +18897,7 @@ extension WeatherCardQueryWhereDistinct
   }
 
   QueryBuilder<WeatherCard, WeatherCard, QDistinct>
-      distinctByWindspeed10MMax() {
+  distinctByWindspeed10MMax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'windspeed10MMax');
     });
@@ -20038,21 +18913,21 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      apparentTemperatureProperty() {
+  apparentTemperatureProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'apparentTemperature');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      apparentTemperatureMaxProperty() {
+  apparentTemperatureMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'apparentTemperatureMax');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      apparentTemperatureMinProperty() {
+  apparentTemperatureMinProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'apparentTemperatureMin');
     });
@@ -20065,14 +18940,14 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
-      cloudcoverProperty() {
+  cloudcoverProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cloudcover');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      dewpoint2MProperty() {
+  dewpoint2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'dewpoint2M');
     });
@@ -20085,7 +18960,7 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      evapotranspirationProperty() {
+  evapotranspirationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'evapotranspiration');
     });
@@ -20110,28 +18985,28 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      precipitationProperty() {
+  precipitationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitation');
     });
   }
 
   QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
-      precipitationProbabilityProperty() {
+  precipitationProbabilityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitationProbability');
     });
   }
 
   QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
-      precipitationProbabilityMaxProperty() {
+  precipitationProbabilityMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitationProbabilityMax');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      precipitationSumProperty() {
+  precipitationSumProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'precipitationSum');
     });
@@ -20144,21 +19019,21 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      rainSumProperty() {
+  rainSumProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'rainSum');
     });
   }
 
   QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
-      relativehumidity2MProperty() {
+  relativehumidity2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'relativehumidity2M');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      shortwaveRadiationProperty() {
+  shortwaveRadiationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'shortwaveRadiation');
     });
@@ -20177,28 +19052,28 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      surfacePressureProperty() {
+  surfacePressureProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'surfacePressure');
     });
   }
 
   QueryBuilder<WeatherCard, List<double>?, QQueryOperations>
-      temperature2MProperty() {
+  temperature2MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2M');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      temperature2MMaxProperty() {
+  temperature2MMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2MMax');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      temperature2MMinProperty() {
+  temperature2MMinProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'temperature2MMin');
     });
@@ -20211,7 +19086,7 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<DateTime>?, QQueryOperations>
-      timeDailyProperty() {
+  timeDailyProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'timeDaily');
     });
@@ -20230,77 +19105,77 @@ extension WeatherCardQueryProperty
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      uvIndexProperty() {
+  uvIndexProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'uvIndex');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      uvIndexMaxProperty() {
+  uvIndexMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'uvIndexMax');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      visibilityProperty() {
+  visibilityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'visibility');
     });
   }
 
   QueryBuilder<WeatherCard, List<int>?, QQueryOperations>
-      weathercodeProperty() {
+  weathercodeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weathercode');
     });
   }
 
   QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
-      weathercodeDailyProperty() {
+  weathercodeDailyProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weathercodeDaily');
     });
   }
 
   QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
-      winddirection10MProperty() {
+  winddirection10MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'winddirection10M');
     });
   }
 
   QueryBuilder<WeatherCard, List<int?>?, QQueryOperations>
-      winddirection10MDominantProperty() {
+  winddirection10MDominantProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'winddirection10MDominant');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      windgusts10MProperty() {
+  windgusts10MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'windgusts10M');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      windgusts10MMaxProperty() {
+  windgusts10MMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'windgusts10MMax');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      windspeed10MProperty() {
+  windspeed10MProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'windspeed10M');
     });
   }
 
   QueryBuilder<WeatherCard, List<double?>?, QQueryOperations>
-      windspeed10MMaxProperty() {
+  windspeed10MMaxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'windspeed10MMax');
     });
