@@ -1,0 +1,1 @@
+<p><i>Rain</i> allows you to view the weather in your city. The following options are provided:</p><ul><li>View current weather</li><li>View weather by hour</li><li>View the weather for the week</li><li>View detailed weather data</li><li>Localization (ru/en)</li><li>Data caching</li></ul><p>We also tried to make the design as convenient and beautiful as possible.</p>
