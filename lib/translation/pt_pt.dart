@@ -59,7 +59,8 @@ class PtPt {
     'district': 'Distrito',
     'noWeatherCard': 'Adicione uma cidade',
     'deletedCardWeather': 'A remover a cidade',
-    'deletedCardWeatherQuery': 'Tem a certeza de que pretende eliminar esta cidade?',
+    'deletedCardWeatherQuery':
+        'Tem a certeza de que pretende eliminar esta cidade?',
     'delete': 'Eliminar',
     'cancel': 'Cancelar',
     'time': 'Hora na cidade',

@@ -22,74 +22,58 @@ Map<String, dynamic> _$WeatherDataApiToJson(_WeatherDataApi instance) =>
 
 _Hourly _$HourlyFromJson(Map<String, dynamic> json) => _Hourly(
   time: (json['time'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  weatherCode:
-      (json['weathercode'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
-  temperature2M:
-      (json['temperature_2m'] as List<dynamic>?)
-          ?.map((e) => (e as num).toDouble())
-          .toList(),
-  apparentTemperature:
-      (json['apparent_temperature'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  precipitation:
-      (json['precipitation'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  rain:
-      (json['rain'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  relativeHumidity2M:
-      (json['relativehumidity_2m'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toInt())
-          .toList(),
-  surfacePressure:
-      (json['surface_pressure'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  visibility:
-      (json['visibility'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  evapotranspiration:
-      (json['evapotranspiration'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  windSpeed10M:
-      (json['windspeed_10m'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  windDirection10M:
-      (json['winddirection_10m'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toInt())
-          .toList(),
-  windGusts10M:
-      (json['windgusts_10m'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  cloudCover:
-      (json['cloudcover'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toInt())
-          .toList(),
-  uvIndex:
-      (json['uv_index'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  dewpoint2M:
-      (json['dewpoint_2m'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
+  weatherCode: (json['weathercode'] as List<dynamic>?)
+      ?.map((e) => (e as num).toInt())
+      .toList(),
+  temperature2M: (json['temperature_2m'] as List<dynamic>?)
+      ?.map((e) => (e as num).toDouble())
+      .toList(),
+  apparentTemperature: (json['apparent_temperature'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  precipitation: (json['precipitation'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  rain: (json['rain'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  relativeHumidity2M: (json['relativehumidity_2m'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toInt())
+      .toList(),
+  surfacePressure: (json['surface_pressure'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  visibility: (json['visibility'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  evapotranspiration: (json['evapotranspiration'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  windSpeed10M: (json['windspeed_10m'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  windDirection10M: (json['winddirection_10m'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toInt())
+      .toList(),
+  windGusts10M: (json['windgusts_10m'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  cloudCover: (json['cloudcover'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toInt())
+      .toList(),
+  uvIndex: (json['uv_index'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  dewpoint2M: (json['dewpoint_2m'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
   precipitationProbability:
       (json['precipitation_probability'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toInt())
           .toList(),
-  shortwaveRadiation:
-      (json['shortwave_radiation'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
+  shortwaveRadiation: (json['shortwave_radiation'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
 );
 
 Map<String, dynamic> _$HourlyToJson(_Hourly instance) => <String, dynamic>{
@@ -115,53 +99,44 @@ Map<String, dynamic> _$HourlyToJson(_Hourly instance) => <String, dynamic>{
 
 _Daily _$DailyFromJson(Map<String, dynamic> json) => _Daily(
   time: _dateTimeFromJson(json['time'] as List?),
-  weatherCode:
-      (json['weathercode'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toInt())
-          .toList(),
-  temperature2MMax:
-      (json['temperature_2m_max'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  temperature2MMin:
-      (json['temperature_2m_min'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  apparentTemperatureMax:
-      (json['apparent_temperature_max'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  apparentTemperatureMin:
-      (json['apparent_temperature_min'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  precipitationSum:
-      (json['precipitation_sum'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  sunrise:
-      (json['sunrise'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  weatherCode: (json['weathercode'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toInt())
+      .toList(),
+  temperature2MMax: (json['temperature_2m_max'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  temperature2MMin: (json['temperature_2m_min'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  apparentTemperatureMax: (json['apparent_temperature_max'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  apparentTemperatureMin: (json['apparent_temperature_min'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  precipitationSum: (json['precipitation_sum'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  sunrise: (json['sunrise'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
   sunset: (json['sunset'] as List<dynamic>?)?.map((e) => e as String).toList(),
   precipitationProbabilityMax:
       (json['precipitation_probability_max'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toInt())
           .toList(),
-  windSpeed10MMax:
-      (json['windspeed_10m_max'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  windGusts10MMax:
-      (json['windgusts_10m_max'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  uvIndexMax:
-      (json['uv_index_max'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
-  rainSum:
-      (json['rain_sum'] as List<dynamic>?)
-          ?.map((e) => (e as num?)?.toDouble())
-          .toList(),
+  windSpeed10MMax: (json['windspeed_10m_max'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  windGusts10MMax: (json['windgusts_10m_max'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  uvIndexMax: (json['uv_index_max'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
+  rainSum: (json['rain_sum'] as List<dynamic>?)
+      ?.map((e) => (e as num?)?.toDouble())
+      .toList(),
   windDirection10MDominant:
       (json['winddirection_10m_dominant'] as List<dynamic>?)
           ?.map((e) => (e as num?)?.toInt())

@@ -13,7 +13,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = 'com.yoshi.rain'
     compileSdk = 36
-    ndkVersion = '29.0.13846066'
+    ndkVersion = '29.0.14033849'
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         applicationId = 'com.yoshi.rain'
-        minSdk = 23
+        minSdkVersion = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

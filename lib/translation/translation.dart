@@ -16,6 +16,7 @@ import 'package:rain/translation/ko_kr.dart';
 import 'package:rain/translation/nl_nl.dart';
 import 'package:rain/translation/pl_pl.dart';
 import 'package:rain/translation/pt_br.dart';
+import 'package:rain/translation/pt_pt.dart';
 import 'package:rain/translation/ro_ro.dart';
 import 'package:rain/translation/ru_ru.dart';
 import 'package:rain/translation/sk_sk.dart';
@@ -35,6 +36,7 @@ class Translation extends Translations {
     'de_DE': DeDe().messages,
     'tr_TR': TrTr().messages,
     'pt_BR': PtBr().messages,
+    'pt_Pt': PtPt().messages,
     'es_ES': EsEs().messages,
     'sk_SK': SkSk().messages,
     'nl_NL': NlNl().messages,
