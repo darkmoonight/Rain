@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:display_mode/display_mode.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -112,7 +112,7 @@ void setupConnectivityListener() {
 }
 
 Future<void> initializeTimeZone() async {
-  final timeZoneName = await FlutterTimezone.getLocalTimezone();
+  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
 }
@@ -149,14 +149,20 @@ Future<void> initializeNotifications() async {
 }
 
 Future<void> setOptimalDisplayMode() async {
-  final supported = await FlutterDisplayMode.supported;
-  final active = await FlutterDisplayMode.active;
-  final sameResolution =
+  final List<DisplayModeJson> supported = await FlutterDisplayMode.supported;
+  final DisplayModeJson active = await FlutterDisplayMode.active;
+  final List<DisplayModeJson> sameResolution =
       supported
-          .where((m) => m.width == active.width && m.height == active.height)
+          .where(
+            (DisplayModeJson m) =>
+                m.width == active.width && m.height == active.height,
+          )
           .toList()
-        ..sort((a, b) => b.refreshRate.compareTo(a.refreshRate));
-  final mostOptimalMode = sameResolution.isNotEmpty
+        ..sort(
+          (DisplayModeJson a, DisplayModeJson b) =>
+              b.refreshRate.compareTo(a.refreshRate),
+        );
+  final DisplayModeJson mostOptimalMode = sameResolution.isNotEmpty
       ? sameResolution.first
       : active;
   await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
@@ -181,7 +187,7 @@ class MyApp extends StatefulWidget {
     final state = context.findAncestorStateOfType<_MyAppState>()!;
 
     if (newAmoledTheme != null) state.changeAmoledTheme(newAmoledTheme);
-    if (newMaterialColor != null) state.changeMarerialTheme(newMaterialColor);
+    if (newMaterialColor != null) state.changeMaterialTheme(newMaterialColor);
     if (newRoundDegree != null) state.changeRoundDegree(newRoundDegree);
     if (newLargeElement != null) state.changeLargeElement(newLargeElement);
     if (newLocale != null) state.changeLocale(newLocale);
@@ -205,7 +211,7 @@ class _MyAppState extends State<MyApp> {
 
   void changeAmoledTheme(bool newAmoledTheme) =>
       setState(() => amoledTheme = newAmoledTheme);
-  void changeMarerialTheme(bool newMaterialColor) =>
+  void changeMaterialTheme(bool newMaterialColor) =>
       setState(() => materialColor = newMaterialColor);
   void changeRoundDegree(bool newRoundDegree) =>
       setState(() => roundDegree = newRoundDegree);
