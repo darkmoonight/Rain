@@ -22,6 +22,7 @@ import 'package:timezone/standalone.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:workmanager/workmanager.dart';
+import 'package:intl/intl.dart';
 
 class WeatherController extends GetxController {
   final isLoading = true.obs;
@@ -420,13 +421,35 @@ class WeatherController extends GetxController {
     );
   }
 
-  TimeOfDay timeConvert(String normTime) {
-    final hh = normTime.endsWith('PM') ? 12 : 0;
-    final timeParts = normTime.split(' ')[0].split(':');
-    return TimeOfDay(
-      hour: hh + int.parse(timeParts[0]) % 24,
-      minute: int.parse(timeParts[1]) % 60,
-    );
+  TimeOfDay parseTime(String? timeStr) {
+    if (timeStr == null) {
+      return const TimeOfDay(hour: 0, minute: 0);
+    }
+    if (timeStr.contains(' ')) {
+      final isPM = timeStr.endsWith('PM');
+      final timeParts = timeStr.split(' ')[0].split(':');
+      int hour = int.parse(timeParts[0]);
+      if (isPM) hour += 12;
+      final minute = int.parse(timeParts[1]);
+      return TimeOfDay(hour: hour % 24, minute: minute);
+    } else {
+      final parts = timeStr.split(':');
+      return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+    }
+  }
+
+  String timeTo24h(TimeOfDay time) {
+    return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+  }
+
+  String formatTime(String? timeStr) {
+    final time = parseTime(timeStr);
+    final dateTime = DateTime(0, 0, 0, time.hour, time.minute);
+    if (settings.timeformat == '12') {
+      return DateFormat.jm(locale.languageCode).format(dateTime);
+    } else {
+      return DateFormat.Hm(locale.languageCode).format(dateTime);
+    }
   }
 
   Future<String> getLocalImagePath(String icon) async {
@@ -443,8 +466,8 @@ class WeatherController extends GetxController {
 
   void notification(MainWeatherCache mainWeatherCache) async {
     final now = DateTime.now();
-    final startHour = timeConvert(timeStart).hour;
-    final endHour = timeConvert(timeEnd).hour;
+    final startHour = parseTime(timeStart).hour;
+    final endHour = parseTime(timeEnd).hour;
 
     for (var i = 0; i < mainWeatherCache.time!.length; i += timeRange) {
       final notificationTime = DateTime.parse(mainWeatherCache.time![i]);
@@ -523,9 +546,9 @@ class WeatherController extends GetxController {
   }
 
   Future<bool> updateWidget() async {
-    final timeZoneName = await FlutterTimezone.getLocalTimezone();
+    final TimezoneInfo timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation(timeZoneName));
+    tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
 
     final isarWidget = await Isar.open([
       SettingsSchema,

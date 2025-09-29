@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:http_cache_file_store/http_cache_file_store.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
@@ -406,22 +405,12 @@ class _SettingsPageState extends State<SettingsPage> {
       info: true,
       infoSettings: true,
       infoWidget: _TextInfo(
-        info: settings.timeformat == '12'
-            ? DateFormat.jm(locale.languageCode).format(
-                DateFormat.Hm(locale.languageCode).parse(
-                  weatherController.timeConvert(timeStart).format(context),
-                ),
-              )
-            : DateFormat.Hm(locale.languageCode).format(
-                DateFormat.Hm(locale.languageCode).parse(
-                  weatherController.timeConvert(timeStart).format(context),
-                ),
-              ),
+        info: weatherController.formatTime(timeStart),
       ),
       onPressed: () async {
         final TimeOfDay? timeStartPicker = await showTimePicker(
           context: context,
-          initialTime: weatherController.timeConvert(timeStart),
+          initialTime: weatherController.parseTime(timeStart),
           builder: (context, child) {
             final Widget mediaQueryWrapper = MediaQuery(
               data: MediaQuery.of(context).copyWith(
@@ -435,19 +424,18 @@ class _SettingsPageState extends State<SettingsPage> {
           },
         );
         if (timeStartPicker != null) {
+          final String time24h = weatherController.timeTo24h(timeStartPicker);
           isar.writeTxnSync(() {
-            settings.timeStart = timeStartPicker.format(context);
+            settings.timeStart = time24h;
             isar.settings.putSync(settings);
           });
           if (!context.mounted) return;
-          MyApp.updateAppState(
-            context,
-            newTimeStart: timeStartPicker.format(context),
-          );
+          MyApp.updateAppState(context, newTimeStart: time24h);
           if (settings.notifications) {
             flutterLocalNotificationsPlugin.cancelAll();
             weatherController.notification(weatherController.mainWeather);
           }
+          setState(() {});
         }
       },
     );
@@ -461,22 +449,12 @@ class _SettingsPageState extends State<SettingsPage> {
       info: true,
       infoSettings: true,
       infoWidget: _TextInfo(
-        info: settings.timeformat == '12'
-            ? DateFormat.jm(locale.languageCode).format(
-                DateFormat.Hm(
-                  locale.languageCode,
-                ).parse(weatherController.timeConvert(timeEnd).format(context)),
-              )
-            : DateFormat.Hm(locale.languageCode).format(
-                DateFormat.Hm(
-                  locale.languageCode,
-                ).parse(weatherController.timeConvert(timeEnd).format(context)),
-              ),
+        info: weatherController.formatTime(timeEnd),
       ),
       onPressed: () async {
         final TimeOfDay? timeEndPicker = await showTimePicker(
           context: context,
-          initialTime: weatherController.timeConvert(timeEnd),
+          initialTime: weatherController.parseTime(timeEnd),
           builder: (context, child) {
             final Widget mediaQueryWrapper = MediaQuery(
               data: MediaQuery.of(context).copyWith(
@@ -490,19 +468,18 @@ class _SettingsPageState extends State<SettingsPage> {
           },
         );
         if (timeEndPicker != null) {
+          final String time24h = weatherController.timeTo24h(timeEndPicker);
           isar.writeTxnSync(() {
-            settings.timeEnd = timeEndPicker.format(context);
+            settings.timeEnd = time24h;
             isar.settings.putSync(settings);
           });
           if (!context.mounted) return;
-          MyApp.updateAppState(
-            context,
-            newTimeEnd: timeEndPicker.format(context),
-          );
+          MyApp.updateAppState(context, newTimeEnd: time24h);
           if (settings.notifications) {
             flutterLocalNotificationsPlugin.cancelAll();
             weatherController.notification(weatherController.mainWeather);
           }
+          setState(() {});
         }
       },
     );

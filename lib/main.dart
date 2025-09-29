@@ -41,8 +41,8 @@ bool roundDegree = false;
 bool largeElement = false;
 Locale locale = const Locale('en', 'US');
 int timeRange = 1;
-String timeStart = '09:00';
-String timeEnd = '21:00';
+String timeStart = '08:00';
+String timeEnd = '20:00';
 String widgetBackgroundColor = '';
 String widgetTextColor = '';
 
@@ -112,9 +112,9 @@ void setupConnectivityListener() {
 }
 
 Future<void> initializeTimeZone() async {
-  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+  final TimezoneInfo timeZoneName = await FlutterTimezone.getLocalTimezone();
   tz.initializeTimeZones();
-  tz.setLocalLocation(tz.getLocation(timeZoneName));
+  tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
 }
 
 Future<void> initializeIsar() async {
@@ -240,8 +240,8 @@ class _MyAppState extends State<MyApp> {
       settings.language!.substring(3),
     );
     timeRange = settings.timeRange ?? 1;
-    timeStart = settings.timeStart ?? '09:00';
-    timeEnd = settings.timeEnd ?? '21:00';
+    timeStart = settings.timeStart ?? '08:00';
+    timeEnd = settings.timeEnd ?? '20:00';
     widgetBackgroundColor = settings.widgetBackgroundColor ?? '';
     widgetTextColor = settings.widgetTextColor ?? '';
   }

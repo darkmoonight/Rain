@@ -27,13 +27,13 @@ dependencies:
   flutter_map: ^8.2.2
   display_mode: ^0.0.2
   workmanager: ^0.9.0+3
-  google_fonts: ^6.3.1
+  google_fonts: ^6.3.2
   url_launcher: ^6.3.2
   iconsax_plus: ^1.0.0
   dynamic_color: ^1.8.1
   path_provider: ^2.1.5
   json_annotation: ^4.9.0
-  flutter_timezone: ^4.1.1
+  flutter_timezone: ^5.0.0
   device_info_plus: ^12.1.0
   package_info_plus: ^8.3.1
   connectivity_plus: ^7.0.0
@@ -48,9 +48,9 @@ dependencies:
   flutter_hsvcolor_picker: ^1.5.1
   scrollable_positioned_list: ^0.3.8
   flutter_local_notifications: ^19.4.2
-  internet_connection_checker_plus: ^2.8.0
-  isar_community: ^3.3.0-dev.2
-  isar_community_flutter_libs: ^3.3.0-dev.2
+  internet_connection_checker_plus: ^2.9.0
+  isar_community: ^3.3.0-dev.3
+  isar_community_flutter_libs: ^3.3.0-dev.3
 
 # Uncomment this for publishing FLOSS variant
 # dependency_overrides:
@@ -69,7 +69,7 @@ dev_dependencies:
   json_serializable: ^6.11.1
   flutter_native_splash: ^2.4.6
   flutter_launcher_icons: ^0.14.4
-  isar_community_generator: ^3.3.0-dev.2
+  isar_community_generator: ^3.3.0-dev.3
 
 flutter_launcher_icons:
   android: true
