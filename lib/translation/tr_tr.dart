@@ -138,5 +138,6 @@ class TrTr {
         'Önbelleği temizlemek istediğinizden emin misiniz?',
     'addWidget': 'Widget ekle',
     'hideMap': 'Haritayı gizle',
+    'edit': 'Düzenle',
   };
 }

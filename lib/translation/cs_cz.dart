@@ -137,5 +137,6 @@ class CsCz {
     'deletedCacheStoreQuery': 'Opravdu chcete vymazat mezipaměť?',
     'addWidget': 'Přidat widget',
     'hideMap': 'Skrýt mapu',
+    'edit': 'Upravit',
   };
 }

@@ -138,5 +138,6 @@ class SkSk {
         'Ste si istí, že chcete vymazať vyrovnávaciu pamäť?',
     'addWidget': 'Pridať widget',
     'hideMap': 'Skryť mapu',
+    'edit': 'Upraviť',
   };
 }

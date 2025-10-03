@@ -140,5 +140,6 @@ class GaIe {
         'An bhfuil tú cinnte gur mian leat an taisce a ghlanadh?',
     'addWidget': 'Cuir giuirléid leis',
     'hideMap': 'Folaigh léarscáil',
+    'edit': 'Eagar',
   };
 }

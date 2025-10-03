@@ -319,6 +319,41 @@ class WeatherController extends GetxController {
     });
   }
 
+  Future<void> updateCardLocation(
+    WeatherCard card,
+    double latitude,
+    double longitude,
+    String city,
+    String district,
+  ) async {
+    if (!(await isOnline.value)) {
+      showSnackBar(content: 'no_inter'.tr);
+      return;
+    }
+
+    final tz = tzmap.latLngToTimezoneString(latitude, longitude);
+    final updatedCard = await WeatherAPI().getWeatherCard(
+      latitude,
+      longitude,
+      city,
+      district,
+      tz,
+    );
+
+    isar.writeTxnSync(() {
+      card.lat = latitude;
+      card.lon = longitude;
+      card.city = city;
+      card.district = district;
+      card.timezone = tz;
+
+      _updateWeatherCard(card, updatedCard);
+      isar.weatherCards.putSync(card);
+    });
+
+    weatherCards.refresh();
+  }
+
   Future<void> updateCacheCard(bool refresh) async {
     final weatherCard = refresh
         ? isar.weatherCards.where().sortByIndex().findAllSync()

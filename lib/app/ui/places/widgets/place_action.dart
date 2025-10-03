@@ -1,23 +1,34 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';
+import 'package:rain/app/data/db.dart';
 import 'package:rain/app/ui/widgets/button.dart';
 import 'package:rain/app/ui/widgets/text_form.dart';
 import 'package:rain/main.dart';
 
-class CreatePlace extends StatefulWidget {
-  const CreatePlace({super.key, this.latitude, this.longitude});
+class PlaceAction extends StatefulWidget {
+  const PlaceAction({
+    super.key,
+    this.latitude,
+    this.longitude,
+    required this.edit,
+    this.card,
+  });
+
   final String? latitude;
   final String? longitude;
+  final bool edit;
+  final WeatherCard? card;
 
   @override
-  State<CreatePlace> createState() => _CreatePlaceState();
+  State<PlaceAction> createState() => _PlaceActionState();
 }
 
-class _CreatePlaceState extends State<CreatePlace>
+class _PlaceActionState extends State<PlaceAction>
     with SingleTickerProviderStateMixin {
   bool isLoading = false;
   final formKey = GlobalKey<FormState>();
@@ -35,6 +46,8 @@ class _CreatePlaceState extends State<CreatePlace>
   late AnimationController _animationController;
   late Animation<double> _animation;
 
+  late final _EditingController controller;
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +56,17 @@ class _CreatePlaceState extends State<CreatePlace>
     _controllerLon = TextEditingController(text: widget.longitude);
     _controllerCity = TextEditingController();
     _controllerDistrict = TextEditingController();
+
+    if (widget.edit) {
+      _initializeEditMode();
+    }
+
+    controller = _EditingController(
+      _controllerLat.text,
+      _controllerLon.text,
+      _controllerCity.text,
+      _controllerDistrict.text,
+    );
 
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
@@ -54,6 +78,13 @@ class _CreatePlaceState extends State<CreatePlace>
     );
   }
 
+  void _initializeEditMode() {
+    _controllerLat.text = widget.card!.lat.toString();
+    _controllerLon.text = widget.card!.lon.toString();
+    _controllerCity.text = widget.card!.city!;
+    _controllerDistrict.text = widget.card!.district!;
+  }
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -62,6 +93,7 @@ class _CreatePlaceState extends State<CreatePlace>
     _controllerLon.dispose();
     _controllerCity.dispose();
     _controllerDistrict.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -79,27 +111,22 @@ class _CreatePlaceState extends State<CreatePlace>
     _controllerDistrict.text = selection.admin1;
     _controller.clear();
     _focusNode.unfocus();
+
+    controller.lat.value = _controllerLat.text;
+    controller.lon.value = _controllerLon.text;
+    controller.city.value = _controllerCity.text;
+    controller.district.value = _controllerDistrict.text;
+
     setState(() {});
-  }
-
-  bool get showButton {
-    return _controllerLon.text.isNotEmpty &&
-        _controllerLat.text.isNotEmpty &&
-        _controllerCity.text.isNotEmpty &&
-        _controllerDistrict.text.isNotEmpty;
-  }
-
-  void updateButtonVisibility() {
-    if (showButton) {
-      _animationController.forward();
-    } else {
-      _animationController.reverse();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    updateButtonVisibility();
+    if (controller.canCompose.value) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
 
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
@@ -138,7 +165,7 @@ class _CreatePlaceState extends State<CreatePlace>
     return Padding(
       padding: const EdgeInsets.only(top: 14, bottom: 7),
       child: Text(
-        'create'.tr,
+        widget.edit ? 'edit'.tr : 'create'.tr,
         style: context.textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.bold,
         ),
@@ -229,7 +256,10 @@ class _CreatePlaceState extends State<CreatePlace>
       labelText: 'lat'.tr,
       type: TextInputType.number,
       icon: const Icon(IconsaxPlusLinear.location),
-      onChanged: (value) => setState(() {}),
+      onChanged: (value) {
+        controller.lat.value = value;
+        setState(() {});
+      },
       margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
       validator: (value) => _validateLatitude(value),
     );
@@ -242,7 +272,10 @@ class _CreatePlaceState extends State<CreatePlace>
       labelText: 'lon'.tr,
       type: TextInputType.number,
       icon: const Icon(IconsaxPlusLinear.location),
-      onChanged: (value) => setState(() {}),
+      onChanged: (value) {
+        controller.lon.value = value;
+        setState(() {});
+      },
       margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
       validator: (value) => _validateLongitude(value),
     );
@@ -255,7 +288,10 @@ class _CreatePlaceState extends State<CreatePlace>
       labelText: 'city'.tr,
       type: TextInputType.name,
       icon: const Icon(IconsaxPlusLinear.building_3),
-      onChanged: (value) => setState(() {}),
+      onChanged: (value) {
+        controller.city.value = value;
+        setState(() {});
+      },
       margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
       validator: (value) => _validateCity(value),
     );
@@ -268,7 +304,10 @@ class _CreatePlaceState extends State<CreatePlace>
       labelText: 'district'.tr,
       type: TextInputType.streetAddress,
       icon: const Icon(IconsaxPlusLinear.global),
-      onChanged: (value) => setState(() {}),
+      onChanged: (value) {
+        controller.district.value = value;
+        setState(() {});
+      },
       margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
       validator: (value) => _validateDistrict(value),
     );
@@ -280,7 +319,10 @@ class _CreatePlaceState extends State<CreatePlace>
       child: SizeTransition(
         sizeFactor: _animation,
         axisAlignment: -1.0,
-        child: MyTextButton(buttonName: 'done'.tr, onPressed: _handleSubmit),
+        child: MyTextButton(
+          buttonName: 'done'.tr,
+          onPressed: controller.canCompose.value ? _handleSubmit : null,
+        ),
       ),
     );
   }
@@ -335,14 +377,81 @@ class _CreatePlaceState extends State<CreatePlace>
       textTrim(_controllerDistrict);
 
       setState(() => isLoading = true);
-      await weatherController.addCardWeather(
-        double.parse(_controllerLat.text),
-        double.parse(_controllerLon.text),
-        _controllerCity.text,
-        _controllerDistrict.text,
-      );
+      if (widget.edit) {
+        await weatherController.updateCardLocation(
+          widget.card!,
+          double.parse(_controllerLat.text),
+          double.parse(_controllerLon.text),
+          _controllerCity.text,
+          _controllerDistrict.text,
+        );
+      } else {
+        await weatherController.addCardWeather(
+          double.parse(_controllerLat.text),
+          double.parse(_controllerLon.text),
+          _controllerCity.text,
+          _controllerDistrict.text,
+        );
+      }
       setState(() => isLoading = false);
       Get.back();
     }
+  }
+}
+
+class _EditingController extends ChangeNotifier {
+  _EditingController(
+    this.initialLat,
+    this.initialLon,
+    this.initialCity,
+    this.initialDistrict,
+  ) {
+    lat.value = initialLat;
+    lon.value = initialLon;
+    city.value = initialCity;
+    district.value = initialDistrict;
+
+    lat.addListener(_updateCanCompose);
+    lon.addListener(_updateCanCompose);
+    city.addListener(_updateCanCompose);
+    district.addListener(_updateCanCompose);
+  }
+
+  final String? initialLat;
+  final String? initialLon;
+  final String? initialCity;
+  final String? initialDistrict;
+
+  final lat = ValueNotifier<String?>(null);
+  final lon = ValueNotifier<String?>(null);
+  final city = ValueNotifier<String?>(null);
+  final district = ValueNotifier<String?>(null);
+
+  final _canCompose = ValueNotifier(false);
+  ValueListenable<bool> get canCompose => _canCompose;
+
+  void _updateCanCompose() {
+    final hasChanges =
+        (lat.value != initialLat) ||
+        (lon.value != initialLon) ||
+        (city.value != initialCity) ||
+        (district.value != initialDistrict);
+
+    final isComplete =
+        (lat.value?.isNotEmpty ?? false) &&
+        (lon.value?.isNotEmpty ?? false) &&
+        (city.value?.isNotEmpty ?? false) &&
+        (district.value?.isNotEmpty ?? false);
+
+    _canCompose.value = hasChanges && isComplete;
+  }
+
+  @override
+  void dispose() {
+    lat.removeListener(_updateCanCompose);
+    lon.removeListener(_updateCanCompose);
+    city.removeListener(_updateCanCompose);
+    district.removeListener(_updateCanCompose);
+    super.dispose();
   }
 }

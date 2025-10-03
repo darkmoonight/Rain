@@ -16,7 +16,7 @@ import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/db.dart';
 import 'package:rain/app/ui/places/view/place_info.dart';
-import 'package:rain/app/ui/places/widgets/create_place.dart';
+import 'package:rain/app/ui/places/widgets/place_action.dart';
 import 'package:rain/app/ui/places/widgets/place_card.dart';
 import 'package:rain/app/ui/widgets/weather/status/status_data.dart';
 import 'package:rain/app/ui/widgets/weather/status/status_weather.dart';
@@ -359,9 +359,10 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                     context: context,
                     isScrollControlled: true,
                     enableDrag: false,
-                    builder: (BuildContext context) => CreatePlace(
+                    builder: (BuildContext context) => PlaceAction(
                       latitude: '${point.latitude}',
                       longitude: '${point.longitude}',
+                      edit: false,
                     ),
                   ),
                 ),

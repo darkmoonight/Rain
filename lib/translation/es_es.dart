@@ -138,5 +138,6 @@ class EsEs {
     'deletedCacheStoreQuery': '¿Estás seguro de que quieres borrar el caché?',
     'addWidget': 'Agregar widget',
     'hideMap': 'Ocultar mapa',
+    'edit': 'Editar',
   };
 }

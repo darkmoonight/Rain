@@ -138,5 +138,6 @@ class PtPt {
     'deletedCacheStoreQuery': 'Tem a certeza de que pretende limpar a cache?',
     'addWidget': 'Adicionar widget',
     'hideMap': 'Ocultar mapa',
+    'edit': 'Editar',
   };
 }

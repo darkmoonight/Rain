@@ -41,7 +41,7 @@ dependencies:
   flutter_map_cache: ^2.0.0+1
   lat_lng_to_timezone: ^0.2.0
   line_awesome_flutter: ^3.0.1
-  dio_cache_interceptor: ^4.0.4
+  dio_cache_interceptor: ^4.0.5
   http_cache_file_store: ^2.0.1
   flutter_map_animations: ^0.9.0
   flutter_expandable_fab: ^2.5.2

@@ -133,5 +133,6 @@ class ZhCh {
     'deletedCacheStoreQuery': '您确定要清除缓存吗？',
     'addWidget': '添加小部件',
     'hideMap': '隐藏地图',
+    'edit': '编辑',
   };
 }

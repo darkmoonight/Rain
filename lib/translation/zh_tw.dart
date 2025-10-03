@@ -134,5 +134,6 @@ class ZhTw {
     'deletedCacheStoreQuery': '您確定要清除快取嗎？',
     'addWidget': '新增小工具',
     'hideMap': '隱藏地圖',
+    'edit': '編輯',
   };
 }

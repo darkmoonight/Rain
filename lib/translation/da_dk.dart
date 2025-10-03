@@ -138,5 +138,6 @@ class DaDk {
     'deletedCacheStoreQuery': 'Er du sikker på, at du vil rydde cachen?',
     'addWidget': 'Tilføj widget',
     'hideMap': 'Skjul kort',
+    'edit': 'Rediger',
   };
 }

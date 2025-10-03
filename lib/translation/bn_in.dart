@@ -137,5 +137,6 @@ class BnIn {
     'deletedCacheStoreQuery': 'আপনি কি সত্যিই ক্যাশ পরিষ্কার করতে চান?',
     'addWidget': 'উইজেট যোগ করুন',
     'hideMap': 'মানচিত্র লুকান',
+    'edit': 'সম্পাদনা',
   };
 }

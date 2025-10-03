@@ -138,5 +138,6 @@ class UrPk {
     'deletedCacheStoreQuery': 'کیا آپ واقعی کیچ صاف کرنا چاہتے ہیں؟',
     'addWidget': 'ویجٹ شامل کریں',
     'hideMap': 'نقشہ چھپائیں',
+    'edit': 'ترمیم',
   };
 }

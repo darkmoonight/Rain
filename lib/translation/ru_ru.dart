@@ -138,5 +138,6 @@ class RuRu {
     'deletedCacheStoreQuery': 'Вы уверены, что хотите очистить кэш?',
     'addWidget': 'Добавить виджет',
     'hideMap': 'Скрыть карту',
+    'edit': 'Редактирование',
   };
 }

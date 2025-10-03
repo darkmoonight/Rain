@@ -7,7 +7,7 @@ import 'package:rain/app/api/city_api.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/db.dart';
 import 'package:rain/app/ui/places/view/place_list.dart';
-import 'package:rain/app/ui/places/widgets/create_place.dart';
+import 'package:rain/app/ui/places/widgets/place_action.dart';
 import 'package:rain/app/ui/geolocation.dart';
 import 'package:rain/app/ui/main/view/main.dart';
 import 'package:rain/app/ui/map/view/map.dart';
@@ -293,7 +293,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     context: context,
                     isScrollControlled: true,
                     enableDrag: false,
-                    builder: (BuildContext context) => const CreatePlace(),
+                    builder: (BuildContext context) =>
+                        const PlaceAction(edit: false),
                   ),
                   child: const Icon(IconsaxPlusLinear.add),
                 )

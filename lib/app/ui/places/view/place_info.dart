@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/db.dart';
+import 'package:rain/app/ui/places/widgets/place_action.dart';
 import 'package:rain/app/ui/widgets/weather/daily/daily_card_list.dart';
 import 'package:rain/app/ui/widgets/weather/daily/daily_container.dart';
 import 'package:rain/app/ui/widgets/weather/desc/desc_container.dart';
@@ -100,6 +101,22 @@ class _PlaceInfoState extends State<PlaceInfo> {
           fontSize: 18,
         ),
       ),
+      actions: [
+        IconButton(
+          onPressed: () async {
+            await showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              enableDrag: false,
+              builder: (BuildContext context) =>
+                  PlaceAction(edit: true, card: weatherCard),
+            );
+            getTime();
+            setState(() {});
+          },
+          icon: Icon(IconsaxPlusLinear.edit, size: 18),
+        ),
+      ],
     );
   }
 
