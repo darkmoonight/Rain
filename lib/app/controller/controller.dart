@@ -226,13 +226,19 @@ class WeatherController extends GetxController {
 
     isLoading.value = false;
 
-    Future.delayed(const Duration(milliseconds: 30), () {
+    Future.delayed(const Duration(milliseconds: 30), scrollToCurrentHour);
+  }
+
+  void scrollToCurrentHour() {
+    if (itemScrollController.isAttached) {
       itemScrollController.scrollTo(
         index: hourOfDay.value,
         duration: const Duration(seconds: 2),
         curve: Curves.easeInOutCubic,
       );
-    });
+    } else {
+      Future.delayed(const Duration(milliseconds: 100), scrollToCurrentHour);
+    }
   }
 
   Future<void> writeCache() async {
