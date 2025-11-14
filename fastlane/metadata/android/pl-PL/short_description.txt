@@ -1,1 +1,1 @@
-Sprawdź pogodę w swoim mieście
+Aplikacja pogodowa

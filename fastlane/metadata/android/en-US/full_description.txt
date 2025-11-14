@@ -1,1 +1,18 @@
-<p><i>Rain</i> allows you to view the weather in your city. The following options are provided:</p><ul><li>View current weather</li><li>View weather by hour</li><li>View the weather for the week</li><li>View detailed weather data</li><li>Localization (ru/en)</li><li>Data caching</li></ul><p>We also tried to make the design as convenient and beautiful as possible.</p>
+<p>Tired of unpredictable weather? Rain's got you covered! Get ready for any forecast. 🌦️</p>
+<p>With Rain, you can explore the weather in your city and beyond. We offer an array of features to keep you informed and prepared:</p>
+<ul>
+    <li>🌟 <strong>View Current Weather:</strong> Stay up-to-date with real-time weather conditions in your area.</li>
+    <li>🌅 <strong>View Weather by Hour:</strong> Plan your day effectively with hourly forecasts.</li>
+    <li>📆 <strong>View the Weather for the Week:</strong> Get a week-long weather outlook at your fingertips.</li>
+    <li>🌡️ <strong>View Detailed Weather Data:</strong> Dive deep into weather statistics for a comprehensive understanding.</li>
+    <li>🌐 <strong>Localization:</strong> Choose your preferred language from a wide range of options.</li>
+    <li>🏙️ <strong>Data Caching:</strong> Access weather information even when you're offline.</li>
+    <li>🌆 <strong>Choose Your City:</strong> Set your location or add other cities to your list.</li>
+    <li>🧮 <strong>Metric or Imperial:</strong> Customize your measurement system for temperature and more.</li>
+    <li>🌡️ <strong>Celsius or Fahrenheit:</strong> Pick your preferred temperature unit.</li>
+    <li>🕰️ <strong>12-Hour or 24-Hour Time Formats:</strong> Adjust the time display to your liking.</li>
+    <li>🔔 <strong>Notifications:</strong> Receive weather alerts and stay informed.</li>
+    <li>🧩 <strong>Widget:</strong> Add a weather widget to your home screen for quick updates.</li>
+    <li>🎨 <strong>Beautiful Design:</strong></li>
+</ul>
+<p>Our application not only offers functionality but also boasts an aesthetically pleasing design. We have meticulously crafted Rain with your user experience as our top priority, guaranteeing both convenience and elegance in a single package.</p>

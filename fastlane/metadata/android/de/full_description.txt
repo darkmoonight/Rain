@@ -1,1 +1,18 @@
-<p>Mit <i>Rain</i> kannst du das Wetter in deiner Stadt anzeigen. Folgende Optionen stehen zur Verfügung:</p><ul><li>Aktuelles Wetter anzeigen</li><li>Zeige das Wetter nach Stunden an</li><li>Schau das Wetter für die Woche an</li><li>Zeige detaillierte Wetterdaten an</li><li>Lokalisierung (ru/en)</li><li>Daten-Caching</li></ul><p>Wir haben auch versucht, das Design so praktisch und schön wie möglich zu gestalten.</p>
+<p>Haben Sie die Nase voll von unvorhersehbarem Wetter? Rain hat Sie abgedeckt! Machen Sie sich bereit für jede Wettervorhersage. 🌦️</p>
+<p>Mit Rain können Sie das Wetter in Ihrer Stadt und darüber hinaus erkunden. Wir bieten eine Reihe von Funktionen, um Sie informiert und vorbereitet zu halten:</p>
+<ul>
+    <li>🌟 <strong>Aktuelles Wetter anzeigen:</strong> Bleiben Sie mit Echtzeit-Wetterbedingungen in Ihrer Region auf dem Laufenden.</li>
+    <li>🌅 <strong>Stündliche Wettervorhersage:</strong> Planen Sie Ihren Tag effektiv mit stündlichen Vorhersagen.</li>
+    <li>📆 <strong>Wettervorhersage für die Woche:</strong> Erhalten Sie eine wochenlange Wetterübersicht auf einen Blick.</li>
+    <li>🌡️ <strong>Detaillierte Wetterdaten anzeigen:</strong> Tauchen Sie ein in Wetterstatistiken für ein umfassendes Verständnis.</li>
+    <li>🌐 <strong>Lokalisierung:</strong> Wählen Sie Ihre bevorzugte Sprache aus einer Vielzahl von Optionen.</li>
+    <li>🏙️ <strong>Daten-Caching:</strong> Greifen Sie auf Wetterinformationen zu, auch wenn Sie offline sind.</li>
+    <li>🌆 <strong>Stadt auswählen:</strong> Legen Sie Ihren Standort fest oder fügen Sie andere Städte zu Ihrer Liste hinzu.</li>
+    <li>🧮 <strong>Metrisch oder Imperial:</strong> Passen Sie Ihr Maßsystem für Temperatur und mehr an.</li>
+    <li>🌡️ <strong>Celsius oder Fahrenheit:</strong> Wählen Sie Ihre bevorzugte Temperatureinheit.</li>
+    <li>🕰️ <strong>12-Stunden- oder 24-Stunden-Format:</strong> Stellen Sie die Zeitanzeige nach Ihren Wünschen ein.</li>
+    <li>🔔 <strong>Benachrichtigungen:</strong> Erhalten Sie Wetterwarnungen und bleiben Sie informiert.</li>
+    <li>🧩 <strong>Widget:</strong> Fügen Sie Ihrem Startbildschirm ein Wetter-Widget für schnelle Updates hinzu.</li>
+    <li>🎨 <strong>Schönes Design:</strong></li>
+</ul>
+<p>Unsere Anwendung bietet nicht nur Funktionalität, sondern auch ein ästhetisch ansprechendes Design. Wir haben Rain mit Ihrer Benutzererfahrung als oberste Priorität sorgfältig gestaltet und garantieren sowohl Komfort als auch Eleganz in einem Paket.</p>

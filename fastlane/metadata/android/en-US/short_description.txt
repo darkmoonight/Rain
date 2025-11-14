@@ -1,1 +1,1 @@
-viewing the weather in your city
+Weather application

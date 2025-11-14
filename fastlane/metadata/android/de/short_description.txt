@@ -1,1 +1,1 @@
-Anzeigen des Wetters in Deiner Stadt
+Wetter-Anwendung
