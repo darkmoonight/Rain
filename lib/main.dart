@@ -324,7 +324,7 @@ class _MyAppState extends State<MyApp> {
                           locationCache.lon == null)
                       ? const SelectGeolocation(isStart: true)
                       : const HomePage()
-                : const OnBording(),
+                : const OnBoarding(),
             title: 'Rain',
           );
         },

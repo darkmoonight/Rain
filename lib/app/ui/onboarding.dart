@@ -6,14 +6,14 @@ import 'package:rain/app/ui/widgets/button.dart';
 import 'package:rain/main.dart';
 import 'package:get/get.dart';
 
-class OnBording extends StatefulWidget {
-  const OnBording({super.key});
+class OnBoarding extends StatefulWidget {
+  const OnBoarding({super.key});
 
   @override
-  State<OnBording> createState() => _OnBordingState();
+  State<OnBoarding> createState() => _OnBoardingState();
 }
 
-class _OnBordingState extends State<OnBording> {
+class _OnBoardingState extends State<OnBoarding> {
   late PageController pageController;
   int pageIndex = 0;
 

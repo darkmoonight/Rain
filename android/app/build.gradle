@@ -13,7 +13,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = 'com.yoshi.rain'
     compileSdk = 36
-    ndkVersion = '29.0.14033849'
+    ndkVersion = '29.0.14206865'
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -76,7 +76,7 @@ flutter {
 dependencies {
     implementation("androidx.core:core-remoteviews:1.1.0")
     implementation("com.google.android.material:material:1.13.0")
-    implementation('androidx.work:work-runtime-ktx:2.10.4')
+    implementation('androidx.work:work-runtime-ktx:2.11.0')
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
 

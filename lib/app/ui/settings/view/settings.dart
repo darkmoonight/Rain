@@ -404,9 +404,7 @@ class _SettingsPageState extends State<SettingsPage> {
       text: 'timeStart'.tr,
       info: true,
       infoSettings: true,
-      infoWidget: _TextInfo(
-        info: weatherController.formatTime(timeStart),
-      ),
+      infoWidget: _TextInfo(info: weatherController.formatTime(timeStart)),
       onPressed: () async {
         final TimeOfDay? timeStartPicker = await showTimePicker(
           context: context,
@@ -448,9 +446,7 @@ class _SettingsPageState extends State<SettingsPage> {
       text: 'timeEnd'.tr,
       info: true,
       infoSettings: true,
-      infoWidget: _TextInfo(
-        info: weatherController.formatTime(timeEnd),
-      ),
+      infoWidget: _TextInfo(info: weatherController.formatTime(timeEnd)),
       onPressed: () async {
         final TimeOfDay? timeEndPicker = await showTimePicker(
           context: context,

@@ -9,7 +9,7 @@ import 'package:rain/app/data/db.dart';
 import 'package:rain/app/ui/places/view/place_list.dart';
 import 'package:rain/app/ui/places/widgets/place_action.dart';
 import 'package:rain/app/ui/geolocation.dart';
-import 'package:rain/app/ui/main/view/main.dart';
+import 'package:rain/app/ui/main/view/main_page.dart';
 import 'package:rain/app/ui/map/view/map.dart';
 import 'package:rain/app/ui/settings/view/settings.dart';
 import 'package:rain/app/utils/show_snack_bar.dart';
