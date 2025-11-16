@@ -17,6 +17,7 @@ import 'package:rain/app/ui/settings/widgets/setting_card.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:rain/app/utils/color_converter.dart';
+import 'package:rain/app/utils/show_snack_bar.dart';
 import 'package:restart_app/restart_app.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -717,8 +718,17 @@ class _SettingsPageState extends State<SettingsPage> {
       elevation: 4,
       icon: const Icon(IconsaxPlusLinear.add_square),
       text: 'addWidget'.tr,
-      onPressed: () {
-        HomeWidget.requestPinWidget(
+      onPressed: () async {
+        if (!Platform.isAndroid) return;
+
+        final supported =
+            await HomeWidget.isRequestPinWidgetSupported() ?? false;
+        if (!supported) {
+          showSnackBar(content: 'addWidgetLauncher'.tr);
+          return;
+        }
+
+        await HomeWidget.requestPinWidget(
           name: androidWidgetName,
           androidName: androidWidgetName,
           qualifiedAndroidName: 'com.yoshi.rain.OreoWidget',

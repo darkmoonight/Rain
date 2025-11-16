@@ -195,12 +195,14 @@ class WeatherController extends GetxController {
   }
 
   Future<void> readCache() async {
-    MainWeatherCache? mainWeatherCache;
-    LocationCache? locationCache;
+    MainWeatherCache? mainWeatherCache =
+        isar.mainWeatherCaches.where().findFirstSync();
+    LocationCache? locationCache =
+        isar.locationCaches.where().findFirstSync();
 
-    while (mainWeatherCache == null || locationCache == null) {
-      mainWeatherCache = isar.mainWeatherCaches.where().findFirstSync();
-      locationCache = isar.locationCaches.where().findFirstSync();
+    if (mainWeatherCache == null || locationCache == null) {
+      isLoading.value = false;
+      return;
     }
 
     _mainWeather.value = mainWeatherCache;
@@ -222,6 +224,7 @@ class WeatherController extends GetxController {
         frequency: const Duration(minutes: 15),
         existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
       );
+      await updateWidget();
     }
 
     isLoading.value = false;
