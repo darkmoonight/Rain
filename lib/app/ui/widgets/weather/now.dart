@@ -168,12 +168,12 @@ class _NowState extends State<Now> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          statusData.getDegree((widget.tempMin.round())),
+          statusData.getDegree((widget.tempMax.round())),
           style: context.textTheme.labelLarge,
         ),
         Text(' / ', style: context.textTheme.labelLarge),
         Text(
-          statusData.getDegree((widget.tempMax.round())),
+          statusData.getDegree((widget.tempMin.round())),
           style: context.textTheme.labelLarge,
         ),
       ],
