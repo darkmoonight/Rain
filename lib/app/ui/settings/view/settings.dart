@@ -14,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/db.dart';
 import 'package:rain/app/ui/settings/widgets/setting_card.dart';
+import 'package:rain/app/ui/test_smart_notifications_page.dart';
 import 'package:rain/main.dart';
 import 'package:rain/theme/theme_controller.dart';
 import 'package:rain/app/utils/color_converter.dart';
@@ -242,6 +243,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     _buildFunctionsTitle(context),
                     _buildLocationSettingCard(context, setState),
                     _buildNotificationsSettingCard(context, setState),
+                    _buildSmartNotificationTestCard(context, setState),
                     _buildTimeRangeSettingCard(context, setState),
                     _buildTimeStartSettingCard(context, setState),
                     _buildTimeEndSettingCard(context, setState),
@@ -366,6 +368,26 @@ class _SettingsPageState extends State<SettingsPage> {
           }
           setState(() {});
         }
+      },
+    );
+  }
+
+  Widget _buildSmartNotificationTestCard(
+    BuildContext context,
+    StateSetter setState,
+  ) {
+    return SettingCard(
+      elevation: 4,
+      icon: const Icon(IconsaxPlusLinear.notification_bing),
+      text: 'Smart Notifications Test',
+      info: true,
+      infoWidget: const Icon(
+        IconsaxPlusLinear.flash_1,
+        size: 16,
+        color: Colors.orange,
+      ),
+      onPressed: () {
+        Get.to(() => const TestSmartNotificationsPage());
       },
     );
   }

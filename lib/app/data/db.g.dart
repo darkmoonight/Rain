@@ -19181,3 +19181,1978 @@ extension WeatherCardQueryProperty
     });
   }
 }
+
+// coverage:ignore-file
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+
+extension GetUserBehaviorRecordCollection on Isar {
+  IsarCollection<UserBehaviorRecord> get userBehaviorRecords =>
+      this.collection();
+}
+
+const UserBehaviorRecordSchema = CollectionSchema(
+  name: r'UserBehaviorRecord',
+  id: -4436492901692479139,
+  properties: {
+    r'activeHours': PropertySchema(
+      id: 0,
+      name: r'activeHours',
+      type: IsarType.longList,
+    ),
+    r'enabledNotificationTypes': PropertySchema(
+      id: 1,
+      name: r'enabledNotificationTypes',
+      type: IsarType.longList,
+    ),
+    r'interestedConditions': PropertySchema(
+      id: 2,
+      name: r'interestedConditions',
+      type: IsarType.longList,
+    ),
+    r'lastNotificationTime': PropertySchema(
+      id: 3,
+      name: r'lastNotificationTime',
+      type: IsarType.dateTime,
+    ),
+    r'locationCheckFrequencyJson': PropertySchema(
+      id: 4,
+      name: r'locationCheckFrequencyJson',
+      type: IsarType.string,
+    ),
+    r'notificationInteractionCount': PropertySchema(
+      id: 5,
+      name: r'notificationInteractionCount',
+      type: IsarType.long,
+    ),
+    r'notificationInteractionsJson': PropertySchema(
+      id: 6,
+      name: r'notificationInteractionsJson',
+      type: IsarType.string,
+    ),
+    r'notificationTypesSentJson': PropertySchema(
+      id: 7,
+      name: r'notificationTypesSentJson',
+      type: IsarType.string,
+    ),
+    r'preferredFrequencyIndex': PropertySchema(
+      id: 8,
+      name: r'preferredFrequencyIndex',
+      type: IsarType.long,
+    ),
+    r'preferredNotificationHours': PropertySchema(
+      id: 9,
+      name: r'preferredNotificationHours',
+      type: IsarType.longList,
+    ),
+    r'quietHours': PropertySchema(
+      id: 10,
+      name: r'quietHours',
+      type: IsarType.longList,
+    ),
+  },
+
+  estimateSize: _userBehaviorRecordEstimateSize,
+  serialize: _userBehaviorRecordSerialize,
+  deserialize: _userBehaviorRecordDeserialize,
+  deserializeProp: _userBehaviorRecordDeserializeProp,
+  idName: r'id',
+  indexes: {},
+  links: {},
+  embeddedSchemas: {},
+
+  getId: _userBehaviorRecordGetId,
+  getLinks: _userBehaviorRecordGetLinks,
+  attach: _userBehaviorRecordAttach,
+  version: '3.3.0',
+);
+
+int _userBehaviorRecordEstimateSize(
+  UserBehaviorRecord object,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  var bytesCount = offsets.last;
+  bytesCount += 3 + object.activeHours.length * 8;
+  bytesCount += 3 + object.enabledNotificationTypes.length * 8;
+  bytesCount += 3 + object.interestedConditions.length * 8;
+  bytesCount += 3 + object.locationCheckFrequencyJson.length * 3;
+  bytesCount += 3 + object.notificationInteractionsJson.length * 3;
+  bytesCount += 3 + object.notificationTypesSentJson.length * 3;
+  bytesCount += 3 + object.preferredNotificationHours.length * 8;
+  bytesCount += 3 + object.quietHours.length * 8;
+  return bytesCount;
+}
+
+void _userBehaviorRecordSerialize(
+  UserBehaviorRecord object,
+  IsarWriter writer,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  writer.writeLongList(offsets[0], object.activeHours);
+  writer.writeLongList(offsets[1], object.enabledNotificationTypes);
+  writer.writeLongList(offsets[2], object.interestedConditions);
+  writer.writeDateTime(offsets[3], object.lastNotificationTime);
+  writer.writeString(offsets[4], object.locationCheckFrequencyJson);
+  writer.writeLong(offsets[5], object.notificationInteractionCount);
+  writer.writeString(offsets[6], object.notificationInteractionsJson);
+  writer.writeString(offsets[7], object.notificationTypesSentJson);
+  writer.writeLong(offsets[8], object.preferredFrequencyIndex);
+  writer.writeLongList(offsets[9], object.preferredNotificationHours);
+  writer.writeLongList(offsets[10], object.quietHours);
+}
+
+UserBehaviorRecord _userBehaviorRecordDeserialize(
+  Id id,
+  IsarReader reader,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  final object = UserBehaviorRecord();
+  object.activeHours = reader.readLongList(offsets[0]) ?? [];
+  object.enabledNotificationTypes = reader.readLongList(offsets[1]) ?? [];
+  object.id = id;
+  object.interestedConditions = reader.readLongList(offsets[2]) ?? [];
+  object.lastNotificationTime = reader.readDateTime(offsets[3]);
+  object.locationCheckFrequencyJson = reader.readString(offsets[4]);
+  object.notificationInteractionCount = reader.readLong(offsets[5]);
+  object.notificationInteractionsJson = reader.readString(offsets[6]);
+  object.notificationTypesSentJson = reader.readString(offsets[7]);
+  object.preferredFrequencyIndex = reader.readLong(offsets[8]);
+  object.preferredNotificationHours = reader.readLongList(offsets[9]) ?? [];
+  object.quietHours = reader.readLongList(offsets[10]) ?? [];
+  return object;
+}
+
+P _userBehaviorRecordDeserializeProp<P>(
+  IsarReader reader,
+  int propertyId,
+  int offset,
+  Map<Type, List<int>> allOffsets,
+) {
+  switch (propertyId) {
+    case 0:
+      return (reader.readLongList(offset) ?? []) as P;
+    case 1:
+      return (reader.readLongList(offset) ?? []) as P;
+    case 2:
+      return (reader.readLongList(offset) ?? []) as P;
+    case 3:
+      return (reader.readDateTime(offset)) as P;
+    case 4:
+      return (reader.readString(offset)) as P;
+    case 5:
+      return (reader.readLong(offset)) as P;
+    case 6:
+      return (reader.readString(offset)) as P;
+    case 7:
+      return (reader.readString(offset)) as P;
+    case 8:
+      return (reader.readLong(offset)) as P;
+    case 9:
+      return (reader.readLongList(offset) ?? []) as P;
+    case 10:
+      return (reader.readLongList(offset) ?? []) as P;
+    default:
+      throw IsarError('Unknown property with id $propertyId');
+  }
+}
+
+Id _userBehaviorRecordGetId(UserBehaviorRecord object) {
+  return object.id;
+}
+
+List<IsarLinkBase<dynamic>> _userBehaviorRecordGetLinks(
+  UserBehaviorRecord object,
+) {
+  return [];
+}
+
+void _userBehaviorRecordAttach(
+  IsarCollection<dynamic> col,
+  Id id,
+  UserBehaviorRecord object,
+) {
+  object.id = id;
+}
+
+extension UserBehaviorRecordQueryWhereSort
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QWhere> {
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterWhere> anyId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(const IdWhereClause.any());
+    });
+  }
+}
+
+extension UserBehaviorRecordQueryWhere
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QWhereClause> {
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterWhereClause>
+  idEqualTo(Id id) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IdWhereClause.between(lower: id, upper: id));
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterWhereClause>
+  idNotEqualTo(Id id) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IdWhereClause.lessThan(upper: id, includeUpper: false),
+            )
+            .addWhereClause(
+              IdWhereClause.greaterThan(lower: id, includeLower: false),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IdWhereClause.greaterThan(lower: id, includeLower: false),
+            )
+            .addWhereClause(
+              IdWhereClause.lessThan(upper: id, includeUpper: false),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterWhereClause>
+  idGreaterThan(Id id, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IdWhereClause.greaterThan(lower: id, includeLower: include),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterWhereClause>
+  idLessThan(Id id, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IdWhereClause.lessThan(upper: id, includeUpper: include),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterWhereClause>
+  idBetween(
+    Id lowerId,
+    Id upperId, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IdWhereClause.between(
+          lower: lowerId,
+          includeLower: includeLower,
+          upper: upperId,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+}
+
+extension UserBehaviorRecordQueryFilter
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QFilterCondition> {
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'activeHours', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursElementGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'activeHours',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursElementLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'activeHours',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'activeHours',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'activeHours', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'activeHours', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'activeHours', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'activeHours', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'activeHours', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  activeHoursLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'activeHours',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'enabledNotificationTypes',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesElementGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'enabledNotificationTypes',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesElementLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'enabledNotificationTypes',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'enabledNotificationTypes',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'enabledNotificationTypes',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'enabledNotificationTypes', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'enabledNotificationTypes',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'enabledNotificationTypes',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'enabledNotificationTypes',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  enabledNotificationTypesLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'enabledNotificationTypes',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  idEqualTo(Id value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'id', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  idGreaterThan(Id value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  idLessThan(Id value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'id',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  idBetween(
+    Id lower,
+    Id upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'id',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'interestedConditions',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsElementGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'interestedConditions',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsElementLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'interestedConditions',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'interestedConditions',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'interestedConditions',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'interestedConditions', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'interestedConditions', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'interestedConditions',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'interestedConditions',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  interestedConditionsLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'interestedConditions',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  lastNotificationTimeEqualTo(DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'lastNotificationTime',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  lastNotificationTimeGreaterThan(DateTime value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'lastNotificationTime',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  lastNotificationTimeLessThan(DateTime value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'lastNotificationTime',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  lastNotificationTimeBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'lastNotificationTime',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'locationCheckFrequencyJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'locationCheckFrequencyJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'locationCheckFrequencyJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'locationCheckFrequencyJson',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'locationCheckFrequencyJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'locationCheckFrequencyJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonContains(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'locationCheckFrequencyJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'locationCheckFrequencyJson',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'locationCheckFrequencyJson',
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  locationCheckFrequencyJsonIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          property: r'locationCheckFrequencyJson',
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionCountEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'notificationInteractionCount',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionCountGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'notificationInteractionCount',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionCountLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'notificationInteractionCount',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionCountBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'notificationInteractionCount',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'notificationInteractionsJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'notificationInteractionsJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'notificationInteractionsJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'notificationInteractionsJson',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'notificationInteractionsJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'notificationInteractionsJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonContains(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'notificationInteractionsJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'notificationInteractionsJson',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'notificationInteractionsJson',
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationInteractionsJsonIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          property: r'notificationInteractionsJson',
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'notificationTypesSentJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'notificationTypesSentJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'notificationTypesSentJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'notificationTypesSentJson',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'notificationTypesSentJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'notificationTypesSentJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'notificationTypesSentJson',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'notificationTypesSentJson',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'notificationTypesSentJson',
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  notificationTypesSentJsonIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          property: r'notificationTypesSentJson',
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredFrequencyIndexEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'preferredFrequencyIndex',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredFrequencyIndexGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'preferredFrequencyIndex',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredFrequencyIndexLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'preferredFrequencyIndex',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredFrequencyIndexBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'preferredFrequencyIndex',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'preferredNotificationHours',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursElementGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'preferredNotificationHours',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursElementLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'preferredNotificationHours',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'preferredNotificationHours',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'preferredNotificationHours',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'preferredNotificationHours', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'preferredNotificationHours',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'preferredNotificationHours',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'preferredNotificationHours',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  preferredNotificationHoursLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'preferredNotificationHours',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursElementEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'quietHours', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursElementGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'quietHours',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursElementLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'quietHours',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursElementBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'quietHours',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'quietHours', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'quietHours', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'quietHours', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'quietHours', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'quietHours', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterFilterCondition>
+  quietHoursLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'quietHours',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+}
+
+extension UserBehaviorRecordQueryObject
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QFilterCondition> {}
+
+extension UserBehaviorRecordQueryLinks
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QFilterCondition> {}
+
+extension UserBehaviorRecordQuerySortBy
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QSortBy> {
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByLastNotificationTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastNotificationTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByLastNotificationTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastNotificationTime', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByLocationCheckFrequencyJson() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'locationCheckFrequencyJson', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByLocationCheckFrequencyJsonDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'locationCheckFrequencyJson', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByNotificationInteractionCount() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationInteractionCount', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByNotificationInteractionCountDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationInteractionCount', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByNotificationInteractionsJson() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationInteractionsJson', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByNotificationInteractionsJsonDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationInteractionsJson', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByNotificationTypesSentJson() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationTypesSentJson', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByNotificationTypesSentJsonDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationTypesSentJson', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByPreferredFrequencyIndex() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'preferredFrequencyIndex', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  sortByPreferredFrequencyIndexDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'preferredFrequencyIndex', Sort.desc);
+    });
+  }
+}
+
+extension UserBehaviorRecordQuerySortThenBy
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QSortThenBy> {
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenById() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByLastNotificationTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastNotificationTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByLastNotificationTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastNotificationTime', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByLocationCheckFrequencyJson() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'locationCheckFrequencyJson', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByLocationCheckFrequencyJsonDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'locationCheckFrequencyJson', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByNotificationInteractionCount() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationInteractionCount', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByNotificationInteractionCountDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationInteractionCount', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByNotificationInteractionsJson() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationInteractionsJson', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByNotificationInteractionsJsonDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationInteractionsJson', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByNotificationTypesSentJson() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationTypesSentJson', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByNotificationTypesSentJsonDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationTypesSentJson', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByPreferredFrequencyIndex() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'preferredFrequencyIndex', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QAfterSortBy>
+  thenByPreferredFrequencyIndexDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'preferredFrequencyIndex', Sort.desc);
+    });
+  }
+}
+
+extension UserBehaviorRecordQueryWhereDistinct
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct> {
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByActiveHours() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'activeHours');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByEnabledNotificationTypes() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'enabledNotificationTypes');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByInterestedConditions() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'interestedConditions');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByLastNotificationTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'lastNotificationTime');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByLocationCheckFrequencyJson({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(
+        r'locationCheckFrequencyJson',
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByNotificationInteractionCount() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'notificationInteractionCount');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByNotificationInteractionsJson({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(
+        r'notificationInteractionsJson',
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByNotificationTypesSentJson({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(
+        r'notificationTypesSentJson',
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByPreferredFrequencyIndex() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'preferredFrequencyIndex');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByPreferredNotificationHours() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'preferredNotificationHours');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QDistinct>
+  distinctByQuietHours() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'quietHours');
+    });
+  }
+}
+
+extension UserBehaviorRecordQueryProperty
+    on QueryBuilder<UserBehaviorRecord, UserBehaviorRecord, QQueryProperty> {
+  QueryBuilder<UserBehaviorRecord, int, QQueryOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, List<int>, QQueryOperations>
+  activeHoursProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'activeHours');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, List<int>, QQueryOperations>
+  enabledNotificationTypesProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'enabledNotificationTypes');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, List<int>, QQueryOperations>
+  interestedConditionsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'interestedConditions');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, DateTime, QQueryOperations>
+  lastNotificationTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'lastNotificationTime');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, String, QQueryOperations>
+  locationCheckFrequencyJsonProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'locationCheckFrequencyJson');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, int, QQueryOperations>
+  notificationInteractionCountProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'notificationInteractionCount');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, String, QQueryOperations>
+  notificationInteractionsJsonProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'notificationInteractionsJson');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, String, QQueryOperations>
+  notificationTypesSentJsonProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'notificationTypesSentJson');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, int, QQueryOperations>
+  preferredFrequencyIndexProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'preferredFrequencyIndex');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, List<int>, QQueryOperations>
+  preferredNotificationHoursProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'preferredNotificationHours');
+    });
+  }
+
+  QueryBuilder<UserBehaviorRecord, List<int>, QQueryOperations>
+  quietHoursProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'quietHours');
+    });
+  }
+}

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:display_mode/display_mode.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -14,6 +15,7 @@ import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/controller/controller.dart';
 import 'package:rain/app/data/db.dart';
+import 'package:rain/app/notifications/test_integration.dart';
 import 'package:rain/app/ui/geolocation.dart';
 import 'package:rain/app/ui/home.dart';
 import 'package:rain/app/ui/onboarding.dart';
@@ -101,6 +103,11 @@ Future<void> initializeApp() async {
     HomeWidget.setAppGroupId(appGroupId);
   }
   DeviceFeature().init();
+  
+  // Test Smart Notifications in debug mode
+  if (kDebugMode) {
+    await _testSmartNotificationsOnStartup();
+  }
 }
 
 void setupConnectivityListener() {
@@ -123,6 +130,7 @@ Future<void> initializeIsar() async {
     MainWeatherCacheSchema,
     LocationCacheSchema,
     WeatherCardSchema,
+    UserBehaviorRecordSchema,
   ], directory: (await getApplicationSupportDirectory()).path);
   settings = isar.settings.where().findFirstSync() ?? Settings();
   locationCache =
@@ -330,5 +338,29 @@ class _MyAppState extends State<MyApp> {
         },
       ),
     );
+  }
+}
+
+/// Test Smart Notifications on app startup (debug mode only)
+Future<void> _testSmartNotificationsOnStartup() async {
+  try {
+    if (kDebugMode) {
+      print('🚀 Auto-testing Smart Notification System...');
+    }
+    
+    // Run a quick smoke test
+    final success = await SmartNotificationIntegrationTest.quickSmokeTest();
+    
+    if (kDebugMode) {
+      if (success) {
+        print('✅ Smart Notification System: Ready for use!');
+      } else {
+        print('⚠️ Smart Notification System: Issues detected');
+      }
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('❌ Smart Notification startup test failed: $e');
+    }
   }
 }

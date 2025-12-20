@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -11,6 +12,7 @@ import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/app/api/api.dart';
 import 'package:rain/app/data/db.dart';
+import 'package:rain/app/notifications/smart_notification_manager.dart';
 import 'package:rain/app/utils/notification.dart';
 import 'package:rain/app/utils/show_snack_bar.dart';
 import 'package:rain/app/ui/widgets/weather/status/status_data.dart';
@@ -543,7 +545,12 @@ class WeatherController extends GetxController {
       final pendingNotificationRequests = await flutterLocalNotificationsPlugin
           .pendingNotificationRequests();
       if (pendingNotificationRequests.isEmpty) {
-        notification(_mainWeather.value);
+        // Use smart notification system
+        await SmartNotificationManager().scheduleIntelligentNotifications(
+          weatherData: _mainWeather.value,
+          location: _location.value,
+          userLocations: weatherCards,
+        );
       }
     }
   }
@@ -633,6 +640,114 @@ class WeatherController extends GetxController {
     final url = Uri.parse(uri);
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
+    }
+  }
+
+  /// Test the smart notification system (for development)
+  Future<void> testSmartNotifications() async {
+    try {
+      if (kDebugMode) {
+        print('🔔 Testing Smart Notification System...');
+      }
+      
+      // Use smart notification system with current weather data
+      await SmartNotificationManager().scheduleIntelligentNotifications(
+        weatherData: _mainWeather.value,
+        location: _location.value,
+        userLocations: weatherCards,
+      );
+      
+      // Get statistics
+      final stats = await SmartNotificationManager().getNotificationStats();
+      
+      if (kDebugMode) {
+        print('✅ Smart Notifications Test Complete');
+        print('📊 Statistics: $stats');
+      }
+      
+      // Show success message to user
+      showSnackBar(content: 'Smart notifications tested successfully!');
+      
+    } catch (e) {
+      if (kDebugMode) {
+        print('❌ Smart Notification Test Error: $e');
+      }
+      showSnackBar(content: 'Smart notification test failed: $e');
+    }
+  }
+
+  /// Check notification permissions and settings
+  Future<void> checkNotificationPermissions() async {
+    try {
+      if (kDebugMode) {
+        print('🔍 Checking notification permissions...');
+      }
+
+      // Check if notifications are enabled in app settings
+      if (!settings.notifications) {
+        if (kDebugMode) {
+          print('❌ Notifications disabled in app settings');
+        }
+        showSnackBar(content: 'Enable notifications in Settings > Functions first!');
+        return;
+      }
+
+      // Check pending notifications
+      final pendingNotifications = await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+      if (kDebugMode) {
+        print('⏰ Pending notifications: ${pendingNotifications.length}');
+        for (final notification in pendingNotifications) {
+          print('   - ID: ${notification.id}, Title: ${notification.title}');
+        }
+      }
+
+      if (kDebugMode) {
+        print('✅ Notification permissions check complete');
+      }
+      
+    } catch (e) {
+      if (kDebugMode) {
+        print('❌ Error checking permissions: $e');
+      }
+    }
+  }
+  Future<void> testSmartNotificationsQuick() async {
+    try {
+      if (kDebugMode) {
+        print('🚀 Quick Test - Starting comprehensive notification test...');
+      }
+      
+      // First, check permissions
+      await checkNotificationPermissions();
+      
+      // Test immediate notification
+      await NotificationShow().showImmediateTestNotification();
+      
+      // Wait a moment
+      await Future.delayed(const Duration(seconds: 2));
+      
+      // Then schedule smart notifications
+      await SmartNotificationManager().scheduleQuickTestNotifications(
+        weatherData: _mainWeather.value,
+        location: _location.value,
+        userLocations: weatherCards,
+      );
+      
+      // Show success message to user
+      showSnackBar(content: '🚀 Test started! Check notifications now and in 1 minute.');
+      
+      if (kDebugMode) {
+        print('✅ Comprehensive notification test completed');
+        print('📱 Immediate test notification sent');
+        print('⏰ Smart notifications scheduled for 30-60 seconds');
+        print('🔍 Check your notification panel now!');
+      }
+      
+    } catch (e) {
+      if (kDebugMode) {
+        print('❌ Quick Smart Notification Test Error: $e');
+      }
+      showSnackBar(content: 'Quick notification test failed: $e');
     }
   }
 }

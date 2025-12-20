@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
@@ -12,6 +13,7 @@ import 'package:rain/app/ui/geolocation.dart';
 import 'package:rain/app/ui/main/view/main_page.dart';
 import 'package:rain/app/ui/map/view/map.dart';
 import 'package:rain/app/ui/settings/view/settings.dart';
+import 'package:rain/app/ui/test_smart_notifications_page.dart';
 import 'package:rain/app/utils/show_snack_bar.dart';
 import 'package:rain/main.dart';
 
@@ -225,6 +227,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  List<Widget> _buildAppBarActions() {
+    List<Widget> actions = [_buildSearchIconButton()];
+    
+    // Add Smart Notification test button in debug mode
+    if (kDebugMode) {
+      actions.insert(0, IconButton(
+        onPressed: () async {
+          // Quick 1-minute test
+          try {
+            await weatherController.testSmartNotificationsQuick();
+          } catch (e) {
+            showSnackBar(content: 'Test failed: $e');
+          }
+        },
+        icon: const Icon(
+          IconsaxPlusLinear.notification_bing,
+          size: 18,
+          color: Colors.orange,
+        ),
+        tooltip: 'Quick 1-Min Notification Test',
+      ));
+    }
+    
+    return actions;
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
@@ -255,7 +283,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   )
                 : null,
             title: _buildAppBarTitle(tabIndex, textStyle, labelLarge),
-            actions: tabIndex == 0 ? [_buildSearchIconButton()] : null,
+            actions: tabIndex == 0 ? _buildAppBarActions() : null,
           ),
           body: SafeArea(
             child: TabBarView(controller: tabController, children: pages),
@@ -287,20 +315,39 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ],
           ),
-          floatingActionButton: tabIndex == 1
-              ? FloatingActionButton(
-                  onPressed: () => showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    enableDrag: false,
-                    builder: (BuildContext context) =>
-                        const PlaceAction(edit: false),
-                  ),
-                  child: const Icon(IconsaxPlusLinear.add),
-                )
-              : null,
+          floatingActionButton: _buildFloatingActionButton(),
         ),
       ),
     );
+  }
+
+  Widget? _buildFloatingActionButton() {
+    // Places tab - Add new place
+    if (tabIndex == 1) {
+      return FloatingActionButton(
+        onPressed: () => showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          enableDrag: false,
+          builder: (BuildContext context) => const PlaceAction(edit: false),
+        ),
+        child: const Icon(IconsaxPlusLinear.add),
+      );
+    }
+    
+    // Main tab - Smart Notification Test (Debug mode only)
+    if (tabIndex == 0 && kDebugMode) {
+      return FloatingActionButton.extended(
+        onPressed: () {
+          Get.to(() => const TestSmartNotificationsPage());
+        },
+        icon: const Icon(IconsaxPlusLinear.flash_1),
+        label: const Text('Test Smart'),
+        backgroundColor: Colors.orange,
+        foregroundColor: Colors.white,
+      );
+    }
+    
+    return null;
   }
 }

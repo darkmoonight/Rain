@@ -351,3 +351,27 @@ class WeatherCard {
     );
   }
 }
+@collection
+class UserBehaviorRecord {
+  Id id = Isar.autoIncrement;
+  
+  List<int> activeHours = [];
+  @ignore
+  Map<String, int> locationCheckFrequency = {};
+  List<int> interestedConditions = [];
+  int preferredFrequencyIndex = 1; // NotificationFrequency.moderate.index
+  DateTime lastNotificationTime = DateTime.now();
+  int notificationInteractionCount = 0;
+  @ignore
+  Map<int, int> notificationTypesSent = {};
+  @ignore
+  Map<int, int> notificationInteractions = {};
+  List<int> enabledNotificationTypes = [];
+  List<int> quietHours = [];
+  List<int> preferredNotificationHours = [];
+  
+  // Store maps as JSON strings for Isar compatibility
+  String locationCheckFrequencyJson = '{}';
+  String notificationTypesSentJson = '{}';
+  String notificationInteractionsJson = '{}';
+}
