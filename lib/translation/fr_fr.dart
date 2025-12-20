@@ -122,6 +122,7 @@ class FrFr {
     'widgetText': 'Texte du widget',
     'dewpoint': 'Point de rosée',
     'shortwaveRadiation': 'Rayonnement à ondes courtes',
+    'W/m2': 'W/m²',
     'roundDegree': 'Arrondir les degrés',
     'settings_full': 'Paramètres',
     'cities': 'Villes',

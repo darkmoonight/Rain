@@ -122,6 +122,7 @@ class EsEs {
     'widgetText': 'Texto del widget',
     'dewpoint': 'Punto de rocío',
     'shortwaveRadiation': 'Radiación de onda corta',
+    'W/m2': 'W/m²',
     'roundDegree': 'Redondear grados',
     'settings_full': 'Configuración',
     'cities': 'Ciudades',

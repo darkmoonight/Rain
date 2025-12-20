@@ -123,6 +123,7 @@ class DeDe {
     'widgetText': 'Widget-Text',
     'dewpoint': 'Taupunkt',
     'shortwaveRadiation': 'Kurzwellenstrahlung',
+    'W/m2': 'W/m²',
     'roundDegree': 'Grad runden',
     'settings_full': 'Einstellungen',
     'cities': 'Städte',

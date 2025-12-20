@@ -121,6 +121,7 @@ class CsCz {
     'widgetText': 'Text widgetu',
     'dewpoint': 'Rosný bod',
     'shortwaveRadiation': 'Krátká vlnová radiace',
+    'W/m2': 'W/m²',
     'roundDegree': 'Zaokrouhlit stupně',
     'settings_full': 'Nastavení',
     'cities': 'Města',

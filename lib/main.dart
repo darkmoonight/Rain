@@ -50,27 +50,38 @@ const String appGroupId = 'DARK NIGHT';
 const String androidWidgetName = 'OreoWidget';
 
 const List<Map<String, dynamic>> appLanguages = [
-  {'name': 'বাংলা', 'locale': Locale('bn', 'IN')},
+  {'name': 'العربية', 'locale': Locale('ar', 'SA')},
+  {'name': 'অসমীয়া', 'locale': Locale('as', 'IN')}, // Assamese
+  {'name': 'বাংলা', 'locale': Locale('bn', 'IN')}, // Bengali
   {'name': 'Čeština', 'locale': Locale('cs', 'CZ')},
   {'name': 'Dansk', 'locale': Locale('da', 'DK')},
   {'name': 'Deutsch', 'locale': Locale('de', 'DE')},
   {'name': 'English', 'locale': Locale('en', 'US')},
   {'name': 'Español', 'locale': Locale('es', 'ES')},
   {'name': 'Français', 'locale': Locale('fr', 'FR')},
-  // {'name': 'Gaeilge', 'locale':  Locale('ga', 'IE')},
-  {'name': 'हिन्दी', 'locale': Locale('hi', 'IN')},
+  {'name': 'Gaeilge', 'locale': Locale('ga', 'IE')},
+  {'name': 'ગુજરાતી', 'locale': Locale('gu', 'IN')}, // Gujarati
+  {'name': 'हिन्दी', 'locale': Locale('hi', 'IN')}, // Hindi
+  {'name': 'עברית', 'locale': Locale('he', 'IL')},
   {'name': 'Magyar', 'locale': Locale('hu', 'HU')},
   {'name': 'Italiano', 'locale': Locale('it', 'IT')},
+  {'name': 'ಕನ್ನಡ', 'locale': Locale('kn', 'IN')}, // Kannada
   {'name': '한국어', 'locale': Locale('ko', 'KR')},
+  {'name': 'മലയാളം', 'locale': Locale('ml', 'IN')}, // Malayalam
+  {'name': 'मराठी', 'locale': Locale('mr', 'IN')}, // Marathi
   {'name': 'فارسی', 'locale': Locale('fa', 'IR')},
+  {'name': 'ਪੰਜਾਬੀ', 'locale': Locale('pa', 'IN')}, // Punjabi
   {'name': 'ქართული', 'locale': Locale('ka', 'GE')},
   {'name': 'Nederlands', 'locale': Locale('nl', 'NL')},
+  {'name': 'ଓଡ଼ିଆ', 'locale': Locale('or', 'IN')}, // Odia
   {'name': 'Polski', 'locale': Locale('pl', 'PL')},
   {'name': 'Português', 'locale': Locale('pt', 'PT')},
   {'name': 'Português (Brasil)', 'locale': Locale('pt', 'BR')},
   {'name': 'Română', 'locale': Locale('ro', 'RO')},
   {'name': 'Русский', 'locale': Locale('ru', 'RU')},
   {'name': 'Slovenčina', 'locale': Locale('sk', 'SK')},
+  {'name': 'தமிழ்', 'locale': Locale('ta', 'IN')}, // Tamil
+  {'name': 'తెలుగు', 'locale': Locale('te', 'IN')}, // Telugu
   {'name': 'Türkçe', 'locale': Locale('tr', 'TR')},
   {'name': 'اردو', 'locale': Locale('ur', 'PK')},
   {'name': '中文(简体)', 'locale': Locale('zh', 'CN')},
@@ -251,6 +262,9 @@ class _MyAppState extends State<MyApp> {
     final edgeToEdgeAvailable = DeviceFeature().isEdgeToEdgeAvailable();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
+    // Determine text direction based on locale
+    final isRTL = _isRTLLanguage(locale.languageCode);
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: DynamicColorBuilder(
@@ -271,7 +285,9 @@ class _MyAppState extends State<MyApp> {
             edgeToEdgeAvailable,
           );
 
-          return GetMaterialApp(
+          return Directionality(
+            textDirection: isRTL ? TextDirection.rtl : TextDirection.ltr,
+            child: GetMaterialApp(
             themeMode: themeController.theme,
             theme: materialColor
                 ? lightColorScheme != null
@@ -326,9 +342,16 @@ class _MyAppState extends State<MyApp> {
                       : const HomePage()
                 : const OnBoarding(),
             title: 'Rain',
+            ),
           );
         },
       ),
     );
+  }
+
+  // Helper function to determine if a language is RTL
+  bool _isRTLLanguage(String languageCode) {
+    const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
+    return rtlLanguages.contains(languageCode);
   }
 }

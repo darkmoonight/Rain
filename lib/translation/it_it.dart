@@ -121,6 +121,7 @@ class ItIt {
     'widgetText': 'Testo del widget',
     'dewpoint': 'Punto di rugiada',
     'shortwaveRadiation': 'Radiazione a onde corte',
+    'W/m2': 'W/m²',
     'roundDegree': 'Arrotonda i gradi',
     'settings_full': 'Impostazioni',
     'cities': 'Città',

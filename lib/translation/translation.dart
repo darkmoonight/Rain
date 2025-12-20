@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:rain/translation/ar_sa.dart';
+import 'package:rain/translation/as_in.dart';
 import 'package:rain/translation/bn_in.dart';
 import 'package:rain/translation/cs_cz.dart';
 import 'package:rain/translation/da_dk.dart';
@@ -8,18 +10,27 @@ import 'package:rain/translation/es_es.dart';
 import 'package:rain/translation/fa_ir.dart';
 import 'package:rain/translation/fr_fr.dart';
 import 'package:rain/translation/ga_ie.dart';
+import 'package:rain/translation/gu_in.dart';
+import 'package:rain/translation/he_il.dart';
 import 'package:rain/translation/hi_in.dart';
 import 'package:rain/translation/hu_hu.dart';
 import 'package:rain/translation/it_it.dart';
 import 'package:rain/translation/ka_ge.dart';
+import 'package:rain/translation/kn_in.dart';
 import 'package:rain/translation/ko_kr.dart';
+import 'package:rain/translation/ml_in.dart';
+import 'package:rain/translation/mr_in.dart';
 import 'package:rain/translation/nl_nl.dart';
+import 'package:rain/translation/or_in.dart';
+import 'package:rain/translation/pa_in.dart';
 import 'package:rain/translation/pl_pl.dart';
 import 'package:rain/translation/pt_br.dart';
 import 'package:rain/translation/pt_pt.dart';
 import 'package:rain/translation/ro_ro.dart';
 import 'package:rain/translation/ru_ru.dart';
 import 'package:rain/translation/sk_sk.dart';
+import 'package:rain/translation/ta_in.dart';
+import 'package:rain/translation/te_in.dart';
 import 'package:rain/translation/tr_tr.dart';
 import 'package:rain/translation/ur_pk.dart';
 import 'package:rain/translation/zh_ch.dart';
@@ -28,6 +39,8 @@ import 'package:rain/translation/zh_tw.dart';
 class Translation extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
+    'ar_SA': ArSa().messages,
+    'as_IN': AsIn().messages,
     'ru_RU': RuRu().messages,
     'en_US': EnUs().messages,
     'fr_FR': FrFr().messages,
@@ -41,6 +54,7 @@ class Translation extends Translations {
     'sk_SK': SkSk().messages,
     'nl_NL': NlNl().messages,
     'hi_IN': HiIn().messages,
+    'he_IL': HeIl().messages,
     'ro_RO': RoRo().messages,
     'zh_CN': ZhCh().messages,
     'zh_TW': ZhTw().messages,
@@ -53,5 +67,13 @@ class Translation extends Translations {
     'hu_HU': HuHu().messages,
     'da_DK': DaDk().messages,
     'ko_KR': KoKr().messages,
+    'gu_IN': GuIn().messages,
+    'kn_IN': KnIn().messages,
+    'ml_IN': MlIn().messages,
+    'mr_IN': MrIn().messages,
+    'or_IN': OrIn().messages,
+    'pa_IN': PaIn().messages,
+    'ta_IN': TaIn().messages,
+    'te_IN': TeIn().messages,
   };
 }

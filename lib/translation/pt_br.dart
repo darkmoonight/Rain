@@ -122,6 +122,7 @@ class PtBr {
     'widgetText': 'Texto do widget',
     'dewpoint': 'Ponto de orvalho',
     'shortwaveRadiation': 'Radiação de ondas curtas',
+    'W/m2': 'W/m²',
     'roundDegree': 'Arredondar graus',
     'settings_full': 'Configurações',
     'cities': 'Cidades',
