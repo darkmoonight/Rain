@@ -154,7 +154,9 @@ Future<void> initializeNotifications() async {
     iOS: DarwinInitializationSettings(),
     linux: LinuxInitializationSettings(defaultActionName: 'Rain'),
   );
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  await flutterLocalNotificationsPlugin.initialize(
+    settings: initializationSettings,
+  );
 }
 
 Future<void> setOptimalDisplayMode() async {

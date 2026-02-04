@@ -39,10 +39,7 @@ class _DailyCardState extends State<DailyCard> {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Row(
           spacing: 5,
-          children: [
-            _buildTemperatureInfo(context),
-            _buildWeatherImage(),
-          ],
+          children: [_buildTemperatureInfo(context), _buildWeatherImage()],
         ),
       ),
     );
