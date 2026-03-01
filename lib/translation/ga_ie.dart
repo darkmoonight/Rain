@@ -141,5 +141,6 @@ class GaIe {
     'addWidget': 'Cuir giuirléid leis',
     'hideMap': 'Folaigh léarscáil',
     'edit': 'Eagar',
+    'no_desc_data': 'Gan sonraí',
   };
 }

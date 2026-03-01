@@ -134,5 +134,6 @@ class ZhCh {
     'addWidget': '添加小部件',
     'hideMap': '隐藏地图',
     'edit': '编辑',
+    'no_desc_data': '无数据',
   };
 }

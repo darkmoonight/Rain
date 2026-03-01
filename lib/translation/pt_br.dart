@@ -139,5 +139,6 @@ class PtBr {
     'addWidget': 'Adicionar widget',
     'hideMap': 'Ocultar mapa',
     'edit': 'Editar',
+    'no_desc_data': 'Sem dados',
   };
 }

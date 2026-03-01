@@ -141,5 +141,6 @@ class DeDe {
     'addWidget': 'Widget hinzufügen',
     'hideMap': 'Karte ausblenden',
     'edit': 'Bearbeiten',
+    'no_desc_data': 'Keine daten',
   };
 }

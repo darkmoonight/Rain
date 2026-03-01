@@ -139,5 +139,6 @@ class DaDk {
     'addWidget': 'Tilføj widget',
     'hideMap': 'Skjul kort',
     'edit': 'Rediger',
+    'no_desc_data': 'Ingen data',
   };
 }

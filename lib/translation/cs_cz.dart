@@ -138,5 +138,6 @@ class CsCz {
     'addWidget': 'Přidat widget',
     'hideMap': 'Skrýt mapu',
     'edit': 'Upravit',
+    'no_desc_data': 'Žádná data',
   };
 }

@@ -139,5 +139,6 @@ class TrTr {
     'addWidget': 'Widget ekle',
     'hideMap': 'Haritayı gizle',
     'edit': 'Düzenle',
+    'no_desc_data': 'Veri yok',
   };
 }
