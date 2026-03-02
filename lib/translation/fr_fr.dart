@@ -139,5 +139,6 @@ class FrFr {
     'addWidget': 'Ajouter un widget',
     'hideMap': 'Cacher la carte',
     'edit': 'Modifier',
+    'no_desc_data': 'Aucune donnée',
   };
 }

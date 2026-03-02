@@ -9,7 +9,7 @@ class ItIt {
     'description2':
         'Tutta la navigazione è progettata per interagire con l\'applicazione nel modo più comodo e veloce possibile.',
     'description3':
-        'Se incontri problemi, contattaci via email o nelle recensioni dell\'applicazione.',
+        'Se riscontri problemi, contattaci via email o nelle recensioni dell\'applicazione.',
     'next': 'Avanti',
     'search': 'Cerca...',
     'loading': 'Caricamento...',
@@ -103,7 +103,7 @@ class ItIt {
     'precipitationProbability': 'Probabilità di precipitazione',
     'apparentTemperatureMin': 'Temperatura minima percepita',
     'apparentTemperatureMax': 'Temperatura massima percepita',
-    'amoledTheme': 'AMOLED-tema',
+    'amoledTheme': 'Tema AMOLED',
     'appearance': 'Aspetto',
     'functions': 'Funzioni',
     'data': 'Dati',
@@ -138,5 +138,6 @@ class ItIt {
     'addWidget': 'Aggiungi widget',
     'hideMap': 'Nascondi mappa',
     'edit': 'Modifica',
+    'no_desc_data': 'Nessun dato',
   };
 }

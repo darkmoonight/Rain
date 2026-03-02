@@ -139,5 +139,6 @@ class UrPk {
     'addWidget': 'ویجٹ شامل کریں',
     'hideMap': 'نقشہ چھپائیں',
     'edit': 'ترمیم',
+    'no_desc_data': 'کوئی ڈیٹا نہیں۔',
   };
 }

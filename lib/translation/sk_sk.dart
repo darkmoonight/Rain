@@ -139,5 +139,6 @@ class SkSk {
     'addWidget': 'Pridať widget',
     'hideMap': 'Skryť mapu',
     'edit': 'Upraviť',
+    'no_desc_data': 'Žiadne údaje',
   };
 }
