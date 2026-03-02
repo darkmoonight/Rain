@@ -135,5 +135,6 @@ class KoKr {
     'addWidget': '위젯 추가',
     'hideMap': '지도를 숨기기',
     'edit': '편집',
+    'no_desc_data': '데이터 없음',
   };
 }

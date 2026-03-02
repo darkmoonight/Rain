@@ -139,5 +139,6 @@ class EnUs {
     'addWidget': 'Add widget',
     'hideMap': 'Hide map',
     'edit': 'Edit',
+    'no_desc_data': 'No data',
   };
 }

@@ -138,5 +138,6 @@ class RoRo {
     'addWidget': 'Adaugă widget',
     'hideMap': 'Ascunde harta',
     'edit': 'Editare',
+    'no_desc_data': 'Fără date',
   };
 }

@@ -138,5 +138,6 @@ class PlPl {
     'addWidget': 'Dodaj widget',
     'hideMap': 'Ukryj mapę',
     'edit': 'Edytuj',
+    'no_desc_data': 'Brak danych',
   };
 }

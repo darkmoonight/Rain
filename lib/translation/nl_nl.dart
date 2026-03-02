@@ -138,5 +138,6 @@ class NlNl {
     'addWidget': 'Widget toevoegen',
     'hideMap': 'Kaart verbergen',
     'edit': 'Bewerken',
+    'no_desc_data': 'Ingen data',
   };
 }

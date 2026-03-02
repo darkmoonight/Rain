@@ -93,6 +93,15 @@ class _DescContainerState extends State<DescContainer> {
   List<Widget> _buildWeatherDescriptions(BuildContext context) {
     final List<Widget> descriptions = [];
 
+    String addMessageOrDefault(message) {
+      var widgetMessage = message;
+      if(widgetMessage == null || widgetMessage.isEmpty || widgetMessage == 'null') {
+        widgetMessage = 'no_desc_data'.tr;
+      }
+
+      return widgetMessage;
+    }
+
     void addDescriptionIfNotNull({
       required dynamic value,
       required String imageName,
@@ -111,7 +120,7 @@ class _DescContainerState extends State<DescContainer> {
             imageName: imageName,
             value: value.toString(),
             desc: desc,
-            message: message ?? '',
+            message: addMessageOrDefault(message),
           ),
         );
       } else {

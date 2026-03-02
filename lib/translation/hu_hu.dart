@@ -139,5 +139,6 @@ class HuHu {
     'addWidget': 'Widget hozzáadása',
     'hideMap': 'Térkép elrejtése',
     'edit': 'Szerkesztés',
+    'no_desc_data': 'Nincs adat',
   };
 }

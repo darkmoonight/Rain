@@ -135,5 +135,6 @@ class ZhTw {
     'addWidget': '新增小工具',
     'hideMap': '隱藏地圖',
     'edit': '編輯',
+    'no_desc_data': '無數據',
   };
 }

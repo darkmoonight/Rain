@@ -140,5 +140,6 @@ class EsEs {
     'addWidget': 'Agregar widget',
     'hideMap': 'Ocultar mapa',
     'edit': 'Editar',
+    'no_desc_data': 'Sin datos',
   };
 }
