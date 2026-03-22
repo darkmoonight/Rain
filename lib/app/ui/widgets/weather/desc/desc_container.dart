@@ -95,7 +95,9 @@ class _DescContainerState extends State<DescContainer> {
 
     String addMessageOrDefault(message) {
       var widgetMessage = message;
-      if(widgetMessage == null || widgetMessage.isEmpty || widgetMessage == 'null') {
+      if (widgetMessage == null ||
+          widgetMessage.isEmpty ||
+          widgetMessage == 'null') {
         widgetMessage = 'no_desc_data'.tr;
       }
 

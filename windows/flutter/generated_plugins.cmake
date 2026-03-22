@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_timezone
   geolocator_windows
   isar_community_flutter_libs
+  restart_app
   url_launcher_windows
 )
 
