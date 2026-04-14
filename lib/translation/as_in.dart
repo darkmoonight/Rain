@@ -155,5 +155,6 @@ class AsIn {
     'telegram': 'টেলিগ্ৰাম',
     'error_occurred': 'এটা ত্ৰুটি হৈছে',
     'location_not_found': 'আপোনাৰ অৱস্থান নিৰ্ধাৰণ কৰিব পৰা নগ\'ল',
+    'resetColor': 'ডিফল্টলৈ ৰিছেট কৰক',
   };
 }

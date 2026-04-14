@@ -149,5 +149,6 @@ class KoKr {
     'telegram': '텔레그램',
     'error_occurred': '오류가 발생했습니다',
     'location_not_found': '위치 확인 불가',
+    'resetColor': '기본값으로 재설정',
   };
 }

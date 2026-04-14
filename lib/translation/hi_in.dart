@@ -151,5 +151,6 @@ class HiIn {
     'telegram': 'टेलीग्राम',
     'error_occurred': 'एक त्रुटि हुई',
     'location_not_found': 'आपका स्थान निर्धारित नहीं किया जा सका',
+    'resetColor': 'डिफ़ॉल्ट पर रीसेट करें',
   };
 }

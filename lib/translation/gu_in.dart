@@ -153,5 +153,6 @@ class GuIn {
     'telegram': 'ટેલિગ્રામ',
     'error_occurred': 'એક ભૂલ થઈ',
     'location_not_found': 'તમારું સ્થાન નક્કી કરી શકાયું નહીં',
+    'resetColor': 'ડિફોલ્ટ પર રીસેટ કરો',
   };
 }

@@ -156,5 +156,6 @@ class GaIe {
     'telegram': 'Telegram',
     'error_occurred': 'Tharla earráid',
     'location_not_found': 'Níorbh fhéidir do shuíomh a chinneadh',
+    'resetColor': 'Athshocraigh go réamhshocrú',
   };
 }

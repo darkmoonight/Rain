@@ -152,5 +152,6 @@ class RoRo {
     'telegram': 'Telegram',
     'error_occurred': 'A apărut o eroare',
     'location_not_found': 'Nu s-a putut determina locația dvs.',
+    'resetColor': 'Resetează la valorile implicite',
   };
 }

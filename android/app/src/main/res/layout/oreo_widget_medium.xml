@@ -3,7 +3,7 @@
     style="@style/Widget.Android.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSecondaryContainer"
+    android:background="?attr/colorSurfaceContainer"
     android:theme="@style/Theme.Android.AppWidgetContainer"
     android:id="@+id/widget_day_oreo">
 
@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="8dp">
 
         <TextClock
             android:id="@+id/widget_day_time"
@@ -22,11 +23,8 @@
             android:fontFamily="@font/ubuntu"
             android:format12Hour="@string/date_format_widget_oreo_style"
             android:format24Hour="@string/date_format_widget_oreo_style"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="1"
             android:textSize="16sp"
-            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textColor="?attr/colorOnSurfaceVariant"
             tools:text="Saturday, September 30 " />
 
         <ImageView
@@ -43,12 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/little_margin"
             android:fontFamily="@font/ubuntu"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="1"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textSize="32sp"
-            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textColor="?attr/colorOnSurface"
             android:textStyle="bold"
             tools:text="28°" />
 

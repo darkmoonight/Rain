@@ -153,5 +153,6 @@ class DaDk {
     'telegram': 'Telegram',
     'error_occurred': 'Der opstod en fejl',
     'location_not_found': 'Kunne ikke bestemme din placering',
+    'resetColor': 'Nulstil til standard',
   };
 }

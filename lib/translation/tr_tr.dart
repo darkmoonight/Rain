@@ -154,5 +154,6 @@ class TrTr {
     'telegram': 'Telegram',
     'error_occurred': 'Bir hata oluştu',
     'location_not_found': 'Konumunuz belirlenemedi',
+    'resetColor': 'Varsayılana sıfırla',
   };
 }

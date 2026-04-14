@@ -153,5 +153,6 @@ class BnIn {
     'telegram': 'টেলিগ্রাম',
     'error_occurred': 'একটি ত্রুটি হয়েছে',
     'location_not_found': 'আপনার অবস্থান নির্ধারণ করা যায়নি',
+    'resetColor': 'ডিফল্টে রিসেট করুন',
   };
 }

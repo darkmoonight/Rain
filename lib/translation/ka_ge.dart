@@ -152,5 +152,6 @@ class KaGe {
     'telegram': 'Telegram',
     'error_occurred': 'მომხდარია შეცდომა',
     'location_not_found': 'თქვენი მდებარეობის დადგენა ვერ მოხერხდა',
+    'resetColor': 'ნაგულისხმევზე დაბრუნება',
   };
 }

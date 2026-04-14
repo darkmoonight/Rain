@@ -148,5 +148,6 @@ class ZhCh {
     'telegram': 'Telegram',
     'error_occurred': '发生错误',
     'location_not_found': '无法确定您的位置',
+    'resetColor': '重置为默认值',
   };
 }

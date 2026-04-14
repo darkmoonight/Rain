@@ -155,5 +155,6 @@ class FrFr {
     'telegram': 'Telegram',
     'error_occurred': 'Une erreur s\'est produite',
     'location_not_found': 'Impossible de déterminer votre position',
+    'resetColor': 'Réinitialiser par défaut',
   };
 }

@@ -156,5 +156,6 @@ class DeDe {
     'telegram': 'Telegram',
     'error_occurred': 'Ein Fehler ist aufgetreten',
     'location_not_found': 'Ihr Standort konnte nicht ermittelt werden',
+    'resetColor': 'Auf Standard zurücksetzen',
   };
 }

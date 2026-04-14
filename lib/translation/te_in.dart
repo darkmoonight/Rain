@@ -153,5 +153,6 @@ class TeIn {
     'telegram': 'టెలిగ్రామ్',
     'error_occurred': 'లోపం సంభవించింది',
     'location_not_found': 'మీ స్థానాన్ని నిర్ధారించలేకపోయాము',
+    'resetColor': 'డిఫాల్ట్‌కు రీసెట్ చేయండి',
   };
 }

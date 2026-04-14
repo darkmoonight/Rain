@@ -153,5 +153,6 @@ class MrIn {
     'telegram': 'टेलिग्राम',
     'error_occurred': 'एक त्रुटी आली',
     'location_not_found': 'तुमचे स्थान निर्धारित करता आले नाही',
+    'resetColor': 'डीफॉल्टवर रीसेट करा',
   };
 }

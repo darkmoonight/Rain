@@ -775,19 +775,36 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
               ),
-              IconButton(
-                icon: const Icon(IconsaxPlusLinear.tick_square),
-                onPressed: () {
-                  if (colorBackground == null) return;
-                  weatherController.updateWidgetBackgroundColor(
-                    colorBackground!,
-                  );
-                  MyApp.updateAppState(
-                    context,
-                    newWidgetBackgroundColor: colorBackground,
-                  );
-                  NavigationHelper.back();
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(IconsaxPlusLinear.rotate_left),
+                    tooltip: 'resetColor'.tr,
+                    onPressed: () {
+                      weatherController.resetWidgetBackgroundColor();
+                      MyApp.updateAppState(
+                        context,
+                        newWidgetBackgroundColor: '',
+                      );
+                      NavigationHelper.back();
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(IconsaxPlusLinear.tick_square),
+                    onPressed: () {
+                      if (colorBackground == null) return;
+                      weatherController.updateWidgetBackgroundColor(
+                        colorBackground!,
+                      );
+                      MyApp.updateAppState(
+                        context,
+                        newWidgetBackgroundColor: colorBackground,
+                      );
+                      NavigationHelper.back();
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -831,14 +848,28 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
               ),
-              IconButton(
-                icon: const Icon(IconsaxPlusLinear.tick_square),
-                onPressed: () {
-                  if (colorText == null) return;
-                  weatherController.updateWidgetTextColor(colorText!);
-                  MyApp.updateAppState(context, newWidgetTextColor: colorText);
-                  NavigationHelper.back();
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(IconsaxPlusLinear.rotate_left),
+                    tooltip: 'resetColor'.tr,
+                    onPressed: () {
+                      weatherController.resetWidgetTextColor();
+                      MyApp.updateAppState(context, newWidgetTextColor: '');
+                      NavigationHelper.back();
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(IconsaxPlusLinear.tick_square),
+                    onPressed: () {
+                      if (colorText == null) return;
+                      weatherController.updateWidgetTextColor(colorText!);
+                      MyApp.updateAppState(context, newWidgetTextColor: colorText);
+                      NavigationHelper.back();
+                    },
+                  ),
+                ],
               ),
             ],
           ),

@@ -155,5 +155,6 @@ class FaIr {
     'telegram': 'تلگرام',
     'error_occurred': 'خطایی رخ داد',
     'location_not_found': 'عدم امکان تعیین موقعیت شما',
+    'resetColor': 'بازنشانی به پیش‌فرض',
   };
 }

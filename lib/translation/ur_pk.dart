@@ -153,5 +153,6 @@ class UrPk {
     'telegram': 'ٹیلیگرام',
     'error_occurred': 'ایک خرابی پیش آئی',
     'location_not_found': 'آپ کا مقام معلوم نہیں کیا جا سکا',
+    'resetColor': 'ڈیفالٹ پر بحال کریں',
   };
 }

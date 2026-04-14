@@ -157,5 +157,6 @@ class ElGr {
     'telegram': 'Telegram',
     'error_occurred': 'Παρουσιάστηκε σφάλμα',
     'location_not_found': 'Αδυναμία προσδιορισμού της τοποθεσίας σας',
+    'resetColor': 'Επαναφορά στα προεπιλεγμένα',
   };
 }

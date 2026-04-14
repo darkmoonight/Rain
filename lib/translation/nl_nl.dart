@@ -152,5 +152,6 @@ class NlNl {
     'telegram': 'Telegram',
     'error_occurred': 'Er is een fout opgetreden',
     'location_not_found': 'Kan uw locatie niet bepalen',
+    'resetColor': 'Herstellen naar standaard',
   };
 }

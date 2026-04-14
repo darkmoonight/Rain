@@ -140,6 +140,10 @@ class WeatherController extends GetxController {
 
       notificationCheck();
       await writeCache();
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 100));
+        await updateWidget();
+      }
       await readCache();
     } catch (e) {
       showSnackBar('error_occurred'.tr, isError: true);
@@ -204,6 +208,10 @@ class WeatherController extends GetxController {
 
       notificationCheck();
       await writeCache();
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 100));
+        await updateWidget();
+      }
       await readCache();
     } catch (e) {
       showSnackBar('error_occurred'.tr, isError: true);
@@ -274,12 +282,8 @@ class WeatherController extends GetxController {
     );
 
     await isar.writeTxn(() async {
-      final hasMainWeather = await isar.mainWeatherCaches.where().isEmpty();
       final hasLocation = await isar.locationCaches.where().isEmpty();
-
-      if (hasMainWeather) {
-        await isar.mainWeatherCaches.put(_mainWeather.value);
-      }
+      await isar.mainWeatherCaches.put(_mainWeather.value);
       if (hasLocation) {
         await isar.locationCaches.put(locationCaches);
       }
@@ -599,6 +603,17 @@ class WeatherController extends GetxController {
     return !results.contains(false);
   }
 
+  Future<bool> resetWidgetBackgroundColor() async {
+    settings.widgetBackgroundColor = null;
+    await isar.writeTxn(() => isar.settings.put(settings));
+
+    final results = await Future.wait<bool?>([
+      HomeWidget.saveWidgetData<String>('background_color', null),
+      HomeWidget.updateWidget(androidName: androidWidgetName),
+    ]);
+    return !results.contains(false);
+  }
+
   Future<bool> updateWidgetTextColor(String color) async {
     settings.widgetTextColor = color;
     await isar.writeTxn(() => isar.settings.put(settings));
@@ -610,45 +625,57 @@ class WeatherController extends GetxController {
     return !results.contains(false);
   }
 
-  Future<bool> updateWidget() async {
-    final TimezoneInfo timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
-
-    final isarWidget = await Isar.open([
-      SettingsSchema,
-      MainWeatherCacheSchema,
-      LocationCacheSchema,
-      WeatherCardSchema,
-    ], directory: (await getApplicationSupportDirectory()).path);
-
-    final mainWeatherCache = await isarWidget.mainWeatherCaches
-        .where()
-        .findFirst();
-    if (mainWeatherCache == null) return false;
-
-    final hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
-    final day = getDay(mainWeatherCache.timeDaily!, mainWeatherCache.timezone!);
+  Future<bool> resetWidgetTextColor() async {
+    settings.widgetTextColor = null;
+    await isar.writeTxn(() => isar.settings.put(settings));
 
     final results = await Future.wait<bool?>([
-      HomeWidget.saveWidgetData(
-        'weather_icon',
-        await getLocalImagePath(
-          StatusWeather().getImageNotification(
-            mainWeatherCache.weathercode![hour],
-            mainWeatherCache.time![hour],
-            mainWeatherCache.sunrise![day],
-            mainWeatherCache.sunset![day],
-          ),
-        ),
-      ),
-      HomeWidget.saveWidgetData(
-        'weather_degree',
-        '${mainWeatherCache.temperature2M?[hour].round()}°',
-      ),
+      HomeWidget.saveWidgetData<String>('text_color', null),
       HomeWidget.updateWidget(androidName: androidWidgetName),
     ]);
     return !results.contains(false);
+  }
+
+  Future<bool> updateWidget() async {
+    try {
+      final TimezoneInfo timeZoneName = await FlutterTimezone.getLocalTimezone();
+      tz.initializeTimeZones();
+      tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
+
+      final isarWidget = await Isar.open([
+        SettingsSchema,
+        MainWeatherCacheSchema,
+        LocationCacheSchema,
+        WeatherCardSchema,
+      ], directory: (await getApplicationSupportDirectory()).path);
+
+      final mainWeatherCache = await isarWidget.mainWeatherCaches
+          .where()
+          .findFirst();
+      if (mainWeatherCache == null) return false;
+
+      final hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
+      final day = getDay(mainWeatherCache.timeDaily!, mainWeatherCache.timezone!);
+
+      final icon = StatusWeather().getImageNotification(
+        mainWeatherCache.weathercode![hour],
+        mainWeatherCache.time![hour],
+        mainWeatherCache.sunrise![day],
+        mainWeatherCache.sunset![day],
+      );
+      
+      final imagePath = await getLocalImagePath(icon);
+      final degree = '${mainWeatherCache.temperature2M?[hour].round()}°';
+
+      final results = await Future.wait<bool?>([
+        HomeWidget.saveWidgetData('weather_icon', imagePath),
+        HomeWidget.saveWidgetData('weather_degree', degree),
+        HomeWidget.updateWidget(androidName: androidWidgetName),
+      ]);
+      return !results.contains(false);
+    } catch (e) {
+      return false;
+    }
   }
 
   void urlLauncher(String uri) async {

@@ -152,5 +152,6 @@ class ArSa {
     'telegram': 'تيليجرام',
     'error_occurred': 'حدث خطأ',
     'location_not_found': 'تعذر تحديد موقعك',
+    'resetColor': 'إعادة تعيين إلى الافتراضي',
   };
 }

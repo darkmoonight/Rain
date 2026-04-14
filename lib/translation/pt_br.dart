@@ -154,5 +154,6 @@ class PtBr {
     'telegram': 'Telegram',
     'error_occurred': 'Ocorreu um erro',
     'location_not_found': 'Não foi possível determinar sua localização',
+    'resetColor': 'Redefinir para padrão',
   };
 }
