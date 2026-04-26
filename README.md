@@ -89,8 +89,8 @@ Get the latest APK or builds for other platforms from the [Releases Section](htt
 ## 🛠️ Building from Source
 
 ### Prerequisites
-- Flutter SDK 3.41.6 or higher
-- Dart SDK 3.11.4 or higher
+- Flutter SDK 3.41.7 or higher
+- Dart SDK 3.11.5 or higher
 - Android Studio / Xcode for platform-specific builds
 
 ### Steps
