@@ -865,7 +865,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     onPressed: () {
                       if (colorText == null) return;
                       weatherController.updateWidgetTextColor(colorText!);
-                      MyApp.updateAppState(context, newWidgetTextColor: colorText);
+                      MyApp.updateAppState(
+                        context,
+                        newWidgetTextColor: colorText,
+                      );
                       NavigationHelper.back();
                     },
                   ),

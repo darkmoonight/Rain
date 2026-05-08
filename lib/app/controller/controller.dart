@@ -638,7 +638,8 @@ class WeatherController extends GetxController {
 
   Future<bool> updateWidget() async {
     try {
-      final TimezoneInfo timeZoneName = await FlutterTimezone.getLocalTimezone();
+      final TimezoneInfo timeZoneName =
+          await FlutterTimezone.getLocalTimezone();
       tz.initializeTimeZones();
       tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
 
@@ -655,7 +656,10 @@ class WeatherController extends GetxController {
       if (mainWeatherCache == null) return false;
 
       final hour = getTime(mainWeatherCache.time!, mainWeatherCache.timezone!);
-      final day = getDay(mainWeatherCache.timeDaily!, mainWeatherCache.timezone!);
+      final day = getDay(
+        mainWeatherCache.timeDaily!,
+        mainWeatherCache.timezone!,
+      );
 
       final icon = StatusWeather().getImageNotification(
         mainWeatherCache.weathercode![hour],
@@ -663,7 +667,7 @@ class WeatherController extends GetxController {
         mainWeatherCache.sunrise![day],
         mainWeatherCache.sunset![day],
       );
-      
+
       final imagePath = await getLocalImagePath(icon);
       final degree = '${mainWeatherCache.temperature2M?[hour].round()}°';
 

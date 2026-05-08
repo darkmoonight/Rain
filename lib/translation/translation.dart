@@ -16,6 +16,7 @@ import 'package:rain/translation/he_il.dart';
 import 'package:rain/translation/hi_in.dart';
 import 'package:rain/translation/hu_hu.dart';
 import 'package:rain/translation/it_it.dart';
+import 'package:rain/translation/ja_jp.dart';
 import 'package:rain/translation/ka_ge.dart';
 import 'package:rain/translation/kn_in.dart';
 import 'package:rain/translation/ko_kr.dart';
@@ -77,5 +78,6 @@ class Translation extends Translations {
     'pa_IN': PaIn().messages,
     'ta_IN': TaIn().messages,
     'te_IN': TeIn().messages,
+    'ja_JP': JaJp().messages,
   };
 }

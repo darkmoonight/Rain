@@ -67,6 +67,7 @@ const List<Map<String, dynamic>> appLanguages = [
   {'name': 'עברית', 'locale': Locale('he', 'IL')},
   {'name': 'Magyar', 'locale': Locale('hu', 'HU')},
   {'name': 'Italiano', 'locale': Locale('it', 'IT')},
+  {'name': '日本語', 'locale': Locale('ja', 'JP')},
   {'name': 'ಕನ್ನಡ', 'locale': Locale('kn', 'IN')},
   {'name': 'ქართული', 'locale': Locale('ka', 'GE')},
   {'name': '한국어', 'locale': Locale('ko', 'KR')},
