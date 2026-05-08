@@ -1,10 +1,10 @@
-<p>Masz dość nieprzewidywalnej pogody? Rain cię przykryje! Przygotuj się na każdą prognozę. 🌦️</p>
-<p>Dzięki Rain możesz eksplorować pogodę w swoim mieście i poza nim. Oferujemy szereg funkcji, abyś był poinformowany i przygotowany:</p>
+<p>Masz dość nieprzewidywalnej pogody? Rain przychodzi z pomocą! Przygotuj się na każdą prognozę. 🌦️</p>
+<p>Dzięki Rain możesz sprawdzić pogodę w swoim mieście i poza nim. Oferujemy szereg funkcji, abyś był poinformowany i przygotowany:</p>
 <ul>
-    <li>🌟 <strong>Podgląd aktualnej pogody:</strong> Bądź na bieżąco z aktualnymi warunkami pogodowymi w Twojej okolicy.</li>
-    <li>🌅 <strong>Prognoza godzinowa:</strong> Zaplanuj swój dzień efektywnie z godzinowymi prognozami.</li>
+    <li>🌟 <strong>Podgląd aktualnej pogody:</strong> Bądź na bieżąco z aktualnymi warunkami pogodowymi w swojej okolicy.</li>
+    <li>🌅 <strong>Prognoza godzinowa:</strong> Efektywnie zaplanuj swój dzień z prognozami godzinowymi.</li>
     <li>📆 <strong>Prognoza tygodniowa:</strong> Miej tygodniowy przegląd pogody na wyciągnięcie ręki.</li>
-    <li>🌡️ <strong>Szczegółowe dane pogodowe:</strong> Zagłęb się w statystyki pogodowe dla kompleksowego zrozumienia.</li>
+    <li>🌡️ <strong>Szczegółowe dane pogodowe:</strong> Zagłęb się w statystyki pogodowe dla pełnego zrozumienia.</li>
     <li>🌐 <strong>Lokalizacja:</strong> Wybierz preferowany język z szerokiego zakresu opcji.</li>
     <li>🏙️ <strong>Pamięć podręczna danych:</strong> Uzyskaj dostęp do informacji pogodowych nawet offline.</li>
     <li>🌆 <strong>Wybierz swoje miasto:</strong> Ustaw swoją lokalizację lub dodaj inne miasta do swojej listy.</li>
@@ -12,7 +12,7 @@
     <li>🌡️ <strong>Celsjusz lub Fahrenheit:</strong> Wybierz preferowaną jednostkę temperatury.</li>
     <li>🕰️ <strong>Format 12-godzinny lub 24-godzinny:</strong> Dostosuj sposób wyświetlania czasu do swoich preferencji.</li>
     <li>🔔 <strong>Powiadomienia:</strong> Otrzymuj alerty pogodowe i bądź na bieżąco.</li>
-    <li>🧩 <strong>Widget:</strong> Dodaj widget pogodowy do ekranu głównego dla szybkich aktualizacji.</li>
-    <li>🎨 <strong>Piękny design</strong></li>
+    <li>🧩 <strong>Widżet:</strong> Dodaj widżet pogodowy do ekranu głównego dla szybkich aktualizacji.</li>
+    <li>🎨 <strong>Piękny wygląd</strong></li>
 </ul>
-<p>Nasza aplikacja oferuje nie tylko funkcjonalność, ale także zachwyca estetycznym designem. Starannie opracowaliśmy Rain, stawiając na pierwszym miejscu Twoje wrażenia użytkownika, gwarantując zarówno wygodę, jak i elegancję w jednym pakiecie.</p>
+<p>Nasza aplikacja oferuje nie tylko funkcjonalność, ale także zachwyca estetycznym designem. Starannie opracowaliśmy Rain, stawiając na pierwszym miejscu wrażenia użytkownika, gwarantując zarówno wygodę, jak i elegancję w jednym pakiecie.</p>
