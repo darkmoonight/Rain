@@ -57,14 +57,6 @@ dependencies:
   slang: ^4.15.0
   slang_flutter: ^4.15.0
 
-# Uncomment this for publishing FLOSS variant
-# dependency_overrides:
-#   geolocator_android:
-#     git:
-#       url: https://github.com/Zverik/flutter-geolocator.git
-#       ref: floss
-#       path: geolocator_android
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,7 +67,6 @@ dev_dependencies:
   flutter_native_splash: ^2.4.8
   flutter_launcher_icons: ^0.14.4
   isar_community_generator: ^3.3.2
-  slang_build_runner: ^4.15.0
 
 flutter_launcher_icons:
   android: true
