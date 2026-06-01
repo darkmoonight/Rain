@@ -1,0 +1,359 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint, unused_import
+// dart format off
+
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
+
+// Path: <root>
+class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Translations> {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	TranslationsDaDk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.daDk,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <da-DK>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+
+	late final TranslationsDaDk _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsDaDk $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsDaDk(meta: meta ?? this.$meta);
+
+	// Translations
+	@override String get no_inter => 'Ingen Internet';
+	@override String get edit_city_hint => 'Rediger byoplysninger';
+	@override String get location_not_found => 'Kunne ikke bestemme din placering';
+	@override String get mi => 'mi';
+	@override String get next => 'Næste';
+	@override String get discard => 'Kassér';
+	@override String get east => 'Øst';
+	@override String get time_end => 'Slut tid';
+	@override String get search_method => 'Brug søgning eller geolokation';
+	@override String get hourly_variables => 'Timevise vejrfaktorer';
+	@override String get uv_index => 'UV-index';
+	@override String get clear_sky => 'Skyfri himmel';
+	@override String get k_24 => '24-timer';
+	@override String get no_weather_card => 'Tilføj en by';
+	@override String get drizzle => 'Støv regn';
+	@override String get humidity => 'Luftfugtighed';
+	@override String get telegram => 'Telegram';
+	@override String get functions => 'Funktioner';
+	@override String get cities => 'Byer';
+	@override String get southeast => 'Sydøst';
+	@override String get validate_number => 'Indtast et gyldigt nummer';
+	@override String get city => 'By';
+	@override String get uv_high => 'Høj';
+	@override String get time => 'Tid i byen';
+	@override String get uv_low => 'Lav';
+	@override String get name3 => 'Kontakt os';
+	@override String get apparent_temperature_min => 'Minimum temperature';
+	@override String get direction => 'Retning';
+	@override String get heavy_rains => 'Regnskyl';
+	@override String get apparent_temperature_max => 'Maksimal temperatur';
+	@override String get k_12 => '12-timer';
+	@override String get discord => 'Discord';
+	@override String get discard_changes => 'Er du sikker på, at du vil kassere dine ændringer?';
+	@override String get notifications => 'Notifikationer';
+	@override String get mph => 'mph';
+	@override String get west => 'Vest';
+	@override String get validate90 => 'Værdien skal være mellem -90 og 90';
+	@override String get name2 => 'Praktisk design';
+	@override String get feels => 'Føles som';
+	@override String get precipitation_probability => 'Sandsynlighed for nedbør';
+	@override String get license => 'Licenser';
+	@override String get widget_background => 'Widget baggrund';
+	@override String get large_element => 'Stort vejrdisplay';
+	@override String get unsaved_changes => 'Ugemte ændringer';
+	@override String get drizzling_rain => 'Frysende støvregn';
+	@override String get cloudy => 'Skyet';
+	@override String get widget => 'Widget';
+	@override String get precipitation => 'Nedbør';
+	@override String get delete => 'Slet';
+	@override String get deleted_cache_store => 'Rydder cache';
+	@override String get map => 'Kort';
+	@override String get description3 => 'Hvis du støder på problemer, må du meget gerne kontakte os via e-mail eller i app anmeldelserne.';
+	@override String get north => 'Nord';
+	@override String get measurements => 'Foranstaltningssystemet';
+	@override String get start => 'Kom i gang';
+	@override String get settings_full => 'Indstillinger';
+	@override String get high => 'Høj';
+	@override String get daily_variables => 'Daglige vejrfaktorer';
+	@override String get low => 'Lav';
+	@override String get on_inter => 'Tænd for internettet for at få meteorologisk data.';
+	@override String get thunderstorm => 'Tordenvejr';
+	@override String get version => 'App version';
+	@override String get project => 'Projektet findes på';
+	@override String get amoled_theme => 'AMOLED-tema';
+	@override String get deleted_card_weather_query => 'Er du sikker på at du vil slette denne by?';
+	@override String get northeast => 'Nordøst';
+	@override String get add_widget => 'Tilføj widget';
+	@override String get fog => 'Tåge';
+	@override String get description2 => 'Al navigation er designet til at interagere med appen så bekvemt og hurtigt som muligt.';
+	@override String get mm => 'mm';
+	@override String get no_desc_data => 'Ingen data';
+	@override String get search_city => 'Find din by';
+	@override String get weather_more => '12 dages vejrudsigt';
+	@override String get round_degree => 'Afrundede grader';
+	@override String get w_m2 => 'W/m2';
+	@override String get create_city_hint => 'Søg efter byoplysninger eller indtast manuelt';
+	@override String get validate_name => 'Indtast venligst navnet';
+	@override String get sunrise => 'Solopgang';
+	@override String get km => 'km';
+	@override String get district => 'Distrikt';
+	@override String get southwest => 'Sydvest';
+	@override String get degrees => 'Grader';
+	@override String get clear_cache_store => 'Ryd cache';
+	@override String get skip => 'Spring over';
+	@override String get h_pa => 'hPa';
+	@override String get appearance => 'Udseende';
+	@override String get time_start => 'Start tid';
+	@override String get ready => 'Klar';
+	@override String get kph => 'km/h';
+	@override String get deleted_cache_store_query => 'Er du sikker på, at du vil rydde cachen?';
+	@override String get widget_text => 'Widget tekst';
+	@override String get support => 'Support';
+	@override String get groups => 'Vores grupper';
+	@override String get system => 'System';
+	@override String get sunset => 'Solnedgang';
+	@override String get dewpoint => 'Dugpunktet';
+	@override String get shortwave_radiation => 'Kortbølgestråling';
+	@override String get language => 'Sprog';
+	@override String get hide_map => 'Skjul kort';
+	@override String get cancel => 'Annullere';
+	@override String get loading => 'Henter...';
+	@override String get timeformat => 'Tids format';
+	@override String get lat => 'Breddegrad';
+	@override String get data => 'Data';
+	@override String get visibility => 'Sigtbarhed';
+	@override String get deleted_card_weather => 'Slet en by';
+	@override String get celsius => 'Celsius';
+	@override String get no_location => 'Aktiver placeringer for at få vejrdata for den aktuelle placering.';
+	@override String get create => 'Opret';
+	@override String get edit => 'Rediger';
+	@override String get search => 'Søg...';
+	@override String get uv_extreme => 'Ekstrem';
+	@override String get light => 'Lys';
+	@override String get cloudcover => 'skydække';
+	@override String get uv_very_high => 'Meget højt';
+	@override String get snow => 'Sne';
+	@override String get done => 'Færdig';
+	@override String get theme => 'Tema';
+	@override String get name => 'Vejr';
+	@override String get time_range => 'Hyppighed (i timer)';
+	@override String get about_app => 'Om appen';
+	@override String get save => 'Gem';
+	@override String get evaporation => 'Fordampning';
+	@override String get freezing_rain => 'Frostregn';
+	@override String get uv_average => 'Moderat';
+	@override String get reset_color => 'Nulstil til standard';
+	@override String get metric => 'Metrisk';
+	@override String get overcast => 'Overskyet';
+	@override String get pressure => 'Tryk';
+	@override String get inch => 'tommer';
+	@override String get imperial => 'Imperialistisk';
+	@override String get location => 'Placering';
+	@override String get error_occurred => 'Der opstod en fejl';
+	@override String get validate_value => 'Indtast en værdi';
+	@override String get lon => 'Længdegrad';
+	@override String get wind => 'Vind';
+	@override String get normal => 'Normal';
+	@override String get dark => 'Mørk';
+	@override String get settings => 'Inds.';
+	@override String get south => 'Syd';
+	@override String get windgusts => 'Vindstød';
+	@override String get northwest => 'Nordvest';
+	@override String get open_meteo => 'Data fra Open-Meteo (CC-BY 4.0)';
+	@override String get rain => 'Regn';
+	@override String get mm_hg => 'mmHg';
+	@override String get validate180 => 'Værdien skal være mellem -180 og 180';
+	@override String get description => 'Vejr app med en opdateret vejrudsigt for hver time, dag og uge for ethvert sted.';
+	@override String get fahrenheit => 'Fahrenheit';
+	@override String get m_s => 'm/s';
+	@override String get material_color => 'Dynamiske farver';
+	@override String get confirm => 'Gem';
+	@override String get no_results => 'Ingen resultater';
+}
+
+/// The flat map containing all translations for locale <da-DK>.
+/// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
+extension on TranslationsDaDk {
+	dynamic _flatMapFunction(String path) {
+		return switch (path) {
+			'no_inter' => 'Ingen Internet',
+			'edit_city_hint' => 'Rediger byoplysninger',
+			'location_not_found' => 'Kunne ikke bestemme din placering',
+			'mi' => 'mi',
+			'next' => 'Næste',
+			'discard' => 'Kassér',
+			'east' => 'Øst',
+			'time_end' => 'Slut tid',
+			'search_method' => 'Brug søgning eller geolokation',
+			'hourly_variables' => 'Timevise vejrfaktorer',
+			'uv_index' => 'UV-index',
+			'clear_sky' => 'Skyfri himmel',
+			'k_24' => '24-timer',
+			'no_weather_card' => 'Tilføj en by',
+			'drizzle' => 'Støv regn',
+			'humidity' => 'Luftfugtighed',
+			'telegram' => 'Telegram',
+			'functions' => 'Funktioner',
+			'cities' => 'Byer',
+			'southeast' => 'Sydøst',
+			'validate_number' => 'Indtast et gyldigt nummer',
+			'city' => 'By',
+			'uv_high' => 'Høj',
+			'time' => 'Tid i byen',
+			'uv_low' => 'Lav',
+			'name3' => 'Kontakt os',
+			'apparent_temperature_min' => 'Minimum temperature',
+			'direction' => 'Retning',
+			'heavy_rains' => 'Regnskyl',
+			'apparent_temperature_max' => 'Maksimal temperatur',
+			'k_12' => '12-timer',
+			'discord' => 'Discord',
+			'discard_changes' => 'Er du sikker på, at du vil kassere dine ændringer?',
+			'notifications' => 'Notifikationer',
+			'mph' => 'mph',
+			'west' => 'Vest',
+			'validate90' => 'Værdien skal være mellem -90 og 90',
+			'name2' => 'Praktisk design',
+			'feels' => 'Føles som',
+			'precipitation_probability' => 'Sandsynlighed for nedbør',
+			'license' => 'Licenser',
+			'widget_background' => 'Widget baggrund',
+			'large_element' => 'Stort vejrdisplay',
+			'unsaved_changes' => 'Ugemte ændringer',
+			'drizzling_rain' => 'Frysende støvregn',
+			'cloudy' => 'Skyet',
+			'widget' => 'Widget',
+			'precipitation' => 'Nedbør',
+			'delete' => 'Slet',
+			'deleted_cache_store' => 'Rydder cache',
+			'map' => 'Kort',
+			'description3' => 'Hvis du støder på problemer, må du meget gerne kontakte os via e-mail eller i app anmeldelserne.',
+			'north' => 'Nord',
+			'measurements' => 'Foranstaltningssystemet',
+			'start' => 'Kom i gang',
+			'settings_full' => 'Indstillinger',
+			'high' => 'Høj',
+			'daily_variables' => 'Daglige vejrfaktorer',
+			'low' => 'Lav',
+			'on_inter' => 'Tænd for internettet for at få meteorologisk data.',
+			'thunderstorm' => 'Tordenvejr',
+			'version' => 'App version',
+			'project' => 'Projektet findes på',
+			'amoled_theme' => 'AMOLED-tema',
+			'deleted_card_weather_query' => 'Er du sikker på at du vil slette denne by?',
+			'northeast' => 'Nordøst',
+			'add_widget' => 'Tilføj widget',
+			'fog' => 'Tåge',
+			'description2' => 'Al navigation er designet til at interagere med appen så bekvemt og hurtigt som muligt.',
+			'mm' => 'mm',
+			'no_desc_data' => 'Ingen data',
+			'search_city' => 'Find din by',
+			'weather_more' => '12 dages vejrudsigt',
+			'round_degree' => 'Afrundede grader',
+			'w_m2' => 'W/m2',
+			'create_city_hint' => 'Søg efter byoplysninger eller indtast manuelt',
+			'validate_name' => 'Indtast venligst navnet',
+			'sunrise' => 'Solopgang',
+			'km' => 'km',
+			'district' => 'Distrikt',
+			'southwest' => 'Sydvest',
+			'degrees' => 'Grader',
+			'clear_cache_store' => 'Ryd cache',
+			'skip' => 'Spring over',
+			'h_pa' => 'hPa',
+			'appearance' => 'Udseende',
+			'time_start' => 'Start tid',
+			'ready' => 'Klar',
+			'kph' => 'km/h',
+			'deleted_cache_store_query' => 'Er du sikker på, at du vil rydde cachen?',
+			'widget_text' => 'Widget tekst',
+			'support' => 'Support',
+			'groups' => 'Vores grupper',
+			'system' => 'System',
+			'sunset' => 'Solnedgang',
+			'dewpoint' => 'Dugpunktet',
+			'shortwave_radiation' => 'Kortbølgestråling',
+			'language' => 'Sprog',
+			'hide_map' => 'Skjul kort',
+			'cancel' => 'Annullere',
+			'loading' => 'Henter...',
+			'timeformat' => 'Tids format',
+			'lat' => 'Breddegrad',
+			'data' => 'Data',
+			'visibility' => 'Sigtbarhed',
+			'deleted_card_weather' => 'Slet en by',
+			'celsius' => 'Celsius',
+			'no_location' => 'Aktiver placeringer for at få vejrdata for den aktuelle placering.',
+			'create' => 'Opret',
+			'edit' => 'Rediger',
+			'search' => 'Søg...',
+			'uv_extreme' => 'Ekstrem',
+			'light' => 'Lys',
+			'cloudcover' => 'skydække',
+			'uv_very_high' => 'Meget højt',
+			'snow' => 'Sne',
+			'done' => 'Færdig',
+			'theme' => 'Tema',
+			'name' => 'Vejr',
+			'time_range' => 'Hyppighed (i timer)',
+			'about_app' => 'Om appen',
+			'save' => 'Gem',
+			'evaporation' => 'Fordampning',
+			'freezing_rain' => 'Frostregn',
+			'uv_average' => 'Moderat',
+			'reset_color' => 'Nulstil til standard',
+			'metric' => 'Metrisk',
+			'overcast' => 'Overskyet',
+			'pressure' => 'Tryk',
+			'inch' => 'tommer',
+			'imperial' => 'Imperialistisk',
+			'location' => 'Placering',
+			'error_occurred' => 'Der opstod en fejl',
+			'validate_value' => 'Indtast en værdi',
+			'lon' => 'Længdegrad',
+			'wind' => 'Vind',
+			'normal' => 'Normal',
+			'dark' => 'Mørk',
+			'settings' => 'Inds.',
+			'south' => 'Syd',
+			'windgusts' => 'Vindstød',
+			'northwest' => 'Nordvest',
+			'open_meteo' => 'Data fra Open-Meteo (CC-BY 4.0)',
+			'rain' => 'Regn',
+			'mm_hg' => 'mmHg',
+			'validate180' => 'Værdien skal være mellem -180 og 180',
+			'description' => 'Vejr app med en opdateret vejrudsigt for hver time, dag og uge for ethvert sted.',
+			'fahrenheit' => 'Fahrenheit',
+			'm_s' => 'm/s',
+			'material_color' => 'Dynamiske farver',
+			'confirm' => 'Gem',
+			'no_results' => 'Ingen resultater',
+			_ => null,
+		};
+	}
+}

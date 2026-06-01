@@ -1,0 +1,359 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint, unused_import
+// dart format off
+
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
+
+// Path: <root>
+class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Translations> {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	TranslationsArSa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.arSa,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <ar-SA>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+
+	late final TranslationsArSa _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsArSa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsArSa(meta: meta ?? this.$meta);
+
+	// Translations
+	@override String get no_inter => 'لا يوجد إنترنت';
+	@override String get edit_city_hint => 'تحرير معلومات المدينة';
+	@override String get location_not_found => 'تعذر تحديد موقعك';
+	@override String get mi => 'ميل';
+	@override String get next => 'التالي';
+	@override String get discard => 'تجاهل';
+	@override String get east => 'شرق';
+	@override String get time_end => 'وقت النهاية';
+	@override String get search_method => 'استخدم البحث أو تحديد الموقع الجغرافي';
+	@override String get hourly_variables => 'متغيرات الطقس بالساعة';
+	@override String get uv_index => 'مؤشر الأشعة فوق البنفسجية';
+	@override String get clear_sky => 'سماء صافية';
+	@override String get k_24 => '24 ساعة';
+	@override String get no_weather_card => 'أضف مدينة';
+	@override String get drizzle => 'رذاذ';
+	@override String get humidity => 'الرطوبة';
+	@override String get telegram => 'تيليجرام';
+	@override String get functions => 'الوظائف';
+	@override String get cities => 'المدن';
+	@override String get southeast => 'جنوب شرق';
+	@override String get validate_number => 'يرجى إدخال رقم صحيح';
+	@override String get city => 'المدينة';
+	@override String get uv_high => 'مرتفع';
+	@override String get time => 'الوقت في المدينة';
+	@override String get uv_low => 'منخفض';
+	@override String get name3 => 'اتصل بنا';
+	@override String get apparent_temperature_min => 'أدنى درجة حرارة ظاهرية';
+	@override String get direction => 'الاتجاه';
+	@override String get heavy_rains => 'زخات مطر';
+	@override String get apparent_temperature_max => 'أعلى درجة حرارة ظاهرية';
+	@override String get k_12 => '12 ساعة';
+	@override String get discord => 'ديسكورد';
+	@override String get discard_changes => 'هل أنت متأكد من أنك تريد تجاهل تغييراتك؟';
+	@override String get notifications => 'الإشعارات';
+	@override String get mph => 'ميل/س';
+	@override String get west => 'غرب';
+	@override String get validate90 => 'يجب أن تكون القيمة بين -90 و 90';
+	@override String get name2 => 'تصميم مريح';
+	@override String get feels => 'يشعر وكأنه';
+	@override String get precipitation_probability => 'احتمالية الهطول';
+	@override String get license => 'التراخيص';
+	@override String get widget_background => 'خلفية الأداة';
+	@override String get large_element => 'عرض الطقس الكبير';
+	@override String get unsaved_changes => 'تغييرات غير محفوظة';
+	@override String get drizzling_rain => 'رذاذ متجمد';
+	@override String get cloudy => 'غائم';
+	@override String get widget => 'الأداة';
+	@override String get precipitation => 'الهطول';
+	@override String get delete => 'حذف';
+	@override String get deleted_cache_store => 'مسح التخزين المؤقت';
+	@override String get map => 'الخريطة';
+	@override String get description3 => 'إذا واجهت أي مشاكل، يرجى الاتصال بنا عبر البريد الإلكتروني أو في مراجعات التطبيق.';
+	@override String get north => 'شمال';
+	@override String get measurements => 'نظام القياس';
+	@override String get start => 'ابدأ';
+	@override String get settings_full => 'الإعدادات';
+	@override String get high => 'مرتفع';
+	@override String get daily_variables => 'متغيرات الطقس اليومية';
+	@override String get low => 'منخفض';
+	@override String get on_inter => 'قم بتشغيل الإنترنت للحصول على البيانات الجوية.';
+	@override String get thunderstorm => 'عاصفة رعدية';
+	@override String get version => 'إصدار التطبيق';
+	@override String get project => 'المشروع على';
+	@override String get amoled_theme => 'مظهر AMOLED';
+	@override String get deleted_card_weather_query => 'هل أنت متأكد من أنك تريد حذف المدينة؟';
+	@override String get northeast => 'شمال شرق';
+	@override String get add_widget => 'إضافة أداة';
+	@override String get fog => 'ضباب';
+	@override String get description2 => 'تم تصميم جميع عناصر التنقل للتفاعل مع التطبيق بأكبر قدر من الراحة والسرعة.';
+	@override String get mm => 'مم';
+	@override String get no_desc_data => 'لا توجد بيانات';
+	@override String get search_city => 'ابحث عن مدينتك';
+	@override String get weather_more => 'توقعات الطقس لـ 12 يوماً';
+	@override String get round_degree => 'درجات مدورة';
+	@override String get w_m2 => 'واط/م²';
+	@override String get create_city_hint => 'ابحث أو أدخل بيانات المدينة يدويًا';
+	@override String get validate_name => 'يرجى إدخال الاسم';
+	@override String get sunrise => 'شروق الشمس';
+	@override String get km => 'كم';
+	@override String get district => 'المنطقة';
+	@override String get southwest => 'جنوب غرب';
+	@override String get degrees => 'الدرجات';
+	@override String get clear_cache_store => 'مسح التخزين المؤقت';
+	@override String get skip => 'تخطي';
+	@override String get h_pa => 'هكتوباسكال';
+	@override String get appearance => 'المظهر';
+	@override String get time_start => 'وقت البداية';
+	@override String get ready => 'جاهز';
+	@override String get kph => 'كم/س';
+	@override String get deleted_cache_store_query => 'هل أنت متأكد من أنك تريد مسح التخزين المؤقت؟';
+	@override String get widget_text => 'نص الأداة';
+	@override String get support => 'تبرع';
+	@override String get groups => 'مجموعاتنا';
+	@override String get system => 'النظام';
+	@override String get sunset => 'غروب الشمس';
+	@override String get dewpoint => 'نقطة الندى';
+	@override String get shortwave_radiation => 'الإشعاع قصير الموجة';
+	@override String get language => 'اللغة';
+	@override String get hide_map => 'إخفاء الخريطة';
+	@override String get cancel => 'إلغاء';
+	@override String get loading => 'جاري التحميل...';
+	@override String get timeformat => 'تنسيق الوقت';
+	@override String get lat => 'خط العرض';
+	@override String get data => 'البيانات';
+	@override String get visibility => 'الرؤية';
+	@override String get deleted_card_weather => 'حذف مدينة';
+	@override String get celsius => 'مئوية';
+	@override String get no_location => 'قم بتمكين خدمة الموقع للحصول على بيانات الطقس للموقع الحالي.';
+	@override String get create => 'إنشاء';
+	@override String get edit => 'تحرير';
+	@override String get search => 'بحث...';
+	@override String get uv_extreme => 'شديد';
+	@override String get light => 'فاتح';
+	@override String get cloudcover => 'الغطاء السحابي';
+	@override String get uv_very_high => 'مرتفع جداً';
+	@override String get snow => 'ثلج';
+	@override String get done => 'تم';
+	@override String get theme => 'المظهر';
+	@override String get name => 'الطقس';
+	@override String get time_range => 'التكرار (بالساعات)';
+	@override String get about_app => 'حول التطبيق';
+	@override String get save => 'حفظ';
+	@override String get evaporation => 'التبخر';
+	@override String get freezing_rain => 'مطر متجمد';
+	@override String get uv_average => 'متوسط';
+	@override String get reset_color => 'إعادة تعيين إلى الافتراضي';
+	@override String get metric => 'متري';
+	@override String get overcast => 'غائم جداً';
+	@override String get pressure => 'الضغط';
+	@override String get inch => 'بوصة';
+	@override String get imperial => 'إمبراطوري';
+	@override String get location => 'الموقع';
+	@override String get error_occurred => 'حدث خطأ';
+	@override String get validate_value => 'يرجى إدخال قيمة';
+	@override String get lon => 'خط الطول';
+	@override String get wind => 'الرياح';
+	@override String get normal => 'عادي';
+	@override String get dark => 'داكن';
+	@override String get settings => 'الإعدادات';
+	@override String get south => 'جنوب';
+	@override String get windgusts => 'هبات الرياح';
+	@override String get northwest => 'شمال غرب';
+	@override String get open_meteo => 'البيانات من Open-Meteo (CC-BY 4.0)';
+	@override String get rain => 'المطر';
+	@override String get mm_hg => 'مم زئبق';
+	@override String get validate180 => 'يجب أن تكون القيمة بين -180 و 180';
+	@override String get description => 'تطبيق الطقس مع توقعات محدثة لكل ساعة ويوم وأسبوع لأي موقع.';
+	@override String get fahrenheit => 'فهرنهايت';
+	@override String get m_s => 'م/ث';
+	@override String get material_color => 'الألوان الديناميكية';
+	@override String get confirm => 'حفظ';
+	@override String get no_results => 'لا توجد نتائج';
+}
+
+/// The flat map containing all translations for locale <ar-SA>.
+/// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
+extension on TranslationsArSa {
+	dynamic _flatMapFunction(String path) {
+		return switch (path) {
+			'no_inter' => 'لا يوجد إنترنت',
+			'edit_city_hint' => 'تحرير معلومات المدينة',
+			'location_not_found' => 'تعذر تحديد موقعك',
+			'mi' => 'ميل',
+			'next' => 'التالي',
+			'discard' => 'تجاهل',
+			'east' => 'شرق',
+			'time_end' => 'وقت النهاية',
+			'search_method' => 'استخدم البحث أو تحديد الموقع الجغرافي',
+			'hourly_variables' => 'متغيرات الطقس بالساعة',
+			'uv_index' => 'مؤشر الأشعة فوق البنفسجية',
+			'clear_sky' => 'سماء صافية',
+			'k_24' => '24 ساعة',
+			'no_weather_card' => 'أضف مدينة',
+			'drizzle' => 'رذاذ',
+			'humidity' => 'الرطوبة',
+			'telegram' => 'تيليجرام',
+			'functions' => 'الوظائف',
+			'cities' => 'المدن',
+			'southeast' => 'جنوب شرق',
+			'validate_number' => 'يرجى إدخال رقم صحيح',
+			'city' => 'المدينة',
+			'uv_high' => 'مرتفع',
+			'time' => 'الوقت في المدينة',
+			'uv_low' => 'منخفض',
+			'name3' => 'اتصل بنا',
+			'apparent_temperature_min' => 'أدنى درجة حرارة ظاهرية',
+			'direction' => 'الاتجاه',
+			'heavy_rains' => 'زخات مطر',
+			'apparent_temperature_max' => 'أعلى درجة حرارة ظاهرية',
+			'k_12' => '12 ساعة',
+			'discord' => 'ديسكورد',
+			'discard_changes' => 'هل أنت متأكد من أنك تريد تجاهل تغييراتك؟',
+			'notifications' => 'الإشعارات',
+			'mph' => 'ميل/س',
+			'west' => 'غرب',
+			'validate90' => 'يجب أن تكون القيمة بين -90 و 90',
+			'name2' => 'تصميم مريح',
+			'feels' => 'يشعر وكأنه',
+			'precipitation_probability' => 'احتمالية الهطول',
+			'license' => 'التراخيص',
+			'widget_background' => 'خلفية الأداة',
+			'large_element' => 'عرض الطقس الكبير',
+			'unsaved_changes' => 'تغييرات غير محفوظة',
+			'drizzling_rain' => 'رذاذ متجمد',
+			'cloudy' => 'غائم',
+			'widget' => 'الأداة',
+			'precipitation' => 'الهطول',
+			'delete' => 'حذف',
+			'deleted_cache_store' => 'مسح التخزين المؤقت',
+			'map' => 'الخريطة',
+			'description3' => 'إذا واجهت أي مشاكل، يرجى الاتصال بنا عبر البريد الإلكتروني أو في مراجعات التطبيق.',
+			'north' => 'شمال',
+			'measurements' => 'نظام القياس',
+			'start' => 'ابدأ',
+			'settings_full' => 'الإعدادات',
+			'high' => 'مرتفع',
+			'daily_variables' => 'متغيرات الطقس اليومية',
+			'low' => 'منخفض',
+			'on_inter' => 'قم بتشغيل الإنترنت للحصول على البيانات الجوية.',
+			'thunderstorm' => 'عاصفة رعدية',
+			'version' => 'إصدار التطبيق',
+			'project' => 'المشروع على',
+			'amoled_theme' => 'مظهر AMOLED',
+			'deleted_card_weather_query' => 'هل أنت متأكد من أنك تريد حذف المدينة؟',
+			'northeast' => 'شمال شرق',
+			'add_widget' => 'إضافة أداة',
+			'fog' => 'ضباب',
+			'description2' => 'تم تصميم جميع عناصر التنقل للتفاعل مع التطبيق بأكبر قدر من الراحة والسرعة.',
+			'mm' => 'مم',
+			'no_desc_data' => 'لا توجد بيانات',
+			'search_city' => 'ابحث عن مدينتك',
+			'weather_more' => 'توقعات الطقس لـ 12 يوماً',
+			'round_degree' => 'درجات مدورة',
+			'w_m2' => 'واط/م²',
+			'create_city_hint' => 'ابحث أو أدخل بيانات المدينة يدويًا',
+			'validate_name' => 'يرجى إدخال الاسم',
+			'sunrise' => 'شروق الشمس',
+			'km' => 'كم',
+			'district' => 'المنطقة',
+			'southwest' => 'جنوب غرب',
+			'degrees' => 'الدرجات',
+			'clear_cache_store' => 'مسح التخزين المؤقت',
+			'skip' => 'تخطي',
+			'h_pa' => 'هكتوباسكال',
+			'appearance' => 'المظهر',
+			'time_start' => 'وقت البداية',
+			'ready' => 'جاهز',
+			'kph' => 'كم/س',
+			'deleted_cache_store_query' => 'هل أنت متأكد من أنك تريد مسح التخزين المؤقت؟',
+			'widget_text' => 'نص الأداة',
+			'support' => 'تبرع',
+			'groups' => 'مجموعاتنا',
+			'system' => 'النظام',
+			'sunset' => 'غروب الشمس',
+			'dewpoint' => 'نقطة الندى',
+			'shortwave_radiation' => 'الإشعاع قصير الموجة',
+			'language' => 'اللغة',
+			'hide_map' => 'إخفاء الخريطة',
+			'cancel' => 'إلغاء',
+			'loading' => 'جاري التحميل...',
+			'timeformat' => 'تنسيق الوقت',
+			'lat' => 'خط العرض',
+			'data' => 'البيانات',
+			'visibility' => 'الرؤية',
+			'deleted_card_weather' => 'حذف مدينة',
+			'celsius' => 'مئوية',
+			'no_location' => 'قم بتمكين خدمة الموقع للحصول على بيانات الطقس للموقع الحالي.',
+			'create' => 'إنشاء',
+			'edit' => 'تحرير',
+			'search' => 'بحث...',
+			'uv_extreme' => 'شديد',
+			'light' => 'فاتح',
+			'cloudcover' => 'الغطاء السحابي',
+			'uv_very_high' => 'مرتفع جداً',
+			'snow' => 'ثلج',
+			'done' => 'تم',
+			'theme' => 'المظهر',
+			'name' => 'الطقس',
+			'time_range' => 'التكرار (بالساعات)',
+			'about_app' => 'حول التطبيق',
+			'save' => 'حفظ',
+			'evaporation' => 'التبخر',
+			'freezing_rain' => 'مطر متجمد',
+			'uv_average' => 'متوسط',
+			'reset_color' => 'إعادة تعيين إلى الافتراضي',
+			'metric' => 'متري',
+			'overcast' => 'غائم جداً',
+			'pressure' => 'الضغط',
+			'inch' => 'بوصة',
+			'imperial' => 'إمبراطوري',
+			'location' => 'الموقع',
+			'error_occurred' => 'حدث خطأ',
+			'validate_value' => 'يرجى إدخال قيمة',
+			'lon' => 'خط الطول',
+			'wind' => 'الرياح',
+			'normal' => 'عادي',
+			'dark' => 'داكن',
+			'settings' => 'الإعدادات',
+			'south' => 'جنوب',
+			'windgusts' => 'هبات الرياح',
+			'northwest' => 'شمال غرب',
+			'open_meteo' => 'البيانات من Open-Meteo (CC-BY 4.0)',
+			'rain' => 'المطر',
+			'mm_hg' => 'مم زئبق',
+			'validate180' => 'يجب أن تكون القيمة بين -180 و 180',
+			'description' => 'تطبيق الطقس مع توقعات محدثة لكل ساعة ويوم وأسبوع لأي موقع.',
+			'fahrenheit' => 'فهرنهايت',
+			'm_s' => 'م/ث',
+			'material_color' => 'الألوان الديناميكية',
+			'confirm' => 'حفظ',
+			'no_results' => 'لا توجد نتائج',
+			_ => null,
+		};
+	}
+}

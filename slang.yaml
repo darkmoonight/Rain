@@ -1,0 +1,8 @@
+base_locale: en-US
+fallback_strategy: base_locale
+input_directory: assets/i18n
+output_directory: lib/i18n
+translate_var: t
+string_interpolation: dart
+flutter_integration: true
+key_case: snake

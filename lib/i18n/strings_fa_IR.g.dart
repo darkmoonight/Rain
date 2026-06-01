@@ -1,0 +1,359 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint, unused_import
+// dart format off
+
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
+
+// Path: <root>
+class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Translations> {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	TranslationsFaIr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.faIr,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <fa-IR>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+
+	late final TranslationsFaIr _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsFaIr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsFaIr(meta: meta ?? this.$meta);
+
+	// Translations
+	@override String get no_inter => 'عدم اتصال به اینترنت';
+	@override String get edit_city_hint => 'ویرایش اطلاعات شهر';
+	@override String get location_not_found => 'عدم امکان تعیین موقعیت شما';
+	@override String get mi => 'mi';
+	@override String get next => 'بعدی';
+	@override String get discard => 'نادیده گرفتن';
+	@override String get east => 'شرق';
+	@override String get time_end => 'زمان پایان';
+	@override String get search_method => 'از جستجو یا موقعیت جغرافیایی استفاده کنید';
+	@override String get hourly_variables => 'متغیرهای ساعتی هواشناسی';
+	@override String get uv_index => 'شاخص اشعه ماوراء بنفش';
+	@override String get clear_sky => 'آسمان صاف';
+	@override String get k_24 => '۲۴ ساعته';
+	@override String get no_weather_card => 'یک شهر اضافه کنید';
+	@override String get drizzle => 'ریز باران';
+	@override String get humidity => 'رطوبت';
+	@override String get telegram => 'تلگرام';
+	@override String get functions => 'کارکرد';
+	@override String get cities => 'شهر ها';
+	@override String get southeast => 'جنوب شرقی';
+	@override String get validate_number => 'لطفاً یک مقدار معتبر وارد کنید.';
+	@override String get city => 'شهر';
+	@override String get uv_high => 'زیاد';
+	@override String get time => 'زمان در این شهر';
+	@override String get uv_low => 'کم';
+	@override String get name3 => 'ارتباط باما';
+	@override String get apparent_temperature_min => 'حداقل دمای ظاهری';
+	@override String get direction => 'جهت';
+	@override String get heavy_rains => 'باران شدید';
+	@override String get apparent_temperature_max => 'حداکثر دمای ظاهری';
+	@override String get k_12 => '۱۲ ساعته';
+	@override String get discord => 'دیسکورد';
+	@override String get discard_changes => 'آیا مطمئن هستید که می‌خواهید تغییرات خود را نادیده بگیرید؟';
+	@override String get notifications => 'اعلانات';
+	@override String get mph => 'mph';
+	@override String get west => 'غرب';
+	@override String get validate90 => 'مقدار شما باید بین -۹۰ و ۹۰ باشد.';
+	@override String get name2 => 'طراحی راحت';
+	@override String get feels => 'دما';
+	@override String get precipitation_probability => 'احتمال بارش';
+	@override String get license => 'مجوز';
+	@override String get widget_background => 'پس زمینه ویجت';
+	@override String get large_element => 'نمایش هواشناسی بزرگ';
+	@override String get unsaved_changes => 'تغییرات ذخیره نشده';
+	@override String get drizzling_rain => 'تگرگ';
+	@override String get cloudy => 'ابری';
+	@override String get widget => 'ویجت';
+	@override String get precipitation => 'ته‌نشینی';
+	@override String get delete => 'حذف';
+	@override String get deleted_cache_store => 'در حال پاک کردن حافظه نهان';
+	@override String get map => 'نقشه';
+	@override String get description3 => 'اگر با مشکلی روبرو شدید، لطفاً با ما از طریق ایمیل و یا نظرات برنامه ارتباط بگیرید.';
+	@override String get north => 'شمال';
+	@override String get measurements => 'سیستم اندازه گیری';
+	@override String get start => 'شروع کنید';
+	@override String get settings_full => 'تنظیمات';
+	@override String get high => 'زیاد';
+	@override String get daily_variables => 'متغیرهای روزانه هواشناسی';
+	@override String get low => 'کم';
+	@override String get on_inter => 'برای دریافت تغییرات جوی اینترنت خود را روشن کنید.';
+	@override String get thunderstorm => 'طوفان';
+	@override String get version => 'نگارش برنامه';
+	@override String get project => 'Project on';
+	@override String get amoled_theme => 'پوسته امولد';
+	@override String get deleted_card_weather_query => 'آیا از حذف این شهر اطمینان دارید؟';
+	@override String get northeast => 'شمال شرقی';
+	@override String get add_widget => 'افزودن ویجت';
+	@override String get fog => 'مه';
+	@override String get description2 => 'برنامه به گونه ای طراحی شده است تا به راحتی بتوانید با آن ارتباط بگیرید.';
+	@override String get mm => 'mm';
+	@override String get no_desc_data => 'داده ای وجود ندارد';
+	@override String get search_city => 'شهر خود را پیدا کنید';
+	@override String get weather_more => 'پیش بینی آب و هوا 12 روزه';
+	@override String get round_degree => 'درجه گرد';
+	@override String get w_m2 => 'W/m2';
+	@override String get create_city_hint => 'جستجو یا وارد کردن دستی اطلاعات شهر';
+	@override String get validate_name => 'لطفاً نام را وارد کنید.';
+	@override String get sunrise => 'طلوع آفتاب';
+	@override String get km => 'km';
+	@override String get district => 'ناحیه';
+	@override String get southwest => 'جنوب غربی';
+	@override String get degrees => 'درجه';
+	@override String get clear_cache_store => 'پاک کردن حافظه نهان';
+	@override String get skip => 'رد شدن';
+	@override String get h_pa => 'hPa';
+	@override String get appearance => 'ظاهر';
+	@override String get time_start => 'زمان شروع';
+	@override String get ready => 'آماده';
+	@override String get kph => 'km/h';
+	@override String get deleted_cache_store_query => 'آیا مطمئن هستید که می‌خواهید حافظه نهان را پاک کنید؟';
+	@override String get widget_text => 'متن ویجت';
+	@override String get support => 'پشتیبانی';
+	@override String get groups => 'گروه‌های ما';
+	@override String get system => 'سیستم';
+	@override String get sunset => 'غروب آفتاب';
+	@override String get dewpoint => 'نقطه شبنم';
+	@override String get shortwave_radiation => 'تابش موج کوتاه';
+	@override String get language => 'زبان';
+	@override String get hide_map => 'پنهان کردن نقشه';
+	@override String get cancel => 'صرف نظر';
+	@override String get loading => 'درحال بارگذاری...';
+	@override String get timeformat => 'نوع زمان';
+	@override String get lat => 'عرض جغرافیایی';
+	@override String get data => 'داده ها';
+	@override String get visibility => 'میزان دید';
+	@override String get deleted_card_weather => 'حذف یک شهر';
+	@override String get celsius => 'سلسیوس';
+	@override String get no_location => 'برای دریافت اطلاعات آب و هوا برای مکان فعلی، سرویس مکان را فعال کنید.';
+	@override String get create => 'ایجاد';
+	@override String get edit => 'ویرایش';
+	@override String get search => 'جستجو....';
+	@override String get uv_extreme => 'شدید';
+	@override String get light => 'روشن';
+	@override String get cloudcover => 'پوشش ابری';
+	@override String get uv_very_high => 'خیلی زیاد';
+	@override String get snow => 'برف';
+	@override String get done => 'پایان';
+	@override String get theme => 'پوسته';
+	@override String get name => 'آب و هوا';
+	@override String get time_range => 'فرکانس (بر حسب ساعت)';
+	@override String get about_app => 'درباره برنامه';
+	@override String get save => 'ذخیره';
+	@override String get evaporation => 'تبخیر و تعرق';
+	@override String get freezing_rain => 'باران یخ‌زن';
+	@override String get uv_average => 'متوسط';
+	@override String get reset_color => 'بازنشانی به پیش‌فرض';
+	@override String get metric => 'متریک';
+	@override String get overcast => 'ابری';
+	@override String get pressure => 'فشار';
+	@override String get inch => 'inch';
+	@override String get imperial => 'بریتانیایی';
+	@override String get location => 'مکان';
+	@override String get error_occurred => 'خطایی رخ داد';
+	@override String get validate_value => 'لطفاً یک مقدار را وارد کنید.';
+	@override String get lon => 'طول جغرافیایی';
+	@override String get wind => 'باد';
+	@override String get normal => 'عادی';
+	@override String get dark => 'تیره';
+	@override String get settings => 'تنظیمات';
+	@override String get south => 'جنوب';
+	@override String get windgusts => 'وزش باد';
+	@override String get northwest => 'شمال غربی';
+	@override String get open_meteo => 'داده‌ها از Open-Meteo (CC-BY 4.0)';
+	@override String get rain => 'باران';
+	@override String get mm_hg => 'mmHg';
+	@override String get validate180 => 'مقدار شما باید بین -۱۸۰ و ۱۸۰ باشد.';
+	@override String get description => 'یک برنامه هواشناسی با پیش‌بینی به روز برای هر ساعت، روز و هفته و هر مکان';
+	@override String get fahrenheit => 'فارنهایت';
+	@override String get m_s => 'm/s';
+	@override String get material_color => 'رنگ های پویا';
+	@override String get confirm => 'ذخیره';
+	@override String get no_results => 'نتیجه‌ای یافت نشد';
+}
+
+/// The flat map containing all translations for locale <fa-IR>.
+/// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
+extension on TranslationsFaIr {
+	dynamic _flatMapFunction(String path) {
+		return switch (path) {
+			'no_inter' => 'عدم اتصال به اینترنت',
+			'edit_city_hint' => 'ویرایش اطلاعات شهر',
+			'location_not_found' => 'عدم امکان تعیین موقعیت شما',
+			'mi' => 'mi',
+			'next' => 'بعدی',
+			'discard' => 'نادیده گرفتن',
+			'east' => 'شرق',
+			'time_end' => 'زمان پایان',
+			'search_method' => 'از جستجو یا موقعیت جغرافیایی استفاده کنید',
+			'hourly_variables' => 'متغیرهای ساعتی هواشناسی',
+			'uv_index' => 'شاخص اشعه ماوراء بنفش',
+			'clear_sky' => 'آسمان صاف',
+			'k_24' => '۲۴ ساعته',
+			'no_weather_card' => 'یک شهر اضافه کنید',
+			'drizzle' => 'ریز باران',
+			'humidity' => 'رطوبت',
+			'telegram' => 'تلگرام',
+			'functions' => 'کارکرد',
+			'cities' => 'شهر ها',
+			'southeast' => 'جنوب شرقی',
+			'validate_number' => 'لطفاً یک مقدار معتبر وارد کنید.',
+			'city' => 'شهر',
+			'uv_high' => 'زیاد',
+			'time' => 'زمان در این شهر',
+			'uv_low' => 'کم',
+			'name3' => 'ارتباط باما',
+			'apparent_temperature_min' => 'حداقل دمای ظاهری',
+			'direction' => 'جهت',
+			'heavy_rains' => 'باران شدید',
+			'apparent_temperature_max' => 'حداکثر دمای ظاهری',
+			'k_12' => '۱۲ ساعته',
+			'discord' => 'دیسکورد',
+			'discard_changes' => 'آیا مطمئن هستید که می‌خواهید تغییرات خود را نادیده بگیرید؟',
+			'notifications' => 'اعلانات',
+			'mph' => 'mph',
+			'west' => 'غرب',
+			'validate90' => 'مقدار شما باید بین -۹۰ و ۹۰ باشد.',
+			'name2' => 'طراحی راحت',
+			'feels' => 'دما',
+			'precipitation_probability' => 'احتمال بارش',
+			'license' => 'مجوز',
+			'widget_background' => 'پس زمینه ویجت',
+			'large_element' => 'نمایش هواشناسی بزرگ',
+			'unsaved_changes' => 'تغییرات ذخیره نشده',
+			'drizzling_rain' => 'تگرگ',
+			'cloudy' => 'ابری',
+			'widget' => 'ویجت',
+			'precipitation' => 'ته‌نشینی',
+			'delete' => 'حذف',
+			'deleted_cache_store' => 'در حال پاک کردن حافظه نهان',
+			'map' => 'نقشه',
+			'description3' => 'اگر با مشکلی روبرو شدید، لطفاً با ما از طریق ایمیل و یا نظرات برنامه ارتباط بگیرید.',
+			'north' => 'شمال',
+			'measurements' => 'سیستم اندازه گیری',
+			'start' => 'شروع کنید',
+			'settings_full' => 'تنظیمات',
+			'high' => 'زیاد',
+			'daily_variables' => 'متغیرهای روزانه هواشناسی',
+			'low' => 'کم',
+			'on_inter' => 'برای دریافت تغییرات جوی اینترنت خود را روشن کنید.',
+			'thunderstorm' => 'طوفان',
+			'version' => 'نگارش برنامه',
+			'project' => 'Project on',
+			'amoled_theme' => 'پوسته امولد',
+			'deleted_card_weather_query' => 'آیا از حذف این شهر اطمینان دارید؟',
+			'northeast' => 'شمال شرقی',
+			'add_widget' => 'افزودن ویجت',
+			'fog' => 'مه',
+			'description2' => 'برنامه به گونه ای طراحی شده است تا به راحتی بتوانید با آن ارتباط بگیرید.',
+			'mm' => 'mm',
+			'no_desc_data' => 'داده ای وجود ندارد',
+			'search_city' => 'شهر خود را پیدا کنید',
+			'weather_more' => 'پیش بینی آب و هوا 12 روزه',
+			'round_degree' => 'درجه گرد',
+			'w_m2' => 'W/m2',
+			'create_city_hint' => 'جستجو یا وارد کردن دستی اطلاعات شهر',
+			'validate_name' => 'لطفاً نام را وارد کنید.',
+			'sunrise' => 'طلوع آفتاب',
+			'km' => 'km',
+			'district' => 'ناحیه',
+			'southwest' => 'جنوب غربی',
+			'degrees' => 'درجه',
+			'clear_cache_store' => 'پاک کردن حافظه نهان',
+			'skip' => 'رد شدن',
+			'h_pa' => 'hPa',
+			'appearance' => 'ظاهر',
+			'time_start' => 'زمان شروع',
+			'ready' => 'آماده',
+			'kph' => 'km/h',
+			'deleted_cache_store_query' => 'آیا مطمئن هستید که می‌خواهید حافظه نهان را پاک کنید؟',
+			'widget_text' => 'متن ویجت',
+			'support' => 'پشتیبانی',
+			'groups' => 'گروه‌های ما',
+			'system' => 'سیستم',
+			'sunset' => 'غروب آفتاب',
+			'dewpoint' => 'نقطه شبنم',
+			'shortwave_radiation' => 'تابش موج کوتاه',
+			'language' => 'زبان',
+			'hide_map' => 'پنهان کردن نقشه',
+			'cancel' => 'صرف نظر',
+			'loading' => 'درحال بارگذاری...',
+			'timeformat' => 'نوع زمان',
+			'lat' => 'عرض جغرافیایی',
+			'data' => 'داده ها',
+			'visibility' => 'میزان دید',
+			'deleted_card_weather' => 'حذف یک شهر',
+			'celsius' => 'سلسیوس',
+			'no_location' => 'برای دریافت اطلاعات آب و هوا برای مکان فعلی، سرویس مکان را فعال کنید.',
+			'create' => 'ایجاد',
+			'edit' => 'ویرایش',
+			'search' => 'جستجو....',
+			'uv_extreme' => 'شدید',
+			'light' => 'روشن',
+			'cloudcover' => 'پوشش ابری',
+			'uv_very_high' => 'خیلی زیاد',
+			'snow' => 'برف',
+			'done' => 'پایان',
+			'theme' => 'پوسته',
+			'name' => 'آب و هوا',
+			'time_range' => 'فرکانس (بر حسب ساعت)',
+			'about_app' => 'درباره برنامه',
+			'save' => 'ذخیره',
+			'evaporation' => 'تبخیر و تعرق',
+			'freezing_rain' => 'باران یخ‌زن',
+			'uv_average' => 'متوسط',
+			'reset_color' => 'بازنشانی به پیش‌فرض',
+			'metric' => 'متریک',
+			'overcast' => 'ابری',
+			'pressure' => 'فشار',
+			'inch' => 'inch',
+			'imperial' => 'بریتانیایی',
+			'location' => 'مکان',
+			'error_occurred' => 'خطایی رخ داد',
+			'validate_value' => 'لطفاً یک مقدار را وارد کنید.',
+			'lon' => 'طول جغرافیایی',
+			'wind' => 'باد',
+			'normal' => 'عادی',
+			'dark' => 'تیره',
+			'settings' => 'تنظیمات',
+			'south' => 'جنوب',
+			'windgusts' => 'وزش باد',
+			'northwest' => 'شمال غربی',
+			'open_meteo' => 'داده‌ها از Open-Meteo (CC-BY 4.0)',
+			'rain' => 'باران',
+			'mm_hg' => 'mmHg',
+			'validate180' => 'مقدار شما باید بین -۱۸۰ و ۱۸۰ باشد.',
+			'description' => 'یک برنامه هواشناسی با پیش‌بینی به روز برای هر ساعت، روز و هفته و هر مکان',
+			'fahrenheit' => 'فارنهایت',
+			'm_s' => 'm/s',
+			'material_color' => 'رنگ های پویا',
+			'confirm' => 'ذخیره',
+			'no_results' => 'نتیجه‌ای یافت نشد',
+			_ => null,
+		};
+	}
+}

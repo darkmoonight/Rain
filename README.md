@@ -49,9 +49,15 @@
 - Weather-condition-specific icons • Silent notifications (no sound/vibration)
 - Automatic cancellation when disabled • Background scheduling
 
-**📱 Home Screen Widget**
-- Pin to home screen (Android) • Shows current temp & weather icon
-- Background auto-update (min 15-min interval) • Customizable background color • Customizable text color
+**📱 Home Screen Widget (Android)**
+- Resizable widget with layouts that adapt to size:
+  - **1 row** — weather icon, temperature, and date/time in one line
+  - **2+ rows (wide)** — icon on the left, temperature with date/time underneath
+  - **Square** — icon, temperature, and date/time stacked vertically
+  - **Very narrow** — icon and temperature only
+- Respects app **12h/24h** time format and **rounded temperature** setting
+- Background refresh (Workmanager, ~15 min minimum) • Custom background and text colors (HSV picker)
+- Updates when the app loads cached weather and after fresh fetches
 
 **🎨 Beautiful Design**
 - Material You dynamic theming (wallpaper colors) • Pure AMOLED black theme
@@ -64,7 +70,8 @@
 
 **🧮 Customization Options**
 - Temperature: Celsius/Fahrenheit • Measurement system: Metric/Imperial
-- Wind speed: kph/m/s • Pressure: hPa/mmHg • Rounded temperatures toggle
+- Wind speed: kph/m/s • Pressure: hPa/mmHg • Rounded temperatures (app + widget)
+- 12h/24h time format (app, pickers, notifications, and widget)
 - Widget color customization with HSV color picker
 
 ---
@@ -89,8 +96,8 @@ Get the latest APK or builds for other platforms from the [Releases Section](htt
 ## 🛠️ Building from Source
 
 ### Prerequisites
-- Flutter SDK 3.41.7 or higher
-- Dart SDK 3.11.5 or higher
+- Flutter SDK **3.44** or higher (see `pubspec.yaml`)
+- Dart SDK **3.12** or higher
 - Android Studio / Xcode for platform-specific builds
 
 ### Steps
@@ -102,8 +109,9 @@ cd Rain
 # Install dependencies
 flutter pub get
 
-# Generate code (for Isar database, Freezed models, JSON serialization)
-dart run build_runner build
+# Generate code (Isar, Freezed, JSON, translations)
+dart run build_runner build --delete-conflicting-outputs
+dart run slang
 
 # Run the app
 flutter run
@@ -116,14 +124,21 @@ flutter build ios --release        # iOS
 
 ### Code Generation
 The project uses code generation for:
-- **Isar** - Database schemas
-- **Freezed** - Immutable data classes
-- **JSON Serializable** - JSON serialization
+- **Isar Community** — local database schemas
+- **Freezed** — immutable API models
+- **JSON Serializable** — JSON serialization
+- **Slang** — translations from `assets/i18n/*.i18n.json`
 
-After modifying files with `@freezed`, `@JsonSerializable`, or `@collection` annotations, run:
+After changing models or locale files:
 ```bash
 dart run build_runner build --delete-conflicting-outputs
+dart run slang
 ```
+
+### Tech Stack (highlights)
+- **Flutter** + **Riverpod 3** • **Go Router** • **Isar Community**
+- **home_widget** + **Workmanager** (Android widget) • **flutter_local_notifications**
+- **Open-Meteo** API • **flutter_map** + OSM tiles
 
 ---
 

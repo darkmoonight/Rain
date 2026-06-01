@@ -1,0 +1,359 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint, unused_import
+// dart format off
+
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
+
+// Path: <root>
+class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Translations> {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	TranslationsOrIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.orIn,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <or-IN>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+
+	late final TranslationsOrIn _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsOrIn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsOrIn(meta: meta ?? this.$meta);
+
+	// Translations
+	@override String get no_inter => 'ଇଣ୍ଟରନେଟ୍ ନାହିଁ';
+	@override String get edit_city_hint => 'ସହର ସୂଚନା ସମ୍ପାଦନ କରନ୍ତୁ';
+	@override String get location_not_found => 'ଆପଣଙ୍କର ଅବସ୍ଥାନ ନିର୍ଦ୍ଧାରଣ କରାଯାଇପାରିଲା ନାହିଁ';
+	@override String get mi => 'ମାଇଲ୍';
+	@override String get next => 'ପରବର୍ତ୍ତୀ';
+	@override String get discard => 'ବାତିଲ';
+	@override String get east => 'ପୂର୍ବ';
+	@override String get time_end => 'ଶେଷ ସମୟ';
+	@override String get search_method => 'ସନ୍ଧାନ କିମ୍ବା ଜିଓଲୋକେସନ୍ ବ୍ୟବହାର କରନ୍ତୁ';
+	@override String get hourly_variables => 'ଘଣ୍ଟାଭିତ୍ତିକ ପାଣିପାଗ ଭେରିଏବଲ୍';
+	@override String get uv_index => 'UV ସୂଚକାଙ୍କ';
+	@override String get clear_sky => 'ସ୍ୱଚ୍ଛ ଆକାଶ';
+	@override String get k_24 => '24-ଘଣ୍ଟା';
+	@override String get no_weather_card => 'ସହର ଯୋଗ କରନ୍ତୁ';
+	@override String get drizzle => 'ଝିରିମିରି ବର୍ଷା';
+	@override String get humidity => 'ଆର୍ଦ୍ରତା';
+	@override String get telegram => 'ଟେଲିଗ୍ରାମ';
+	@override String get functions => 'କାର୍ଯ୍ୟଗୁଡ଼ିକ';
+	@override String get cities => 'ସହରଗୁଡ଼ିକ';
+	@override String get southeast => 'ଦକ୍ଷିଣ-ପୂର୍ବ';
+	@override String get validate_number => 'ଦୟାକରି ଏକ ବୈଧ ସଂଖ୍ୟା ପ୍ରବେଶ କରନ୍ତୁ';
+	@override String get city => 'ସହର';
+	@override String get uv_high => 'ଅଧିକ';
+	@override String get time => 'ସହରରେ ସମୟ';
+	@override String get uv_low => 'କମ୍';
+	@override String get name3 => 'ଆମ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ';
+	@override String get apparent_temperature_min => 'ସର୍ବନିମ୍ନ ସ୍ପଷ୍ଟ ତାପମାତ୍ରା';
+	@override String get direction => 'ଦିଗ';
+	@override String get heavy_rains => 'ବର୍ଷାର ଝଡ଼';
+	@override String get apparent_temperature_max => 'ସର୍ବାଧିକ ସ୍ପଷ୍ଟ ତାପମାତ୍ରା';
+	@override String get k_12 => '12-ଘଣ୍ଟା';
+	@override String get discord => 'ଡିସ୍କର୍ଡ';
+	@override String get discard_changes => 'ଆପଣ ନିଶ୍ଚିତ ରୂପେ ଆପଣଙ୍କର ପରିବର୍ତ୍ତନଗୁଡିକୁ ବାତିଲ କରିବାକୁ ଚାହାଁନ୍ତି କି?';
+	@override String get notifications => 'ବିଜ୍ଞପ୍ତି';
+	@override String get mph => 'ମାଇଲ୍/ଘଣ୍ଟା';
+	@override String get west => 'ପଶ୍ଚିମ';
+	@override String get validate90 => 'ମୂଲ୍ୟ -90 ଏବଂ 90 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ';
+	@override String get name2 => 'ସୁବିଧାଜନକ ଡିଜାଇନ୍';
+	@override String get feels => 'ଅନୁଭବ ହୁଏ';
+	@override String get precipitation_probability => 'ବୃଷ୍ଟିପାତର ସମ୍ଭାବନା';
+	@override String get license => 'ଲାଇସେନ୍ସ';
+	@override String get widget_background => 'ୱିଜେଟ୍ ପୃଷ୍ଠଭୂମି';
+	@override String get large_element => 'ବଡ଼ ପାଣିପାଗ ପ୍ରଦର୍ଶନ';
+	@override String get unsaved_changes => 'ସଂରକ୍ଷିତ ନହୋଇଥିବା ପରିବର୍ତ୍ତନ';
+	@override String get drizzling_rain => 'ଜମାଟ ବାନ୍ଧୁଥିବା ଝିରିମିରି ବର୍ଷା';
+	@override String get cloudy => 'ମେଘାଚ୍ଛନ୍ନ';
+	@override String get widget => 'ୱିଜେଟ୍';
+	@override String get precipitation => 'ବୃଷ୍ଟିପାତ';
+	@override String get delete => 'ଡିଲିଟ୍ କରନ୍ତୁ';
+	@override String get deleted_cache_store => 'କ୍ୟାଶ୍ ସଫା କରୁଛି';
+	@override String get map => 'ମାନଚିତ୍ର';
+	@override String get description3 => 'ଯଦି ଆପଣ କୌଣସି ସମସ୍ୟାର ସମ୍ମୁଖୀନ ହୁଅନ୍ତି, ଦୟାକରି ଇମେଲ୍ ମାଧ୍ୟମରେ କିମ୍ବା ଆପ୍ଲିକେସନ୍ ସମୀକ୍ଷାରେ ଆମ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ।';
+	@override String get north => 'ଉତ୍ତର';
+	@override String get measurements => 'ମାପ ପ୍ରଣାଳୀ';
+	@override String get start => 'ଆରମ୍ଭ କରନ୍ତୁ';
+	@override String get settings_full => 'ସେଟିଂସ୍';
+	@override String get high => 'ଅଧିକ';
+	@override String get daily_variables => 'ଦୈନିକ ପାଣିପାଗ ଭେରିଏବଲ୍';
+	@override String get low => 'କମ୍';
+	@override String get on_inter => 'ପାଣିପାଗ ତଥ୍ୟ ପାଇବା ପାଇଁ ଇଣ୍ଟରନେଟ୍ ଅନ୍ କରନ୍ତୁ।';
+	@override String get thunderstorm => 'ବଜ୍ରବିଦ୍ୟୁତ୍';
+	@override String get version => 'ଆପ୍ଲିକେସନ୍ ସଂସ୍କରଣ';
+	@override String get project => 'ପ୍ରୋଜେକ୍ଟ ଚାଲୁଛି';
+	@override String get amoled_theme => 'AMOLED ଥିମ୍';
+	@override String get deleted_card_weather_query => 'ଆପଣ ପ୍ରକୃତରେ ସହରକୁ ଡିଲିଟ୍ କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?';
+	@override String get northeast => 'ଉତ୍ତର-ପୂର୍ବ';
+	@override String get add_widget => 'ୱିଜେଟ୍ ଯୋଗ କରନ୍ତୁ';
+	@override String get fog => 'କୁହୁଡ଼ି';
+	@override String get description2 => 'ସମସ୍ତ ନେଭିଗେସନ୍ ଆପ୍ଲିକେସନ୍ ସହିତ ଯଥାସମ୍ଭବ ସୁବିଧାଜନକ ଏବଂ ଶୀଘ୍ର ଯୋଗାଯୋଗ କରିବା ପାଇଁ ଡିଜାଇନ୍ କରାଯାଇଛି।';
+	@override String get mm => 'ମି.ମି.';
+	@override String get no_desc_data => 'କୌଣସି ତଥ୍ୟ ନାହିଁ';
+	@override String get search_city => 'ଆପଣଙ୍କ ସହର ଖୋଜନ୍ତୁ';
+	@override String get weather_more => '12-ଦିନର ପାଣିପାଗ ପୂର୍ବାନୁମାନ';
+	@override String get round_degree => 'ଗୋଲାକାର ଡିଗ୍ରୀ';
+	@override String get w_m2 => 'W/m²';
+	@override String get create_city_hint => 'ସହର ଡାଟା ଅନୁସନ୍ଧାନ କରନ୍ତୁ କିମ୍ବା ମାନୁଆଲ୍ ଭାବରେ ପ୍ରବେଶ କରନ୍ତୁ';
+	@override String get validate_name => 'ଦୟାକରି ନାମ ପ୍ରବେଶ କରନ୍ତୁ';
+	@override String get sunrise => 'ସୂର୍ଯ୍ୟୋଦୟ';
+	@override String get km => 'କି.ମି.';
+	@override String get district => 'ଜିଲ୍ଲା';
+	@override String get southwest => 'ଦକ୍ଷିଣ-ପଶ୍ଚିମ';
+	@override String get degrees => 'ଡିଗ୍ରୀ';
+	@override String get clear_cache_store => 'କ୍ୟାଶ୍ ସଫା କରନ୍ତୁ';
+	@override String get skip => 'ଛାଡନ୍ତୁ';
+	@override String get h_pa => 'ହେକ୍ଟୋପାସ୍କାଲ୍';
+	@override String get appearance => 'ରୂପ';
+	@override String get time_start => 'ଆରମ୍ଭ ସମୟ';
+	@override String get ready => 'ପ୍ରସ୍ତୁତ';
+	@override String get kph => 'କି.ମି./ଘଣ୍ଟା';
+	@override String get deleted_cache_store_query => 'ଆପଣ ପ୍ରକୃତରେ କ୍ୟାଶ୍ ସଫା କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?';
+	@override String get widget_text => 'ୱିଜେଟ୍ ଟେକ୍ସଟ୍';
+	@override String get support => 'ଦାନ କରନ୍ତୁ';
+	@override String get groups => 'ଆମର ଗୋଷ୍ଠୀ';
+	@override String get system => 'ସିଷ୍ଟମ୍';
+	@override String get sunset => 'ସୂର୍ଯ୍ୟାସ୍ତ';
+	@override String get dewpoint => 'ଶିଶିର ବିନ୍ଦୁ';
+	@override String get shortwave_radiation => 'ସର୍ଟୱେଭ୍ ବିକିରଣ';
+	@override String get language => 'ଭାଷା';
+	@override String get hide_map => 'ମାନଚିତ୍ର ଲୁଚାନ୍ତୁ';
+	@override String get cancel => 'ବାତିଲ୍ କରନ୍ତୁ';
+	@override String get loading => 'ଲୋଡ୍ ହେଉଛି...';
+	@override String get timeformat => 'ସମୟ ଫର୍ମାଟ୍';
+	@override String get lat => 'ଅକ୍ଷାଂଶ';
+	@override String get data => 'ତଥ୍ୟ';
+	@override String get visibility => 'ଦୃଶ୍ୟମାନତା';
+	@override String get deleted_card_weather => 'ସହର ଡିଲିଟ୍ କରନ୍ତୁ';
+	@override String get celsius => 'ସେଲସିୟସ୍';
+	@override String get no_location => 'ବର୍ତ୍ତମାନର ସ୍ଥାନ ପାଇଁ ପାଣିପାଗ ତଥ୍ୟ ପାଇବା ପାଇଁ ଲୋକେସନ୍ ସେବା ସକ୍ଷମ କରନ୍ତୁ।';
+	@override String get create => 'ସୃଷ୍ଟି କରନ୍ତୁ';
+	@override String get edit => 'ସମ୍ପାଦନା କରନ୍ତୁ';
+	@override String get search => 'ଖୋଜନ୍ତୁ...';
+	@override String get uv_extreme => 'ଅତ୍ୟଧିକ';
+	@override String get light => 'ଆଲୋକ';
+	@override String get cloudcover => 'ମେଘ ଆବରଣ';
+	@override String get uv_very_high => 'ବହୁତ ଅଧିକ';
+	@override String get snow => 'ବରଫ';
+	@override String get done => 'ସମ୍ପନ୍ନ';
+	@override String get theme => 'ଥିମ୍';
+	@override String get name => 'ପାଣିପାଗ';
+	@override String get time_range => 'ଆବୃତ୍ତି (ଘଣ୍ଟାରେ)';
+	@override String get about_app => 'ଆପ ବିଷୟରେ';
+	@override String get save => 'ସଂରକ୍ଷଣ';
+	@override String get evaporation => 'ବାଷ୍ପୀଭବନ';
+	@override String get freezing_rain => 'ଜମାଟ ବାନ୍ଧୁଥିବା ବର୍ଷା';
+	@override String get uv_average => 'ମଧ୍ୟମ';
+	@override String get reset_color => 'ଡିଫଲ୍ଟକୁ ରିସେଟ୍ କରନ୍ତୁ';
+	@override String get metric => 'ମେଟ୍ରିକ୍';
+	@override String get overcast => 'ମେଘରେ ଆବୃତ';
+	@override String get pressure => 'ଚାପ';
+	@override String get inch => 'ଇଞ୍ଚ';
+	@override String get imperial => 'ଇମ୍ପେରିଆଲ୍';
+	@override String get location => 'ସ୍ଥାନ';
+	@override String get error_occurred => 'ଏକ ତ୍ରୁଟି ଘଟିଛି';
+	@override String get validate_value => 'ଦୟାକରି ମୂଲ୍ୟ ପ୍ରବେଶ କରନ୍ତୁ';
+	@override String get lon => 'ରେଖାଂଶ';
+	@override String get wind => 'ପବନ';
+	@override String get normal => 'ସାଧାରଣ';
+	@override String get dark => 'ଅନ୍ଧାର';
+	@override String get settings => 'ସେଟିଂସ୍';
+	@override String get south => 'ଦକ୍ଷିଣ';
+	@override String get windgusts => 'ପବନର ଝଟକା';
+	@override String get northwest => 'ଉତ୍ତର-ପଶ୍ଚିମ';
+	@override String get open_meteo => 'Open-Meteo ରୁ ତଥ୍ୟ (CC-BY 4.0)';
+	@override String get rain => 'ବର୍ଷା';
+	@override String get mm_hg => 'ମି.ମି. ପାରଦ';
+	@override String get validate180 => 'ମୂଲ୍ୟ -180 ଏବଂ 180 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ';
+	@override String get description => 'ଯେକୌଣସି ସ୍ଥାନ ପାଇଁ ପ୍ରତି ଘଣ୍ଟା, ଦିନ ଏବଂ ସପ୍ତାହ ପାଇଁ ଅପଡେଟ୍ ହୋଇଥିବା ପୂର୍ବାନୁମାନ ସହିତ ପାଣିପାଗ ଆପ୍ଲିକେସନ୍।';
+	@override String get fahrenheit => 'ଫାରେନହାଇଟ୍';
+	@override String get m_s => 'ମି./ସେ.';
+	@override String get material_color => 'ଗତିଶୀଳ ରଙ୍ଗ';
+	@override String get confirm => 'ସଂରକ୍ଷଣ';
+	@override String get no_results => 'କୌଣସି ଫଳାଫଳ ନାହିଁ';
+}
+
+/// The flat map containing all translations for locale <or-IN>.
+/// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
+extension on TranslationsOrIn {
+	dynamic _flatMapFunction(String path) {
+		return switch (path) {
+			'no_inter' => 'ଇଣ୍ଟରନେଟ୍ ନାହିଁ',
+			'edit_city_hint' => 'ସହର ସୂଚନା ସମ୍ପାଦନ କରନ୍ତୁ',
+			'location_not_found' => 'ଆପଣଙ୍କର ଅବସ୍ଥାନ ନିର୍ଦ୍ଧାରଣ କରାଯାଇପାରିଲା ନାହିଁ',
+			'mi' => 'ମାଇଲ୍',
+			'next' => 'ପରବର୍ତ୍ତୀ',
+			'discard' => 'ବାତିଲ',
+			'east' => 'ପୂର୍ବ',
+			'time_end' => 'ଶେଷ ସମୟ',
+			'search_method' => 'ସନ୍ଧାନ କିମ୍ବା ଜିଓଲୋକେସନ୍ ବ୍ୟବହାର କରନ୍ତୁ',
+			'hourly_variables' => 'ଘଣ୍ଟାଭିତ୍ତିକ ପାଣିପାଗ ଭେରିଏବଲ୍',
+			'uv_index' => 'UV ସୂଚକାଙ୍କ',
+			'clear_sky' => 'ସ୍ୱଚ୍ଛ ଆକାଶ',
+			'k_24' => '24-ଘଣ୍ଟା',
+			'no_weather_card' => 'ସହର ଯୋଗ କରନ୍ତୁ',
+			'drizzle' => 'ଝିରିମିରି ବର୍ଷା',
+			'humidity' => 'ଆର୍ଦ୍ରତା',
+			'telegram' => 'ଟେଲିଗ୍ରାମ',
+			'functions' => 'କାର୍ଯ୍ୟଗୁଡ଼ିକ',
+			'cities' => 'ସହରଗୁଡ଼ିକ',
+			'southeast' => 'ଦକ୍ଷିଣ-ପୂର୍ବ',
+			'validate_number' => 'ଦୟାକରି ଏକ ବୈଧ ସଂଖ୍ୟା ପ୍ରବେଶ କରନ୍ତୁ',
+			'city' => 'ସହର',
+			'uv_high' => 'ଅଧିକ',
+			'time' => 'ସହରରେ ସମୟ',
+			'uv_low' => 'କମ୍',
+			'name3' => 'ଆମ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ',
+			'apparent_temperature_min' => 'ସର୍ବନିମ୍ନ ସ୍ପଷ୍ଟ ତାପମାତ୍ରା',
+			'direction' => 'ଦିଗ',
+			'heavy_rains' => 'ବର୍ଷାର ଝଡ଼',
+			'apparent_temperature_max' => 'ସର୍ବାଧିକ ସ୍ପଷ୍ଟ ତାପମାତ୍ରା',
+			'k_12' => '12-ଘଣ୍ଟା',
+			'discord' => 'ଡିସ୍କର୍ଡ',
+			'discard_changes' => 'ଆପଣ ନିଶ୍ଚିତ ରୂପେ ଆପଣଙ୍କର ପରିବର୍ତ୍ତନଗୁଡିକୁ ବାତିଲ କରିବାକୁ ଚାହାଁନ୍ତି କି?',
+			'notifications' => 'ବିଜ୍ଞପ୍ତି',
+			'mph' => 'ମାଇଲ୍/ଘଣ୍ଟା',
+			'west' => 'ପଶ୍ଚିମ',
+			'validate90' => 'ମୂଲ୍ୟ -90 ଏବଂ 90 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ',
+			'name2' => 'ସୁବିଧାଜନକ ଡିଜାଇନ୍',
+			'feels' => 'ଅନୁଭବ ହୁଏ',
+			'precipitation_probability' => 'ବୃଷ୍ଟିପାତର ସମ୍ଭାବନା',
+			'license' => 'ଲାଇସେନ୍ସ',
+			'widget_background' => 'ୱିଜେଟ୍ ପୃଷ୍ଠଭୂମି',
+			'large_element' => 'ବଡ଼ ପାଣିପାଗ ପ୍ରଦର୍ଶନ',
+			'unsaved_changes' => 'ସଂରକ୍ଷିତ ନହୋଇଥିବା ପରିବର୍ତ୍ତନ',
+			'drizzling_rain' => 'ଜମାଟ ବାନ୍ଧୁଥିବା ଝିରିମିରି ବର୍ଷା',
+			'cloudy' => 'ମେଘାଚ୍ଛନ୍ନ',
+			'widget' => 'ୱିଜେଟ୍',
+			'precipitation' => 'ବୃଷ୍ଟିପାତ',
+			'delete' => 'ଡିଲିଟ୍ କରନ୍ତୁ',
+			'deleted_cache_store' => 'କ୍ୟାଶ୍ ସଫା କରୁଛି',
+			'map' => 'ମାନଚିତ୍ର',
+			'description3' => 'ଯଦି ଆପଣ କୌଣସି ସମସ୍ୟାର ସମ୍ମୁଖୀନ ହୁଅନ୍ତି, ଦୟାକରି ଇମେଲ୍ ମାଧ୍ୟମରେ କିମ୍ବା ଆପ୍ଲିକେସନ୍ ସମୀକ୍ଷାରେ ଆମ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ।',
+			'north' => 'ଉତ୍ତର',
+			'measurements' => 'ମାପ ପ୍ରଣାଳୀ',
+			'start' => 'ଆରମ୍ଭ କରନ୍ତୁ',
+			'settings_full' => 'ସେଟିଂସ୍',
+			'high' => 'ଅଧିକ',
+			'daily_variables' => 'ଦୈନିକ ପାଣିପାଗ ଭେରିଏବଲ୍',
+			'low' => 'କମ୍',
+			'on_inter' => 'ପାଣିପାଗ ତଥ୍ୟ ପାଇବା ପାଇଁ ଇଣ୍ଟରନେଟ୍ ଅନ୍ କରନ୍ତୁ।',
+			'thunderstorm' => 'ବଜ୍ରବିଦ୍ୟୁତ୍',
+			'version' => 'ଆପ୍ଲିକେସନ୍ ସଂସ୍କରଣ',
+			'project' => 'ପ୍ରୋଜେକ୍ଟ ଚାଲୁଛି',
+			'amoled_theme' => 'AMOLED ଥିମ୍',
+			'deleted_card_weather_query' => 'ଆପଣ ପ୍ରକୃତରେ ସହରକୁ ଡିଲିଟ୍ କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?',
+			'northeast' => 'ଉତ୍ତର-ପୂର୍ବ',
+			'add_widget' => 'ୱିଜେଟ୍ ଯୋଗ କରନ୍ତୁ',
+			'fog' => 'କୁହୁଡ଼ି',
+			'description2' => 'ସମସ୍ତ ନେଭିଗେସନ୍ ଆପ୍ଲିକେସନ୍ ସହିତ ଯଥାସମ୍ଭବ ସୁବିଧାଜନକ ଏବଂ ଶୀଘ୍ର ଯୋଗାଯୋଗ କରିବା ପାଇଁ ଡିଜାଇନ୍ କରାଯାଇଛି।',
+			'mm' => 'ମି.ମି.',
+			'no_desc_data' => 'କୌଣସି ତଥ୍ୟ ନାହିଁ',
+			'search_city' => 'ଆପଣଙ୍କ ସହର ଖୋଜନ୍ତୁ',
+			'weather_more' => '12-ଦିନର ପାଣିପାଗ ପୂର୍ବାନୁମାନ',
+			'round_degree' => 'ଗୋଲାକାର ଡିଗ୍ରୀ',
+			'w_m2' => 'W/m²',
+			'create_city_hint' => 'ସହର ଡାଟା ଅନୁସନ୍ଧାନ କରନ୍ତୁ କିମ୍ବା ମାନୁଆଲ୍ ଭାବରେ ପ୍ରବେଶ କରନ୍ତୁ',
+			'validate_name' => 'ଦୟାକରି ନାମ ପ୍ରବେଶ କରନ୍ତୁ',
+			'sunrise' => 'ସୂର୍ଯ୍ୟୋଦୟ',
+			'km' => 'କି.ମି.',
+			'district' => 'ଜିଲ୍ଲା',
+			'southwest' => 'ଦକ୍ଷିଣ-ପଶ୍ଚିମ',
+			'degrees' => 'ଡିଗ୍ରୀ',
+			'clear_cache_store' => 'କ୍ୟାଶ୍ ସଫା କରନ୍ତୁ',
+			'skip' => 'ଛାଡନ୍ତୁ',
+			'h_pa' => 'ହେକ୍ଟୋପାସ୍କାଲ୍',
+			'appearance' => 'ରୂପ',
+			'time_start' => 'ଆରମ୍ଭ ସମୟ',
+			'ready' => 'ପ୍ରସ୍ତୁତ',
+			'kph' => 'କି.ମି./ଘଣ୍ଟା',
+			'deleted_cache_store_query' => 'ଆପଣ ପ୍ରକୃତରେ କ୍ୟାଶ୍ ସଫା କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?',
+			'widget_text' => 'ୱିଜେଟ୍ ଟେକ୍ସଟ୍',
+			'support' => 'ଦାନ କରନ୍ତୁ',
+			'groups' => 'ଆମର ଗୋଷ୍ଠୀ',
+			'system' => 'ସିଷ୍ଟମ୍',
+			'sunset' => 'ସୂର୍ଯ୍ୟାସ୍ତ',
+			'dewpoint' => 'ଶିଶିର ବିନ୍ଦୁ',
+			'shortwave_radiation' => 'ସର୍ଟୱେଭ୍ ବିକିରଣ',
+			'language' => 'ଭାଷା',
+			'hide_map' => 'ମାନଚିତ୍ର ଲୁଚାନ୍ତୁ',
+			'cancel' => 'ବାତିଲ୍ କରନ୍ତୁ',
+			'loading' => 'ଲୋଡ୍ ହେଉଛି...',
+			'timeformat' => 'ସମୟ ଫର୍ମାଟ୍',
+			'lat' => 'ଅକ୍ଷାଂଶ',
+			'data' => 'ତଥ୍ୟ',
+			'visibility' => 'ଦୃଶ୍ୟମାନତା',
+			'deleted_card_weather' => 'ସହର ଡିଲିଟ୍ କରନ୍ତୁ',
+			'celsius' => 'ସେଲସିୟସ୍',
+			'no_location' => 'ବର୍ତ୍ତମାନର ସ୍ଥାନ ପାଇଁ ପାଣିପାଗ ତଥ୍ୟ ପାଇବା ପାଇଁ ଲୋକେସନ୍ ସେବା ସକ୍ଷମ କରନ୍ତୁ।',
+			'create' => 'ସୃଷ୍ଟି କରନ୍ତୁ',
+			'edit' => 'ସମ୍ପାଦନା କରନ୍ତୁ',
+			'search' => 'ଖୋଜନ୍ତୁ...',
+			'uv_extreme' => 'ଅତ୍ୟଧିକ',
+			'light' => 'ଆଲୋକ',
+			'cloudcover' => 'ମେଘ ଆବରଣ',
+			'uv_very_high' => 'ବହୁତ ଅଧିକ',
+			'snow' => 'ବରଫ',
+			'done' => 'ସମ୍ପନ୍ନ',
+			'theme' => 'ଥିମ୍',
+			'name' => 'ପାଣିପାଗ',
+			'time_range' => 'ଆବୃତ୍ତି (ଘଣ୍ଟାରେ)',
+			'about_app' => 'ଆପ ବିଷୟରେ',
+			'save' => 'ସଂରକ୍ଷଣ',
+			'evaporation' => 'ବାଷ୍ପୀଭବନ',
+			'freezing_rain' => 'ଜମାଟ ବାନ୍ଧୁଥିବା ବର୍ଷା',
+			'uv_average' => 'ମଧ୍ୟମ',
+			'reset_color' => 'ଡିଫଲ୍ଟକୁ ରିସେଟ୍ କରନ୍ତୁ',
+			'metric' => 'ମେଟ୍ରିକ୍',
+			'overcast' => 'ମେଘରେ ଆବୃତ',
+			'pressure' => 'ଚାପ',
+			'inch' => 'ଇଞ୍ଚ',
+			'imperial' => 'ଇମ୍ପେରିଆଲ୍',
+			'location' => 'ସ୍ଥାନ',
+			'error_occurred' => 'ଏକ ତ୍ରୁଟି ଘଟିଛି',
+			'validate_value' => 'ଦୟାକରି ମୂଲ୍ୟ ପ୍ରବେଶ କରନ୍ତୁ',
+			'lon' => 'ରେଖାଂଶ',
+			'wind' => 'ପବନ',
+			'normal' => 'ସାଧାରଣ',
+			'dark' => 'ଅନ୍ଧାର',
+			'settings' => 'ସେଟିଂସ୍',
+			'south' => 'ଦକ୍ଷିଣ',
+			'windgusts' => 'ପବନର ଝଟକା',
+			'northwest' => 'ଉତ୍ତର-ପଶ୍ଚିମ',
+			'open_meteo' => 'Open-Meteo ରୁ ତଥ୍ୟ (CC-BY 4.0)',
+			'rain' => 'ବର୍ଷା',
+			'mm_hg' => 'ମି.ମି. ପାରଦ',
+			'validate180' => 'ମୂଲ୍ୟ -180 ଏବଂ 180 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ',
+			'description' => 'ଯେକୌଣସି ସ୍ଥାନ ପାଇଁ ପ୍ରତି ଘଣ୍ଟା, ଦିନ ଏବଂ ସପ୍ତାହ ପାଇଁ ଅପଡେଟ୍ ହୋଇଥିବା ପୂର୍ବାନୁମାନ ସହିତ ପାଣିପାଗ ଆପ୍ଲିକେସନ୍।',
+			'fahrenheit' => 'ଫାରେନହାଇଟ୍',
+			'm_s' => 'ମି./ସେ.',
+			'material_color' => 'ଗତିଶୀଳ ରଙ୍ଗ',
+			'confirm' => 'ସଂରକ୍ଷଣ',
+			'no_results' => 'କୌଣସି ଫଳାଫଳ ନାହିଁ',
+			_ => null,
+		};
+	}
+}

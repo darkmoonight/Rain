@@ -1,0 +1,359 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint, unused_import
+// dart format off
+
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
+
+// Path: <root>
+class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Translations> {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	TranslationsHiIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.hiIn,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <hi-IN>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+
+	late final TranslationsHiIn _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsHiIn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHiIn(meta: meta ?? this.$meta);
+
+	// Translations
+	@override String get no_inter => 'कोई इंटरनेट नहीं है';
+	@override String get edit_city_hint => 'शहर की जानकारी संपादित करें';
+	@override String get location_not_found => 'आपका स्थान निर्धारित नहीं किया जा सका';
+	@override String get mi => 'मील';
+	@override String get next => 'आगे';
+	@override String get discard => 'छोड़ें';
+	@override String get east => 'पूर्व';
+	@override String get time_end => 'समाप्ति समय';
+	@override String get search_method => 'खोज या स्थानगति का उपयोग करें';
+	@override String get hourly_variables => 'घंटेवार मौसम चर';
+	@override String get uv_index => 'यूवी-सूचकांक';
+	@override String get clear_sky => 'साफ आकाश';
+	@override String get k_24 => '२४ घंटा';
+	@override String get no_weather_card => 'शहर जोड़ें';
+	@override String get drizzle => 'बूंदाबांदी';
+	@override String get humidity => 'नमी';
+	@override String get telegram => 'टेलीग्राम';
+	@override String get functions => 'कार्य';
+	@override String get cities => 'शहर';
+	@override String get southeast => 'दक्षिण-पूर्व';
+	@override String get validate_number => 'कृपया एक मान्य संख्या दर्ज करें';
+	@override String get city => 'शहर';
+	@override String get uv_high => 'उच्च';
+	@override String get time => 'शहर में समय';
+	@override String get uv_low => 'कम';
+	@override String get name3 => 'हमे संपर्क करें';
+	@override String get apparent_temperature_min => 'न्यूनतम प्रतीत तापमान';
+	@override String get direction => 'दिशा';
+	@override String get heavy_rains => 'बारिश की बौछारें';
+	@override String get apparent_temperature_max => 'अधिकतम प्रतीत तापमान';
+	@override String get k_12 => '१२ घंटा';
+	@override String get discord => 'डिस्कॉर्ड';
+	@override String get discard_changes => 'क्या आप वाकई अपने बदलावों को छोड़ना चाहते हैं?';
+	@override String get notifications => 'सूचनाएं';
+	@override String get mph => 'मील/घंटा';
+	@override String get west => 'पश्चिम';
+	@override String get validate90 => 'मान -९० और ९० के बीच होना चाहिए';
+	@override String get name2 => 'आसान डिजाइन';
+	@override String get feels => 'अनुभव';
+	@override String get precipitation_probability => 'वर्षा संभावना';
+	@override String get license => 'लाइसेंस';
+	@override String get widget_background => 'विजेट कि पृष्ठभूमि';
+	@override String get large_element => 'बड़े मौसम का प्रदर्शन';
+	@override String get unsaved_changes => 'सहेजे नहीं गए बदलाव';
+	@override String get drizzling_rain => 'हिमवृष्टि';
+	@override String get cloudy => 'मेघपाली';
+	@override String get widget => 'विजेट';
+	@override String get precipitation => 'वर्षा';
+	@override String get delete => 'हटाएँ';
+	@override String get deleted_cache_store => 'कैश साफ़ हो रहा है';
+	@override String get map => 'मानचित्र';
+	@override String get description3 => 'यदि आपको कोई समस्या आती है, तो कृपया हमसे ईमेल या एप्लिकेशन समीक्षा के माध्यम से संपर्क करें।';
+	@override String get north => 'उत्तर';
+	@override String get measurements => 'मापन प्रणाली';
+	@override String get start => 'शुरू करें';
+	@override String get settings_full => 'सेटिंग्स';
+	@override String get high => 'उच्च';
+	@override String get daily_variables => 'दैनिक मौसम चर';
+	@override String get low => 'निम्न';
+	@override String get on_inter => 'मौसमी आंकड़े प्राप्त करने के लिए इंटरनेट को चालू करें।';
+	@override String get thunderstorm => 'बिजली चमक';
+	@override String get version => 'एप्लिकेशन संस्करण';
+	@override String get project => 'परियोजना पर';
+	@override String get amoled_theme => 'AMOLED थीम';
+	@override String get deleted_card_weather_query => 'क्या आप वाकई शहर को हटाना चाहते हैं?';
+	@override String get northeast => 'उत्तर-पूर्व';
+	@override String get add_widget => 'विजेट जोड़ें';
+	@override String get fog => 'कोहरा';
+	@override String get description2 => 'सभी नेविगेशन को इस प्रकार तैयार किया गया है ताकि आप एप्लिकेशन के साथ सर्वोत्तम रूप से और तेजी से संवाद कर सकें।';
+	@override String get mm => 'मिलीमीटर';
+	@override String get no_desc_data => 'कोई डेटा नहीं';
+	@override String get search_city => 'अपना शहर खोजें';
+	@override String get weather_more => '१२ - दिवसीय मौसम पूर';
+	@override String get round_degree => 'डिग्री गोली मारें';
+	@override String get w_m2 => 'W/m2';
+	@override String get create_city_hint => 'शहर डेटा खोजें या मैन्युअल रूप से दर्ज करें';
+	@override String get validate_name => 'कृपया नाम दर्ज करें';
+	@override String get sunrise => 'सूर्योदय';
+	@override String get km => 'किमी';
+	@override String get district => 'जिला';
+	@override String get southwest => 'दक्षिण-पश्चिम';
+	@override String get degrees => 'डिग्री';
+	@override String get clear_cache_store => 'कैश साफ़ करें';
+	@override String get skip => 'छोड़ें';
+	@override String get h_pa => 'हेक्टोपास्कल';
+	@override String get appearance => 'दिखावट';
+	@override String get time_start => 'प्रारंभ समय';
+	@override String get ready => 'तैयार';
+	@override String get kph => 'किमी/घंटा';
+	@override String get deleted_cache_store_query => 'क्या आप वाकई कैश साफ़ करना चाहते हैं?';
+	@override String get widget_text => 'विजेट पाठ';
+	@override String get support => 'समर्थन';
+	@override String get groups => 'हमारे समूह';
+	@override String get system => 'सिस्टम';
+	@override String get sunset => 'सूर्यास्त';
+	@override String get dewpoint => 'बर्फ़ के बिंदु';
+	@override String get shortwave_radiation => 'शॉर्टवेव विकिरण';
+	@override String get language => 'भाषा';
+	@override String get hide_map => 'मानचित्र छिपाएँ';
+	@override String get cancel => 'रद्द करें';
+	@override String get loading => 'लोड हो रहा है...';
+	@override String get timeformat => 'समय प्रारूप';
+	@override String get lat => 'अक्षांश';
+	@override String get data => 'डेटा';
+	@override String get visibility => 'दृश्यता';
+	@override String get deleted_card_weather => 'शहर हटाना';
+	@override String get celsius => 'सेल्सियस';
+	@override String get no_location => 'वर्तमान स्थान के लिए मौसम डेटा प्राप्त करने के';
+	@override String get create => 'बनाएँ';
+	@override String get edit => 'संपादित करें';
+	@override String get search => 'खोजें...';
+	@override String get uv_extreme => 'अत्यधिक';
+	@override String get light => 'लाइट';
+	@override String get cloudcover => 'बादलों का कवर';
+	@override String get uv_very_high => 'बहुत उच्च';
+	@override String get snow => 'बर्फबारी';
+	@override String get done => 'किया';
+	@override String get theme => 'थीम';
+	@override String get name => 'मौसम';
+	@override String get time_range => 'अवधि (घंटों में)';
+	@override String get about_app => 'ऐप के बारे में';
+	@override String get save => 'सहेजें';
+	@override String get evaporation => 'वाष्पीकरण';
+	@override String get freezing_rain => 'हिमस्खलन';
+	@override String get uv_average => 'माध्यम';
+	@override String get reset_color => 'डिफ़ॉल्ट पर रीसेट करें';
+	@override String get metric => 'मीट्रिक';
+	@override String get overcast => 'बादलबस्ती';
+	@override String get pressure => 'दबाव';
+	@override String get inch => 'इंच';
+	@override String get imperial => 'इम्पीरियल';
+	@override String get location => 'स्थान';
+	@override String get error_occurred => 'एक त्रुटि हुई';
+	@override String get validate_value => 'कृपया मान दर्ज करें';
+	@override String get lon => 'देशांतर';
+	@override String get wind => 'हवा';
+	@override String get normal => 'सामान्य';
+	@override String get dark => 'डार्क';
+	@override String get settings => 'सेटिंग्स';
+	@override String get south => 'दक्षिण';
+	@override String get windgusts => 'गुस्त';
+	@override String get northwest => 'उत्तर-पश्चिम';
+	@override String get open_meteo => 'Open-Meteo से डेटा (CC-BY 4.0)';
+	@override String get rain => 'बारिश';
+	@override String get mm_hg => 'मिमी एचजी';
+	@override String get validate180 => 'मान -१८० और १८० के बीच होना चाहिए';
+	@override String get description => 'प्रति घंटे, दिन और सप्ताह के लिए किसी भी स्थान के लिए आधुनिक पूर्वानुमान के साथ मौसम एप्लिकेशन।';
+	@override String get fahrenheit => 'फ़ारेनहाइट';
+	@override String get m_s => 'मी/से';
+	@override String get material_color => 'गतिशील रंग';
+	@override String get confirm => 'सहेजें';
+	@override String get no_results => 'कोई परिणाम नहीं';
+}
+
+/// The flat map containing all translations for locale <hi-IN>.
+/// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
+extension on TranslationsHiIn {
+	dynamic _flatMapFunction(String path) {
+		return switch (path) {
+			'no_inter' => 'कोई इंटरनेट नहीं है',
+			'edit_city_hint' => 'शहर की जानकारी संपादित करें',
+			'location_not_found' => 'आपका स्थान निर्धारित नहीं किया जा सका',
+			'mi' => 'मील',
+			'next' => 'आगे',
+			'discard' => 'छोड़ें',
+			'east' => 'पूर्व',
+			'time_end' => 'समाप्ति समय',
+			'search_method' => 'खोज या स्थानगति का उपयोग करें',
+			'hourly_variables' => 'घंटेवार मौसम चर',
+			'uv_index' => 'यूवी-सूचकांक',
+			'clear_sky' => 'साफ आकाश',
+			'k_24' => '२४ घंटा',
+			'no_weather_card' => 'शहर जोड़ें',
+			'drizzle' => 'बूंदाबांदी',
+			'humidity' => 'नमी',
+			'telegram' => 'टेलीग्राम',
+			'functions' => 'कार्य',
+			'cities' => 'शहर',
+			'southeast' => 'दक्षिण-पूर्व',
+			'validate_number' => 'कृपया एक मान्य संख्या दर्ज करें',
+			'city' => 'शहर',
+			'uv_high' => 'उच्च',
+			'time' => 'शहर में समय',
+			'uv_low' => 'कम',
+			'name3' => 'हमे संपर्क करें',
+			'apparent_temperature_min' => 'न्यूनतम प्रतीत तापमान',
+			'direction' => 'दिशा',
+			'heavy_rains' => 'बारिश की बौछारें',
+			'apparent_temperature_max' => 'अधिकतम प्रतीत तापमान',
+			'k_12' => '१२ घंटा',
+			'discord' => 'डिस्कॉर्ड',
+			'discard_changes' => 'क्या आप वाकई अपने बदलावों को छोड़ना चाहते हैं?',
+			'notifications' => 'सूचनाएं',
+			'mph' => 'मील/घंटा',
+			'west' => 'पश्चिम',
+			'validate90' => 'मान -९० और ९० के बीच होना चाहिए',
+			'name2' => 'आसान डिजाइन',
+			'feels' => 'अनुभव',
+			'precipitation_probability' => 'वर्षा संभावना',
+			'license' => 'लाइसेंस',
+			'widget_background' => 'विजेट कि पृष्ठभूमि',
+			'large_element' => 'बड़े मौसम का प्रदर्शन',
+			'unsaved_changes' => 'सहेजे नहीं गए बदलाव',
+			'drizzling_rain' => 'हिमवृष्टि',
+			'cloudy' => 'मेघपाली',
+			'widget' => 'विजेट',
+			'precipitation' => 'वर्षा',
+			'delete' => 'हटाएँ',
+			'deleted_cache_store' => 'कैश साफ़ हो रहा है',
+			'map' => 'मानचित्र',
+			'description3' => 'यदि आपको कोई समस्या आती है, तो कृपया हमसे ईमेल या एप्लिकेशन समीक्षा के माध्यम से संपर्क करें।',
+			'north' => 'उत्तर',
+			'measurements' => 'मापन प्रणाली',
+			'start' => 'शुरू करें',
+			'settings_full' => 'सेटिंग्स',
+			'high' => 'उच्च',
+			'daily_variables' => 'दैनिक मौसम चर',
+			'low' => 'निम्न',
+			'on_inter' => 'मौसमी आंकड़े प्राप्त करने के लिए इंटरनेट को चालू करें।',
+			'thunderstorm' => 'बिजली चमक',
+			'version' => 'एप्लिकेशन संस्करण',
+			'project' => 'परियोजना पर',
+			'amoled_theme' => 'AMOLED थीम',
+			'deleted_card_weather_query' => 'क्या आप वाकई शहर को हटाना चाहते हैं?',
+			'northeast' => 'उत्तर-पूर्व',
+			'add_widget' => 'विजेट जोड़ें',
+			'fog' => 'कोहरा',
+			'description2' => 'सभी नेविगेशन को इस प्रकार तैयार किया गया है ताकि आप एप्लिकेशन के साथ सर्वोत्तम रूप से और तेजी से संवाद कर सकें।',
+			'mm' => 'मिलीमीटर',
+			'no_desc_data' => 'कोई डेटा नहीं',
+			'search_city' => 'अपना शहर खोजें',
+			'weather_more' => '१२ - दिवसीय मौसम पूर',
+			'round_degree' => 'डिग्री गोली मारें',
+			'w_m2' => 'W/m2',
+			'create_city_hint' => 'शहर डेटा खोजें या मैन्युअल रूप से दर्ज करें',
+			'validate_name' => 'कृपया नाम दर्ज करें',
+			'sunrise' => 'सूर्योदय',
+			'km' => 'किमी',
+			'district' => 'जिला',
+			'southwest' => 'दक्षिण-पश्चिम',
+			'degrees' => 'डिग्री',
+			'clear_cache_store' => 'कैश साफ़ करें',
+			'skip' => 'छोड़ें',
+			'h_pa' => 'हेक्टोपास्कल',
+			'appearance' => 'दिखावट',
+			'time_start' => 'प्रारंभ समय',
+			'ready' => 'तैयार',
+			'kph' => 'किमी/घंटा',
+			'deleted_cache_store_query' => 'क्या आप वाकई कैश साफ़ करना चाहते हैं?',
+			'widget_text' => 'विजेट पाठ',
+			'support' => 'समर्थन',
+			'groups' => 'हमारे समूह',
+			'system' => 'सिस्टम',
+			'sunset' => 'सूर्यास्त',
+			'dewpoint' => 'बर्फ़ के बिंदु',
+			'shortwave_radiation' => 'शॉर्टवेव विकिरण',
+			'language' => 'भाषा',
+			'hide_map' => 'मानचित्र छिपाएँ',
+			'cancel' => 'रद्द करें',
+			'loading' => 'लोड हो रहा है...',
+			'timeformat' => 'समय प्रारूप',
+			'lat' => 'अक्षांश',
+			'data' => 'डेटा',
+			'visibility' => 'दृश्यता',
+			'deleted_card_weather' => 'शहर हटाना',
+			'celsius' => 'सेल्सियस',
+			'no_location' => 'वर्तमान स्थान के लिए मौसम डेटा प्राप्त करने के',
+			'create' => 'बनाएँ',
+			'edit' => 'संपादित करें',
+			'search' => 'खोजें...',
+			'uv_extreme' => 'अत्यधिक',
+			'light' => 'लाइट',
+			'cloudcover' => 'बादलों का कवर',
+			'uv_very_high' => 'बहुत उच्च',
+			'snow' => 'बर्फबारी',
+			'done' => 'किया',
+			'theme' => 'थीम',
+			'name' => 'मौसम',
+			'time_range' => 'अवधि (घंटों में)',
+			'about_app' => 'ऐप के बारे में',
+			'save' => 'सहेजें',
+			'evaporation' => 'वाष्पीकरण',
+			'freezing_rain' => 'हिमस्खलन',
+			'uv_average' => 'माध्यम',
+			'reset_color' => 'डिफ़ॉल्ट पर रीसेट करें',
+			'metric' => 'मीट्रिक',
+			'overcast' => 'बादलबस्ती',
+			'pressure' => 'दबाव',
+			'inch' => 'इंच',
+			'imperial' => 'इम्पीरियल',
+			'location' => 'स्थान',
+			'error_occurred' => 'एक त्रुटि हुई',
+			'validate_value' => 'कृपया मान दर्ज करें',
+			'lon' => 'देशांतर',
+			'wind' => 'हवा',
+			'normal' => 'सामान्य',
+			'dark' => 'डार्क',
+			'settings' => 'सेटिंग्स',
+			'south' => 'दक्षिण',
+			'windgusts' => 'गुस्त',
+			'northwest' => 'उत्तर-पश्चिम',
+			'open_meteo' => 'Open-Meteo से डेटा (CC-BY 4.0)',
+			'rain' => 'बारिश',
+			'mm_hg' => 'मिमी एचजी',
+			'validate180' => 'मान -१८० और १८० के बीच होना चाहिए',
+			'description' => 'प्रति घंटे, दिन और सप्ताह के लिए किसी भी स्थान के लिए आधुनिक पूर्वानुमान के साथ मौसम एप्लिकेशन।',
+			'fahrenheit' => 'फ़ारेनहाइट',
+			'm_s' => 'मी/से',
+			'material_color' => 'गतिशील रंग',
+			'confirm' => 'सहेजें',
+			'no_results' => 'कोई परिणाम नहीं',
+			_ => null,
+		};
+	}
+}

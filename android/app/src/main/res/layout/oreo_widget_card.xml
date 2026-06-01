@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_day_oreo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/widget_background"
+    android:padding="@dimen/widget_padding_card">
+
+    <LinearLayout
+        android:id="@+id/widget_day_weather"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/widget_day_icon"
+            android:layout_width="@dimen/widget_icon_card_size"
+            android:layout_height="@dimen/widget_icon_card_size"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cloud"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/widget_day_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/widget_text_primary"
+            android:textSize="@dimen/widget_degree_card_text_size"
+            android:textStyle="bold"
+            tools:text="24°" />
+
+        <TextClock
+            android:id="@+id/widget_day_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:format12Hour="@string/date_format_widget_oreo_big_24"
+            android:format24Hour="@string/date_format_widget_oreo_big_24"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textAlignment="center"
+            android:textColor="@color/widget_text_secondary"
+            android:textSize="@dimen/widget_time_card_text_size"
+            tools:text="Saturday, 1 Jun · 14:30" />
+
+    </LinearLayout>
+
+</RelativeLayout>
