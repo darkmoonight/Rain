@@ -91,7 +91,7 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
 
-// pubspec_overrides.yaml for FOSS: set before `flutter pub get` (see scripts/build_apk.sh).
+// FOSS: pubspec_overrides.yaml before `flutter pub get`, then patch_jni_reproducible_build.sh (see scripts/build_apk.sh).
 
 def isFlossBuild =
         gradle.startParameter.taskNames.any { it.toLowerCase().contains('floss') } ||

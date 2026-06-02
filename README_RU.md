@@ -166,13 +166,22 @@ chmod +x scripts/*.sh
 
 #### FOSS вручную (reproducible build / IzzyOnDroid)
 
-`pubspec_overrides.yaml` нужен **до** `flutter pub get`:
+`pubspec_overrides.yaml` нужен **до** `flutter pub get`. После `pub get` — патч пакета `jni`, чтобы `libdartjni.so` совпадал при [воспроизводимой сборке](https://izzyondroid.org/about/security/ReproducibleBuilds/):
 
 ```bash
 cp tool/pubspec_overrides.floss.yaml pubspec_overrides.yaml
-flutter pub get && dart run slang && dart run build_runner build
+flutter pub get
+./scripts/patch_jni_reproducible_build.sh
+dart run slang && dart run build_runner build
 flutter build apk --release --flavor floss --target-platform android-arm64
 ./scripts/rename_apk_outputs.sh floss
+```
+
+Тот же патч одной командой (идемпотентно; в CI задай `PUB_CACHE`):
+
+```bash
+sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|target_link_options(jni PRIVATE "-Wl,--build-id=none,-z,max-page-size=16384")|' \
+  "${PUB_CACHE:-$HOME/.pub-cache}"/hosted/*/jni-*/src/CMakeLists.txt
 ```
 
 `pubspec_overrides.yaml` в `.gitignore`; `pubspec.lock` в репозитории — для **gms**.

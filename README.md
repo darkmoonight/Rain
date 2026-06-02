@@ -166,13 +166,22 @@ Same steps manually:
 
 #### Manual FOSS build (e.g. reproducible / IzzyOnDroid)
 
-`pubspec_overrides.yaml` must exist **before** `flutter pub get`:
+`pubspec_overrides.yaml` must exist **before** `flutter pub get`. After `pub get`, patch the `jni` package so `libdartjni.so` is reproducible (same step as [IzzyOnDroid RB](https://izzyondroid.org/about/security/ReproducibleBuilds/)):
 
 ```bash
 cp tool/pubspec_overrides.floss.yaml pubspec_overrides.yaml
-flutter pub get && dart run slang && dart run build_runner build
+flutter pub get
+./scripts/patch_jni_reproducible_build.sh
+dart run slang && dart run build_runner build
 flutter build apk --release --flavor floss --target-platform android-arm64
 ./scripts/rename_apk_outputs.sh floss
+```
+
+Equivalent one-liner for the jni patch (idempotent; set `PUB_CACHE` in CI):
+
+```bash
+sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|target_link_options(jni PRIVATE "-Wl,--build-id=none,-z,max-page-size=16384")|' \
+  "${PUB_CACHE:-$HOME/.pub-cache}"/hosted/*/jni-*/src/CMakeLists.txt
 ```
 
 `pubspec_overrides.yaml` is gitignored; `pubspec.lock` in the repo targets **gms**.

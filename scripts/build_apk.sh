@@ -25,6 +25,7 @@ else
 fi
 
 flutter pub get
+"$scripts/patch_jni_reproducible_build.sh"
 dart run slang
 dart run build_runner build
 
