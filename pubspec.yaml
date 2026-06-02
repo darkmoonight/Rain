@@ -81,6 +81,7 @@ flutter_native_splash:
   image: "assets/icons/icon.png"
 
 flutter:
+  default-flavor: gms
   generate: false
   uses-material-design: true
 

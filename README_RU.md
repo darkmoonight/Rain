@@ -113,8 +113,9 @@ flutter pub get
 dart run slang
 dart run build_runner build
 
-# Запустить приложение
+# Запустить приложение (на Android по умолчанию gms; см. `default-flavor` в pubspec)
 flutter run
+# floss на эмуляторе/устройстве: flutter run --flavor floss
 
 # Собрать для релиза
 flutter build appbundle --release  # Android App Bundle (Play Store)

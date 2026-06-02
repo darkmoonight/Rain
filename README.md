@@ -113,8 +113,9 @@ flutter pub get
 dart run slang
 dart run build_runner build
 
-# Run the app
+# Run the app (Android uses flavor gms by default; see pubspec `default-flavor`)
 flutter run
+# floss on device/emulator: flutter run --flavor floss
 
 # Build for production
 flutter build appbundle --release  # Android App Bundle (Play Store)
