@@ -94,6 +94,7 @@ class NotificationService {
         android: AndroidNotificationDetails(
           _channelId,
           _channelName,
+          icon: 'ic_notification',
           priority: Priority.high,
           importance: Importance.max,
           playSound: false,
