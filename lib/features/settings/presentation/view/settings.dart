@@ -659,7 +659,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   void _onNotificationsChanged(bool value) async {
     if (value) {
-      final resultExact = await flutterLocalNotificationsPlugin
+      await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin
           >()
@@ -676,8 +676,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 >()
                 ?.requestNotificationsPermission();
       final notificationsGranted = result ?? false;
-      final exactAlarmsGranted = resultExact ?? true;
-      if (!notificationsGranted || !exactAlarmsGranted) return;
+      if (!notificationsGranted) return;
     }
 
     final settings = ref.read(settingsProvider);

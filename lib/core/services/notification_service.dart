@@ -82,12 +82,18 @@ class NotificationService {
     String icon,
   ) async {
     try {
+      final canScheduleExact =
+          await flutterLocalNotificationsPlugin
+              .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin
+              >()
+              ?.canScheduleExactNotifications() ??
+          true;
       final imagePath = await _assets.getLocalImagePath(icon);
       final details = NotificationDetails(
         android: AndroidNotificationDetails(
           _channelId,
           _channelName,
-          icon: 'ic_notification',
           priority: Priority.high,
           importance: Importance.max,
           playSound: false,
@@ -101,7 +107,9 @@ class NotificationService {
         body: body,
         scheduledDate: tz.TZDateTime.from(date, tz.local),
         notificationDetails: details,
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        androidScheduleMode: canScheduleExact
+            ? AndroidScheduleMode.exactAllowWhileIdle
+            : AndroidScheduleMode.inexactAllowWhileIdle,
         payload: imagePath,
       );
     } catch (e) {

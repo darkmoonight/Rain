@@ -82,7 +82,7 @@ class AppInitializer {
   static Future<void> _initializeNotifications() async {
     try {
       const initializationSettings = InitializationSettings(
-        android: AndroidInitializationSettings('ic_notification'),
+        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
         iOS: DarwinInitializationSettings(),
         linux: LinuxInitializationSettings(defaultActionName: 'Rain'),
       );
