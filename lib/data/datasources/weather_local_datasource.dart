@@ -36,6 +36,13 @@ class WeatherLocalDatasource {
 
   Future<bool> hasMainWeather() => _isar.mainWeatherCaches.where().isNotEmpty();
 
+  Future<bool> isMainWeatherExpired(DateTime expiry) async {
+    final weather = await getMainWeather();
+    if (weather == null) return false;
+    final timestamp = weather.timestamp;
+    return timestamp == null || timestamp.isBefore(expiry);
+  }
+
   Future<void> deleteMainWeather() async {
     await _isar.writeTxn(() => _isar.mainWeatherCaches.where().deleteAll());
   }

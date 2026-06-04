@@ -6,6 +6,7 @@ import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/core/services/connectivity_service.dart';
+import 'package:rain/core/services/network_cache_handler.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
@@ -71,7 +72,6 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   Future<void> deleteCache() async {
     if (!await ConnectivityService.hasInternet()) return;
-    await ref.read(weatherRepositoryProvider).deleteExpiredCache(_cacheExpiry);
     if (await ref.read(weatherLocalDatasourceProvider).isMainWeatherEmpty()) {
       await ref.read(notificationServiceProvider).cancelAll();
     }
@@ -86,38 +86,35 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       if (location.location != null) {
         final loc = location.location!;
         await getLocation(loc.lat!, loc.lon!, loc.district!, loc.city!);
+      } else {
+        await readCache();
       }
     }
   }
 
   Future<void> getCurrentLocation() async {
+    final locationService = ref.read(locationServiceProvider);
     if (!await ConnectivityService.hasInternet()) {
       showSnackBar('no_inter'.tr);
       await readCache();
       return;
     }
-    final locationService = ref.read(locationServiceProvider);
     if (!await locationService.isServiceEnabled()) {
       showSnackBar('no_location'.tr);
       await readCache();
       return;
     }
-    if (await ref.read(weatherRepositoryProvider).hasCachedWeather()) {
-      await readCache();
-      return;
-    }
-    try {
-      final place = await locationService.getCurrentPlace();
-      if (place == null) {
-        showSnackBar('location_not_found'.tr);
-        state = state.copyWith(isLoading: false);
-        return;
-      }
-      await _fetchAndSave(place.lat, place.lon, place.district, place.city);
-    } catch (_) {
-      showSnackBar('error_occurred'.tr, isError: true);
-      await readCache();
-    }
+    await _loadCachedOrFetchFromNetwork(
+      onNetworkFetch: () async {
+        final place = await locationService.getCurrentPlace();
+        if (place == null) {
+          showSnackBar('location_not_found'.tr);
+          await readCache();
+          return;
+        }
+        await _fetchAndSave(place.lat, place.lon, place.district, place.city);
+      },
+    );
   }
 
   Future<void> getLocation(
@@ -131,16 +128,30 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       await readCache();
       return;
     }
-    if (await ref.read(weatherRepositoryProvider).hasCachedWeather()) {
+    await _loadCachedOrFetchFromNetwork(
+      onNetworkFetch: () =>
+          _fetchAndSave(latitude, longitude, district, locality),
+    );
+  }
+
+  Future<bool> _needsNetworkRefresh() async {
+    final repo = ref.read(weatherRepositoryProvider);
+    if (!await repo.hasCachedWeather()) return true;
+    return repo.isCacheExpired(_cacheExpiry);
+  }
+
+  Future<void> _loadCachedOrFetchFromNetwork({
+    required Future<void> Function() onNetworkFetch,
+  }) async {
+    if (!await _needsNetworkRefresh()) {
       await readCache();
       return;
     }
-    try {
-      await _fetchAndSave(latitude, longitude, district, locality);
-    } catch (_) {
-      showSnackBar('error_occurred'.tr, isError: true);
-      await readCache();
-    }
+    await NetworkCacheHandler.fetchOrKeepCache(
+      onNetworkFetch: onNetworkFetch,
+      onUseCache: readCache,
+      onError: () => showSnackBar('error_occurred'.tr, isError: true),
+    );
   }
 
   Future<void> _fetchAndSave(
@@ -255,8 +266,44 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
   }
 
   Future<void> refresh() async {
-    await deleteAll(false);
-    await setLocation();
+    await NetworkCacheHandler.fetchOrKeepCache(
+      onOffline: () => showSnackBar('no_inter'.tr),
+      onError: () => showSnackBar('error_occurred'.tr, isError: true),
+      onNetworkFetch: _refreshFromNetwork,
+      onUseCache: readCache,
+    );
+  }
+
+  Future<void> _refreshFromNetwork() async {
+    final settings = ref.read(settingsProvider);
+    if (settings.location) {
+      final locationService = ref.read(locationServiceProvider);
+      if (!await locationService.isServiceEnabled()) {
+        showSnackBar('no_location'.tr);
+        await readCache();
+        return;
+      }
+      final place = await locationService.getCurrentPlace();
+      if (place == null) {
+        showSnackBar('location_not_found'.tr);
+        await readCache();
+        return;
+      }
+      await _fetchAndSave(place.lat, place.lon, place.district, place.city);
+      return;
+    }
+    final cached = await ref.read(weatherRepositoryProvider).readCache();
+    final loc = cached.location;
+    if (loc?.lat != null && loc?.lon != null) {
+      await _fetchAndSave(
+        loc!.lat!,
+        loc.lon!,
+        loc.district ?? '',
+        loc.city ?? '',
+      );
+      return;
+    }
+    await readCache();
   }
 
   Future<void> _scheduleNotifications(

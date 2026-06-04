@@ -25,6 +25,7 @@ import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
+import 'package:rain/core/utils/responsive_utils.dart';
 
 class MapPage extends ConsumerStatefulWidget {
   const MapPage({super.key});
@@ -225,87 +226,102 @@ class _MapPageState extends ConsumerState<MapPage>
         )
       : const SizedBox.shrink();
 
-  Widget _buildSearchField() => RawAutocomplete<CitySearchResult>(
-    focusNode: _focusNode,
-    textEditingController: _controllerSearch,
-    fieldViewBuilder:
-        (
-          BuildContext context,
-          TextEditingController fieldTextEditingController,
-          FocusNode fieldFocusNode,
-          VoidCallback onFieldSubmitted,
-        ) => MyTextForm(
-          labelText: 'search'.tr,
-          type: TextInputType.text,
-          icon: const Icon(IconsaxPlusLinear.global_search),
-          variant: TextFieldVariant.card,
-          controller: _controllerSearch,
-          margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-          focusNode: _focusNode,
-          onChanged: (value) {},
-          iconButton: _controllerSearch.text.isNotEmpty
-              ? IconButton(
-                  onPressed: () => _controllerSearch.clear(),
-                  icon: const Icon(
-                    IconsaxPlusLinear.close_circle,
-                    color: Colors.grey,
-                    size: 20,
-                  ),
-                )
-              : null,
-        ),
-    optionsBuilder: (TextEditingValue textEditingValue) {
-      if (textEditingValue.text.isEmpty) {
-        return const Iterable<CitySearchResult>.empty();
-      }
-      final locale = ref.read(localeProvider);
-      return ref
-          .read(weatherRemoteDatasourceProvider)
-          .searchCities(textEditingValue.text, locale.languageCode);
-    },
-    onSelected: (CitySearchResult selection) {
-      _animatedMapController.mapController.move(
-        LatLng(selection.latitude!, selection.longitude!),
-        14,
-      );
-      _controllerSearch.clear();
-      _focusNode.unfocus();
-    },
-    displayStringForOption: (CitySearchResult option) =>
-        '${option.name}, ${option.admin1}',
-    optionsViewBuilder:
-        (
-          BuildContext context,
-          AutocompleteOnSelected<CitySearchResult> onSelected,
-          Iterable<CitySearchResult> options,
-        ) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Material(
-              borderRadius: BorderRadius.circular(20),
-              elevation: 4,
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: options.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final CitySearchResult option = options.elementAt(index);
-                  return InkWell(
-                    onTap: () => onSelected(option),
-                    child: ListTile(
-                      title: Text(
-                        '${option.name}, ${option.admin1}',
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
+  Widget _buildSearchField() {
+    final searchTextStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+      fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
+    );
+
+    return RawAutocomplete<CitySearchResult>(
+      focusNode: _focusNode,
+      textEditingController: _controllerSearch,
+      fieldViewBuilder:
+          (
+            BuildContext context,
+            TextEditingController fieldTextEditingController,
+            FocusNode fieldFocusNode,
+            VoidCallback onFieldSubmitted,
+          ) => MyTextForm(
+            labelText: 'search'.tr,
+            type: TextInputType.text,
+            icon: const Icon(IconsaxPlusLinear.global_search, size: 20),
+            variant: TextFieldVariant.card,
+            controller: _controllerSearch,
+            margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+            focusNode: _focusNode,
+            style: searchTextStyle,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 10,
+            ),
+            onChanged: (value) {},
+            iconButton: _controllerSearch.text.isNotEmpty
+                ? IconButton(
+                    onPressed: () => _controllerSearch.clear(),
+                    icon: const Icon(
+                      IconsaxPlusLinear.close_circle,
+                      color: Colors.grey,
+                      size: 20,
                     ),
-                  );
-                },
+                  )
+                : null,
+          ),
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text.isEmpty) {
+          return const Iterable<CitySearchResult>.empty();
+        }
+        final locale = ref.read(localeProvider);
+        return ref
+            .read(weatherRemoteDatasourceProvider)
+            .searchCities(textEditingValue.text, locale.languageCode);
+      },
+      onSelected: (CitySearchResult selection) {
+        _animatedMapController.mapController.move(
+          LatLng(selection.latitude!, selection.longitude!),
+          14,
+        );
+        _controllerSearch.clear();
+        _focusNode.unfocus();
+      },
+      displayStringForOption: (CitySearchResult option) =>
+          '${option.name}, ${option.admin1}',
+      optionsViewBuilder:
+          (
+            BuildContext context,
+            AutocompleteOnSelected<CitySearchResult> onSelected,
+            Iterable<CitySearchResult> options,
+          ) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Material(
+                borderRadius: BorderRadius.circular(20),
+                elevation: 4,
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: options.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final CitySearchResult option = options.elementAt(index);
+                    return InkWell(
+                      onTap: () => onSelected(option),
+                      child: ListTile(
+                        dense: true,
+                        visualDensity: VisualDensity.compact,
+                        title: Text(
+                          '${option.name}, ${option.admin1}',
+                          style: searchTextStyle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ),
-        ),
-  );
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -316,6 +332,15 @@ class _MapPageState extends ConsumerState<MapPage>
     final mainWeather = weatherState.mainWeather;
     final hourOfDay = weatherState.hourOfDay;
     final dayOfNow = weatherState.dayOfNow;
+
+    if (weatherState.isLoading ||
+        mainLocation.lat == null ||
+        mainLocation.lon == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    final lat = mainLocation.lat!;
+    final lon = mainLocation.lon!;
 
     return Scaffold(
       body: FutureBuilder<CacheStore>(
@@ -337,7 +362,7 @@ class _MapPageState extends ConsumerState<MapPage>
                 mapController: _animatedMapController.mapController,
                 options: MapOptions(
                   backgroundColor: Theme.of(context).colorScheme.surface,
-                  initialCenter: LatLng(mainLocation.lat!, mainLocation.lon!),
+                  initialCenter: LatLng(lat, lon),
                   initialZoom: 8,
                   interactionOptions: const InteractionOptions(
                     flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
@@ -428,7 +453,7 @@ class _MapPageState extends ConsumerState<MapPage>
                         heroTag: null,
                         child: const Icon(IconsaxPlusLinear.home_2),
                         onPressed: () => _resetMapOrientation(
-                          center: LatLng(mainLocation.lat!, mainLocation.lon!),
+                          center: LatLng(lat, lon),
                           zoom: 8,
                         ),
                       ),

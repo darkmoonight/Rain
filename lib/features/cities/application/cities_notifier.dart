@@ -45,7 +45,11 @@ class CitiesNotifier extends Notifier<CitiesState> {
     final toUpdate = all
         ? await repo.getAllSorted()
         : await repo.getExpiredSorted(_cacheExpiry);
-    if (!await ConnectivityService.hasInternet() || toUpdate.isEmpty) return;
+    if (!await ConnectivityService.hasInternet()) {
+      await _load();
+      return;
+    }
+    if (toUpdate.isEmpty) return;
     var hadFailure = false;
     for (final oldCard in toUpdate) {
       try {

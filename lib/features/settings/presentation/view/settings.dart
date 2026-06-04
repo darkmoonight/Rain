@@ -529,8 +529,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       onSelected: (value) async {
         settings.degrees = value;
         await ref.read(settingsRepositoryProvider).save(settings);
-        await ref.read(mainWeatherNotifierProvider.notifier).deleteAll(false);
-        await ref.read(mainWeatherNotifierProvider.notifier).setLocation();
+        await ref.read(mainWeatherNotifierProvider.notifier).refresh();
         await ref.read(citiesNotifierProvider.notifier).refresh(all: true);
         if (!mounted) return;
         setState(() {});
@@ -549,8 +548,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       onSelected: (value) async {
         settings.measurements = value;
         await ref.read(settingsRepositoryProvider).save(settings);
-        await ref.read(mainWeatherNotifierProvider.notifier).deleteAll(false);
-        await ref.read(mainWeatherNotifierProvider.notifier).setLocation();
+        await ref.read(mainWeatherNotifierProvider.notifier).refresh();
         await ref.read(citiesNotifierProvider.notifier).refresh(all: true);
         if (!mounted) return;
         setState(() {});

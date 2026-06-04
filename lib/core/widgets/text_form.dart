@@ -24,6 +24,8 @@ class MyTextForm extends StatelessWidget {
     this.helperText,
     this.hintText,
     this.variant = TextFieldVariant.outlined,
+    this.style,
+    this.contentPadding,
   });
 
   final String labelText;
@@ -44,6 +46,8 @@ class MyTextForm extends StatelessWidget {
   final String? helperText;
   final String? hintText;
   final TextFieldVariant variant;
+  final TextStyle? style;
+  final EdgeInsetsGeometry? contentPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +83,12 @@ class MyTextForm extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       controller: controller,
       keyboardType: type,
-      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-        fontSize: ResponsiveUtils.getResponsiveFontSize(context, 15),
-        color: colorScheme.onSurface,
-      ),
+      style:
+          style ??
+          Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontSize: ResponsiveUtils.getResponsiveFontSize(context, 15),
+            color: colorScheme.onSurface,
+          ),
       decoration: _buildInputDecoration(context, colorScheme, isMobile),
       validator: validator,
       maxLines: maxLine,
@@ -128,6 +134,7 @@ class MyTextForm extends StatelessWidget {
           fontSize: ResponsiveUtils.getResponsiveFontSize(context, 11),
           color: colorScheme.error,
         ),
+        contentPadding: contentPadding,
       );
     }
 
@@ -176,10 +183,12 @@ class MyTextForm extends StatelessWidget {
           fontSize: ResponsiveUtils.getResponsiveFontSize(context, 11),
           color: colorScheme.error,
         ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: isMobile ? 12 : 14,
-          vertical: isMobile ? 12 : 14,
-        ),
+        contentPadding:
+            contentPadding ??
+            EdgeInsets.symmetric(
+              horizontal: isMobile ? 12 : 14,
+              vertical: isMobile ? 12 : 14,
+            ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
@@ -251,10 +260,12 @@ class MyTextForm extends StatelessWidget {
         fontSize: ResponsiveUtils.getResponsiveFontSize(context, 11),
         color: colorScheme.error,
       ),
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 12 : 14,
-        vertical: isMobile ? 12 : 14,
-      ),
+      contentPadding:
+          contentPadding ??
+          EdgeInsets.symmetric(
+            horizontal: isMobile ? 12 : 14,
+            vertical: isMobile ? 12 : 14,
+          ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: colorScheme.outline, width: 1),

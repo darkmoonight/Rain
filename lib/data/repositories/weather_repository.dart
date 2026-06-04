@@ -26,6 +26,9 @@ class WeatherRepository {
 
   Future<bool> hasCachedWeather() => _local.hasMainWeather();
 
+  Future<bool> isCacheExpired(DateTime expiry) =>
+      _local.isMainWeatherExpired(expiry);
+
   Future<void> clearMainAndLocation() async {
     await _local.deleteMainWeather();
     await _local.deleteLocation();
