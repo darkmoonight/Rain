@@ -46,17 +46,25 @@ class CitiesNotifier extends Notifier<CitiesState> {
         ? await repo.getAllSorted()
         : await repo.getExpiredSorted(_cacheExpiry);
     if (!await ConnectivityService.hasInternet() || toUpdate.isEmpty) return;
+    var hadFailure = false;
     for (final oldCard in toUpdate) {
-      final updated = await repo.fetchCard(
-        oldCard.lat!,
-        oldCard.lon!,
-        oldCard.city!,
-        oldCard.district!,
-        oldCard.timezone!,
-      );
-      await repo.applyRemoteUpdate(oldCard, updated);
+      try {
+        final updated = await repo.fetchCard(
+          oldCard.lat!,
+          oldCard.lon!,
+          oldCard.city!,
+          oldCard.district!,
+          oldCard.timezone!,
+        );
+        await repo.applyRemoteUpdate(oldCard, updated);
+      } catch (_) {
+        hadFailure = true;
+      }
     }
     await _load();
+    if (hadFailure && all) {
+      showSnackBar('error_occurred'.tr, isError: true);
+    }
   }
 
   Future<void> addCard(
@@ -70,11 +78,15 @@ class CitiesNotifier extends Notifier<CitiesState> {
       return;
     }
     final tz = tzmap.latLngToTimezoneString(latitude, longitude);
-    final card = await ref
-        .read(citiesRepositoryProvider)
-        .fetchCard(latitude, longitude, city, district, tz);
-    await ref.read(citiesRepositoryProvider).addCard(card);
-    await _load();
+    try {
+      final card = await ref
+          .read(citiesRepositoryProvider)
+          .fetchCard(latitude, longitude, city, district, tz);
+      await ref.read(citiesRepositoryProvider).addCard(card);
+      await _load();
+    } catch (_) {
+      showSnackBar('error_occurred'.tr, isError: true);
+    }
   }
 
   Future<void> updateCardLocation(
@@ -89,31 +101,39 @@ class CitiesNotifier extends Notifier<CitiesState> {
       return;
     }
     final tz = tzmap.latLngToTimezoneString(latitude, longitude);
-    final updated = await ref
-        .read(citiesRepositoryProvider)
-        .fetchCard(latitude, longitude, city, district, tz);
-    card.lat = latitude;
-    card.lon = longitude;
-    card.city = city;
-    card.district = district;
-    card.timezone = tz;
-    await ref.read(citiesRepositoryProvider).applyRemoteUpdate(card, updated);
-    await _load();
+    try {
+      final updated = await ref
+          .read(citiesRepositoryProvider)
+          .fetchCard(latitude, longitude, city, district, tz);
+      card.lat = latitude;
+      card.lon = longitude;
+      card.city = city;
+      card.district = district;
+      card.timezone = tz;
+      await ref.read(citiesRepositoryProvider).applyRemoteUpdate(card, updated);
+      await _load();
+    } catch (_) {
+      showSnackBar('error_occurred'.tr, isError: true);
+    }
   }
 
   Future<void> updateCard(WeatherCard card) async {
     if (!await ConnectivityService.hasInternet()) return;
-    final updated = await ref
-        .read(citiesRepositoryProvider)
-        .fetchCard(
-          card.lat!,
-          card.lon!,
-          card.city!,
-          card.district!,
-          card.timezone!,
-        );
-    await ref.read(citiesRepositoryProvider).applyRemoteUpdate(card, updated);
-    await _load();
+    try {
+      final updated = await ref
+          .read(citiesRepositoryProvider)
+          .fetchCard(
+            card.lat!,
+            card.lon!,
+            card.city!,
+            card.district!,
+            card.timezone!,
+          );
+      await ref.read(citiesRepositoryProvider).applyRemoteUpdate(card, updated);
+      await _load();
+    } catch (_) {
+      showSnackBar('error_occurred'.tr, isError: true);
+    }
   }
 
   Future<void> deleteCard(WeatherCard card) async {
