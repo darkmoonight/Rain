@@ -11,6 +11,7 @@ import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
+import 'package:rain/core/weather/weather_cache_validator.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:workmanager/workmanager.dart';
@@ -161,7 +162,6 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       city: city,
       district: district,
     );
-    await _scheduleNotifications(weather, city);
     await ref.read(weatherRepositoryProvider).writeCache(weather, location);
     syncBootstrapLocationCache(ref, location);
     refreshAppRouterFromRef(ref);
@@ -174,6 +174,21 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       state = state.copyWith(isLoading: false);
       return;
     }
+
+    if (WeatherCacheValidator.isLikelyFahrenheit(cached.weather!) &&
+        await ConnectivityService.hasInternet()) {
+      final loc = cached.location!;
+      if (loc.lat != null && loc.lon != null) {
+        await _fetchAndSave(
+          loc.lat!,
+          loc.lon!,
+          loc.district ?? '',
+          loc.city ?? '',
+        );
+        return;
+      }
+    }
+
     final hour = TimeIndexHelper.getTime(
       cached.weather!.time!,
       cached.weather!.timezone!,
@@ -205,14 +220,12 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
     final settings = ref.read(settingsProvider);
     if (settings.notifications) {
-      await ref
-          .read(notificationServiceProvider)
-          .scheduleIfEmpty(
-            cache: cached.weather!,
-            settings: settings,
-            appSettings: ref.read(appSettingsProvider),
-            cityLabel: cached.location!.city ?? '',
-          );
+      await ref.read(notificationServiceProvider).rescheduleForWeather(
+        cache: cached.weather!,
+        settings: settings,
+        appSettings: ref.read(appSettingsProvider),
+        cityLabel: cached.location!.city ?? '',
+      );
     }
     Future.delayed(AppConstants.scrollToCurrentHourDelay, scrollToCurrentHour);
   }
@@ -285,17 +298,4 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     await readCache();
   }
 
-  Future<void> _scheduleNotifications(
-    MainWeatherCache weather,
-    String city,
-  ) async {
-    await ref
-        .read(notificationServiceProvider)
-        .scheduleIfEmpty(
-          cache: weather,
-          settings: ref.read(settingsProvider),
-          appSettings: ref.read(appSettingsProvider),
-          cityLabel: city,
-        );
-  }
 }

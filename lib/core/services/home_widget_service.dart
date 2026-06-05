@@ -20,12 +20,9 @@ class HomeWidgetService {
   final StatusWeather _statusWeather = StatusWeather();
 
   String _widgetTemperature(double temp, Settings settings) {
-    final value = UnitConverter.parseValue(temp);
-    if (value == null) return '--°';
-    final converted = settings.degrees == 'fahrenheit'
-        ? UnitConverter.celsiusToFahrenheit(value)
-        : value.toDouble();
-    return '${converted.round()}°';
+    final converted = UnitConverter.convertTemperature(temp, settings);
+    if (converted == null) return '--°';
+    return '$converted${UnitConverter.temperatureSuffix(settings)}';
   }
 
   Future<bool> updateFromIsar(Isar isar) async {

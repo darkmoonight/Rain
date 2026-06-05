@@ -53,23 +53,20 @@ class NotificationService {
     }
   }
 
-  Future<void> scheduleIfEmpty({
+  Future<void> rescheduleForWeather({
     required MainWeatherCache cache,
     required Settings settings,
     required AppSettingsState appSettings,
     required String cityLabel,
   }) async {
     if (!settings.notifications) return;
-    final pending = await flutterLocalNotificationsPlugin
-        .pendingNotificationRequests();
-    if (pending.isEmpty) {
-      await scheduleForWeather(
-        cache: cache,
-        settings: settings,
-        appSettings: appSettings,
-        cityLabel: cityLabel,
-      );
-    }
+    await cancelAll();
+    await scheduleForWeather(
+      cache: cache,
+      settings: settings,
+      appSettings: appSettings,
+      cityLabel: cityLabel,
+    );
   }
 
   Future<void> cancelAll() => flutterLocalNotificationsPlugin.cancelAll();
