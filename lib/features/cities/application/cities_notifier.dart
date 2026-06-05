@@ -49,7 +49,10 @@ class CitiesNotifier extends Notifier<CitiesState> {
       await _load();
       return;
     }
-    if (toUpdate.isEmpty) return;
+    if (toUpdate.isEmpty) {
+      await _load();
+      return;
+    }
     var hadFailure = false;
     for (final oldCard in toUpdate) {
       try {

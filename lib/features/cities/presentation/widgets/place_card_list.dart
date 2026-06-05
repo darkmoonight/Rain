@@ -16,12 +16,12 @@ class PlaceCardList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cards = ref.watch(citiesNotifierProvider).cards;
-    final filtered = cards
-        .where(
-          (c) =>
-              searchCity.isEmpty || c.city!.toLowerCase().contains(searchCity),
-        )
-        .toList();
+    final filtered = cards.where((c) {
+      if (searchCity.isEmpty) return true;
+      final city = c.city?.toLowerCase() ?? '';
+      final district = c.district?.toLowerCase() ?? '';
+      return city.contains(searchCity) || district.contains(searchCity);
+    }).toList();
 
     return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -31,9 +31,11 @@ class PlaceCardList extends ConsumerWidget {
             (context, index) => _DismissibleCard(card: filtered[index]),
             childCount: filtered.length,
           ),
-          onReorder: (oldIndex, newIndex) => ref
-              .read(citiesNotifierProvider.notifier)
-              .reorder(oldIndex, newIndex),
+          onReorder: searchCity.isEmpty
+              ? (oldIndex, newIndex) => ref
+                    .read(citiesNotifierProvider.notifier)
+                    .reorder(oldIndex, newIndex)
+              : (_, _) {},
         ),
       ],
     );

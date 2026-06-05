@@ -34,11 +34,9 @@ class _PlaceListState extends ConsumerState<PlaceList> {
   @override
   Widget build(BuildContext context) {
     final cities = ref.watch(citiesNotifierProvider);
-    final mainLoading = ref.watch(mainWeatherNotifierProvider).isLoading;
-    final hasCards = cities.cards.isNotEmpty;
 
-    if (mainLoading && !hasCards) return _buildLoadingState(context);
-    if (!hasCards) return _buildEmptyState(context);
+    if (cities.isLoading) return _buildLoadingState(context);
+    if (cities.cards.isEmpty) return _buildEmptyState(context);
     return _buildListView(context);
   }
 
