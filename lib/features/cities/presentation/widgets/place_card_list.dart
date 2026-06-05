@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
-import 'package:rain/data/models/db.dart';
-import 'package:rain/features/cities/presentation/view/place_info.dart';
-import 'package:rain/features/cities/presentation/widgets/place_card.dart';
-import 'package:rain/core/widgets/confirmation_dialog.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
+import 'package:rain/core/widgets/confirmation_dialog.dart';
+import 'package:rain/data/models/db.dart';
+import 'package:rain/features/cities/domain/weather_card_validator.dart';
+import 'package:rain/features/cities/presentation/view/place_info.dart';
+import 'package:rain/features/cities/presentation/widgets/weather_card_tile.dart';
 import 'package:reorderables/reorderables.dart';
 
 class PlaceCardList extends ConsumerWidget {
@@ -15,21 +16,19 @@ class PlaceCardList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cards = ref.watch(citiesNotifierProvider).cards;
-    final filtered = cards.where((c) {
-      if (searchCity.isEmpty) return true;
-      final city = c.city?.toLowerCase() ?? '';
-      final district = c.district?.toLowerCase() ?? '';
-      return city.contains(searchCity) || district.contains(searchCity);
-    }).toList();
+    final cards = ref
+        .watch(citiesNotifierProvider)
+        .cards
+        .where((card) => WeatherCardValidator.matchesSearch(card, searchCity))
+        .toList();
 
     return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       slivers: [
         ReorderableSliverList(
           delegate: ReorderableSliverChildBuilderDelegate(
-            (context, index) => _DismissibleCard(card: filtered[index]),
-            childCount: filtered.length,
+            (context, index) => _DismissibleCard(card: cards[index]),
+            childCount: cards.length,
           ),
           onReorder: searchCity.isEmpty
               ? (oldIndex, newIndex) => ref
@@ -68,19 +67,9 @@ class _DismissibleCard extends ConsumerWidget {
     child: GestureDetector(
       onTap: () => NavigationHelper.toDownToUp(
         context,
-        () => PlaceInfo(weatherCard: card),
+        () => PlaceInfo(cardId: card.id),
       ),
-      child: PlaceCard(
-        time: card.time!,
-        timeDaily: card.timeDaily!,
-        timeDay: card.sunrise!,
-        timeNight: card.sunset!,
-        weather: card.weathercode!,
-        degree: card.temperature2M!,
-        district: card.district!,
-        city: card.city!,
-        timezone: card.timezone!,
-      ),
+      child: WeatherCardTile(card: card),
     ),
   );
 }

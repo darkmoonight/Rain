@@ -191,6 +191,8 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'গতিশীল ৰং';
 	@override String get confirm => 'সংৰক্ষণ';
 	@override String get no_results => 'কোনো ফলাফল নাই';
+	@override String get cities_load_error => 'চহৰসমূহ ল\'ড কৰিব পৰা নগ\'ল';
+	@override String get retry => 'পুনৰ চেষ্টা';
 }
 
 /// The flat map containing all translations for locale <as-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsAsIn {
 			'material_color' => 'গতিশীল ৰং',
 			'confirm' => 'সংৰক্ষণ',
 			'no_results' => 'কোনো ফলাফল নাই',
+			'cities_load_error' => 'চহৰসমূহ ল\'ড কৰিব পৰা নগ\'ল',
+			'retry' => 'পুনৰ চেষ্টা',
 			_ => null,
 		};
 	}

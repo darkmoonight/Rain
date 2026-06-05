@@ -191,6 +191,8 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'رنگ های پویا';
 	@override String get confirm => 'ذخیره';
 	@override String get no_results => 'نتیجه‌ای یافت نشد';
+	@override String get cities_load_error => 'بارگذاری شهرها ناموفق بود';
+	@override String get retry => 'تلاش مجدد';
 }
 
 /// The flat map containing all translations for locale <fa-IR>.
@@ -353,6 +355,8 @@ extension on TranslationsFaIr {
 			'material_color' => 'رنگ های پویا',
 			'confirm' => 'ذخیره',
 			'no_results' => 'نتیجه‌ای یافت نشد',
+			'cities_load_error' => 'بارگذاری شهرها ناموفق بود',
+			'retry' => 'تلاش مجدد',
 			_ => null,
 		};
 	}

@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Dynamiczne kolory",
   "confirm": "Zapisz",
-  "noResults": "Brak wyników"
+  "noResults": "Brak wyników",
+  "citiesLoadError": "Nie udało się wczytać miast",
+  "retry": "Ponów"
 }

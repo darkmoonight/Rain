@@ -150,5 +150,7 @@
   "m/s": "米/秒",
   "materialColor": "动态颜色",
   "confirm": "保存",
-  "noResults": "无结果"
+  "noResults": "无结果",
+  "citiesLoadError": "无法加载城市",
+  "retry": "重试"
 }

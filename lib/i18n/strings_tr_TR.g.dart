@@ -191,6 +191,8 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Dinamik Renkler';
 	@override String get confirm => 'Kaydet';
 	@override String get no_results => 'Sonuç bulunamadı';
+	@override String get cities_load_error => 'Şehirler yüklenemedi';
+	@override String get retry => 'Tekrar dene';
 }
 
 /// The flat map containing all translations for locale <tr-TR>.
@@ -353,6 +355,8 @@ extension on TranslationsTrTr {
 			'material_color' => 'Dinamik Renkler',
 			'confirm' => 'Kaydet',
 			'no_results' => 'Sonuç bulunamadı',
+			'cities_load_error' => 'Şehirler yüklenemedi',
+			'retry' => 'Tekrar dene',
 			_ => null,
 		};
 	}

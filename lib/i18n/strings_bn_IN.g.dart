@@ -191,6 +191,8 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'গতিবিধির রঙ';
 	@override String get confirm => 'সংরক্ষণ';
 	@override String get no_results => 'কোনো ফলাফল নেই';
+	@override String get cities_load_error => 'শহরগুলো লোড করা যায়নি';
+	@override String get retry => 'আবার চেষ্টা';
 }
 
 /// The flat map containing all translations for locale <bn-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsBnIn {
 			'material_color' => 'গতিবিধির রঙ',
 			'confirm' => 'সংরক্ষণ',
 			'no_results' => 'কোনো ফলাফল নেই',
+			'cities_load_error' => 'শহরগুলো লোড করা যায়নি',
+			'retry' => 'আবার চেষ্টা',
 			_ => null,
 		};
 	}

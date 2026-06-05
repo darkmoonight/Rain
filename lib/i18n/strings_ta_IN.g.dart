@@ -191,6 +191,8 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'டைனமிக் நிறங்கள்';
 	@override String get confirm => 'சேமி';
 	@override String get no_results => 'முடிவுகள் இல்லை';
+	@override String get cities_load_error => 'நகரங்களை ஏற்ற முடியவில்லை';
+	@override String get retry => 'மீண்டும்';
 }
 
 /// The flat map containing all translations for locale <ta-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsTaIn {
 			'material_color' => 'டைனமிக் நிறங்கள்',
 			'confirm' => 'சேமி',
 			'no_results' => 'முடிவுகள் இல்லை',
+			'cities_load_error' => 'நகரங்களை ஏற்ற முடியவில்லை',
+			'retry' => 'மீண்டும்',
 			_ => null,
 		};
 	}

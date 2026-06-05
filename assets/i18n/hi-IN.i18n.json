@@ -150,5 +150,7 @@
   "m/s": "मी/से",
   "materialColor": "गतिशील रंग",
   "confirm": "सहेजें",
-  "noResults": "कोई परिणाम नहीं"
+  "noResults": "कोई परिणाम नहीं",
+  "citiesLoadError": "शहर लोड नहीं हो सके",
+  "retry": "पुनः प्रयास"
 }

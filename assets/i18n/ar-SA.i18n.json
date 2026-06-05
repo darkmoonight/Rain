@@ -150,5 +150,7 @@
   "m/s": "م/ث",
   "materialColor": "الألوان الديناميكية",
   "confirm": "حفظ",
-  "noResults": "لا توجد نتائج"
+  "noResults": "لا توجد نتائج",
+  "citiesLoadError": "تعذر تحميل المدن",
+  "retry": "إعادة المحاولة"
 }

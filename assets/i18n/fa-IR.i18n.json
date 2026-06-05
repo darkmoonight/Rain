@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "رنگ های پویا",
   "confirm": "ذخیره",
-  "noResults": "نتیجه‌ای یافت نشد"
+  "noResults": "نتیجه‌ای یافت نشد",
+  "citiesLoadError": "بارگذاری شهرها ناموفق بود",
+  "retry": "تلاش مجدد"
 }

@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Couleurs Dynamiques",
   "confirm": "Enregistrer",
-  "noResults": "Aucun résultat"
+  "noResults": "Aucun résultat",
+  "citiesLoadError": "Échec du chargement des villes",
+  "retry": "Réessayer"
 }

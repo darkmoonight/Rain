@@ -191,6 +191,8 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'موادی رنگیں';
 	@override String get confirm => 'محفوظ';
 	@override String get no_results => 'کوئی نتائج نہیں';
+	@override String get cities_load_error => 'شہر لوڈ نہیں ہو سکے';
+	@override String get retry => 'دوبارہ کوشش';
 }
 
 /// The flat map containing all translations for locale <ur-PK>.
@@ -353,6 +355,8 @@ extension on TranslationsUrPk {
 			'material_color' => 'موادی رنگیں',
 			'confirm' => 'محفوظ',
 			'no_results' => 'کوئی نتائج نہیں',
+			'cities_load_error' => 'شہر لوڈ نہیں ہو سکے',
+			'retry' => 'دوبارہ کوشش',
 			_ => null,
 		};
 	}

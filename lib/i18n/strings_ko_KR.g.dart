@@ -191,6 +191,8 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => '동적 색상';
 	@override String get confirm => '저장';
 	@override String get no_results => '결과 없음';
+	@override String get cities_load_error => '도시를 불러오지 못했습니다';
+	@override String get retry => '다시 시도';
 }
 
 /// The flat map containing all translations for locale <ko-KR>.
@@ -353,6 +355,8 @@ extension on TranslationsKoKr {
 			'material_color' => '동적 색상',
 			'confirm' => '저장',
 			'no_results' => '결과 없음',
+			'cities_load_error' => '도시를 불러오지 못했습니다',
+			'retry' => '다시 시도',
 			_ => null,
 		};
 	}

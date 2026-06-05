@@ -191,6 +191,8 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Dynamické Barvy';
 	@override String get confirm => 'Uložit';
 	@override String get no_results => 'Žádné výsledky';
+	@override String get cities_load_error => 'Nepodařilo se načíst města';
+	@override String get retry => 'Zkusit znovu';
 }
 
 /// The flat map containing all translations for locale <cs-CZ>.
@@ -353,6 +355,8 @@ extension on TranslationsCsCz {
 			'material_color' => 'Dynamické Barvy',
 			'confirm' => 'Uložit',
 			'no_results' => 'Žádné výsledky',
+			'cities_load_error' => 'Nepodařilo se načíst města',
+			'retry' => 'Zkusit znovu',
 			_ => null,
 		};
 	}

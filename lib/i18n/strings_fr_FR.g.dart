@@ -191,6 +191,8 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Couleurs Dynamiques';
 	@override String get confirm => 'Enregistrer';
 	@override String get no_results => 'Aucun résultat';
+	@override String get cities_load_error => 'Échec du chargement des villes';
+	@override String get retry => 'Réessayer';
 }
 
 /// The flat map containing all translations for locale <fr-FR>.
@@ -353,6 +355,8 @@ extension on TranslationsFrFr {
 			'material_color' => 'Couleurs Dynamiques',
 			'confirm' => 'Enregistrer',
 			'no_results' => 'Aucun résultat',
+			'cities_load_error' => 'Échec du chargement des villes',
+			'retry' => 'Réessayer',
 			_ => null,
 		};
 	}

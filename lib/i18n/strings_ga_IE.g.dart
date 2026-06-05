@@ -191,6 +191,8 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Dathanna Dinimiciúla';
 	@override String get confirm => 'Sábháil';
 	@override String get no_results => 'Gan torthaí';
+	@override String get cities_load_error => 'Theip ar lódáil na gcathracha';
+	@override String get retry => 'Bain triail as arís';
 }
 
 /// The flat map containing all translations for locale <ga-IE>.
@@ -353,6 +355,8 @@ extension on TranslationsGaIe {
 			'material_color' => 'Dathanna Dinimiciúla',
 			'confirm' => 'Sábháil',
 			'no_results' => 'Gan torthaí',
+			'cities_load_error' => 'Theip ar lódáil na gcathracha',
+			'retry' => 'Bain triail as arís',
 			_ => null,
 		};
 	}

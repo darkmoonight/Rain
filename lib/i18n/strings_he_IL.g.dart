@@ -191,6 +191,8 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'צבעים דינמיים';
 	@override String get confirm => 'שמור';
 	@override String get no_results => 'אין תוצאות';
+	@override String get cities_load_error => 'טעינת הערים נכשלה';
+	@override String get retry => 'נסה שוב';
 }
 
 /// The flat map containing all translations for locale <he-IL>.
@@ -353,6 +355,8 @@ extension on TranslationsHeIl {
 			'material_color' => 'צבעים דינמיים',
 			'confirm' => 'שמור',
 			'no_results' => 'אין תוצאות',
+			'cities_load_error' => 'טעינת הערים נכשלה',
+			'retry' => 'נסה שוב',
 			_ => null,
 		};
 	}

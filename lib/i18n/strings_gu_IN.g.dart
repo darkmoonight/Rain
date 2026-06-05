@@ -191,6 +191,8 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'ડાયનેમિક રંગો';
 	@override String get confirm => 'સંગ્રહ';
 	@override String get no_results => 'કોઈ પરિણામો નથી';
+	@override String get cities_load_error => 'શહેરો લોડ કરી શકાયા નહીં';
+	@override String get retry => 'ફરી પ્રયાસ કરો';
 }
 
 /// The flat map containing all translations for locale <gu-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsGuIn {
 			'material_color' => 'ડાયનેમિક રંગો',
 			'confirm' => 'સંગ્રહ',
 			'no_results' => 'કોઈ પરિણામો નથી',
+			'cities_load_error' => 'શહેરો લોડ કરી શકાયા નહીં',
+			'retry' => 'ફરી પ્રયાસ કરો',
 			_ => null,
 		};
 	}

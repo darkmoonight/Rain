@@ -191,6 +191,8 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'ダイナミックカラー';
 	@override String get confirm => '保存';
 	@override String get no_results => '結果がありません';
+	@override String get cities_load_error => '都市を読み込めませんでした';
+	@override String get retry => '再試行';
 }
 
 /// The flat map containing all translations for locale <ja-JP>.
@@ -353,6 +355,8 @@ extension on TranslationsJaJp {
 			'material_color' => 'ダイナミックカラー',
 			'confirm' => '保存',
 			'no_results' => '結果がありません',
+			'cities_load_error' => '都市を読み込めませんでした',
+			'retry' => '再試行',
 			_ => null,
 		};
 	}

@@ -191,6 +191,8 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'डायनॅमिक रंग';
 	@override String get confirm => 'संचयित करा';
 	@override String get no_results => 'कोणतेही परिणाम नाहीत';
+	@override String get cities_load_error => 'शहरे लोड करता आले नाहीत';
+	@override String get retry => 'पुन्हा प्रयत्न करा';
 }
 
 /// The flat map containing all translations for locale <mr-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsMrIn {
 			'material_color' => 'डायनॅमिक रंग',
 			'confirm' => 'संचयित करा',
 			'no_results' => 'कोणतेही परिणाम नाहीत',
+			'cities_load_error' => 'शहरे लोड करता आले नाहीत',
+			'retry' => 'पुन्हा प्रयत्न करा',
 			_ => null,
 		};
 	}

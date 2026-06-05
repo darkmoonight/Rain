@@ -31,7 +31,7 @@ class PlaceAction extends ConsumerStatefulWidget {
 }
 
 class _PlaceActionState extends ConsumerState<PlaceAction>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+    with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _focusNode = FocusNode();
 
@@ -54,7 +54,6 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     _initializeControllers();
     _initializeEditMode();
     _initAnimations();
@@ -111,7 +110,6 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     _searchController.dispose();
     _latController.dispose();
     _lonController.dispose();

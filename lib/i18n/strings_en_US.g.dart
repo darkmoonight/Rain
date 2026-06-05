@@ -496,6 +496,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'No results'
 	String get no_results => 'No results';
+
+	/// en-US: 'Failed to load cities'
+	String get cities_load_error => 'Failed to load cities';
+
+	/// en-US: 'Retry'
+	String get retry => 'Retry';
 }
 
 /// The flat map containing all translations for locale <en-US>.
@@ -658,6 +664,8 @@ extension on Translations {
 			'material_color' => 'Dynamic colors',
 			'confirm' => 'Confirm',
 			'no_results' => 'No results',
+			'cities_load_error' => 'Failed to load cities',
+			'retry' => 'Retry',
 			_ => null,
 		};
 	}

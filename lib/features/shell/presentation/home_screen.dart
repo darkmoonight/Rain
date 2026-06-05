@@ -5,6 +5,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/navigation/app_router.dart';
+import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/presentation/view/place_list.dart';
@@ -22,7 +23,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   int tabIndex = 0;
   bool visible = false;
   bool _hasLocationCache = false;
@@ -33,9 +34,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _initData();
     _setupTabController(pageCount: ref.read(settingsProvider).hideMap ? 3 : 4);
     _checkLocationCache();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.read(citiesNotifierProvider.notifier).refresh(all: false);
+    }
   }
 
   void _syncTabIndexAfterPageCountChange(int oldPageCount, int newPageCount) {
@@ -79,6 +88,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     tabController.dispose();
     _controller.dispose();
     super.dispose();
@@ -195,16 +205,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       case 0:
         if (visible) return _buildSearchField();
         final location = weather.location;
-        final city = location.city ?? '';
-        final district = location.district ?? '';
         final title = !weather.isLoading
-            ? (district.isEmpty
-                  ? city
-                  : city.isEmpty
-                  ? district
-                  : city == district
-                  ? city
-                  : '$city, $district')
+            ? formatLocationLabel(location.city, location.district)
             : settings.location
             ? 'search'.tr
             : _hasLocationCache

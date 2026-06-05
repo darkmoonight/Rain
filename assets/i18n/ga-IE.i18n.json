@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Dathanna Dinimiciúla",
   "confirm": "Sábháil",
-  "noResults": "Gan torthaí"
+  "noResults": "Gan torthaí",
+  "citiesLoadError": "Theip ar lódáil na gcathracha",
+  "retry": "Bain triail as arís"
 }

@@ -150,5 +150,7 @@
   "m/s": "ਮੀ/ਸੈ",
   "materialColor": "ਗਤੀਸ਼ੀਲ ਰੰਗ",
   "confirm": "ਸੰਭਾਲੋ",
-  "noResults": "ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ"
+  "noResults": "ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ",
+  "citiesLoadError": "ਸ਼ਹਿਰ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ",
+  "retry": "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼"
 }

@@ -191,6 +191,8 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Culori dinamice (Android 12+)';
 	@override String get confirm => 'Salvează';
 	@override String get no_results => 'Niciun rezultat';
+	@override String get cities_load_error => 'Nu s-au putut încărca orașele';
+	@override String get retry => 'Reîncearcă';
 }
 
 /// The flat map containing all translations for locale <ro-RO>.
@@ -353,6 +355,8 @@ extension on TranslationsRoRo {
 			'material_color' => 'Culori dinamice (Android 12+)',
 			'confirm' => 'Salvează',
 			'no_results' => 'Niciun rezultat',
+			'cities_load_error' => 'Nu s-au putut încărca orașele',
+			'retry' => 'Reîncearcă',
 			_ => null,
 		};
 	}

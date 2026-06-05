@@ -191,6 +191,8 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Cores Dinâmicas';
 	@override String get confirm => 'Salvar';
 	@override String get no_results => 'Nenhum resultado';
+	@override String get cities_load_error => 'Falha ao carregar cidades';
+	@override String get retry => 'Tentar novamente';
 }
 
 /// The flat map containing all translations for locale <pt-BR>.
@@ -353,6 +355,8 @@ extension on TranslationsPtBr {
 			'material_color' => 'Cores Dinâmicas',
 			'confirm' => 'Salvar',
 			'no_results' => 'Nenhum resultado',
+			'cities_load_error' => 'Falha ao carregar cidades',
+			'retry' => 'Tentar novamente',
 			_ => null,
 		};
 	}

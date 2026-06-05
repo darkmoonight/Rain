@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
+import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
+import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/features/cities/domain/weather_card_validator.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_card_list.dart';
 import 'package:rain/features/weather/presentation/widgets/weather_detail_view.dart';
+import 'package:rain/i18n/tr.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class PlaceInfo extends ConsumerStatefulWidget {
-  const PlaceInfo({super.key, required this.weatherCard});
-  final WeatherCard weatherCard;
+  const PlaceInfo({super.key, required this.cardId});
+  final int cardId;
 
   @override
   ConsumerState<PlaceInfo> createState() => _PlaceInfoState();
@@ -20,24 +24,22 @@ class PlaceInfo extends ConsumerStatefulWidget {
 class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   late int timeNow;
   late int dayNow;
+  DateTime? _lastSyncedTimestamp;
   final itemScrollController = ItemScrollController();
 
-  @override
-  void initState() {
-    super.initState();
-    _syncTime();
-  }
+  void _syncTimeFor(WeatherCard card) {
+    if (!WeatherCardValidator.isComplete(card)) return;
+    if (_lastSyncedTimestamp == card.timestamp) return;
+    _lastSyncedTimestamp = card.timestamp;
 
-  void _syncTime() {
-    final cities = ref.read(citiesNotifierProvider.notifier);
-    timeNow = cities.getTime(
-      widget.weatherCard.time!,
-      widget.weatherCard.timezone!,
-    );
-    dayNow = cities.getDay(
-      widget.weatherCard.timeDaily!,
-      widget.weatherCard.timezone!,
-    );
+    final time = card.time;
+    final timeDaily = card.timeDaily;
+    final timezone = card.timezone;
+    if (time == null || timeDaily == null || timezone == null) return;
+
+    timeNow = TimeIndexHelper.getTime(time, timezone);
+    dayNow = TimeIndexHelper.getDay(timeDaily, timezone);
+
     Future.delayed(const Duration(milliseconds: 30), () {
       if (itemScrollController.isAttached) {
         itemScrollController.scrollTo(
@@ -51,12 +53,31 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final card = widget.weatherCard;
+    final cities = ref.watch(citiesNotifierProvider);
+    final card = cities.cardById(widget.cardId);
+
+    if (card == null) {
+      return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => NavigationHelper.back(context),
+            icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
+          ),
+        ),
+        body: Center(
+          child: cities.isLoading
+              ? const CircularProgressIndicator()
+              : Text('citiesLoadError'.tr),
+        ),
+      );
+    }
+
+    _syncTimeFor(card);
+
     return RefreshIndicator(
       onRefresh: () async {
         await ref.read(citiesNotifierProvider.notifier).updateCard(card);
-        _syncTime();
-        setState(() {});
+        if (mounted) setState(() {});
       },
       child: Scaffold(
         appBar: AppBar(
@@ -67,9 +88,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
             icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
           ),
           title: Text(
-            card.district!.isNotEmpty
-                ? '${card.city}, ${card.district}'
-                : '${card.city}',
+            formatLocationLabel(card.city, card.district),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
               fontSize: 18,
@@ -84,8 +103,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
                   enableDrag: false,
                   builder: (_) => PlaceAction(edit: true, card: card),
                 );
-                _syncTime();
-                setState(() {});
+                if (mounted) setState(() {});
               },
               icon: const Icon(IconsaxPlusLinear.edit, size: 18),
             ),

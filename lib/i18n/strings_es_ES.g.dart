@@ -191,6 +191,8 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Colores Dinámicos';
 	@override String get confirm => 'Guardar';
 	@override String get no_results => 'Sin resultados';
+	@override String get cities_load_error => 'No se pudieron cargar las ciudades';
+	@override String get retry => 'Reintentar';
 }
 
 /// The flat map containing all translations for locale <es-ES>.
@@ -353,6 +355,8 @@ extension on TranslationsEsEs {
 			'material_color' => 'Colores Dinámicos',
 			'confirm' => 'Guardar',
 			'no_results' => 'Sin resultados',
+			'cities_load_error' => 'No se pudieron cargar las ciudades',
+			'retry' => 'Reintentar',
 			_ => null,
 		};
 	}

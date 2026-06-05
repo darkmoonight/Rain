@@ -191,6 +191,8 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'ଗତିଶୀଳ ରଙ୍ଗ';
 	@override String get confirm => 'ସଂରକ୍ଷଣ';
 	@override String get no_results => 'କୌଣସି ଫଳାଫଳ ନାହିଁ';
+	@override String get cities_load_error => 'ସହରଗୁଡ଼ିକ ଲୋଡ୍ ହେଲା ନାହିଁ';
+	@override String get retry => 'ପୁନଃଚେଷ୍ଟା';
 }
 
 /// The flat map containing all translations for locale <or-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsOrIn {
 			'material_color' => 'ଗତିଶୀଳ ରଙ୍ଗ',
 			'confirm' => 'ସଂରକ୍ଷଣ',
 			'no_results' => 'କୌଣସି ଫଳାଫଳ ନାହିଁ',
+			'cities_load_error' => 'ସହରଗୁଡ଼ିକ ଲୋଡ୍ ହେଲା ନାହିଁ',
+			'retry' => 'ପୁନଃଚେଷ୍ଟା',
 			_ => null,
 		};
 	}

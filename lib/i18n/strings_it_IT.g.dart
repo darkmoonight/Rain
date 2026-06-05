@@ -191,6 +191,8 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Colori Dinamici';
 	@override String get confirm => 'Salva';
 	@override String get no_results => 'Nessun risultato';
+	@override String get cities_load_error => 'Impossibile caricare le città';
+	@override String get retry => 'Riprova';
 }
 
 /// The flat map containing all translations for locale <it-IT>.
@@ -353,6 +355,8 @@ extension on TranslationsItIt {
 			'material_color' => 'Colori Dinamici',
 			'confirm' => 'Salva',
 			'no_results' => 'Nessun risultato',
+			'cities_load_error' => 'Impossibile caricare le città',
+			'retry' => 'Riprova',
 			_ => null,
 		};
 	}

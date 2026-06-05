@@ -191,6 +191,8 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'ഡൈനാമിക് നിറങ്ങൾ';
 	@override String get confirm => 'സേവ്';
 	@override String get no_results => 'ഫലങ്ങളൊന്നുമില്ല';
+	@override String get cities_load_error => 'നഗരങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല';
+	@override String get retry => 'വീണ്ടും ശ്രമിക്കുക';
 }
 
 /// The flat map containing all translations for locale <ml-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsMlIn {
 			'material_color' => 'ഡൈനാമിക് നിറങ്ങൾ',
 			'confirm' => 'സേവ്',
 			'no_results' => 'ഫലങ്ങളൊന്നുമില്ല',
+			'cities_load_error' => 'നഗരങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല',
+			'retry' => 'വീണ്ടും ശ്രമിക്കുക',
 			_ => null,
 		};
 	}

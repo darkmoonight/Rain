@@ -191,6 +191,8 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'गतिशील रंग';
 	@override String get confirm => 'सहेजें';
 	@override String get no_results => 'कोई परिणाम नहीं';
+	@override String get cities_load_error => 'शहर लोड नहीं हो सके';
+	@override String get retry => 'पुनः प्रयास';
 }
 
 /// The flat map containing all translations for locale <hi-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsHiIn {
 			'material_color' => 'गतिशील रंग',
 			'confirm' => 'सहेजें',
 			'no_results' => 'कोई परिणाम नहीं',
+			'cities_load_error' => 'शहर लोड नहीं हो सके',
+			'retry' => 'पुनः प्रयास',
 			_ => null,
 		};
 	}

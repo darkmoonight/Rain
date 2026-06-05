@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Dynamiske farver",
   "confirm": "Gem",
-  "noResults": "Ingen resultater"
+  "noResults": "Ingen resultater",
+  "citiesLoadError": "Kunne ikke indlæse byer",
+  "retry": "Prøv igen"
 }

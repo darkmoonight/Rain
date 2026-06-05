@@ -191,6 +191,8 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Dynamiczne kolory';
 	@override String get confirm => 'Zapisz';
 	@override String get no_results => 'Brak wyników';
+	@override String get cities_load_error => 'Nie udało się wczytać miast';
+	@override String get retry => 'Ponów';
 }
 
 /// The flat map containing all translations for locale <pl-PL>.
@@ -353,6 +355,8 @@ extension on TranslationsPlPl {
 			'material_color' => 'Dynamiczne kolory',
 			'confirm' => 'Zapisz',
 			'no_results' => 'Brak wyników',
+			'cities_load_error' => 'Nie udało się wczytać miast',
+			'retry' => 'Ponów',
 			_ => null,
 		};
 	}

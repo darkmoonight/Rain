@@ -191,6 +191,8 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => '动态颜色';
 	@override String get confirm => '保存';
 	@override String get no_results => '无结果';
+	@override String get cities_load_error => '无法加载城市';
+	@override String get retry => '重试';
 }
 
 /// The flat map containing all translations for locale <zh-CN>.
@@ -353,6 +355,8 @@ extension on TranslationsZhCn {
 			'material_color' => '动态颜色',
 			'confirm' => '保存',
 			'no_results' => '无结果',
+			'cities_load_error' => '无法加载城市',
+			'retry' => '重试',
 			_ => null,
 		};
 	}

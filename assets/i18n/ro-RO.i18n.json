@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Culori dinamice (Android 12+)",
   "confirm": "Salvează",
-  "noResults": "Niciun rezultat"
+  "noResults": "Niciun rezultat",
+  "citiesLoadError": "Nu s-au putut încărca orașele",
+  "retry": "Reîncearcă"
 }

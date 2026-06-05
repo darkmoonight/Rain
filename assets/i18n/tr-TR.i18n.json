@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Dinamik Renkler",
   "confirm": "Kaydet",
-  "noResults": "Sonuç bulunamadı"
+  "noResults": "Sonuç bulunamadı",
+  "citiesLoadError": "Şehirler yüklenemedi",
+  "retry": "Tekrar dene"
 }

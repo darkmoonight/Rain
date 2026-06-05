@@ -150,5 +150,7 @@
   "m/s": "미터/초",
   "materialColor": "동적 색상",
   "confirm": "저장",
-  "noResults": "결과 없음"
+  "noResults": "결과 없음",
+  "citiesLoadError": "도시를 불러오지 못했습니다",
+  "retry": "다시 시도"
 }

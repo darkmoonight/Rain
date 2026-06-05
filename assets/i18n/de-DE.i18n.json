@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Dynamische Farben",
   "confirm": "Speichern",
-  "noResults": "Keine Ergebnisse"
+  "noResults": "Keine Ergebnisse",
+  "citiesLoadError": "Städte konnten nicht geladen werden",
+  "retry": "Erneut versuchen"
 }

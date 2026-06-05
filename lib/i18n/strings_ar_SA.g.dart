@@ -191,6 +191,8 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'الألوان الديناميكية';
 	@override String get confirm => 'حفظ';
 	@override String get no_results => 'لا توجد نتائج';
+	@override String get cities_load_error => 'تعذر تحميل المدن';
+	@override String get retry => 'إعادة المحاولة';
 }
 
 /// The flat map containing all translations for locale <ar-SA>.
@@ -353,6 +355,8 @@ extension on TranslationsArSa {
 			'material_color' => 'الألوان الديناميكية',
 			'confirm' => 'حفظ',
 			'no_results' => 'لا توجد نتائج',
+			'cities_load_error' => 'تعذر تحميل المدن',
+			'retry' => 'إعادة المحاولة',
 			_ => null,
 		};
 	}

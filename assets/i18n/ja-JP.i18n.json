@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "ダイナミックカラー",
   "confirm": "保存",
-  "noResults": "結果がありません"
+  "noResults": "結果がありません",
+  "citiesLoadError": "都市を読み込めませんでした",
+  "retry": "再試行"
 }

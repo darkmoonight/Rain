@@ -191,6 +191,8 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => '動態取色';
 	@override String get confirm => '儲存';
 	@override String get no_results => '沒有結果';
+	@override String get cities_load_error => '無法載入城市';
+	@override String get retry => '重試';
 }
 
 /// The flat map containing all translations for locale <zh-TW>.
@@ -353,6 +355,8 @@ extension on TranslationsZhTw {
 			'material_color' => '動態取色',
 			'confirm' => '儲存',
 			'no_results' => '沒有結果',
+			'cities_load_error' => '無法載入城市',
+			'retry' => '重試',
 			_ => null,
 		};
 	}

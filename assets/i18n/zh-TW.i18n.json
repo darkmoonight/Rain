@@ -150,5 +150,7 @@
   "m/s": "米/秒",
   "materialColor": "動態取色",
   "confirm": "儲存",
-  "noResults": "沒有結果"
+  "noResults": "沒有結果",
+  "citiesLoadError": "無法載入城市",
+  "retry": "重試"
 }

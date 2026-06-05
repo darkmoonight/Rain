@@ -150,5 +150,7 @@
   "m/s": "মি/সে",
   "materialColor": "গতিবিধির রঙ",
   "confirm": "সংরক্ষণ",
-  "noResults": "কোনো ফলাফল নেই"
+  "noResults": "কোনো ফলাফল নেই",
+  "citiesLoadError": "শহরগুলো লোড করা যায়নি",
+  "retry": "আবার চেষ্টা"
 }

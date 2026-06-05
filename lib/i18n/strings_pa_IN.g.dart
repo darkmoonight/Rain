@@ -191,6 +191,8 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'ਗਤੀਸ਼ੀਲ ਰੰਗ';
 	@override String get confirm => 'ਸੰਭਾਲੋ';
 	@override String get no_results => 'ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ';
+	@override String get cities_load_error => 'ਸ਼ਹਿਰ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ';
+	@override String get retry => 'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼';
 }
 
 /// The flat map containing all translations for locale <pa-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsPaIn {
 			'material_color' => 'ਗਤੀਸ਼ੀਲ ਰੰਗ',
 			'confirm' => 'ਸੰਭਾਲੋ',
 			'no_results' => 'ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ',
+			'cities_load_error' => 'ਸ਼ਹਿਰ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ',
+			'retry' => 'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼',
 			_ => null,
 		};
 	}

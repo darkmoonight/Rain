@@ -191,6 +191,8 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'დინამიური ფერები';
 	@override String get confirm => 'შენახვა';
 	@override String get no_results => 'შედეგები ვერ მოიძებნა';
+	@override String get cities_load_error => 'ქალაქების ჩატვირთვა ვერ მოხერხდა';
+	@override String get retry => 'თავიდან';
 }
 
 /// The flat map containing all translations for locale <ka-GE>.
@@ -353,6 +355,8 @@ extension on TranslationsKaGe {
 			'material_color' => 'დინამიური ფერები',
 			'confirm' => 'შენახვა',
 			'no_results' => 'შედეგები ვერ მოიძებნა',
+			'cities_load_error' => 'ქალაქების ჩატვირთვა ვერ მოხერხდა',
+			'retry' => 'თავიდან',
 			_ => null,
 		};
 	}

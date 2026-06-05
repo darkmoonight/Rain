@@ -150,5 +150,7 @@
   "m/s": "מ/ש",
   "materialColor": "צבעים דינמיים",
   "confirm": "שמור",
-  "noResults": "אין תוצאות"
+  "noResults": "אין תוצאות",
+  "citiesLoadError": "טעינת הערים נכשלה",
+  "retry": "נסה שוב"
 }

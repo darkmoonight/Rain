@@ -191,6 +191,8 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Dynamische Kleuren';
 	@override String get confirm => 'Opslaan';
 	@override String get no_results => 'Geen resultaten';
+	@override String get cities_load_error => 'Steden laden mislukt';
+	@override String get retry => 'Opnieuw';
 }
 
 /// The flat map containing all translations for locale <nl-NL>.
@@ -353,6 +355,8 @@ extension on TranslationsNlNl {
 			'material_color' => 'Dynamische Kleuren',
 			'confirm' => 'Opslaan',
 			'no_results' => 'Geen resultaten',
+			'cities_load_error' => 'Steden laden mislukt',
+			'retry' => 'Opnieuw',
 			_ => null,
 		};
 	}

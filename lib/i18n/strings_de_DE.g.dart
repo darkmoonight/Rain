@@ -191,6 +191,8 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Dynamische Farben';
 	@override String get confirm => 'Speichern';
 	@override String get no_results => 'Keine Ergebnisse';
+	@override String get cities_load_error => 'Städte konnten nicht geladen werden';
+	@override String get retry => 'Erneut versuchen';
 }
 
 /// The flat map containing all translations for locale <de-DE>.
@@ -353,6 +355,8 @@ extension on TranslationsDeDe {
 			'material_color' => 'Dynamische Farben',
 			'confirm' => 'Speichern',
 			'no_results' => 'Keine Ergebnisse',
+			'cities_load_error' => 'Städte konnten nicht geladen werden',
+			'retry' => 'Erneut versuchen',
 			_ => null,
 		};
 	}

@@ -20,7 +20,7 @@ import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/presentation/view/place_info.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action.dart';
-import 'package:rain/features/cities/presentation/widgets/place_card.dart';
+import 'package:rain/features/cities/presentation/widgets/weather_card_tile.dart';
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/widgets/text_form.dart';
@@ -209,19 +209,9 @@ class _MapPageState extends ConsumerState<MapPage>
           child: GestureDetector(
             onTap: () => NavigationHelper.toDownToUp(
               context,
-              () => PlaceInfo(weatherCard: _selectedWeatherCard!),
+              () => PlaceInfo(cardId: _selectedWeatherCard!.id),
             ),
-            child: PlaceCard(
-              time: _selectedWeatherCard!.time!,
-              timeDaily: _selectedWeatherCard!.timeDaily!,
-              timeDay: _selectedWeatherCard!.sunrise!,
-              timeNight: _selectedWeatherCard!.sunset!,
-              weather: _selectedWeatherCard!.weathercode!,
-              degree: _selectedWeatherCard!.temperature2M!,
-              district: _selectedWeatherCard!.district!,
-              city: _selectedWeatherCard!.city!,
-              timezone: _selectedWeatherCard!.timezone!,
-            ),
+            child: WeatherCardTile(card: _selectedWeatherCard!),
           ),
         )
       : const SizedBox.shrink();

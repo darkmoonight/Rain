@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Dynamické Farby",
   "confirm": "Uložiť",
-  "noResults": "Žiadne výsledky"
+  "noResults": "Žiadne výsledky",
+  "citiesLoadError": "Nepodarilo sa načítať mestá",
+  "retry": "Skúsiť znova"
 }

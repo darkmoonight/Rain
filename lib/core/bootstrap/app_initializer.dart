@@ -6,8 +6,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:isar_community/isar.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
+import 'package:rain/core/database/isar_schemas.dart';
 import 'package:rain/core/config/app_config.dart';
 import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
@@ -47,12 +47,7 @@ class AppInitializer {
   }
 
   static Future<AppBootstrap> _initializeIsar() async {
-    final isar = await Isar.open([
-      SettingsSchema,
-      MainWeatherCacheSchema,
-      LocationCacheSchema,
-      WeatherCardSchema,
-    ], directory: (await getApplicationSupportDirectory()).path);
+    final isar = await openRainIsar();
 
     var settings = await isar.settings.where().findFirst() ?? Settings();
     var locationCache =

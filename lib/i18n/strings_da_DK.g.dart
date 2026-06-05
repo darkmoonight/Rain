@@ -191,6 +191,8 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Dynamiske farver';
 	@override String get confirm => 'Gem';
 	@override String get no_results => 'Ingen resultater';
+	@override String get cities_load_error => 'Kunne ikke indlæse byer';
+	@override String get retry => 'Prøv igen';
 }
 
 /// The flat map containing all translations for locale <da-DK>.
@@ -353,6 +355,8 @@ extension on TranslationsDaDk {
 			'material_color' => 'Dynamiske farver',
 			'confirm' => 'Gem',
 			'no_results' => 'Ingen resultater',
+			'cities_load_error' => 'Kunne ikke indlæse byer',
+			'retry' => 'Prøv igen',
 			_ => null,
 		};
 	}

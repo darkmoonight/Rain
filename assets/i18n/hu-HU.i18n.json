@@ -150,5 +150,7 @@
   "m/s": "m/s",
   "materialColor": "Dinamikus színek",
   "confirm": "Mentés",
-  "noResults": "Nincs találat"
+  "noResults": "Nincs találat",
+  "citiesLoadError": "A városok betöltése sikertelen",
+  "retry": "Újra"
 }

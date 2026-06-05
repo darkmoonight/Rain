@@ -191,6 +191,8 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'ಡೈನಾಮಿಕ್ ಬಣ್ಣಗಳು';
 	@override String get confirm => 'ಉಳಿಸಿ';
 	@override String get no_results => 'ಯಾವುದೇ ಫಲಿತಾಂಶಗಳಿಲ್ಲ';
+	@override String get cities_load_error => 'ನಗರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ';
+	@override String get retry => 'ಮರುಪ್ರಯತ್ನ';
 }
 
 /// The flat map containing all translations for locale <kn-IN>.
@@ -353,6 +355,8 @@ extension on TranslationsKnIn {
 			'material_color' => 'ಡೈನಾಮಿಕ್ ಬಣ್ಣಗಳು',
 			'confirm' => 'ಉಳಿಸಿ',
 			'no_results' => 'ಯಾವುದೇ ಫಲಿತಾಂಶಗಳಿಲ್ಲ',
+			'cities_load_error' => 'ನಗರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ',
+			'retry' => 'ಮರುಪ್ರಯತ್ನ',
 			_ => null,
 		};
 	}

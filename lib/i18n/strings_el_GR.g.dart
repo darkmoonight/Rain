@@ -191,6 +191,8 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Δυναμικά χρώματα';
 	@override String get confirm => 'Αποθήκευση';
 	@override String get no_results => 'Δεν υπάρχουν αποτελέσματα';
+	@override String get cities_load_error => 'Αποτυχία φόρτωσης πόλεων';
+	@override String get retry => 'Επανάληψη';
 }
 
 /// The flat map containing all translations for locale <el-GR>.
@@ -353,6 +355,8 @@ extension on TranslationsElGr {
 			'material_color' => 'Δυναμικά χρώματα',
 			'confirm' => 'Αποθήκευση',
 			'no_results' => 'Δεν υπάρχουν αποτελέσματα',
+			'cities_load_error' => 'Αποτυχία φόρτωσης πόλεων',
+			'retry' => 'Επανάληψη',
 			_ => null,
 		};
 	}

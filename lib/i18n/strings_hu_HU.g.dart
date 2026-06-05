@@ -191,6 +191,8 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Dinamikus színek';
 	@override String get confirm => 'Mentés';
 	@override String get no_results => 'Nincs találat';
+	@override String get cities_load_error => 'A városok betöltése sikertelen';
+	@override String get retry => 'Újra';
 }
 
 /// The flat map containing all translations for locale <hu-HU>.
@@ -353,6 +355,8 @@ extension on TranslationsHuHu {
 			'material_color' => 'Dinamikus színek',
 			'confirm' => 'Mentés',
 			'no_results' => 'Nincs találat',
+			'cities_load_error' => 'A városok betöltése sikertelen',
+			'retry' => 'Újra',
 			_ => null,
 		};
 	}

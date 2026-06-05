@@ -150,5 +150,7 @@
   "m/s": "میٹر/سیکنڈ",
   "materialColor": "موادی رنگیں",
   "confirm": "محفوظ",
-  "noResults": "کوئی نتائج نہیں"
+  "noResults": "کوئی نتائج نہیں",
+  "citiesLoadError": "شہر لوڈ نہیں ہو سکے",
+  "retry": "دوبارہ کوشش"
 }

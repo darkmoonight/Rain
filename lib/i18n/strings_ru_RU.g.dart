@@ -191,6 +191,8 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get material_color => 'Динамические цвета';
 	@override String get confirm => 'Сохранить';
 	@override String get no_results => 'Ничего не найдено';
+	@override String get cities_load_error => 'Не удалось загрузить города';
+	@override String get retry => 'Повторить';
 }
 
 /// The flat map containing all translations for locale <ru-RU>.
@@ -353,6 +355,8 @@ extension on TranslationsRuRu {
 			'material_color' => 'Динамические цвета',
 			'confirm' => 'Сохранить',
 			'no_results' => 'Ничего не найдено',
+			'cities_load_error' => 'Не удалось загрузить города',
+			'retry' => 'Повторить',
 			_ => null,
 		};
 	}
