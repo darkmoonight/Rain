@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
+import 'package:rain/core/weather/unit_converter.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart';
 
@@ -29,61 +30,36 @@ class StatusData {
   String getTimeFormatTz(TZDateTime time) => _formatTimeTz(time);
 
   String _formatDegree(dynamic degree) {
-    if (degree == null) return '';
-    final num? value = degree is num ? degree : num.tryParse('$degree');
-    if (value == null) return '';
-    final display = settings.roundDegree ? value.round() : value;
-    switch (settings.degrees) {
-      case 'fahrenheit':
-        return '$display°F';
-      default:
-        return '$display°C';
-    }
+    final converted = UnitConverter.convertTemperature(degree, settings);
+    if (converted == null) return '';
+    return '$converted${UnitConverter.temperatureSuffix(settings)}';
   }
 
   String _formatSpeed(int? speed) {
-    if (speed == null) return '';
-    switch (settings.measurements) {
-      case 'imperial':
-        return '$speed ${_t('mph')}';
-      default:
-        return settings.wind == 'm/s'
-            ? '${(speed * (5 / 18)).toStringAsFixed(1)} ${_t('m/s')}'
-            : '$speed ${_t('kph')}';
-    }
+    final formatted = UnitConverter.formatWindSpeed(speed, settings);
+    if (formatted == null) return '';
+    return '$formatted ${_t(UnitConverter.windSpeedUnitKey(settings))}';
   }
 
   String _formatPressure(int? pressure) {
-    if (pressure == null) return '';
-    return settings.pressure == 'mmHg'
-        ? '${(pressure * (3 / 4)).toStringAsFixed(1)} ${_t('mmHg')}'
-        : '$pressure ${_t('hPa')}';
+    final formatted = UnitConverter.formatPressure(pressure, settings);
+    if (formatted == null) return '';
+    return '$formatted ${_t(UnitConverter.pressureUnitKey(settings))}';
   }
 
   String _formatVisibility(double? length) {
-    if (length == null) return '';
-    switch (settings.measurements) {
-      case 'imperial':
-        return _formatImperialVisibility(length);
-      default:
-        return _formatMetricVisibility(length);
-    }
+    final formatted = UnitConverter.formatVisibility(length, settings);
+    if (formatted == null) return '';
+    return '$formatted ${_t(UnitConverter.visibilityUnitKey(settings))}';
   }
 
-  String _formatMetricVisibility(double length) =>
-      '${length > 1000 ? (length / 1000).round() : (length / 1000).toStringAsFixed(2)} ${_t('km')}';
-
-  String _formatImperialVisibility(double length) =>
-      '${length > 5280 ? (length / 5280).round() : (length / 5280).toStringAsFixed(2)} ${_t('mi')}';
-
   String _formatPrecipitation(double? precipitation) {
-    if (precipitation == null) return '';
-    switch (settings.measurements) {
-      case 'imperial':
-        return '$precipitation ${_t('inch')}';
-      default:
-        return '$precipitation ${_t('mm')}';
-    }
+    final formatted = UnitConverter.formatPrecipitation(
+      precipitation,
+      settings,
+    );
+    if (formatted == null) return '';
+    return '$formatted ${_t(UnitConverter.precipitationUnitKey(settings))}';
   }
 
   String _formatTime(String time) {

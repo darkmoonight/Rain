@@ -4,6 +4,7 @@ import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/core/config/app_config.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
+import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
@@ -46,10 +47,9 @@ class HomeWidgetService {
       final imagePath = await _assets.getLocalImagePath(icon);
       final settings = await isar.settings.where().findFirst() ?? Settings();
       final temp = cache.temperature2M?[hour];
-      final displayTemp = temp == null
-          ? null
-          : (settings.roundDegree ? temp.round() : temp);
-      final degree = displayTemp == null ? '--°' : '$displayTemp°';
+      final degree = temp == null
+          ? '--°'
+          : StatusData(settings: settings).getDegree(temp);
 
       final results = await Future.wait<bool?>([
         HomeWidget.saveWidgetData('weather_icon', imagePath),

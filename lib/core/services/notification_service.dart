@@ -37,7 +37,7 @@ class NotificationService {
           if (cache.timeDaily![j].day == notificationTime.day) {
             await _show(
               UniqueKey().hashCode,
-              '$cityLabel: ${cache.temperature2M![i]}°',
+              '$cityLabel: ${statusData.getDegree(cache.temperature2M![i])}',
               '${statusWeather.getText(cache.weathercode![i])} · ${statusData.getTimeFormat(cache.time![i])}',
               notificationTime,
               statusWeather.getImageNotification(

@@ -53,13 +53,9 @@ final locationServiceProvider = Provider<LocationService>(
   (ref) => LocationService(),
 );
 
-final weatherRemoteDatasourceProvider = Provider<WeatherRemoteDatasource>((
-  ref,
-) {
-  final ds = WeatherRemoteDatasource(settings: ref.watch(settingsProvider));
-  ref.listen(settingsProvider, (_, next) => ds.updateSettings(next));
-  return ds;
-});
+final weatherRemoteDatasourceProvider = Provider<WeatherRemoteDatasource>(
+  (ref) => WeatherRemoteDatasource(),
+);
 
 final weatherLocalDatasourceProvider = Provider<WeatherLocalDatasource>(
   (ref) => WeatherLocalDatasource(ref.watch(isarProvider)),
