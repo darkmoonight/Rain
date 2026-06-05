@@ -63,8 +63,8 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   void fillControllerGeo(Map<String, dynamic> location) {
     _controllerLat.text = '${location['lat']}';
     _controllerLon.text = '${location['lon']}';
-    _controllerCity.text = location['district'];
-    _controllerDistrict.text = location['city'];
+    _controllerCity.text = location['city'] ?? '';
+    _controllerDistrict.text = location['district'] ?? '';
   }
 
   void fillMap(double latitude, double longitude) {
@@ -207,18 +207,38 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   );
 
   Future<void> _handleLocationButtonPress() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       if (!context.mounted) return;
       await _showLocationDialog();
       return;
     }
     setState(() => isLoading = true);
-    final location = await ref
-        .read(mainWeatherNotifierProvider.notifier)
-        .getCurrentLocationSearch();
-    fillControllerGeo(location);
-    setState(() => isLoading = false);
+    try {
+      if (ref.read(settingsProvider).location && !widget.isStart) {
+        await ref
+            .read(mainWeatherNotifierProvider.notifier)
+            .getCurrentLocation();
+        if (!mounted) return;
+        NavigationHelper.back(context);
+        return;
+      }
+      final place = await ref.read(locationServiceProvider).getCurrentPlace();
+      if (place == null) {
+        if (mounted) showSnackBar('location_not_found'.tr, isError: true);
+        return;
+      }
+      fillControllerGeo({
+        'lat': place.lat,
+        'lon': place.lon,
+        'city': place.city,
+        'district': place.district,
+      });
+    } catch (_) {
+      if (mounted) showSnackBar('no_location'.tr, isError: true);
+    } finally {
+      if (mounted) setState(() => isLoading = false);
+    }
   }
 
   Future<void> _showLocationDialog() async {

@@ -65,9 +65,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   }
 
   Future<void> _initData() async {
-    await ref.read(mainWeatherNotifierProvider.notifier).deleteCache();
     await ref.read(citiesNotifierProvider.notifier).refresh(all: false);
-    await ref.read(mainWeatherNotifierProvider.notifier).setLocation();
   }
 
   Future<void> _checkLocationCache() async {

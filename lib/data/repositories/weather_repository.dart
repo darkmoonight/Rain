@@ -21,11 +21,6 @@ class WeatherRepository {
   Future<void> writeCache(MainWeatherCache weather, LocationCache location) =>
       _local.saveMainWeather(weather, location);
 
-  Future<void> deleteExpiredCache(DateTime expiry) =>
-      _local.deleteExpiredMainWeather(expiry);
-
-  Future<bool> hasCachedWeather() => _local.hasMainWeather();
-
   Future<bool> isCacheExpired(DateTime expiry) =>
       _local.isMainWeatherExpired(expiry);
 

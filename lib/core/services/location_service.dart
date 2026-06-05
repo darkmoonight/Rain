@@ -25,13 +25,32 @@ class LocationService {
     );
     if (placemarks.isEmpty) return null;
     final place = placemarks.first;
+    final city = _firstNonEmpty([
+      place.locality,
+      place.subAdministrativeArea,
+      place.name,
+      place.subLocality,
+    ]);
+    final district = _firstNonEmpty([
+      place.administrativeArea,
+      place.subAdministrativeArea,
+    ]);
+    if (city.isEmpty && district.isEmpty) return null;
     return (
       lat: position.latitude,
       lon: position.longitude,
-      city: place.locality ?? '',
-      district: place.administrativeArea ?? '',
+      city: city,
+      district: district,
     );
   }
 
   Future<bool> isServiceEnabled() => Geolocator.isLocationServiceEnabled();
+
+  static String _firstNonEmpty(List<String?> values) {
+    for (final value in values) {
+      final trimmed = value?.trim();
+      if (trimmed != null && trimmed.isNotEmpty) return trimmed;
+    }
+    return '';
+  }
 }

@@ -17,24 +17,18 @@ class WeatherLocalDatasource {
     LocationCache location,
   ) async {
     await _isar.writeTxn(() async {
-      final hasLocation = await _isar.locationCaches.where().isEmpty();
-      await _isar.mainWeatherCaches.put(weather);
-      if (hasLocation) {
-        await _isar.locationCaches.put(location);
+      final existingWeather = await _isar.mainWeatherCaches.where().findFirst();
+      if (existingWeather != null) {
+        weather.id = existingWeather.id;
       }
+      final existingLocation = await _isar.locationCaches.where().findFirst();
+      if (existingLocation != null) {
+        location.id = existingLocation.id;
+      }
+      await _isar.mainWeatherCaches.put(weather);
+      await _isar.locationCaches.put(location);
     });
   }
-
-  Future<void> deleteExpiredMainWeather(DateTime expiry) async {
-    await _isar.writeTxn(
-      () => _isar.mainWeatherCaches
-          .filter()
-          .timestampLessThan(expiry)
-          .deleteAll(),
-    );
-  }
-
-  Future<bool> hasMainWeather() => _isar.mainWeatherCaches.where().isNotEmpty();
 
   Future<bool> isMainWeatherExpired(DateTime expiry) async {
     final weather = await getMainWeather();

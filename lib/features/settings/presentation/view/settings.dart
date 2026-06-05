@@ -598,9 +598,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     settings.location = value;
     await ref.read(settingsRepositoryProvider).save(settings);
     if (value) {
-      await ref
-          .read(mainWeatherNotifierProvider.notifier)
-          .getCurrentLocation(forceRefresh: true);
+      await ref.read(mainWeatherNotifierProvider.notifier).getCurrentLocation();
     }
     if (!mounted) return;
     setState(() {});
@@ -669,9 +667,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       initialTime: TimeIndexHelper.parseTime(stored),
     );
     if (timeStartPicker != null) {
-      final String time24h = ref
-          .read(mainWeatherNotifierProvider.notifier)
-          .timeTo24h(timeStartPicker);
+      final time24h = TimeIndexHelper.timeTo24h(timeStartPicker);
       settings.timeStart = time24h;
       await ref.read(settingsRepositoryProvider).save(settings);
       if (!mounted) return;
@@ -700,9 +696,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       initialTime: TimeIndexHelper.parseTime(stored),
     );
     if (timeEndPicker != null) {
-      final String time24h = ref
-          .read(mainWeatherNotifierProvider.notifier)
-          .timeTo24h(timeEndPicker);
+      final time24h = TimeIndexHelper.timeTo24h(timeEndPicker);
       settings.timeEnd = time24h;
       await ref.read(settingsRepositoryProvider).save(settings);
       if (!mounted) return;
