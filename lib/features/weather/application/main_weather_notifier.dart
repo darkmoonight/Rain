@@ -92,7 +92,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
   }
 
-  Future<void> getCurrentLocation() async {
+  Future<void> getCurrentLocation({bool forceRefresh = false}) async {
     final locationService = ref.read(locationServiceProvider);
     if (!await ConnectivityService.hasInternet()) {
       showSnackBar('no_inter'.tr);
@@ -104,17 +104,27 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       await readCache();
       return;
     }
-    await _loadCachedOrFetchFromNetwork(
-      onNetworkFetch: () async {
-        final place = await locationService.getCurrentPlace();
-        if (place == null) {
-          showSnackBar('location_not_found'.tr);
-          await readCache();
-          return;
-        }
-        await _fetchAndSave(place.lat, place.lon, place.district, place.city);
-      },
-    );
+    Future<void> fetchFromGps() async {
+      final place = await locationService.getCurrentPlace();
+      if (place == null) {
+        showSnackBar('location_not_found'.tr);
+        await readCache();
+        return;
+      }
+      await _fetchAndSave(place.lat, place.lon, place.district, place.city);
+    }
+
+    if (forceRefresh) {
+      state = state.copyWith(isLoading: true);
+      await NetworkCacheHandler.fetchOrKeepCache(
+        onNetworkFetch: fetchFromGps,
+        onUseCache: readCache,
+        onError: () => showSnackBar('error_occurred'.tr, isError: true),
+      );
+      return;
+    }
+
+    await _loadCachedOrFetchFromNetwork(onNetworkFetch: fetchFromGps);
   }
 
   Future<void> getLocation(

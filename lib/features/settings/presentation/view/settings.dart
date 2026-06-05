@@ -588,16 +588,20 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   Future<void> _onLocationChanged(bool value, BuildContext context) async {
     if (value) {
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         if (!context.mounted) return;
         await _showLocationDialog(context);
         return;
       }
-      ref.read(mainWeatherNotifierProvider.notifier).getCurrentLocation();
     }
     settings.location = value;
     await ref.read(settingsRepositoryProvider).save(settings);
+    if (value) {
+      await ref
+          .read(mainWeatherNotifierProvider.notifier)
+          .getCurrentLocation(forceRefresh: true);
+    }
     if (!mounted) return;
     setState(() {});
   }

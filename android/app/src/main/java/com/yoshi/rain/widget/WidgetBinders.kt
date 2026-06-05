@@ -8,13 +8,19 @@ import android.widget.RemoteViews
 import androidx.annotation.IdRes
 import com.yoshi.rain.MainActivity
 import com.yoshi.rain.R
+import kotlin.math.roundToInt
 
 object WidgetBinders {
 
     private fun temperatureWithDegreeOnly(raw: String): String {
         if (raw.isBlank() || raw == "--°") return raw
-        val number = Regex("""-?\d+(?:[.,]\d+)?""").find(raw)?.value ?: return raw
-        return "$number°"
+        val number = Regex("""-?\d+(?:[.,]\d+)?""")
+            .find(raw)
+            ?.value
+            ?.replace(',', '.')
+            ?.toDoubleOrNull()
+            ?: return raw
+        return "${number.roundToInt()}°"
     }
 
     private object SafeViews {

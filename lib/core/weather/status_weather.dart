@@ -1,3 +1,4 @@
+import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/i18n/tr.dart';
 
 const assetImageRoot = 'assets/images/';
@@ -55,28 +56,7 @@ class StatusWeather {
     String timeNight,
     Map<int, Map<bool, String>> imagePaths,
   ) {
-    final currentTime = DateTime.parse(time);
-    final day = DateTime.parse(timeDay);
-    final night = DateTime.parse(timeNight);
-
-    final dayTime = DateTime(
-      day.year,
-      day.month,
-      day.day,
-      day.hour,
-      day.minute,
-    );
-    final nightTime = DateTime(
-      night.year,
-      night.month,
-      night.day,
-      night.hour,
-      night.minute,
-    );
-
-    final isDayTime =
-        currentTime.isAfter(dayTime) && currentTime.isBefore(nightTime);
-
+    final isDayTime = TimeIndexHelper.isDaytime(time, timeDay, timeNight);
     return imagePaths[weather]?[isDayTime] ?? '';
   }
 

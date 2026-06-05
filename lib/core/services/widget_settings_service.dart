@@ -12,9 +12,9 @@ class WidgetSettingsService {
 
   Future<bool> _saveAndRefresh(Future<void> Function() save) async {
     await save();
-    return _ref.read(homeWidgetServiceProvider).updateFromIsar(
-      _ref.read(isarProvider),
-    );
+    return _ref
+        .read(homeWidgetServiceProvider)
+        .updateFromIsar(_ref.read(isarProvider));
   }
 
   Future<bool> updateBackgroundColor(String color) async {

@@ -6,7 +6,7 @@ import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/core/config/widget_registry.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
-import 'package:rain/core/weather/status_data.dart';
+import 'package:rain/core/weather/unit_converter.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
@@ -19,11 +19,13 @@ class HomeWidgetService {
   final AssetCacheService _assets;
   final StatusWeather _statusWeather = StatusWeather();
 
-  String _temperatureOnly(String? value) {
-    final v = value?.trim();
-    if (v == null || v.isEmpty) return '';
-    if (v == '--°') return v;
-    return v.replaceAll(RegExp(r'\s*[A-Za-z]+$'), '');
+  String _widgetTemperature(double temp, Settings settings) {
+    final value = UnitConverter.parseValue(temp);
+    if (value == null) return '--°';
+    final converted = settings.degrees == 'fahrenheit'
+        ? UnitConverter.celsiusToFahrenheit(value)
+        : value.toDouble();
+    return '${converted.round()}°';
   }
 
   Future<bool> updateFromIsar(Isar isar) async {
@@ -76,18 +78,18 @@ class HomeWidgetService {
       return null;
     }
 
-    var hour = TimeIndexHelper.getTime(cache.time!, cache.timezone!);
-    if (hour < 0) hour = 0;
-    hour = hour.clamp(0, cache.weathercode!.length - 1);
+    final hour = TimeIndexHelper.resolveTimeIndex(
+      cache.time!,
+      cache.timezone!,
+    ).clamp(0, cache.weathercode!.length - 1);
 
-    var day = 0;
-    if (cache.timeDaily != null && cache.timeDaily!.isNotEmpty) {
-      day = TimeIndexHelper.getDay(cache.timeDaily!, cache.timezone!);
-      if (day < 0) day = 0;
-      day = day.clamp(0, cache.timeDaily!.length - 1);
-    }
+    final day = cache.timeDaily == null || cache.timeDaily!.isEmpty
+        ? 0
+        : TimeIndexHelper.resolveDayIndex(
+            cache.timeDaily!,
+            cache.timezone!,
+          ).clamp(0, cache.timeDaily!.length - 1);
 
-    final statusData = StatusData(settings: settings);
     final location = await isar.locationCaches.where().findFirst();
     final locationName = location?.city ?? location?.district ?? '';
 
@@ -114,7 +116,7 @@ class HomeWidgetService {
         'location': locationName,
         'temperature': temp == null
             ? '--°'
-            : _temperatureOnly(statusData.getDegree(temp)),
+            : _widgetTemperature(temp, settings),
         'icon': currentIcon,
       },
     };
