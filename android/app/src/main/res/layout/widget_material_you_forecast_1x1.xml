@@ -16,7 +16,7 @@
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/widget_padding_mini">
+        android:padding="4dp">
 
         <ImageView
             android:id="@+id/widget_material_you_forecast_currentIcon"

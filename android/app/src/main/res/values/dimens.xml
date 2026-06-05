@@ -5,6 +5,8 @@
     <dimen name="small_margin">@dimen/little_margin</dimen>
     <dimen name="content_text_size">14sp</dimen>
 
+    <dimen name="widget_grid_1">40dp</dimen>
+    <dimen name="widget_grid_2">110dp</dimen>
     <dimen name="widget_grid_3">180dp</dimen>
     <dimen name="widget_grid_4">250dp</dimen>
 
@@ -21,7 +23,6 @@
     <dimen name="widget_current_temp_padding_end">4dp</dimen>
 
     <dimen name="widget_content_padding">12dp</dimen>
-    <dimen name="widget_padding_mini">8dp</dimen>
     <dimen name="widget_icon_compact_size">28dp</dimen>
     <dimen name="widget_forecast_bar_height">56dp</dimen>
 
