@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:initialLayout="@layout/widget_material_you_forecast_1x1"
+    android:minWidth="80dp"
+    android:minHeight="80dp"
+    android:minResizeWidth="80dp"
+    android:minResizeHeight="80dp"
+    android:resizeMode="none"
+    android:targetCellWidth="1"
+    android:targetCellHeight="1"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen|keyguard"
+    tools:ignore="UnusedAttribute" />

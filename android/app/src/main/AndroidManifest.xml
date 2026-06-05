@@ -34,16 +34,38 @@
         </activity>
 
         <receiver
-            android:name=".OreoWidget"
-            android:exported="true">
+            android:name=".widget.providers.WidgetMaterialYouForecast1x1Provider"
+            android:exported="true"
+            android:label="@string/widget_material_you_forecast_1x1">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/oreo_widget_info" />
+                android:resource="@xml/widget_material_you_forecast_1x1" />
         </receiver>
-
+        <receiver
+            android:name=".widget.providers.WidgetMaterialYouCurrentProvider"
+            android:exported="true"
+            android:label="@string/widget_material_you_current">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_material_you_current" />
+        </receiver>
+        <receiver
+            android:name=".widget.providers.WidgetClockDayHorizontalProvider"
+            android:exported="true"
+            android:label="@string/widget_clock">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_clock_day_horizontal" />
+        </receiver>
         <receiver android:name="es.antonborri.home_widget.HomeWidgetBackgroundReceiver"
             android:exported="true">
             <intent-filter>

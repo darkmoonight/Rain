@@ -75,9 +75,6 @@ android {
         }
     }
 
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 flutter {
@@ -85,7 +82,6 @@ flutter {
 }
 
 dependencies {
-    implementation("androidx.core:core-remoteviews:1.1.0")
     implementation("com.google.android.material:material:1.13.0")
     implementation('androidx.work:work-runtime-ktx:2.11.0')
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")

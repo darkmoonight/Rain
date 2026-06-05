@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:home_widget/home_widget.dart';
 import 'package:http_cache_file_store/http_cache_file_store.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -21,14 +19,12 @@ import 'package:rain/features/settings/presentation/widgets/settings_section.dar
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
 import 'package:rain/core/utils/app_time_picker.dart';
-import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/bootstrap/app_initializer.dart';
 import 'package:rain/core/config/app_config.dart';
+import 'package:rain/features/settings/presentation/view/widget_settings_page.dart';
 import 'package:rain/i18n/tr.dart';
-import 'package:rain/core/services/widget_settings_service.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/url_launcher_util.dart';
-import 'package:rain/core/utils/color_converter.dart';
 import 'package:restart_app/restart_app.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -40,9 +36,6 @@ class SettingsPage extends ConsumerStatefulWidget {
 
 class _SettingsPageState extends ConsumerState<SettingsPage> {
   String? appVersion;
-  String? colorBackground;
-  String? colorText;
-
   Settings get settings => ref.watch(settingsProvider);
   AppSettingsState get appSettings => ref.watch(appSettingsProvider);
   Locale get locale => ref.watch(localeProvider);
@@ -68,11 +61,19 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  Future<void> _refreshWidgets() async {
+    if (!Platform.isAndroid) return;
+    await ref
+        .read(homeWidgetServiceProvider)
+        .updateFromIsar(ref.read(isarProvider));
+  }
+
   Future<void> _updateLanguage(Locale locale) async {
     final settings = ref.read(settingsProvider);
     settings.language = '${locale.languageCode}_${locale.countryCode}';
     await ref.read(settingsRepositoryProvider).save(settings);
     ref.read(appSettingsProvider.notifier).update(locale: locale);
+    await _refreshWidgets();
     setState(() {});
   }
 
@@ -89,8 +90,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             _buildFunctionsSection(context),
             const Gap(24),
             _buildDataSection(context),
-            const Gap(24),
-            _buildWidgetSection(context),
+            if (Platform.isAndroid) ...[
+              const Gap(24),
+              _buildWidgetSection(context),
+            ],
             const Gap(24),
             _buildMapSection(context),
             const Gap(24),
@@ -292,61 +295,18 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       icon: IconsaxPlusBold.setting_3,
       children: [
         SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.add_square),
-          title: 'addWidget',
-          onTap: () => _requestPinWidget(),
-        ),
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.bucket_square),
-          title: 'widgetBackground',
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(context).dividerColor,
-                radius: 11,
-                child: CircleAvatar(
-                  backgroundColor: appSettings.widgetBackgroundColor.isEmpty
-                      ? Theme.of(context).primaryColor
-                      : HexColor.fromHex(appSettings.widgetBackgroundColor),
-                  radius: 10,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Icon(
-                IconsaxPlusLinear.arrow_right_3,
-                size: 20,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ],
+          leading: const Icon(IconsaxPlusLinear.setting_4),
+          title: 'widget',
+          trailing: Icon(
+            IconsaxPlusLinear.arrow_right_3,
+            size: 20,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
-          onTap: () => _showBackgroundPicker(context),
-        ),
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.text_block),
-          title: 'widgetText',
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(context).dividerColor,
-                radius: 11,
-                child: CircleAvatar(
-                  backgroundColor: appSettings.widgetTextColor.isEmpty
-                      ? Theme.of(context).primaryColor
-                      : HexColor.fromHex(appSettings.widgetTextColor),
-                  radius: 10,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Icon(
-                IconsaxPlusLinear.arrow_right_3,
-                size: 20,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ],
-          ),
-          onTap: () => _showTextColorPicker(context),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const WidgetSettingsPage()),
+            );
+          },
         ),
       ],
     );
@@ -529,6 +489,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       onSelected: (value) async {
         settings.degrees = value;
         await ref.read(settingsRepositoryProvider).save(settings);
+        await _refreshWidgets();
         if (!mounted) return;
         setState(() {});
       },
@@ -546,6 +507,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       onSelected: (value) async {
         settings.measurements = value;
         await ref.read(settingsRepositoryProvider).save(settings);
+        await _refreshWidgets();
         if (!mounted) return;
         setState(() {});
       },
@@ -754,158 +716,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       }
       setState(() {});
     }
-  }
-
-  Future<void> _requestPinWidget() async {
-    if (!Platform.isAndroid) return;
-
-    final supported = await HomeWidget.isRequestPinWidgetSupported() ?? false;
-    if (!supported) {
-      return;
-    }
-
-    await HomeWidget.requestPinWidget(
-      name: androidWidgetName,
-      androidName: androidWidgetName,
-      qualifiedAndroidName: 'com.yoshi.rain.OreoWidget',
-    );
-  }
-
-  void _showBackgroundPicker(BuildContext context) {
-    colorBackground = null;
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Text(
-                  'widgetBackground'.tr,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleMedium?.copyWith(fontSize: 18),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    inputDecorationTheme: InputDecorationTheme(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  child: ColorPicker(
-                    color: appSettings.widgetBackgroundColor.isEmpty
-                        ? Theme.of(context).primaryColor
-                        : HexColor.fromHex(appSettings.widgetBackgroundColor),
-                    onChanged: (pickedColor) =>
-                        colorBackground = pickedColor.toHex(),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(IconsaxPlusLinear.rotate_left),
-                    tooltip: 'resetColor'.tr,
-                    onPressed: () {
-                      ref
-                          .read(widgetSettingsServiceProvider)
-                          .resetBackgroundColor();
-                      NavigationHelper.back(context);
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(IconsaxPlusLinear.tick_square),
-                    onPressed: () {
-                      if (colorBackground == null) return;
-                      ref
-                          .read(widgetSettingsServiceProvider)
-                          .updateBackgroundColor(colorBackground!);
-                      NavigationHelper.back(context);
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showTextColorPicker(BuildContext context) {
-    colorText = null;
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Text(
-                  'widgetText'.tr,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleMedium?.copyWith(fontSize: 18),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    inputDecorationTheme: InputDecorationTheme(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  child: ColorPicker(
-                    color: appSettings.widgetTextColor.isEmpty
-                        ? Theme.of(context).primaryColor
-                        : HexColor.fromHex(appSettings.widgetTextColor),
-                    onChanged: (pickedColor) => colorText = pickedColor.toHex(),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(IconsaxPlusLinear.rotate_left),
-                    tooltip: 'resetColor'.tr,
-                    onPressed: () {
-                      ref.read(widgetSettingsServiceProvider).resetTextColor();
-                      NavigationHelper.back(context);
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(IconsaxPlusLinear.tick_square),
-                    onPressed: () {
-                      if (colorText == null) return;
-                      ref
-                          .read(widgetSettingsServiceProvider)
-                          .updateTextColor(colorText!);
-                      NavigationHelper.back(context);
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   void _showClearCacheDialog(BuildContext context) {

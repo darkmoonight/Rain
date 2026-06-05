@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_ellipsis">…</string>
+    <string name="widget_material_you_forecast_1x1">Material You – Compact</string>
+    <string name="widget_material_you_current">Material You – Current</string>
+    <string name="widget_clock">Material You – Clock</string>
+</resources>

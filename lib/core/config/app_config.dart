@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rain/i18n/strings.g.dart';
 
 const String appGroupId = 'DARK NIGHT';
-const String androidWidgetName = 'OreoWidget';
 
 class LanguageOption {
   const LanguageOption({required this.name, required this.locale});

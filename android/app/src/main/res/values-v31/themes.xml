@@ -9,4 +9,8 @@
         <item name="appWidgetRadius">@android:dimen/system_app_widget_background_radius</item>
         <item name="appWidgetInnerRadius">@android:dimen/system_app_widget_inner_radius</item>
     </style>
+
+    <style name="Theme.Android.AppWidgetContainer" parent="Theme.Android.AppWidgetContainerParent">
+        <item name="appWidgetPadding">8dp</item>
+    </style>
 </resources>

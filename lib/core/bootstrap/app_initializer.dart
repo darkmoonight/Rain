@@ -31,8 +31,10 @@ class AppInitializer {
     if (Platform.isAndroid) {
       await _setOptimalDisplayMode();
       Workmanager().initialize(callbackDispatcher);
-      HomeWidget.setAppGroupId(appGroupId);
       Future.microtask(HomeWidgetService.updateFromDisk);
+    }
+    if (Platform.isIOS) {
+      HomeWidget.setAppGroupId(appGroupId);
     }
     await DeviceFeature().init();
     return bootstrap;
