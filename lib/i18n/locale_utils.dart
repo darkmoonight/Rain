@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rain/i18n/strings.g.dart';
 
+/// Parses a stored language code (e.g. `en_US`) into an [AppLocale].
 AppLocale appLocaleFromLanguageCode(String? language) {
   if (language == null || language.isEmpty) return AppLocale.enUs;
   return AppLocaleUtils.parse(language.replaceAll('_', '-'));
 }
 
+/// Converts a Flutter [Locale] into the closest supported [AppLocale].
 AppLocale appLocaleFromFlutterLocale(Locale locale) {
   final country = locale.countryCode;
   if (country != null && country.isNotEmpty) {
@@ -14,6 +16,7 @@ AppLocale appLocaleFromFlutterLocale(Locale locale) {
   return AppLocaleUtils.parse(locale.languageCode);
 }
 
+/// Serializes [locale] to the `language_COUNTRY` form stored in settings.
 String languageCodeFromAppLocale(AppLocale locale) {
   final c = locale.countryCode;
   if (c == null || c.isEmpty) return locale.languageCode;

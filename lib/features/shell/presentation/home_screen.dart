@@ -15,12 +15,15 @@ import 'package:rain/features/map/presentation/map_screen.dart';
 import 'package:rain/features/settings/presentation/view/settings.dart';
 import 'package:rain/features/weather/presentation/main_weather_screen.dart';
 
+/// Root shell with bottom navigation across weather, cities, map, and settings.
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
+
+// --- HomeScreenState ---
 
 class _HomeScreenState extends ConsumerState<HomeScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {

@@ -3,13 +3,17 @@ import 'package:intl/intl.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+/// Resolves hourly/daily indices and formats times in the location timezone.
 class TimeIndexHelper {
+  /// Index of the current hour in an ISO time series for [timezone].
   static int getTime(List<String> time, String timezone) =>
       resolveTimeIndex(time, timezone);
 
+  /// Index of today in a daily date series for [timezone].
   static int getDay(List<DateTime> time, String timezone) =>
       resolveDayIndex(time, timezone);
 
+  /// Finds the hourly slot matching now, or the latest past hour today.
   static int resolveTimeIndex(List<String> time, String timezone) {
     if (time.isEmpty) return 0;
 
@@ -38,6 +42,7 @@ class TimeIndexHelper {
     return fallback.clamp(0, time.length - 1);
   }
 
+  /// Finds today's daily slot, or the nearest upcoming/final day.
   static int resolveDayIndex(List<DateTime> time, String timezone) {
     if (time.isEmpty) return 0;
 
@@ -65,6 +70,7 @@ class TimeIndexHelper {
     return (time.length - 1).clamp(0, time.length - 1);
   }
 
+  /// Whether [currentTime] falls between [sunrise] and [sunset].
   static bool isDaytime(String currentTime, String sunrise, String sunset) {
     final current = _minutesOfDay(_timePart(currentTime));
     final rise = _minutesOfDay(_timePart(sunrise));
@@ -72,6 +78,7 @@ class TimeIndexHelper {
     return current >= rise && current < set;
   }
 
+  /// Parses a time string in 12h, 24h, or ISO form into [TimeOfDay].
   static TimeOfDay parseTime(String? timeStr) {
     if (timeStr == null || timeStr.isEmpty) {
       return const TimeOfDay(hour: 0, minute: 0);
@@ -92,11 +99,14 @@ class TimeIndexHelper {
     );
   }
 
+  /// Formats [time] as an HH:mm string for storage.
   static String timeTo24h(TimeOfDay time) =>
       '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 
+  /// Whether the user prefers 12-hour clock display.
   static bool is12HourFormat(Settings settings) => settings.timeformat == '12';
 
+  /// Returns the [DateFormat] for app time display in [languageCode].
   static DateFormat appTimeFormat(Settings settings, String languageCode) {
     if (is12HourFormat(settings)) {
       return DateFormat('h:mm a', languageCode);
@@ -104,12 +114,14 @@ class TimeIndexHelper {
     return DateFormat('HH:mm', languageCode);
   }
 
+  /// Formats [dateTime] using the user's 12/24-hour preference.
   static String formatDateTime(
     DateTime dateTime,
     Settings settings,
     String languageCode,
   ) => appTimeFormat(settings, languageCode).format(dateTime);
 
+  /// Formats a time-only string using the user's clock preference.
   static String formatTime(
     String? timeStr,
     Settings settings,
@@ -120,11 +132,13 @@ class TimeIndexHelper {
     return formatDateTime(dateTime, settings, languageCode);
   }
 
+  /// Extracts year/month/day/hour from an ISO datetime string.
   static _IsoParts _parseIsoParts(String value) {
     final dt = DateTime.parse(value);
     return _IsoParts(dt.year, dt.month, dt.day, dt.hour);
   }
 
+  /// Strips the date portion from an ISO or plain time string.
   static String _timePart(String value) {
     if (value.contains('T')) {
       final part = value.split('T').last;
@@ -133,6 +147,7 @@ class TimeIndexHelper {
     return value;
   }
 
+  /// Converts a time string to minutes since midnight.
   static int _minutesOfDay(String value) {
     final time = parseTime(value);
     return time.hour * 60 + time.minute;

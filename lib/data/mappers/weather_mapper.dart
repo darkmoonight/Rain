@@ -1,7 +1,9 @@
 import 'package:rain/data/models/db.dart';
 import 'package:rain/data/models/weather_api.dart';
 
+/// Maps Open-Meteo API responses to local Isar cache models.
 class WeatherMapper {
+  /// Converts API forecast data into the main weather cache shape.
   static MainWeatherCache toMainWeatherCache(WeatherDataApi weatherData) =>
       MainWeatherCache(
         time: weatherData.hourly.time,
@@ -42,6 +44,7 @@ class WeatherMapper {
         timestamp: DateTime.now(),
       );
 
+  /// Converts API forecast data into a city weather card with location fields.
   static WeatherCard toWeatherCard(
     WeatherDataApi weatherData,
     double lat,
@@ -91,6 +94,7 @@ class WeatherMapper {
     timestamp: DateTime.now(),
   );
 
+  /// Copies forecast fields from [updated] onto [oldCard] and refreshes timestamp.
   static void copyWeatherCardFields(WeatherCard oldCard, WeatherCard updated) {
     oldCard
       ..time = updated.time

@@ -9,6 +9,7 @@ import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+/// Schedules local weather notifications from cached hourly forecast data.
 class NotificationService {
   NotificationService(this._assets);
 
@@ -16,6 +17,9 @@ class NotificationService {
   static const _channelId = 'Rain';
   static const _channelName = 'DARK NIGHT';
 
+  // --- Scheduling ---
+
+  /// Schedules notifications for future hours within the user's time window.
   Future<void> scheduleForWeather({
     required MainWeatherCache cache,
     required Settings settings,
@@ -53,6 +57,7 @@ class NotificationService {
     }
   }
 
+  /// Cancels pending notifications and reschedules from the latest cache.
   Future<void> rescheduleForWeather({
     required MainWeatherCache cache,
     required Settings settings,
@@ -69,8 +74,12 @@ class NotificationService {
     );
   }
 
+  /// Removes all pending and displayed notifications.
   Future<void> cancelAll() => flutterLocalNotificationsPlugin.cancelAll();
 
+  // --- Platform ---
+
+  /// Shows a single zoned notification with a cached weather icon.
   Future<void> _show(
     int id,
     String title,

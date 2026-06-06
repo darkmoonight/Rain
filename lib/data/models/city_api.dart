@@ -1,3 +1,4 @@
+/// Root response from the Open-Meteo geocoding search endpoint.
 class CityApi {
   CityApi({required this.results});
 
@@ -10,6 +11,7 @@ class CityApi {
   );
 }
 
+/// A single city match within a geocoding search response.
 class Result {
   Result({
     required this.admin1,

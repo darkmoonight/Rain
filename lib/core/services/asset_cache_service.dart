@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
+/// Copies bundled weather icons to disk for widgets and notifications.
 class AssetCacheService {
+  /// Returns a local file path for [icon], copying from assets on first use.
   Future<String> getLocalImagePath(String icon) async {
     final fileName = icon.isEmpty ? 'cloud.png' : icon;
     final directory = await getApplicationSupportDirectory();

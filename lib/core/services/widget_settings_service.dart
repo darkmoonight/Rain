@@ -5,11 +5,13 @@ final widgetSettingsServiceProvider = Provider<WidgetSettingsService>(
   (ref) => WidgetSettingsService(ref),
 );
 
+/// Persists home-widget appearance settings and refreshes widget data.
 class WidgetSettingsService {
   WidgetSettingsService(this._ref);
 
   final Ref _ref;
 
+  /// Persists settings via [save], then pushes updates to home widgets.
   Future<bool> _saveAndRefresh(Future<void> Function() save) async {
     await save();
     return _ref
@@ -17,6 +19,7 @@ class WidgetSettingsService {
         .updateFromIsar(_ref.read(isarProvider));
   }
 
+  /// Saves a custom widget background color and updates widgets.
   Future<bool> updateBackgroundColor(String color) async {
     return _saveAndRefresh(() async {
       final settings = _ref.read(settingsProvider);
@@ -25,6 +28,7 @@ class WidgetSettingsService {
     });
   }
 
+  /// Clears the custom widget background color and updates widgets.
   Future<bool> resetBackgroundColor() async {
     return _saveAndRefresh(() async {
       final settings = _ref.read(settingsProvider);
@@ -33,6 +37,7 @@ class WidgetSettingsService {
     });
   }
 
+  /// Saves a custom widget text color and updates widgets.
   Future<bool> updateTextColor(String color) async {
     return _saveAndRefresh(() async {
       final settings = _ref.read(settingsProvider);
@@ -41,6 +46,7 @@ class WidgetSettingsService {
     });
   }
 
+  /// Clears the custom widget text color and updates widgets.
   Future<bool> resetTextColor() async {
     return _saveAndRefresh(() async {
       final settings = _ref.read(settingsProvider);

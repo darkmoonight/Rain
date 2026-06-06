@@ -9,6 +9,7 @@ import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/status_weather.dart';
 
+/// Current conditions header with compact or large-element layout.
 class Now extends ConsumerWidget {
   const Now({
     super.key,

@@ -7,15 +7,18 @@ import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
 
+/// Exposes derived app settings for widgets and services.
 final appSettingsProvider =
     NotifierProvider<AppSettingsNotifier, AppSettingsState>(
       AppSettingsNotifier.new,
     );
 
+/// Watches the active UI locale from [appSettingsProvider].
 final localeProvider = Provider<Locale>(
   (ref) => ref.watch(appSettingsProvider).locale,
 );
 
+/// Builds [AppSettingsState] from persisted settings and applies live updates.
 class AppSettingsNotifier extends Notifier<AppSettingsState> {
   @override
   AppSettingsState build() {
@@ -39,6 +42,7 @@ class AppSettingsNotifier extends Notifier<AppSettingsState> {
     );
   }
 
+  /// Updates in-memory settings and syncs locale changes to slang.
   void update({
     bool? amoledTheme,
     bool? materialColor,

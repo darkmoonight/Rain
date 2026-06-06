@@ -13,6 +13,7 @@ import 'package:rain/features/weather/presentation/widgets/weather_detail_view.d
 import 'package:rain/i18n/tr.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+/// Full weather detail screen for a single saved city card.
 class PlaceInfo extends ConsumerStatefulWidget {
   const PlaceInfo({super.key, required this.cardId});
   final int cardId;
@@ -27,6 +28,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   DateTime? _lastSyncedTimestamp;
   final itemScrollController = ItemScrollController();
 
+  /// Updates hour/day indices and scrolls the hourly list when card data changes.
   void _syncTimeFor(WeatherCard card) {
     if (!WeatherCardValidator.isComplete(card)) return;
     if (_lastSyncedTimestamp == card.timestamp) return;

@@ -14,6 +14,7 @@ import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/data/repositories/cities_repository.dart';
 
+/// Immutable state for the saved-cities list and its load/refresh flags.
 class CitiesState {
   const CitiesState({
     this.cards = const [],
@@ -42,10 +43,12 @@ class CitiesState {
   WeatherCard? cardById(int id) => WeatherCardValidator.findById(cards, id);
 }
 
+/// Riverpod provider for [CitiesNotifier].
 final citiesNotifierProvider = NotifierProvider<CitiesNotifier, CitiesState>(
   CitiesNotifier.new,
 );
 
+/// Loads, refreshes, and mutates the user's saved weather cards.
 class CitiesNotifier extends Notifier<CitiesState> {
   final _queue = AsyncQueue();
 
@@ -59,6 +62,9 @@ class CitiesNotifier extends Notifier<CitiesState> {
   @override
   CitiesState build() => const CitiesState(isLoading: true);
 
+  // --- Loading ---
+
+  /// Reads cards from the database and updates state, preserving prior cards on error.
   Future<void> _loadImpl() async {
     final previousCards = state.cards;
     try {
@@ -77,12 +83,14 @@ class CitiesNotifier extends Notifier<CitiesState> {
     }
   }
 
+  /// Returns false and shows a snackbar when the device is offline.
   Future<bool> _requireInternet() async {
     if (await ConnectivityService.hasInternet()) return true;
     showSnackBar('no_inter'.tr);
     return false;
   }
 
+  /// Runs an online-only action and reloads cards afterward.
   Future<void> _runOnlineAction(
     String context,
     Future<void> Function() action,
@@ -97,6 +105,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
     }
   }
 
+  /// Fetches fresh forecast data for [target] and persists the update.
   Future<void> _fetchAndApplyRemote(
     WeatherCard target, {
     double? latitude,
@@ -140,9 +149,13 @@ class CitiesNotifier extends Notifier<CitiesState> {
     await _repo.applyRemoteUpdate(target, updated);
   }
 
+  // --- Refresh ---
+
+  /// Queues a network refresh for expired cards, or all cards when [all] is true.
   Future<void> refresh({bool all = true}) =>
       _queue.enqueue(() => _refreshImpl(all: all));
 
+  /// Refreshes expired or all cards from the network, falling back to cache.
   Future<void> _refreshImpl({required bool all}) async {
     state = state.copyWith(isRefreshing: true, loadError: false);
     try {
@@ -158,6 +171,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
     }
   }
 
+  /// Fetches remote updates for complete cards in parallel, then reloads.
   Future<void> _fetchRemoteUpdates({required bool all}) async {
     final toUpdate = WeatherCardValidator.filterComplete(
       all
@@ -183,6 +197,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
     }
   }
 
+  /// Updates a single card from the network; returns false on failure.
   Future<bool> _updateSingleCard(WeatherCard oldCard) async {
     try {
       await _fetchAndApplyRemote(oldCard);
@@ -193,6 +208,9 @@ class CitiesNotifier extends Notifier<CitiesState> {
     }
   }
 
+  // --- Public API ---
+
+  /// Fetches and saves a new city card at the given coordinates.
   Future<void> addCard(
     double latitude,
     double longitude,
@@ -212,6 +230,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
     }),
   );
 
+  /// Re-fetches forecast data after the card's location label or coordinates change.
   Future<void> updateCardLocation(
     WeatherCard card,
     double latitude,
@@ -231,15 +250,18 @@ class CitiesNotifier extends Notifier<CitiesState> {
     ),
   );
 
+  /// Re-fetches and persists fresh forecast data for an existing card.
   Future<void> updateCard(WeatherCard card) => _queue.enqueue(
     () => _runOnlineAction('updateCard', () => _fetchAndApplyRemote(card)),
   );
 
+  /// Removes [card] from storage and reloads the list.
   Future<void> deleteCard(WeatherCard card) => _queue.enqueue(() async {
     await _repo.deleteCard(card);
     await _loadImpl();
   });
 
+  /// Persists a new card order after drag-and-drop reordering.
   Future<void> reorder(int oldIndex, int newIndex) => _queue.enqueue(() async {
     await _repo.reorder(oldIndex, newIndex);
     await _loadImpl();

@@ -13,18 +13,23 @@ import 'package:rain/data/models/db.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+/// Pushes current weather and styling into native home screen widgets.
 class HomeWidgetService {
   HomeWidgetService(this._assets);
 
   final AssetCacheService _assets;
   final StatusWeather _statusWeather = StatusWeather();
 
+  /// Formats [temp] for widget display using user unit preferences.
   String _widgetTemperature(double temp, Settings settings) {
     final converted = UnitConverter.convertTemperature(temp, settings);
     if (converted == null) return '--°';
     return '$converted${UnitConverter.temperatureSuffix(settings)}';
   }
 
+  // --- Widget update ---
+
+  /// Reads Isar and writes widget data for all registered widget providers.
   Future<bool> updateFromIsar(Isar isar) async {
     try {
       final settings = await isar.settings.where().findFirst() ?? Settings();
@@ -61,6 +66,7 @@ class HomeWidgetService {
     }
   }
 
+  /// Builds the JSON payload for the current hour from main weather cache.
   Future<Map<String, dynamic>?> _buildWidgetBundle(
     Isar isar,
     Settings settings,
@@ -119,6 +125,7 @@ class HomeWidgetService {
     };
   }
 
+  /// Background entry point: opens Isar on disk and refreshes widgets.
   static Future<bool> updateFromDisk() async {
     Isar? isar;
     try {

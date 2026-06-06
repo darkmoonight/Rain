@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
+/// Visual style variants for [MyTextForm].
 enum TextFieldVariant { outlined, filled, card }
 
+/// Styled text field with icon, validation, and responsive sizing.
 class MyTextForm extends StatelessWidget {
   const MyTextForm({
     super.key,

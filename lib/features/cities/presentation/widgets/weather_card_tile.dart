@@ -7,6 +7,7 @@ import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card.dart';
 import 'package:rain/i18n/tr.dart';
 
+/// Renders a saved card as [PlaceCard] or a retry placeholder when incomplete.
 class WeatherCardTile extends ConsumerWidget {
   const WeatherCardTile({super.key, required this.card});
 
@@ -20,6 +21,7 @@ class WeatherCardTile extends ConsumerWidget {
   }
 }
 
+/// Fallback tile shown when a saved card lacks complete forecast data.
 class InvalidWeatherCard extends ConsumerWidget {
   const InvalidWeatherCard({super.key, required this.card});
 

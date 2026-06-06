@@ -1,7 +1,9 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
+/// Wraps Geolocator and geocoding for the current device position.
 class LocationService {
+  /// Returns the current GPS position after requesting permissions if needed.
   Future<Position> determinePosition() async {
     var permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -16,6 +18,7 @@ class LocationService {
     return Geolocator.getCurrentPosition();
   }
 
+  /// Resolves coordinates and a human-readable city/district label.
   Future<({double lat, double lon, String city, String district})?>
   getCurrentPlace() async {
     final position = await determinePosition();
@@ -44,8 +47,10 @@ class LocationService {
     );
   }
 
+  /// Whether the device location service is enabled at the OS level.
   Future<bool> isServiceEnabled() => Geolocator.isLocationServiceEnabled();
 
+  /// Returns the first trimmed non-empty string from [values].
   static String _firstNonEmpty(List<String?> values) {
     for (final value in values) {
       final trimmed = value?.trim();

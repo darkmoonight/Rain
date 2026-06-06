@@ -11,6 +11,7 @@ import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:timezone/standalone.dart' as tz;
 
+/// Compact summary card for a complete saved city weather entry.
 class PlaceCard extends ConsumerWidget {
   const PlaceCard({
     super.key,
@@ -25,6 +26,7 @@ class PlaceCard extends ConsumerWidget {
     required this.timeDaily,
   });
 
+  /// Builds a [PlaceCard] from [card], or null when required data is missing.
   static PlaceCard? tryFromWeatherCard(WeatherCard card) {
     if (!WeatherCardValidator.isComplete(card)) return null;
 

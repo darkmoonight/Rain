@@ -9,10 +9,12 @@ import 'package:rain/features/geolocation/presentation/geolocation_screen.dart';
 import 'package:rain/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:rain/features/shell/presentation/home_screen.dart';
 
+/// Forces [appRouterProvider] to re-evaluate redirects from a [WidgetRef].
 void refreshAppRouter(WidgetRef ref) {
   ref.read(_routerRefreshProvider).value++;
 }
 
+/// Forces [appRouterProvider] to re-evaluate redirects from a [Ref].
 void refreshAppRouterFromRef(Ref ref) {
   ref.read(_routerRefreshProvider).value++;
 }
@@ -25,6 +27,7 @@ final _routerRefreshProvider = Provider<ValueNotifier<int>>((ref) {
   return notifier;
 });
 
+/// App-wide [GoRouter] with onboarding and geolocation guards.
 final appRouterProvider = Provider<GoRouter>((ref) {
   final refresh = ref.watch(_routerRefreshProvider);
 
@@ -64,6 +67,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   );
 });
 
+/// Returns a redirect path when onboarding or location setup is incomplete.
 String? _redirectPath(Settings settings, LocationCache location, String path) {
   if (!settings.onboard) {
     return path == AppRoutes.onboarding ? null : AppRoutes.onboarding;
@@ -85,6 +89,7 @@ String? _redirectPath(Settings settings, LocationCache location, String path) {
   return null;
 }
 
+/// Convenience navigation helpers backed by [GoRouter] and slide routes.
 extension GoRouterNavigation on BuildContext {
   void popRoute<T>([T? result]) => GoRouter.of(this).pop(result);
 

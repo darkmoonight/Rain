@@ -1,3 +1,4 @@
+/// Builds a display label from city and district, omitting duplicates.
 String formatLocationLabel(String? city, String? district) {
   final c = city ?? '';
   final d = district ?? '';

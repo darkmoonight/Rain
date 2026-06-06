@@ -1,3 +1,4 @@
+/// Shared layout, timing, cache, and map constants for the app.
 class AppConstants {
   // Animation
   static const Duration animationDuration = Duration(milliseconds: 300);

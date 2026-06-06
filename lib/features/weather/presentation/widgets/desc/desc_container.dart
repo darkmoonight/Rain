@@ -6,6 +6,7 @@ import 'package:rain/core/weather/message.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/weather/status_data.dart';
 
+/// Expandable grid of hourly or daily weather variables.
 class DescContainer extends ConsumerWidget {
   const DescContainer({
     super.key,

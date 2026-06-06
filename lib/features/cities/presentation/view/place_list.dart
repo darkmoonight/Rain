@@ -7,6 +7,7 @@ import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card_list.dart';
 
+/// Searchable, refreshable list of saved city weather cards.
 class PlaceList extends ConsumerStatefulWidget {
   const PlaceList({super.key});
 

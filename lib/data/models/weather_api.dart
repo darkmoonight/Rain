@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'weather_api.freezed.dart';
 part 'weather_api.g.dart';
 
+/// Root forecast payload from the Open-Meteo API.
 @freezed
 abstract class WeatherDataApi with _$WeatherDataApi {
   const factory WeatherDataApi({
@@ -15,6 +16,7 @@ abstract class WeatherDataApi with _$WeatherDataApi {
       _$WeatherDataApiFromJson(json);
 }
 
+/// Hourly forecast variables returned by Open-Meteo.
 @freezed
 abstract class Hourly with _$Hourly {
   const factory Hourly({
@@ -42,9 +44,11 @@ abstract class Hourly with _$Hourly {
   factory Hourly.fromJson(Map<String, dynamic> json) => _$HourlyFromJson(json);
 }
 
+/// Parses ISO date strings from daily forecast JSON into [DateTime] values.
 List<DateTime> _dateTimeFromJson(List<dynamic>? json) =>
     json?.map((x) => DateTime.parse(x)).toList() ?? [];
 
+/// Daily forecast variables returned by Open-Meteo.
 @freezed
 abstract class Daily with _$Daily {
   const factory Daily({

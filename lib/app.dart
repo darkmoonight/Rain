@@ -11,6 +11,7 @@ import 'package:rain/core/theme/theme.dart';
 import 'package:rain/core/utils/device_info.dart';
 import 'package:rain/core/utils/snackbar_overlay.dart';
 
+/// Root widget: routing, theming, localization, and global overlays.
 class RainApp extends ConsumerWidget {
   const RainApp({super.key, required this.bootstrap});
 

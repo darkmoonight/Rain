@@ -22,7 +22,9 @@ import 'package:workmanager/workmanager.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
+/// One-time startup: DB, locale, notifications, widgets, and platform hooks.
 class AppInitializer {
+  /// Runs all bootstrap steps and returns the loaded [AppBootstrap].
   static Future<AppBootstrap> initialize() async {
     ConnectivityService.setup();
     await _initializeTimeZone();
@@ -40,12 +42,14 @@ class AppInitializer {
     return bootstrap;
   }
 
+  /// Loads the device timezone into the timezone package.
   static Future<void> _initializeTimeZone() async {
     final timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
   }
 
+  /// Opens Isar, seeds default settings, and applies the stored locale.
   static Future<AppBootstrap> _initializeIsar() async {
     final isar = await openRainIsar();
 
@@ -76,6 +80,7 @@ class AppInitializer {
     );
   }
 
+  /// Registers the local notifications plugin on supported platforms.
   static Future<void> _initializeNotifications() async {
     try {
       const initializationSettings = InitializationSettings(
@@ -93,6 +98,7 @@ class AppInitializer {
     }
   }
 
+  /// Picks the highest refresh rate matching the current display resolution.
   static Future<void> _setOptimalDisplayMode() async {
     final supported = await FlutterDisplayMode.supported;
     final active = await FlutterDisplayMode.active;
@@ -108,6 +114,7 @@ class AppInitializer {
   }
 }
 
+/// Workmanager entry point that refreshes home widgets from disk.
 @pragma('vm:entry-point')
 void callbackDispatcher() => Workmanager().executeTask((task, inputData) async {
   return HomeWidgetService.updateFromDisk();

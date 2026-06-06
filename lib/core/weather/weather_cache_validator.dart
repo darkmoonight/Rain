@@ -1,10 +1,10 @@
 import 'package:rain/data/models/db.dart';
 
+/// Detects stale or inconsistent main-weather cache entries.
 class WeatherCacheValidator {
   const WeatherCacheValidator._();
 
-  /// Detects caches written when the API used `temperature_unit=fahrenheit`.
-  /// Open-Meteo Celsius hourly values are almost always below this threshold.
+  /// True when max temperature suggests values were stored as Fahrenheit, not Celsius.
   static bool isLikelyFahrenheit(MainWeatherCache cache) {
     final temps = cache.temperature2M;
     if (temps == null || temps.isEmpty) return false;

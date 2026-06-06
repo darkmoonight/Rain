@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+/// Tappable grid cell for a single weather metric with optional tooltip.
 class DescWeather extends StatefulWidget {
   const DescWeather({
     super.key,

@@ -1,12 +1,17 @@
 import 'package:rain/i18n/tr.dart';
 
+/// Localized human-readable labels for weather detail metrics.
 class Message {
+  /// Returns a localized pressure level for [pressure] in hPa.
   String getPressure(int? pressure) => _getPressureDescription(pressure);
 
+  /// Returns a localized UV index severity for [uvIndex].
   String getUvIndex(int? uvIndex) => _getUvIndexDescription(uvIndex);
 
+  /// Returns a localized wind direction for [direction] in degrees.
   String getDirection(int? direction) => _getDirectionDescription(direction);
 
+  /// Maps [pressure] in hPa to low, normal, or high label.
   String _getPressureDescription(int? pressure) {
     if (pressure == null) return '';
 
@@ -19,6 +24,7 @@ class Message {
     }
   }
 
+  /// Maps [uvIndex] to a localized UV severity label.
   String _getUvIndexDescription(int? uvIndex) {
     if (uvIndex == null) return '';
 
@@ -35,6 +41,7 @@ class Message {
     }
   }
 
+  /// Maps wind [direction] in degrees to a localized compass label.
   String _getDirectionDescription(int? direction) {
     if (direction == null) return '';
 

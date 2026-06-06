@@ -8,6 +8,7 @@ import 'package:rain/features/weather/presentation/widgets/now.dart';
 import 'package:rain/features/weather/presentation/widgets/sunset_sunrise.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+/// Scrollable weather detail layout shared by the main and city detail screens.
 class WeatherDetailView extends StatelessWidget {
   const WeatherDetailView({
     super.key,

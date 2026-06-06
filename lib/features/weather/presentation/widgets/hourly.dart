@@ -6,6 +6,7 @@ import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/status_weather.dart';
 
+/// Single hour column in the horizontal hourly forecast strip.
 class Hourly extends ConsumerWidget {
   const Hourly({
     super.key,

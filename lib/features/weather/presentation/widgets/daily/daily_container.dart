@@ -11,6 +11,7 @@ import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 
+/// Seven-day forecast preview embedded in the main weather detail view.
 class DailyContainer extends ConsumerStatefulWidget {
   const DailyContainer({
     super.key,

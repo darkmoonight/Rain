@@ -1,17 +1,25 @@
 import 'package:isar_community/isar.dart';
 import 'package:rain/data/models/db.dart';
 
+/// Persists and reads the primary weather and location cache in Isar.
 class WeatherLocalDatasource {
   WeatherLocalDatasource(this._isar);
 
   final Isar _isar;
 
+  // --- Cache read ---
+
+  /// Returns the stored main weather cache, or null if none exists.
   Future<MainWeatherCache?> getMainWeather() =>
       _isar.mainWeatherCaches.where().findFirst();
 
+  /// Returns the stored location cache, or null if none exists.
   Future<LocationCache?> getLocation() =>
       _isar.locationCaches.where().findFirst();
 
+  // --- Cache write ---
+
+  /// Upserts main weather and location caches in a single transaction.
   Future<void> saveMainWeather(
     MainWeatherCache weather,
     LocationCache location,
@@ -30,6 +38,9 @@ class WeatherLocalDatasource {
     });
   }
 
+  // --- Cache validation ---
+
+  /// Returns true when the main weather cache is missing or older than [expiry].
   Future<bool> isMainWeatherExpired(DateTime expiry) async {
     final weather = await getMainWeather();
     if (weather == null) return false;
@@ -37,14 +48,19 @@ class WeatherLocalDatasource {
     return timestamp == null || timestamp.isBefore(expiry);
   }
 
+  /// Returns true when no main weather cache row is stored.
+  Future<bool> isMainWeatherEmpty() =>
+      _isar.mainWeatherCaches.where().isEmpty();
+
+  // --- Cache deletion ---
+
+  /// Deletes all rows from the main weather cache collection.
   Future<void> deleteMainWeather() async {
     await _isar.writeTxn(() => _isar.mainWeatherCaches.where().deleteAll());
   }
 
+  /// Deletes all rows from the location cache collection.
   Future<void> deleteLocation() async {
     await _isar.writeTxn(() => _isar.locationCaches.where().deleteAll());
   }
-
-  Future<bool> isMainWeatherEmpty() =>
-      _isar.mainWeatherCaches.where().isEmpty();
 }

@@ -27,12 +27,15 @@ import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/url_launcher_util.dart';
 import 'package:restart_app/restart_app.dart';
 
+/// Scrollable settings screen grouped into themed sections.
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
   @override
   ConsumerState<SettingsPage> createState() => _SettingsPageState();
 }
+
+// --- SettingsPageState ---
 
 class _SettingsPageState extends ConsumerState<SettingsPage> {
   String? appVersion;
@@ -46,11 +49,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     _infoVersion();
   }
 
+  /// Loads the app version string from package info for the about section.
   Future<void> _infoVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
     setState(() => appVersion = packageInfo.version);
   }
 
+  /// Formats a stored time string, or `--:--` when null or empty.
   String _safeFormatTime(String? timeStr) {
     if (timeStr == null || timeStr.isEmpty) return '--:--';
     ref.watch(settingsRevisionProvider);
@@ -61,6 +66,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Pushes the latest settings to Android home widgets when on Android.
   Future<void> _refreshWidgets() async {
     if (!Platform.isAndroid) return;
     await ref
@@ -68,6 +74,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         .updateFromIsar(ref.read(isarProvider));
   }
 
+  /// Persists a new locale, updates in-memory settings, and refreshes widgets.
   Future<void> _updateLanguage(Locale locale) async {
     final settings = ref.read(settingsProvider);
     settings.language = '${locale.languageCode}_${locale.countryCode}';
@@ -111,7 +118,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  // ==================== SECTIONS ====================
+  // --- Sections ---
 
   Widget _buildAppearanceSection(BuildContext context) {
     return SettingsSection(
@@ -431,8 +438,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  // ==================== DIALOGS ====================
+  // --- Dialogs ---
 
+  /// Opens the light/dark/system theme picker.
   void _showThemeDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -449,6 +457,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Opens the notification interval picker and reschedules when needed.
   void _showTimeRangeDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -478,6 +487,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Opens the Celsius/Fahrenheit temperature unit picker.
   void _showDegreesDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -496,6 +506,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Opens the metric/imperial measurements picker.
   void _showMeasurementsDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -514,6 +525,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Opens the wind speed unit picker.
   void _showWindDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -531,6 +543,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Opens the pressure unit picker.
   void _showPressureDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -548,6 +561,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Opens the 12/24-hour clock format picker.
   void _showTimeFormatDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -570,6 +584,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Opens the searchable language list and applies the selection.
   void _showLanguageDialog(BuildContext context) {
     showSelectionDialog<LanguageOption>(
       context: context,
@@ -586,6 +601,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Toggles GPS-based weather and prompts when location services are off.
   Future<void> _onLocationChanged(bool value, BuildContext context) async {
     if (value) {
       final serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -604,6 +620,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     setState(() {});
   }
 
+  /// Prompts the user to open system location settings.
   Future<bool> _showLocationDialog(BuildContext context) async {
     return showConfirmationDialog(
       context: context,
@@ -615,6 +632,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Requests permissions, then enables or disables scheduled notifications.
   void _onNotificationsChanged(bool value) async {
     if (value) {
       await flutterLocalNotificationsPlugin
@@ -657,6 +675,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     setState(() {});
   }
 
+  /// Picks the daily notification window start time and reschedules alerts.
   Future<void> _showTimeStartPicker(BuildContext context) async {
     final settings = ref.read(settingsProvider);
     final stored =
@@ -687,6 +706,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     }
   }
 
+  /// Picks the daily notification window end time and reschedules alerts.
   Future<void> _showTimeEndPicker(BuildContext context) async {
     final settings = ref.read(settingsProvider);
     final stored = settings.timeEnd ?? AppConstants.defaultNotificationTimeEnd;
@@ -716,6 +736,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     }
   }
 
+  /// Confirms and clears cached map tiles and restarts the app.
   void _showClearCacheDialog(BuildContext context) {
     showConfirmationDialog(
       context: context,
@@ -734,7 +755,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  // ==================== WIDGETS ====================
+  // --- Widgets ---
 
   Widget _buildOpenMeteoText(BuildContext context) => GestureDetector(
     child: Center(

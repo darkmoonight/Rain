@@ -2,6 +2,7 @@ import 'package:isar_community/isar.dart';
 
 part 'db.g.dart';
 
+/// App preferences and display units persisted in Isar.
 @collection
 class Settings {
   Id id = Isar.autoIncrement;
@@ -27,9 +28,13 @@ class Settings {
   String? timeEnd;
 }
 
+/// Cached forecast for the primary home-screen location.
 @collection
 class MainWeatherCache {
   Id id = Isar.autoIncrement;
+
+  // --- Hourly fields ---
+
   List<String>? time;
   List<int>? weathercode;
   List<double>? temperature2M;
@@ -48,6 +53,9 @@ class MainWeatherCache {
   List<double?>? dewpoint2M;
   List<int?>? precipitationProbability;
   List<double?>? shortwaveRadiation;
+
+  // --- Daily fields ---
+
   List<DateTime>? timeDaily;
   List<int?>? weathercodeDaily;
   List<double?>? temperature2MMax;
@@ -63,6 +71,9 @@ class MainWeatherCache {
   List<double?>? uvIndexMax;
   List<double?>? rainSum;
   List<int?>? winddirection10MDominant;
+
+  // --- Metadata ---
+
   String? timezone;
   DateTime? timestamp;
 
@@ -144,6 +155,7 @@ class MainWeatherCache {
   };
 }
 
+/// Cached city and coordinates for the primary home-screen location.
 @collection
 class LocationCache {
   Id id = Isar.autoIncrement;
@@ -163,9 +175,13 @@ class LocationCache {
   };
 }
 
+/// Cached forecast and location metadata for a saved city card.
 @collection
 class WeatherCard {
   Id id = Isar.autoIncrement;
+
+  // --- Hourly fields ---
+
   List<String>? time;
   List<int>? weathercode;
   List<double>? temperature2M;
@@ -184,6 +200,9 @@ class WeatherCard {
   List<double?>? dewpoint2M;
   List<int?>? precipitationProbability;
   List<double?>? shortwaveRadiation;
+
+  // --- Daily fields ---
+
   List<DateTime>? timeDaily;
   List<int?>? weathercodeDaily;
   List<double?>? temperature2MMax;
@@ -199,6 +218,9 @@ class WeatherCard {
   List<double?>? uvIndexMax;
   List<double?>? rainSum;
   List<int?>? winddirection10MDominant;
+
+  // --- Location and metadata ---
+
   double? lat;
   double? lon;
   String? city;

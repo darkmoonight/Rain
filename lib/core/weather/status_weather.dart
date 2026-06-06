@@ -1,9 +1,12 @@
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/i18n/tr.dart';
 
+/// Root path for bundled weather condition image assets.
 const assetImageRoot = 'assets/images/';
 
+/// Maps WMO weather codes to localized text and context-specific icons.
 class StatusWeather {
+  /// Returns the current-condition icon path for day or night.
   String getImageNow(
     int weather,
     String time,
@@ -17,8 +20,10 @@ class StatusWeather {
     _getDayNightImagePaths,
   );
 
+  /// Returns a simplified daily-forecast icon path.
   String getImageNowDaily(int? weather) => _getDailyImage(weather);
 
+  /// Returns the today-summary icon path for day or night.
   String getImageToday(
     int weather,
     String time,
@@ -32,10 +37,13 @@ class StatusWeather {
     _getTodayImagePaths,
   );
 
+  /// Returns a day-variant icon path for the 7-day forecast row.
   String getImage7Day(int? weather) => _getDailyImage(weather, isDay: true);
 
+  /// Returns localized weather description text for [weather].
   String getText(int? weather) => _getWeatherText(weather);
 
+  /// Returns a notification icon filename for day or night.
   String getImageNotification(
     int weather,
     String time,
@@ -49,6 +57,9 @@ class StatusWeather {
     _getNotificationImagePaths,
   );
 
+  // --- Private helpers ---
+
+  /// Picks a day or night icon from [imagePaths] based on sunrise/sunset.
   String _getImageBasedOnTime(
     int weather,
     String time,
@@ -60,6 +71,7 @@ class StatusWeather {
     return imagePaths[weather]?[isDayTime] ?? '';
   }
 
+  /// Returns a simplified forecast icon path for WMO code [weather].
   String _getDailyImage(int? weather, {bool isDay = false}) {
     switch (weather) {
       case 0:
@@ -101,6 +113,7 @@ class StatusWeather {
     }
   }
 
+  /// Returns localized description text for WMO code [weather].
   String _getWeatherText(int? weather) {
     String t(String key) => trDynamic(key);
     switch (weather) {
@@ -147,6 +160,8 @@ class StatusWeather {
         return '';
     }
   }
+
+  // Image path maps
 
   final Map<int, Map<bool, String>> _getDayNightImagePaths = {
     0: {

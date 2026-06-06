@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rain/i18n/strings.g.dart';
 
+/// App group identifier shared with home-screen widgets.
 const String appGroupId = 'DARK NIGHT';
 
+/// A supported UI language with its display name and Flutter locale.
 class LanguageOption {
   const LanguageOption({required this.name, required this.locale});
 
@@ -10,6 +12,7 @@ class LanguageOption {
   final Locale locale;
 }
 
+// Languages
 const _languageEntries = <(AppLocale, String)>[
   (AppLocale.bnIn, 'বাংলা'),
   (AppLocale.arSa, 'العربية'),
@@ -51,11 +54,13 @@ const _languageEntries = <(AppLocale, String)>[
   (AppLocale.zhTw, '中文(繁體)'),
 ];
 
+/// All languages offered in settings, in display order.
 final List<LanguageOption> appLanguages = [
   for (final (locale, name) in _languageEntries)
     LanguageOption(name: name, locale: locale.flutterLocale),
 ];
 
+/// Fallback language used when English is unavailable.
 final LanguageOption defaultLanguageOption = appLanguages.firstWhere(
   (l) => l.locale.languageCode == 'en',
   orElse: () => appLanguages.first,

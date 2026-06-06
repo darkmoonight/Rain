@@ -6,6 +6,7 @@ import 'package:rain/i18n/tr.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/core/widgets/text_form.dart';
 
+/// Autocomplete text field for searching and selecting cities.
 class CitySearchField extends ConsumerStatefulWidget {
   const CitySearchField({
     super.key,

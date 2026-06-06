@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 
+/// Shows a time picker respecting the user's 12/24-hour preference.
 Future<TimeOfDay?> showAppTimePicker({
   required BuildContext context,
   required WidgetRef ref,
@@ -24,8 +25,9 @@ Future<TimeOfDay?> showAppTimePicker({
         child: child,
       );
 
-      // e.g. ru defaults to H_colon_mm even when alwaysUse24HourFormat is false.
       if (use12Hour && _materialPickerDefaultsTo24h(context)) {
+        // Force en_US locale so Material time picker shows AM/PM on locales
+        // whose MaterialLocalizations default to 24-hour format.
         wrapped = Localizations.override(
           context: context,
           locale: const Locale('en', 'US'),
@@ -38,6 +40,7 @@ Future<TimeOfDay?> showAppTimePicker({
   );
 }
 
+/// Whether the platform Material localizations default to 24-hour time.
 bool _materialPickerDefaultsTo24h(BuildContext context) {
   final format = MaterialLocalizations.of(
     context,

@@ -8,6 +8,7 @@ import 'package:rain/features/weather/presentation/widgets/weather_detail_view.d
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/i18n/tr.dart';
 
+/// Main tab showing the current location's full weather detail view.
 class MainWeatherScreen extends ConsumerWidget {
   const MainWeatherScreen({super.key});
 

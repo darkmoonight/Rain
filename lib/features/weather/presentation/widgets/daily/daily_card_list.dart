@@ -6,6 +6,7 @@ import 'package:rain/features/weather/presentation/widgets/daily/daily_card_info
 import 'package:rain/features/weather/presentation/widgets/daily/daily_card.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 
+/// Scrollable list of all daily forecast summary cards.
 class DailyCardList extends StatefulWidget {
   const DailyCardList({super.key, required this.weatherData});
   final WeatherCard weatherData;

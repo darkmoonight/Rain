@@ -6,6 +6,7 @@ import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 
+/// Summary row for one day in the extended daily forecast list.
 class DailyCard extends ConsumerStatefulWidget {
   const DailyCard({
     super.key,

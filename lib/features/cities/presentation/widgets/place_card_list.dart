@@ -10,6 +10,7 @@ import 'package:rain/features/cities/presentation/view/place_info.dart';
 import 'package:rain/features/cities/presentation/widgets/weather_card_tile.dart';
 import 'package:reorderables/reorderables.dart';
 
+/// Reorderable list of saved city cards with swipe-to-delete.
 class PlaceCardList extends ConsumerWidget {
   const PlaceCardList({super.key, required this.searchCity});
   final String searchCity;
@@ -41,6 +42,9 @@ class PlaceCardList extends ConsumerWidget {
   }
 }
 
+// --- DismissibleCard ---
+
+/// Swipeable wrapper that navigates to detail or deletes a city card.
 class _DismissibleCard extends ConsumerWidget {
   const _DismissibleCard({required this.card});
   final WeatherCard card;

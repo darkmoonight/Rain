@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rain/core/constants/app_constants.dart';
 
+/// In-memory snapshot of user-facing app settings for UI and services.
 class AppSettingsState {
   const AppSettingsState({
     this.amoledTheme = false,

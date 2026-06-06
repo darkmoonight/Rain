@@ -14,6 +14,8 @@ import 'package:rain/core/di/settings_revision.dart';
 import 'package:rain/data/repositories/settings_repository.dart';
 import 'package:rain/data/repositories/weather_repository.dart';
 
+/// Riverpod providers for bootstrap state, services, and repositories.
+
 final bootstrapProvider = Provider<AppBootstrap>((ref) {
   throw UnimplementedError('bootstrapProvider must be overridden');
 });
@@ -29,6 +31,7 @@ final locationCacheProvider = Provider<LocationCache>((ref) {
   return ref.watch(bootstrapProvider).locationCache;
 });
 
+/// Copies [source] fields into the bootstrap-held location cache instance.
 void syncBootstrapLocationCache(Ref ref, LocationCache source) {
   final target = ref.read(bootstrapProvider).locationCache;
   target.lat = source.lat;

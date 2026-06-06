@@ -5,6 +5,7 @@ import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/core/constants/app_constants.dart';
 
+/// Material confirmation dialog with icon, title, and action buttons.
 class ConfirmationDialog extends StatelessWidget {
   const ConfirmationDialog({
     super.key,
@@ -186,6 +187,7 @@ class ConfirmationDialog extends StatelessWidget {
   }
 }
 
+/// Shows [ConfirmationDialog] and returns whether the user confirmed.
 Future<bool> showConfirmationDialog({
   required BuildContext context,
   required String title,
@@ -217,6 +219,7 @@ Future<bool> showConfirmationDialog({
   return result ?? false;
 }
 
+/// Shows a destructive delete confirmation dialog.
 Future<bool> showDeleteConfirmation({
   required BuildContext context,
   required String title,
@@ -234,6 +237,7 @@ Future<bool> showDeleteConfirmation({
   );
 }
 
+/// Shows an archive or unarchive confirmation dialog.
 Future<bool> showArchiveConfirmation({
   required BuildContext context,
   required String title,
@@ -257,6 +261,7 @@ Future<bool> showArchiveConfirmation({
   );
 }
 
+/// Shows a destructive confirmation before clearing text input.
 Future<bool> showClearTextConfirmation({
   required BuildContext context,
   VoidCallback? onConfirm,

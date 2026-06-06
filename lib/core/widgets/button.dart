@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
+/// Full-width primary or outlined action button with optional icon.
 class MyTextButton extends StatelessWidget {
   const MyTextButton({
     super.key,

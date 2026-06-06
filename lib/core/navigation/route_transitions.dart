@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Builds a slide transition page route from the given [begin] offset.
 PageRouteBuilder<T> slideRoute<T>({
   required Widget child,
   required Offset begin,

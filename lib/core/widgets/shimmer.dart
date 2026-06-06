@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+/// Placeholder card with shimmer animation while content loads.
 class MyShimmer extends StatelessWidget {
   const MyShimmer({super.key, required this.height, this.margin});
 

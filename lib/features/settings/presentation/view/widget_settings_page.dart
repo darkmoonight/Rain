@@ -15,12 +15,15 @@ import 'package:rain/features/settings/presentation/widgets/settings_section.dar
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/i18n/tr.dart';
 
+/// Android home-screen widget configuration and pin-to-home actions.
 class WidgetSettingsPage extends ConsumerStatefulWidget {
   const WidgetSettingsPage({super.key});
 
   @override
   ConsumerState<WidgetSettingsPage> createState() => _WidgetSettingsPageState();
 }
+
+// --- WidgetSettingsPageState ---
 
 class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
   String? _pickedBackgroundColor;

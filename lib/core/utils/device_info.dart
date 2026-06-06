@@ -1,6 +1,7 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 
+/// Cached Android device capabilities used for theme and layout decisions.
 class DeviceFeature {
   DeviceFeature._internal();
 
@@ -11,6 +12,7 @@ class DeviceFeature {
   AndroidDeviceInfo? _androidDeviceInfo;
   bool? _isEdgeToEdgeAvailableCache;
 
+  /// Loads Android device info and edge-to-edge support once at startup.
   Future<void> init() async {
     try {
       _androidDeviceInfo = await _deviceInfoPlugin.androidInfo;
@@ -24,6 +26,7 @@ class DeviceFeature {
     }
   }
 
+  /// Whether transparent navigation bars are supported on this device.
   bool isEdgeToEdgeAvailable() => _isEdgeToEdgeAvailableCache ?? false;
 
   int? get sdkVersion => _androidDeviceInfo?.version.sdkInt;

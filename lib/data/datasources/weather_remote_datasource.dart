@@ -5,6 +5,7 @@ import 'package:rain/data/models/db.dart';
 import 'package:rain/data/models/weather_api.dart';
 import 'package:rain/data/mappers/weather_mapper.dart';
 
+/// Fetches forecast data from Open-Meteo and city suggestions from its geocoding API.
 class WeatherRemoteDatasource {
   WeatherRemoteDatasource({Dio? dio, Dio? dioLocation})
     : _dio = dio ?? Dio()
@@ -19,9 +20,15 @@ class WeatherRemoteDatasource {
       '&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,uv_index_max,rain_sum,winddirection_10m_dominant'
       '&forecast_days=12&timezone=auto';
 
+  // --- Request building ---
+
+  /// Builds the forecast query string for the given coordinates.
   String _buildWeatherUrl(double lat, double lon) =>
       'latitude=$lat&longitude=$lon&$_weatherParams';
 
+  // --- Weather fetch ---
+
+  /// Fetches a 12-day forecast and maps it to a main weather cache model.
   Future<MainWeatherCache> fetchWeather(double lat, double lon) async {
     try {
       final response = await _dio.get(_buildWeatherUrl(lat, lon));
@@ -33,6 +40,7 @@ class WeatherRemoteDatasource {
     }
   }
 
+  /// Fetches a forecast and maps it to a city weather card with location metadata.
   Future<WeatherCard> fetchWeatherCard(
     double lat,
     double lon,
@@ -57,6 +65,9 @@ class WeatherRemoteDatasource {
     }
   }
 
+  // --- City search ---
+
+  /// Searches Open-Meteo geocoding for up to five matching cities.
   Future<Iterable<CitySearchResult>> searchCities(
     String query,
     String? languageCode,
@@ -84,6 +95,7 @@ class WeatherRemoteDatasource {
   }
 }
 
+/// A normalized city match returned from geocoding search.
 class CitySearchResult {
   const CitySearchResult({
     required this.admin1,

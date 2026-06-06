@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/weather/status_data.dart';
 
+/// Card showing today's sunrise and sunset times.
 class SunsetSunrise extends ConsumerWidget {
   const SunsetSunrise({
     super.key,

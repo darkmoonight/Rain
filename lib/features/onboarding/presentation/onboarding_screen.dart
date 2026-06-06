@@ -8,6 +8,7 @@ import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
+/// One slide in the first-run onboarding carousel.
 class OnboardingData {
   final String image;
   final String title;
@@ -20,6 +21,7 @@ class OnboardingData {
   });
 }
 
+/// Asset paths and slide content for the onboarding flow.
 class OnboardingConstants {
   static const String imagesPath = 'assets/icons/';
 
@@ -42,12 +44,15 @@ class OnboardingConstants {
   ];
 }
 
+/// First-run carousel that marks onboarding complete and routes to geolocation.
 class OnBoarding extends ConsumerStatefulWidget {
   const OnBoarding({super.key});
 
   @override
   ConsumerState<OnBoarding> createState() => _OnBoardingState();
 }
+
+// --- OnBoardingState ---
 
 class _OnBoardingState extends ConsumerState<OnBoarding> {
   late final PageController _pageController;
@@ -196,6 +201,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
   }
 }
 
+/// Animated page indicator dot for the onboarding carousel.
 class DotIndicator extends StatelessWidget {
   const DotIndicator({
     super.key,
@@ -229,6 +235,7 @@ class DotIndicator extends StatelessWidget {
   }
 }
 
+/// Image, title, and description for a single onboarding slide.
 class OnboardingContent extends StatelessWidget {
   const OnboardingContent({super.key, required this.data});
 

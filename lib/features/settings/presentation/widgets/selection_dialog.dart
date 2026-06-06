@@ -5,6 +5,7 @@ import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
+/// Shows a modal list for picking one value from [items].
 Future<T?> showSelectionDialog<T>({
   required BuildContext context,
   required String title,
@@ -29,6 +30,7 @@ Future<T?> showSelectionDialog<T>({
   );
 }
 
+/// Searchable or plain list dialog for a single-choice setting.
 class SelectionDialog<T> extends StatefulWidget {
   final String title;
   final IconData icon;
@@ -52,6 +54,8 @@ class SelectionDialog<T> extends StatefulWidget {
   @override
   State<SelectionDialog<T>> createState() => _SelectionDialogState<T>();
 }
+
+// --- SelectionDialogState ---
 
 class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
   late List<T> _filteredItems;

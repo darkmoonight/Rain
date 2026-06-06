@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/i18n/tr.dart';
 
+/// Centered loading indicator with localized status text.
 class LoadingStateView extends StatelessWidget {
   const LoadingStateView({super.key});
 
@@ -18,6 +19,7 @@ class LoadingStateView extends StatelessWidget {
   );
 }
 
+/// Error state with message and a retry action.
 class ErrorRetryStateView extends StatelessWidget {
   const ErrorRetryStateView({
     super.key,
@@ -57,6 +59,7 @@ class ErrorRetryStateView extends StatelessWidget {
   );
 }
 
+/// Empty state with optional illustration and message.
 class EmptyMessageStateView extends StatelessWidget {
   const EmptyMessageStateView({
     super.key,

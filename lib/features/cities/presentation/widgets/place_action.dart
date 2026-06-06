@@ -12,6 +12,7 @@ import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
+/// Bottom sheet for creating or editing a saved city card.
 class PlaceAction extends ConsumerStatefulWidget {
   const PlaceAction({
     super.key,
@@ -29,6 +30,8 @@ class PlaceAction extends ConsumerStatefulWidget {
   @override
   ConsumerState<PlaceAction> createState() => _PlaceActionState();
 }
+
+// --- PlaceActionState ---
 
 class _PlaceActionState extends ConsumerState<PlaceAction>
     with SingleTickerProviderStateMixin {
@@ -671,6 +674,9 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
   }
 }
 
+// --- EditingController ---
+
+/// Tracks field changes and whether the form is complete enough to save.
 class _EditingController extends ChangeNotifier {
   _EditingController(
     this._initialLat,

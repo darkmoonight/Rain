@@ -14,6 +14,7 @@ import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+/// Paged full-day weather detail opened from the daily forecast list.
 class DailyCardInfo extends ConsumerStatefulWidget {
   const DailyCardInfo({
     super.key,
@@ -27,6 +28,8 @@ class DailyCardInfo extends ConsumerStatefulWidget {
   @override
   ConsumerState<DailyCardInfo> createState() => _DailyCardInfoState();
 }
+
+// --- DailyCardInfoState ---
 
 class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
   final statusWeather = StatusWeather();

@@ -1,3 +1,4 @@
+/// Metadata for a home-screen widget provider on Android.
 class WidgetDefinition {
   const WidgetDefinition({
     required this.id,
@@ -10,6 +11,7 @@ class WidgetDefinition {
   final String qualifiedAndroidName;
 }
 
+/// All Rain home-screen widgets registered in the app.
 const List<WidgetDefinition> rainWidgetRegistry = [
   WidgetDefinition(
     id: 'material_you_forecast_1x1',
@@ -31,6 +33,7 @@ const List<WidgetDefinition> rainWidgetRegistry = [
   ),
 ];
 
+/// Human-readable labels for widget IDs shown in settings.
 const Map<String, String> widgetDisplayLabels = {
   'material_you_forecast_1x1': 'Material You – Compact',
   'material_you_current': 'Material You – Current',

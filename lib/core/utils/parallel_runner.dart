@@ -1,6 +1,8 @@
+/// Runs async work over a list with a bounded concurrency limit.
 class ParallelRunner {
   const ParallelRunner._();
 
+  /// Maps [items] with at most [concurrency] in-flight [run] calls.
   static Future<List<bool>> mapLimited<T>({
     required List<T> items,
     required Future<bool> Function(T item) run,

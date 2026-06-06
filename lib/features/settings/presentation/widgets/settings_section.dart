@@ -5,6 +5,7 @@ import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/core/di/provider_refs.dart';
 
+/// Titled card grouping related settings tiles.
 class SettingsSection extends ConsumerWidget {
   final String title;
   final IconData icon;

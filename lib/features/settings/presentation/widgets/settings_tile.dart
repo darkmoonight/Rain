@@ -4,6 +4,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
+/// Single row in a settings section with optional value and trailing control.
 class SettingsTile extends StatelessWidget {
   final Widget leading;
   final String title;

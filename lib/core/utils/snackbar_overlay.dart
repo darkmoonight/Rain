@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 
+/// Global toast controller mounted above the app scaffold.
 class SnackBarOverlay {
   static final SnackBarOverlay instance = SnackBarOverlay();
 
   final ValueNotifier<SnackBarData?> snackBarNotifier = ValueNotifier(null);
 
+  /// Displays a toast with optional error, info, or action styling.
   void show(
     String message, {
     bool isError = false,
@@ -22,11 +24,13 @@ class SnackBarOverlay {
     );
   }
 
+  /// Dismisses the currently visible toast.
   void hide() {
     snackBarNotifier.value = null;
   }
 }
 
+/// Payload for a single toast shown by [SnackBarOverlay].
 class SnackBarData {
   final String message;
   final bool isError;
@@ -43,6 +47,7 @@ class SnackBarData {
   });
 }
 
+/// Root overlay widget that listens to [SnackBarOverlay] and renders toasts.
 class SnackBarOverlayWidget extends StatelessWidget {
   const SnackBarOverlayWidget({super.key});
 
@@ -60,6 +65,7 @@ class SnackBarOverlayWidget extends StatelessWidget {
   }
 }
 
+/// Animated top toast with auto-dismiss and optional action button.
 class _ToastOverlay extends StatefulWidget {
   const _ToastOverlay({super.key, required this.data});
 
@@ -74,6 +80,8 @@ class _ToastOverlayState extends State<_ToastOverlay>
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+
+  // Animation
 
   static const _animationDuration = Duration(milliseconds: 300);
   static const _displayDuration = Duration(milliseconds: 2500);

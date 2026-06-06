@@ -2,6 +2,7 @@ import 'package:rain/i18n/strings.g.dart';
 
 export 'strings.g.dart';
 
+/// Looks up a translation by legacy camelCase or snake_case [key].
 String trDynamic(String key) {
   final slangKey = _toSlangKey(key);
   final translations = LocaleSettings.instance.currentTranslations;
@@ -9,6 +10,7 @@ String trDynamic(String key) {
   return value?.toString() ?? key;
 }
 
+/// Adds `.tr` for dynamic string-key lookups outside generated getters.
 extension Tr on String {
   String get tr => trDynamic(this);
 }
@@ -20,6 +22,7 @@ const _specialKeys = <String, String>{
   'm/s': 'm_s',
 };
 
+/// Converts camelCase legacy keys to snake_case slang map keys.
 String _toSlangKey(String key) {
   final special = _specialKeys[key];
   if (special != null) return special;

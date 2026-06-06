@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+/// Hex string conversion helpers for [Color] values.
 extension HexColor on Color {
+  /// Parses a `#RRGGBB` or `RRGGBB` hex string into a [Color].
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
@@ -8,6 +10,7 @@ extension HexColor on Color {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
+  /// Returns this color as an `#AARRGGBB` hex string.
   String toHex({bool leadingHashSign = true}) {
     final argb = toARGB32();
     final a = (argb >> 24) & 0xFF;

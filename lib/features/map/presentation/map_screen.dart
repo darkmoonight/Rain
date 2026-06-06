@@ -27,12 +27,15 @@ import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
+/// Interactive map showing the main location and saved city markers.
 class MapPage extends ConsumerStatefulWidget {
   const MapPage({super.key});
 
   @override
   ConsumerState<MapPage> createState() => _MapPageState();
 }
+
+// --- MapPageState ---
 
 class _MapPageState extends ConsumerState<MapPage>
     with TickerProviderStateMixin {

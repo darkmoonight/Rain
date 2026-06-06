@@ -4,6 +4,7 @@ import 'package:rain/app.dart';
 import 'package:rain/core/bootstrap/app_initializer.dart';
 import 'package:rain/core/di/provider_refs.dart';
 
+/// Entry point: bootstraps dependencies and runs [RainApp].
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final bootstrap = await AppInitializer.initialize();

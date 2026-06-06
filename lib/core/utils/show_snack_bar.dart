@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rain/core/utils/snackbar_overlay.dart';
 
+/// Shows a global toast via [SnackBarOverlay].
 void showSnackBar(
   String message, {
   bool isError = false,

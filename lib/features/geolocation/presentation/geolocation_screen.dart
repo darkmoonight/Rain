@@ -19,6 +19,7 @@ import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 
+/// Onboarding or in-app screen for choosing the primary weather location.
 class SelectGeolocation extends ConsumerStatefulWidget {
   const SelectGeolocation({super.key, required this.isStart});
   final bool isStart;
@@ -26,6 +27,8 @@ class SelectGeolocation extends ConsumerStatefulWidget {
   @override
   ConsumerState<SelectGeolocation> createState() => _SelectGeolocationState();
 }
+
+// --- SelectGeolocationState ---
 
 class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   bool isLoading = false;

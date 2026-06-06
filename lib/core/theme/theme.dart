@@ -6,6 +6,8 @@ import 'package:dynamic_color/dynamic_color.dart';
 final ThemeData baseLight = ThemeData.light(useMaterial3: true);
 final ThemeData baseDark = ThemeData.dark(useMaterial3: true);
 
+// Colors
+
 const Color lightColor = Colors.white;
 const Color darkColor = Color.fromRGBO(30, 30, 30, 1);
 const Color oledColor = Colors.black;
@@ -20,6 +22,9 @@ ColorScheme colorSchemeDark = ColorScheme.fromSeed(
   brightness: Brightness.dark,
 );
 
+// Theme builders
+
+/// Builds the light app theme with optional accent and dynamic color scheme.
 ThemeData lightTheme(
   Color? color,
   ColorScheme? colorScheme,
@@ -32,6 +37,7 @@ ThemeData lightTheme(
   edgeToEdgeAvailable: edgeToEdgeAvailable,
 );
 
+/// Builds the dark app theme with optional accent and dynamic color scheme.
 ThemeData darkTheme(
   Color? color,
   ColorScheme? colorScheme,
@@ -44,6 +50,7 @@ ThemeData darkTheme(
   edgeToEdgeAvailable: edgeToEdgeAvailable,
 );
 
+/// Assembles a full [ThemeData] from base tokens and optional accent colors.
 ThemeData _buildTheme({
   required ThemeData baseTheme,
   required Brightness brightness,
@@ -79,6 +86,9 @@ ThemeData _buildTheme({
   );
 }
 
+// Component themes
+
+/// Builds app bar styling including edge-to-edge system overlay colors.
 AppBarTheme _buildAppBarTheme(
   Color? color,
   ColorScheme? colorScheme,
@@ -107,6 +117,7 @@ AppBarTheme _buildAppBarTheme(
   ),
 );
 
+/// Builds chip styling with OLED-aware surface tint handling.
 ChipThemeData _buildChipTheme(Color? color, ColorScheme? colorScheme) =>
     ChipThemeData(
       side: BorderSide.none,
@@ -118,6 +129,7 @@ ChipThemeData _buildChipTheme(Color? color, ColorScheme? colorScheme) =>
       shadowColor: Colors.transparent,
     );
 
+/// Builds card styling with OLED-aware surface tint handling.
 CardThemeData _buildCardTheme(Color? color, ColorScheme? colorScheme) =>
     CardThemeData(
       color: color,
@@ -128,6 +140,7 @@ CardThemeData _buildCardTheme(Color? color, ColorScheme? colorScheme) =>
       shadowColor: Colors.transparent,
     );
 
+/// Builds bottom sheet background and tint colors.
 BottomSheetThemeData _buildBottomSheetTheme(
   Color? color,
   ColorScheme? colorScheme,
@@ -138,6 +151,7 @@ BottomSheetThemeData _buildBottomSheetTheme(
       : colorScheme?.surfaceTint,
 );
 
+/// Builds navigation bar background and label text styling.
 NavigationBarThemeData _buildNavigationBarTheme(
   Color? color,
   ColorScheme? colorScheme,
@@ -151,6 +165,7 @@ NavigationBarThemeData _buildNavigationBarTheme(
   ),
 );
 
+/// Builds rounded outline borders for text fields.
 InputDecorationTheme _buildInputDecorationTheme(ThemeData baseTheme) =>
     InputDecorationTheme(
       labelStyle: WidgetStateTextStyle.resolveWith(
