@@ -82,7 +82,8 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
   /// Cancels notifications when online and the main weather cache is empty, then resolves location.
   Future<void> _init() async {
     if (await ConnectivityService.hasInternet() &&
-        await ref.read(weatherLocalDatasourceProvider).isMainWeatherEmpty()) {
+        await ref.read(weatherLocalDatasourceProvider).isMainWeatherEmpty() &&
+        !ref.read(settingsProvider).notifications) {
       await ref.read(notificationServiceProvider).cancelAll();
     }
     await setLocation();

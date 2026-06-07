@@ -8,12 +8,37 @@ class ConnectivityService {
     InternetConnection().hasInternetAccess,
   );
 
+  static Stream<List<ConnectivityResult>> Function()?
+  _connectivityStreamFactory;
+  static Future<bool> Function()? _internetChecker;
+
+  /// Overrides platform connectivity sources for tests.
+  @visibleForTesting
+  static void setTestDependencies({
+    Stream<List<ConnectivityResult>> Function()? connectivityStreamFactory,
+    Future<bool> Function()? internetChecker,
+  }) {
+    _connectivityStreamFactory = connectivityStreamFactory;
+    _internetChecker = internetChecker;
+  }
+
+  /// Resets test overrides to production defaults.
+  @visibleForTesting
+  static void resetTestDependencies() {
+    _connectivityStreamFactory = null;
+    _internetChecker = null;
+  }
+
   /// Starts listening for connectivity changes and updates [isOnline].
   static void setup() {
-    Connectivity().onConnectivityChanged.listen((result) {
+    final stream =
+        (_connectivityStreamFactory ??
+        () => Connectivity().onConnectivityChanged)();
+    stream.listen((result) {
       isOnline.value = result.contains(ConnectivityResult.none)
           ? Future.value(false)
-          : InternetConnection().hasInternetAccess;
+          : (_internetChecker ??
+                () => InternetConnection().hasInternetAccess)();
     });
   }
 

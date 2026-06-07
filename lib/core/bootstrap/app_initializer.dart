@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:display_mode/display_mode.dart';
@@ -57,15 +58,11 @@ class AppInitializer {
     var locationCache =
         await isar.locationCaches.where().findFirst() ?? LocationCache();
 
-    if (settings.language == null) {
-      final deviceLocale = PlatformDispatcher.instance.locale;
-      settings.language =
-          '${deviceLocale.languageCode}_${deviceLocale.countryCode}';
-      await isar.writeTxn(() => isar.settings.put(settings));
-    }
-
-    if (settings.theme == null) {
-      settings.theme = 'system';
+    final seeded = seedDefaultSettings(
+      settings,
+      PlatformDispatcher.instance.locale,
+    );
+    if (seeded) {
       await isar.writeTxn(() => isar.settings.put(settings));
     }
 
@@ -119,3 +116,24 @@ class AppInitializer {
 void callbackDispatcher() => Workmanager().executeTask((task, inputData) async {
   return HomeWidgetService.updateFromDisk();
 });
+
+/// Seeds missing language and theme defaults on [settings].
+///
+/// Returns `true` when [settings] was modified and should be persisted.
+@visibleForTesting
+bool seedDefaultSettings(Settings settings, Locale deviceLocale) {
+  var changed = false;
+
+  if (settings.language == null) {
+    settings.language =
+        '${deviceLocale.languageCode}_${deviceLocale.countryCode}';
+    changed = true;
+  }
+
+  if (settings.theme == null) {
+    settings.theme = 'system';
+    changed = true;
+  }
+
+  return changed;
+}

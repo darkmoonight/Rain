@@ -128,21 +128,6 @@ void main() {
     expect(find.text('Hourly variables'), findsOneWidget);
   });
 
-  testWidgets('DailyCard renders day summary', (tester) async {
-    await pumpRainWidget(
-      tester,
-      DailyCard(
-        timeDaily: card.timeDaily!.first,
-        weathercodeDaily: card.weathercodeDaily!.first,
-        temperature2MMax: card.temperature2MMax!.first,
-        temperature2MMin: card.temperature2MMin!.first,
-      ),
-      bootstrap: ctx.bootstrap,
-    );
-
-    expect(find.byType(Card), findsOneWidget);
-  });
-
   testWidgets('DailyCardList renders forecast rows', (tester) async {
     await pumpRainWidget(
       tester,

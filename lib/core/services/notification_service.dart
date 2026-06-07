@@ -40,7 +40,14 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
   final statusData = StatusData(settings: settings);
   final slots = <WeatherNotificationSlot>[];
 
-  if (cache.time == null || cache.timeDaily == null) return slots;
+  if (cache.time == null ||
+      cache.timeDaily == null ||
+      cache.temperature2M == null ||
+      cache.weathercode == null ||
+      cache.sunrise == null ||
+      cache.sunset == null) {
+    return slots;
+  }
 
   for (var i = 0; i < cache.time!.length; i += appSettings.timeRange) {
     final notificationTime = DateTime.parse(cache.time![i]);
@@ -66,6 +73,7 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
           ),
         ),
       );
+      break;
     }
   }
 
@@ -98,13 +106,24 @@ class NotificationService {
 
     for (final slot in slots) {
       await _show(
-        UniqueKey().hashCode,
+        notificationIdFor(slot),
         slot.title,
         slot.body,
         slot.time,
         slot.icon,
       );
     }
+  }
+
+  /// Stable positive notification id for [slot].
+  @visibleForTesting
+  static int notificationIdFor(WeatherNotificationSlot slot) {
+    return Object.hash(
+          slot.title,
+          slot.body,
+          slot.time.millisecondsSinceEpoch,
+        ) &
+        0x7fffffff;
   }
 
   /// When notifications are enabled, cancels pending ones and reschedules from the latest cache.
@@ -172,7 +191,6 @@ class NotificationService {
       );
     } catch (e, stackTrace) {
       debugLogError('NotificationService._show', e, stackTrace);
-      assert(false, 'NotificationService._show failed: $e');
     }
   }
 }

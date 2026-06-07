@@ -27,6 +27,13 @@ class LocationService {
       position.latitude,
       position.longitude,
     );
+    return parsePlaceFromPlacemarks(position, placemarks);
+  }
+
+  /// Builds a place record from GPS coordinates and geocoding results.
+  @visibleForTesting
+  static ({double lat, double lon, String city, String district})?
+  parsePlaceFromPlacemarks(Position position, List<Placemark> placemarks) {
     if (placemarks.isEmpty) return null;
     final place = placemarks.first;
     final city = firstNonEmpty([

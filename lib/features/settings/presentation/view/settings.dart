@@ -670,8 +670,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   AndroidFlutterLocalNotificationsPlugin
                 >()
                 ?.requestNotificationsPermission();
-      final notificationsGranted = result ?? false;
-      if (!notificationsGranted) return;
+      if (result == false) return;
     }
 
     final settings = ref.read(settingsProvider);

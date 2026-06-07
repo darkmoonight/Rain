@@ -29,6 +29,55 @@ void main() {
   });
 
   group('PlaceAction save flow', () {
+    testWidgets('edit mode prefills coordinates and labels', (tester) async {
+      final card = completeWeatherCard();
+
+      await pumpRainWidget(
+        tester,
+        Scaffold(body: PlaceAction(edit: true, card: card)),
+        bootstrap: ctx.bootstrap,
+        overrides: [
+          weatherRemoteDatasourceProvider.overrideWithValue(
+            createFakeWeatherRemoteDatasource(),
+          ),
+        ],
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 200));
+
+      expect(find.text('55.75'), findsOneWidget);
+      expect(find.text('37.62'), findsOneWidget);
+      expect(find.text('Moscow'), findsOneWidget);
+    });
+
+    testWidgets('shows validation error for invalid latitude', (tester) async {
+      await pumpRainWidget(
+        tester,
+        const Scaffold(
+          body: PlaceAction(edit: false, latitude: '99', longitude: '37.62'),
+        ),
+        bootstrap: ctx.bootstrap,
+        overrides: [
+          weatherRemoteDatasourceProvider.overrideWithValue(
+            createFakeWeatherRemoteDatasource(),
+          ),
+        ],
+      );
+      await tester.pump();
+
+      await _enterPlaceActionField(tester, 'City', 'Moscow');
+      await _enterPlaceActionField(tester, 'District', 'Moscow Oblast');
+
+      final doneButton = find.ancestor(
+        of: find.text('Done'),
+        matching: find.byType(InkWell),
+      );
+      await tester.tap(doneButton);
+      await tester.pump();
+
+      expect(find.textContaining('90'), findsOneWidget);
+    });
+
     testWidgets('city search fills coordinate fields', (tester) async {
       await pumpRainWidget(
         tester,

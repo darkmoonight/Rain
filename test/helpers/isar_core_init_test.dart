@@ -10,7 +10,7 @@ void main() {
     () async {
       final path = await findBundledIsarLib();
       if (path == null) {
-        // Mobile-only CI agents may not ship desktop libs.
+        markTestSkipped('Bundled Isar lib not available on this platform');
         return;
       }
 
