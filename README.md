@@ -22,7 +22,7 @@
 </p>
 
 <p align='center'>
-    <strong>🌍 Available in 38 languages</strong> • <strong>🎨 Material You & AMOLED</strong> • <strong>🗺️ Interactive weather map</strong> • <strong>📱 Home widget</strong>
+    <strong>🌍 Available in 38 languages</strong> • <strong>🎨 Material You & AMOLED</strong> • <strong>🗺️ Interactive weather map</strong> • <strong>📱 Home screen widgets</strong>
 </p>
 
 ---
@@ -30,7 +30,7 @@
 ## ✨ Features
 
 **🌡️ Comprehensive Weather Data**
-- Real-time conditions with feels-like temperature • Hourly forecasts (12+ days) • 7+ day daily outlooks
+- Real-time conditions with feels-like temperature • Hourly forecasts (12 days) • 12-day daily outlooks
 - Detailed metrics: UV index, humidity, wind speed/direction, precipitation, visibility, pressure, dew point
 - Day/night-aware weather icons • Sunrise/sunset times • Expandable hourly variable details
 
@@ -49,13 +49,12 @@
 - Weather-condition-specific icons • Silent notifications (no sound/vibration)
 - Automatic cancellation when disabled • Background scheduling
 
-**📱 Home Screen Widget (Android)**
-- Resizable widget with layouts that adapt to size:
-  - **1 row** — weather icon, temperature, and date/time in one line
-  - **2+ rows (wide)** — icon on the left, temperature with date/time underneath
-  - **Square** — icon, temperature, and date/time stacked vertically
-  - **Very narrow** — icon and temperature only
-- Respects app **12h/24h** time format and **rounded temperature** setting
+**📱 Home Screen Widgets (Android)**
+- Three Material You widgets — pin any from Settings → Widget (home screen and lock screen):
+  - **Compact (1×1)** — weather icon and temperature, fixed size
+  - **Current (2×2)** — resizable card with temperature on top and weather icon at bottom-left
+  - **Clock (4×1 bar)** — live clock and date, weather icon, city name and temperature; horizontally resizable
+- Respects app **Celsius/Fahrenheit**, **rounded temperature**, and **12h/24h** time format (Clock widget)
 - Background refresh (Workmanager, ~15 min minimum) • Custom background and text colors (HSV picker)
 - Updates when the app loads cached weather and after fresh fetches
 
@@ -71,7 +70,7 @@
 **🧮 Customization Options**
 - Temperature: Celsius/Fahrenheit • Measurement system: Metric/Imperial
 - Wind speed: kph/m/s • Pressure: hPa/mmHg • Rounded temperatures (app + widget)
-- 12h/24h time format (app, pickers, notifications, and widget)
+- 12h/24h time format (app, pickers, notifications, and Clock widget)
 - Widget color customization with HSV color picker
 
 ---
@@ -228,7 +227,7 @@ dart run build_runner build
 
 ### Tech Stack (highlights)
 - **Flutter** + **Riverpod 3** • **Go Router** • **Isar Community**
-- **home_widget** + **Workmanager** (Android widget) • **flutter_local_notifications**
+- **home_widget** + **Workmanager** (Android widgets) • **flutter_local_notifications**
 - **Open-Meteo** API • **flutter_map** + OSM tiles
 
 ---
