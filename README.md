@@ -22,7 +22,7 @@
 </p>
 
 <p align='center'>
-    <strong>🌍 Available in 37 languages</strong> • <strong>🎨 Material You & AMOLED</strong> • <strong>🗺️ Interactive weather map</strong> • <strong>📱 Home widget</strong>
+    <strong>🌍 Available in 38 languages</strong> • <strong>🎨 Material You & AMOLED</strong> • <strong>🗺️ Interactive weather map</strong> • <strong>📱 Home widget</strong>
 </p>
 
 ---
@@ -65,7 +65,7 @@
 - Google Fonts (Ubuntu) • Smooth animations • Shimmer loading states
 
 **🌍 Extensive Localization**
-- 37 languages including: English, Русский, 中文, العربية, हिन्दी, Español, Français, Deutsch, Português, 한국어, 日本語, Türkçe, and many more
+- 38 languages including: English, Русский, 中文, العربية, हिन्दी, Español, Français, Deutsch, Português, 한국어, 日本語, Türkçe, and many more
 - Regional preferences • 12h/24h time format support
 
 **🧮 Customization Options**
@@ -185,6 +185,23 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 ```
 
 `pubspec_overrides.yaml` is gitignored; `pubspec.lock` in the repo targets **gms**.
+
+### Testing
+
+The project has **304** unit and widget tests (83 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
+
+```bash
+flutter test --concurrency=4
+dart analyze test/ lib/
+```
+
+**Well covered:** data/domain (repos, mappers, validators), core services/utils, cities notifier (CRUD, `loadError`, delete edge cases), navigation helper, confirmation/selection dialogs, weather widgets.
+
+**Widget/screen gaps (intentionally skipped):** cold-start `main.dart`, WorkManager, OSM tile network/cache, full `appRouterProvider` async redirect, geolocation submit → full navigation E2E.
+
+Regression notes from the navigation / empty-vs-error audit: [`test/pattern_audit_findings.md`](test/pattern_audit_findings.md).
+
+Widget tests that hit city search or forecast APIs should use `createFakeWeatherRemoteDatasource()` from `test/helpers/fixtures.dart` so geocoding and forecast share one stubbed Dio client.
 
 ### Code Generation
 The project uses code generation for:

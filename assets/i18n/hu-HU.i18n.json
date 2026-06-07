@@ -152,5 +152,6 @@
   "confirm": "Mentés",
   "noResults": "Nincs találat",
   "citiesLoadError": "A városok betöltése sikertelen",
-  "retry": "Újra"
+  "retry": "Újra",
+  "cityNotFound": "A város nem található"
 }

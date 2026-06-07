@@ -314,6 +314,3 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     ),
   );
 }
-
-/// Legacy alias for [HomeScreen].
-typedef HomePage = HomeScreen;

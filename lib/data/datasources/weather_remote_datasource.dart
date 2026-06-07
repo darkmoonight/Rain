@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/data/models/city_api.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/data/models/weather_api.dart';
@@ -7,10 +7,12 @@ import 'package:rain/data/mappers/weather_mapper.dart';
 
 /// Fetches forecast data from Open-Meteo and city suggestions from its geocoding API.
 class WeatherRemoteDatasource {
+  /// When [dioLocation] is omitted, geocoding reuses [dio] so tests can stub both APIs
+  /// with a single fake client instead of hitting the network.
   WeatherRemoteDatasource({Dio? dio, Dio? dioLocation})
     : _dio = dio ?? Dio()
         ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?',
-      _dioLocation = dioLocation ?? Dio();
+      _dioLocation = dioLocation ?? dio ?? Dio();
 
   final Dio _dio;
   final Dio _dioLocation;
@@ -34,8 +36,8 @@ class WeatherRemoteDatasource {
       final response = await _dio.get(_buildWeatherUrl(lat, lon));
       final weatherData = WeatherDataApi.fromJson(response.data);
       return WeatherMapper.toMainWeatherCache(weatherData);
-    } on DioException catch (e) {
-      if (kDebugMode) print(e);
+    } on DioException catch (e, stackTrace) {
+      debugLogError('WeatherRemoteDatasource.fetchWeather', e, stackTrace);
       rethrow;
     }
   }
@@ -59,8 +61,8 @@ class WeatherRemoteDatasource {
         district,
         timezone,
       );
-    } on DioException catch (e) {
-      if (kDebugMode) print(e);
+    } on DioException catch (e, stackTrace) {
+      debugLogError('WeatherRemoteDatasource.fetchWeatherCard', e, stackTrace);
       rethrow;
     }
   }
@@ -88,8 +90,8 @@ class WeatherRemoteDatasource {
         );
       }
       throw Exception('Failed to load suggestions');
-    } on DioException catch (e) {
-      if (kDebugMode) print(e);
+    } on DioException catch (e, stackTrace) {
+      debugLogError('WeatherRemoteDatasource.searchCities', e, stackTrace);
       rethrow;
     }
   }

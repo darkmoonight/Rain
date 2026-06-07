@@ -193,6 +193,7 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ';
 	@override String get cities_load_error => 'ਸ਼ਹਿਰ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ';
 	@override String get retry => 'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼';
+	@override String get city_not_found => 'ਸ਼ਹਿਰ ਨਹੀਂ ਮਿਲਿਆ';
 }
 
 /// The flat map containing all translations for locale <pa-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsPaIn {
 			'no_results' => 'ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ',
 			'cities_load_error' => 'ਸ਼ਹਿਰ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ',
 			'retry' => 'ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼',
+			'city_not_found' => 'ਸ਼ਹਿਰ ਨਹੀਂ ਮਿਲਿਆ',
 			_ => null,
 		};
 	}

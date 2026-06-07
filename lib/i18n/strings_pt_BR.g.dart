@@ -193,6 +193,7 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Nenhum resultado';
 	@override String get cities_load_error => 'Falha ao carregar cidades';
 	@override String get retry => 'Tentar novamente';
+	@override String get city_not_found => 'Cidade não encontrada';
 }
 
 /// The flat map containing all translations for locale <pt-BR>.
@@ -357,6 +358,7 @@ extension on TranslationsPtBr {
 			'no_results' => 'Nenhum resultado',
 			'cities_load_error' => 'Falha ao carregar cidades',
 			'retry' => 'Tentar novamente',
+			'city_not_found' => 'Cidade não encontrada',
 			_ => null,
 		};
 	}

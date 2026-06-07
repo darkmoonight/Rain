@@ -193,6 +193,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Keine Ergebnisse';
 	@override String get cities_load_error => 'Städte konnten nicht geladen werden';
 	@override String get retry => 'Erneut versuchen';
+	@override String get city_not_found => 'Stadt nicht gefunden';
 }
 
 /// The flat map containing all translations for locale <de-DE>.
@@ -357,6 +358,7 @@ extension on TranslationsDeDe {
 			'no_results' => 'Keine Ergebnisse',
 			'cities_load_error' => 'Städte konnten nicht geladen werden',
 			'retry' => 'Erneut versuchen',
+			'city_not_found' => 'Stadt nicht gefunden',
 			_ => null,
 		};
 	}

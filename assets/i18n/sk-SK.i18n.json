@@ -152,5 +152,6 @@
   "confirm": "Uložiť",
   "noResults": "Žiadne výsledky",
   "citiesLoadError": "Nepodarilo sa načítať mestá",
-  "retry": "Skúsiť znova"
+  "retry": "Skúsiť znova",
+  "cityNotFound": "Mesto nenájdené"
 }

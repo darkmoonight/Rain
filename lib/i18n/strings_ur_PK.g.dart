@@ -193,6 +193,7 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'کوئی نتائج نہیں';
 	@override String get cities_load_error => 'شہر لوڈ نہیں ہو سکے';
 	@override String get retry => 'دوبارہ کوشش';
+	@override String get city_not_found => 'شہر نہیں ملا';
 }
 
 /// The flat map containing all translations for locale <ur-PK>.
@@ -357,6 +358,7 @@ extension on TranslationsUrPk {
 			'no_results' => 'کوئی نتائج نہیں',
 			'cities_load_error' => 'شہر لوڈ نہیں ہو سکے',
 			'retry' => 'دوبارہ کوشش',
+			'city_not_found' => 'شہر نہیں ملا',
 			_ => null,
 		};
 	}

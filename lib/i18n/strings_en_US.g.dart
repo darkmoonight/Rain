@@ -500,6 +500,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Failed to load cities'
 	String get cities_load_error => 'Failed to load cities';
 
+	/// en-US: 'City not found'
+	String get city_not_found => 'City not found';
+
 	/// en-US: 'Retry'
 	String get retry => 'Retry';
 }
@@ -665,6 +668,7 @@ extension on Translations {
 			'confirm' => 'Confirm',
 			'no_results' => 'No results',
 			'cities_load_error' => 'Failed to load cities',
+			'city_not_found' => 'City not found',
 			'retry' => 'Retry',
 			_ => null,
 		};

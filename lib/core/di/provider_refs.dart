@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar_community/isar.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
-import 'package:rain/core/services/connectivity_service.dart';
 import 'package:rain/core/services/home_widget_service.dart';
 import 'package:rain/core/services/location_service.dart';
 import 'package:rain/core/services/notification_service.dart';
@@ -96,9 +95,4 @@ final settingsRepositoryProvider = Provider<SettingsRepository>(
     ref.watch(isarProvider),
     onSaved: () => notifySettingsChanged(ref),
   ),
-);
-
-/// Resolves whether the device currently has internet connectivity.
-final connectivityProvider = Provider<Future<bool>>(
-  (ref) => ConnectivityService.hasInternet(),
 );

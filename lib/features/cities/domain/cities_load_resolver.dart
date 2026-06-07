@@ -1,28 +1,17 @@
 import 'package:rain/data/models/db.dart';
 
-/// Result of resolving saved cities from the database against prior state.
+/// Result of resolving saved cities from the database.
 class CitiesLoadResult {
-  const CitiesLoadResult({required this.cards, required this.loadError});
+  const CitiesLoadResult({required this.cards});
 
   final List<WeatherCard> cards;
-  final bool loadError;
 }
 
 /// Decides which card list to show after a successful database read, including empty results.
 class CitiesLoadResolver {
   const CitiesLoadResolver._();
 
-  /// Prefers fresh DB data; falls back to [previous] cards with an error flag.
-  static CitiesLoadResult resolve({
-    required List<WeatherCard> fromDb,
-    required List<WeatherCard> previous,
-  }) {
-    if (fromDb.isNotEmpty) {
-      return CitiesLoadResult(cards: fromDb, loadError: false);
-    }
-    if (previous.isNotEmpty) {
-      return CitiesLoadResult(cards: previous, loadError: true);
-    }
-    return const CitiesLoadResult(cards: [], loadError: false);
-  }
+  /// Returns cards from the database; an empty DB means no saved cities (not an error).
+  static CitiesLoadResult resolve({required List<WeatherCard> fromDb}) =>
+      CitiesLoadResult(cards: fromDb);
 }

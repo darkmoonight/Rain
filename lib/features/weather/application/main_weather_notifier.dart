@@ -68,7 +68,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   /// Timestamp before which cached forecast data is treated as stale.
   DateTime get _cacheExpiryThreshold =>
-      DateTime.now().subtract(AppConstants.cacheExpiry);
+      AppConstants.weatherCacheExpiryThreshold();
 
   /// Initializes default state and schedules location resolution.
   @override

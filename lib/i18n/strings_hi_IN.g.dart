@@ -193,6 +193,7 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'कोई परिणाम नहीं';
 	@override String get cities_load_error => 'शहर लोड नहीं हो सके';
 	@override String get retry => 'पुनः प्रयास';
+	@override String get city_not_found => 'शहर नहीं मिला';
 }
 
 /// The flat map containing all translations for locale <hi-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsHiIn {
 			'no_results' => 'कोई परिणाम नहीं',
 			'cities_load_error' => 'शहर लोड नहीं हो सके',
 			'retry' => 'पुनः प्रयास',
+			'city_not_found' => 'शहर नहीं मिला',
 			_ => null,
 		};
 	}

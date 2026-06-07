@@ -193,6 +193,7 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Gan torthaí';
 	@override String get cities_load_error => 'Theip ar lódáil na gcathracha';
 	@override String get retry => 'Bain triail as arís';
+	@override String get city_not_found => 'Níor aimsíodh an chathair';
 }
 
 /// The flat map containing all translations for locale <ga-IE>.
@@ -357,6 +358,7 @@ extension on TranslationsGaIe {
 			'no_results' => 'Gan torthaí',
 			'cities_load_error' => 'Theip ar lódáil na gcathracha',
 			'retry' => 'Bain triail as arís',
+			'city_not_found' => 'Níor aimsíodh an chathair',
 			_ => null,
 		};
 	}

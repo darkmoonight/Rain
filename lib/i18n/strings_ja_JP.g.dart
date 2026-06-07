@@ -193,6 +193,7 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => '結果がありません';
 	@override String get cities_load_error => '都市を読み込めませんでした';
 	@override String get retry => '再試行';
+	@override String get city_not_found => '都市が見つかりません';
 }
 
 /// The flat map containing all translations for locale <ja-JP>.
@@ -357,6 +358,7 @@ extension on TranslationsJaJp {
 			'no_results' => '結果がありません',
 			'cities_load_error' => '都市を読み込めませんでした',
 			'retry' => '再試行',
+			'city_not_found' => '都市が見つかりません',
 			_ => null,
 		};
 	}

@@ -152,5 +152,6 @@
   "confirm": "सहेजें",
   "noResults": "कोई परिणाम नहीं",
   "citiesLoadError": "शहर लोड नहीं हो सके",
-  "retry": "पुनः प्रयास"
+  "retry": "पुनः प्रयास",
+  "cityNotFound": "शहर नहीं मिला"
 }

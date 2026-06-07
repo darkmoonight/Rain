@@ -152,5 +152,6 @@
   "confirm": "Sábháil",
   "noResults": "Gan torthaí",
   "citiesLoadError": "Theip ar lódáil na gcathracha",
-  "retry": "Bain triail as arís"
+  "retry": "Bain triail as arís",
+  "cityNotFound": "Níor aimsíodh an chathair"
 }

@@ -152,5 +152,6 @@
   "confirm": "Salva",
   "noResults": "Nessun risultato",
   "citiesLoadError": "Impossibile caricare le città",
-  "retry": "Riprova"
+  "retry": "Riprova",
+  "cityNotFound": "Città non trovata"
 }

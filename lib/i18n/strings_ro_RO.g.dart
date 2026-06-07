@@ -193,6 +193,7 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Niciun rezultat';
 	@override String get cities_load_error => 'Nu s-au putut încărca orașele';
 	@override String get retry => 'Reîncearcă';
+	@override String get city_not_found => 'Orașul nu a fost găsit';
 }
 
 /// The flat map containing all translations for locale <ro-RO>.
@@ -357,6 +358,7 @@ extension on TranslationsRoRo {
 			'no_results' => 'Niciun rezultat',
 			'cities_load_error' => 'Nu s-au putut încărca orașele',
 			'retry' => 'Reîncearcă',
+			'city_not_found' => 'Orașul nu a fost găsit',
 			_ => null,
 		};
 	}

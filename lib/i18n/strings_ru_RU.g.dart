@@ -193,6 +193,7 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Ничего не найдено';
 	@override String get cities_load_error => 'Не удалось загрузить города';
 	@override String get retry => 'Повторить';
+	@override String get city_not_found => 'Город не найден';
 }
 
 /// The flat map containing all translations for locale <ru-RU>.
@@ -357,6 +358,7 @@ extension on TranslationsRuRu {
 			'no_results' => 'Ничего не найдено',
 			'cities_load_error' => 'Не удалось загрузить города',
 			'retry' => 'Повторить',
+			'city_not_found' => 'Город не найден',
 			_ => null,
 		};
 	}

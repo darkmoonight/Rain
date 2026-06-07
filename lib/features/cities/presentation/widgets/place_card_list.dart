@@ -62,14 +62,17 @@ class _DismissibleCard extends ConsumerWidget {
         child: Icon(IconsaxPlusLinear.trash_square, color: Colors.red),
       ),
     ),
-    confirmDismiss: (_) => showDeleteConfirmation(
-      context: context,
-      title: 'deletedCardWeather',
-      message: 'deletedCardWeatherQuery',
-      onConfirm: () => NavigationHelper.back(context, result: true),
-    ),
-    onDismissed: (_) =>
-        ref.read(citiesNotifierProvider.notifier).deleteCard(card),
+    confirmDismiss: (_) async {
+      final confirmed = await showDeleteConfirmation(
+        context: context,
+        title: 'deletedCardWeather',
+        message: 'deletedCardWeatherQuery',
+      );
+      if (confirmed) {
+        await ref.read(citiesNotifierProvider.notifier).deleteCard(card);
+      }
+      return confirmed;
+    },
     child: GestureDetector(
       onTap: () => NavigationHelper.toDownToUp(
         context,

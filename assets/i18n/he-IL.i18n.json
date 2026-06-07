@@ -152,5 +152,6 @@
   "confirm": "שמור",
   "noResults": "אין תוצאות",
   "citiesLoadError": "טעינת הערים נכשלה",
-  "retry": "נסה שוב"
+  "retry": "נסה שוב",
+  "cityNotFound": "העיר לא נמצאה"
 }

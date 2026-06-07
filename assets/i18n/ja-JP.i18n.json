@@ -152,5 +152,6 @@
   "confirm": "保存",
   "noResults": "結果がありません",
   "citiesLoadError": "都市を読み込めませんでした",
-  "retry": "再試行"
+  "retry": "再試行",
+  "cityNotFound": "都市が見つかりません"
 }

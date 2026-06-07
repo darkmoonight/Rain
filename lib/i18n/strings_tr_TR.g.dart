@@ -193,6 +193,7 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Sonuç bulunamadı';
 	@override String get cities_load_error => 'Şehirler yüklenemedi';
 	@override String get retry => 'Tekrar dene';
+	@override String get city_not_found => 'Şehir bulunamadı';
 }
 
 /// The flat map containing all translations for locale <tr-TR>.
@@ -357,6 +358,7 @@ extension on TranslationsTrTr {
 			'no_results' => 'Sonuç bulunamadı',
 			'cities_load_error' => 'Şehirler yüklenemedi',
 			'retry' => 'Tekrar dene',
+			'city_not_found' => 'Şehir bulunamadı',
 			_ => null,
 		};
 	}

@@ -193,6 +193,7 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Ingen resultater';
 	@override String get cities_load_error => 'Kunne ikke indlæse byer';
 	@override String get retry => 'Prøv igen';
+	@override String get city_not_found => 'By ikke fundet';
 }
 
 /// The flat map containing all translations for locale <da-DK>.
@@ -357,6 +358,7 @@ extension on TranslationsDaDk {
 			'no_results' => 'Ingen resultater',
 			'cities_load_error' => 'Kunne ikke indlæse byer',
 			'retry' => 'Prøv igen',
+			'city_not_found' => 'By ikke fundet',
 			_ => null,
 		};
 	}

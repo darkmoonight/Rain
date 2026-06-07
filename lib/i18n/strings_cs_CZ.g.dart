@@ -193,6 +193,7 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Žádné výsledky';
 	@override String get cities_load_error => 'Nepodařilo se načíst města';
 	@override String get retry => 'Zkusit znovu';
+	@override String get city_not_found => 'Město nenalezeno';
 }
 
 /// The flat map containing all translations for locale <cs-CZ>.
@@ -357,6 +358,7 @@ extension on TranslationsCsCz {
 			'no_results' => 'Žádné výsledky',
 			'cities_load_error' => 'Nepodařilo se načíst města',
 			'retry' => 'Zkusit znovu',
+			'city_not_found' => 'Město nenalezeno',
 			_ => null,
 		};
 	}

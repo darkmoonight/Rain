@@ -42,7 +42,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           .read(weatherRepositoryProvider)
           .readCache();
       final location = cached.location ?? container.read(locationCacheProvider);
-      return _redirectPath(
+      return resolveAppRedirect(
         settings,
         location ?? LocationCache(),
         state.uri.path,
@@ -69,7 +69,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 });
 
 /// Returns a redirect when setup is incomplete or when setup routes should be skipped.
-String? _redirectPath(Settings settings, LocationCache location, String path) {
+String? resolveAppRedirect(
+  Settings settings,
+  LocationCache location,
+  String path,
+) {
   if (!settings.onboard) {
     return path == AppRoutes.onboarding ? null : AppRoutes.onboarding;
   }
@@ -90,16 +94,8 @@ String? _redirectPath(Settings settings, LocationCache location, String path) {
   return null;
 }
 
-/// Convenience navigation helpers using slide transitions and [GoRouter.pop].
+/// Convenience navigation helpers using slide transitions on the root navigator.
 extension GoRouterNavigation on BuildContext {
-  /// Pops the current route, optionally returning [result].
-  void popRoute<T>([T? result]) => GoRouter.of(this).pop(result);
-
-  /// Pushes [page] with a horizontal slide transition.
-  Future<T?> pushRoute<T>(Widget page) => Navigator.of(
-    this,
-  ).push<T>(slideRoute<T>(child: page, begin: const Offset(1, 0)));
-
   /// Pushes [page] with a vertical slide transition.
   Future<T?> pushRouteUp<T>(Widget page) => Navigator.of(
     this,

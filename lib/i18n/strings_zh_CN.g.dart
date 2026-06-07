@@ -193,6 +193,7 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => '无结果';
 	@override String get cities_load_error => '无法加载城市';
 	@override String get retry => '重试';
+	@override String get city_not_found => '未找到城市';
 }
 
 /// The flat map containing all translations for locale <zh-CN>.
@@ -357,6 +358,7 @@ extension on TranslationsZhCn {
 			'no_results' => '无结果',
 			'cities_load_error' => '无法加载城市',
 			'retry' => '重试',
+			'city_not_found' => '未找到城市',
 			_ => null,
 		};
 	}

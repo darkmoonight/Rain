@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gap/gap.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_cache_file_store/http_cache_file_store.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
@@ -622,7 +621,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   /// Toggles GPS-based weather and prompts when location services are off.
   Future<void> _onLocationChanged(bool value, BuildContext context) async {
     if (value) {
-      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      final serviceEnabled = await ref
+          .read(locationServiceProvider)
+          .isServiceEnabled();
       if (!serviceEnabled) {
         if (!context.mounted) return;
         await _showLocationDialog(context);
@@ -646,7 +647,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       message: 'no_location'.tr,
       icon: IconsaxPlusBold.location,
       confirmText: 'settings'.tr,
-      onConfirm: () => Geolocator.openLocationSettings(),
+      onConfirm: () => ref.read(locationServiceProvider).openLocationSettings(),
     );
   }
 

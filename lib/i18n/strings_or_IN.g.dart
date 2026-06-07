@@ -193,6 +193,7 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'କୌଣସି ଫଳାଫଳ ନାହିଁ';
 	@override String get cities_load_error => 'ସହରଗୁଡ଼ିକ ଲୋଡ୍ ହେଲା ନାହିଁ';
 	@override String get retry => 'ପୁନଃଚେଷ୍ଟା';
+	@override String get city_not_found => 'ସହର ମିଳିଲା ନାହିଁ';
 }
 
 /// The flat map containing all translations for locale <or-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsOrIn {
 			'no_results' => 'କୌଣସି ଫଳାଫଳ ନାହିଁ',
 			'cities_load_error' => 'ସହରଗୁଡ଼ିକ ଲୋଡ୍ ହେଲା ନାହିଁ',
 			'retry' => 'ପୁନଃଚେଷ୍ଟା',
+			'city_not_found' => 'ସହର ମିଳିଲା ନାହିଁ',
 			_ => null,
 		};
 	}

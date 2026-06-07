@@ -152,5 +152,6 @@
   "confirm": "保存",
   "noResults": "无结果",
   "citiesLoadError": "无法加载城市",
-  "retry": "重试"
+  "retry": "重试",
+  "cityNotFound": "未找到城市"
 }

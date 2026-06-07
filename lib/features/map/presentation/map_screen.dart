@@ -5,7 +5,6 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
-import 'package:gap/gap.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_cache_file_store/http_cache_file_store.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
@@ -133,23 +132,33 @@ class _MapPageState extends ConsumerState<MapPage>
     String sunset,
     double temperature2M, {
     required StatusData statusData,
-  }) => Card(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          statusWeather.getImageNow(weathercode, time, sunrise, sunset),
-          scale: 18,
+  }) => SizedBox(
+    width: 100,
+    height: 50,
+    child: Card(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              statusWeather.getImageNow(weathercode, time, sunrise, sunset),
+              scale: 18,
+            ),
+            const SizedBox(width: 5),
+            Text(
+              statusData.getDegree(temperature2M),
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ],
         ),
-        const MaxGap(5),
-        Text(
-          statusData.getDegree(temperature2M),
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
-      ],
+      ),
     ),
   );
 
@@ -225,7 +234,10 @@ class _MapPageState extends ConsumerState<MapPage>
           child: GestureDetector(
             onTap: () => NavigationHelper.toDownToUp(
               context,
-              () => PlaceInfo(cardId: _selectedWeatherCard!.id),
+              () => PlaceInfo(
+                cardId: _selectedWeatherCard!.id,
+                card: _selectedWeatherCard,
+              ),
             ),
             child: WeatherCardTile(card: _selectedWeatherCard!),
           ),

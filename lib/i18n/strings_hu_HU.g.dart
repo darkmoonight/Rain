@@ -193,6 +193,7 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Nincs találat';
 	@override String get cities_load_error => 'A városok betöltése sikertelen';
 	@override String get retry => 'Újra';
+	@override String get city_not_found => 'A város nem található';
 }
 
 /// The flat map containing all translations for locale <hu-HU>.
@@ -357,6 +358,7 @@ extension on TranslationsHuHu {
 			'no_results' => 'Nincs találat',
 			'cities_load_error' => 'A városok betöltése sikertelen',
 			'retry' => 'Újra',
+			'city_not_found' => 'A város nem található',
 			_ => null,
 		};
 	}

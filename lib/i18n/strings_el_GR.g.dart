@@ -193,6 +193,7 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Δεν υπάρχουν αποτελέσματα';
 	@override String get cities_load_error => 'Αποτυχία φόρτωσης πόλεων';
 	@override String get retry => 'Επανάληψη';
+	@override String get city_not_found => 'Η πόλη δεν βρέθηκε';
 }
 
 /// The flat map containing all translations for locale <el-GR>.
@@ -357,6 +358,7 @@ extension on TranslationsElGr {
 			'no_results' => 'Δεν υπάρχουν αποτελέσματα',
 			'cities_load_error' => 'Αποτυχία φόρτωσης πόλεων',
 			'retry' => 'Επανάληψη',
+			'city_not_found' => 'Η πόλη δεν βρέθηκε',
 			_ => null,
 		};
 	}

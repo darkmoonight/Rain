@@ -193,6 +193,7 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Aucun résultat';
 	@override String get cities_load_error => 'Échec du chargement des villes';
 	@override String get retry => 'Réessayer';
+	@override String get city_not_found => 'Ville introuvable';
 }
 
 /// The flat map containing all translations for locale <fr-FR>.
@@ -357,6 +358,7 @@ extension on TranslationsFrFr {
 			'no_results' => 'Aucun résultat',
 			'cities_load_error' => 'Échec du chargement des villes',
 			'retry' => 'Réessayer',
+			'city_not_found' => 'Ville introuvable',
 			_ => null,
 		};
 	}

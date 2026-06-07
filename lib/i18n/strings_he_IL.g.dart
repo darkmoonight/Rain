@@ -193,6 +193,7 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'אין תוצאות';
 	@override String get cities_load_error => 'טעינת הערים נכשלה';
 	@override String get retry => 'נסה שוב';
+	@override String get city_not_found => 'העיר לא נמצאה';
 }
 
 /// The flat map containing all translations for locale <he-IL>.
@@ -357,6 +358,7 @@ extension on TranslationsHeIl {
 			'no_results' => 'אין תוצאות',
 			'cities_load_error' => 'טעינת הערים נכשלה',
 			'retry' => 'נסה שוב',
+			'city_not_found' => 'העיר לא נמצאה',
 			_ => null,
 		};
 	}

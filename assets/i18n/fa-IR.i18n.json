@@ -152,5 +152,6 @@
   "confirm": "ذخیره",
   "noResults": "نتیجه‌ای یافت نشد",
   "citiesLoadError": "بارگذاری شهرها ناموفق بود",
-  "retry": "تلاش مجدد"
+  "retry": "تلاش مجدد",
+  "cityNotFound": "شهر یافت نشد"
 }

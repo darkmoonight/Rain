@@ -193,6 +193,7 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Žiadne výsledky';
 	@override String get cities_load_error => 'Nepodarilo sa načítať mestá';
 	@override String get retry => 'Skúsiť znova';
+	@override String get city_not_found => 'Mesto nenájdené';
 }
 
 /// The flat map containing all translations for locale <sk-SK>.
@@ -357,6 +358,7 @@ extension on TranslationsSkSk {
 			'no_results' => 'Žiadne výsledky',
 			'cities_load_error' => 'Nepodarilo sa načítať mestá',
 			'retry' => 'Skúsiť znova',
+			'city_not_found' => 'Mesto nenájdené',
 			_ => null,
 		};
 	}

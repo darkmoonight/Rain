@@ -152,5 +152,6 @@
   "confirm": "Kaydet",
   "noResults": "Sonuç bulunamadı",
   "citiesLoadError": "Şehirler yüklenemedi",
-  "retry": "Tekrar dene"
+  "retry": "Tekrar dene",
+  "cityNotFound": "Şehir bulunamadı"
 }

@@ -193,6 +193,7 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'કોઈ પરિણામો નથી';
 	@override String get cities_load_error => 'શહેરો લોડ કરી શકાયા નહીં';
 	@override String get retry => 'ફરી પ્રયાસ કરો';
+	@override String get city_not_found => 'શહેર મળ્યું નથી';
 }
 
 /// The flat map containing all translations for locale <gu-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsGuIn {
 			'no_results' => 'કોઈ પરિણામો નથી',
 			'cities_load_error' => 'શહેરો લોડ કરી શકાયા નહીં',
 			'retry' => 'ફરી પ્રયાસ કરો',
+			'city_not_found' => 'શહેર મળ્યું નથી',
 			_ => null,
 		};
 	}

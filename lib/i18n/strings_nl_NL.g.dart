@@ -193,6 +193,7 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Geen resultaten';
 	@override String get cities_load_error => 'Steden laden mislukt';
 	@override String get retry => 'Opnieuw';
+	@override String get city_not_found => 'Stad niet gevonden';
 }
 
 /// The flat map containing all translations for locale <nl-NL>.
@@ -357,6 +358,7 @@ extension on TranslationsNlNl {
 			'no_results' => 'Geen resultaten',
 			'cities_load_error' => 'Steden laden mislukt',
 			'retry' => 'Opnieuw',
+			'city_not_found' => 'Stad niet gevonden',
 			_ => null,
 		};
 	}

@@ -193,6 +193,7 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => '沒有結果';
 	@override String get cities_load_error => '無法載入城市';
 	@override String get retry => '重試';
+	@override String get city_not_found => '找不到城市';
 }
 
 /// The flat map containing all translations for locale <zh-TW>.
@@ -357,6 +358,7 @@ extension on TranslationsZhTw {
 			'no_results' => '沒有結果',
 			'cities_load_error' => '無法載入城市',
 			'retry' => '重試',
+			'city_not_found' => '找不到城市',
 			_ => null,
 		};
 	}

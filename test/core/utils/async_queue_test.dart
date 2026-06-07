@@ -17,4 +17,17 @@ void main() {
 
     expect(order, [1, 2, 3]);
   });
+
+  test('enqueue propagates errors without blocking later tasks', () async {
+    final queue = AsyncQueue();
+    final order = <int>[];
+
+    await expectLater(
+      queue.enqueue(() async => throw Exception('fail')),
+      throwsException,
+    );
+
+    await queue.enqueue(() async => order.add(1));
+    expect(order, [1]);
+  });
 }

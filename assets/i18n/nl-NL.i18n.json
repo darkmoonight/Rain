@@ -152,5 +152,6 @@
   "confirm": "Opslaan",
   "noResults": "Geen resultaten",
   "citiesLoadError": "Steden laden mislukt",
-  "retry": "Opnieuw"
+  "retry": "Opnieuw",
+  "cityNotFound": "Stad niet gevonden"
 }

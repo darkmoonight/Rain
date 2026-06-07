@@ -193,6 +193,7 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Nessun risultato';
 	@override String get cities_load_error => 'Impossibile caricare le città';
 	@override String get retry => 'Riprova';
+	@override String get city_not_found => 'Città non trovata';
 }
 
 /// The flat map containing all translations for locale <it-IT>.
@@ -357,6 +358,7 @@ extension on TranslationsItIt {
 			'no_results' => 'Nessun risultato',
 			'cities_load_error' => 'Impossibile caricare le città',
 			'retry' => 'Riprova',
+			'city_not_found' => 'Città non trovata',
 			_ => null,
 		};
 	}

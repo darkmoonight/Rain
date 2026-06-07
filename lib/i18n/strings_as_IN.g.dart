@@ -193,6 +193,7 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'কোনো ফলাফল নাই';
 	@override String get cities_load_error => 'চহৰসমূহ ল\'ড কৰিব পৰা নগ\'ল';
 	@override String get retry => 'পুনৰ চেষ্টা';
+	@override String get city_not_found => 'চহৰ পোৱা নগ\'ল';
 }
 
 /// The flat map containing all translations for locale <as-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsAsIn {
 			'no_results' => 'কোনো ফলাফল নাই',
 			'cities_load_error' => 'চহৰসমূহ ল\'ড কৰিব পৰা নগ\'ল',
 			'retry' => 'পুনৰ চেষ্টা',
+			'city_not_found' => 'চহৰ পোৱা নগ\'ল',
 			_ => null,
 		};
 	}

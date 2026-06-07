@@ -193,6 +193,7 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'لا توجد نتائج';
 	@override String get cities_load_error => 'تعذر تحميل المدن';
 	@override String get retry => 'إعادة المحاولة';
+	@override String get city_not_found => 'المدينة غير موجودة';
 }
 
 /// The flat map containing all translations for locale <ar-SA>.
@@ -357,6 +358,7 @@ extension on TranslationsArSa {
 			'no_results' => 'لا توجد نتائج',
 			'cities_load_error' => 'تعذر تحميل المدن',
 			'retry' => 'إعادة المحاولة',
+			'city_not_found' => 'المدينة غير موجودة',
 			_ => null,
 		};
 	}

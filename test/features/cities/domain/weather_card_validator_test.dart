@@ -108,4 +108,26 @@ void main() {
       expect(expired.length, 2);
     });
   });
+
+  group('WeatherCardValidator.filterComplete', () {
+    test('keeps only complete cards', () {
+      final cards = [
+        _completeCard(),
+        _completeCard()..city = null,
+      ];
+
+      final complete = WeatherCardValidator.filterComplete(cards);
+      expect(complete, hasLength(1));
+    });
+  });
+
+  group('WeatherCardValidator.needsIndexRepair', () {
+    test('returns false when indices are sequential', () {
+      final cards = [
+        _completeCard(index: 0),
+        _completeCard(index: 1),
+      ];
+      expect(WeatherCardValidator.needsIndexRepair(cards), isFalse);
+    });
+  });
 }

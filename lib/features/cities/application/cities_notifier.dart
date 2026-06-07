@@ -56,9 +56,8 @@ class CitiesNotifier extends Notifier<CitiesState> {
 
   static const _refreshConcurrency = 3;
 
-  /// Timestamp before which cached forecast data is treated as stale.
   DateTime get _cacheExpiryThreshold =>
-      DateTime.now().subtract(AppConstants.cacheExpiry);
+      AppConstants.weatherCacheExpiryThreshold();
 
   /// Provides access to the cities repository from Riverpod.
   CitiesRepository get _repo => ref.read(citiesRepositoryProvider);
@@ -69,22 +68,23 @@ class CitiesNotifier extends Notifier<CitiesState> {
 
   // --- Loading ---
 
-  /// Reads cards from the database on success; on failure, keeps prior cards and sets [loadError].
+  /// Reads cards from the database; DB errors set [loadError] only when cards remain in state.
   Future<void> _loadImpl() async {
-    final previousCards = state.cards;
     try {
       final result = CitiesLoadResolver.resolve(
         fromDb: await _repo.getAllSorted(),
-        previous: previousCards,
       );
       state = state.copyWith(
         cards: result.cards,
         isLoading: false,
-        loadError: result.loadError,
+        loadError: false,
       );
     } catch (error, stackTrace) {
       debugLogError('CitiesNotifier._loadImpl', error, stackTrace);
-      state = state.copyWith(isLoading: false, loadError: true);
+      state = state.copyWith(
+        isLoading: false,
+        loadError: state.cards.isNotEmpty,
+      );
     }
   }
 
@@ -261,10 +261,23 @@ class CitiesNotifier extends Notifier<CitiesState> {
   );
 
   /// Removes [card] from storage and reloads the list.
-  Future<void> deleteCard(WeatherCard card) => _queue.enqueue(() async {
-    await _repo.deleteCard(card);
-    await _loadImpl();
-  });
+  Future<void> deleteCard(WeatherCard card) {
+    final previousCards = state.cards;
+    state = state.copyWith(
+      cards: state.cards.where((c) => c.id != card.id).toList(),
+      loadError: false,
+    );
+    return _queue.enqueue(() async {
+      try {
+        await _repo.deleteCard(card);
+        await _loadImpl();
+      } catch (error, stackTrace) {
+        debugLogError('CitiesNotifier.deleteCard', error, stackTrace);
+        state = state.copyWith(cards: previousCards, loadError: false);
+        rethrow;
+      }
+    });
+  }
 
   /// Persists a new card order after drag-and-drop reordering.
   Future<void> reorder(int oldIndex, int newIndex) => _queue.enqueue(() async {

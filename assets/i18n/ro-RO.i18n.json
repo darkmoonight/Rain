@@ -152,5 +152,6 @@
   "confirm": "Salvează",
   "noResults": "Niciun rezultat",
   "citiesLoadError": "Nu s-au putut încărca orașele",
-  "retry": "Reîncearcă"
+  "retry": "Reîncearcă",
+  "cityNotFound": "Orașul nu a fost găsit"
 }

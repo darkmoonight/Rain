@@ -193,6 +193,7 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'ఫలితాలు లేవు';
 	@override String get cities_load_error => 'నగరాలను లోడ్ చేయలేకపోయాం';
 	@override String get retry => 'మళ్ళీ ప్రయత్నించు';
+	@override String get city_not_found => 'నగరం కనుగొనబడలేదు';
 }
 
 /// The flat map containing all translations for locale <te-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsTeIn {
 			'no_results' => 'ఫలితాలు లేవు',
 			'cities_load_error' => 'నగరాలను లోడ్ చేయలేకపోయాం',
 			'retry' => 'మళ్ళీ ప్రయత్నించు',
+			'city_not_found' => 'నగరం కనుగొనబడలేదు',
 			_ => null,
 		};
 	}

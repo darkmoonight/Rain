@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:gap/gap.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:latlong2/latlong.dart';
@@ -224,7 +223,9 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
 
   /// Resolves device location or refreshes the main weather location.
   Future<void> _handleLocationButtonPress() async {
-    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    final serviceEnabled = await ref
+        .read(locationServiceProvider)
+        .isServiceEnabled();
     if (!serviceEnabled) {
       if (!context.mounted) return;
       await _showLocationDialog();
@@ -266,7 +267,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
       message: 'no_location'.tr,
       icon: IconsaxPlusBold.location,
       confirmText: 'settings'.tr,
-      onConfirm: () => Geolocator.openLocationSettings(),
+      onConfirm: () => ref.read(locationServiceProvider).openLocationSettings(),
     );
   }
 

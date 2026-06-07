@@ -193,6 +193,7 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'முடிவுகள் இல்லை';
 	@override String get cities_load_error => 'நகரங்களை ஏற்ற முடியவில்லை';
 	@override String get retry => 'மீண்டும்';
+	@override String get city_not_found => 'நகரம் கிடைக்கவில்லை';
 }
 
 /// The flat map containing all translations for locale <ta-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsTaIn {
 			'no_results' => 'முடிவுகள் இல்லை',
 			'cities_load_error' => 'நகரங்களை ஏற்ற முடியவில்லை',
 			'retry' => 'மீண்டும்',
+			'city_not_found' => 'நகரம் கிடைக்கவில்லை',
 			_ => null,
 		};
 	}

@@ -193,6 +193,7 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'نتیجه‌ای یافت نشد';
 	@override String get cities_load_error => 'بارگذاری شهرها ناموفق بود';
 	@override String get retry => 'تلاش مجدد';
+	@override String get city_not_found => 'شهر یافت نشد';
 }
 
 /// The flat map containing all translations for locale <fa-IR>.
@@ -357,6 +358,7 @@ extension on TranslationsFaIr {
 			'no_results' => 'نتیجه‌ای یافت نشد',
 			'cities_load_error' => 'بارگذاری شهرها ناموفق بود',
 			'retry' => 'تلاش مجدد',
+			'city_not_found' => 'شهر یافت نشد',
 			_ => null,
 		};
 	}

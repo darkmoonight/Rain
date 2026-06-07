@@ -62,6 +62,10 @@ class AppConstants {
 
   // Cache
   static const Duration cacheExpiry = Duration(hours: 12);
+
+  /// Cutoff before which persisted forecast rows are treated as stale.
+  static DateTime weatherCacheExpiryThreshold() =>
+      DateTime.now().subtract(cacheExpiry);
   static const Duration mapTileCacheDays = Duration(days: 30);
 
   // Widget
@@ -103,7 +107,7 @@ class AppConstants {
       'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   static const String openStreetMapCopyrightUrl =
       'https://openstreetmap.org/copyright';
-  static const String mapUserAgentPackageName = 'com.darkmoonight.rain';
+  static const String mapUserAgentPackageName = 'com.yoshi.rain';
 
   // Map styling
   static const double mapTextFieldElevation = 4.0;

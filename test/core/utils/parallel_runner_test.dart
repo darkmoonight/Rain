@@ -21,4 +21,14 @@ void main() {
 
     expect(results, isEmpty);
   });
+
+  test('mapLimited captures false results from failed runs', () async {
+    final results = await ParallelRunner.mapLimited(
+      items: [1, 2, 3],
+      concurrency: 2,
+      run: (item) async => item != 2,
+    );
+
+    expect(results, [true, false, true]);
+  });
 }

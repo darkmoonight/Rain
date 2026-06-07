@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
-/// Wraps Geolocator and geocoding for the current device position.
+/// Wraps Geolocator and geocoding — the only layer that talks to platform GPS APIs.
 class LocationService {
   /// Returns the current GPS position after requesting permissions if needed.
   Future<Position> determinePosition() async {
@@ -28,13 +29,13 @@ class LocationService {
     );
     if (placemarks.isEmpty) return null;
     final place = placemarks.first;
-    final city = _firstNonEmpty([
+    final city = firstNonEmpty([
       place.locality,
       place.subAdministrativeArea,
       place.name,
       place.subLocality,
     ]);
-    final district = _firstNonEmpty([
+    final district = firstNonEmpty([
       place.administrativeArea,
       place.subAdministrativeArea,
     ]);
@@ -50,8 +51,12 @@ class LocationService {
   /// Whether the device location service is enabled at the OS level.
   Future<bool> isServiceEnabled() => Geolocator.isLocationServiceEnabled();
 
+  /// Opens the system location settings screen.
+  Future<bool> openLocationSettings() => Geolocator.openLocationSettings();
+
   /// Returns the first trimmed non-empty string from [values].
-  static String _firstNonEmpty(List<String?> values) {
+  @visibleForTesting
+  static String firstNonEmpty(List<String?> values) {
     for (final value in values) {
       final trimmed = value?.trim();
       if (trimmed != null && trimmed.isNotEmpty) return trimmed;

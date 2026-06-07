@@ -193,6 +193,7 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'შედეგები ვერ მოიძებნა';
 	@override String get cities_load_error => 'ქალაქების ჩატვირთვა ვერ მოხერხდა';
 	@override String get retry => 'თავიდან';
+	@override String get city_not_found => 'ქალაქი ვერ მოიძებნა';
 }
 
 /// The flat map containing all translations for locale <ka-GE>.
@@ -357,6 +358,7 @@ extension on TranslationsKaGe {
 			'no_results' => 'შედეგები ვერ მოიძებნა',
 			'cities_load_error' => 'ქალაქების ჩატვირთვა ვერ მოხერხდა',
 			'retry' => 'თავიდან',
+			'city_not_found' => 'ქალაქი ვერ მოიძებნა',
 			_ => null,
 		};
 	}

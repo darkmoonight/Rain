@@ -193,6 +193,7 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => '결과 없음';
 	@override String get cities_load_error => '도시를 불러오지 못했습니다';
 	@override String get retry => '다시 시도';
+	@override String get city_not_found => '도시를 찾을 수 없습니다';
 }
 
 /// The flat map containing all translations for locale <ko-KR>.
@@ -357,6 +358,7 @@ extension on TranslationsKoKr {
 			'no_results' => '결과 없음',
 			'cities_load_error' => '도시를 불러오지 못했습니다',
 			'retry' => '다시 시도',
+			'city_not_found' => '도시를 찾을 수 없습니다',
 			_ => null,
 		};
 	}

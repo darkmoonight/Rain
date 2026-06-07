@@ -193,6 +193,7 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Brak wyników';
 	@override String get cities_load_error => 'Nie udało się wczytać miast';
 	@override String get retry => 'Ponów';
+	@override String get city_not_found => 'Nie znaleziono miasta';
 }
 
 /// The flat map containing all translations for locale <pl-PL>.
@@ -357,6 +358,7 @@ extension on TranslationsPlPl {
 			'no_results' => 'Brak wyników',
 			'cities_load_error' => 'Nie udało się wczytać miast',
 			'retry' => 'Ponów',
+			'city_not_found' => 'Nie znaleziono miasta',
 			_ => null,
 		};
 	}

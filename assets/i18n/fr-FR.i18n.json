@@ -152,5 +152,6 @@
   "confirm": "Enregistrer",
   "noResults": "Aucun résultat",
   "citiesLoadError": "Échec du chargement des villes",
-  "retry": "Réessayer"
+  "retry": "Réessayer",
+  "cityNotFound": "Ville introuvable"
 }

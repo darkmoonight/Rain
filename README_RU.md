@@ -22,7 +22,7 @@
 </p>
 
 <p align='center'>
-    <strong>🌍 Доступно на 37 языках</strong> • <strong>🎨 Material You и AMOLED</strong> • <strong>🗺️ Интерактивная карта погоды</strong> • <strong>📱 Домашний виджет</strong>
+    <strong>🌍 Доступно на 38 языках</strong> • <strong>🎨 Material You и AMOLED</strong> • <strong>🗺️ Интерактивная карта погоды</strong> • <strong>📱 Домашний виджет</strong>
 </p>
 
 ---
@@ -65,7 +65,7 @@
 - Дисплей от края до края • Шрифты Google Fonts (Ubuntu) • Плавные анимации • Эффект мерцания при загрузке
 
 **🌍 Обширная локализация**
-- 37 языков, включая: Русский, English, 中文, العربية, हिन्दी, Español, Français, Deutsch, Português, 한국어, 日本語, Türkçe и многие другие
+- 38 языков, включая: Русский, English, 中文, العربية, हिन्दी, Español, Français, Deutsch, Português, 한국어, 日本語, Türkçe и многие другие
 - Региональные настройки • Поддержка 12/24-часового формата времени
 
 **🧮 Настройки персонализации**
@@ -185,6 +185,23 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 ```
 
 `pubspec_overrides.yaml` в `.gitignore`; `pubspec.lock` в репозитории — для **gms**.
+
+### Тестирование
+
+В проекте **304** unit- и widget-теста (83 файла `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
+
+```bash
+flutter test --concurrency=4
+dart analyze test/ lib/
+```
+
+**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils, cities notifier (CRUD, `loadError`, edge cases удаления), navigation helper, confirmation/selection dialogs, weather widgets.
+
+**Пробелы (сознательно не трогаем):** cold-start `main.dart`, WorkManager, сеть/кэш OSM-тайлов, полный async redirect `appRouterProvider`, geolocation submit → полная navigation E2E.
+
+Заметки по регрессиям навигации и empty vs error: [`test/pattern_audit_findings.md`](test/pattern_audit_findings.md).
+
+В widget-тестах с поиском городов и прогнозом используйте `createFakeWeatherRemoteDatasource()` из `test/helpers/fixtures.dart`, чтобы геокодинг и forecast шли через один stub Dio.
 
 ### Генерация кода
 Проект использует генерацию кода для:

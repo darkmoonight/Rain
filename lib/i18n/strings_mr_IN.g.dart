@@ -193,6 +193,7 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'कोणतेही परिणाम नाहीत';
 	@override String get cities_load_error => 'शहरे लोड करता आले नाहीत';
 	@override String get retry => 'पुन्हा प्रयत्न करा';
+	@override String get city_not_found => 'शहर सापडले नाही';
 }
 
 /// The flat map containing all translations for locale <mr-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsMrIn {
 			'no_results' => 'कोणतेही परिणाम नाहीत',
 			'cities_load_error' => 'शहरे लोड करता आले नाहीत',
 			'retry' => 'पुन्हा प्रयत्न करा',
+			'city_not_found' => 'शहर सापडले नाही',
 			_ => null,
 		};
 	}

@@ -193,6 +193,7 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'ഫലങ്ങളൊന്നുമില്ല';
 	@override String get cities_load_error => 'നഗരങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല';
 	@override String get retry => 'വീണ്ടും ശ്രമിക്കുക';
+	@override String get city_not_found => 'നഗരം കണ്ടെത്തിയില്ല';
 }
 
 /// The flat map containing all translations for locale <ml-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsMlIn {
 			'no_results' => 'ഫലങ്ങളൊന്നുമില്ല',
 			'cities_load_error' => 'നഗരങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല',
 			'retry' => 'വീണ്ടും ശ്രമിക്കുക',
+			'city_not_found' => 'നഗരം കണ്ടെത്തിയില്ല',
 			_ => null,
 		};
 	}

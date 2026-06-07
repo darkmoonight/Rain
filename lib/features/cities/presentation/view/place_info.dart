@@ -15,8 +15,14 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 /// Full weather detail screen for a single saved city card.
 class PlaceInfo extends ConsumerStatefulWidget {
-  const PlaceInfo({super.key, required this.cardId});
-  final int cardId;
+  const PlaceInfo({super.key, this.cardId, this.card})
+    : assert(cardId != null || card != null);
+
+  /// Saved city id from [CitiesNotifier]; used when the card is in the cities list.
+  final int? cardId;
+
+  /// In-memory card when the location is not saved (e.g. main weather on the map).
+  final WeatherCard? card;
 
   /// Creates the mutable state for this [PlaceInfo] widget.
   @override
@@ -55,12 +61,55 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
     });
   }
 
+  /// Resolves the card from the cities list, optional [card] fallback, or main weather.
+  WeatherCard? _resolveCard(CitiesState cities) {
+    if (widget.cardId != null) {
+      final fromList = cities.cardById(widget.cardId!);
+      if (fromList != null) return fromList;
+    }
+    final fallback = widget.card;
+    if (fallback == null) return null;
+
+    final main = ref.read(mainWeatherNotifierProvider);
+    final loc = main.location;
+    if (loc.lat != null &&
+        loc.lon != null &&
+        fallback.lat == loc.lat &&
+        fallback.lon == loc.lon &&
+        !main.isLoading) {
+      return WeatherCard.fromJson({
+        ...main.mainWeather.toJson(),
+        ...loc.toJson(),
+      });
+    }
+    return fallback;
+  }
+
+  /// Returns true when [card] is stored in the saved-cities list.
+  bool _isPersistedCity(CitiesState cities, WeatherCard card) {
+    if (widget.cardId != null && cities.cardById(widget.cardId!) != null) {
+      return true;
+    }
+    for (final saved in cities.cards) {
+      if (saved.id == card.id && card.id > 0) return true;
+      if (saved.lat == card.lat &&
+          saved.lon == card.lon &&
+          card.lat != null &&
+          card.lon != null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /// Builds the weather detail scaffold with refresh and edit actions.
   @override
   Widget build(BuildContext context) {
     final cities = ref.watch(citiesNotifierProvider);
-    final card = cities.cardById(widget.cardId);
+    ref.watch(mainWeatherNotifierProvider);
+    final card = _resolveCard(cities);
 
+    // Missing id: spinner while loading, load error on failure, not-found otherwise.
     if (card == null) {
       return Scaffold(
         appBar: AppBar(
@@ -72,16 +121,24 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
         body: Center(
           child: cities.isLoading
               ? const CircularProgressIndicator()
-              : Text('citiesLoadError'.tr),
+              : Text(
+                  cities.loadError ? 'citiesLoadError'.tr : 'cityNotFound'.tr,
+                ),
         ),
       );
     }
 
     _syncTimeFor(card);
 
+    final persisted = _isPersistedCity(cities, card);
+
     return RefreshIndicator(
       onRefresh: () async {
-        await ref.read(citiesNotifierProvider.notifier).updateCard(card);
+        if (persisted) {
+          await ref.read(citiesNotifierProvider.notifier).updateCard(card);
+        } else {
+          await ref.read(mainWeatherNotifierProvider.notifier).refresh();
+        }
         if (mounted) setState(() {});
       },
       child: Scaffold(
@@ -100,18 +157,19 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
             ),
           ),
           actions: [
-            IconButton(
-              onPressed: () async {
-                await showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  enableDrag: false,
-                  builder: (_) => PlaceAction(edit: true, card: card),
-                );
-                if (mounted) setState(() {});
-              },
-              icon: const Icon(IconsaxPlusLinear.edit, size: 18),
-            ),
+            if (persisted)
+              IconButton(
+                onPressed: () async {
+                  await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    enableDrag: false,
+                    builder: (_) => PlaceAction(edit: true, card: card),
+                  );
+                  if (mounted) setState(() {});
+                },
+                icon: const Icon(IconsaxPlusLinear.edit, size: 18),
+              ),
           ],
         ),
         body: SafeArea(

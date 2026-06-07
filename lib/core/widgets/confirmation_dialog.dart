@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/core/constants/app_constants.dart';
 
@@ -169,7 +168,7 @@ class ConfirmationDialog extends StatelessWidget {
         FilledButton.tonal(
           onPressed: () {
             onConfirm?.call();
-            NavigationHelper.back(context, result: true);
+            Navigator.of(context).pop(true);
           },
           style: FilledButton.styleFrom(
             padding: const EdgeInsets.symmetric(
@@ -236,46 +235,6 @@ Future<bool> showDeleteConfirmation({
     title: title,
     message: message,
     icon: IconsaxPlusBold.trash,
-    confirmText: 'delete',
-    isDestructive: true,
-    onConfirm: onConfirm,
-  );
-}
-
-/// Shows an archive or unarchive confirmation dialog.
-Future<bool> showArchiveConfirmation({
-  required BuildContext context,
-  required String title,
-  required String message,
-  required bool isUnarchive,
-  VoidCallback? onConfirm,
-}) async {
-  final colorScheme = Theme.of(context).colorScheme;
-
-  return showConfirmationDialog(
-    context: context,
-    title: title,
-    message: message,
-    icon: isUnarchive
-        ? IconsaxPlusBold.refresh_left_square
-        : IconsaxPlusBold.archive_add,
-    iconColor: colorScheme.primary,
-    confirmText: isUnarchive ? 'noArchive' : 'archive',
-    isDestructive: false,
-    onConfirm: onConfirm,
-  );
-}
-
-/// Shows a destructive confirmation before clearing text input.
-Future<bool> showClearTextConfirmation({
-  required BuildContext context,
-  VoidCallback? onConfirm,
-}) async {
-  return showConfirmationDialog(
-    context: context,
-    title: 'clearText',
-    message: 'clearTextWarning',
-    icon: IconsaxPlusBold.warning_2,
     confirmText: 'delete',
     isDestructive: true,
     onConfirm: onConfirm,

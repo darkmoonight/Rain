@@ -193,6 +193,7 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'কোনো ফলাফল নেই';
 	@override String get cities_load_error => 'শহরগুলো লোড করা যায়নি';
 	@override String get retry => 'আবার চেষ্টা';
+	@override String get city_not_found => 'শহর পাওয়া যায়নি';
 }
 
 /// The flat map containing all translations for locale <bn-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsBnIn {
 			'no_results' => 'কোনো ফলাফল নেই',
 			'cities_load_error' => 'শহরগুলো লোড করা যায়নি',
 			'retry' => 'আবার চেষ্টা',
+			'city_not_found' => 'শহর পাওয়া যায়নি',
 			_ => null,
 		};
 	}

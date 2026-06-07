@@ -152,5 +152,6 @@
   "confirm": "Gem",
   "noResults": "Ingen resultater",
   "citiesLoadError": "Kunne ikke indlæse byer",
-  "retry": "Prøv igen"
+  "retry": "Prøv igen",
+  "cityNotFound": "By ikke fundet"
 }

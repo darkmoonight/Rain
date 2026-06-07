@@ -152,5 +152,6 @@
   "confirm": "Zapisz",
   "noResults": "Brak wyników",
   "citiesLoadError": "Nie udało się wczytać miast",
-  "retry": "Ponów"
+  "retry": "Ponów",
+  "cityNotFound": "Nie znaleziono miasta"
 }

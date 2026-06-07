@@ -193,6 +193,7 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'ಯಾವುದೇ ಫಲಿತಾಂಶಗಳಿಲ್ಲ';
 	@override String get cities_load_error => 'ನಗರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ';
 	@override String get retry => 'ಮರುಪ್ರಯತ್ನ';
+	@override String get city_not_found => 'ನಗರ ಕಂಡುಬಂದಿಲ್ಲ';
 }
 
 /// The flat map containing all translations for locale <kn-IN>.
@@ -357,6 +358,7 @@ extension on TranslationsKnIn {
 			'no_results' => 'ಯಾವುದೇ ಫಲಿತಾಂಶಗಳಿಲ್ಲ',
 			'cities_load_error' => 'ನಗರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ',
 			'retry' => 'ಮರುಪ್ರಯತ್ನ',
+			'city_not_found' => 'ನಗರ ಕಂಡುಬಂದಿಲ್ಲ',
 			_ => null,
 		};
 	}

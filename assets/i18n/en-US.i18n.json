@@ -152,5 +152,6 @@
   "confirm": "Confirm",
   "noResults": "No results",
   "citiesLoadError": "Failed to load cities",
+  "cityNotFound": "City not found",
   "retry": "Retry"
 }

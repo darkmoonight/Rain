@@ -193,6 +193,7 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get no_results => 'Sin resultados';
 	@override String get cities_load_error => 'No se pudieron cargar las ciudades';
 	@override String get retry => 'Reintentar';
+	@override String get city_not_found => 'Ciudad no encontrada';
 }
 
 /// The flat map containing all translations for locale <es-ES>.
@@ -357,6 +358,7 @@ extension on TranslationsEsEs {
 			'no_results' => 'Sin resultados',
 			'cities_load_error' => 'No se pudieron cargar las ciudades',
 			'retry' => 'Reintentar',
+			'city_not_found' => 'Ciudad no encontrada',
 			_ => null,
 		};
 	}

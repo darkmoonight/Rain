@@ -152,5 +152,6 @@
   "confirm": "儲存",
   "noResults": "沒有結果",
   "citiesLoadError": "無法載入城市",
-  "retry": "重試"
+  "retry": "重試",
+  "cityNotFound": "找不到城市"
 }
