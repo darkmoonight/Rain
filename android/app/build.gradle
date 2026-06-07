@@ -12,7 +12,11 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = 'com.yoshi.rain'
-    compileSdk = 37
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 0
+        }
+    }
     ndkVersion = '30.0.14904198'
 
     compileOptions {
