@@ -4,12 +4,10 @@ import 'dart:io';
 
 import 'package:isar_community/isar.dart';
 
-/// Initializes Isar Core for tests using [isar_community_flutter_libs] when available.
+/// Initializes Isar Core for tests using the native library from
+/// [isar_community_flutter_libs] (via `flutter pub get`), falling back to download.
 ///
-/// See [isar-community](https://github.com/isar-community) and
-/// [isar_community pub docs](https://pub.dev/documentation/isar_community/latest/):
-/// prefer a local `libisar` binary over `download: true` so parallel `flutter test`
-/// runs do not race on HTTP downloads.
+/// Do not commit `libisar.so` to the project root — it is resolved from the pub cache.
 Future<void> initializeIsarCoreForTests() async {
   final localLib = await findBundledIsarLib();
   if (localLib != null) {

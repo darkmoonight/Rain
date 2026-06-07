@@ -190,20 +190,12 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 В проекте **320** unit- и widget-тестов (89 файлов `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
 
-При push и pull request [`.github/workflows/test.yml`](.github/workflows/test.yml) запускает:
-
-```bash
-flutter pub get
-flutter analyze
-flutter test
-```
-
-Локально:
-
 ```bash
 flutter test
 flutter analyze
 ```
+
+Если widget-тесты зависают: `flutter test --concurrency=1`.
 
 Отчёт покрытия (результат в `coverage/`, в `.gitignore`):
 

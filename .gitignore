@@ -34,6 +34,7 @@ migrate_working_dir/
 pubspec_overrides.yaml
 /build/
 /coverage/
+/libisar.so
 
 # Symbolication related
 app.*.symbols

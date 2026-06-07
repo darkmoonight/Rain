@@ -41,7 +41,7 @@ Before starting work on a larger change, check the [issue tracker](https://githu
 
 Ensure your changes do not break existing functionality. Add or update tests for new behavior and bug fixes when practical.
 
-The project currently has **320** tests in **89** `*_test.dart` files. CI runs on every push and pull request via [`.github/workflows/test.yml`](.github/workflows/test.yml):
+The project currently has **320** tests in **89** `*_test.dart` files. Before opening a pull request, run:
 
 ```bash
 flutter pub get
@@ -51,6 +51,7 @@ flutter test
 
 Tips:
 
+- If widget tests hang, use `flutter test --concurrency=1`.
 - Widget tests that hit city search or forecast APIs should use `createFakeWeatherRemoteDatasource()` from `test/helpers/fixtures.dart`.
 - Database tests rely on the Isar bootstrap in `test/helpers/`.
 - Optional local coverage: `flutter test --coverage` (output in `coverage/`, gitignored).

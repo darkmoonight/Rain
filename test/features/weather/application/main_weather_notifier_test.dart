@@ -196,11 +196,14 @@ void main() {
       return fakeNotifications;
     }
 
-    test('does not cancel notifications when cache is empty but enabled', () async {
-      final fakeNotifications = await pumpInit(notificationsEnabled: true);
+    test(
+      'does not cancel notifications when cache is empty but enabled',
+      () async {
+        final fakeNotifications = await pumpInit(notificationsEnabled: true);
 
-      expect(fakeNotifications.cancelAllCalls, 0);
-    });
+        expect(fakeNotifications.cancelAllCalls, 0);
+      },
+    );
 
     test('cancels notifications when cache is empty and disabled', () async {
       final fakeNotifications = await pumpInit(notificationsEnabled: false);

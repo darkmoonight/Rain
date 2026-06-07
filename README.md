@@ -190,20 +190,12 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 The project has **320** unit and widget tests (89 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
 
-On push and pull requests, [`.github/workflows/test.yml`](.github/workflows/test.yml) runs:
-
-```bash
-flutter pub get
-flutter analyze
-flutter test
-```
-
-Locally:
-
 ```bash
 flutter test
 flutter analyze
 ```
+
+If widget tests hang, run `flutter test --concurrency=1`.
 
 Optional coverage report (output in `coverage/`, gitignored):
 
