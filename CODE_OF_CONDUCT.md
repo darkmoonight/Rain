@@ -26,7 +26,9 @@ Unacceptable behavior includes but is not limited to:
 
 ## Reporting Procedure
 
-If you believe you're experiencing a violation of the code of conduct, please report it by sending an email to darkmoonight2022@gmail.com.
+If you believe you're experiencing a violation of the code of conduct, please report it by sending an email to [darkmoonight2022@gmail.com](mailto:darkmoonight2022@gmail.com). All reports will be reviewed and handled confidentially.
+
+For general bugs and feature ideas, use the [GitHub issue tracker](https://github.com/darkmoonight/Rain/issues).
 
 ## Conclusion
 

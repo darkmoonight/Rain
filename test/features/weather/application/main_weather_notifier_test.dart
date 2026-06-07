@@ -159,6 +159,55 @@ void main() {
       expect(fakeNotifications.rescheduleCalls, 1);
     });
   });
+
+  group('MainWeatherNotifier init', () {
+    late TestBootstrapContext ctx;
+
+    tearDown(() async {
+      await ctx.dispose();
+    });
+
+    Future<FakeNotificationService> pumpInit({
+      required bool notificationsEnabled,
+    }) async {
+      ctx = await createTestBootstrap(
+        settings: onboardedSettings()..notifications = notificationsEnabled,
+      );
+      setTestConnectivity(true);
+      final fakeNotifications = FakeNotificationService();
+
+      final container = createTestContainer(
+        bootstrap: ctx.bootstrap,
+        overrides: [
+          notificationServiceProvider.overrideWithValue(fakeNotifications),
+          weatherRemoteDatasourceProvider.overrideWithValue(
+            createFakeWeatherRemoteDatasource(),
+          ),
+          locationServiceProvider.overrideWithValue(FakeLocationService()),
+          homeWidgetServiceProvider.overrideWithValue(FakeHomeWidgetService()),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      container.read(mainWeatherNotifierProvider);
+      await Future<void>.delayed(Duration.zero);
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+
+      return fakeNotifications;
+    }
+
+    test('does not cancel notifications when cache is empty but enabled', () async {
+      final fakeNotifications = await pumpInit(notificationsEnabled: true);
+
+      expect(fakeNotifications.cancelAllCalls, 0);
+    });
+
+    test('cancels notifications when cache is empty and disabled', () async {
+      final fakeNotifications = await pumpInit(notificationsEnabled: false);
+
+      expect(fakeNotifications.cancelAllCalls, 1);
+    });
+  });
 }
 
 class _TestMainWeatherNotifier extends MainWeatherNotifier {

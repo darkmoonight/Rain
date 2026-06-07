@@ -53,5 +53,26 @@ void main() {
       expect(slots, isNotEmpty);
       expect(slots.first.title, contains('Moscow'));
     });
+
+    test('creates one slot per hour when multiple daily rows match', () {
+      final cache = sampleMainWeatherCache()
+        ..timeDaily = [DateTime(2026, 6, 5), DateTime(2026, 6, 5)]
+        ..sunrise = ['06:00', '06:01']
+        ..sunset = ['18:00', '18:01'];
+
+      final slots = buildWeatherNotificationSlots(
+        cache: cache,
+        settings: Settings(),
+        appSettings: const AppSettingsState(
+          timeStart: '00:00',
+          timeEnd: '23:59',
+          timeRange: 1,
+        ),
+        cityLabel: 'Moscow',
+        now: DateTime(2026, 6, 5, 11),
+      );
+
+      expect(slots.where((slot) => slot.time.hour == 13).length, 1);
+    });
   });
 }

@@ -188,18 +188,36 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Testing
 
-The project has **304** unit and widget tests (83 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
+The project has **320** unit and widget tests (89 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
+
+On push and pull requests, [`.github/workflows/test.yml`](.github/workflows/test.yml) runs:
 
 ```bash
-flutter test --concurrency=4
-dart analyze test/ lib/
+flutter pub get
+flutter analyze
+flutter test
 ```
 
-**Well covered:** data/domain (repos, mappers, validators), core services/utils, cities notifier (CRUD, `loadError`, delete edge cases), navigation helper, confirmation/selection dialogs, weather widgets.
+Locally:
 
-**Widget/screen gaps (intentionally skipped):** cold-start `main.dart`, WorkManager, OSM tile network/cache, full `appRouterProvider` async redirect, geolocation submit → full navigation E2E.
+```bash
+flutter test
+flutter analyze
+```
 
-Regression notes from the navigation / empty-vs-error audit: [`test/pattern_audit_findings.md`](test/pattern_audit_findings.md).
+Optional coverage report (output in `coverage/`, gitignored):
+
+```bash
+flutter test --coverage
+```
+
+**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers.
+
+**Notification regression tests:** stable notification IDs (`notificationIdFor`), one slot per hour when duplicate daily rows exist, and `MainWeatherNotifier._init` not calling `cancelAll()` while notifications stay enabled.
+
+**Widget/screen gaps (intentionally skipped):** cold-start `main.dart`, WorkManager, OSM tile network/cache, onboarding → home E2E, geolocation submit → full navigation E2E.
+
+If alerts stopped after an update that fixed notification scheduling, toggle notifications off and on in Settings (Android 13+ may need to grant notification permission once).
 
 Widget tests that hit city search or forecast APIs should use `createFakeWeatherRemoteDatasource()` from `test/helpers/fixtures.dart` so geocoding and forecast share one stubbed Dio client.
 
@@ -235,7 +253,7 @@ Rain uses free, open weather APIs with no API key required:
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for setup, testing, and pull request guidelines. Use the [bug report](.github/ISSUE_TEMPLATE/bug_report.md) or [feature request](.github/ISSUE_TEMPLATE/feature_request.md) templates when opening issues.
 
 ---
 

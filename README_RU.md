@@ -188,18 +188,36 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Тестирование
 
-В проекте **304** unit- и widget-теста (83 файла `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
+В проекте **320** unit- и widget-тестов (89 файлов `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
+
+При push и pull request [`.github/workflows/test.yml`](.github/workflows/test.yml) запускает:
 
 ```bash
-flutter test --concurrency=4
-dart analyze test/ lib/
+flutter pub get
+flutter analyze
+flutter test
 ```
 
-**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils, cities notifier (CRUD, `loadError`, edge cases удаления), navigation helper, confirmation/selection dialogs, weather widgets.
+Локально:
 
-**Пробелы (сознательно не трогаем):** cold-start `main.dart`, WorkManager, сеть/кэш OSM-тайлов, полный async redirect `appRouterProvider`, geolocation submit → полная navigation E2E.
+```bash
+flutter test
+flutter analyze
+```
 
-Заметки по регрессиям навигации и empty vs error: [`test/pattern_audit_findings.md`](test/pattern_audit_findings.md).
+Отчёт покрытия (результат в `coverage/`, в `.gitignore`):
+
+```bash
+flutter test --coverage
+```
+
+**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils (уведомления, connectivity, разбор placemark), bootstrap (`AppInitializer`), redirect и sync кэша роутера, обновления settings provider, cities notifier (CRUD, `loadError`, edge cases удаления), confirmation/selection dialogs, weather widgets и notifiers.
+
+**Регрессии уведомлений:** стабильные ID (`notificationIdFor`), один слот на час при дублирующихся daily-строках, `MainWeatherNotifier._init` не вызывает `cancelAll()`, пока уведомления включены.
+
+**Пробелы (сознательно не трогаем):** cold-start `main.dart`, WorkManager, сеть/кэш OSM-тайлов, onboarding → home E2E, geolocation submit → полная navigation E2E.
+
+Если после обновления с исправлением планирования уведомлений алерты пропали — выключите и снова включите уведомления в настройках (на Android 13+ может понадобиться разрешение один раз).
 
 В widget-тестах с поиском городов и прогнозом используйте `createFakeWeatherRemoteDatasource()` из `test/helpers/fixtures.dart`, чтобы геокодинг и forecast шли через один stub Dio.
 
@@ -235,7 +253,7 @@ Rain использует бесплатные открытые API погоды
 
 ## 🤝 Участие в проекте
 
-Мы приветствуем вклад в развитие проекта! Пожалуйста, ознакомьтесь с [CONTRIBUTING.md](./CONTRIBUTING.md) для получения инструкций.
+Мы приветствуем вклад в развитие проекта! См. [CONTRIBUTING.md](./CONTRIBUTING.md) — настройка, тесты и правила pull request. Для issues используйте шаблоны [bug report](.github/ISSUE_TEMPLATE/bug_report.md) или [feature request](.github/ISSUE_TEMPLATE/feature_request.md).
 
 ---
 
