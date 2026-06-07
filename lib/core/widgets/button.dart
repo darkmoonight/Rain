@@ -18,6 +18,7 @@ class MyTextButton extends StatelessWidget {
   final IconData? icon;
   final bool isOutlined;
 
+  /// Builds a filled or outlined full-width button based on [isOutlined].
   @override
   Widget build(BuildContext context) {
     final buttonHeight = height ?? 52.0;
@@ -29,6 +30,7 @@ class MyTextButton extends StatelessWidget {
     return _buildFilledButton(context, buttonHeight);
   }
 
+  /// Builds the primary filled button with responsive padding and states.
   Widget _buildFilledButton(BuildContext context, double buttonHeight) {
     final colorScheme = Theme.of(context).colorScheme;
     final padding = ResponsiveUtils.getResponsivePadding(context);
@@ -90,6 +92,7 @@ class MyTextButton extends StatelessWidget {
     );
   }
 
+  /// Builds the outlined variant with border and hover/pressed styling.
   Widget _buildOutlinedButton(BuildContext context, double buttonHeight) {
     final colorScheme = Theme.of(context).colorScheme;
     final padding = ResponsiveUtils.getResponsivePadding(context);
@@ -139,6 +142,7 @@ class MyTextButton extends StatelessWidget {
     );
   }
 
+  /// Builds the label row, optionally prefixed with [icon].
   Widget _buildButtonContent(BuildContext context) {
     if (icon != null) {
       return Row(

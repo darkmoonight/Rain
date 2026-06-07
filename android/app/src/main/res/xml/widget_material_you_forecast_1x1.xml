@@ -2,6 +2,7 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:initialLayout="@layout/widget_material_you_forecast_1x1"
+    android:previewLayout="@layout/widget_material_you_forecast_1x1_preview"
     android:minWidth="@dimen/widget_grid_1"
     android:minHeight="@dimen/widget_grid_1"
     android:minResizeWidth="@dimen/widget_grid_1"

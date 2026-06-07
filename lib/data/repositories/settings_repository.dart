@@ -1,7 +1,7 @@
 import 'package:isar_community/isar.dart';
 import 'package:rain/data/models/db.dart';
 
-/// Reads and writes app settings and the primary location cache from Isar.
+/// Reads and writes app settings and reads the primary location cache from Isar.
 class SettingsRepository {
   SettingsRepository(this._isar, {this.onSaved});
 

@@ -19,6 +19,7 @@ void refreshAppRouterFromRef(Ref ref) {
   ref.read(_routerRefreshProvider).value++;
 }
 
+/// Notifier that triggers [appRouterProvider] redirect re-evaluation.
 final _routerRefreshProvider = Provider<ValueNotifier<int>>((ref) {
   final notifier = ValueNotifier(0);
   ref.onDispose(notifier.dispose);
@@ -67,7 +68,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   );
 });
 
-/// Returns a redirect path when onboarding or location setup is incomplete.
+/// Returns a redirect when setup is incomplete or when setup routes should be skipped.
 String? _redirectPath(Settings settings, LocationCache location, String path) {
   if (!settings.onboard) {
     return path == AppRoutes.onboarding ? null : AppRoutes.onboarding;
@@ -89,14 +90,17 @@ String? _redirectPath(Settings settings, LocationCache location, String path) {
   return null;
 }
 
-/// Convenience navigation helpers backed by [GoRouter] and slide routes.
+/// Convenience navigation helpers using slide transitions and [GoRouter.pop].
 extension GoRouterNavigation on BuildContext {
+  /// Pops the current route, optionally returning [result].
   void popRoute<T>([T? result]) => GoRouter.of(this).pop(result);
 
+  /// Pushes [page] with a horizontal slide transition.
   Future<T?> pushRoute<T>(Widget page) => Navigator.of(
     this,
   ).push<T>(slideRoute<T>(child: page, begin: const Offset(1, 0)));
 
+  /// Pushes [page] with a vertical slide transition.
   Future<T?> pushRouteUp<T>(Widget page) => Navigator.of(
     this,
   ).push<T>(slideRoute<T>(child: page, begin: const Offset(0, 1)));

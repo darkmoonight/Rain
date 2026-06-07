@@ -4,7 +4,7 @@ import 'package:rain/data/models/db.dart';
 class WeatherCardValidator {
   const WeatherCardValidator._();
 
-  /// Returns true when [card] has all fields required for display.
+  /// Returns true when [card] has forecast and location fields required for network refresh.
   static bool isComplete(WeatherCard card) =>
       card.time != null &&
       card.time!.isNotEmpty &&
@@ -21,7 +21,7 @@ class WeatherCardValidator {
       card.lat != null &&
       card.lon != null;
 
-  /// Returns true when [card] was last updated before [expiry].
+  /// Returns true when [card] has no timestamp or was last updated before [expiry].
   static bool isExpired(WeatherCard card, DateTime expiry) =>
       card.timestamp == null || card.timestamp!.isBefore(expiry);
 

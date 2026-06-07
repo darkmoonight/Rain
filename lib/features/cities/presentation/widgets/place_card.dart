@@ -75,6 +75,7 @@ class PlaceCard extends ConsumerWidget {
   final List<double> degree;
   final String timezone;
 
+  /// Builds the card showing current temperature, conditions, location, and time.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final statusWeather = StatusWeather();

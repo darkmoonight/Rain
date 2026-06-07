@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/data/models/db.dart';
 
+/// Provides the persisted theme mode preference as [ThemeMode].
 final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(
   ThemeModeNotifier.new,
 );
 
-/// Persists and exposes the user's theme mode preference.
+/// Persists and exposes theme mode; also saves AMOLED and Material You toggles.
 class ThemeModeNotifier extends Notifier<ThemeMode> {
+  /// Initializes theme mode from persisted [Settings].
   @override
   ThemeMode build() => _fromSettings(ref.watch(settingsProvider));
 

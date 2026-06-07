@@ -27,6 +27,7 @@ class WeatherDetailView extends StatelessWidget {
   final void Function(int hour, int day) onHourSelected;
   final VoidCallback? showDailyTap;
 
+  /// Builds the scrollable now, hourly, sunrise, hourly-variables, and daily forecast sections.
   @override
   Widget build(BuildContext context) {
     final sunrise = weatherCard.sunrise![dayIndex];

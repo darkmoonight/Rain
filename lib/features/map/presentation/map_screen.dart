@@ -31,12 +31,14 @@ import 'package:rain/core/utils/responsive_utils.dart';
 class MapPage extends ConsumerStatefulWidget {
   const MapPage({super.key});
 
+  /// Creates the mutable state for [MapPage].
   @override
   ConsumerState<MapPage> createState() => _MapPageState();
 }
 
 // --- MapPageState ---
 
+/// Renders the weather map, markers, search, and selected-card overlay.
 class _MapPageState extends ConsumerState<MapPage>
     with TickerProviderStateMixin {
   late final AnimatedMapController _animatedMapController =
@@ -57,11 +59,13 @@ class _MapPageState extends ConsumerState<MapPage>
   final _focusNode = FocusNode();
   late final TextEditingController _controllerSearch = TextEditingController();
 
+  /// Opens a file-backed [CacheStore] for cached map tiles.
   static Future<CacheStore> _getCacheStore() async {
     final dir = await getTemporaryDirectory();
     return FileCacheStore('${dir.path}${Platform.pathSeparator}MapTiles');
   }
 
+  /// Initializes slide animation for the selected weather card overlay.
   @override
   void initState() {
     _animationController = AnimationController(
@@ -79,6 +83,7 @@ class _MapPageState extends ConsumerState<MapPage>
     super.initState();
   }
 
+  /// Disposes map, search, and animation controllers.
   @override
   void dispose() {
     _animatedMapController.dispose();
@@ -87,6 +92,7 @@ class _MapPageState extends ConsumerState<MapPage>
     super.dispose();
   }
 
+  /// Animates the map to [center] and [zoom] with north-up orientation.
   void _resetMapOrientation({LatLng? center, double? zoom}) =>
       _animatedMapController.animateTo(
         customId: _useTransformer ? _useTransformerId : null,
@@ -97,6 +103,7 @@ class _MapPageState extends ConsumerState<MapPage>
         curve: Curves.easeInOut,
       );
 
+  /// Shows the weather card overlay for the tapped [weatherCard] marker.
   void _onMarkerTap(WeatherCard weatherCard) {
     setState(() => _selectedWeatherCard = weatherCard);
     _animationController.forward();
@@ -107,6 +114,7 @@ class _MapPageState extends ConsumerState<MapPage>
     }
   }
 
+  /// Hides the selected weather card overlay and clears search focus.
   void _hideCard() {
     _animationController.reverse().then(
       (_) => setState(() {
@@ -117,6 +125,7 @@ class _MapPageState extends ConsumerState<MapPage>
     _focusNode.unfocus();
   }
 
+  /// Builds the weather icon and temperature label for a map marker.
   Widget _buildStyleMarkers(
     int weathercode,
     String time,
@@ -144,6 +153,7 @@ class _MapPageState extends ConsumerState<MapPage>
     ),
   );
 
+  /// Builds the primary-location [Marker] for [weatherCard].
   Marker _buildMainLocationMarker(
     WeatherCard weatherCard,
     int hourOfDay,
@@ -166,6 +176,7 @@ class _MapPageState extends ConsumerState<MapPage>
     ),
   );
 
+  /// Builds a saved-city [Marker] for [weatherCardList].
   Marker _buildCardMarker(
     WeatherCard weatherCardList, {
     required StatusData statusData,
@@ -197,6 +208,7 @@ class _MapPageState extends ConsumerState<MapPage>
     );
   }
 
+  /// Builds the cached OpenStreetMap [TileLayer] for the weather map.
   Widget _buildMapTileLayer(CacheStore cacheStore) => TileLayer(
     urlTemplate: AppConstants.mapTileUrlTemplate,
     userAgentPackageName: AppConstants.mapUserAgentPackageName,
@@ -206,6 +218,7 @@ class _MapPageState extends ConsumerState<MapPage>
     ),
   );
 
+  /// Builds the sliding [WeatherCardTile] overlay for the selected marker.
   Widget _buildWeatherCard() => _isCardVisible && _selectedWeatherCard != null
       ? SlideTransition(
           position: _offsetAnimation,
@@ -219,6 +232,7 @@ class _MapPageState extends ConsumerState<MapPage>
         )
       : const SizedBox.shrink();
 
+  /// Builds the city search field that pans the map to a selected result.
   Widget _buildSearchField() {
     final searchTextStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
       fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
@@ -316,6 +330,7 @@ class _MapPageState extends ConsumerState<MapPage>
     );
   }
 
+  /// Builds the weather map with markers, FAB controls, and search overlay.
   @override
   Widget build(BuildContext context) {
     final weatherState = ref.watch(mainWeatherNotifierProvider);

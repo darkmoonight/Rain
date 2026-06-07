@@ -29,7 +29,12 @@ class DeviceFeature {
   /// Whether transparent navigation bars are supported on this device.
   bool isEdgeToEdgeAvailable() => _isEdgeToEdgeAvailableCache ?? false;
 
+  /// Android SDK version, or null when device info is unavailable.
   int? get sdkVersion => _androidDeviceInfo?.version.sdkInt;
+
+  /// Device model name, or null when device info is unavailable.
   String? get model => _androidDeviceInfo?.model;
+
+  /// Device brand name, or null when device info is unavailable.
   String? get brand => _androidDeviceInfo?.brand;
 }

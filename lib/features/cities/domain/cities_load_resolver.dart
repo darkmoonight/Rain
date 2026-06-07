@@ -8,7 +8,7 @@ class CitiesLoadResult {
   final bool loadError;
 }
 
-/// Decides which card list to show when the database read succeeds or fails.
+/// Decides which card list to show after a successful database read, including empty results.
 class CitiesLoadResolver {
   const CitiesLoadResolver._();
 

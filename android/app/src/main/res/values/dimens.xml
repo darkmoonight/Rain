@@ -12,7 +12,8 @@
 
     <dimen name="widget_small_weather_icon_size">36dp</dimen>
     <dimen name="widget_content_text_size">@dimen/content_text_size</dimen>
-    <dimen name="widget_degree_compact_text_size">18sp</dimen>
+    <dimen name="widget_degree_compact_text_size">22sp</dimen>
+    <dimen name="widget_degree_compact_preview_text_size">40sp</dimen>
     <dimen name="widget_material_you_default_size">182dp</dimen>
     <dimen name="widget_current_icon_size">72dp</dimen>
     <dimen name="widget_current_icon_margin">34dp</dimen>
@@ -23,7 +24,8 @@
     <dimen name="widget_current_temp_padding_end">4dp</dimen>
 
     <dimen name="widget_content_padding">12dp</dimen>
-    <dimen name="widget_icon_compact_size">28dp</dimen>
+    <dimen name="widget_icon_compact_size">36dp</dimen>
+    <dimen name="widget_icon_compact_preview_size">56dp</dimen>
     <dimen name="widget_forecast_bar_height">56dp</dimen>
 
     <dimen name="widget_clock_bar_time_text_size">38dp</dimen>

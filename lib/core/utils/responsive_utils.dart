@@ -17,7 +17,7 @@ class ResponsiveUtils {
       MediaQuery.of(context).size.width >= mobileBreakpoint &&
       MediaQuery.of(context).size.width < tabletBreakpoint;
 
-  /// Whether the current width is at or above the tablet breakpoint.
+  /// Whether the current width is at or above the desktop layout threshold (1024px).
   static bool isDesktop(BuildContext context) =>
       MediaQuery.of(context).size.width >= tabletBreakpoint;
 
@@ -71,7 +71,7 @@ class ResponsiveUtils {
     return 110;
   }
 
-  /// Returns a smaller circular slider size for compact task cards.
+  /// Returns a smaller circular control diameter for compact layouts.
   static double getTaskCardCircularSliderSize(BuildContext context) {
     if (isMobile(context)) return 60;
     if (isTablet(context)) return 70;
@@ -92,6 +92,7 @@ class ResponsiveLayout extends StatelessWidget {
   final Widget? tablet;
   final Widget? desktop;
 
+  /// Builds the layout variant matching the current screen width.
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -114,6 +115,7 @@ class ResponsiveCenter extends StatelessWidget {
 
   final Widget child;
 
+  /// Builds [child] centered and width-constrained on desktop screens.
   @override
   Widget build(BuildContext context) {
     final maxWidth = ResponsiveUtils.getMaxContentWidth(context);

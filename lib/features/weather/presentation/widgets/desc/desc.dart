@@ -16,13 +16,16 @@ class DescWeather extends StatefulWidget {
   final String desc;
   final String? message;
 
+  /// Creates the [State] for [DescWeather].
   @override
   State<DescWeather> createState() => _DescWeatherState();
 }
 
+/// Manages tap-to-expand behavior for one [DescWeather] metric cell.
 class _DescWeatherState extends State<DescWeather> {
   bool hide = true;
 
+  /// Builds the tappable metric cell with tooltip and expandable description.
   @override
   Widget build(BuildContext context) => GestureDetector(
     onTap: _toggleDescriptionVisibility,
@@ -36,8 +39,10 @@ class _DescWeatherState extends State<DescWeather> {
     ),
   );
 
+  /// Toggles whether the metric description text is truncated.
   void _toggleDescriptionVisibility() => setState(() => hide = !hide);
 
+  /// Builds the icon, value, and description column for this metric.
   Widget _buildContent(TextTheme textTheme) => Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [

@@ -1,6 +1,6 @@
 import 'package:rain/data/models/db.dart';
 
-/// Detects stale or inconsistent main-weather cache entries.
+/// Detects main-weather cache entries likely stored with Fahrenheit temperatures.
 class WeatherCacheValidator {
   const WeatherCacheValidator._();
 

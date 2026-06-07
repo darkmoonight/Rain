@@ -32,6 +32,7 @@ class ConfirmationDialog extends StatelessWidget {
   final bool isDestructive;
   final bool showCancelButton;
 
+  /// Builds the confirmation dialog layout with icon, text, and actions.
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -91,6 +92,7 @@ class ConfirmationDialog extends StatelessWidget {
     );
   }
 
+  /// Builds the circular icon badge at the top of the dialog.
   Widget _buildIcon(Color resolvedIconColor, ColorScheme colorScheme) {
     return Container(
       padding: const EdgeInsets.all(AppConstants.spacingL),
@@ -106,6 +108,7 @@ class ConfirmationDialog extends StatelessWidget {
     );
   }
 
+  /// Builds the localized dialog title text.
   Widget _buildTitle(BuildContext context, ColorScheme colorScheme) {
     return Text(
       title.tr,
@@ -118,6 +121,7 @@ class ConfirmationDialog extends StatelessWidget {
     );
   }
 
+  /// Builds the localized dialog message body.
   Widget _buildMessage(BuildContext context, ColorScheme colorScheme) {
     return Text(
       message.tr,
@@ -130,6 +134,7 @@ class ConfirmationDialog extends StatelessWidget {
     );
   }
 
+  /// Builds the confirm button and optional cancel button.
   Widget _buildActions(
     BuildContext context,
     ColorScheme colorScheme,

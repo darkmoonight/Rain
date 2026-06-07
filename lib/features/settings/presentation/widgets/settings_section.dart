@@ -18,6 +18,7 @@ class SettingsSection extends ConsumerWidget {
     required this.children,
   });
 
+  /// Builds the section header and card wrapping [children] tiles.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/weather/status_data.dart';
 
-/// Card showing today's sunrise and sunset times.
+/// Card showing sunrise and sunset times for the selected day.
 class SunsetSunrise extends ConsumerWidget {
   const SunsetSunrise({
     super.key,
@@ -15,6 +15,7 @@ class SunsetSunrise extends ConsumerWidget {
   final String timeSunrise;
   final String timeSunset;
 
+  /// Builds the sunrise and sunset times card for the selected day.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final statusData = StatusData(settings: ref.watch(settingsProvider));
@@ -50,6 +51,7 @@ class SunsetSunrise extends ConsumerWidget {
     );
   }
 
+  /// Builds one labeled sun-time column with [imagePath] and formatted [time].
   Widget _buildSunTimeColumn(
     BuildContext context,
     String label,

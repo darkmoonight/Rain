@@ -65,6 +65,7 @@ class DescContainer extends ConsumerWidget {
   final bool initiallyExpanded;
   final String title;
 
+  /// Builds the expandable grid of available hourly or daily weather metrics.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final statusData = StatusData(settings: ref.watch(settingsProvider));
@@ -118,6 +119,7 @@ class DescContainer extends ConsumerWidget {
     );
   }
 
+  /// Collects non-null weather values into [DescWeather] grid cells.
   List<Widget> _buildWeatherDescriptions(
     BuildContext context,
     StatusData statusData,
@@ -125,6 +127,7 @@ class DescContainer extends ConsumerWidget {
   ) {
     final List<Widget> descriptions = [];
 
+    /// Returns [message] or a localized fallback when it is empty or null.
     String addMessageOrDefault(String? message) {
       if (message == null || message.isEmpty || message == 'null') {
         return 'no_desc_data'.tr;
@@ -132,6 +135,7 @@ class DescContainer extends ConsumerWidget {
       return message;
     }
 
+    /// Adds a [DescWeather] cell when [value] is present and non-empty.
     void addDescriptionIfNotNull({
       required dynamic value,
       required String imageName,

@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Monotonic counter bumped when persisted settings change.
 class SettingsRevisionNotifier extends Notifier<int> {
+  /// Returns the initial settings revision of zero.
   @override
   int build() => 0;
 
@@ -9,6 +10,7 @@ class SettingsRevisionNotifier extends Notifier<int> {
   void bump() => state++;
 }
 
+/// Exposes the monotonic settings revision counter for cache invalidation.
 final settingsRevisionProvider =
     NotifierProvider<SettingsRevisionNotifier, int>(
       SettingsRevisionNotifier.new,

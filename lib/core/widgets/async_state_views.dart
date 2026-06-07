@@ -6,6 +6,7 @@ import 'package:rain/i18n/tr.dart';
 class LoadingStateView extends StatelessWidget {
   const LoadingStateView({super.key});
 
+  /// Builds the centered loading spinner and status text.
   @override
   Widget build(BuildContext context) => Center(
     child: Column(
@@ -30,6 +31,7 @@ class ErrorRetryStateView extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
 
+  /// Builds the error message and retry button.
   @override
   Widget build(BuildContext context) => Center(
     child: Column(
@@ -70,6 +72,7 @@ class EmptyMessageStateView extends StatelessWidget {
   final String message;
   final String imageAsset;
 
+  /// Builds the empty-state illustration and message.
   @override
   Widget build(BuildContext context) => Center(
     child: Column(

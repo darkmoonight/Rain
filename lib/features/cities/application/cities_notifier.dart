@@ -28,6 +28,7 @@ class CitiesState {
   final bool isRefreshing;
   final bool loadError;
 
+  /// Returns a copy with selectively replaced cards, loading flags, and error state.
   CitiesState copyWith({
     List<WeatherCard>? cards,
     bool? isLoading,
@@ -40,6 +41,7 @@ class CitiesState {
     loadError: loadError ?? this.loadError,
   );
 
+  /// Returns the card with [id], or null when it is not in [cards].
   WeatherCard? cardById(int id) => WeatherCardValidator.findById(cards, id);
 }
 
@@ -54,17 +56,20 @@ class CitiesNotifier extends Notifier<CitiesState> {
 
   static const _refreshConcurrency = 3;
 
+  /// Timestamp before which cached forecast data is treated as stale.
   DateTime get _cacheExpiryThreshold =>
       DateTime.now().subtract(AppConstants.cacheExpiry);
 
+  /// Provides access to the cities repository from Riverpod.
   CitiesRepository get _repo => ref.read(citiesRepositoryProvider);
 
+  /// Initializes loading state; the first load is triggered by [HomeScreen].
   @override
   CitiesState build() => const CitiesState(isLoading: true);
 
   // --- Loading ---
 
-  /// Reads cards from the database and updates state, preserving prior cards on error.
+  /// Reads cards from the database on success; on failure, keeps prior cards and sets [loadError].
   Future<void> _loadImpl() async {
     final previousCards = state.cards;
     try {

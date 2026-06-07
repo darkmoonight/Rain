@@ -11,11 +11,14 @@ class DailyCardList extends StatefulWidget {
   const DailyCardList({super.key, required this.weatherData});
   final WeatherCard weatherData;
 
+  /// Creates the [State] for [DailyCardList].
   @override
   State<DailyCardList> createState() => _DailyCardListState();
 }
 
+/// Builds the scrollable list of tappable [DailyCard] rows.
 class _DailyCardListState extends State<DailyCardList> {
+  /// Builds the daily forecast list scaffold with back navigation.
   @override
   Widget build(BuildContext context) {
     final weatherData = widget.weatherData;
@@ -33,6 +36,7 @@ class _DailyCardListState extends State<DailyCardList> {
     );
   }
 
+  /// Builds the app bar with a back button and extended forecast title.
   AppBar _buildAppBar(BuildContext context) => AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
@@ -51,6 +55,7 @@ class _DailyCardListState extends State<DailyCardList> {
     ),
   );
 
+  /// Builds one tappable [DailyCard] that opens [DailyCardInfo] at [index].
   Widget _buildDailyCardItem(
     BuildContext context,
     WeatherCard weatherData,

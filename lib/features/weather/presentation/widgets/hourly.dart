@@ -23,6 +23,7 @@ class Hourly extends ConsumerWidget {
   final int weather;
   final double degree;
 
+  /// Builds the time, icon, and temperature column for one forecast hour.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final statusWeather = StatusWeather();
@@ -40,6 +41,7 @@ class Hourly extends ConsumerWidget {
     );
   }
 
+  /// Displays the formatted hour and weekday abbreviation for [time].
   Widget _buildTimeText(
     TextTheme textTheme,
     StatusData statusData,
@@ -61,11 +63,13 @@ class Hourly extends ConsumerWidget {
     );
   }
 
+  /// Renders the weather icon for this hour using [statusWeather].
   Widget _buildWeatherImage(StatusWeather statusWeather) => Image.asset(
     statusWeather.getImageToday(weather, time, timeDay, timeNight),
     scale: 3,
   );
 
+  /// Displays the formatted temperature for this hour.
   Widget _buildTemperatureText(TextTheme textTheme, StatusData statusData) =>
       Text(
         statusData.getDegree(degree),

@@ -32,6 +32,7 @@ class Now extends ConsumerWidget {
   final double tempMin;
   final double feels;
 
+  /// Builds the current-conditions header using the compact or large layout.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final largeElement = ref.watch(settingsProvider).largeElement;
@@ -40,6 +41,7 @@ class Now extends ConsumerWidget {
         : _buildCompactElementLayout(context, ref);
   }
 
+  /// Builds a centered large-icon layout for current conditions.
   Widget _buildLargeElementLayout(BuildContext context, WidgetRef ref) {
     final statusWeather = StatusWeather();
     final statusData = StatusData(settings: ref.watch(settingsProvider));
@@ -62,6 +64,7 @@ class Now extends ConsumerWidget {
     );
   }
 
+  /// Builds a card-based compact layout for current conditions.
   Widget _buildCompactElementLayout(BuildContext context, WidgetRef ref) {
     final statusWeather = StatusWeather();
     final statusData = StatusData(settings: ref.watch(settingsProvider));
@@ -104,6 +107,7 @@ class Now extends ConsumerWidget {
     );
   }
 
+  /// Renders the weather icon for the current hour at [height].
   Widget _buildWeatherImage(StatusWeather statusWeather, double height) =>
       Image(
         image: AssetImage(
@@ -113,6 +117,7 @@ class Now extends ConsumerWidget {
         height: height,
       );
 
+  /// Formats and displays [value] as a temperature label at [fontSize].
   Widget _buildTemperatureText(
     BuildContext context,
     StatusData statusData,
@@ -128,6 +133,7 @@ class Now extends ConsumerWidget {
     );
   }
 
+  /// Formats and displays the localized date and time for [time].
   Widget _buildDateText(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
     final locale = ref.watch(localeProvider);
@@ -139,6 +145,7 @@ class Now extends ConsumerWidget {
     return Text(formatted, style: Theme.of(context).textTheme.titleMedium);
   }
 
+  /// Displays the feels-like temperature using [statusData].
   Widget _buildFeelsLikeText(BuildContext context, StatusData statusData) =>
       Text(
         '${'feels'.tr} ${statusData.getDegree(feels)}',
@@ -147,6 +154,7 @@ class Now extends ConsumerWidget {
         ).textTheme.titleMedium?.copyWith(color: Colors.grey),
       );
 
+  /// Displays the current temperature in the compact layout style.
   Widget _buildTemperatureCompactText(
     BuildContext context,
     StatusData statusData,
@@ -157,6 +165,7 @@ class Now extends ConsumerWidget {
     ).textTheme.displayMedium?.copyWith(fontWeight: FontWeight.w600),
   );
 
+  /// Displays the daily high and low temperatures for the selected day.
   Widget _buildMinMaxTemperatureText(
     BuildContext context,
     StatusData statusData,

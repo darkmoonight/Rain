@@ -22,15 +22,18 @@ class DailyContainer extends ConsumerStatefulWidget {
   final WeatherCard weatherData;
   final VoidCallback onTap;
 
+  /// Creates the [ConsumerState] for [DailyContainer].
   @override
   ConsumerState<DailyContainer> createState() => _DailyContainerState();
 }
 
+/// Renders the seven-day preview list and more-info action for [DailyContainer].
 class _DailyContainerState extends ConsumerState<DailyContainer> {
   late final StatusWeather _statusWeather = StatusWeather();
   late Locale _locale;
   late StatusData _statusData;
 
+  /// Builds the seven-day forecast preview card with a more-info button.
   @override
   Widget build(BuildContext context) {
     _locale = ref.watch(localeProvider);
@@ -65,6 +68,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     );
   }
 
+  /// Builds a non-scrollable list of the first seven daily forecast rows.
   Widget _buildDailyListView(
     BuildContext context,
     WeatherCard weatherData,
@@ -83,6 +87,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     ),
   );
 
+  /// Builds one tappable daily row that opens [DailyCardInfo] at [index].
   Widget _buildDailyItem(
     BuildContext context,
     WeatherCard weatherData,
@@ -109,6 +114,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     ),
   );
 
+  /// Displays the localized weekday name for the day at [index].
   Widget _buildDayText(
     WeatherCard weatherData,
     int index,
@@ -123,6 +129,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     ),
   );
 
+  /// Displays the weather icon and description for the day at [index].
   Widget _buildWeatherInfo(
     List<int?> weatherCodeDaily,
     int index,
@@ -151,6 +158,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     );
   }
 
+  /// Displays the formatted high and low temperatures for the day at [index].
   Widget _buildTemperatureRange(
     WeatherCard weatherData,
     int index,
@@ -172,6 +180,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     ),
   );
 
+  /// Builds the tappable footer that invokes [widget.onTap].
   Widget _buildMoreInfoButton(
     BuildContext context,
     Color splashColor,

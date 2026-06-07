@@ -77,6 +77,7 @@ class MainWeatherCache {
   String? timezone;
   DateTime? timestamp;
 
+  /// Creates a [MainWeatherCache] with optional hourly, daily, and metadata fields.
   MainWeatherCache({
     this.time,
     this.temperature2M,
@@ -115,6 +116,7 @@ class MainWeatherCache {
     this.timestamp,
   });
 
+  /// Serializes hourly, daily, and metadata fields to a JSON map.
   Map<String, dynamic> toJson() => {
     'id': id,
     'time': time,
@@ -164,8 +166,10 @@ class LocationCache {
   String? city;
   String? district;
 
+  /// Creates a location cache with optional coordinates and labels.
   LocationCache({this.lat, this.lon, this.city, this.district});
 
+  /// Serializes location fields to a JSON map.
   Map<String, dynamic> toJson() => {
     'id': id,
     'lat': lat,
@@ -229,6 +233,7 @@ class WeatherCard {
   DateTime? timestamp;
   int? index;
 
+  /// Creates a weather card with optional forecast, location, and sort fields.
   WeatherCard({
     this.time,
     this.temperature2M,
@@ -272,6 +277,7 @@ class WeatherCard {
     this.index,
   });
 
+  /// Serializes forecast, location, and metadata fields to a JSON map.
   Map<String, dynamic> toJson() => {
     'id': id,
     'time': time,
@@ -316,6 +322,7 @@ class WeatherCard {
     'index': index,
   };
 
+  /// Deserializes a [WeatherCard] from a JSON map.
   factory WeatherCard.fromJson(Map<String, dynamic> json) {
     return WeatherCard(
       time: List<String>.from(json['time'] ?? []),

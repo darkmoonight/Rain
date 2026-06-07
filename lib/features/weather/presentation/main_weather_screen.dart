@@ -12,6 +12,7 @@ import 'package:rain/i18n/tr.dart';
 class MainWeatherScreen extends ConsumerWidget {
   const MainWeatherScreen({super.key});
 
+  /// Builds the refreshable main weather screen from [MainWeatherState].
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(mainWeatherNotifierProvider);
@@ -26,6 +27,7 @@ class MainWeatherScreen extends ConsumerWidget {
     );
   }
 
+  /// Renders loading, empty, or [WeatherDetailView] based on [state] and required forecast fields.
   Widget _buildBody(
     BuildContext context,
     WidgetRef ref,
@@ -73,6 +75,7 @@ class MainWeatherScreen extends ConsumerWidget {
     );
   }
 
+  /// Shows shimmer placeholders while data is loading or daily min/max temps are missing.
   Widget _loadingView() => ListView(
     children: const [
       MyShimmer(height: 200),
@@ -83,6 +86,7 @@ class MainWeatherScreen extends ConsumerWidget {
     ],
   );
 
+  /// Shows an offline-style empty state when forecast data is unavailable.
   Widget _emptyView(BuildContext context) => ListView(
     physics: const AlwaysScrollableScrollPhysics(),
     children: [

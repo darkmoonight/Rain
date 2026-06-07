@@ -51,16 +51,19 @@ class SelectionDialog<T> extends StatefulWidget {
     required this.enableSearch,
   });
 
+  /// Creates the state for [SelectionDialog].
   @override
   State<SelectionDialog<T>> createState() => _SelectionDialogState<T>();
 }
 
 // --- SelectionDialogState ---
 
+/// State for [SelectionDialog] managing search filtering and list display.
 class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
   late List<T> _filteredItems;
   final _searchController = TextEditingController();
 
+  /// Initializes the item list and a search-controller listener that triggers rebuilds.
   @override
   void initState() {
     super.initState();
@@ -68,12 +71,14 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
     _searchController.addListener(() => setState(() {}));
   }
 
+  /// Disposes the search text controller.
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
 
+  /// Filters displayed items by the search query.
   void _filterItems(String query) {
     setState(() {
       if (query.isEmpty) {
@@ -87,6 +92,7 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
     });
   }
 
+  /// Builds the selection dialog with optional search and item list.
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -128,6 +134,7 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
     );
   }
 
+  /// Builds the dialog header with icon and title.
   Widget _buildHeader(BuildContext context, ColorScheme colorScheme) {
     return Padding(
       padding: const EdgeInsets.all(AppConstants.spacingXXL),
@@ -163,6 +170,7 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
     );
   }
 
+  /// Builds the optional search text field.
   Widget _buildSearchField(BuildContext context, ColorScheme colorScheme) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
@@ -210,6 +218,7 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
     );
   }
 
+  /// Builds the empty state when no items match the search.
   Widget _buildEmptyState(BuildContext context, ColorScheme colorScheme) {
     return Center(
       child: Padding(
@@ -235,6 +244,7 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
     );
   }
 
+  /// Builds the scrollable list of selectable items.
   Widget _buildItemsList(BuildContext context, ColorScheme colorScheme) {
     return ListView.builder(
       shrinkWrap: true,

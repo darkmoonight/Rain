@@ -33,14 +33,17 @@ class CitySearchField extends ConsumerStatefulWidget {
   final void Function(String)? onChanged;
   final Widget? iconButton;
 
+  /// Creates the state for [CitySearchField].
   @override
   ConsumerState<CitySearchField> createState() => _CitySearchFieldState();
 }
 
+/// State for [CitySearchField] managing controllers and autocomplete options.
 class _CitySearchFieldState extends ConsumerState<CitySearchField> {
   late final TextEditingController _controller;
   late final FocusNode _focusNode;
 
+  /// Initializes the text controller and focus node, creating them if needed.
   @override
   void initState() {
     super.initState();
@@ -48,6 +51,7 @@ class _CitySearchFieldState extends ConsumerState<CitySearchField> {
     _focusNode = widget.focusNode ?? FocusNode();
   }
 
+  /// Disposes locally created controllers and focus nodes.
   @override
   void dispose() {
     if (widget.controller == null) _controller.dispose();
@@ -55,6 +59,7 @@ class _CitySearchFieldState extends ConsumerState<CitySearchField> {
     super.dispose();
   }
 
+  /// Builds the city search autocomplete field and dropdown options.
   @override
   Widget build(BuildContext context) {
     final labelLarge = Theme.of(context).textTheme.labelLarge;
@@ -103,6 +108,7 @@ class _CitySearchFieldState extends ConsumerState<CitySearchField> {
     );
   }
 
+  /// Builds the scrollable list of city search results.
   Widget _buildOptionsView(
     BuildContext context,
     AutocompleteOnSelected<CitySearchResult> onSelected,

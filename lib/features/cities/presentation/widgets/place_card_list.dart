@@ -15,6 +15,7 @@ class PlaceCardList extends ConsumerWidget {
   const PlaceCardList({super.key, required this.searchCity});
   final String searchCity;
 
+  /// Builds a filtered, reorderable sliver list of [WeatherCard] tiles.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cards = ref
@@ -49,6 +50,7 @@ class _DismissibleCard extends ConsumerWidget {
   const _DismissibleCard({required this.card});
   final WeatherCard card;
 
+  /// Builds a [Dismissible] tile that opens [PlaceInfo] or confirms deletion.
   @override
   Widget build(BuildContext context, WidgetRef ref) => Dismissible(
     key: ValueKey(card.id),

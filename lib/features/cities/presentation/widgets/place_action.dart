@@ -27,12 +27,14 @@ class PlaceAction extends ConsumerStatefulWidget {
   final bool edit;
   final WeatherCard? card;
 
+  /// Creates the mutable state for this [PlaceAction] widget.
   @override
   ConsumerState<PlaceAction> createState() => _PlaceActionState();
 }
 
 // --- PlaceActionState ---
 
+/// State for [PlaceAction], managing form fields, validation, and save flow.
 class _PlaceActionState extends ConsumerState<PlaceAction>
     with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
@@ -54,6 +56,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
 
   late final _EditingController _editingController;
 
+  /// Initializes controllers, edit mode, animations, and editing state.
   @override
   void initState() {
     super.initState();
@@ -63,6 +66,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     _setupEditingController();
   }
 
+  /// Creates text editing controllers with optional initial coordinates.
   void _initializeControllers() {
     _searchController = TextEditingController();
     _latController = TextEditingController(text: widget.latitude);
@@ -71,6 +75,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     _districtController = TextEditingController();
   }
 
+  /// Pre-fills form fields when editing an existing [WeatherCard].
   void _initializeEditMode() {
     if (widget.edit && widget.card != null) {
       _latController.text = '${widget.card!.lat}';
@@ -80,6 +85,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     }
   }
 
+  /// Sets up fade and slide entrance animations for the form.
   void _initAnimations() {
     _animationController = AnimationController(
       vsync: this,
@@ -102,6 +108,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     _animationController.forward();
   }
 
+  /// Wires the [_EditingController] to the current field values.
   void _setupEditingController() {
     _editingController = _EditingController(
       _latController.text,
@@ -111,6 +118,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Disposes controllers, focus node, editing state, and animations.
   @override
   void dispose() {
     _searchController.dispose();
@@ -124,6 +132,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     super.dispose();
   }
 
+  /// Handles back navigation, prompting when all fields are filled and values differ from initial.
   Future<void> _onPopInvoked(bool didPop, dynamic result) async {
     if (didPop) return;
 
@@ -146,6 +155,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     }
   }
 
+  /// Validates the form and triggers create or update submission.
   Future<void> _onSavePressed() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -159,6 +169,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     if (mounted) setState(() => _isSaving = false);
   }
 
+  /// Fills location fields from a [CitySearchResult] autocomplete selection.
   void fillController(CitySearchResult selection) {
     _latController.text = '${selection.latitude}';
     _lonController.text = '${selection.longitude}';
@@ -175,6 +186,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     setState(() {});
   }
 
+  /// Builds the bottom sheet layout with header, form, and pop handling.
   @override
   Widget build(BuildContext context) {
     final padding = ResponsiveUtils.getResponsivePadding(context);
@@ -215,6 +227,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds the mobile drag handle indicator at the top of the sheet.
   Widget _buildDragHandle(ColorScheme colorScheme, bool isMobile) {
     if (!isMobile) return const SizedBox.shrink();
 
@@ -232,6 +245,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds the sheet header with icon, title, and save button.
   Widget _buildHeader(ColorScheme colorScheme, double padding) {
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -292,6 +306,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds the save/done button, enabled when the form is complete and changed.
   Widget _buildSaveButton(ColorScheme colorScheme) {
     return ValueListenableBuilder<bool>(
       valueListenable: _editingController.canCompose,
@@ -365,6 +380,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds the scrollable form with search, location, and info sections.
   Widget _buildForm(BuildContext context, double padding) {
     return Padding(
       padding: EdgeInsets.only(
@@ -390,6 +406,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds the city search autocomplete section.
   Widget _buildSearchSection(BuildContext context, double padding) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -414,6 +431,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds the search text field for the city autocomplete.
   Widget _buildSearchField(
     BuildContext context,
     TextEditingController fieldTextEditingController,
@@ -433,6 +451,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Fetches matching [CitySearchResult] entries for the current search query.
   Future<Iterable<CitySearchResult>> _buildCityOptions(
     TextEditingValue textEditingValue,
   ) {
@@ -445,6 +464,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
         .searchCities(textEditingValue.text, locale.languageCode);
   }
 
+  /// Builds the dropdown list of city autocomplete suggestions.
   Widget _buildOptionsView(
     BuildContext context,
     AutocompleteOnSelected<CitySearchResult> onSelected,
@@ -505,6 +525,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds the latitude and longitude input fields.
   Widget _buildLocationSection(BuildContext context, double padding) {
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -538,6 +559,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds the city and district name input fields.
   Widget _buildInfoSection(BuildContext context, double padding) {
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -569,6 +591,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Builds a labeled section header with an icon and title.
   Widget _buildSectionHeader(
     BuildContext context,
     String title,
@@ -596,6 +619,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
+  /// Validates that latitude is a number within [-90, 90].
   String? _validateLatitude(String? value) {
     if (value == null || value.isEmpty) {
       return 'validateValue'.tr;
@@ -610,6 +634,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     return null;
   }
 
+  /// Validates that longitude is a number within [-180, 180].
   String? _validateLongitude(String? value) {
     if (value == null || value.isEmpty) {
       return 'validateValue'.tr;
@@ -624,6 +649,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     return null;
   }
 
+  /// Validates that the city name is non-empty.
   String? _validateCity(String? value) {
     if (value == null || value.isEmpty) {
       return 'validateName'.tr;
@@ -631,6 +657,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     return null;
   }
 
+  /// Validates that the district name is non-empty.
   String? _validateDistrict(String? value) {
     if (value == null || value.isEmpty) {
       return 'validateName'.tr;
@@ -638,6 +665,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     return null;
   }
 
+  /// Persists a new or updated [WeatherCard] via [citiesNotifierProvider].
   Future<void> _handleSubmit() async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -678,6 +706,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
 
 /// Tracks field changes and whether the form is complete enough to save.
 class _EditingController extends ChangeNotifier {
+  /// Creates an editing controller seeded with initial field values.
   _EditingController(
     this._initialLat,
     this._initialLon,
@@ -706,8 +735,11 @@ class _EditingController extends ChangeNotifier {
   final ValueNotifier<String> district = ValueNotifier<String>('');
 
   final _canCompose = ValueNotifier<bool>(false);
+
+  /// Whether all fields are filled and differ from their initial values.
   ValueListenable<bool> get canCompose => _canCompose;
 
+  /// Recomputes [canCompose] when any field value changes.
   void _updateCanCompose() {
     final hasChanges =
         lat.value != _initialLat ||
@@ -724,6 +756,7 @@ class _EditingController extends ChangeNotifier {
     _canCompose.value = hasChanges && isComplete;
   }
 
+  /// Removes listeners and disposes the field [ValueNotifier] instances.
   @override
   void dispose() {
     lat.removeListener(_updateCanCompose);

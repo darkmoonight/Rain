@@ -12,6 +12,7 @@ abstract class WeatherDataApi with _$WeatherDataApi {
     required String timezone,
   }) = _WeatherDataApi;
 
+  /// Deserializes a [WeatherDataApi] from a JSON map.
   factory WeatherDataApi.fromJson(Map<String, dynamic> json) =>
       _$WeatherDataApiFromJson(json);
 }
@@ -41,6 +42,7 @@ abstract class Hourly with _$Hourly {
     @JsonKey(name: 'shortwave_radiation') List<double?>? shortwaveRadiation,
   }) = _Hourly;
 
+  /// Deserializes an [Hourly] forecast from a JSON map.
   factory Hourly.fromJson(Map<String, dynamic> json) => _$HourlyFromJson(json);
 }
 
@@ -73,5 +75,6 @@ abstract class Daily with _$Daily {
     List<int?>? windDirection10MDominant,
   }) = _Daily;
 
+  /// Deserializes a [Daily] forecast from a JSON map.
   factory Daily.fromJson(Map<String, dynamic> json) => _$DailyFromJson(json);
 }

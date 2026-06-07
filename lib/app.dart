@@ -17,6 +17,7 @@ class RainApp extends ConsumerWidget {
 
   final AppBootstrap bootstrap;
 
+  /// Applies settings changes through [appSettingsProvider].
   static void updateAppState(
     WidgetRef ref, {
     bool? newAmoledTheme,
@@ -46,6 +47,7 @@ class RainApp extends ConsumerWidget {
         );
   }
 
+  /// Builds the themed, localized router app with global overlays.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appSettings = ref.watch(appSettingsProvider);

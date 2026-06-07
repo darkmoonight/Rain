@@ -80,7 +80,7 @@ class AppInitializer {
     );
   }
 
-  /// Registers the local notifications plugin on supported platforms.
+  /// Initializes the local notifications plugin, ignoring failures in debug.
   static Future<void> _initializeNotifications() async {
     try {
       const initializationSettings = InitializationSettings(

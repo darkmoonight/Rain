@@ -22,14 +22,18 @@ import 'package:rain/core/utils/show_snack_bar.dart';
 /// Onboarding or in-app screen for choosing the primary weather location.
 class SelectGeolocation extends ConsumerStatefulWidget {
   const SelectGeolocation({super.key, required this.isStart});
+
+  /// Whether the screen is shown during first-run onboarding ([true]) or in-app ([false]).
   final bool isStart;
 
+  /// Creates the mutable state for [SelectGeolocation].
   @override
   ConsumerState<SelectGeolocation> createState() => _SelectGeolocationState();
 }
 
 // --- SelectGeolocationState ---
 
+/// Form, map, and search UI for selecting or editing the primary location.
 class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   bool isLoading = false;
   final formKeySearch = GlobalKey<FormState>();
@@ -47,6 +51,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
 
   final mapController = MapController();
 
+  /// Trims whitespace and collapses repeated spaces in [value].
   void textTrim(TextEditingController value) {
     value.text = value.text.trim();
     while (value.text.contains('  ')) {
@@ -54,6 +59,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     }
   }
 
+  /// Fills coordinate and label fields from a [CitySearchResult].
   void fillController(CitySearchResult selection) {
     _controllerLat.text = '${selection.latitude}';
     _controllerLon.text = '${selection.longitude}';
@@ -63,6 +69,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     _focusNode.unfocus();
   }
 
+  /// Fills coordinate and label fields from a geolocation [location] map.
   void fillControllerGeo(Map<String, dynamic> location) {
     _controllerLat.text = '${location['lat']}';
     _controllerLon.text = '${location['lon']}';
@@ -70,16 +77,19 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     _controllerDistrict.text = location['district'] ?? '';
   }
 
+  /// Updates latitude and longitude fields from map coordinates.
   void fillMap(double latitude, double longitude) {
     _controllerLat.text = '$latitude';
     _controllerLon.text = '$longitude';
   }
 
+  /// Builds the OpenStreetMap [TileLayer] for the location picker.
   Widget _buildMapTileLayer() => TileLayer(
     urlTemplate: AppConstants.mapTileUrlTemplate,
     userAgentPackageName: AppConstants.mapUserAgentPackageName,
   );
 
+  /// Builds the interactive [FlutterMap] with dark-mode tile filtering.
   Widget _buildMap() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return ClipRRect(
@@ -127,6 +137,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     );
   }
 
+  /// Builds the city search [RawAutocomplete] field.
   Widget _buildSearchField() => RawAutocomplete<CitySearchResult>(
     focusNode: _focusNode,
     textEditingController: _controller,
@@ -165,6 +176,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
         ) => _buildOptionsView(context, onSelected, options),
   );
 
+  /// Builds the dropdown list of [CitySearchResult] autocomplete options.
   Widget _buildOptionsView(
     BuildContext context,
     AutocompleteOnSelected<CitySearchResult> onSelected,
@@ -197,6 +209,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     ),
   );
 
+  /// Builds the current-location [IconButton] beside the search field.
   Widget _buildLocationButton() => Card(
     elevation: AppConstants.mapTextFieldElevation,
     margin: const EdgeInsets.only(top: 10, right: 10),
@@ -209,6 +222,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     ),
   );
 
+  /// Resolves device location or refreshes the main weather location.
   Future<void> _handleLocationButtonPress() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -244,6 +258,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     }
   }
 
+  /// Shows a dialog prompting the user to enable location services.
   Future<void> _showLocationDialog() async {
     await showConfirmationDialog(
       context: context,
@@ -255,6 +270,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     );
   }
 
+  /// Builds the latitude [MyTextForm] with range validation.
   Widget _buildLatitudeField() => MyTextForm(
     elevation: AppConstants.mapTextFieldElevation,
     controller: _controllerLat,
@@ -265,6 +281,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     validator: (value) => _validateLatitude(value),
   );
 
+  /// Builds the longitude [MyTextForm] with range validation.
   Widget _buildLongitudeField() => MyTextForm(
     elevation: AppConstants.mapTextFieldElevation,
     controller: _controllerLon,
@@ -275,6 +292,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     validator: (value) => _validateLongitude(value),
   );
 
+  /// Builds the city name [MyTextForm].
   Widget _buildCityField() => MyTextForm(
     elevation: AppConstants.mapTextFieldElevation,
     controller: _controllerCity,
@@ -285,6 +303,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     validator: (value) => _validateCity(value),
   );
 
+  /// Builds the district or region [MyTextForm].
   Widget _buildDistrictField() => MyTextForm(
     elevation: AppConstants.mapTextFieldElevation,
     controller: _controllerDistrict,
@@ -294,11 +313,13 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
   );
 
+  /// Builds the submit [MyTextButton] that saves the selected location.
   Widget _buildSubmitButton() => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     child: MyTextButton(text: 'done'.tr, onPressed: _handleSubmit),
   );
 
+  /// Validates that [value] is a latitude between -90 and 90.
   String? _validateLatitude(String? value) {
     if (value == null || value.isEmpty) {
       return 'validateValue'.tr;
@@ -313,6 +334,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     return null;
   }
 
+  /// Validates that [value] is a longitude between -180 and 180.
   String? _validateLongitude(String? value) {
     if (value == null || value.isEmpty) {
       return 'validateValue'.tr;
@@ -327,6 +349,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     return null;
   }
 
+  /// Validates that [value] is a non-empty city name.
   String? _validateCity(String? value) {
     if (value == null || value.isEmpty) {
       return 'validateName'.tr;
@@ -334,6 +357,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     return null;
   }
 
+  /// Validates the form and persists the chosen location as primary weather.
   Future<void> _handleSubmit() async {
     if (formKeySearch.currentState!.validate()) {
       textTrim(_controllerLat);
@@ -364,6 +388,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     }
   }
 
+  /// Builds the location picker scaffold with map, fields, and loading overlay.
   @override
   Widget build(BuildContext context) => Form(
     key: formKeySearch,
@@ -435,6 +460,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     ),
   );
 
+  /// Builds the app bar with optional back navigation for in-app entry.
   AppBar _buildAppBar() => AppBar(
     centerTitle: true,
     leading: widget.isStart

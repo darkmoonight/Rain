@@ -154,7 +154,9 @@ class TimeIndexHelper {
   }
 }
 
+/// Parsed year, month, day, and hour parts from an ISO time string.
 class _IsoParts {
+  /// Creates ISO date-time parts for index calculations.
   const _IsoParts(this.year, this.month, this.day, this.hour);
 
   final int year;

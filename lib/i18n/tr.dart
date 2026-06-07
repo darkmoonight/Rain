@@ -12,6 +12,7 @@ String trDynamic(String key) {
 
 /// Adds `.tr` for dynamic string-key lookups outside generated getters.
 extension Tr on String {
+  /// Resolves this string as a dynamic translation key.
   String get tr => trDynamic(this);
 }
 
@@ -22,7 +23,7 @@ const _specialKeys = <String, String>{
   'm/s': 'm_s',
 };
 
-/// Converts camelCase legacy keys to snake_case slang map keys.
+/// Normalizes legacy keys to snake_case slang map keys, passing through existing snake_case keys.
 String _toSlangKey(String key) {
   final special = _specialKeys[key];
   if (special != null) return special;

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 
+/// Provides the widget settings persistence and refresh service.
 final widgetSettingsServiceProvider = Provider<WidgetSettingsService>(
   (ref) => WidgetSettingsService(ref),
 );

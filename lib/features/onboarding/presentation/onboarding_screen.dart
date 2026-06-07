@@ -25,6 +25,7 @@ class OnboardingData {
 class OnboardingConstants {
   static const String imagesPath = 'assets/icons/';
 
+  /// Returns localized slides for the onboarding carousel.
   static List<OnboardingData> getData() => [
     OnboardingData(
       image: '${imagesPath}Rain.png',
@@ -48,18 +49,21 @@ class OnboardingConstants {
 class OnBoarding extends ConsumerStatefulWidget {
   const OnBoarding({super.key});
 
+  /// Creates the mutable state for [OnBoarding].
   @override
   ConsumerState<OnBoarding> createState() => _OnBoardingState();
 }
 
 // --- OnBoardingState ---
 
+/// Manages carousel paging, skip, and onboarding completion.
 class _OnBoardingState extends ConsumerState<OnBoarding> {
   late final PageController _pageController;
   late final List<OnboardingData> _data;
 
   int _pageIndex = 0;
 
+  /// Initializes the page controller and onboarding slide data.
   @override
   void initState() {
     super.initState();
@@ -67,14 +71,17 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
     _data = OnboardingConstants.getData();
   }
 
+  /// Disposes the [PageController] when the screen is removed.
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
 
+  /// Whether the carousel is on the final onboarding slide.
   bool get _isLastPage => _pageIndex == _data.length - 1;
 
+  /// Marks onboarding complete and navigates to geolocation setup.
   Future<void> _completeOnboarding() async {
     final settings = ref.read(settingsProvider);
     settings.onboard = true;
@@ -84,6 +91,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
     context.go(AppRoutes.geolocationStart);
   }
 
+  /// Advances the carousel to the next onboarding slide.
   void _goToNextPage() {
     _pageController.nextPage(
       duration: AppConstants.longAnimation,
@@ -91,6 +99,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
     );
   }
 
+  /// Builds the onboarding scaffold with carousel, dots, and action button.
   @override
   Widget build(BuildContext context) {
     final padding = ResponsiveUtils.getResponsivePadding(context);
@@ -116,6 +125,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
     );
   }
 
+  /// Builds the transparent app bar with a skip action before the last slide.
   PreferredSizeWidget _buildAppBar(double padding) {
     return AppBar(
       elevation: 0,
@@ -144,6 +154,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
     );
   }
 
+  /// Builds the swipeable [PageView] of onboarding slides.
   Widget _buildPageView() {
     return Expanded(
       child: PageView.builder(
@@ -155,6 +166,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
     );
   }
 
+  /// Builds the row of [DotIndicator] widgets for carousel progress.
   Widget _buildDotIndicators() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -173,6 +185,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
     );
   }
 
+  /// Builds the primary next or start [FilledButton] for the current slide.
   Widget _buildActionButton(double padding) {
     return SizedBox(
       width: double.infinity,
@@ -212,6 +225,7 @@ class DotIndicator extends StatelessWidget {
   final bool isActive;
   final bool isCompleted;
 
+  /// Builds the animated dot for active, completed, or inactive carousel states.
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -228,6 +242,7 @@ class DotIndicator extends StatelessWidget {
     );
   }
 
+  /// Resolves the dot color from [colorScheme] based on carousel position.
   Color _getDotColor(ColorScheme colorScheme) {
     if (isActive) return colorScheme.primary;
     if (isCompleted) return colorScheme.primaryContainer;
@@ -241,6 +256,7 @@ class OnboardingContent extends StatelessWidget {
 
   final OnboardingData data;
 
+  /// Builds the image, title, and description layout for one slide.
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;

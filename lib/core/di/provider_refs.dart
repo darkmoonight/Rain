@@ -16,17 +16,21 @@ import 'package:rain/data/repositories/weather_repository.dart';
 
 /// Riverpod providers for bootstrap state, services, and repositories.
 
+/// Provides the app bootstrap container; must be overridden at startup.
 final bootstrapProvider = Provider<AppBootstrap>((ref) {
   throw UnimplementedError('bootstrapProvider must be overridden');
 });
 
+/// Provides the shared [Isar] database from [bootstrapProvider].
 final isarProvider = Provider<Isar>((ref) => ref.watch(bootstrapProvider).isar);
 
+/// Provides persisted [Settings], refreshing when [settingsRevisionProvider] changes.
 final settingsProvider = Provider<Settings>((ref) {
   ref.watch(settingsRevisionProvider);
   return ref.watch(bootstrapProvider).settings;
 });
 
+/// Provides the primary location cache from [bootstrapProvider].
 final locationCacheProvider = Provider<LocationCache>((ref) {
   return ref.watch(bootstrapProvider).locationCache;
 });
@@ -40,30 +44,37 @@ void syncBootstrapLocationCache(Ref ref, LocationCache source) {
   target.district = source.district;
 }
 
+/// Provides the asset cache service for weather icons and images.
 final assetCacheServiceProvider = Provider<AssetCacheService>(
   (ref) => AssetCacheService(),
 );
 
+/// Provides the local notification scheduling service.
 final notificationServiceProvider = Provider<NotificationService>((ref) {
   return NotificationService(ref.watch(assetCacheServiceProvider));
 });
 
+/// Provides the home-screen widget update service.
 final homeWidgetServiceProvider = Provider<HomeWidgetService>((ref) {
   return HomeWidgetService(ref.watch(assetCacheServiceProvider));
 });
 
+/// Provides the device geolocation service.
 final locationServiceProvider = Provider<LocationService>(
   (ref) => LocationService(),
 );
 
+/// Provides the remote weather API datasource.
 final weatherRemoteDatasourceProvider = Provider<WeatherRemoteDatasource>(
   (ref) => WeatherRemoteDatasource(),
 );
 
+/// Provides the local Isar-backed weather cache datasource.
 final weatherLocalDatasourceProvider = Provider<WeatherLocalDatasource>(
   (ref) => WeatherLocalDatasource(ref.watch(isarProvider)),
 );
 
+/// Provides the weather repository combining remote and local sources.
 final weatherRepositoryProvider = Provider<WeatherRepository>((ref) {
   return WeatherRepository(
     ref.watch(weatherRemoteDatasourceProvider),
@@ -71,6 +82,7 @@ final weatherRepositoryProvider = Provider<WeatherRepository>((ref) {
   );
 });
 
+/// Provides the saved cities repository.
 final citiesRepositoryProvider = Provider<CitiesRepository>((ref) {
   return CitiesRepository(
     ref.watch(isarProvider),
@@ -78,6 +90,7 @@ final citiesRepositoryProvider = Provider<CitiesRepository>((ref) {
   );
 });
 
+/// Provides the settings repository and notifies on save.
 final settingsRepositoryProvider = Provider<SettingsRepository>(
   (ref) => SettingsRepository(
     ref.watch(isarProvider),
@@ -85,6 +98,7 @@ final settingsRepositoryProvider = Provider<SettingsRepository>(
   ),
 );
 
+/// Resolves whether the device currently has internet connectivity.
 final connectivityProvider = Provider<Future<bool>>(
   (ref) => ConnectivityService.hasInternet(),
 );

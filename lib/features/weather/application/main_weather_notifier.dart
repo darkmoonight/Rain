@@ -18,6 +18,7 @@ import 'package:workmanager/workmanager.dart';
 
 /// Immutable state for the main weather tab and its cached location.
 class MainWeatherState {
+  /// Creates state with optional cache, location, and selected time indices.
   MainWeatherState({
     this.isLoading = true,
     MainWeatherCache? mainWeather,
@@ -33,9 +34,13 @@ class MainWeatherState {
   final int hourOfDay;
   final int dayOfNow;
 
+  /// Returns the cached city label, or an empty string when unset.
   String get city => location.city ?? '';
+
+  /// Returns the cached district label, or an empty string when unset.
   String get district => location.district ?? '';
 
+  /// Returns a copy with selectively replaced forecast and index fields.
   MainWeatherState copyWith({
     bool? isLoading,
     MainWeatherCache? mainWeather,
@@ -61,9 +66,11 @@ final mainWeatherNotifierProvider =
 class MainWeatherNotifier extends Notifier<MainWeatherState> {
   final itemScrollController = ItemScrollController();
 
+  /// Timestamp before which cached forecast data is treated as stale.
   DateTime get _cacheExpiryThreshold =>
       DateTime.now().subtract(AppConstants.cacheExpiry);
 
+  /// Initializes default state and schedules location resolution.
   @override
   MainWeatherState build() {
     Future.microtask(_init);
@@ -72,7 +79,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   // --- Initialization ---
 
-  /// Clears stale notifications when needed, then resolves the active location.
+  /// Cancels notifications when online and the main weather cache is empty, then resolves location.
   Future<void> _init() async {
     if (await ConnectivityService.hasInternet() &&
         await ref.read(weatherLocalDatasourceProvider).isMainWeatherEmpty()) {
@@ -81,7 +88,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     await setLocation();
   }
 
-  /// Chooses GPS, cached, or remote fetch based on settings and cache age.
+  /// Chooses GPS, cached, or remote fetch based on settings, cache age, and connectivity.
   Future<void> setLocation() async {
     final settings = ref.read(settingsProvider);
     if (settings.location) {
@@ -106,7 +113,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   // --- Location fetch ---
 
-  /// Fetches weather from the device GPS when online.
+  /// Fetches weather from GPS when online and location is enabled; otherwise shows a snackbar and loads cache.
   Future<void> getCurrentLocation() async {
     if (!await ConnectivityService.hasInternet()) {
       showSnackBar('no_inter'.tr);
@@ -127,7 +134,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     );
   }
 
-  /// Fetches weather for explicit coordinates when online.
+  /// Fetches weather for coordinates when online; otherwise shows a snackbar and loads cache.
   Future<void> getLocation(
     double latitude,
     double longitude,
@@ -183,7 +190,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   // --- Cache ---
 
-  /// Loads cached forecast into state and schedules widgets/notifications.
+  /// Loads cached forecast into state, refreshes widgets/notifications, and may re-fetch when cache values look like Fahrenheit.
   Future<void> readCache() async {
     final cached = await ref.read(weatherRepositoryProvider).readCache();
     if (cached.weather == null || cached.location == null) {
@@ -269,7 +276,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     state = state.copyWith(hourOfDay: hour, dayOfNow: day);
   }
 
-  /// Clears cached weather and/or location when changing city or settings.
+  /// Cancels notifications and clears main and/or location cache when online before a location change.
   Future<void> deleteAll(bool changeCity) async {
     if (!await ConnectivityService.hasInternet()) return;
     final settings = ref.read(settingsProvider);

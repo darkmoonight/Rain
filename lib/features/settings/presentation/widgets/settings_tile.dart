@@ -27,6 +27,7 @@ class SettingsTile extends StatelessWidget {
     this.iconColor,
   });
 
+  /// Builds the settings list tile with leading icon and trailing control.
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -65,6 +66,7 @@ class SettingsTile extends StatelessWidget {
     );
   }
 
+  /// Builds the default trailing value text or chevron when none is provided.
   Widget? _buildDefaultTrailing(BuildContext context, ColorScheme colorScheme) {
     if (value != null) {
       return Row(

@@ -2,7 +2,7 @@
 class ParallelRunner {
   const ParallelRunner._();
 
-  /// Maps [items] with at most [concurrency] in-flight [run] calls.
+  /// Runs [run] on each item with at most [concurrency] in-flight calls, returning bool results.
   static Future<List<bool>> mapLimited<T>({
     required List<T> items,
     required Future<bool> Function(T item) run,

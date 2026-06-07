@@ -16,7 +16,7 @@ AppLocale appLocaleFromFlutterLocale(Locale locale) {
   return AppLocaleUtils.parse(locale.languageCode);
 }
 
-/// Serializes [locale] to the `language_COUNTRY` form stored in settings.
+/// Serializes [locale] to `language_COUNTRY`, or language code alone when no country is set.
 String languageCodeFromAppLocale(AppLocale locale) {
   final c = locale.countryCode;
   if (c == null || c.isEmpty) return locale.languageCode;

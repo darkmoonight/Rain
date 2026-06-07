@@ -18,17 +18,19 @@ class PlaceInfo extends ConsumerStatefulWidget {
   const PlaceInfo({super.key, required this.cardId});
   final int cardId;
 
+  /// Creates the mutable state for this [PlaceInfo] widget.
   @override
   ConsumerState<PlaceInfo> createState() => _PlaceInfoState();
 }
 
+/// State for [PlaceInfo], syncing time indices and hourly scroll position.
 class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   late int timeNow;
   late int dayNow;
   DateTime? _lastSyncedTimestamp;
   final itemScrollController = ItemScrollController();
 
-  /// Updates hour/day indices and scrolls the hourly list when card data changes.
+  /// Updates hour/day indices and scrolls the hourly list when [card.timestamp] changes.
   void _syncTimeFor(WeatherCard card) {
     if (!WeatherCardValidator.isComplete(card)) return;
     if (_lastSyncedTimestamp == card.timestamp) return;
@@ -53,6 +55,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
     });
   }
 
+  /// Builds the weather detail scaffold with refresh and edit actions.
   @override
   Widget build(BuildContext context) {
     final cities = ref.watch(citiesNotifierProvider);

@@ -11,31 +11,38 @@ import 'package:rain/features/cities/presentation/widgets/place_card_list.dart';
 class PlaceList extends ConsumerStatefulWidget {
   const PlaceList({super.key});
 
+  /// Creates the mutable state for this [PlaceList] widget.
   @override
   ConsumerState<PlaceList> createState() => _PlaceListState();
 }
 
+/// State for [PlaceList], managing search filtering and pull-to-refresh.
 class _PlaceListState extends ConsumerState<PlaceList> {
   final searchTasks = TextEditingController();
   String filter = '';
 
+  /// Disposes the search text controller.
   @override
   void dispose() {
     searchTasks.dispose();
     super.dispose();
   }
 
+  /// Updates the lowercase search filter and rebuilds the list.
   void applyFilter(String value) =>
       setState(() => filter = value.toLowerCase());
 
+  /// Clears the search field and resets the filter.
   void clearSearch() {
     searchTasks.clear();
     applyFilter('');
   }
 
+  /// Refreshes all cards from the network when online, otherwise reloads from local storage.
   Future<void> _refreshAll() =>
       ref.read(citiesNotifierProvider.notifier).refresh(all: true);
 
+  /// Builds loading, error, empty, or filtered card list states.
   @override
   Widget build(BuildContext context) {
     final cities = ref.watch(citiesNotifierProvider);

@@ -15,16 +15,18 @@ import 'package:rain/features/map/presentation/map_screen.dart';
 import 'package:rain/features/settings/presentation/view/settings.dart';
 import 'package:rain/features/weather/presentation/main_weather_screen.dart';
 
-/// Root shell with bottom navigation across weather, cities, map, and settings.
+/// Root shell with bottom navigation across weather, cities, optional map, and settings.
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
+  /// Creates the mutable state for [HomeScreen].
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
 // --- HomeScreenState ---
 
+/// Hosts tab navigation, app bar actions, and city search on the weather tab.
 class _HomeScreenState extends ConsumerState<HomeScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   int tabIndex = 0;
@@ -34,6 +36,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   late TabController tabController;
   final _controller = TextEditingController();
 
+  /// Initializes observers, tab controller, and triggers initial city refresh via [CitiesNotifier.refresh].
   @override
   void initState() {
     super.initState();
@@ -43,6 +46,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     _checkLocationCache();
   }
 
+  /// Refreshes city data when the app returns to the foreground.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -50,6 +54,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     }
   }
 
+  /// Keeps [tabIndex] valid when map visibility changes the tab count.
   void _syncTabIndexAfterPageCountChange(int oldPageCount, int newPageCount) {
     if (newPageCount < oldPageCount) {
       if (tabIndex >= newPageCount) {
@@ -63,6 +68,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     tabIndex = tabIndex.clamp(0, newPageCount - 1);
   }
 
+  /// Creates a [TabController] for [pageCount] tabs and syncs selection changes.
   void _setupTabController({required int pageCount}) {
     tabController = TabController(
       initialIndex: tabIndex.clamp(0, pageCount - 1),
@@ -76,10 +82,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     });
   }
 
+  /// Refreshes saved cities on first entry, updating expired cards from the network when possible.
   Future<void> _initData() async {
     await ref.read(citiesNotifierProvider.notifier).refresh(all: false);
   }
 
+  /// Updates whether cached location data exists for the weather app bar title.
   Future<void> _checkLocationCache() async {
     final caches = await ref
         .read(isarProvider)
@@ -89,6 +97,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     if (mounted) setState(() => _hasLocationCache = caches.isNotEmpty);
   }
 
+  /// Removes lifecycle observer and disposes tab, search, and animation controllers.
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -97,6 +106,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     super.dispose();
   }
 
+  /// Returns tab pages, omitting [MapPage] when [hideMap] is enabled.
   List<Widget> _pages(bool hideMap) => [
     const MainWeatherScreen(),
     const PlaceList(),
@@ -104,6 +114,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     const SettingsPage(),
   ];
 
+  /// Builds the tabbed shell with app bar, navigation bar, and FAB on cities.
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
@@ -179,6 +190,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     );
   }
 
+  /// Builds the weather-tab icon that toggles inline city search.
   Widget _buildSearchButton() => IconButton(
     onPressed: () => setState(() {
       if (visible) {
@@ -195,6 +207,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     ),
   );
 
+  /// Builds the app bar title or search field for the active [tab].
   Widget _buildAppBarTitle(
     int tab,
     MainWeatherState weather,
@@ -228,6 +241,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     }
   }
 
+  /// Builds the inline [RawAutocomplete] city search on the weather tab.
   Widget _buildSearchField() => RawAutocomplete<CitySearchResult>(
     focusNode: _focusNode,
     textEditingController: _controller,
@@ -301,4 +315,5 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   );
 }
 
+/// Legacy alias for [HomeScreen].
 typedef HomePage = HomeScreen;

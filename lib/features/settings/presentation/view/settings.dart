@@ -31,18 +31,27 @@ import 'package:restart_app/restart_app.dart';
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
+  /// Creates the state for [SettingsPage].
   @override
   ConsumerState<SettingsPage> createState() => _SettingsPageState();
 }
 
 // --- SettingsPageState ---
 
+/// State for [SettingsPage] handling settings UI, dialogs, and persistence.
 class _SettingsPageState extends ConsumerState<SettingsPage> {
   String? appVersion;
+
+  /// Persisted Isar settings watched from Riverpod.
   Settings get settings => ref.watch(settingsProvider);
+
+  /// In-memory app settings snapshot watched from Riverpod.
   AppSettingsState get appSettings => ref.watch(appSettingsProvider);
+
+  /// Active UI locale watched from Riverpod.
   Locale get locale => ref.watch(localeProvider);
 
+  /// Loads package version on first frame.
   @override
   void initState() {
     super.initState();
@@ -84,6 +93,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     setState(() {});
   }
 
+  /// Builds the scrollable settings page with all sections.
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -120,6 +130,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   // --- Sections ---
 
+  /// Builds the appearance settings section.
   Widget _buildAppearanceSection(BuildContext context) {
     return SettingsSection(
       title: 'appearance',
@@ -183,6 +194,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Builds the functions settings section.
   Widget _buildFunctionsSection(BuildContext context) {
     return SettingsSection(
       title: 'functions',
@@ -236,6 +248,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Builds the data and units settings section.
   Widget _buildDataSection(BuildContext context) {
     return SettingsSection(
       title: 'data',
@@ -296,6 +309,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Builds the Android home widget settings section.
   Widget _buildWidgetSection(BuildContext context) {
     return SettingsSection(
       title: 'widget',
@@ -319,6 +333,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Builds the map and cache settings section.
   Widget _buildMapSection(BuildContext context) {
     return SettingsSection(
       title: 'map',
@@ -353,6 +368,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Builds the language selection settings section.
   Widget _buildLanguageSection(BuildContext context) {
     final currentLanguage = appLanguages
         .firstWhere(
@@ -375,6 +391,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Builds the community links settings section.
   Widget _buildGroupsSection(BuildContext context) {
     return SettingsSection(
       title: 'groups',
@@ -394,6 +411,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Builds the about app settings section.
   Widget _buildAboutSection(BuildContext context) {
     return SettingsSection(
       title: 'aboutApp',
@@ -632,7 +650,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Requests permissions, then enables or disables scheduled notifications.
+  /// When enabling, requests notification permissions and schedules alerts; when disabling, cancels all.
   void _onNotificationsChanged(bool value) async {
     if (value) {
       await flutterLocalNotificationsPlugin
@@ -736,7 +754,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     }
   }
 
-  /// Confirms and clears cached map tiles and restarts the app.
+  /// Confirms and clears cached map tile files.
   void _showClearCacheDialog(BuildContext context) {
     showConfirmationDialog(
       context: context,
@@ -757,6 +775,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   // --- Widgets ---
 
+  /// Builds the tappable Open-Meteo attribution footer.
   Widget _buildOpenMeteoText(BuildContext context) => GestureDetector(
     child: Center(
       child: Text(

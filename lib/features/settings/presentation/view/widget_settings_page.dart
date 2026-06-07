@@ -19,18 +19,22 @@ import 'package:rain/i18n/tr.dart';
 class WidgetSettingsPage extends ConsumerStatefulWidget {
   const WidgetSettingsPage({super.key});
 
+  /// Creates the state for [WidgetSettingsPage].
   @override
   ConsumerState<WidgetSettingsPage> createState() => _WidgetSettingsPageState();
 }
 
 // --- WidgetSettingsPageState ---
 
+/// State for [WidgetSettingsPage] managing widget colors and pin actions.
 class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
   String? _pickedBackgroundColor;
   String? _pickedTextColor;
 
+  /// In-memory app settings snapshot watched from Riverpod.
   AppSettingsState get appSettings => ref.watch(appSettingsProvider);
 
+  /// Requests to pin a home-screen widget and refreshes widget data.
   Future<void> _requestPinWidget(WidgetDefinition widget) async {
     if (!Platform.isAndroid) return;
 
@@ -47,6 +51,7 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
         .updateFromIsar(ref.read(isarProvider));
   }
 
+  /// Shows the HSV color picker for widget background color.
   void _showBackgroundPicker() {
     _pickedBackgroundColor = null;
     showDialog(
@@ -107,6 +112,7 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
     );
   }
 
+  /// Shows the HSV color picker for widget text color.
   void _showTextColorPicker() {
     _pickedTextColor = null;
     showDialog(
@@ -165,6 +171,7 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
     );
   }
 
+  /// Builds the widget settings app bar with back navigation.
   AppBar _buildAppBar(BuildContext context) => AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
@@ -183,6 +190,7 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
     ),
   );
 
+  /// Builds the widget settings scaffold with pin and color options.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

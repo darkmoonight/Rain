@@ -51,6 +51,7 @@ class MyTextForm extends StatelessWidget {
   final TextStyle? style;
   final EdgeInsetsGeometry? contentPadding;
 
+  /// Builds the text field wrapped in a card or padded container.
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -72,6 +73,7 @@ class MyTextForm extends StatelessWidget {
     );
   }
 
+  /// Builds the underlying [TextFormField] with keyboard and validation.
   Widget _buildTextFormField(
     BuildContext context,
     ColorScheme colorScheme,
@@ -98,6 +100,7 @@ class MyTextForm extends StatelessWidget {
     );
   }
 
+  /// Builds the input decoration for the selected [variant].
   InputDecoration _buildInputDecoration(
     BuildContext context,
     ColorScheme colorScheme,

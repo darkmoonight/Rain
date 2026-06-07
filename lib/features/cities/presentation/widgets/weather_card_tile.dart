@@ -13,6 +13,7 @@ class WeatherCardTile extends ConsumerWidget {
 
   final WeatherCard card;
 
+  /// Builds a [PlaceCard] or [InvalidWeatherCard] for the given [card].
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final placeCard = PlaceCard.tryFromWeatherCard(card);
@@ -27,6 +28,7 @@ class InvalidWeatherCard extends ConsumerWidget {
 
   final WeatherCard card;
 
+  /// Builds an error tile with location label and a refresh action.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final label = formatLocationLabel(card.city, card.district);

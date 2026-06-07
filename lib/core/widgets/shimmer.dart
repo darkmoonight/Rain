@@ -8,6 +8,7 @@ class MyShimmer extends StatelessWidget {
   final double height;
   final EdgeInsets? margin;
 
+  /// Builds the shimmer placeholder card with the configured [height].
   @override
   Widget build(BuildContext context) => Shimmer.fromColors(
     baseColor: Theme.of(context).cardColor,
@@ -15,6 +16,7 @@ class MyShimmer extends StatelessWidget {
     child: _buildShimmerCard(),
   );
 
+  /// Builds the empty card used as the shimmer skeleton.
   Widget _buildShimmerCard() => Card(
     margin: margin,
     child: SizedBox(height: height),

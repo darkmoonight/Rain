@@ -27,6 +27,7 @@ class AppSettingsState {
   final String widgetBackgroundColor;
   final String widgetTextColor;
 
+  /// Returns a copy with selectively replaced theme, locale, widget, and notification fields.
   AppSettingsState copyWith({
     bool? amoledTheme,
     bool? materialColor,

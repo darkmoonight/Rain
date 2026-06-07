@@ -21,14 +21,17 @@ class DailyCard extends ConsumerStatefulWidget {
   final double? temperature2MMax;
   final double? temperature2MMin;
 
+  /// Creates the [ConsumerState] for [DailyCard].
   @override
   ConsumerState<DailyCard> createState() => _DailyCardState();
 }
 
+/// Manages locale-aware rendering for a single [DailyCard] row.
 class _DailyCardState extends ConsumerState<DailyCard> {
   final statusWeather = StatusWeather();
   late Locale _locale;
 
+  /// Builds the daily summary card or an empty placeholder when the weather code is missing.
   @override
   Widget build(BuildContext context) {
     _locale = ref.watch(localeProvider);
@@ -52,6 +55,7 @@ class _DailyCardState extends ConsumerState<DailyCard> {
     );
   }
 
+  /// Builds the temperature, date, and description column for this day.
   Widget _buildTemperatureInfo(
     BuildContext context,
     StatusData statusData,
@@ -73,6 +77,7 @@ class _DailyCardState extends ConsumerState<DailyCard> {
     ),
   );
 
+  /// Formats and displays the localized date for [timeDaily].
   Widget _buildDateText(BuildContext context) => Text(
     DateFormat.MMMMEEEEd(_locale.languageCode).format(widget.timeDaily),
     style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -81,6 +86,7 @@ class _DailyCardState extends ConsumerState<DailyCard> {
     ),
   );
 
+  /// Displays the localized weather description for this day.
   Widget _buildWeatherDescription(BuildContext context) => Text(
     statusWeather.getText(widget.weathercodeDaily),
     style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -89,6 +95,7 @@ class _DailyCardState extends ConsumerState<DailyCard> {
     ),
   );
 
+  /// Renders the daily weather icon for [weathercodeDaily].
   Widget _buildWeatherImage() => Image.asset(
     statusWeather.getImageNowDaily(widget.weathercodeDaily),
     scale: 6.5,

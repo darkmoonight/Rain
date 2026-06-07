@@ -14,7 +14,7 @@ import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-/// Paged full-day weather detail opened from the daily forecast list.
+/// Paged full-day weather detail opened from the daily forecast list or preview.
 class DailyCardInfo extends ConsumerStatefulWidget {
   const DailyCardInfo({
     super.key,
@@ -25,12 +25,12 @@ class DailyCardInfo extends ConsumerStatefulWidget {
   final WeatherCard weatherData;
   final int index;
 
+  /// Creates the [ConsumerState] for [DailyCardInfo].
   @override
   ConsumerState<DailyCardInfo> createState() => _DailyCardInfoState();
 }
 
-// --- DailyCardInfoState ---
-
+/// Manages paging across all daily forecasts, hour selection, and detail sections.
 class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
   final statusWeather = StatusWeather();
   final message = Message();
@@ -38,6 +38,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
   int pageIndex = 0;
   int hourOfDay = 0;
 
+  /// Initializes the [PageController] at [widget.index].
   @override
   void initState() {
     pageController = PageController(initialPage: widget.index);
@@ -45,12 +46,14 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     super.initState();
   }
 
+  /// Disposes the [PageController] when this state is destroyed.
   @override
   void dispose() {
     pageController.dispose();
     super.dispose();
   }
 
+  /// Builds the paged daily detail scaffold with a date title app bar.
   @override
   Widget build(BuildContext context) {
     final locale = ref.watch(localeProvider);
@@ -78,6 +81,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     );
   }
 
+  /// Builds the app bar showing the formatted date for [pageIndex].
   AppBar _buildAppBar(
     BuildContext context,
     TextTheme textTheme,
@@ -101,6 +105,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     ),
   );
 
+  /// Builds the full detail content for the daily forecast at [index].
   Widget _buildPageContent(
     BuildContext context,
     WeatherCard weatherData,
@@ -166,6 +171,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     );
   }
 
+  /// Builds the [Now] header for the selected hour of the day at [index].
   Widget _buildNowWidget(
     WeatherCard weatherData,
     int index,
@@ -202,6 +208,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     );
   }
 
+  /// Builds the horizontal 24-hour forecast strip for one day.
   Widget _buildHourlyList(
     BuildContext context,
     WeatherCard weatherData,
@@ -232,6 +239,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     ),
   );
 
+  /// Builds one selectable [Hourly] column and updates [hourOfDay] on tap.
   Widget _buildHourlyItem(
     BuildContext context,
     WeatherCard weatherData,
@@ -273,9 +281,11 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     );
   }
 
+  /// Builds the [SunsetSunrise] card for the given sun times.
   Widget _buildSunsetSunriseWidget(String sunrise, String sunset) =>
       SunsetSunrise(timeSunrise: sunrise, timeSunset: sunset);
 
+  /// Builds the expandable hourly variables grid for [hourOfDay].
   Widget _buildHourlyDescContainer(
     WeatherCard weatherData,
     int startIndex,
@@ -305,6 +315,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     );
   }
 
+  /// Builds the expandable daily summary variables grid for one day.
   Widget _buildDailyDescContainer(
     WeatherCard weatherData,
     double? temperature2MMin,

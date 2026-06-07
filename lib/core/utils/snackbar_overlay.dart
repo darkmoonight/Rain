@@ -38,6 +38,7 @@ class SnackBarData {
   final VoidCallback? onPressed;
   final DateTime timestamp;
 
+  /// Creates toast data with message, styling flags, and optional action.
   SnackBarData({
     required this.message,
     required this.isError,
@@ -51,6 +52,7 @@ class SnackBarData {
 class SnackBarOverlayWidget extends StatelessWidget {
   const SnackBarOverlayWidget({super.key});
 
+  /// Builds the overlay that shows or hides the active toast.
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<SnackBarData?>(
@@ -71,10 +73,12 @@ class _ToastOverlay extends StatefulWidget {
 
   final SnackBarData data;
 
+  /// Creates the animated toast overlay state.
   @override
   State<_ToastOverlay> createState() => _ToastOverlayState();
 }
 
+/// State for [_ToastOverlay] handling enter/exit animations and auto-dismiss.
 class _ToastOverlayState extends State<_ToastOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
@@ -86,6 +90,7 @@ class _ToastOverlayState extends State<_ToastOverlay>
   static const _animationDuration = Duration(milliseconds: 300);
   static const _displayDuration = Duration(milliseconds: 2500);
 
+  /// Starts fade/slide animations and schedules auto-dismiss.
   @override
   void initState() {
     super.initState();
@@ -120,12 +125,14 @@ class _ToastOverlayState extends State<_ToastOverlay>
     );
   }
 
+  /// Disposes the animation controller.
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+  /// Builds the top-positioned toast with icon, message, and optional action.
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;

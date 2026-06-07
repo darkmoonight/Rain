@@ -19,7 +19,7 @@ class NotificationService {
 
   // --- Scheduling ---
 
-  /// Schedules notifications for future hours within the user's time window.
+  /// Schedules future notifications whose hour falls within the user's start/end hours.
   Future<void> scheduleForWeather({
     required MainWeatherCache cache,
     required Settings settings,
@@ -57,7 +57,7 @@ class NotificationService {
     }
   }
 
-  /// Cancels pending notifications and reschedules from the latest cache.
+  /// When notifications are enabled, cancels pending ones and reschedules from the latest cache.
   Future<void> rescheduleForWeather({
     required MainWeatherCache cache,
     required Settings settings,

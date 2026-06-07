@@ -4,6 +4,7 @@ class CityApi {
 
   List<Result> results;
 
+  /// Deserializes a [CityApi] from a JSON map.
   factory CityApi.fromJson(Map<String, dynamic> json) => CityApi(
     results: json['results'] == null
         ? List<Result>.empty()
@@ -25,6 +26,7 @@ class Result {
   double latitude;
   double longitude;
 
+  /// Deserializes a [Result] from a JSON map.
   factory Result.fromJson(Map<String, dynamic> json) => Result(
     admin1: json['admin1'] ?? '',
     name: json['name'],

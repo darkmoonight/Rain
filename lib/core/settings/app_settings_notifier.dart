@@ -20,6 +20,7 @@ final localeProvider = Provider<Locale>(
 
 /// Builds [AppSettingsState] from persisted settings and applies live updates.
 class AppSettingsNotifier extends Notifier<AppSettingsState> {
+  /// Rebuilds derived settings whenever persisted [Settings] change.
   @override
   AppSettingsState build() {
     ref.watch(settingsRevisionProvider);

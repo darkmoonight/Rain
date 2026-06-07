@@ -25,7 +25,7 @@ class WeatherRepository {
   Future<void> writeCache(MainWeatherCache weather, LocationCache location) =>
       _local.saveMainWeather(weather, location);
 
-  /// Returns true when the main weather cache is missing or stale.
+  /// Returns true if a cache row exists and its timestamp is missing or before [expiry]; false if absent.
   Future<bool> isCacheExpired(DateTime expiry) =>
       _local.isMainWeatherExpired(expiry);
 

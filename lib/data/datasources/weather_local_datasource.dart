@@ -40,7 +40,7 @@ class WeatherLocalDatasource {
 
   // --- Cache validation ---
 
-  /// Returns true when the main weather cache is missing or older than [expiry].
+  /// Returns true if a cache row exists and its timestamp is missing or before [expiry]; false if absent.
   Future<bool> isMainWeatherExpired(DateTime expiry) async {
     final weather = await getMainWeather();
     if (weather == null) return false;
