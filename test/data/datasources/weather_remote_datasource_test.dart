@@ -1,5 +1,7 @@
 import '../../helpers/fixtures.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rain/data/datasources/air_quality_remote_datasource.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 
 void main() {
@@ -15,6 +17,35 @@ void main() {
       final cache = await datasource.fetchWeather(55.75, 37.62);
       expect(cache.timezone, 'Europe/Moscow');
       expect(cache.temperature2M, [20.0, 21.0]);
+      expect(cache.europeanAqi, [28.0, 32.0]);
+      expect(cache.pm25, [8.4, 9.1]);
+    });
+
+    test('fetchWeather succeeds when air quality API fails', () async {
+      final dio = createFakeWeatherDio();
+      final failingAq = AirQualityRemoteDatasource(
+        dio: Dio()
+          ..interceptors.add(
+            InterceptorsWrapper(
+              onRequest: (options, handler) => handler.reject(
+                DioException(
+                  requestOptions: options,
+                  type: DioExceptionType.connectionError,
+                ),
+              ),
+            ),
+          ),
+      );
+      final resilientDatasource = WeatherRemoteDatasource(
+        dio: dio,
+        dioLocation: dio,
+        airQuality: failingAq,
+      );
+
+      final cache = await resilientDatasource.fetchWeather(55.75, 37.62);
+
+      expect(cache.temperature2M, [20.0, 21.0]);
+      expect(cache.europeanAqi, isNull);
     });
 
     test('fetchWeatherCard includes location metadata', () async {

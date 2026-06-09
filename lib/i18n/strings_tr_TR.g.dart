@@ -194,6 +194,35 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Şehirler yüklenemedi';
 	@override String get retry => 'Tekrar dene';
 	@override String get city_not_found => 'Şehir bulunamadı';
+	@override String get air_quality => 'Hava kalitesi';
+	@override String get aqi_standard => 'AQI standardı';
+	@override String get aqi_european => 'Avrupa AQI';
+	@override String get aqi_american => 'ABD AQI';
+	@override String get aqi_good => 'İyi';
+	@override String get aqi_fair => 'Orta';
+	@override String get aqi_moderate => 'Orta';
+	@override String get aqi_poor => 'Kötü';
+	@override String get aqi_very_poor => 'Çok kötü';
+	@override String get aqi_extremely_poor => 'Aşırı kötü';
+	@override String get aqi_unhealthy_sensitive => 'Hassas gruplar için sağlıksız';
+	@override String get aqi_unhealthy => 'Sağlıksız';
+	@override String get aqi_very_unhealthy => 'Çok sağlıksız';
+	@override String get aqi_hazardous => 'Tehlikeli';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Avrupa';
+	@override String get american => 'Amerikan';
+	@override String get aqi_advice_good => 'Açık hava aktiviteleri için iyi hava.';
+	@override String get aqi_advice_fair => 'Genel olarak iyi. Hassas kişiler uzun süreli dış mekan eforunu sınırlayabilir.';
+	@override String get aqi_advice_moderate => 'Hassas gruplar dışarıda geçirdikleri süreyi azaltmalı.';
+	@override String get aqi_advice_poor => 'Özellikle hassassanız açık hava aktivitelerini sınırlayın.';
+	@override String get aqi_advice_very_poor => 'Uzun süreli dış mekan eforundan kaçının. Sağlık etkileri görülebilir.';
+	@override String get aqi_advice_extremely_poor => 'Mümkünse içeride kalın. Açık hava aktivitesi önerilmez.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <tr-TR>.
@@ -359,6 +388,35 @@ extension on TranslationsTrTr {
 			'cities_load_error' => 'Şehirler yüklenemedi',
 			'retry' => 'Tekrar dene',
 			'city_not_found' => 'Şehir bulunamadı',
+			'air_quality' => 'Hava kalitesi',
+			'aqi_standard' => 'AQI standardı',
+			'aqi_european' => 'Avrupa AQI',
+			'aqi_american' => 'ABD AQI',
+			'aqi_good' => 'İyi',
+			'aqi_fair' => 'Orta',
+			'aqi_moderate' => 'Orta',
+			'aqi_poor' => 'Kötü',
+			'aqi_very_poor' => 'Çok kötü',
+			'aqi_extremely_poor' => 'Aşırı kötü',
+			'aqi_unhealthy_sensitive' => 'Hassas gruplar için sağlıksız',
+			'aqi_unhealthy' => 'Sağlıksız',
+			'aqi_very_unhealthy' => 'Çok sağlıksız',
+			'aqi_hazardous' => 'Tehlikeli',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Avrupa',
+			'american' => 'Amerikan',
+			'aqi_advice_good' => 'Açık hava aktiviteleri için iyi hava.',
+			'aqi_advice_fair' => 'Genel olarak iyi. Hassas kişiler uzun süreli dış mekan eforunu sınırlayabilir.',
+			'aqi_advice_moderate' => 'Hassas gruplar dışarıda geçirdikleri süreyi azaltmalı.',
+			'aqi_advice_poor' => 'Özellikle hassassanız açık hava aktivitelerini sınırlayın.',
+			'aqi_advice_very_poor' => 'Uzun süreli dış mekan eforundan kaçının. Sağlık etkileri görülebilir.',
+			'aqi_advice_extremely_poor' => 'Mümkünse içeride kalın. Açık hava aktivitesi önerilmez.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

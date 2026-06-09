@@ -5,6 +5,7 @@ import 'package:rain/features/weather/presentation/widgets/daily/daily_container
 import 'package:rain/features/weather/presentation/widgets/desc/desc_container.dart';
 import 'package:rain/features/weather/presentation/widgets/hourly.dart';
 import 'package:rain/features/weather/presentation/widgets/now.dart';
+import 'package:rain/features/weather/presentation/widgets/air_quality/air_quality_card.dart';
 import 'package:rain/features/weather/presentation/widgets/sunset_sunrise.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -15,6 +16,7 @@ class WeatherDetailView extends StatelessWidget {
     required this.weatherCard,
     required this.hourIndex,
     required this.dayIndex,
+    required this.aqiStandard,
     required this.itemScrollController,
     required this.onHourSelected,
     this.showDailyTap,
@@ -23,6 +25,7 @@ class WeatherDetailView extends StatelessWidget {
   final WeatherCard weatherCard;
   final int hourIndex;
   final int dayIndex;
+  final String aqiStandard;
   final ItemScrollController itemScrollController;
   final void Function(int hour, int day) onHourSelected;
   final VoidCallback? showDailyTap;
@@ -93,6 +96,11 @@ class WeatherDetailView extends StatelessWidget {
           ),
         ),
         SunsetSunrise(timeSunrise: sunrise, timeSunset: sunset),
+        AirQualityCard(
+          weatherCard: weatherCard,
+          hourIndex: hourIndex,
+          aqiStandard: aqiStandard,
+        ),
         DescContainer(
           humidity: weatherCard.relativehumidity2M?[hourIndex],
           wind: weatherCard.windspeed10M?[hourIndex],

@@ -194,6 +194,35 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Theip ar lódáil na gcathracha';
 	@override String get retry => 'Bain triail as arís';
 	@override String get city_not_found => 'Níor aimsíodh an chathair';
+	@override String get air_quality => 'Cáilíocht an aeir';
+	@override String get aqi_standard => 'Caighdeán AQI';
+	@override String get aqi_european => 'AQI Eorpach';
+	@override String get aqi_american => 'AQI Meiriceánach';
+	@override String get aqi_good => 'Maith';
+	@override String get aqi_fair => 'Sásúil';
+	@override String get aqi_moderate => 'Measartha';
+	@override String get aqi_poor => 'Dona';
+	@override String get aqi_very_poor => 'An-dona';
+	@override String get aqi_extremely_poor => 'Thar a bheith dona';
+	@override String get aqi_unhealthy_sensitive => 'Míshláintiúil do íogaire';
+	@override String get aqi_unhealthy => 'Míshláintiúil';
+	@override String get aqi_very_unhealthy => 'An-mhíshláintiúil';
+	@override String get aqi_hazardous => 'Contúirteach';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Eorpach';
+	@override String get american => 'Meiriceánach';
+	@override String get aqi_advice_good => 'Aer maith do ghníomhaíochtaí lasmuigh.';
+	@override String get aqi_advice_fair => 'Go ginearálta ceart go leor. D\'fhéadfadh daoine íogaire iarracht fhada lasmuigh a theorannú.';
+	@override String get aqi_advice_moderate => 'Ba chóir do ghrúpaí íogaire an t-am lasmuigh a laghdú.';
+	@override String get aqi_advice_poor => 'Teorannaigh gníomhaíocht lasmuigh, go háirithe má tá tú íogair do thruailliú.';
+	@override String get aqi_advice_very_poor => 'Seachain iarracht fhada lasmuigh. D\'fhéadfadh gach duine tionchar sláinte a mhothú.';
+	@override String get aqi_advice_extremely_poor => 'Fan istigh más féidir. Ní mholtar gníomhaíocht lasmuigh.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <ga-IE>.
@@ -359,6 +388,35 @@ extension on TranslationsGaIe {
 			'cities_load_error' => 'Theip ar lódáil na gcathracha',
 			'retry' => 'Bain triail as arís',
 			'city_not_found' => 'Níor aimsíodh an chathair',
+			'air_quality' => 'Cáilíocht an aeir',
+			'aqi_standard' => 'Caighdeán AQI',
+			'aqi_european' => 'AQI Eorpach',
+			'aqi_american' => 'AQI Meiriceánach',
+			'aqi_good' => 'Maith',
+			'aqi_fair' => 'Sásúil',
+			'aqi_moderate' => 'Measartha',
+			'aqi_poor' => 'Dona',
+			'aqi_very_poor' => 'An-dona',
+			'aqi_extremely_poor' => 'Thar a bheith dona',
+			'aqi_unhealthy_sensitive' => 'Míshláintiúil do íogaire',
+			'aqi_unhealthy' => 'Míshláintiúil',
+			'aqi_very_unhealthy' => 'An-mhíshláintiúil',
+			'aqi_hazardous' => 'Contúirteach',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Eorpach',
+			'american' => 'Meiriceánach',
+			'aqi_advice_good' => 'Aer maith do ghníomhaíochtaí lasmuigh.',
+			'aqi_advice_fair' => 'Go ginearálta ceart go leor. D\'fhéadfadh daoine íogaire iarracht fhada lasmuigh a theorannú.',
+			'aqi_advice_moderate' => 'Ba chóir do ghrúpaí íogaire an t-am lasmuigh a laghdú.',
+			'aqi_advice_poor' => 'Teorannaigh gníomhaíocht lasmuigh, go háirithe má tá tú íogair do thruailliú.',
+			'aqi_advice_very_poor' => 'Seachain iarracht fhada lasmuigh. D\'fhéadfadh gach duine tionchar sláinte a mhothú.',
+			'aqi_advice_extremely_poor' => 'Fan istigh más féidir. Ní mholtar gníomhaíocht lasmuigh.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

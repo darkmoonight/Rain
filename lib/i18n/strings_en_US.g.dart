@@ -505,6 +505,93 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'Retry'
 	String get retry => 'Retry';
+
+	/// en-US: 'Air quality'
+	String get air_quality => 'Air quality';
+
+	/// en-US: 'AQI standard'
+	String get aqi_standard => 'AQI standard';
+
+	/// en-US: 'European AQI'
+	String get aqi_european => 'European AQI';
+
+	/// en-US: 'US AQI'
+	String get aqi_american => 'US AQI';
+
+	/// en-US: 'Good'
+	String get aqi_good => 'Good';
+
+	/// en-US: 'Fair'
+	String get aqi_fair => 'Fair';
+
+	/// en-US: 'Moderate'
+	String get aqi_moderate => 'Moderate';
+
+	/// en-US: 'Poor'
+	String get aqi_poor => 'Poor';
+
+	/// en-US: 'Very poor'
+	String get aqi_very_poor => 'Very poor';
+
+	/// en-US: 'Extremely poor'
+	String get aqi_extremely_poor => 'Extremely poor';
+
+	/// en-US: 'Unhealthy for sensitive groups'
+	String get aqi_unhealthy_sensitive => 'Unhealthy for sensitive groups';
+
+	/// en-US: 'Unhealthy'
+	String get aqi_unhealthy => 'Unhealthy';
+
+	/// en-US: 'Very unhealthy'
+	String get aqi_very_unhealthy => 'Very unhealthy';
+
+	/// en-US: 'Hazardous'
+	String get aqi_hazardous => 'Hazardous';
+
+	/// en-US: 'PM2.5'
+	String get pm25 => 'PM2.5';
+
+	/// en-US: 'PM10'
+	String get pm10 => 'PM10';
+
+	/// en-US: 'O₃'
+	String get ozone => 'O₃';
+
+	/// en-US: 'CO'
+	String get co => 'CO';
+
+	/// en-US: 'NO₂'
+	String get no2 => 'NO₂';
+
+	/// en-US: 'SO₂'
+	String get so2 => 'SO₂';
+
+	/// en-US: 'Pollutants'
+	String get pollutants => 'Pollutants';
+
+	/// en-US: 'European'
+	String get european => 'European';
+
+	/// en-US: 'American'
+	String get american => 'American';
+
+	/// en-US: 'Great air for outdoor activities.'
+	String get aqi_advice_good => 'Great air for outdoor activities.';
+
+	/// en-US: 'Generally fine. Sensitive people may want to limit long outdoor exertion.'
+	String get aqi_advice_fair => 'Generally fine. Sensitive people may want to limit long outdoor exertion.';
+
+	/// en-US: 'Sensitive groups should reduce prolonged time outdoors.'
+	String get aqi_advice_moderate => 'Sensitive groups should reduce prolonged time outdoors.';
+
+	/// en-US: 'Limit outdoor activity, especially if you are sensitive to air pollution.'
+	String get aqi_advice_poor => 'Limit outdoor activity, especially if you are sensitive to air pollution.';
+
+	/// en-US: 'Avoid prolonged outdoor exertion. Everyone may feel health effects.'
+	String get aqi_advice_very_poor => 'Avoid prolonged outdoor exertion. Everyone may feel health effects.';
+
+	/// en-US: 'Stay indoors if possible. Outdoor activity is not recommended.'
+	String get aqi_advice_extremely_poor => 'Stay indoors if possible. Outdoor activity is not recommended.';
 }
 
 /// The flat map containing all translations for locale <en-US>.
@@ -670,6 +757,35 @@ extension on Translations {
 			'cities_load_error' => 'Failed to load cities',
 			'city_not_found' => 'City not found',
 			'retry' => 'Retry',
+			'air_quality' => 'Air quality',
+			'aqi_standard' => 'AQI standard',
+			'aqi_european' => 'European AQI',
+			'aqi_american' => 'US AQI',
+			'aqi_good' => 'Good',
+			'aqi_fair' => 'Fair',
+			'aqi_moderate' => 'Moderate',
+			'aqi_poor' => 'Poor',
+			'aqi_very_poor' => 'Very poor',
+			'aqi_extremely_poor' => 'Extremely poor',
+			'aqi_unhealthy_sensitive' => 'Unhealthy for sensitive groups',
+			'aqi_unhealthy' => 'Unhealthy',
+			'aqi_very_unhealthy' => 'Very unhealthy',
+			'aqi_hazardous' => 'Hazardous',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
+			'european' => 'European',
+			'american' => 'American',
+			'aqi_advice_good' => 'Great air for outdoor activities.',
+			'aqi_advice_fair' => 'Generally fine. Sensitive people may want to limit long outdoor exertion.',
+			'aqi_advice_moderate' => 'Sensitive groups should reduce prolonged time outdoors.',
+			'aqi_advice_poor' => 'Limit outdoor activity, especially if you are sensitive to air pollution.',
+			'aqi_advice_very_poor' => 'Avoid prolonged outdoor exertion. Everyone may feel health effects.',
+			'aqi_advice_extremely_poor' => 'Stay indoors if possible. Outdoor activity is not recommended.',
 			_ => null,
 		};
 	}

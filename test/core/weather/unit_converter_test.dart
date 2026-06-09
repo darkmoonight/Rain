@@ -8,13 +8,12 @@ Settings _settings({
   String wind = 'kph',
   String pressure = 'hPa',
   bool roundDegree = false,
-}) =>
-    Settings()
-      ..degrees = degrees
-      ..measurements = measurements
-      ..wind = wind
-      ..pressure = pressure
-      ..roundDegree = roundDegree;
+}) => Settings()
+  ..degrees = degrees
+  ..measurements = measurements
+  ..wind = wind
+  ..pressure = pressure
+  ..roundDegree = roundDegree;
 
 void main() {
   group('UnitConverter conversions', () {
@@ -62,10 +61,7 @@ void main() {
 
     test('rounds when roundDegree is enabled', () {
       expect(
-        UnitConverter.convertTemperature(
-          20.6,
-          _settings(roundDegree: true),
-        ),
+        UnitConverter.convertTemperature(20.6, _settings(roundDegree: true)),
         21,
       );
     });
@@ -78,10 +74,7 @@ void main() {
         UnitConverter.formatWindSpeed(10, _settings(measurements: 'imperial')),
         '6',
       );
-      expect(
-        UnitConverter.formatWindSpeed(36, _settings(wind: 'm/s')),
-        '10.0',
-      );
+      expect(UnitConverter.formatWindSpeed(36, _settings(wind: 'm/s')), '10.0');
     });
 
     test('formatPressure respects units', () {
@@ -123,7 +116,10 @@ void main() {
       expect(UnitConverter.precipitationUnitKey(metric), 'mm');
       expect(UnitConverter.temperatureSuffix(metric), '°C');
 
-      final imperial = _settings(measurements: 'imperial', degrees: 'fahrenheit');
+      final imperial = _settings(
+        measurements: 'imperial',
+        degrees: 'fahrenheit',
+      );
       expect(UnitConverter.windSpeedUnitKey(imperial), 'mph');
       expect(UnitConverter.temperatureSuffix(imperial), '°F');
     });

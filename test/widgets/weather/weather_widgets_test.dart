@@ -158,6 +158,7 @@ void main() {
         weatherCard: weekly,
         hourIndex: 0,
         dayIndex: 0,
+        aqiStandard: 'european',
         itemScrollController: scrollController,
         onHourSelected: (_, _) {},
       ),

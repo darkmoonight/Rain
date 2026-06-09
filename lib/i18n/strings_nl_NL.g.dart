@@ -194,6 +194,35 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Steden laden mislukt';
 	@override String get retry => 'Opnieuw';
 	@override String get city_not_found => 'Stad niet gevonden';
+	@override String get air_quality => 'Luchtkwaliteit';
+	@override String get aqi_standard => 'AQI-standaard';
+	@override String get aqi_european => 'Europese AQI';
+	@override String get aqi_american => 'Amerikaanse AQI';
+	@override String get aqi_good => 'Goed';
+	@override String get aqi_fair => 'Redelijk';
+	@override String get aqi_moderate => 'Matig';
+	@override String get aqi_poor => 'Slecht';
+	@override String get aqi_very_poor => 'Zeer slecht';
+	@override String get aqi_extremely_poor => 'Extreem slecht';
+	@override String get aqi_unhealthy_sensitive => 'Ongezond voor gevoelige groepen';
+	@override String get aqi_unhealthy => 'Ongezond';
+	@override String get aqi_very_unhealthy => 'Zeer ongezond';
+	@override String get aqi_hazardous => 'Gevaarlijk';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Europees';
+	@override String get american => 'Amerikaans';
+	@override String get aqi_advice_good => 'Goede lucht voor buitenactiviteiten.';
+	@override String get aqi_advice_fair => 'Over het algemeen prima. Gevoelige mensen kunnen langdurige inspanning buiten beperken.';
+	@override String get aqi_advice_moderate => 'Gevoelige groepen moeten minder tijd buiten doorbrengen.';
+	@override String get aqi_advice_poor => 'Beperk buitenactiviteit, vooral als je gevoelig bent voor luchtvervuiling.';
+	@override String get aqi_advice_very_poor => 'Vermijd langdurige inspanning buiten. Iedereen kan gezondheidseffecten voelen.';
+	@override String get aqi_advice_extremely_poor => 'Blijf binnen als dat kan. Buitenactiviteit wordt niet aanbevolen.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <nl-NL>.
@@ -359,6 +388,35 @@ extension on TranslationsNlNl {
 			'cities_load_error' => 'Steden laden mislukt',
 			'retry' => 'Opnieuw',
 			'city_not_found' => 'Stad niet gevonden',
+			'air_quality' => 'Luchtkwaliteit',
+			'aqi_standard' => 'AQI-standaard',
+			'aqi_european' => 'Europese AQI',
+			'aqi_american' => 'Amerikaanse AQI',
+			'aqi_good' => 'Goed',
+			'aqi_fair' => 'Redelijk',
+			'aqi_moderate' => 'Matig',
+			'aqi_poor' => 'Slecht',
+			'aqi_very_poor' => 'Zeer slecht',
+			'aqi_extremely_poor' => 'Extreem slecht',
+			'aqi_unhealthy_sensitive' => 'Ongezond voor gevoelige groepen',
+			'aqi_unhealthy' => 'Ongezond',
+			'aqi_very_unhealthy' => 'Zeer ongezond',
+			'aqi_hazardous' => 'Gevaarlijk',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Europees',
+			'american' => 'Amerikaans',
+			'aqi_advice_good' => 'Goede lucht voor buitenactiviteiten.',
+			'aqi_advice_fair' => 'Over het algemeen prima. Gevoelige mensen kunnen langdurige inspanning buiten beperken.',
+			'aqi_advice_moderate' => 'Gevoelige groepen moeten minder tijd buiten doorbrengen.',
+			'aqi_advice_poor' => 'Beperk buitenactiviteit, vooral als je gevoelig bent voor luchtvervuiling.',
+			'aqi_advice_very_poor' => 'Vermijd langdurige inspanning buiten. Iedereen kan gezondheidseffecten voelen.',
+			'aqi_advice_extremely_poor' => 'Blijf binnen als dat kan. Buitenactiviteit wordt niet aanbevolen.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

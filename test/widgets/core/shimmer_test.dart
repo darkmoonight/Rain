@@ -6,18 +6,16 @@ void main() {
   group('MyShimmer', () {
     testWidgets('renders card with configured height', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: MyShimmer(height: 120),
-          ),
-        ),
+        const MaterialApp(home: Scaffold(body: MyShimmer(height: 120))),
       );
 
       final sizedBox = tester.widget<SizedBox>(
-        find.descendant(
-          of: find.byType(MyShimmer),
-          matching: find.byType(SizedBox),
-        ).first,
+        find
+            .descendant(
+              of: find.byType(MyShimmer),
+              matching: find.byType(SizedBox),
+            )
+            .first,
       );
       expect(sizedBox.height, 120);
     });

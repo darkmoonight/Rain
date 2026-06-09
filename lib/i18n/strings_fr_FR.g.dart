@@ -194,6 +194,35 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Échec du chargement des villes';
 	@override String get retry => 'Réessayer';
 	@override String get city_not_found => 'Ville introuvable';
+	@override String get air_quality => 'Qualité de l\'air';
+	@override String get aqi_standard => 'Norme AQI';
+	@override String get aqi_european => 'AQI européen';
+	@override String get aqi_american => 'AQI américain';
+	@override String get aqi_good => 'Bon';
+	@override String get aqi_fair => 'Passable';
+	@override String get aqi_moderate => 'Moyen';
+	@override String get aqi_poor => 'Mauvais';
+	@override String get aqi_very_poor => 'Très mauvais';
+	@override String get aqi_extremely_poor => 'Extrêmement mauvais';
+	@override String get aqi_unhealthy_sensitive => 'Mauvais pour les personnes sensibles';
+	@override String get aqi_unhealthy => 'Malsain';
+	@override String get aqi_very_unhealthy => 'Très malsain';
+	@override String get aqi_hazardous => 'Dangereux';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Européen';
+	@override String get american => 'Américain';
+	@override String get aqi_advice_good => 'Excellente qualité pour les activités en plein air.';
+	@override String get aqi_advice_fair => 'Globalement correct. Les personnes sensibles peuvent limiter les efforts prolongés dehors.';
+	@override String get aqi_advice_moderate => 'Les groupes sensibles devraient réduire le temps passé dehors.';
+	@override String get aqi_advice_poor => 'Limitez les activités dehors, surtout si vous êtes sensible à la pollution.';
+	@override String get aqi_advice_very_poor => 'Évitez les efforts prolongés dehors. Effets sur la santé possibles pour tous.';
+	@override String get aqi_advice_extremely_poor => 'Restez à l\'intérieur si possible. Les activités dehors sont déconseillées.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <fr-FR>.
@@ -359,6 +388,35 @@ extension on TranslationsFrFr {
 			'cities_load_error' => 'Échec du chargement des villes',
 			'retry' => 'Réessayer',
 			'city_not_found' => 'Ville introuvable',
+			'air_quality' => 'Qualité de l\'air',
+			'aqi_standard' => 'Norme AQI',
+			'aqi_european' => 'AQI européen',
+			'aqi_american' => 'AQI américain',
+			'aqi_good' => 'Bon',
+			'aqi_fair' => 'Passable',
+			'aqi_moderate' => 'Moyen',
+			'aqi_poor' => 'Mauvais',
+			'aqi_very_poor' => 'Très mauvais',
+			'aqi_extremely_poor' => 'Extrêmement mauvais',
+			'aqi_unhealthy_sensitive' => 'Mauvais pour les personnes sensibles',
+			'aqi_unhealthy' => 'Malsain',
+			'aqi_very_unhealthy' => 'Très malsain',
+			'aqi_hazardous' => 'Dangereux',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Européen',
+			'american' => 'Américain',
+			'aqi_advice_good' => 'Excellente qualité pour les activités en plein air.',
+			'aqi_advice_fair' => 'Globalement correct. Les personnes sensibles peuvent limiter les efforts prolongés dehors.',
+			'aqi_advice_moderate' => 'Les groupes sensibles devraient réduire le temps passé dehors.',
+			'aqi_advice_poor' => 'Limitez les activités dehors, surtout si vous êtes sensible à la pollution.',
+			'aqi_advice_very_poor' => 'Évitez les efforts prolongés dehors. Effets sur la santé possibles pour tous.',
+			'aqi_advice_extremely_poor' => 'Restez à l\'intérieur si possible. Les activités dehors sont déconseillées.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

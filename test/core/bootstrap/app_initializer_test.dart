@@ -2,6 +2,7 @@ import '../../helpers/test_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/bootstrap/app_initializer.dart';
+import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
@@ -41,6 +42,13 @@ void main() {
       );
 
       expect(LocaleSettings.currentLocale, AppLocale.ruRu);
+    });
+  });
+
+  group('weather cache schema version', () {
+    test('defaults to zero before first migration', () {
+      expect(Settings().weatherCacheVersion, 0);
+      expect(AppConstants.weatherCacheSchemaVersion, 2);
     });
   });
 }

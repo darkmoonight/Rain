@@ -7,11 +7,7 @@ WeatherCard _card(int id) => WeatherCard(city: 'City $id')..id = id;
 void main() {
   group('CitiesState', () {
     test('copyWith replaces selected fields', () {
-      const initial = CitiesState(
-        cards: [],
-        isLoading: true,
-        loadError: false,
-      );
+      const initial = CitiesState(cards: [], isLoading: true, loadError: false);
       final updated = initial.copyWith(
         cards: [_card(1)],
         isLoading: false,

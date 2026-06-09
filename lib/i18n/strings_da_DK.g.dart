@@ -194,6 +194,35 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Kunne ikke indlæse byer';
 	@override String get retry => 'Prøv igen';
 	@override String get city_not_found => 'By ikke fundet';
+	@override String get air_quality => 'Luftkvalitet';
+	@override String get aqi_standard => 'AQI-standard';
+	@override String get aqi_european => 'Europæisk AQI';
+	@override String get aqi_american => 'Amerikansk AQI';
+	@override String get aqi_good => 'God';
+	@override String get aqi_fair => 'Tilfredsstillende';
+	@override String get aqi_moderate => 'Moderat';
+	@override String get aqi_poor => 'Dårlig';
+	@override String get aqi_very_poor => 'Meget dårlig';
+	@override String get aqi_extremely_poor => 'Ekstremt dårlig';
+	@override String get aqi_unhealthy_sensitive => 'Usund for følsomme';
+	@override String get aqi_unhealthy => 'Usund';
+	@override String get aqi_very_unhealthy => 'Meget usund';
+	@override String get aqi_hazardous => 'Farlig';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Europæisk';
+	@override String get american => 'Amerikansk';
+	@override String get aqi_advice_good => 'God luft til udendørs aktiviteter.';
+	@override String get aqi_advice_fair => 'Generelt fint. Følsomme personer kan begrænse langvarig anstrengelse udendørs.';
+	@override String get aqi_advice_moderate => 'Følsomme grupper bør reducere tiden udendørs.';
+	@override String get aqi_advice_poor => 'Begræns udendørs aktivitet, især hvis du er følsom over for luftforurening.';
+	@override String get aqi_advice_very_poor => 'Undgå langvarig anstrengelse udendørs. Alle kan mærke helbredseffekter.';
+	@override String get aqi_advice_extremely_poor => 'Bliv indendørs hvis muligt. Udendørs aktivitet anbefales ikke.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <da-DK>.
@@ -359,6 +388,35 @@ extension on TranslationsDaDk {
 			'cities_load_error' => 'Kunne ikke indlæse byer',
 			'retry' => 'Prøv igen',
 			'city_not_found' => 'By ikke fundet',
+			'air_quality' => 'Luftkvalitet',
+			'aqi_standard' => 'AQI-standard',
+			'aqi_european' => 'Europæisk AQI',
+			'aqi_american' => 'Amerikansk AQI',
+			'aqi_good' => 'God',
+			'aqi_fair' => 'Tilfredsstillende',
+			'aqi_moderate' => 'Moderat',
+			'aqi_poor' => 'Dårlig',
+			'aqi_very_poor' => 'Meget dårlig',
+			'aqi_extremely_poor' => 'Ekstremt dårlig',
+			'aqi_unhealthy_sensitive' => 'Usund for følsomme',
+			'aqi_unhealthy' => 'Usund',
+			'aqi_very_unhealthy' => 'Meget usund',
+			'aqi_hazardous' => 'Farlig',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Europæisk',
+			'american' => 'Amerikansk',
+			'aqi_advice_good' => 'God luft til udendørs aktiviteter.',
+			'aqi_advice_fair' => 'Generelt fint. Følsomme personer kan begrænse langvarig anstrengelse udendørs.',
+			'aqi_advice_moderate' => 'Følsomme grupper bør reducere tiden udendørs.',
+			'aqi_advice_poor' => 'Begræns udendørs aktivitet, især hvis du er følsom over for luftforurening.',
+			'aqi_advice_very_poor' => 'Undgå langvarig anstrengelse udendørs. Alle kan mærke helbredseffekter.',
+			'aqi_advice_extremely_poor' => 'Bliv indendørs hvis muligt. Udendørs aktivitet anbefales ikke.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

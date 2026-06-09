@@ -77,10 +77,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
         fallback.lat == loc.lat &&
         fallback.lon == loc.lon &&
         !main.isLoading) {
-      return WeatherCard.fromJson({
-        ...main.mainWeather.toJson(),
-        ...loc.toJson(),
-      });
+      return WeatherCard.fromMainAndLocation(main.mainWeather, loc);
     }
     return fallback;
   }
@@ -179,6 +176,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
               weatherCard: card,
               hourIndex: timeNow,
               dayIndex: dayNow,
+              aqiStandard: ref.watch(settingsProvider).aqiStandard,
               itemScrollController: itemScrollController,
               onHourSelected: (h, d) => setState(() {
                 timeNow = h;

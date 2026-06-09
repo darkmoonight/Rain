@@ -9,10 +9,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MyTextButton(
-              text: 'Continue',
-              onPressed: () {},
-            ),
+            body: MyTextButton(text: 'Continue', onPressed: () {}),
           ),
         ),
       );
@@ -45,10 +42,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MyTextButton(
-              text: 'Tap me',
-              onPressed: () => tapped = true,
-            ),
+            body: MyTextButton(text: 'Tap me', onPressed: () => tapped = true),
           ),
         ),
       );

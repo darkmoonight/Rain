@@ -194,6 +194,35 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'शहर लोड नहीं हो सके';
 	@override String get retry => 'पुनः प्रयास';
 	@override String get city_not_found => 'शहर नहीं मिला';
+	@override String get air_quality => 'वायु गुणवत्ता';
+	@override String get aqi_standard => 'AQI मानक';
+	@override String get aqi_european => 'यूरोपीय AQI';
+	@override String get aqi_american => 'अमेरिकी AQI';
+	@override String get aqi_good => 'अच्छा';
+	@override String get aqi_fair => 'संतोषजनक';
+	@override String get aqi_moderate => 'मध्यम';
+	@override String get aqi_poor => 'खराब';
+	@override String get aqi_very_poor => 'बहुत खराब';
+	@override String get aqi_extremely_poor => 'अत्यंत खराब';
+	@override String get aqi_unhealthy_sensitive => 'संवेदनशीलों के लिए हानिकारक';
+	@override String get aqi_unhealthy => 'हानिकारक';
+	@override String get aqi_very_unhealthy => 'बहुत हानिकारक';
+	@override String get aqi_hazardous => 'खतरनाक';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'यूरोपीय';
+	@override String get american => 'अमेरिकी';
+	@override String get aqi_advice_good => 'बाहरी गतिविधियों के लिए अच्छी हवा।';
+	@override String get aqi_advice_fair => 'कुल मिलाकर ठीक है। संवेदनशील लोग लंबे समय तक बाहर की गतिविधि सीमित कर सकते हैं।';
+	@override String get aqi_advice_moderate => 'संवेदनशील समूहों को बाहर का समय कम करना चाहिए।';
+	@override String get aqi_advice_poor => 'बाहरी गतिविधि सीमित करें, खासकर यदि आप प्रदूषण के प्रति संवेदनशील हैं।';
+	@override String get aqi_advice_very_poor => 'लंबे समय तक बाहर की गतिविधि से बचें। सभी को स्वास्थ्य पर प्रभाव महसूस हो सकता है।';
+	@override String get aqi_advice_extremely_poor => 'यदि संभव हो तो घर के अंदर रहें। बाहरी गतिविधि की सलाह नहीं दी जाती।';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <hi-IN>.
@@ -359,6 +388,35 @@ extension on TranslationsHiIn {
 			'cities_load_error' => 'शहर लोड नहीं हो सके',
 			'retry' => 'पुनः प्रयास',
 			'city_not_found' => 'शहर नहीं मिला',
+			'air_quality' => 'वायु गुणवत्ता',
+			'aqi_standard' => 'AQI मानक',
+			'aqi_european' => 'यूरोपीय AQI',
+			'aqi_american' => 'अमेरिकी AQI',
+			'aqi_good' => 'अच्छा',
+			'aqi_fair' => 'संतोषजनक',
+			'aqi_moderate' => 'मध्यम',
+			'aqi_poor' => 'खराब',
+			'aqi_very_poor' => 'बहुत खराब',
+			'aqi_extremely_poor' => 'अत्यंत खराब',
+			'aqi_unhealthy_sensitive' => 'संवेदनशीलों के लिए हानिकारक',
+			'aqi_unhealthy' => 'हानिकारक',
+			'aqi_very_unhealthy' => 'बहुत हानिकारक',
+			'aqi_hazardous' => 'खतरनाक',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'यूरोपीय',
+			'american' => 'अमेरिकी',
+			'aqi_advice_good' => 'बाहरी गतिविधियों के लिए अच्छी हवा।',
+			'aqi_advice_fair' => 'कुल मिलाकर ठीक है। संवेदनशील लोग लंबे समय तक बाहर की गतिविधि सीमित कर सकते हैं।',
+			'aqi_advice_moderate' => 'संवेदनशील समूहों को बाहर का समय कम करना चाहिए।',
+			'aqi_advice_poor' => 'बाहरी गतिविधि सीमित करें, खासकर यदि आप प्रदूषण के प्रति संवेदनशील हैं।',
+			'aqi_advice_very_poor' => 'लंबे समय तक बाहर की गतिविधि से बचें। सभी को स्वास्थ्य पर प्रभाव महसूस हो सकता है।',
+			'aqi_advice_extremely_poor' => 'यदि संभव हो तो घर के अंदर रहें। बाहरी गतिविधि की सलाह नहीं दी जाती।',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

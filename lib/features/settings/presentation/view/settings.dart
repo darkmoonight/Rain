@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/di/settings_revision.dart';
+import 'package:rain/core/weather/aqi_helper.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/features/settings/presentation/widgets/selection_dialog.dart';
@@ -299,6 +300,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           onTap: () => _showPressureDialog(context),
         ),
         SettingsTile(
+          leading: const Icon(IconsaxPlusLinear.health),
+          title: 'aqiStandard',
+          value: settings.aqiStandard.tr,
+          onTap: () => _showAqiStandardDialog(context),
+        ),
+        SettingsTile(
           leading: const Icon(IconsaxPlusLinear.clock_1),
           title: 'timeformat',
           value: settings.timeformat.tr,
@@ -571,6 +578,24 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       itemBuilder: (value) => value.tr,
       onSelected: (value) async {
         settings.pressure = value;
+        await ref.read(settingsRepositoryProvider).save(settings);
+        if (!mounted) return;
+        setState(() {});
+      },
+    );
+  }
+
+  /// Opens the European / US AQI standard picker.
+  void _showAqiStandardDialog(BuildContext context) {
+    showSelectionDialog<String>(
+      context: context,
+      title: 'aqiStandard'.tr,
+      icon: IconsaxPlusLinear.health,
+      items: [AqiHelper.european, AqiHelper.american],
+      currentValue: settings.aqiStandard,
+      itemBuilder: (value) => value.tr,
+      onSelected: (value) async {
+        settings.aqiStandard = value;
         await ref.read(settingsRepositoryProvider).save(settings);
         if (!mounted) return;
         setState(() {});

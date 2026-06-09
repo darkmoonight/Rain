@@ -194,6 +194,35 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Αποτυχία φόρτωσης πόλεων';
 	@override String get retry => 'Επανάληψη';
 	@override String get city_not_found => 'Η πόλη δεν βρέθηκε';
+	@override String get air_quality => 'Ποιότητα αέρα';
+	@override String get aqi_standard => 'Πρότυπο AQI';
+	@override String get aqi_european => 'Ευρωπαϊκό AQI';
+	@override String get aqi_american => 'Αμερικανικό AQI';
+	@override String get aqi_good => 'Καλή';
+	@override String get aqi_fair => 'Μέτρια';
+	@override String get aqi_moderate => 'Μέτρια';
+	@override String get aqi_poor => 'Κακή';
+	@override String get aqi_very_poor => 'Πολύ κακή';
+	@override String get aqi_extremely_poor => 'Εξαιρετικά κακή';
+	@override String get aqi_unhealthy_sensitive => 'Ανθυγιεινή για ευαίσθητους';
+	@override String get aqi_unhealthy => 'Ανθυγιεινή';
+	@override String get aqi_very_unhealthy => 'Πολύ ανθυγιεινή';
+	@override String get aqi_hazardous => 'Επικίνδυνη';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Ευρωπαϊκό';
+	@override String get american => 'Αμερικανικό';
+	@override String get aqi_advice_good => 'Καλός αέρας για δραστηριότητες σε εξωτερικό χώρο.';
+	@override String get aqi_advice_fair => 'Γενικά εντάξει. Ευαίσθητα άτομα μπορεί να περιορίσουν την παρατεταμένη άσκηση έξω.';
+	@override String get aqi_advice_moderate => 'Ευαίσθητες ομάδες θα πρέπει να μειώσουν τον χρόνο έξω.';
+	@override String get aqi_advice_poor => 'Περιορίστε τη δραστηριότητα έξω, ειδικά αν είστε ευαίσθητοι στη ρύπανση.';
+	@override String get aqi_advice_very_poor => 'Αποφύγετε παρατεταμένη άσκηση έξω. Πιθανές επιπτώσεις στην υγεία για όλους.';
+	@override String get aqi_advice_extremely_poor => 'Μείνετε μέσα αν είναι δυνατόν. Δεν συνιστάται δραστηριότητα έξω.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <el-GR>.
@@ -359,6 +388,35 @@ extension on TranslationsElGr {
 			'cities_load_error' => 'Αποτυχία φόρτωσης πόλεων',
 			'retry' => 'Επανάληψη',
 			'city_not_found' => 'Η πόλη δεν βρέθηκε',
+			'air_quality' => 'Ποιότητα αέρα',
+			'aqi_standard' => 'Πρότυπο AQI',
+			'aqi_european' => 'Ευρωπαϊκό AQI',
+			'aqi_american' => 'Αμερικανικό AQI',
+			'aqi_good' => 'Καλή',
+			'aqi_fair' => 'Μέτρια',
+			'aqi_moderate' => 'Μέτρια',
+			'aqi_poor' => 'Κακή',
+			'aqi_very_poor' => 'Πολύ κακή',
+			'aqi_extremely_poor' => 'Εξαιρετικά κακή',
+			'aqi_unhealthy_sensitive' => 'Ανθυγιεινή για ευαίσθητους',
+			'aqi_unhealthy' => 'Ανθυγιεινή',
+			'aqi_very_unhealthy' => 'Πολύ ανθυγιεινή',
+			'aqi_hazardous' => 'Επικίνδυνη',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Ευρωπαϊκό',
+			'american' => 'Αμερικανικό',
+			'aqi_advice_good' => 'Καλός αέρας για δραστηριότητες σε εξωτερικό χώρο.',
+			'aqi_advice_fair' => 'Γενικά εντάξει. Ευαίσθητα άτομα μπορεί να περιορίσουν την παρατεταμένη άσκηση έξω.',
+			'aqi_advice_moderate' => 'Ευαίσθητες ομάδες θα πρέπει να μειώσουν τον χρόνο έξω.',
+			'aqi_advice_poor' => 'Περιορίστε τη δραστηριότητα έξω, ειδικά αν είστε ευαίσθητοι στη ρύπανση.',
+			'aqi_advice_very_poor' => 'Αποφύγετε παρατεταμένη άσκηση έξω. Πιθανές επιπτώσεις στην υγεία για όλους.',
+			'aqi_advice_extremely_poor' => 'Μείνετε μέσα αν είναι δυνατόν. Δεν συνιστάται δραστηριότητα έξω.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

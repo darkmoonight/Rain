@@ -194,6 +194,35 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Nu s-au putut încărca orașele';
 	@override String get retry => 'Reîncearcă';
 	@override String get city_not_found => 'Orașul nu a fost găsit';
+	@override String get air_quality => 'Calitatea aerului';
+	@override String get aqi_standard => 'Standard AQI';
+	@override String get aqi_european => 'AQI european';
+	@override String get aqi_american => 'AQI american';
+	@override String get aqi_good => 'Bun';
+	@override String get aqi_fair => 'Acceptabil';
+	@override String get aqi_moderate => 'Moderat';
+	@override String get aqi_poor => 'Slab';
+	@override String get aqi_very_poor => 'Foarte slab';
+	@override String get aqi_extremely_poor => 'Extrem de slab';
+	@override String get aqi_unhealthy_sensitive => 'Nesănătos pentru sensibili';
+	@override String get aqi_unhealthy => 'Nesănătos';
+	@override String get aqi_very_unhealthy => 'Foarte nesănătos';
+	@override String get aqi_hazardous => 'Periculos';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'European';
+	@override String get american => 'American';
+	@override String get aqi_advice_good => 'Aer bun pentru activități în aer liber.';
+	@override String get aqi_advice_fair => 'În general e în regulă. Persoanele sensibile pot limita efortul prelungit afară.';
+	@override String get aqi_advice_moderate => 'Grupurile sensibile ar trebui să reducă timpul petrecut afară.';
+	@override String get aqi_advice_poor => 'Limitați activitatea afară, mai ales dacă sunteți sensibil la poluare.';
+	@override String get aqi_advice_very_poor => 'Evitați efortul prelungit afară. Toți pot simți efecte asupra sănătății.';
+	@override String get aqi_advice_extremely_poor => 'Rămâneți în interior dacă este posibil. Activitatea afară nu este recomandată.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <ro-RO>.
@@ -359,6 +388,35 @@ extension on TranslationsRoRo {
 			'cities_load_error' => 'Nu s-au putut încărca orașele',
 			'retry' => 'Reîncearcă',
 			'city_not_found' => 'Orașul nu a fost găsit',
+			'air_quality' => 'Calitatea aerului',
+			'aqi_standard' => 'Standard AQI',
+			'aqi_european' => 'AQI european',
+			'aqi_american' => 'AQI american',
+			'aqi_good' => 'Bun',
+			'aqi_fair' => 'Acceptabil',
+			'aqi_moderate' => 'Moderat',
+			'aqi_poor' => 'Slab',
+			'aqi_very_poor' => 'Foarte slab',
+			'aqi_extremely_poor' => 'Extrem de slab',
+			'aqi_unhealthy_sensitive' => 'Nesănătos pentru sensibili',
+			'aqi_unhealthy' => 'Nesănătos',
+			'aqi_very_unhealthy' => 'Foarte nesănătos',
+			'aqi_hazardous' => 'Periculos',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'European',
+			'american' => 'American',
+			'aqi_advice_good' => 'Aer bun pentru activități în aer liber.',
+			'aqi_advice_fair' => 'În general e în regulă. Persoanele sensibile pot limita efortul prelungit afară.',
+			'aqi_advice_moderate' => 'Grupurile sensibile ar trebui să reducă timpul petrecut afară.',
+			'aqi_advice_poor' => 'Limitați activitatea afară, mai ales dacă sunteți sensibil la poluare.',
+			'aqi_advice_very_poor' => 'Evitați efortul prelungit afară. Toți pot simți efecte asupra sănătății.',
+			'aqi_advice_extremely_poor' => 'Rămâneți în interior dacă este posibil. Activitatea afară nu este recomandată.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

@@ -22,7 +22,7 @@
 </p>
 
 <p align='center'>
-    <strong>🌍 Available in 38 languages</strong> • <strong>🎨 Material You & AMOLED</strong> • <strong>🗺️ Interactive weather map</strong> • <strong>📱 Home screen widgets</strong>
+    <strong>🌍 Available in 38 languages</strong> • <strong>🎨 Material You & AMOLED</strong> • <strong>💨 Air quality (EU/US AQI)</strong> • <strong>🗺️ Interactive weather map</strong> • <strong>📱 Home screen widgets</strong>
 </p>
 
 ---
@@ -33,6 +33,12 @@
 - Real-time conditions with feels-like temperature • Hourly forecasts (12 days) • 12-day daily outlooks
 - Detailed metrics: UV index, humidity, wind speed/direction, precipitation, visibility, pressure, dew point
 - Day/night-aware weather icons • Sunrise/sunset times • Expandable hourly variable details
+
+**💨 Air Quality**
+- Hourly air quality from [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) (7-day forecast, aligned to weather timestamps)
+- Summary card on the main weather screen: AQI value, severity badge, colored scale, health advice
+- Pollutant breakdown with progress bars: PM2.5, PM10, O₃, NO₂, SO₂, CO (μg/m³)
+- Choose **European AQI** or **US AQI** in Settings • Cached offline with weather data
 
 **🗺️ Interactive Weather Map**
 - OpenStreetMap-based interactive map • Weather markers for all saved cities
@@ -70,6 +76,7 @@
 **🧮 Customization Options**
 - Temperature: Celsius/Fahrenheit • Measurement system: Metric/Imperial
 - Wind speed: kph/m/s • Pressure: hPa/mmHg • Rounded temperatures (app + widget)
+- Air quality standard: European AQI / US AQI
 - 12h/24h time format (app, pickers, notifications, and Clock widget)
 - Widget color customization with HSV color picker
 
@@ -187,7 +194,7 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Testing
 
-The project has **320** unit and widget tests (89 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
+The project has **333** unit and widget tests (91 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
 
 ```bash
 flutter test
@@ -202,7 +209,7 @@ Optional coverage report (output in `coverage/`, gitignored):
 flutter test --coverage
 ```
 
-**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers.
+**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers, air quality (`AqiHelper`, `AirQualityMapper`, graceful AQ API fallback).
 
 **Notification regression tests:** stable notification IDs (`notificationIdFor`), one slot per hour when duplicate daily rows exist, and `MainWeatherNotifier._init` not calling `cancelAll()` while notifications stay enabled.
 
@@ -228,7 +235,7 @@ dart run build_runner build
 ### Tech Stack (highlights)
 - **Flutter** + **Riverpod 3** • **Go Router** • **Isar Community**
 - **home_widget** + **Workmanager** (Android widgets) • **flutter_local_notifications**
-- **Open-Meteo** API • **flutter_map** + OSM tiles
+- **Open-Meteo Weather API** • **Open-Meteo Air Quality API** • **flutter_map** + OSM tiles
 
 ---
 
@@ -237,6 +244,7 @@ dart run build_runner build
 Rain uses free, open weather APIs with no API key required:
 
 - **Weather Data:** [Open-Meteo Weather API](https://open-meteo.com/en/docs) - Free, open-source weather API
+- **Air Quality:** [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) - Hourly AQI and pollutant concentrations (CC BY 4.0)
 - **Geocoding:** [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api) - City search and coordinates
 - **Map Tiles:** [OpenStreetMap](https://www.openstreetmap.org/) - Collaborative mapping project
 

@@ -115,6 +115,14 @@ class WeatherMapper {
       ..dewpoint2M = updated.dewpoint2M
       ..precipitationProbability = updated.precipitationProbability
       ..shortwaveRadiation = updated.shortwaveRadiation
+      ..europeanAqi = updated.europeanAqi
+      ..usAqi = updated.usAqi
+      ..pm25 = updated.pm25
+      ..pm10 = updated.pm10
+      ..ozone = updated.ozone
+      ..co = updated.co
+      ..no2 = updated.no2
+      ..so2 = updated.so2
       ..timeDaily = updated.timeDaily
       ..weathercodeDaily = updated.weathercodeDaily
       ..temperature2MMax = updated.temperature2MMax

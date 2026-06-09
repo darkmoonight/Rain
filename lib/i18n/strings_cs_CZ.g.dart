@@ -194,6 +194,35 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Nepodařilo se načíst města';
 	@override String get retry => 'Zkusit znovu';
 	@override String get city_not_found => 'Město nenalezeno';
+	@override String get air_quality => 'Kvalita ovzduší';
+	@override String get aqi_standard => 'Standard AQI';
+	@override String get aqi_european => 'Evropský AQI';
+	@override String get aqi_american => 'Americký AQI';
+	@override String get aqi_good => 'Dobrá';
+	@override String get aqi_fair => 'Vyhovující';
+	@override String get aqi_moderate => 'Střední';
+	@override String get aqi_poor => 'Špatná';
+	@override String get aqi_very_poor => 'Velmi špatná';
+	@override String get aqi_extremely_poor => 'Extrémně špatná';
+	@override String get aqi_unhealthy_sensitive => 'Nezdravá pro citlivé';
+	@override String get aqi_unhealthy => 'Nezdravá';
+	@override String get aqi_very_unhealthy => 'Velmi nezdravá';
+	@override String get aqi_hazardous => 'Nebezpečná';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Evropský';
+	@override String get american => 'Americký';
+	@override String get aqi_advice_good => 'Dobrý vzduch pro venkovní aktivity.';
+	@override String get aqi_advice_fair => 'Celkově v pořádku. Citliví lidé mohou omezit dlouhé venkovní namáhání.';
+	@override String get aqi_advice_moderate => 'Citlivé skupiny by měly zkrátit čas venku.';
+	@override String get aqi_advice_poor => 'Omezte venkovní aktivitu, zejména pokud jste citliví na znečištění.';
+	@override String get aqi_advice_very_poor => 'Vyhněte se dlouhému venkovnímu namáhání. Možné zdravotní účinky pro všechny.';
+	@override String get aqi_advice_extremely_poor => 'Zůstaňte doma, pokud je to možné. Venkovní aktivita se nedoporučuje.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <cs-CZ>.
@@ -359,6 +388,35 @@ extension on TranslationsCsCz {
 			'cities_load_error' => 'Nepodařilo se načíst města',
 			'retry' => 'Zkusit znovu',
 			'city_not_found' => 'Město nenalezeno',
+			'air_quality' => 'Kvalita ovzduší',
+			'aqi_standard' => 'Standard AQI',
+			'aqi_european' => 'Evropský AQI',
+			'aqi_american' => 'Americký AQI',
+			'aqi_good' => 'Dobrá',
+			'aqi_fair' => 'Vyhovující',
+			'aqi_moderate' => 'Střední',
+			'aqi_poor' => 'Špatná',
+			'aqi_very_poor' => 'Velmi špatná',
+			'aqi_extremely_poor' => 'Extrémně špatná',
+			'aqi_unhealthy_sensitive' => 'Nezdravá pro citlivé',
+			'aqi_unhealthy' => 'Nezdravá',
+			'aqi_very_unhealthy' => 'Velmi nezdravá',
+			'aqi_hazardous' => 'Nebezpečná',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Evropský',
+			'american' => 'Americký',
+			'aqi_advice_good' => 'Dobrý vzduch pro venkovní aktivity.',
+			'aqi_advice_fair' => 'Celkově v pořádku. Citliví lidé mohou omezit dlouhé venkovní namáhání.',
+			'aqi_advice_moderate' => 'Citlivé skupiny by měly zkrátit čas venku.',
+			'aqi_advice_poor' => 'Omezte venkovní aktivitu, zejména pokud jste citliví na znečištění.',
+			'aqi_advice_very_poor' => 'Vyhněte se dlouhému venkovnímu namáhání. Možné zdravotní účinky pro všechny.',
+			'aqi_advice_extremely_poor' => 'Zůstaňte doma, pokud je to možné. Venkovní aktivita se nedoporučuje.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

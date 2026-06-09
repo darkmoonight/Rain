@@ -48,6 +48,22 @@ Map<String, dynamic> sampleWeatherJson() => {
   'timezone': 'Europe/Moscow',
 };
 
+/// Sample Open-Meteo air quality JSON for fake Dio responses.
+Map<String, dynamic> sampleAirQualityJson() => {
+  'hourly': {
+    'time': ['2026-06-05T12:00', '2026-06-05T13:00'],
+    'european_aqi': [28.0, 32.0],
+    'us_aqi': [45.0, 55.0],
+    'pm2_5': [8.4, 9.1],
+    'pm10': [12.0, 13.5],
+    'ozone': [45.0, 48.0],
+    'carbon_monoxide': [420.0, 510.0],
+    'nitrogen_dioxide': [18.0, 22.0],
+    'sulphur_dioxide': [5.0, 6.5],
+  },
+  'timezone': 'Europe/Moscow',
+};
+
 /// Sample geocoding search JSON.
 Map<String, dynamic> sampleCitySearchJson() => {
   'results': [
@@ -327,10 +343,12 @@ Settings onboardedSettings({
 WeatherRemoteDatasource createFakeWeatherRemoteDatasource({
   Map<String, dynamic>? weatherJson,
   Map<String, dynamic>? cityJson,
+  Map<String, dynamic>? airQualityJson,
 }) {
   final dio = createFakeWeatherDio(
     weatherJson: weatherJson,
     cityJson: cityJson,
+    airQualityJson: airQualityJson,
   );
   return WeatherRemoteDatasource(dio: dio, dioLocation: dio);
 }
@@ -339,14 +357,21 @@ WeatherRemoteDatasource createFakeWeatherRemoteDatasource({
 Dio createFakeWeatherDio({
   Map<String, dynamic>? weatherJson,
   Map<String, dynamic>? cityJson,
+  Map<String, dynamic>? airQualityJson,
 }) {
   final dio = Dio();
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) {
-        final data = options.uri.host.contains('geocoding')
-            ? (cityJson ?? sampleCitySearchJson())
-            : (weatherJson ?? sampleWeatherJson());
+        final host = options.uri.host;
+        final Map<String, dynamic> data;
+        if (host.contains('geocoding')) {
+          data = cityJson ?? sampleCitySearchJson();
+        } else if (host.contains('air-quality')) {
+          data = airQualityJson ?? sampleAirQualityJson();
+        } else {
+          data = weatherJson ?? sampleWeatherJson();
+        }
         handler.resolve(
           Response(requestOptions: options, data: data, statusCode: 200),
         );

@@ -22,7 +22,7 @@
 </p>
 
 <p align='center'>
-    <strong>🌍 Доступно на 38 языках</strong> • <strong>🎨 Material You и AMOLED</strong> • <strong>🗺️ Интерактивная карта погоды</strong> • <strong>📱 Виджеты на главный экран</strong>
+    <strong>🌍 Доступно на 38 языках</strong> • <strong>🎨 Material You и AMOLED</strong> • <strong>💨 Качество воздуха (EU/US AQI)</strong> • <strong>🗺️ Интерактивная карта погоды</strong> • <strong>📱 Виджеты на главный экран</strong>
 </p>
 
 ---
@@ -33,6 +33,12 @@
 - Текущие условия с ощущаемой температурой • Почасовые прогнозы (12 дней) • 12-дневные прогнозы
 - Подробные метрики: УФ-индекс, влажность, скорость/направление ветра, осадки, видимость, давление, точка росы
 - Иконки с учётом дня/ночи • Время восхода/заката • Раскрывающиеся подробные почасовые данные
+
+**💨 Качество воздуха**
+- Почасовые данные из [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) (прогноз на 7 дней, синхронизирован с погодой)
+- Карточка на главном экране: индекс AQI, уровень загрязнения, цветная шкала, рекомендации
+- Загрязнители с полосками прогресса: PM2.5, PM10, O₃, NO₂, SO₂, CO (μg/m³)
+- В настройках — **европейский AQI** или **US AQI** • Кэшируется вместе с прогнозом
 
 **🗺️ Интерактивная карта погоды**
 - Интерактивная карта на базе OpenStreetMap • Маркеры погоды для всех сохранённых городов
@@ -70,6 +76,7 @@
 **🧮 Настройки персонализации**
 - Температура: Цельсий/Фаренгейт • Система единиц: Метрическая/Имперская
 - Скорость ветра: км/ч/м/с • Давление: гПа/мм рт.ст. • Округление температуры (в приложении и виджете)
+- Стандарт AQI: европейский / американский
 - Формат времени 12/24 ч (интерфейс, выбор времени, уведомления и виджет Clock)
 - Настройка цвета виджета с помощью HSV-палитры
 
@@ -187,7 +194,7 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Тестирование
 
-В проекте **320** unit- и widget-тестов (89 файлов `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
+В проекте **333** unit- и widget-тестов (91 файл `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
 
 ```bash
 flutter test
@@ -202,7 +209,7 @@ flutter analyze
 flutter test --coverage
 ```
 
-**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils (уведомления, connectivity, разбор placemark), bootstrap (`AppInitializer`), redirect и sync кэша роутера, обновления settings provider, cities notifier (CRUD, `loadError`, edge cases удаления), confirmation/selection dialogs, weather widgets и notifiers.
+**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils (уведомления, connectivity, разбор placemark), bootstrap (`AppInitializer`), redirect и sync кэша роутера, обновления settings provider, cities notifier (CRUD, `loadError`, edge cases удаления), confirmation/selection dialogs, weather widgets и notifiers, качество воздуха (`AqiHelper`, `AirQualityMapper`, graceful fallback при ошибке AQ API).
 
 **Регрессии уведомлений:** стабильные ID (`notificationIdFor`), один слот на час при дублирующихся daily-строках, `MainWeatherNotifier._init` не вызывает `cancelAll()`, пока уведомления включены.
 
@@ -228,7 +235,7 @@ dart run build_runner build
 ### Стек (кратко)
 - **Flutter** + **Riverpod 3** • **Go Router** • **Isar Community**
 - **home_widget** + **Workmanager** (виджеты Android) • **flutter_local_notifications**
-- API **Open-Meteo** • **flutter_map** и плитки OSM
+- API **Open-Meteo Weather** • **Open-Meteo Air Quality** • **flutter_map** и плитки OSM
 
 ---
 
@@ -237,6 +244,7 @@ dart run build_runner build
 Rain использует бесплатные открытые API погоды, не требующие ключа API:
 
 - **Данные о погоде:** [Open-Meteo Weather API](https://open-meteo.com/en/docs) - Бесплатный API погоды с открытым исходным кодом
+- **Качество воздуха:** [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) - Почасовой AQI и концентрации загрязнителей (CC BY 4.0)
 - **Геокодирование:** [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api) - Поиск городов и координаты
 - **Плитки карты:** [OpenStreetMap](https://www.openstreetmap.org/) - Совместный проект картографии
 

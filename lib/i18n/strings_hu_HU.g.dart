@@ -194,6 +194,35 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'A városok betöltése sikertelen';
 	@override String get retry => 'Újra';
 	@override String get city_not_found => 'A város nem található';
+	@override String get air_quality => 'Levegőminőség';
+	@override String get aqi_standard => 'AQI szabvány';
+	@override String get aqi_european => 'Európai AQI';
+	@override String get aqi_american => 'Amerikai AQI';
+	@override String get aqi_good => 'Jó';
+	@override String get aqi_fair => 'Megfelelő';
+	@override String get aqi_moderate => 'Közepes';
+	@override String get aqi_poor => 'Rossz';
+	@override String get aqi_very_poor => 'Nagyon rossz';
+	@override String get aqi_extremely_poor => 'Rendkívül rossz';
+	@override String get aqi_unhealthy_sensitive => 'Káros az érzékenyeknek';
+	@override String get aqi_unhealthy => 'Káros';
+	@override String get aqi_very_unhealthy => 'Nagyon káros';
+	@override String get aqi_hazardous => 'Veszélyes';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Európai';
+	@override String get american => 'Amerikai';
+	@override String get aqi_advice_good => 'Jó levegő a szabadtéri tevékenységekhez.';
+	@override String get aqi_advice_fair => 'Általában rendben van. Érzékeny emberek korlátozhatják a hosszú szabadtéri terhelést.';
+	@override String get aqi_advice_moderate => 'Az érzékeny csoportoknak csökkenteniük kell a szabadban töltött időt.';
+	@override String get aqi_advice_poor => 'Korlátozza a szabadtéri tevékenységet, különösen ha érzékeny a légszennyezésre.';
+	@override String get aqi_advice_very_poor => 'Kerülje a hosszú szabadtéri terhelést. Mindenki érezhet egészségügyi hatásokat.';
+	@override String get aqi_advice_extremely_poor => 'Maradjon bent, ha lehetséges. A szabadtéri tevékenység nem ajánlott.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <hu-HU>.
@@ -359,6 +388,35 @@ extension on TranslationsHuHu {
 			'cities_load_error' => 'A városok betöltése sikertelen',
 			'retry' => 'Újra',
 			'city_not_found' => 'A város nem található',
+			'air_quality' => 'Levegőminőség',
+			'aqi_standard' => 'AQI szabvány',
+			'aqi_european' => 'Európai AQI',
+			'aqi_american' => 'Amerikai AQI',
+			'aqi_good' => 'Jó',
+			'aqi_fair' => 'Megfelelő',
+			'aqi_moderate' => 'Közepes',
+			'aqi_poor' => 'Rossz',
+			'aqi_very_poor' => 'Nagyon rossz',
+			'aqi_extremely_poor' => 'Rendkívül rossz',
+			'aqi_unhealthy_sensitive' => 'Káros az érzékenyeknek',
+			'aqi_unhealthy' => 'Káros',
+			'aqi_very_unhealthy' => 'Nagyon káros',
+			'aqi_hazardous' => 'Veszélyes',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Európai',
+			'american' => 'Amerikai',
+			'aqi_advice_good' => 'Jó levegő a szabadtéri tevékenységekhez.',
+			'aqi_advice_fair' => 'Általában rendben van. Érzékeny emberek korlátozhatják a hosszú szabadtéri terhelést.',
+			'aqi_advice_moderate' => 'Az érzékeny csoportoknak csökkenteniük kell a szabadban töltött időt.',
+			'aqi_advice_poor' => 'Korlátozza a szabadtéri tevékenységet, különösen ha érzékeny a légszennyezésre.',
+			'aqi_advice_very_poor' => 'Kerülje a hosszú szabadtéri terhelést. Mindenki érezhet egészségügyi hatásokat.',
+			'aqi_advice_extremely_poor' => 'Maradjon bent, ha lehetséges. A szabadtéri tevékenység nem ajánlott.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

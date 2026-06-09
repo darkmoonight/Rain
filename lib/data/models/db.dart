@@ -22,10 +22,14 @@ class Settings {
   String wind = 'kph';
   String pressure = 'hPa';
   String timeformat = '24';
+  String aqiStandard = 'european';
   String? language;
   int? timeRange;
   String? timeStart;
   String? timeEnd;
+
+  /// Incremented when forecast cache schema changes; triggers a re-save migration.
+  int weatherCacheVersion = 0;
 }
 
 /// Cached forecast for the primary home-screen location.
@@ -53,6 +57,17 @@ class MainWeatherCache {
   List<double?>? dewpoint2M;
   List<int?>? precipitationProbability;
   List<double?>? shortwaveRadiation;
+
+  // --- Air quality hourly fields ---
+
+  List<double?>? europeanAqi;
+  List<double?>? usAqi;
+  List<double?>? pm25;
+  List<double?>? pm10;
+  List<double?>? ozone;
+  List<double?>? co;
+  List<double?>? no2;
+  List<double?>? so2;
 
   // --- Daily fields ---
 
@@ -97,6 +112,14 @@ class MainWeatherCache {
     this.dewpoint2M,
     this.precipitationProbability,
     this.shortwaveRadiation,
+    this.europeanAqi,
+    this.usAqi,
+    this.pm25,
+    this.pm10,
+    this.ozone,
+    this.co,
+    this.no2,
+    this.so2,
     this.timeDaily,
     this.weathercodeDaily,
     this.temperature2MMax,
@@ -137,6 +160,14 @@ class MainWeatherCache {
     'dewpoint2M': dewpoint2M,
     'precipitationProbability': precipitationProbability,
     'shortwaveRadiation': shortwaveRadiation,
+    'europeanAqi': europeanAqi,
+    'usAqi': usAqi,
+    'pm25': pm25,
+    'pm10': pm10,
+    'ozone': ozone,
+    'co': co,
+    'no2': no2,
+    'so2': so2,
     'timeDaily': timeDaily,
     'weathercodeDaily': weathercodeDaily,
     'temperature2MMax': temperature2MMax,
@@ -205,6 +236,17 @@ class WeatherCard {
   List<int?>? precipitationProbability;
   List<double?>? shortwaveRadiation;
 
+  // --- Air quality hourly fields ---
+
+  List<double?>? europeanAqi;
+  List<double?>? usAqi;
+  List<double?>? pm25;
+  List<double?>? pm10;
+  List<double?>? ozone;
+  List<double?>? co;
+  List<double?>? no2;
+  List<double?>? so2;
+
   // --- Daily fields ---
 
   List<DateTime>? timeDaily;
@@ -253,6 +295,14 @@ class WeatherCard {
     this.dewpoint2M,
     this.precipitationProbability,
     this.shortwaveRadiation,
+    this.europeanAqi,
+    this.usAqi,
+    this.pm25,
+    this.pm10,
+    this.ozone,
+    this.co,
+    this.no2,
+    this.so2,
     this.timeDaily,
     this.weathercodeDaily,
     this.temperature2MMax,
@@ -298,6 +348,14 @@ class WeatherCard {
     'dewpoint2M': dewpoint2M,
     'precipitationProbability': precipitationProbability,
     'shortwaveRadiation': shortwaveRadiation,
+    'europeanAqi': europeanAqi,
+    'usAqi': usAqi,
+    'pm25': pm25,
+    'pm10': pm10,
+    'ozone': ozone,
+    'co': co,
+    'no2': no2,
+    'so2': so2,
     'timeDaily': timeDaily,
     'weathercodeDaily': weathercodeDaily,
     'temperature2MMax': temperature2MMax,
@@ -321,6 +379,75 @@ class WeatherCard {
     'district': district,
     'index': index,
   };
+
+  /// Builds a card from main weather cache fields, optionally with location metadata.
+  factory WeatherCard.fromMainWeatherCache(
+    MainWeatherCache cache, {
+    double? lat,
+    double? lon,
+    String? city,
+    String? district,
+  }) => WeatherCard(
+    time: cache.time,
+    weathercode: cache.weathercode,
+    temperature2M: cache.temperature2M,
+    apparentTemperature: cache.apparentTemperature,
+    relativehumidity2M: cache.relativehumidity2M,
+    precipitation: cache.precipitation,
+    rain: cache.rain,
+    surfacePressure: cache.surfacePressure,
+    visibility: cache.visibility,
+    evapotranspiration: cache.evapotranspiration,
+    windspeed10M: cache.windspeed10M,
+    winddirection10M: cache.winddirection10M,
+    windgusts10M: cache.windgusts10M,
+    cloudcover: cache.cloudcover,
+    uvIndex: cache.uvIndex,
+    dewpoint2M: cache.dewpoint2M,
+    precipitationProbability: cache.precipitationProbability,
+    shortwaveRadiation: cache.shortwaveRadiation,
+    europeanAqi: cache.europeanAqi,
+    usAqi: cache.usAqi,
+    pm25: cache.pm25,
+    pm10: cache.pm10,
+    ozone: cache.ozone,
+    co: cache.co,
+    no2: cache.no2,
+    so2: cache.so2,
+    timeDaily: cache.timeDaily,
+    weathercodeDaily: cache.weathercodeDaily,
+    temperature2MMax: cache.temperature2MMax,
+    temperature2MMin: cache.temperature2MMin,
+    apparentTemperatureMax: cache.apparentTemperatureMax,
+    apparentTemperatureMin: cache.apparentTemperatureMin,
+    sunrise: cache.sunrise,
+    sunset: cache.sunset,
+    precipitationSum: cache.precipitationSum,
+    precipitationProbabilityMax: cache.precipitationProbabilityMax,
+    windspeed10MMax: cache.windspeed10MMax,
+    windgusts10MMax: cache.windgusts10MMax,
+    uvIndexMax: cache.uvIndexMax,
+    rainSum: cache.rainSum,
+    winddirection10MDominant: cache.winddirection10MDominant,
+    timezone: cache.timezone,
+    timestamp: cache.timestamp,
+    lat: lat,
+    lon: lon,
+    city: city,
+    district: district,
+  );
+
+  /// Builds a card from main weather cache and location metadata.
+  factory WeatherCard.fromMainAndLocation(
+    MainWeatherCache cache,
+    LocationCache location,
+  ) => WeatherCard.fromMainWeatherCache(
+    cache,
+    lat: location.lat,
+    lon: location.lon,
+    city: location.city,
+    district: location.district,
+  );
 
   /// Deserializes a [WeatherCard] from a JSON map.
   factory WeatherCard.fromJson(Map<String, dynamic> json) {
@@ -347,6 +474,14 @@ class WeatherCard {
         json['precipitationProbability'] ?? [],
       ),
       shortwaveRadiation: List<double?>.from(json['shortwaveRadiation'] ?? []),
+      europeanAqi: List<double?>.from(json['europeanAqi'] ?? []),
+      usAqi: List<double?>.from(json['usAqi'] ?? []),
+      pm25: List<double?>.from(json['pm25'] ?? []),
+      pm10: List<double?>.from(json['pm10'] ?? []),
+      ozone: List<double?>.from(json['ozone'] ?? []),
+      co: List<double?>.from(json['co'] ?? []),
+      no2: List<double?>.from(json['no2'] ?? []),
+      so2: List<double?>.from(json['so2'] ?? []),
       timeDaily: List<DateTime>.from(json['timeDaily'] ?? []),
       weathercodeDaily: List<int?>.from(json['weathercodeDaily'] ?? []),
       temperature2MMax: List<double?>.from(json['temperature2MMax'] ?? []),

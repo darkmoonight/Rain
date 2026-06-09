@@ -9,6 +9,7 @@ import 'package:home_widget/home_widget.dart';
 import 'package:isar_community/isar.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
 import 'package:rain/core/database/isar_schemas.dart';
+import 'package:rain/core/database/weather_cache_migration.dart';
 import 'package:rain/core/config/app_config.dart';
 import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
@@ -62,7 +63,8 @@ class AppInitializer {
       settings,
       PlatformDispatcher.instance.locale,
     );
-    if (seeded) {
+    final migrated = await performWeatherCacheMigrationIfNeeded(isar, settings);
+    if (seeded && !migrated) {
       await isar.writeTxn(() => isar.settings.put(settings));
     }
 

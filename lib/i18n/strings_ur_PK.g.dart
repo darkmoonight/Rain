@@ -194,6 +194,35 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'شہر لوڈ نہیں ہو سکے';
 	@override String get retry => 'دوبارہ کوشش';
 	@override String get city_not_found => 'شہر نہیں ملا';
+	@override String get air_quality => 'ہوا کی کوالٹی';
+	@override String get aqi_standard => 'AQI معیار';
+	@override String get aqi_european => 'یورپی AQI';
+	@override String get aqi_american => 'امریکی AQI';
+	@override String get aqi_good => 'اچھا';
+	@override String get aqi_fair => 'ٹھیک';
+	@override String get aqi_moderate => 'درمیانہ';
+	@override String get aqi_poor => 'خراب';
+	@override String get aqi_very_poor => 'بہت خراب';
+	@override String get aqi_extremely_poor => 'انتہائی خراب';
+	@override String get aqi_unhealthy_sensitive => 'حساس افراد کے لیے نقصان دہ';
+	@override String get aqi_unhealthy => 'نقصان دہ';
+	@override String get aqi_very_unhealthy => 'بہت نقصان دہ';
+	@override String get aqi_hazardous => 'خطرناک';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'یورپی';
+	@override String get american => 'امریکی';
+	@override String get aqi_advice_good => 'بیرونی سرگرمیوں کے لیے اچھا ہوا۔';
+	@override String get aqi_advice_fair => 'مجموعی طور پر ٹھیک ہے۔ حساس افراد طویل بیرونی سرگرمی محدود کر سکتے ہیں۔';
+	@override String get aqi_advice_moderate => 'حساس گروہوں کو بیرون وقت کم کرنا چاہیے۔';
+	@override String get aqi_advice_poor => 'بیرونی سرگرمی محدود کریں، خاص طور پر اگر آپ آلودگی کے حساس ہیں۔';
+	@override String get aqi_advice_very_poor => 'طویل بیرونی سرگرمی سے بچیں۔ سب کو صحت پر اثر محسوس ہو سکتا ہے۔';
+	@override String get aqi_advice_extremely_poor => 'اگر ممکن ہو تو اندر رہیں۔ بیرونی سرگرمی کی سفارش نہیں کی جاتی۔';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <ur-PK>.
@@ -359,6 +388,35 @@ extension on TranslationsUrPk {
 			'cities_load_error' => 'شہر لوڈ نہیں ہو سکے',
 			'retry' => 'دوبارہ کوشش',
 			'city_not_found' => 'شہر نہیں ملا',
+			'air_quality' => 'ہوا کی کوالٹی',
+			'aqi_standard' => 'AQI معیار',
+			'aqi_european' => 'یورپی AQI',
+			'aqi_american' => 'امریکی AQI',
+			'aqi_good' => 'اچھا',
+			'aqi_fair' => 'ٹھیک',
+			'aqi_moderate' => 'درمیانہ',
+			'aqi_poor' => 'خراب',
+			'aqi_very_poor' => 'بہت خراب',
+			'aqi_extremely_poor' => 'انتہائی خراب',
+			'aqi_unhealthy_sensitive' => 'حساس افراد کے لیے نقصان دہ',
+			'aqi_unhealthy' => 'نقصان دہ',
+			'aqi_very_unhealthy' => 'بہت نقصان دہ',
+			'aqi_hazardous' => 'خطرناک',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'یورپی',
+			'american' => 'امریکی',
+			'aqi_advice_good' => 'بیرونی سرگرمیوں کے لیے اچھا ہوا۔',
+			'aqi_advice_fair' => 'مجموعی طور پر ٹھیک ہے۔ حساس افراد طویل بیرونی سرگرمی محدود کر سکتے ہیں۔',
+			'aqi_advice_moderate' => 'حساس گروہوں کو بیرون وقت کم کرنا چاہیے۔',
+			'aqi_advice_poor' => 'بیرونی سرگرمی محدود کریں، خاص طور پر اگر آپ آلودگی کے حساس ہیں۔',
+			'aqi_advice_very_poor' => 'طویل بیرونی سرگرمی سے بچیں۔ سب کو صحت پر اثر محسوس ہو سکتا ہے۔',
+			'aqi_advice_extremely_poor' => 'اگر ممکن ہو تو اندر رہیں۔ بیرونی سرگرمی کی سفارش نہیں کی جاتی۔',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

@@ -194,6 +194,35 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'ქალაქების ჩატვირთვა ვერ მოხერხდა';
 	@override String get retry => 'თავიდან';
 	@override String get city_not_found => 'ქალაქი ვერ მოიძებნა';
+	@override String get air_quality => 'ჰაერის ხარისხი';
+	@override String get aqi_standard => 'AQI სტანდარტი';
+	@override String get aqi_european => 'ევროპული AQI';
+	@override String get aqi_american => 'ამერიკული AQI';
+	@override String get aqi_good => 'კარგი';
+	@override String get aqi_fair => 'საშუალო';
+	@override String get aqi_moderate => 'საშუალო';
+	@override String get aqi_poor => 'ცუდი';
+	@override String get aqi_very_poor => 'ძალიან ცუდი';
+	@override String get aqi_extremely_poor => 'უკიდურესად ცუდი';
+	@override String get aqi_unhealthy_sensitive => 'მგრძნებიარეებისთვის უსაფრთხო არაა';
+	@override String get aqi_unhealthy => 'აუჯანსაღებელი';
+	@override String get aqi_very_unhealthy => 'ძალიან აუჯანსაღებელი';
+	@override String get aqi_hazardous => 'საშიში';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'ევროპული';
+	@override String get american => 'ამერიკული';
+	@override String get aqi_advice_good => 'კარგი ჰაერი გარე აქტივობებისთვის.';
+	@override String get aqi_advice_fair => 'საერთოდ კარგია. მგრძნობიარე ადამიანებმა შეიძლება შეზღუდონ ხანგრძლივი გარე დატვირთვა.';
+	@override String get aqi_advice_moderate => 'მგრძნობიარე ჯგუფებმა უნდა შეამცირონ გარეთ გატარებული დრო.';
+	@override String get aqi_advice_poor => 'შეზღუდეთ გარე აქტივობა, განსაკუთრებით თუ მგრძნობიარე ხართ დაბინძურებისადმი.';
+	@override String get aqi_advice_very_poor => 'თავიდან აიცილეთ ხანგრძლივი გარე დატვირთვა. ყველას შეიძლება ჯანმრთელობაზე გავლენა მოახდინოს.';
+	@override String get aqi_advice_extremely_poor => 'თუ შესაძლებელია, დარჩით შიგნით. გარე აქტივობა არ არის რეკომენდებული.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <ka-GE>.
@@ -359,6 +388,35 @@ extension on TranslationsKaGe {
 			'cities_load_error' => 'ქალაქების ჩატვირთვა ვერ მოხერხდა',
 			'retry' => 'თავიდან',
 			'city_not_found' => 'ქალაქი ვერ მოიძებნა',
+			'air_quality' => 'ჰაერის ხარისხი',
+			'aqi_standard' => 'AQI სტანდარტი',
+			'aqi_european' => 'ევროპული AQI',
+			'aqi_american' => 'ამერიკული AQI',
+			'aqi_good' => 'კარგი',
+			'aqi_fair' => 'საშუალო',
+			'aqi_moderate' => 'საშუალო',
+			'aqi_poor' => 'ცუდი',
+			'aqi_very_poor' => 'ძალიან ცუდი',
+			'aqi_extremely_poor' => 'უკიდურესად ცუდი',
+			'aqi_unhealthy_sensitive' => 'მგრძნებიარეებისთვის უსაფრთხო არაა',
+			'aqi_unhealthy' => 'აუჯანსაღებელი',
+			'aqi_very_unhealthy' => 'ძალიან აუჯანსაღებელი',
+			'aqi_hazardous' => 'საშიში',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'ევროპული',
+			'american' => 'ამერიკული',
+			'aqi_advice_good' => 'კარგი ჰაერი გარე აქტივობებისთვის.',
+			'aqi_advice_fair' => 'საერთოდ კარგია. მგრძნობიარე ადამიანებმა შეიძლება შეზღუდონ ხანგრძლივი გარე დატვირთვა.',
+			'aqi_advice_moderate' => 'მგრძნობიარე ჯგუფებმა უნდა შეამცირონ გარეთ გატარებული დრო.',
+			'aqi_advice_poor' => 'შეზღუდეთ გარე აქტივობა, განსაკუთრებით თუ მგრძნობიარე ხართ დაბინძურებისადმი.',
+			'aqi_advice_very_poor' => 'თავიდან აიცილეთ ხანგრძლივი გარე დატვირთვა. ყველას შეიძლება ჯანმრთელობაზე გავლენა მოახდინოს.',
+			'aqi_advice_extremely_poor' => 'თუ შესაძლებელია, დარჩით შიგნით. გარე აქტივობა არ არის რეკომენდებული.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

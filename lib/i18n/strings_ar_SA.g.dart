@@ -194,6 +194,35 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'تعذر تحميل المدن';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get city_not_found => 'المدينة غير موجودة';
+	@override String get air_quality => 'جودة الهواء';
+	@override String get aqi_standard => 'معيار AQI';
+	@override String get aqi_european => 'AQI أوروبي';
+	@override String get aqi_american => 'AQI أمريكي';
+	@override String get aqi_good => 'جيد';
+	@override String get aqi_fair => 'مقبول';
+	@override String get aqi_moderate => 'متوسط';
+	@override String get aqi_poor => 'سيء';
+	@override String get aqi_very_poor => 'سيء جداً';
+	@override String get aqi_extremely_poor => 'سيء للغاية';
+	@override String get aqi_unhealthy_sensitive => 'غير صحي للحساسين';
+	@override String get aqi_unhealthy => 'غير صحي';
+	@override String get aqi_very_unhealthy => 'غير صحي جداً';
+	@override String get aqi_hazardous => 'خطير';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'أوروبي';
+	@override String get american => 'أمريكي';
+	@override String get aqi_advice_good => 'هواء جيد للأنشطة في الهواء الطلق.';
+	@override String get aqi_advice_fair => 'بشكل عام جيد. قد يرغب الأشخاص الحساسون في تقليل الجهد الطويل في الخارج.';
+	@override String get aqi_advice_moderate => 'يجب على الفئات الحساسة تقليل الوقت في الهواء الطلق.';
+	@override String get aqi_advice_poor => 'قلل النشاط في الهواء الطلق، خاصة إذا كنت حساسًا للتلوث.';
+	@override String get aqi_advice_very_poor => 'تجنب الجهد الطويل في الهواء الطلق. قد يشعر الجميع بتأثيرات صحية.';
+	@override String get aqi_advice_extremely_poor => 'ابقَ في الداخل إن أمكن. لا يُنصح بالنشاط في الهواء الطلق.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <ar-SA>.
@@ -359,6 +388,35 @@ extension on TranslationsArSa {
 			'cities_load_error' => 'تعذر تحميل المدن',
 			'retry' => 'إعادة المحاولة',
 			'city_not_found' => 'المدينة غير موجودة',
+			'air_quality' => 'جودة الهواء',
+			'aqi_standard' => 'معيار AQI',
+			'aqi_european' => 'AQI أوروبي',
+			'aqi_american' => 'AQI أمريكي',
+			'aqi_good' => 'جيد',
+			'aqi_fair' => 'مقبول',
+			'aqi_moderate' => 'متوسط',
+			'aqi_poor' => 'سيء',
+			'aqi_very_poor' => 'سيء جداً',
+			'aqi_extremely_poor' => 'سيء للغاية',
+			'aqi_unhealthy_sensitive' => 'غير صحي للحساسين',
+			'aqi_unhealthy' => 'غير صحي',
+			'aqi_very_unhealthy' => 'غير صحي جداً',
+			'aqi_hazardous' => 'خطير',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'أوروبي',
+			'american' => 'أمريكي',
+			'aqi_advice_good' => 'هواء جيد للأنشطة في الهواء الطلق.',
+			'aqi_advice_fair' => 'بشكل عام جيد. قد يرغب الأشخاص الحساسون في تقليل الجهد الطويل في الخارج.',
+			'aqi_advice_moderate' => 'يجب على الفئات الحساسة تقليل الوقت في الهواء الطلق.',
+			'aqi_advice_poor' => 'قلل النشاط في الهواء الطلق، خاصة إذا كنت حساسًا للتلوث.',
+			'aqi_advice_very_poor' => 'تجنب الجهد الطويل في الهواء الطلق. قد يشعر الجميع بتأثيرات صحية.',
+			'aqi_advice_extremely_poor' => 'ابقَ في الداخل إن أمكن. لا يُنصح بالنشاط في الهواء الطلق.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

@@ -194,6 +194,35 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'טעינת הערים נכשלה';
 	@override String get retry => 'נסה שוב';
 	@override String get city_not_found => 'העיר לא נמצאה';
+	@override String get air_quality => 'איכות אוויר';
+	@override String get aqi_standard => 'תקן AQI';
+	@override String get aqi_european => 'AQI אירופי';
+	@override String get aqi_american => 'AQI אמריקאי';
+	@override String get aqi_good => 'טוב';
+	@override String get aqi_fair => 'סביר';
+	@override String get aqi_moderate => 'בינוני';
+	@override String get aqi_poor => 'גרוע';
+	@override String get aqi_very_poor => 'גרוע מאוד';
+	@override String get aqi_extremely_poor => 'גרוע ביותר';
+	@override String get aqi_unhealthy_sensitive => 'לא בריא לרגישים';
+	@override String get aqi_unhealthy => 'לא בריא';
+	@override String get aqi_very_unhealthy => 'לא בריא מאוד';
+	@override String get aqi_hazardous => 'מסוכן';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'אירופי';
+	@override String get american => 'אמריקאי';
+	@override String get aqi_advice_good => 'אוויר טוב לפעילות בחוץ.';
+	@override String get aqi_advice_fair => 'בסך הכל בסדר. אנשים רגישים עשויים להגביל מאמץ ממושך בחוץ.';
+	@override String get aqi_advice_moderate => 'קבוצות רגישות צריכות לצמצם זמן בחוץ.';
+	@override String get aqi_advice_poor => 'הגבילו פעילות בחוץ, במיוחד אם אתם רגישים לזיהום אוויר.';
+	@override String get aqi_advice_very_poor => 'הימנעו ממאמץ ממושך בחוץ. כולם עלולים להרגיש השפעות על הבריאות.';
+	@override String get aqi_advice_extremely_poor => 'הישארו בפנים אם אפשר. פעילות בחוץ אינה מומלצת.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <he-IL>.
@@ -359,6 +388,35 @@ extension on TranslationsHeIl {
 			'cities_load_error' => 'טעינת הערים נכשלה',
 			'retry' => 'נסה שוב',
 			'city_not_found' => 'העיר לא נמצאה',
+			'air_quality' => 'איכות אוויר',
+			'aqi_standard' => 'תקן AQI',
+			'aqi_european' => 'AQI אירופי',
+			'aqi_american' => 'AQI אמריקאי',
+			'aqi_good' => 'טוב',
+			'aqi_fair' => 'סביר',
+			'aqi_moderate' => 'בינוני',
+			'aqi_poor' => 'גרוע',
+			'aqi_very_poor' => 'גרוע מאוד',
+			'aqi_extremely_poor' => 'גרוע ביותר',
+			'aqi_unhealthy_sensitive' => 'לא בריא לרגישים',
+			'aqi_unhealthy' => 'לא בריא',
+			'aqi_very_unhealthy' => 'לא בריא מאוד',
+			'aqi_hazardous' => 'מסוכן',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'אירופי',
+			'american' => 'אמריקאי',
+			'aqi_advice_good' => 'אוויר טוב לפעילות בחוץ.',
+			'aqi_advice_fair' => 'בסך הכל בסדר. אנשים רגישים עשויים להגביל מאמץ ממושך בחוץ.',
+			'aqi_advice_moderate' => 'קבוצות רגישות צריכות לצמצם זמן בחוץ.',
+			'aqi_advice_poor' => 'הגבילו פעילות בחוץ, במיוחד אם אתם רגישים לזיהום אוויר.',
+			'aqi_advice_very_poor' => 'הימנעו ממאמץ ממושך בחוץ. כולם עלולים להרגיש השפעות על הבריאות.',
+			'aqi_advice_extremely_poor' => 'הישארו בפנים אם אפשר. פעילות בחוץ אינה מומלצת.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

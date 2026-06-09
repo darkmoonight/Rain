@@ -194,6 +194,35 @@ class TranslationsPtPt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Falha ao carregar cidades';
 	@override String get retry => 'Tentar novamente';
 	@override String get city_not_found => 'Cidade não encontrada';
+	@override String get air_quality => 'Qualidade do ar';
+	@override String get aqi_standard => 'Padrão AQI';
+	@override String get aqi_european => 'AQI europeu';
+	@override String get aqi_american => 'AQI americano';
+	@override String get aqi_good => 'Bom';
+	@override String get aqi_fair => 'Razoável';
+	@override String get aqi_moderate => 'Moderado';
+	@override String get aqi_poor => 'Mau';
+	@override String get aqi_very_poor => 'Muito mau';
+	@override String get aqi_extremely_poor => 'Extremamente mau';
+	@override String get aqi_unhealthy_sensitive => 'Prejudicial para grupos sensíveis';
+	@override String get aqi_unhealthy => 'Prejudicial';
+	@override String get aqi_very_unhealthy => 'Muito prejudicial';
+	@override String get aqi_hazardous => 'Perigoso';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Europeu';
+	@override String get american => 'Americano';
+	@override String get aqi_advice_good => 'Ótima qualidade do ar para atividades ao ar livre.';
+	@override String get aqi_advice_fair => 'Em geral está bem. Pessoas sensíveis podem limitar o esforço prolongado ao ar livre.';
+	@override String get aqi_advice_moderate => 'Grupos sensíveis devem reduzir o tempo ao ar livre.';
+	@override String get aqi_advice_poor => 'Limite atividades ao ar livre, especialmente se for sensível à poluição.';
+	@override String get aqi_advice_very_poor => 'Evite esforço prolongado ao ar livre. Todos podem sentir efeitos na saúde.';
+	@override String get aqi_advice_extremely_poor => 'Fique em casa se possível. Atividades ao ar livre não são recomendadas.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <pt-PT>.
@@ -359,6 +388,35 @@ extension on TranslationsPtPt {
 			'cities_load_error' => 'Falha ao carregar cidades',
 			'retry' => 'Tentar novamente',
 			'city_not_found' => 'Cidade não encontrada',
+			'air_quality' => 'Qualidade do ar',
+			'aqi_standard' => 'Padrão AQI',
+			'aqi_european' => 'AQI europeu',
+			'aqi_american' => 'AQI americano',
+			'aqi_good' => 'Bom',
+			'aqi_fair' => 'Razoável',
+			'aqi_moderate' => 'Moderado',
+			'aqi_poor' => 'Mau',
+			'aqi_very_poor' => 'Muito mau',
+			'aqi_extremely_poor' => 'Extremamente mau',
+			'aqi_unhealthy_sensitive' => 'Prejudicial para grupos sensíveis',
+			'aqi_unhealthy' => 'Prejudicial',
+			'aqi_very_unhealthy' => 'Muito prejudicial',
+			'aqi_hazardous' => 'Perigoso',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Europeu',
+			'american' => 'Americano',
+			'aqi_advice_good' => 'Ótima qualidade do ar para atividades ao ar livre.',
+			'aqi_advice_fair' => 'Em geral está bem. Pessoas sensíveis podem limitar o esforço prolongado ao ar livre.',
+			'aqi_advice_moderate' => 'Grupos sensíveis devem reduzir o tempo ao ar livre.',
+			'aqi_advice_poor' => 'Limite atividades ao ar livre, especialmente se for sensível à poluição.',
+			'aqi_advice_very_poor' => 'Evite esforço prolongado ao ar livre. Todos podem sentir efeitos na saúde.',
+			'aqi_advice_extremely_poor' => 'Fique em casa se possível. Atividades ao ar livre não são recomendadas.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

@@ -194,6 +194,35 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => '都市を読み込めませんでした';
 	@override String get retry => '再試行';
 	@override String get city_not_found => '都市が見つかりません';
+	@override String get air_quality => '大気質';
+	@override String get aqi_standard => 'AQI基準';
+	@override String get aqi_european => '欧州AQI';
+	@override String get aqi_american => '米国AQI';
+	@override String get aqi_good => '良好';
+	@override String get aqi_fair => '普通';
+	@override String get aqi_moderate => '中程度';
+	@override String get aqi_poor => '悪い';
+	@override String get aqi_very_poor => '非常に悪い';
+	@override String get aqi_extremely_poor => '極めて悪い';
+	@override String get aqi_unhealthy_sensitive => '敏感な人には不健康';
+	@override String get aqi_unhealthy => '不健康';
+	@override String get aqi_very_unhealthy => '非常に不健康';
+	@override String get aqi_hazardous => '危険';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => '欧州';
+	@override String get american => '米国';
+	@override String get aqi_advice_good => '屋外活動に適した空気です。';
+	@override String get aqi_advice_fair => '概ね問題ありません。敏感な方は長時間の屋外運動を控えてください。';
+	@override String get aqi_advice_moderate => '敏感な方は屋外での時間を減らすことをおすすめします。';
+	@override String get aqi_advice_poor => '特に敏感な方は屋外活動を控えめにしてください。';
+	@override String get aqi_advice_very_poor => '長時間の屋外運動は避けてください。健康への影響が出る可能性があります。';
+	@override String get aqi_advice_extremely_poor => '可能であれば屋内に留まってください。屋外活動はおすすめしません。';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <ja-JP>.
@@ -359,6 +388,35 @@ extension on TranslationsJaJp {
 			'cities_load_error' => '都市を読み込めませんでした',
 			'retry' => '再試行',
 			'city_not_found' => '都市が見つかりません',
+			'air_quality' => '大気質',
+			'aqi_standard' => 'AQI基準',
+			'aqi_european' => '欧州AQI',
+			'aqi_american' => '米国AQI',
+			'aqi_good' => '良好',
+			'aqi_fair' => '普通',
+			'aqi_moderate' => '中程度',
+			'aqi_poor' => '悪い',
+			'aqi_very_poor' => '非常に悪い',
+			'aqi_extremely_poor' => '極めて悪い',
+			'aqi_unhealthy_sensitive' => '敏感な人には不健康',
+			'aqi_unhealthy' => '不健康',
+			'aqi_very_unhealthy' => '非常に不健康',
+			'aqi_hazardous' => '危険',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => '欧州',
+			'american' => '米国',
+			'aqi_advice_good' => '屋外活動に適した空気です。',
+			'aqi_advice_fair' => '概ね問題ありません。敏感な方は長時間の屋外運動を控えてください。',
+			'aqi_advice_moderate' => '敏感な方は屋外での時間を減らすことをおすすめします。',
+			'aqi_advice_poor' => '特に敏感な方は屋外活動を控えめにしてください。',
+			'aqi_advice_very_poor' => '長時間の屋外運動は避けてください。健康への影響が出る可能性があります。',
+			'aqi_advice_extremely_poor' => '可能であれば屋内に留まってください。屋外活動はおすすめしません。',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

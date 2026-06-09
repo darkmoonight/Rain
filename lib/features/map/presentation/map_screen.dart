@@ -432,10 +432,10 @@ class _MapPageState extends ConsumerState<MapPage>
                   Consumer(
                     builder: (context, ref, _) {
                       final mainMarker = _buildMainLocationMarker(
-                        WeatherCard.fromJson({
-                          ...mainWeather.toJson(),
-                          ...mainLocation.toJson(),
-                        }),
+                        WeatherCard.fromMainAndLocation(
+                          mainWeather,
+                          mainLocation,
+                        ),
                         hourOfDay,
                         dayOfNow,
                         statusData: statusData,

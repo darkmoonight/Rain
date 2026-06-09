@@ -60,18 +60,12 @@ void main() {
 
   group('WeatherCardValidator.index repair', () {
     test('detects when indices are out of order', () {
-      final cards = [
-        _completeCard(index: 0),
-        _completeCard(index: 2),
-      ];
+      final cards = [_completeCard(index: 0), _completeCard(index: 2)];
       expect(WeatherCardValidator.needsIndexRepair(cards), isTrue);
     });
 
     test('repairs indices sequentially', () {
-      final cards = [
-        _completeCard(index: 5),
-        _completeCard(index: 1),
-      ];
+      final cards = [_completeCard(index: 5), _completeCard(index: 1)];
       WeatherCardValidator.applyRepairedIndices(cards);
       expect(cards.map((c) => c.index).toList(), [0, 1]);
     });
@@ -111,10 +105,7 @@ void main() {
 
   group('WeatherCardValidator.filterComplete', () {
     test('keeps only complete cards', () {
-      final cards = [
-        _completeCard(),
-        _completeCard()..city = null,
-      ];
+      final cards = [_completeCard(), _completeCard()..city = null];
 
       final complete = WeatherCardValidator.filterComplete(cards);
       expect(complete, hasLength(1));
@@ -123,10 +114,7 @@ void main() {
 
   group('WeatherCardValidator.needsIndexRepair', () {
     test('returns false when indices are sequential', () {
-      final cards = [
-        _completeCard(index: 0),
-        _completeCard(index: 1),
-      ];
+      final cards = [_completeCard(index: 0), _completeCard(index: 1)];
       expect(WeatherCardValidator.needsIndexRepair(cards), isFalse);
     });
   });

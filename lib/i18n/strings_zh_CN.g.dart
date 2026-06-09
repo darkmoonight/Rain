@@ -194,6 +194,35 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => '无法加载城市';
 	@override String get retry => '重试';
 	@override String get city_not_found => '未找到城市';
+	@override String get air_quality => '空气质量';
+	@override String get aqi_standard => 'AQI标准';
+	@override String get aqi_european => '欧洲AQI';
+	@override String get aqi_american => '美国AQI';
+	@override String get aqi_good => '优';
+	@override String get aqi_fair => '良';
+	@override String get aqi_moderate => '中等';
+	@override String get aqi_poor => '差';
+	@override String get aqi_very_poor => '很差';
+	@override String get aqi_extremely_poor => '极差';
+	@override String get aqi_unhealthy_sensitive => '对敏感人群不健康';
+	@override String get aqi_unhealthy => '不健康';
+	@override String get aqi_very_unhealthy => '非常不健康';
+	@override String get aqi_hazardous => '危险';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => '欧洲';
+	@override String get american => '美国';
+	@override String get aqi_advice_good => '空气质量良好，适合户外活动。';
+	@override String get aqi_advice_fair => '总体尚可。敏感人群可适当减少长时间户外运动。';
+	@override String get aqi_advice_moderate => '敏感人群应减少户外停留时间。';
+	@override String get aqi_advice_poor => '请限制户外活动，敏感人群尤需注意。';
+	@override String get aqi_advice_very_poor => '避免长时间户外运动，可能影响健康。';
+	@override String get aqi_advice_extremely_poor => '尽量待在室内，不建议户外活动。';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <zh-CN>.
@@ -359,6 +388,35 @@ extension on TranslationsZhCn {
 			'cities_load_error' => '无法加载城市',
 			'retry' => '重试',
 			'city_not_found' => '未找到城市',
+			'air_quality' => '空气质量',
+			'aqi_standard' => 'AQI标准',
+			'aqi_european' => '欧洲AQI',
+			'aqi_american' => '美国AQI',
+			'aqi_good' => '优',
+			'aqi_fair' => '良',
+			'aqi_moderate' => '中等',
+			'aqi_poor' => '差',
+			'aqi_very_poor' => '很差',
+			'aqi_extremely_poor' => '极差',
+			'aqi_unhealthy_sensitive' => '对敏感人群不健康',
+			'aqi_unhealthy' => '不健康',
+			'aqi_very_unhealthy' => '非常不健康',
+			'aqi_hazardous' => '危险',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => '欧洲',
+			'american' => '美国',
+			'aqi_advice_good' => '空气质量良好，适合户外活动。',
+			'aqi_advice_fair' => '总体尚可。敏感人群可适当减少长时间户外运动。',
+			'aqi_advice_moderate' => '敏感人群应减少户外停留时间。',
+			'aqi_advice_poor' => '请限制户外活动，敏感人群尤需注意。',
+			'aqi_advice_very_poor' => '避免长时间户外运动，可能影响健康。',
+			'aqi_advice_extremely_poor' => '尽量待在室内，不建议户外活动。',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

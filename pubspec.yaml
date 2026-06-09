@@ -3,7 +3,7 @@ description: Weather application
 
 publish_to: "none"
 
-version: 1.3.17+50
+version: 1.3.18+51
 
 environment:
   sdk: ">=3.12.0 <4.0.0"

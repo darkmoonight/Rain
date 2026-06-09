@@ -194,6 +194,35 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Städte konnten nicht geladen werden';
 	@override String get retry => 'Erneut versuchen';
 	@override String get city_not_found => 'Stadt nicht gefunden';
+	@override String get air_quality => 'Luftqualität';
+	@override String get aqi_standard => 'AQI-Standard';
+	@override String get aqi_european => 'Europäischer AQI';
+	@override String get aqi_american => 'US-AQI';
+	@override String get aqi_good => 'Gut';
+	@override String get aqi_fair => 'Mäßig';
+	@override String get aqi_moderate => 'Mittel';
+	@override String get aqi_poor => 'Schlecht';
+	@override String get aqi_very_poor => 'Sehr schlecht';
+	@override String get aqi_extremely_poor => 'Extrem schlecht';
+	@override String get aqi_unhealthy_sensitive => 'Ungesund für empfindliche Gruppen';
+	@override String get aqi_unhealthy => 'Ungesund';
+	@override String get aqi_very_unhealthy => 'Sehr ungesund';
+	@override String get aqi_hazardous => 'Gefährlich';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Europäisch';
+	@override String get american => 'Amerikanisch';
+	@override String get aqi_advice_good => 'Gute Luft für Aktivitäten im Freien.';
+	@override String get aqi_advice_fair => 'In der Regel in Ordnung. Empfindliche Personen sollten längere Anstrengung draußen einschränken.';
+	@override String get aqi_advice_moderate => 'Empfindliche Gruppen sollten die Zeit im Freien verkürzen.';
+	@override String get aqi_advice_poor => 'Aktivitäten im Freien einschränken, besonders bei erhöhter Empfindlichkeit.';
+	@override String get aqi_advice_very_poor => 'Längere Anstrengung im Freien vermeiden. Gesundheitliche Auswirkungen möglich.';
+	@override String get aqi_advice_extremely_poor => 'Wenn möglich drinnen bleiben. Aktivitäten im Freien nicht empfohlen.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <de-DE>.
@@ -359,6 +388,35 @@ extension on TranslationsDeDe {
 			'cities_load_error' => 'Städte konnten nicht geladen werden',
 			'retry' => 'Erneut versuchen',
 			'city_not_found' => 'Stadt nicht gefunden',
+			'air_quality' => 'Luftqualität',
+			'aqi_standard' => 'AQI-Standard',
+			'aqi_european' => 'Europäischer AQI',
+			'aqi_american' => 'US-AQI',
+			'aqi_good' => 'Gut',
+			'aqi_fair' => 'Mäßig',
+			'aqi_moderate' => 'Mittel',
+			'aqi_poor' => 'Schlecht',
+			'aqi_very_poor' => 'Sehr schlecht',
+			'aqi_extremely_poor' => 'Extrem schlecht',
+			'aqi_unhealthy_sensitive' => 'Ungesund für empfindliche Gruppen',
+			'aqi_unhealthy' => 'Ungesund',
+			'aqi_very_unhealthy' => 'Sehr ungesund',
+			'aqi_hazardous' => 'Gefährlich',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Europäisch',
+			'american' => 'Amerikanisch',
+			'aqi_advice_good' => 'Gute Luft für Aktivitäten im Freien.',
+			'aqi_advice_fair' => 'In der Regel in Ordnung. Empfindliche Personen sollten längere Anstrengung draußen einschränken.',
+			'aqi_advice_moderate' => 'Empfindliche Gruppen sollten die Zeit im Freien verkürzen.',
+			'aqi_advice_poor' => 'Aktivitäten im Freien einschränken, besonders bei erhöhter Empfindlichkeit.',
+			'aqi_advice_very_poor' => 'Längere Anstrengung im Freien vermeiden. Gesundheitliche Auswirkungen möglich.',
+			'aqi_advice_extremely_poor' => 'Wenn möglich drinnen bleiben. Aktivitäten im Freien nicht empfohlen.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

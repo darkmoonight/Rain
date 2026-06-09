@@ -5,10 +5,7 @@ void main() {
   group('rainWidgetRegistry', () {
     test('contains three unique widget definitions', () {
       expect(rainWidgetRegistry, hasLength(3));
-      expect(
-        rainWidgetRegistry.map((w) => w.id).toSet(),
-        hasLength(3),
-      );
+      expect(rainWidgetRegistry.map((w) => w.id).toSet(), hasLength(3));
     });
 
     test('every widget has a display label', () {

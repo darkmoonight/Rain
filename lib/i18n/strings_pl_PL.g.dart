@@ -194,6 +194,35 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Nie udało się wczytać miast';
 	@override String get retry => 'Ponów';
 	@override String get city_not_found => 'Nie znaleziono miasta';
+	@override String get air_quality => 'Jakość powietrza';
+	@override String get aqi_standard => 'Standard AQI';
+	@override String get aqi_european => 'Europejski AQI';
+	@override String get aqi_american => 'Amerykański AQI';
+	@override String get aqi_good => 'Dobry';
+	@override String get aqi_fair => 'Zadowalający';
+	@override String get aqi_moderate => 'Umiarkowany';
+	@override String get aqi_poor => 'Słaby';
+	@override String get aqi_very_poor => 'Bardzo słaby';
+	@override String get aqi_extremely_poor => 'Ekstremalnie słaby';
+	@override String get aqi_unhealthy_sensitive => 'Szkodliwy dla wrażliwych';
+	@override String get aqi_unhealthy => 'Szkodliwy';
+	@override String get aqi_very_unhealthy => 'Bardzo szkodliwy';
+	@override String get aqi_hazardous => 'Niebezpieczny';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'Europejski';
+	@override String get american => 'Amerykański';
+	@override String get aqi_advice_good => 'Dobre powietrze do aktywności na świeżym powietrzu.';
+	@override String get aqi_advice_fair => 'Ogólnie w porządku. Wrażliwe osoby mogą ograniczyć długi wysiłek na zewnątrz.';
+	@override String get aqi_advice_moderate => 'Grupy wrażliwe powinny skrócić czas spędzany na zewnątrz.';
+	@override String get aqi_advice_poor => 'Ogranicz aktywność na zewnątrz, zwłaszcza jeśli jesteś wrażliwy na zanieczyszczenia.';
+	@override String get aqi_advice_very_poor => 'Unikaj długiego wysiłku na zewnątrz. Możliwe skutki zdrowotne dla wszystkich.';
+	@override String get aqi_advice_extremely_poor => 'Zostań w domu, jeśli to możliwe. Aktywność na zewnątrz nie jest zalecana.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <pl-PL>.
@@ -359,6 +388,35 @@ extension on TranslationsPlPl {
 			'cities_load_error' => 'Nie udało się wczytać miast',
 			'retry' => 'Ponów',
 			'city_not_found' => 'Nie znaleziono miasta',
+			'air_quality' => 'Jakość powietrza',
+			'aqi_standard' => 'Standard AQI',
+			'aqi_european' => 'Europejski AQI',
+			'aqi_american' => 'Amerykański AQI',
+			'aqi_good' => 'Dobry',
+			'aqi_fair' => 'Zadowalający',
+			'aqi_moderate' => 'Umiarkowany',
+			'aqi_poor' => 'Słaby',
+			'aqi_very_poor' => 'Bardzo słaby',
+			'aqi_extremely_poor' => 'Ekstremalnie słaby',
+			'aqi_unhealthy_sensitive' => 'Szkodliwy dla wrażliwych',
+			'aqi_unhealthy' => 'Szkodliwy',
+			'aqi_very_unhealthy' => 'Bardzo szkodliwy',
+			'aqi_hazardous' => 'Niebezpieczny',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'Europejski',
+			'american' => 'Amerykański',
+			'aqi_advice_good' => 'Dobre powietrze do aktywności na świeżym powietrzu.',
+			'aqi_advice_fair' => 'Ogólnie w porządku. Wrażliwe osoby mogą ograniczyć długi wysiłek na zewnątrz.',
+			'aqi_advice_moderate' => 'Grupy wrażliwe powinny skrócić czas spędzany na zewnątrz.',
+			'aqi_advice_poor' => 'Ogranicz aktywność na zewnątrz, zwłaszcza jeśli jesteś wrażliwy na zanieczyszczenia.',
+			'aqi_advice_very_poor' => 'Unikaj długiego wysiłku na zewnątrz. Możliwe skutki zdrowotne dla wszystkich.',
+			'aqi_advice_extremely_poor' => 'Zostań w domu, jeśli to możliwe. Aktywność na zewnątrz nie jest zalecana.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

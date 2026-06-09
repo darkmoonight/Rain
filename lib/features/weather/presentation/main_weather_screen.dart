@@ -49,7 +49,7 @@ class MainWeatherScreen extends ConsumerWidget {
       return _emptyView(context);
     }
 
-    final weatherCard = WeatherCard.fromJson(mainWeather.toJson());
+    final weatherCard = WeatherCard.fromMainWeatherCache(mainWeather);
     final hourOfDay = state.hourOfDay.clamp(0, mainWeather.time!.length - 1);
     final dayOfNow = state.dayOfNow.clamp(0, mainWeather.timeDaily!.length - 1);
 
@@ -68,6 +68,7 @@ class MainWeatherScreen extends ConsumerWidget {
       weatherCard: weatherCard,
       hourIndex: hourOfDay,
       dayIndex: dayOfNow,
+      aqiStandard: ref.watch(settingsProvider).aqiStandard,
       itemScrollController: notifier.itemScrollController,
       onHourSelected: notifier.setHourAndDay,
       showDailyTap: () =>

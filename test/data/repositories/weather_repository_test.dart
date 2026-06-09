@@ -22,6 +22,7 @@ void main() {
       final weather = await repository.fetchWeather(55.75, 37.62);
       expect(weather.timezone, 'Europe/Moscow');
       expect(weather.temperature2M, isNotEmpty);
+      expect(weather.europeanAqi, isNotEmpty);
     });
 
     test('writeCache and readCache round-trip', () async {

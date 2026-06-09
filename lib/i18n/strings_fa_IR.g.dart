@@ -194,6 +194,35 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'بارگذاری شهرها ناموفق بود';
 	@override String get retry => 'تلاش مجدد';
 	@override String get city_not_found => 'شهر یافت نشد';
+	@override String get air_quality => 'کیفیت هوا';
+	@override String get aqi_standard => 'استاندارد AQI';
+	@override String get aqi_european => 'AQI اروپایی';
+	@override String get aqi_american => 'AQI آمریکایی';
+	@override String get aqi_good => 'خوب';
+	@override String get aqi_fair => 'قابل قبول';
+	@override String get aqi_moderate => 'متوسط';
+	@override String get aqi_poor => 'بد';
+	@override String get aqi_very_poor => 'خیلی بد';
+	@override String get aqi_extremely_poor => 'بسیار بد';
+	@override String get aqi_unhealthy_sensitive => 'مضر برای حساس‌ها';
+	@override String get aqi_unhealthy => 'مضر';
+	@override String get aqi_very_unhealthy => 'بسیار مضر';
+	@override String get aqi_hazardous => 'خطرناک';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'اروپایی';
+	@override String get american => 'آمریکایی';
+	@override String get aqi_advice_good => 'هوای مناسب برای فعالیت در فضای باز.';
+	@override String get aqi_advice_fair => 'به‌طور کلی خوب است. افراد حساس می‌توانند فعالیت طولانی در فضای باز را محدود کنند.';
+	@override String get aqi_advice_moderate => 'گروه‌های حساس باید زمان حضور در فضای باز را کاهش دهند.';
+	@override String get aqi_advice_poor => 'فعالیت در فضای باز را محدود کنید، به‌ویژه اگر به آلودگی حساس هستید.';
+	@override String get aqi_advice_very_poor => 'از فعالیت طولانی در فضای باز خودداری کنید. ممکن است همه تحت تأثیر سلامت قرار گیرند.';
+	@override String get aqi_advice_extremely_poor => 'در صورت امکان در خانه بمانید. فعالیت در فضای باز توصیه نمی‌شود.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <fa-IR>.
@@ -359,6 +388,35 @@ extension on TranslationsFaIr {
 			'cities_load_error' => 'بارگذاری شهرها ناموفق بود',
 			'retry' => 'تلاش مجدد',
 			'city_not_found' => 'شهر یافت نشد',
+			'air_quality' => 'کیفیت هوا',
+			'aqi_standard' => 'استاندارد AQI',
+			'aqi_european' => 'AQI اروپایی',
+			'aqi_american' => 'AQI آمریکایی',
+			'aqi_good' => 'خوب',
+			'aqi_fair' => 'قابل قبول',
+			'aqi_moderate' => 'متوسط',
+			'aqi_poor' => 'بد',
+			'aqi_very_poor' => 'خیلی بد',
+			'aqi_extremely_poor' => 'بسیار بد',
+			'aqi_unhealthy_sensitive' => 'مضر برای حساس‌ها',
+			'aqi_unhealthy' => 'مضر',
+			'aqi_very_unhealthy' => 'بسیار مضر',
+			'aqi_hazardous' => 'خطرناک',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'اروپایی',
+			'american' => 'آمریکایی',
+			'aqi_advice_good' => 'هوای مناسب برای فعالیت در فضای باز.',
+			'aqi_advice_fair' => 'به‌طور کلی خوب است. افراد حساس می‌توانند فعالیت طولانی در فضای باز را محدود کنند.',
+			'aqi_advice_moderate' => 'گروه‌های حساس باید زمان حضور در فضای باز را کاهش دهند.',
+			'aqi_advice_poor' => 'فعالیت در فضای باز را محدود کنید، به‌ویژه اگر به آلودگی حساس هستید.',
+			'aqi_advice_very_poor' => 'از فعالیت طولانی در فضای باز خودداری کنید. ممکن است همه تحت تأثیر سلامت قرار گیرند.',
+			'aqi_advice_extremely_poor' => 'در صورت امکان در خانه بمانید. فعالیت در فضای باز توصیه نمی‌شود.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

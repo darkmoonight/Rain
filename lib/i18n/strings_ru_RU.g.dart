@@ -194,6 +194,35 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'Не удалось загрузить города';
 	@override String get retry => 'Повторить';
 	@override String get city_not_found => 'Город не найден';
+	@override String get air_quality => 'Качество воздуха';
+	@override String get aqi_standard => 'Стандарт AQI';
+	@override String get aqi_european => 'Европейский AQI';
+	@override String get aqi_american => 'Американский AQI';
+	@override String get aqi_good => 'Хорошее';
+	@override String get aqi_fair => 'Удовлетворительное';
+	@override String get aqi_moderate => 'Умеренное';
+	@override String get aqi_poor => 'Плохое';
+	@override String get aqi_very_poor => 'Очень плохое';
+	@override String get aqi_extremely_poor => 'Крайне плохое';
+	@override String get aqi_unhealthy_sensitive => 'Вредно для чувствительных';
+	@override String get aqi_unhealthy => 'Вредное';
+	@override String get aqi_very_unhealthy => 'Очень вредное';
+	@override String get aqi_hazardous => 'Опасное';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Загрязнители';
+	@override String get european => 'Европейский';
+	@override String get american => 'Американский';
+	@override String get aqi_advice_good => 'Отличная погода для прогулок и активности на свежем воздухе.';
+	@override String get aqi_advice_fair => 'В целом нормально. Чувствительным людям стоит ограничить длительные нагрузки на улице.';
+	@override String get aqi_advice_moderate => 'Чувствительным группам следует сократить время на улице.';
+	@override String get aqi_advice_poor => 'Ограничьте активность на улице, особенно при повышенной чувствительности.';
+	@override String get aqi_advice_very_poor => 'Избегайте длительных нагрузок на улице. Возможны последствия для здоровья.';
+	@override String get aqi_advice_extremely_poor => 'По возможности оставайтесь дома. Прогулки на улице не рекомендуются.';
 }
 
 /// The flat map containing all translations for locale <ru-RU>.
@@ -359,6 +388,35 @@ extension on TranslationsRuRu {
 			'cities_load_error' => 'Не удалось загрузить города',
 			'retry' => 'Повторить',
 			'city_not_found' => 'Город не найден',
+			'air_quality' => 'Качество воздуха',
+			'aqi_standard' => 'Стандарт AQI',
+			'aqi_european' => 'Европейский AQI',
+			'aqi_american' => 'Американский AQI',
+			'aqi_good' => 'Хорошее',
+			'aqi_fair' => 'Удовлетворительное',
+			'aqi_moderate' => 'Умеренное',
+			'aqi_poor' => 'Плохое',
+			'aqi_very_poor' => 'Очень плохое',
+			'aqi_extremely_poor' => 'Крайне плохое',
+			'aqi_unhealthy_sensitive' => 'Вредно для чувствительных',
+			'aqi_unhealthy' => 'Вредное',
+			'aqi_very_unhealthy' => 'Очень вредное',
+			'aqi_hazardous' => 'Опасное',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Загрязнители',
+			'european' => 'Европейский',
+			'american' => 'Американский',
+			'aqi_advice_good' => 'Отличная погода для прогулок и активности на свежем воздухе.',
+			'aqi_advice_fair' => 'В целом нормально. Чувствительным людям стоит ограничить длительные нагрузки на улице.',
+			'aqi_advice_moderate' => 'Чувствительным группам следует сократить время на улице.',
+			'aqi_advice_poor' => 'Ограничьте активность на улице, особенно при повышенной чувствительности.',
+			'aqi_advice_very_poor' => 'Избегайте длительных нагрузок на улице. Возможны последствия для здоровья.',
+			'aqi_advice_extremely_poor' => 'По возможности оставайтесь дома. Прогулки на улице не рекомендуются.',
 			_ => null,
 		};
 	}

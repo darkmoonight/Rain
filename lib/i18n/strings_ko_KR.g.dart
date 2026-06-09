@@ -194,6 +194,35 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => '도시를 불러오지 못했습니다';
 	@override String get retry => '다시 시도';
 	@override String get city_not_found => '도시를 찾을 수 없습니다';
+	@override String get air_quality => '대기질';
+	@override String get aqi_standard => 'AQI 기준';
+	@override String get aqi_european => '유럽 AQI';
+	@override String get aqi_american => '미국 AQI';
+	@override String get aqi_good => '좋음';
+	@override String get aqi_fair => '보통';
+	@override String get aqi_moderate => '보통';
+	@override String get aqi_poor => '나쁨';
+	@override String get aqi_very_poor => '매우 나쁨';
+	@override String get aqi_extremely_poor => '극도로 나쁨';
+	@override String get aqi_unhealthy_sensitive => '민감군에게 나쁨';
+	@override String get aqi_unhealthy => '나쁨';
+	@override String get aqi_very_unhealthy => '매우 나쁨';
+	@override String get aqi_hazardous => '위험';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => '유럽';
+	@override String get american => '미국';
+	@override String get aqi_advice_good => '야외 활동하기 좋은 공기입니다.';
+	@override String get aqi_advice_fair => '대체로 괜찮습니다. 민감한 분은 장시간 야외 활동을 줄이세요.';
+	@override String get aqi_advice_moderate => '민감한 분들은 야외 체류 시간을 줄이는 것이 좋습니다.';
+	@override String get aqi_advice_poor => '특히 민감한 분은 야외 활동을 제한하세요.';
+	@override String get aqi_advice_very_poor => '장시간 야외 활동을 피하세요. 건강에 영향을 줄 수 있습니다.';
+	@override String get aqi_advice_extremely_poor => '가능하면 실내에 머무르세요. 야외 활동은 권장하지 않습니다.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <ko-KR>.
@@ -359,6 +388,35 @@ extension on TranslationsKoKr {
 			'cities_load_error' => '도시를 불러오지 못했습니다',
 			'retry' => '다시 시도',
 			'city_not_found' => '도시를 찾을 수 없습니다',
+			'air_quality' => '대기질',
+			'aqi_standard' => 'AQI 기준',
+			'aqi_european' => '유럽 AQI',
+			'aqi_american' => '미국 AQI',
+			'aqi_good' => '좋음',
+			'aqi_fair' => '보통',
+			'aqi_moderate' => '보통',
+			'aqi_poor' => '나쁨',
+			'aqi_very_poor' => '매우 나쁨',
+			'aqi_extremely_poor' => '극도로 나쁨',
+			'aqi_unhealthy_sensitive' => '민감군에게 나쁨',
+			'aqi_unhealthy' => '나쁨',
+			'aqi_very_unhealthy' => '매우 나쁨',
+			'aqi_hazardous' => '위험',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => '유럽',
+			'american' => '미국',
+			'aqi_advice_good' => '야외 활동하기 좋은 공기입니다.',
+			'aqi_advice_fair' => '대체로 괜찮습니다. 민감한 분은 장시간 야외 활동을 줄이세요.',
+			'aqi_advice_moderate' => '민감한 분들은 야외 체류 시간을 줄이는 것이 좋습니다.',
+			'aqi_advice_poor' => '특히 민감한 분은 야외 활동을 제한하세요.',
+			'aqi_advice_very_poor' => '장시간 야외 활동을 피하세요. 건강에 영향을 줄 수 있습니다.',
+			'aqi_advice_extremely_poor' => '가능하면 실내에 머무르세요. 야외 활동은 권장하지 않습니다.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}

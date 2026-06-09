@@ -194,6 +194,35 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cities_load_error => 'চহৰসমূহ ল\'ড কৰিব পৰা নগ\'ল';
 	@override String get retry => 'পুনৰ চেষ্টা';
 	@override String get city_not_found => 'চহৰ পোৱা নগ\'ল';
+	@override String get air_quality => 'Air quality';
+	@override String get aqi_standard => 'AQI standard';
+	@override String get aqi_european => 'European AQI';
+	@override String get aqi_american => 'US AQI';
+	@override String get aqi_good => 'Good';
+	@override String get aqi_fair => 'Fair';
+	@override String get aqi_moderate => 'Moderate';
+	@override String get aqi_poor => 'Poor';
+	@override String get aqi_very_poor => 'Very poor';
+	@override String get aqi_extremely_poor => 'Extremely poor';
+	@override String get aqi_unhealthy_sensitive => 'Unhealthy for sensitive groups';
+	@override String get aqi_unhealthy => 'Unhealthy';
+	@override String get aqi_very_unhealthy => 'Very unhealthy';
+	@override String get aqi_hazardous => 'Hazardous';
+	@override String get pm25 => 'PM2.5';
+	@override String get pm10 => 'PM10';
+	@override String get ozone => 'O₃';
+	@override String get european => 'European';
+	@override String get american => 'American';
+	@override String get aqi_advice_good => 'Great air for outdoor activities.';
+	@override String get aqi_advice_fair => 'Generally fine. Sensitive people may want to limit long outdoor exertion.';
+	@override String get aqi_advice_moderate => 'Sensitive groups should reduce prolonged time outdoors.';
+	@override String get aqi_advice_poor => 'Limit outdoor activity, especially if you are sensitive to air pollution.';
+	@override String get aqi_advice_very_poor => 'Avoid prolonged outdoor exertion. Everyone may feel health effects.';
+	@override String get aqi_advice_extremely_poor => 'Stay indoors if possible. Outdoor activity is not recommended.';
+	@override String get co => 'CO';
+	@override String get no2 => 'NO₂';
+	@override String get so2 => 'SO₂';
+	@override String get pollutants => 'Pollutants';
 }
 
 /// The flat map containing all translations for locale <as-IN>.
@@ -359,6 +388,35 @@ extension on TranslationsAsIn {
 			'cities_load_error' => 'চহৰসমূহ ল\'ড কৰিব পৰা নগ\'ল',
 			'retry' => 'পুনৰ চেষ্টা',
 			'city_not_found' => 'চহৰ পোৱা নগ\'ল',
+			'air_quality' => 'Air quality',
+			'aqi_standard' => 'AQI standard',
+			'aqi_european' => 'European AQI',
+			'aqi_american' => 'US AQI',
+			'aqi_good' => 'Good',
+			'aqi_fair' => 'Fair',
+			'aqi_moderate' => 'Moderate',
+			'aqi_poor' => 'Poor',
+			'aqi_very_poor' => 'Very poor',
+			'aqi_extremely_poor' => 'Extremely poor',
+			'aqi_unhealthy_sensitive' => 'Unhealthy for sensitive groups',
+			'aqi_unhealthy' => 'Unhealthy',
+			'aqi_very_unhealthy' => 'Very unhealthy',
+			'aqi_hazardous' => 'Hazardous',
+			'pm25' => 'PM2.5',
+			'pm10' => 'PM10',
+			'ozone' => 'O₃',
+			'european' => 'European',
+			'american' => 'American',
+			'aqi_advice_good' => 'Great air for outdoor activities.',
+			'aqi_advice_fair' => 'Generally fine. Sensitive people may want to limit long outdoor exertion.',
+			'aqi_advice_moderate' => 'Sensitive groups should reduce prolonged time outdoors.',
+			'aqi_advice_poor' => 'Limit outdoor activity, especially if you are sensitive to air pollution.',
+			'aqi_advice_very_poor' => 'Avoid prolonged outdoor exertion. Everyone may feel health effects.',
+			'aqi_advice_extremely_poor' => 'Stay indoors if possible. Outdoor activity is not recommended.',
+			'co' => 'CO',
+			'no2' => 'NO₂',
+			'so2' => 'SO₂',
+			'pollutants' => 'Pollutants',
 			_ => null,
 		};
 	}
