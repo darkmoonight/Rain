@@ -23,9 +23,7 @@ void main() {
     });
 
     test('mergeIntoWeatherCard aligns by time', () {
-      final card = WeatherCard(
-        time: ['2026-06-05T12:00', '2026-06-05T13:00'],
-      );
+      final card = WeatherCard(time: ['2026-06-05T12:00', '2026-06-05T13:00']);
       final data = AirQualityDataApi.fromJson(sampleAirQualityJson());
 
       AirQualityMapper.merge(card, data);

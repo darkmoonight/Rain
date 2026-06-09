@@ -6,9 +6,8 @@ part 'air_quality_api.g.dart';
 /// Root air quality payload from the Open-Meteo Air Quality API.
 @freezed
 abstract class AirQualityDataApi with _$AirQualityDataApi {
-  const factory AirQualityDataApi({
-    required AirQualityHourly hourly,
-  }) = _AirQualityDataApi;
+  const factory AirQualityDataApi({required AirQualityHourly hourly}) =
+      _AirQualityDataApi;
 
   factory AirQualityDataApi.fromJson(Map<String, dynamic> json) =>
       _$AirQualityDataApiFromJson(json);

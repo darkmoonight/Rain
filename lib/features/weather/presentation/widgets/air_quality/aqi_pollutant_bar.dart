@@ -27,7 +27,9 @@ class AqiPollutantBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final valueStyle = labelStyle?.copyWith(fontWeight: FontWeight.w600);
     final theme = Theme.of(context);
-    final trackColor = theme.colorScheme.onSurface.withValues(alpha: _trackAlpha);
+    final trackColor = theme.colorScheme.onSurface.withValues(
+      alpha: _trackAlpha,
+    );
     final fraction = AqiHelper.pollutantBarFraction(pollutantKey, value);
     final barColor = AqiHelper.pollutantColor(pollutantKey, value);
 

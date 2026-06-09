@@ -22,8 +22,10 @@ class AqiScaleBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final markerColor = AqiHelper.severityColor(standard, currentAqi);
-    final markerFraction =
-        (currentAqi / AqiHelper.scaleMax(standard)).clamp(0.0, 1.0);
+    final markerFraction = (currentAqi / AqiHelper.scaleMax(standard)).clamp(
+      0.0,
+      1.0,
+    );
     final onSurface = Theme.of(context).colorScheme.onSurface;
 
     return SizedBox(

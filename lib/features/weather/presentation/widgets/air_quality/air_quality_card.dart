@@ -179,10 +179,8 @@ class AirQualityCard extends StatelessWidget {
     ThemeData theme,
     TextStyle? base, {
     required double height,
-  }) => base?.copyWith(
-    color: theme.colorScheme.onSurfaceVariant,
-    height: height,
-  );
+  }) =>
+      base?.copyWith(color: theme.colorScheme.onSurfaceVariant, height: height);
 }
 
 /// Pill showing the localized AQI severity level.

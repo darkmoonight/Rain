@@ -22,14 +22,7 @@ class AqiHelper {
   static const int _pollutantBarCapBand = 3;
 
   /// Pollutants shown in the summary card, in display order.
-  static const pollutantKeys = [
-    'pm25',
-    'pm10',
-    'ozone',
-    'no2',
-    'so2',
-    'co',
-  ];
+  static const pollutantKeys = ['pm25', 'pm10', 'ozone', 'no2', 'so2', 'co'];
 
   static const _euColors = [
     Color(0xFF5DB88A),
@@ -149,7 +142,11 @@ class AqiHelper {
   }
 
   /// Reads a pollutant concentration from [card] at [index].
-  static double? pollutantValue(WeatherCard card, int index, String pollutantKey) {
+  static double? pollutantValue(
+    WeatherCard card,
+    int index,
+    String pollutantKey,
+  ) {
     final values = switch (pollutantKey) {
       'pm25' => card.pm25,
       'pm10' => card.pm10,
@@ -180,7 +177,8 @@ class AqiHelper {
       _aqiColors(standard).sublist(0, scaleBandCount);
 
   /// Maximum value shown on the scale bar.
-  static double scaleMax(String standard) => _isAmerican(standard) ? 300.0 : 100.0;
+  static double scaleMax(String standard) =>
+      _isAmerican(standard) ? 300.0 : 100.0;
 
   /// Localized name of the active AQI standard.
   static String standardLabel(String standard) =>
@@ -189,8 +187,9 @@ class AqiHelper {
   /// Formats a pollutant concentration for display, or an em dash when missing.
   static String formatConcentration(double? value) {
     if (value == null) return '—';
-    final rounded =
-        value < 10 ? value.toStringAsFixed(1) : value.round().toString();
+    final rounded = value < 10
+        ? value.toStringAsFixed(1)
+        : value.round().toString();
     return '$rounded µg/m³';
   }
 
@@ -198,8 +197,6 @@ class AqiHelper {
   static bool hasData(WeatherCard card, int index, String standard) {
     if (index < 0) return false;
     final values = _isAmerican(standard) ? card.usAqi : card.europeanAqi;
-    return values != null &&
-        index < values.length &&
-        values[index] != null;
+    return values != null && index < values.length && values[index] != null;
   }
 }

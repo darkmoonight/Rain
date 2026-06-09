@@ -19,7 +19,11 @@ class AirQualityRemoteDatasource {
       final response = await _dio.get('$_baseUrl&latitude=$lat&longitude=$lon');
       return AirQualityDataApi.fromJson(response.data);
     } on DioException catch (e, stackTrace) {
-      debugLogError('AirQualityRemoteDatasource.fetchAirQuality', e, stackTrace);
+      debugLogError(
+        'AirQualityRemoteDatasource.fetchAirQuality',
+        e,
+        stackTrace,
+      );
       return null;
     }
   }

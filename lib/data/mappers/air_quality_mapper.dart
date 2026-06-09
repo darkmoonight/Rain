@@ -12,7 +12,9 @@ class AirQualityMapper {
     List<T?>? source,
   ) {
     if (weatherTimes == null || aqTimes == null || source == null) return null;
-    final indexByTime = {for (var i = 0; i < aqTimes.length; i++) aqTimes[i]: i};
+    final indexByTime = {
+      for (var i = 0; i < aqTimes.length; i++) aqTimes[i]: i,
+    };
     return List<T?>.generate(weatherTimes.length, (i) {
       final aqIndex = indexByTime[weatherTimes[i]];
       return aqIndex == null ? null : source[aqIndex];

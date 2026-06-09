@@ -17,7 +17,7 @@ class WeatherRemoteDatasource {
     Dio? dioLocation,
     AirQualityRemoteDatasource? airQuality,
   }) : _dio = dio ?? Dio()
-           ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?',
+         ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?',
        _dioLocation = dioLocation ?? dio ?? Dio(),
        _airQuality = airQuality ?? AirQualityRemoteDatasource(dio: dio);
 
