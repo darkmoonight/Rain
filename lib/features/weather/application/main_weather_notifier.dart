@@ -13,8 +13,8 @@ import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/weather/weather_cache_validator.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/core/services/widget_background_service.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:workmanager/workmanager.dart';
 
 /// Immutable state for the main weather tab and its cached location.
 class MainWeatherState {
@@ -222,12 +222,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       cached.weather!.timezone!,
     );
     if (Platform.isAndroid) {
-      Workmanager().registerPeriodicTask(
-        'widgetUpdate',
-        'widgetBackgroundUpdate',
-        frequency: const Duration(minutes: 15),
-        existingWorkPolicy: ExistingPeriodicWorkPolicy.update,
-      );
+      registerWidgetBackgroundTask();
     }
     state = state.copyWith(
       isLoading: false,

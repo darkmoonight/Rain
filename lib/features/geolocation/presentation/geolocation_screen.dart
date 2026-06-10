@@ -35,6 +35,7 @@ class SelectGeolocation extends ConsumerStatefulWidget {
 /// Form, map, and search UI for selecting or editing the primary location.
 class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   bool isLoading = false;
+  bool _isSubmitting = false;
   final formKeySearch = GlobalKey<FormState>();
   final _focusNode = FocusNode();
 
@@ -317,7 +318,11 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   /// Builds the submit [MyTextButton] that saves the selected location.
   Widget _buildSubmitButton() => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-    child: MyTextButton(text: 'done'.tr, onPressed: _handleSubmit),
+    child: MyTextButton(
+      text: 'done'.tr,
+      isLoading: _isSubmitting,
+      onPressed: _handleSubmit,
+    ),
   );
 
   /// Validates that [value] is a latitude between -90 and 90.
@@ -360,32 +365,36 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
 
   /// Validates the form and persists the chosen location as primary weather.
   Future<void> _handleSubmit() async {
-    if (formKeySearch.currentState!.validate()) {
-      textTrim(_controllerLat);
-      textTrim(_controllerLon);
-      textTrim(_controllerCity);
-      textTrim(_controllerDistrict);
-      try {
-        await ref.read(mainWeatherNotifierProvider.notifier).deleteAll(true);
-        await ref
-            .read(mainWeatherNotifierProvider.notifier)
-            .getLocation(
-              double.parse(_controllerLat.text),
-              double.parse(_controllerLon.text),
-              _controllerDistrict.text,
-              _controllerCity.text,
-            );
-        if (!mounted) return;
-        if (widget.isStart) {
-          context.go(AppRoutes.home);
-        } else {
-          NavigationHelper.back(context);
-        }
-      } catch (error) {
-        if (mounted) {
-          showSnackBar('error_occurred'.tr, isError: true);
-        }
+    if (_isSubmitting) return;
+    if (!formKeySearch.currentState!.validate()) return;
+
+    textTrim(_controllerLat);
+    textTrim(_controllerLon);
+    textTrim(_controllerCity);
+    textTrim(_controllerDistrict);
+    setState(() => _isSubmitting = true);
+    try {
+      await ref.read(mainWeatherNotifierProvider.notifier).deleteAll(true);
+      await ref
+          .read(mainWeatherNotifierProvider.notifier)
+          .getLocation(
+            double.parse(_controllerLat.text),
+            double.parse(_controllerLon.text),
+            _controllerDistrict.text,
+            _controllerCity.text,
+          );
+      if (!mounted) return;
+      if (widget.isStart) {
+        context.go(AppRoutes.home);
+      } else {
+        NavigationHelper.back(context);
       }
+    } catch (error) {
+      if (mounted) {
+        showSnackBar('error_occurred'.tr, isError: true);
+      }
+    } finally {
+      if (mounted) setState(() => _isSubmitting = false);
     }
   }
 

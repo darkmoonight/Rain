@@ -222,7 +222,7 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get co => 'CO';
 	@override String get no2 => 'NO₂';
 	@override String get so2 => 'SO₂';
-	@override String get pollutants => 'Pollutants';
+	@override String get pollutants => 'آلاینده‌ها';
 }
 
 /// The flat map containing all translations for locale <fa-IR>.
@@ -416,7 +416,7 @@ extension on TranslationsFaIr {
 			'co' => 'CO',
 			'no2' => 'NO₂',
 			'so2' => 'SO₂',
-			'pollutants' => 'Pollutants',
+			'pollutants' => 'آلاینده‌ها',
 			_ => null,
 		};
 	}

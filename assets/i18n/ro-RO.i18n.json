@@ -171,8 +171,8 @@
   "pm25": "PM2.5",
   "pm10": "PM10",
   "ozone": "O₃",
-  "european": "European",
-  "american": "American",
+  "european": "Europeană",
+  "american": "Americană",
   "aqiAdviceGood": "Aer bun pentru activități în aer liber.",
   "aqiAdviceFair": "În general e în regulă. Persoanele sensibile pot limita efortul prelungit afară.",
   "aqiAdviceModerate": "Grupurile sensibile ar trebui să reducă timpul petrecut afară.",
@@ -182,5 +182,5 @@
   "co": "CO",
   "no2": "NO₂",
   "so2": "SO₂",
-  "pollutants": "Pollutants"
+  "pollutants": "Poluanți"
 }

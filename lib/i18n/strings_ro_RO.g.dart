@@ -211,8 +211,8 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get pm25 => 'PM2.5';
 	@override String get pm10 => 'PM10';
 	@override String get ozone => 'O₃';
-	@override String get european => 'European';
-	@override String get american => 'American';
+	@override String get european => 'Europeană';
+	@override String get american => 'Americană';
 	@override String get aqi_advice_good => 'Aer bun pentru activități în aer liber.';
 	@override String get aqi_advice_fair => 'În general e în regulă. Persoanele sensibile pot limita efortul prelungit afară.';
 	@override String get aqi_advice_moderate => 'Grupurile sensibile ar trebui să reducă timpul petrecut afară.';
@@ -222,7 +222,7 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get co => 'CO';
 	@override String get no2 => 'NO₂';
 	@override String get so2 => 'SO₂';
-	@override String get pollutants => 'Pollutants';
+	@override String get pollutants => 'Poluanți';
 }
 
 /// The flat map containing all translations for locale <ro-RO>.
@@ -405,8 +405,8 @@ extension on TranslationsRoRo {
 			'pm25' => 'PM2.5',
 			'pm10' => 'PM10',
 			'ozone' => 'O₃',
-			'european' => 'European',
-			'american' => 'American',
+			'european' => 'Europeană',
+			'american' => 'Americană',
 			'aqi_advice_good' => 'Aer bun pentru activități în aer liber.',
 			'aqi_advice_fair' => 'În general e în regulă. Persoanele sensibile pot limita efortul prelungit afară.',
 			'aqi_advice_moderate' => 'Grupurile sensibile ar trebui să reducă timpul petrecut afară.',
@@ -416,7 +416,7 @@ extension on TranslationsRoRo {
 			'co' => 'CO',
 			'no2' => 'NO₂',
 			'so2' => 'SO₂',
-			'pollutants' => 'Pollutants',
+			'pollutants' => 'Poluanți',
 			_ => null,
 		};
 	}

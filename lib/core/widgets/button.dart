@@ -10,6 +10,7 @@ class MyTextButton extends StatelessWidget {
     this.height,
     this.icon,
     this.isOutlined = false,
+    this.isLoading = false,
   });
 
   final String text;
@@ -17,6 +18,7 @@ class MyTextButton extends StatelessWidget {
   final double? height;
   final IconData? icon;
   final bool isOutlined;
+  final bool isLoading;
 
   /// Builds a filled or outlined full-width button based on [isOutlined].
   @override
@@ -86,7 +88,7 @@ class MyTextButton extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
         ),
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed,
         child: _buildButtonContent(context),
       ),
     );
@@ -136,14 +138,29 @@ class MyTextButton extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
         ),
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed,
         child: _buildButtonContent(context),
       ),
     );
   }
 
-  /// Builds the label row, optionally prefixed with [icon].
+  /// Builds the label row, optionally prefixed with [icon] or a loading spinner.
   Widget _buildButtonContent(BuildContext context) {
+    if (isLoading) {
+      return SizedBox(
+        width: 20,
+        height: 20,
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          valueColor: AlwaysStoppedAnimation<Color>(
+            isOutlined
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+        ),
+      );
+    }
+
     if (icon != null) {
       return Row(
         mainAxisSize: MainAxisSize.min,

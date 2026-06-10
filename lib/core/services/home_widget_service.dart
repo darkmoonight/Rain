@@ -1,17 +1,14 @@
 import 'dart:convert';
 
-import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:isar_community/isar.dart';
 import 'package:rain/core/config/widget_registry.dart';
-import 'package:rain/core/database/isar_schemas.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
+import 'package:rain/core/services/widget_background_service.dart';
 import 'package:rain/core/weather/unit_converter.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 /// Pushes current weather and styling into native home screen widgets.
 class HomeWidgetService {
@@ -125,21 +122,8 @@ class HomeWidgetService {
     };
   }
 
-  /// Background entry point: opens Isar on disk and refreshes widgets.
-  static Future<bool> updateFromDisk() async {
-    Isar? isar;
-    try {
-      final timeZoneName = await FlutterTimezone.getLocalTimezone();
-      tz.initializeTimeZones();
-      tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
-
-      isar = await openRainIsar();
-
-      return HomeWidgetService(AssetCacheService()).updateFromIsar(isar);
-    } catch (_) {
-      return false;
-    } finally {
-      await isar?.close();
-    }
-  }
+  /// Background entry point: refreshes stale cache and updates widgets from disk.
+  static Future<bool> updateFromDisk() => runWidgetBackgroundRefresh(
+    (isar) => HomeWidgetService(AssetCacheService()).updateFromIsar(isar),
+  );
 }

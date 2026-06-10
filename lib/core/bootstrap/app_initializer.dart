@@ -15,6 +15,7 @@ import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
 import 'package:rain/core/services/connectivity_service.dart';
 import 'package:rain/core/services/home_widget_service.dart';
+import 'package:rain/core/services/widget_background_service.dart';
 import 'package:rain/core/utils/device_info.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -35,6 +36,7 @@ class AppInitializer {
     if (Platform.isAndroid) {
       await _setOptimalDisplayMode();
       Workmanager().initialize(callbackDispatcher);
+      registerWidgetBackgroundTask();
       Future.microtask(HomeWidgetService.updateFromDisk);
     }
     if (Platform.isIOS) {
