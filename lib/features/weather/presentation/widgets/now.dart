@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/core/weather/status_data.dart';
-import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/status_weather.dart';
 
@@ -133,16 +132,14 @@ class Now extends ConsumerWidget {
     );
   }
 
-  /// Formats and displays the localized date and time for [time].
+  /// Shows the date for the selected forecast hour slot.
   Widget _buildDateText(BuildContext context, WidgetRef ref) {
-    final settings = ref.watch(settingsProvider);
     final locale = ref.watch(localeProvider);
-    final parsed = DateTime.tryParse(time);
-    if (parsed == null) return const SizedBox.shrink();
-    final formatted =
-        '${DateFormat.yMMMEd(locale.languageCode).format(parsed)}, '
-        '${TimeIndexHelper.formatDateTime(parsed, settings, locale.languageCode)}';
-    return Text(formatted, style: Theme.of(context).textTheme.titleMedium);
+    final date = TimeIndexHelper.parseForecastDate(time);
+    return Text(
+      TimeIndexHelper.formatCalendarDate(date, locale.languageCode),
+      style: Theme.of(context).textTheme.titleMedium,
+    );
   }
 
   /// Displays the feels-like temperature using [statusData].

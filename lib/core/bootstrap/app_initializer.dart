@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:display_mode/display_mode.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:rain/core/bootstrap/timezone_bootstrap.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:isar_community/isar.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
@@ -18,8 +18,6 @@ import 'package:rain/core/services/home_widget_service.dart';
 import 'package:rain/core/services/widget_background_service.dart';
 import 'package:rain/core/utils/device_info.dart';
 import 'package:rain/data/models/db.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -30,7 +28,7 @@ class AppInitializer {
   /// Runs all bootstrap steps and returns the loaded [AppBootstrap].
   static Future<AppBootstrap> initialize() async {
     ConnectivityService.setup();
-    await _initializeTimeZone();
+    await initializeAppTimeZone();
     final bootstrap = await _initializeIsar();
     await _initializeNotifications();
     if (Platform.isAndroid) {
@@ -44,13 +42,6 @@ class AppInitializer {
     }
     await DeviceFeature().init();
     return bootstrap;
-  }
-
-  /// Loads the device timezone into the timezone package.
-  static Future<void> _initializeTimeZone() async {
-    final timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
   }
 
   /// Opens Isar, seeds default settings, and applies the stored locale.

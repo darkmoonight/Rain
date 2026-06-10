@@ -11,6 +11,7 @@ _WeatherDataApi _$WeatherDataApiFromJson(Map<String, dynamic> json) =>
       hourly: Hourly.fromJson(json['hourly'] as Map<String, dynamic>),
       daily: Daily.fromJson(json['daily'] as Map<String, dynamic>),
       timezone: json['timezone'] as String,
+      utcOffsetSeconds: (json['utc_offset_seconds'] as num).toInt(),
     );
 
 Map<String, dynamic> _$WeatherDataApiToJson(_WeatherDataApi instance) =>
@@ -18,6 +19,7 @@ Map<String, dynamic> _$WeatherDataApiToJson(_WeatherDataApi instance) =>
       'hourly': instance.hourly,
       'daily': instance.daily,
       'timezone': instance.timezone,
+      'utc_offset_seconds': instance.utcOffsetSeconds,
     };
 
 _Hourly _$HourlyFromJson(Map<String, dynamic> json) => _Hourly(

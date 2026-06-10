@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WeatherDataApi {
 
- Hourly get hourly; Daily get daily; String get timezone;
+ Hourly get hourly; Daily get daily; String get timezone;@JsonKey(name: 'utc_offset_seconds') int get utcOffsetSeconds;
 /// Create a copy of WeatherDataApi
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $WeatherDataApiCopyWith<WeatherDataApi> get copyWith => _$WeatherDataApiCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly)&&(identical(other.daily, daily) || other.daily == daily)&&(identical(other.timezone, timezone) || other.timezone == timezone));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly)&&(identical(other.daily, daily) || other.daily == daily)&&(identical(other.timezone, timezone) || other.timezone == timezone)&&(identical(other.utcOffsetSeconds, utcOffsetSeconds) || other.utcOffsetSeconds == utcOffsetSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hourly,daily,timezone);
+int get hashCode => Object.hash(runtimeType,hourly,daily,timezone,utcOffsetSeconds);
 
 @override
 String toString() {
-  return 'WeatherDataApi(hourly: $hourly, daily: $daily, timezone: $timezone)';
+  return 'WeatherDataApi(hourly: $hourly, daily: $daily, timezone: $timezone, utcOffsetSeconds: $utcOffsetSeconds)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $WeatherDataApiCopyWith<$Res>  {
   factory $WeatherDataApiCopyWith(WeatherDataApi value, $Res Function(WeatherDataApi) _then) = _$WeatherDataApiCopyWithImpl;
 @useResult
 $Res call({
- Hourly hourly, Daily daily, String timezone
+ Hourly hourly, Daily daily, String timezone,@JsonKey(name: 'utc_offset_seconds') int utcOffsetSeconds
 });
 
 
@@ -65,12 +65,13 @@ class _$WeatherDataApiCopyWithImpl<$Res>
 
 /// Create a copy of WeatherDataApi
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? hourly = null,Object? daily = null,Object? timezone = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? hourly = null,Object? daily = null,Object? timezone = null,Object? utcOffsetSeconds = null,}) {
   return _then(_self.copyWith(
 hourly: null == hourly ? _self.hourly : hourly // ignore: cast_nullable_to_non_nullable
 as Hourly,daily: null == daily ? _self.daily : daily // ignore: cast_nullable_to_non_nullable
 as Daily,timezone: null == timezone ? _self.timezone : timezone // ignore: cast_nullable_to_non_nullable
-as String,
+as String,utcOffsetSeconds: null == utcOffsetSeconds ? _self.utcOffsetSeconds : utcOffsetSeconds // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 /// Create a copy of WeatherDataApi
@@ -173,10 +174,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Hourly hourly,  Daily daily,  String timezone)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Hourly hourly,  Daily daily,  String timezone, @JsonKey(name: 'utc_offset_seconds')  int utcOffsetSeconds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WeatherDataApi() when $default != null:
-return $default(_that.hourly,_that.daily,_that.timezone);case _:
+return $default(_that.hourly,_that.daily,_that.timezone,_that.utcOffsetSeconds);case _:
   return orElse();
 
 }
@@ -194,10 +195,10 @@ return $default(_that.hourly,_that.daily,_that.timezone);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Hourly hourly,  Daily daily,  String timezone)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Hourly hourly,  Daily daily,  String timezone, @JsonKey(name: 'utc_offset_seconds')  int utcOffsetSeconds)  $default,) {final _that = this;
 switch (_that) {
 case _WeatherDataApi():
-return $default(_that.hourly,_that.daily,_that.timezone);case _:
+return $default(_that.hourly,_that.daily,_that.timezone,_that.utcOffsetSeconds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -214,10 +215,10 @@ return $default(_that.hourly,_that.daily,_that.timezone);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Hourly hourly,  Daily daily,  String timezone)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Hourly hourly,  Daily daily,  String timezone, @JsonKey(name: 'utc_offset_seconds')  int utcOffsetSeconds)?  $default,) {final _that = this;
 switch (_that) {
 case _WeatherDataApi() when $default != null:
-return $default(_that.hourly,_that.daily,_that.timezone);case _:
+return $default(_that.hourly,_that.daily,_that.timezone,_that.utcOffsetSeconds);case _:
   return null;
 
 }
@@ -229,12 +230,13 @@ return $default(_that.hourly,_that.daily,_that.timezone);case _:
 @JsonSerializable()
 
 class _WeatherDataApi implements WeatherDataApi {
-  const _WeatherDataApi({required this.hourly, required this.daily, required this.timezone});
+  const _WeatherDataApi({required this.hourly, required this.daily, required this.timezone, @JsonKey(name: 'utc_offset_seconds') required this.utcOffsetSeconds});
   factory _WeatherDataApi.fromJson(Map<String, dynamic> json) => _$WeatherDataApiFromJson(json);
 
 @override final  Hourly hourly;
 @override final  Daily daily;
 @override final  String timezone;
+@override@JsonKey(name: 'utc_offset_seconds') final  int utcOffsetSeconds;
 
 /// Create a copy of WeatherDataApi
 /// with the given fields replaced by the non-null parameter values.
@@ -249,16 +251,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly)&&(identical(other.daily, daily) || other.daily == daily)&&(identical(other.timezone, timezone) || other.timezone == timezone));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly)&&(identical(other.daily, daily) || other.daily == daily)&&(identical(other.timezone, timezone) || other.timezone == timezone)&&(identical(other.utcOffsetSeconds, utcOffsetSeconds) || other.utcOffsetSeconds == utcOffsetSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hourly,daily,timezone);
+int get hashCode => Object.hash(runtimeType,hourly,daily,timezone,utcOffsetSeconds);
 
 @override
 String toString() {
-  return 'WeatherDataApi(hourly: $hourly, daily: $daily, timezone: $timezone)';
+  return 'WeatherDataApi(hourly: $hourly, daily: $daily, timezone: $timezone, utcOffsetSeconds: $utcOffsetSeconds)';
 }
 
 
@@ -269,7 +271,7 @@ abstract mixin class _$WeatherDataApiCopyWith<$Res> implements $WeatherDataApiCo
   factory _$WeatherDataApiCopyWith(_WeatherDataApi value, $Res Function(_WeatherDataApi) _then) = __$WeatherDataApiCopyWithImpl;
 @override @useResult
 $Res call({
- Hourly hourly, Daily daily, String timezone
+ Hourly hourly, Daily daily, String timezone,@JsonKey(name: 'utc_offset_seconds') int utcOffsetSeconds
 });
 
 
@@ -286,12 +288,13 @@ class __$WeatherDataApiCopyWithImpl<$Res>
 
 /// Create a copy of WeatherDataApi
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? hourly = null,Object? daily = null,Object? timezone = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? hourly = null,Object? daily = null,Object? timezone = null,Object? utcOffsetSeconds = null,}) {
   return _then(_WeatherDataApi(
 hourly: null == hourly ? _self.hourly : hourly // ignore: cast_nullable_to_non_nullable
 as Hourly,daily: null == daily ? _self.daily : daily // ignore: cast_nullable_to_non_nullable
 as Daily,timezone: null == timezone ? _self.timezone : timezone // ignore: cast_nullable_to_non_nullable
-as String,
+as String,utcOffsetSeconds: null == utcOffsetSeconds ? _self.utcOffsetSeconds : utcOffsetSeconds // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

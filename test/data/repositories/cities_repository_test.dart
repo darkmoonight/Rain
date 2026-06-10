@@ -43,7 +43,6 @@ void main() {
         37.62,
         'Moscow',
         'Moscow Oblast',
-        'Europe/Moscow',
       );
 
       expect(card.city, 'Moscow');
@@ -106,7 +105,6 @@ void main() {
           37.62,
           'Moscow',
           'Moscow Oblast',
-          'Europe/Moscow',
         );
 
         await repository.applyRemoteUpdate(stored, remote);

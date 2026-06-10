@@ -10,6 +10,7 @@ abstract class WeatherDataApi with _$WeatherDataApi {
     required Hourly hourly,
     required Daily daily,
     required String timezone,
+    @JsonKey(name: 'utc_offset_seconds') required int utcOffsetSeconds,
   }) = _WeatherDataApi;
 
   /// Deserializes a [WeatherDataApi] from a JSON map.
@@ -46,9 +47,18 @@ abstract class Hourly with _$Hourly {
   factory Hourly.fromJson(Map<String, dynamic> json) => _$HourlyFromJson(json);
 }
 
-/// Parses ISO date strings from daily forecast JSON into [DateTime] values.
+/// Parses Open-Meteo daily `YYYY-MM-DD` strings as calendar dates.
 List<DateTime> _dateTimeFromJson(List<dynamic>? json) =>
-    json?.map((x) => DateTime.parse(x)).toList() ?? [];
+    json
+        ?.map(
+          (x) => DateTime(
+            int.parse(x.toString().split('-')[0]),
+            int.parse(x.toString().split('-')[1]),
+            int.parse(x.toString().split('-')[2]),
+          ),
+        )
+        .toList() ??
+    [];
 
 /// Daily forecast variables returned by Open-Meteo.
 @freezed

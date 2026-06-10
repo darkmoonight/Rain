@@ -31,6 +31,7 @@
 
 **🌡️ Полные данные о погоде**
 - Текущие условия с ощущаемой температурой • Почасовые прогнозы (12 дней) • 12-дневные прогнозы
+- Время по месту: слоты прогноза привязаны к часовому поясу и UTC-смещению Open-Meteo; смещение по HTTP `Date` исправляет неверные системные часы
 - Подробные метрики: УФ-индекс, влажность, скорость/направление ветра, осадки, видимость, давление, точка росы
 - Иконки с учётом дня/ночи • Время восхода/заката • Раскрывающиеся подробные почасовые данные
 
@@ -47,8 +48,9 @@
 
 **🏙️ Управление несколькими городами**
 - Сохраняйте неограниченное количество городов в список наблюдения • Перетаскивание для изменения порядка • Потяните для обновления всех
+- Живые местные часы на каждой карточке города • Корректная разница между городами даже при сбитых системных часах
 - Поиск городов с автодополнением • Ручной ввод координат • Автоопределение по GPS
-- Редактирование или удаление сохранённых городов • Просмотр часового пояса для каждого местоположения
+- Редактирование или удаление сохранённых городов • Часовой пояс из API погоды для каждого места
 
 **🔔 Умные уведомления**
 - Плановые прогнозы погоды (интервал 1-5 часов) • Настраиваемый временной диапазон (начало/конец)
@@ -61,8 +63,8 @@
   - **Current (2×2)** — масштабируемая карточка: температура сверху, иконка погоды внизу слева
   - **Clock (полоска 4×1)** — часы и дата, иконка погоды, город и температура; масштабируется по ширине
 - Учитывает **°C/°F**, **округление температуры** и **формат 12/24 ч** (виджет Clock)
-- Фоновое обновление (Workmanager, минимум ~15 мин) • Свои цвета фона и текста (HSV-палитра)
-- Обновляется при загрузке кэша в приложении и после запроса свежей погоды
+- Фоновое обновление (Workmanager, минимум ~15 мин): при устаревшем кэше и наличии сети запрашивает погоду, затем обновляет виджеты • Свои цвета фона и текста (HSV-палитра)
+- Обновляется при загрузке кэша в приложении, после запроса свежей погоды и по периодической фоновой задаче
 
 **🎨 Красивый дизайн**
 - Динамическая тема Material You (цвета обоев) • Чистая AMOLED чёрная тема
@@ -117,7 +119,7 @@ flutter pub get
 
 # Генерация кода (Isar, Freezed, JSON, переводы)
 dart run slang
-dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
 
 # Запустить приложение (на Android по умолчанию gms; см. `default-flavor` в pubspec)
 flutter run
@@ -178,7 +180,7 @@ chmod +x scripts/*.sh
 cp tool/pubspec_overrides.floss.yaml pubspec_overrides.yaml
 flutter pub get
 ./scripts/patch_jni_reproducible_build.sh
-dart run slang && dart run build_runner build
+dart run slang && dart run build_runner build --delete-conflicting-outputs
 flutter build apk --release --flavor floss --target-platform android-arm64
 ./scripts/rename_apk_outputs.sh floss
 ```
@@ -194,7 +196,7 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Тестирование
 
-В проекте **333** unit- и widget-тестов (91 файл `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
+В проекте **338** unit- и widget-тестов (93 файла `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
 
 ```bash
 flutter test
@@ -209,7 +211,7 @@ flutter analyze
 flutter test --coverage
 ```
 
-**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils (уведомления, connectivity, разбор placemark), bootstrap (`AppInitializer`), redirect и sync кэша роутера, обновления settings provider, cities notifier (CRUD, `loadError`, edge cases удаления), confirmation/selection dialogs, weather widgets и notifiers, качество воздуха (`AqiHelper`, `AirQualityMapper`, graceful fallback при ошибке AQ API).
+**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils (уведомления, connectivity, разбор placemark, HTTP Date), bootstrap (`AppInitializer`), redirect и sync кэша роутера, обновления settings provider, cities notifier (CRUD, `loadError`, edge cases удаления), confirmation/selection dialogs, weather widgets и notifiers, местное время (`TimeIndexHelper`, сохранение clock skew), качество воздуха (`AqiHelper`, `AirQualityMapper`, graceful fallback при ошибке AQ API).
 
 **Регрессии уведомлений:** стабильные ID (`notificationIdFor`), один слот на час при дублирующихся daily-строках, `MainWeatherNotifier._init` не вызывает `cancelAll()`, пока уведомления включены.
 
@@ -229,13 +231,14 @@ flutter test --coverage
 После изменения моделей или файлов локализации:
 ```bash
 dart run slang
-dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
 ```
 
 ### Стек (кратко)
 - **Flutter** + **Riverpod 3** • **Go Router** • **Isar Community**
 - **home_widget** + **Workmanager** (виджеты Android) • **flutter_local_notifications**
 - API **Open-Meteo Weather** • **Open-Meteo Air Quality** • **flutter_map** и плитки OSM
+- **timezone** + **flutter_timezone** для IANA и местных часов по локации
 
 ---
 

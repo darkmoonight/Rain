@@ -3,72 +3,163 @@ import 'package:intl/intl.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+/// Open-Meteo timezone metadata used for wall-clock calculations.
+///
+/// Prefer [utcOffsetSeconds] from the API; [timezone] is a fallback when offset
+/// is missing. [clockSkewSeconds] corrects a wrong device clock using the HTTP
+/// `Date` header from the last weather fetch.
+class LocationClock {
+  const LocationClock({
+    this.timezone,
+    this.utcOffsetSeconds,
+    this.clockSkewSeconds = 0,
+  });
+
+  final String? timezone;
+  final int? utcOffsetSeconds;
+  final int clockSkewSeconds;
+
+  /// Builds a clock context from cached forecast metadata.
+  ///
+  /// Uses per-fetch [clockSkewSeconds] when present; otherwise falls back to
+  /// [settingsClockSkewSeconds] from the last successful network refresh.
+  factory LocationClock.fromCache({
+    required String? timezone,
+    int? utcOffsetSeconds,
+    int? clockSkewSeconds,
+    int settingsClockSkewSeconds = 0,
+  }) => LocationClock(
+    timezone: timezone,
+    utcOffsetSeconds: utcOffsetSeconds,
+    clockSkewSeconds: clockSkewSeconds ?? settingsClockSkewSeconds,
+  );
+
+  factory LocationClock.fromWeatherCard(
+    WeatherCard card, {
+    int settingsClockSkewSeconds = 0,
+  }) => LocationClock.fromCache(
+    timezone: card.timezone,
+    utcOffsetSeconds: card.utcOffsetSeconds,
+    clockSkewSeconds: card.clockSkewSeconds,
+    settingsClockSkewSeconds: settingsClockSkewSeconds,
+  );
+
+  factory LocationClock.fromMainWeather(
+    MainWeatherCache cache, {
+    int settingsClockSkewSeconds = 0,
+  }) => LocationClock.fromCache(
+    timezone: cache.timezone,
+    utcOffsetSeconds: cache.utcOffsetSeconds,
+    clockSkewSeconds: cache.clockSkewSeconds,
+    settingsClockSkewSeconds: settingsClockSkewSeconds,
+  );
+}
+
 /// Resolves hourly/daily indices and formats times in the location timezone.
 class TimeIndexHelper {
-  /// Index of the current hour in an ISO time series for [timezone].
-  static int getTime(List<String> time, String timezone) =>
-      resolveTimeIndex(time, timezone);
-
-  /// Index of today in a daily date series for [timezone].
-  static int getDay(List<DateTime> time, String timezone) =>
-      resolveDayIndex(time, timezone);
-
-  /// Finds the hourly slot matching now, or the latest past hour today.
-  static int resolveTimeIndex(List<String> time, String timezone) {
+  /// Index of the current hour in an ISO time series for [clock].
+  static int getTime(List<String> time, LocationClock clock) {
     if (time.isEmpty) return 0;
 
-    final tzLocation = tz.getLocation(timezone);
-    final tzNow = tz.TZDateTime.now(tzLocation);
+    final now = wallClockNow(clock);
 
     final exact = time.indexWhere((entry) {
       final parts = _parseIsoParts(entry);
-      return parts.year == tzNow.year &&
-          parts.month == tzNow.month &&
-          parts.day == tzNow.day &&
-          parts.hour == tzNow.hour;
+      return parts.year == now.year &&
+          parts.month == now.month &&
+          parts.day == now.day &&
+          parts.hour == now.hour;
     });
     if (exact >= 0) return exact;
 
     var fallback = 0;
     for (var i = 0; i < time.length; i++) {
       final parts = _parseIsoParts(time[i]);
-      if (parts.year == tzNow.year &&
-          parts.month == tzNow.month &&
-          parts.day == tzNow.day &&
-          parts.hour <= tzNow.hour) {
+      if (parts.year == now.year &&
+          parts.month == now.month &&
+          parts.day == now.day &&
+          parts.hour <= now.hour) {
         fallback = i;
       }
     }
     return fallback.clamp(0, time.length - 1);
   }
 
-  /// Finds today's daily slot, or the nearest upcoming/final day.
-  static int resolveDayIndex(List<DateTime> time, String timezone) {
+  /// Index of today in a daily date series for [clock].
+  static int getDay(List<DateTime> time, LocationClock clock) {
     if (time.isEmpty) return 0;
 
-    final tzLocation = tz.getLocation(timezone);
-    final tzNow = tz.TZDateTime.now(tzLocation);
+    final now = wallClockNow(clock);
 
     final exact = time.indexWhere(
       (entry) =>
-          entry.year == tzNow.year &&
-          entry.month == tzNow.month &&
-          entry.day == tzNow.day,
+          entry.year == now.year &&
+          entry.month == now.month &&
+          entry.day == now.day,
     );
     if (exact >= 0) return exact;
 
     final fallback = time.indexWhere(
       (entry) =>
-          entry.year > tzNow.year ||
-          (entry.year == tzNow.year && entry.month > tzNow.month) ||
-          (entry.year == tzNow.year &&
-              entry.month == tzNow.month &&
-              entry.day >= tzNow.day),
+          entry.year > now.year ||
+          (entry.year == now.year && entry.month > now.month) ||
+          (entry.year == now.year &&
+              entry.month == now.month &&
+              entry.day >= now.day),
     );
     if (fallback >= 0) return fallback;
 
     return (time.length - 1).clamp(0, time.length - 1);
   }
+
+  /// Resolves the current hourly and daily slot indices for [clock].
+  static ({int hour, int day}) currentIndices({
+    required List<String> hourly,
+    required List<DateTime> daily,
+    required LocationClock clock,
+  }) => (hour: getTime(hourly, clock), day: getDay(daily, clock));
+
+  /// Current wall clock in the location, aligned with Open-Meteo offsets.
+  static DateTime wallClockNow(LocationClock clock) {
+    final utc = DateTime.now().toUtc().add(
+      Duration(seconds: clock.clockSkewSeconds),
+    );
+    if (clock.utcOffsetSeconds != null) {
+      return utc.add(Duration(seconds: clock.utcOffsetSeconds!));
+    }
+    if (clock.timezone != null) {
+      final tzNow = tz.TZDateTime.from(utc, tz.getLocation(clock.timezone!));
+      return DateTime(
+        tzNow.year,
+        tzNow.month,
+        tzNow.day,
+        tzNow.hour,
+        tzNow.minute,
+        tzNow.second,
+      );
+    }
+    return utc.toLocal();
+  }
+
+  /// Parses an Open-Meteo daily `YYYY-MM-DD` string as a calendar date.
+  static DateTime parseCalendarDate(String value) {
+    final parts = value.split('T').first.split('-');
+    return DateTime(
+      int.parse(parts[0]),
+      int.parse(parts[1]),
+      int.parse(parts[2]),
+    );
+  }
+
+  /// Calendar date from an Open-Meteo hourly ISO string (location-local).
+  static DateTime parseForecastDate(String iso) {
+    final parts = _parseIsoParts(iso);
+    return DateTime(parts.year, parts.month, parts.day);
+  }
+
+  /// Formats a calendar [date] for the app locale (ignores device timezone).
+  static String formatCalendarDate(DateTime date, String languageCode) =>
+      DateFormat.yMMMEd(languageCode).format(date);
 
   /// Whether [currentTime] falls between [sunrise] and [sunset].
   static bool isDaytime(String currentTime, String sunrise, String sunset) {
@@ -121,6 +212,17 @@ class TimeIndexHelper {
     String languageCode,
   ) => appTimeFormat(settings, languageCode).format(dateTime);
 
+  /// Formats a location wall clock for display.
+  static String formatWallClock(
+    DateTime wallClock,
+    Settings settings,
+    String languageCode,
+  ) => formatDateTime(
+    DateTime(2000, 1, 1, wallClock.hour, wallClock.minute),
+    settings,
+    languageCode,
+  );
+
   /// Formats a time-only string using the user's clock preference.
   static String formatTime(
     String? timeStr,
@@ -132,10 +234,20 @@ class TimeIndexHelper {
     return formatDateTime(dateTime, settings, languageCode);
   }
 
-  /// Extracts year/month/day/hour from an ISO datetime string.
+  /// Extracts wall-clock parts from an Open-Meteo ISO string (location-local).
   static _IsoParts _parseIsoParts(String value) {
-    final dt = DateTime.parse(value);
-    return _IsoParts(dt.year, dt.month, dt.day, dt.hour);
+    final datePart = value.contains('T') ? value.split('T').first : value;
+    final timePart = value.contains('T')
+        ? value.split('T').last.split('.').first.split('Z').first
+        : '00:00';
+    final dateBits = datePart.split('-');
+    final timeBits = timePart.split(':');
+    return _IsoParts(
+      int.parse(dateBits[0]),
+      int.parse(dateBits[1]),
+      int.parse(dateBits[2]),
+      int.parse(timeBits[0]),
+    );
   }
 
   /// Strips the date portion from an ISO or plain time string.

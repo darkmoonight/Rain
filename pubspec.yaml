@@ -42,7 +42,6 @@ dependencies:
   connectivity_plus: ^7.1.1
   freezed_annotation: ^3.1.0
   flutter_map_cache: ^2.1.0
-  lat_lng_to_timezone: ^0.2.0
   line_awesome_flutter: ^3.0.1
   dio_cache_interceptor: ^4.0.6
   http_cache_file_store: ^2.0.1

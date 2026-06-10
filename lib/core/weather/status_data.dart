@@ -3,7 +3,6 @@ import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/weather/unit_converter.dart';
 import 'package:rain/data/models/db.dart';
-import 'package:timezone/timezone.dart';
 
 /// Formats cached weather values for display using [Settings] and locale.
 class StatusData {
@@ -35,8 +34,13 @@ class StatusData {
   /// Formats an ISO time string using the user's clock preference.
   String getTimeFormat(String time) => _formatTime(time);
 
-  /// Formats a timezone-aware time using the user's clock preference.
-  String getTimeFormatTz(TZDateTime time) => _formatTimeTz(time);
+  /// Formats a location wall clock using the user's clock preference.
+  String getWallClockFormat(DateTime wallClock) =>
+      TimeIndexHelper.formatWallClock(
+        wallClock,
+        settings,
+        _locale.languageCode,
+      );
 
   /// Converts a raw temperature value into a display string.
   String _formatDegree(dynamic degree) {
@@ -76,18 +80,7 @@ class StatusData {
     return '$formatted ${_t(UnitConverter.precipitationUnitKey(settings))}';
   }
 
-  /// Parses and formats an ISO time string for the current locale.
-  String _formatTime(String time) {
-    final parsedTime = DateTime.tryParse(time);
-    if (parsedTime == null) return '';
-    return TimeIndexHelper.formatDateTime(
-      parsedTime,
-      settings,
-      _locale.languageCode,
-    );
-  }
-
-  /// Formats a [TZDateTime] for the current locale and clock preference.
-  String _formatTimeTz(TZDateTime time) =>
-      TimeIndexHelper.formatDateTime(time, settings, _locale.languageCode);
+  /// Formats an Open-Meteo ISO or clock string without device timezone shifts.
+  String _formatTime(String time) =>
+      TimeIndexHelper.formatTime(time, settings, _locale.languageCode);
 }

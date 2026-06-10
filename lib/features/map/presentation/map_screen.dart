@@ -190,14 +190,12 @@ class _MapPageState extends ConsumerState<MapPage>
     WeatherCard weatherCardList, {
     required StatusData statusData,
   }) {
-    final hourOfDay = TimeIndexHelper.getTime(
-      weatherCardList.time!,
-      weatherCardList.timezone!,
+    final clock = LocationClock.fromWeatherCard(
+      weatherCardList,
+      settingsClockSkewSeconds: statusData.settings.clockSkewSeconds,
     );
-    final dayOfNow = TimeIndexHelper.getDay(
-      weatherCardList.timeDaily!,
-      weatherCardList.timezone!,
-    );
+    final hourOfDay = TimeIndexHelper.getTime(weatherCardList.time!, clock);
+    final dayOfNow = TimeIndexHelper.getDay(weatherCardList.timeDaily!, clock);
 
     return Marker(
       height: 50,

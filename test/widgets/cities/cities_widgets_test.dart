@@ -28,7 +28,7 @@ void main() {
     test('tryFromWeatherCard builds widget for complete card', () {
       final widget = PlaceCard.tryFromWeatherCard(completeWeatherCard());
       expect(widget, isNotNull);
-      expect(widget!.city, 'Moscow');
+      expect(widget!.card.city, 'Moscow');
     });
 
     testWidgets('renders city and temperature', (tester) async {

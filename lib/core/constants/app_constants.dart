@@ -64,7 +64,7 @@ class AppConstants {
   static const Duration cacheExpiry = Duration(hours: 12);
 
   /// Incremented when forecast cache schema changes; triggers a re-save migration.
-  static const int weatherCacheSchemaVersion = 2;
+  static const int weatherCacheSchemaVersion = 3;
 
   /// Cutoff before which persisted forecast rows are treated as stale.
   static DateTime weatherCacheExpiryThreshold() =>

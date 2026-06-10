@@ -47,8 +47,7 @@ class CitiesRepository {
     double lon,
     String city,
     String district,
-    String timezone,
-  ) => _remote.fetchWeatherCard(lat, lon, city, district, timezone);
+  ) => _remote.fetchWeatherCard(lat, lon, city, district);
 
   // --- Write ---
 

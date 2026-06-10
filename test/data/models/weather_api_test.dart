@@ -17,9 +17,11 @@ void main() {
           'temperature_2m_min': [15.0],
         },
         'timezone': 'Europe/Moscow',
+        'utc_offset_seconds': 10800,
       });
 
       expect(api.timezone, 'Europe/Moscow');
+      expect(api.utcOffsetSeconds, 10800);
       expect(api.hourly.time, ['2026-06-05T12:00']);
       expect(api.hourly.temperature2M, [20.0]);
       expect(api.daily.temperature2MMax, [25.0]);

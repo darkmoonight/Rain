@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:rain/core/utils/debug_log.dart';
+import 'package:rain/core/utils/http_date_parser.dart';
 import 'package:rain/data/datasources/air_quality_remote_datasource.dart';
 import 'package:rain/data/mappers/air_quality_mapper.dart';
 import 'package:rain/data/models/air_quality_api.dart';
@@ -35,25 +36,30 @@ class WeatherRemoteDatasource {
       'latitude=$lat&longitude=$lon&$_weatherParams';
 
   /// Fetches weather and air quality in parallel.
-  Future<(WeatherDataApi, AirQualityDataApi?)> _fetchWeatherAndAq(
-    double lat,
-    double lon,
-  ) async {
+  Future<(WeatherDataApi, AirQualityDataApi?, int clockSkewSeconds)>
+  _fetchWeatherAndAq(double lat, double lon) async {
     final results = await Future.wait<dynamic>([
       _dio.get(_buildWeatherUrl(lat, lon)),
       _airQuality.fetchAirQuality(lat, lon),
     ]);
+    final weatherResponse = results[0] as Response<dynamic>;
+    final serverUtc = parseHttpDate(weatherResponse.headers.value('date'));
+    final skew = serverUtc == null ? 0 : clockSkewSeconds(serverUtc);
     return (
-      WeatherDataApi.fromJson((results[0] as Response<dynamic>).data),
+      WeatherDataApi.fromJson(weatherResponse.data),
       results[1] as AirQualityDataApi?,
+      skew,
     );
   }
 
   /// Fetches a 12-day forecast and maps it to a main weather cache model.
   Future<MainWeatherCache> fetchWeather(double lat, double lon) async {
     try {
-      final (weatherData, aqData) = await _fetchWeatherAndAq(lat, lon);
-      final cache = WeatherMapper.toMainWeatherCache(weatherData);
+      final (weatherData, aqData, skew) = await _fetchWeatherAndAq(lat, lon);
+      final cache = WeatherMapper.toMainWeatherCache(
+        weatherData,
+        clockSkewSeconds: skew,
+      );
       if (aqData != null) {
         AirQualityMapper.merge(cache, aqData);
       }
@@ -70,17 +76,16 @@ class WeatherRemoteDatasource {
     double lon,
     String city,
     String district,
-    String timezone,
   ) async {
     try {
-      final (weatherData, aqData) = await _fetchWeatherAndAq(lat, lon);
+      final (weatherData, aqData, skew) = await _fetchWeatherAndAq(lat, lon);
       final card = WeatherMapper.toWeatherCard(
         weatherData,
         lat,
         lon,
         city,
         district,
-        timezone,
+        clockSkewSeconds: skew,
       );
       if (aqData != null) {
         AirQualityMapper.merge(card, aqData);

@@ -15,7 +15,7 @@ This project and everyone participating in it are governed by our [Code of Condu
 ```bash
 flutter pub get
 dart run slang
-dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
 ```
 
 4. Run the app: `flutter run` (Android default flavor is `gms`; use `flutter run --flavor floss` for the FOSS build).
@@ -41,7 +41,7 @@ Before starting work on a larger change, check the [issue tracker](https://githu
 
 Ensure your changes do not break existing functionality. Add or update tests for new behavior and bug fixes when practical.
 
-The project currently has **320** tests in **89** `*_test.dart` files. Before opening a pull request, run:
+The project currently has **338** tests in **93** `*_test.dart` files. Before opening a pull request, run:
 
 ```bash
 flutter pub get

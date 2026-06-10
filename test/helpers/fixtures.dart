@@ -46,6 +46,7 @@ Map<String, dynamic> sampleWeatherJson() => {
     'winddirection_10m_dominant': [180, 190],
   },
   'timezone': 'Europe/Moscow',
+  'utc_offset_seconds': 10800,
 };
 
 /// Sample Open-Meteo air quality JSON for fake Dio responses.
@@ -62,6 +63,7 @@ Map<String, dynamic> sampleAirQualityJson() => {
     'sulphur_dioxide': [5.0, 6.5],
   },
   'timezone': 'Europe/Moscow',
+  'utc_offset_seconds': 10800,
 };
 
 /// Sample geocoding search JSON.
@@ -121,6 +123,8 @@ WeatherCard completeWeatherCard({
   city: 'Moscow',
   district: 'Moscow Oblast',
   timezone: 'Europe/Moscow',
+  utcOffsetSeconds: 10800,
+  clockSkewSeconds: 0,
   lat: 55.75,
   lon: 37.62,
   timestamp: timestamp ?? DateTime(2026, 6, 5, 12),
@@ -162,6 +166,8 @@ MainWeatherCache sampleMainWeatherCache() => MainWeatherCache(
   precipitationSum: [0.0, 0.0],
   precipitationProbabilityMax: [10, 20],
   timezone: 'Europe/Moscow',
+  utcOffsetSeconds: 10800,
+  clockSkewSeconds: 0,
   timestamp: DateTime(2026, 6, 5, 12),
 );
 

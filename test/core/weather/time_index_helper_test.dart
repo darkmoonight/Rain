@@ -8,6 +8,11 @@ import '../../helpers/test_helpers.dart';
 void main() {
   setUpAll(() async => initTestEnvironment());
 
+  const moscowClock = LocationClock(
+    timezone: 'Europe/Moscow',
+    utcOffsetSeconds: 10800,
+  );
+
   group('TimeIndexHelper.parseTime', () {
     test('parses 24h and 12h formats', () {
       expect(
@@ -47,30 +52,61 @@ void main() {
     });
   });
 
-  group('TimeIndexHelper.resolveTimeIndex', () {
+  group('TimeIndexHelper.wallClockNow', () {
+    test('applies utc offset and clock skew', () {
+      final utc = DateTime.now().toUtc();
+      final wall = TimeIndexHelper.wallClockNow(
+        const LocationClock(utcOffsetSeconds: 10800, clockSkewSeconds: 3600),
+      );
+      final expected = utc.add(const Duration(hours: 4));
+      expect(wall.hour, expected.hour);
+      expect(wall.minute, expected.minute);
+    });
+  });
+
+  group('TimeIndexHelper.parseCalendarDate', () {
+    test('keeps calendar components from API date strings', () {
+      final date = TimeIndexHelper.parseCalendarDate('2026-06-10');
+      expect(date.year, 2026);
+      expect(date.month, 6);
+      expect(date.day, 10);
+    });
+  });
+
+  group('TimeIndexHelper.getTime', () {
     test('returns 0 for empty input', () {
-      expect(TimeIndexHelper.resolveTimeIndex([], 'UTC'), 0);
+      expect(TimeIndexHelper.getTime([], moscowClock), 0);
     });
 
     test('finds exact hour match in timezone series', () {
-      final now = DateTime.now().toUtc();
+      final now = DateTime.now().toUtc().add(const Duration(hours: 3));
       final hour = now.hour.toString().padLeft(2, '0');
       final iso =
           '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}T$hour:00';
-      final index = TimeIndexHelper.resolveTimeIndex([iso], 'Etc/UTC');
+      final index = TimeIndexHelper.getTime([iso], moscowClock);
       expect(index, 0);
     });
   });
 
-  group('TimeIndexHelper.resolveDayIndex', () {
+  group('TimeIndexHelper.getDay', () {
     test('returns 0 for empty input', () {
-      expect(TimeIndexHelper.resolveDayIndex([], 'Etc/UTC'), 0);
+      expect(TimeIndexHelper.getDay([], moscowClock), 0);
     });
 
     test('finds today in daily series', () {
-      final today = DateTime.now();
-      final index = TimeIndexHelper.resolveDayIndex([today], 'Etc/UTC');
+      final wall = TimeIndexHelper.wallClockNow(moscowClock);
+      final today = DateTime(wall.year, wall.month, wall.day);
+      final index = TimeIndexHelper.getDay([today], moscowClock);
       expect(index, 0);
+    });
+  });
+
+  group('TimeIndexHelper.parseForecastDate', () {
+    test('keeps calendar components from hourly ISO strings', () {
+      final date = TimeIndexHelper.parseForecastDate('2026-06-10T14:00');
+      expect(date.year, 2026);
+      expect(date.month, 6);
+      expect(date.day, 10);
     });
   });
 

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/core/settings/clock_skew_persistence.dart';
 import 'package:rain/core/services/connectivity_service.dart';
 import 'package:rain/core/services/network_cache_handler.dart';
 import 'package:rain/core/utils/async_queue.dart';
@@ -122,36 +122,26 @@ class CitiesNotifier extends Notifier<CitiesState> {
     final lon = longitude ?? target.lon;
     final cityName = city ?? target.city;
     final districtName = district ?? target.district;
-    final timezone = latitude != null && longitude != null
-        ? tzmap.latLngToTimezoneString(latitude, longitude)
-        : target.timezone;
 
     if (lat == null ||
         lon == null ||
         cityName == null ||
-        districtName == null ||
-        timezone == null) {
+        districtName == null) {
       throw StateError('WeatherCard ${target.id} is missing location metadata');
     }
 
-    final updated = await _repo.fetchCard(
-      lat,
-      lon,
-      cityName,
-      districtName,
-      timezone,
-    );
+    final updated = await _repo.fetchCard(lat, lon, cityName, districtName);
 
     if (latitude != null && longitude != null) {
       target
         ..lat = latitude
         ..lon = longitude
         ..city = city
-        ..district = district
-        ..timezone = timezone;
+        ..district = district;
     }
 
     await _repo.applyRemoteUpdate(target, updated);
+    await persistClockSkew(ref, updated.clockSkewSeconds ?? 0);
   }
 
   // --- Refresh ---
@@ -223,15 +213,9 @@ class CitiesNotifier extends Notifier<CitiesState> {
     String district,
   ) => _queue.enqueue(
     () => _runOnlineAction('addCard', () async {
-      final tz = tzmap.latLngToTimezoneString(latitude, longitude);
-      final card = await _repo.fetchCard(
-        latitude,
-        longitude,
-        city,
-        district,
-        tz,
-      );
+      final card = await _repo.fetchCard(latitude, longitude, city, district);
       await _repo.addCard(card);
+      await persistClockSkew(ref, card.clockSkewSeconds ?? 0);
     }),
   );
 

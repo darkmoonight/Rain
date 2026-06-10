@@ -48,7 +48,7 @@ void main() {
   group('weather cache schema version', () {
     test('defaults to zero before first migration', () {
       expect(Settings().weatherCacheVersion, 0);
-      expect(AppConstants.weatherCacheSchemaVersion, 2);
+      expect(AppConstants.weatherCacheSchemaVersion, 3);
     });
   });
 }

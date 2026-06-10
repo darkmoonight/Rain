@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:rain/core/bootstrap/timezone_bootstrap.dart';
+import 'package:rain/core/settings/clock_skew_persistence.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:isar_community/isar.dart';
 import 'package:rain/core/constants/app_constants.dart';
@@ -8,8 +9,6 @@ import 'package:rain/core/database/isar_schemas.dart';
 import 'package:rain/data/datasources/weather_local_datasource.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/data/repositories/weather_repository.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
 
 /// Registers the Android periodic task that refreshes home screen widgets.
@@ -29,9 +28,7 @@ Future<bool> runWidgetBackgroundRefresh(
 ) async {
   Isar? isar;
   try {
-    final timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
+    await initializeAppTimeZone();
 
     isar = await openRainIsar();
     await _refreshMainWeatherIfStale(isar);
@@ -58,4 +55,7 @@ Future<void> _refreshMainWeatherIfStale(Isar isar) async {
   final repo = WeatherRepository(WeatherRemoteDatasource(), local);
   final weather = await repo.fetchWeather(location!.lat!, location.lon!);
   await repo.writeCache(weather, location);
+  if (weather.clockSkewSeconds != null) {
+    await persistClockSkewInIsar(isar, weather.clockSkewSeconds!);
+  }
 }

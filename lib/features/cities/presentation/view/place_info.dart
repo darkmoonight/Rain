@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
@@ -34,22 +36,55 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   late int timeNow;
   late int dayNow;
   DateTime? _lastSyncedTimestamp;
+  Timer? _clockTimer;
   final itemScrollController = ItemScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    timeNow = 0;
+    dayNow = 0;
+    _clockTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+      if (!mounted) return;
+      final card = _resolveCard(ref.read(citiesNotifierProvider));
+      if (card != null) _refreshTimeIndices(card, scrollToHour: false);
+    });
+  }
+
+  @override
+  void dispose() {
+    _clockTimer?.cancel();
+    super.dispose();
+  }
 
   /// Updates hour/day indices and scrolls the hourly list when [card.timestamp] changes.
   void _syncTimeFor(WeatherCard card) {
     if (!WeatherCardValidator.isComplete(card)) return;
-    if (_lastSyncedTimestamp == card.timestamp) return;
+    final shouldScroll = _lastSyncedTimestamp != card.timestamp;
     _lastSyncedTimestamp = card.timestamp;
+    _refreshTimeIndices(card, scrollToHour: shouldScroll);
+  }
 
+  /// Recomputes [timeNow] and [dayNow] from the city's timezone-aware clock.
+  void _refreshTimeIndices(WeatherCard card, {required bool scrollToHour}) {
     final time = card.time;
     final timeDaily = card.timeDaily;
-    final timezone = card.timezone;
-    if (time == null || timeDaily == null || timezone == null) return;
+    if (time == null || timeDaily == null || card.timezone == null) return;
 
-    timeNow = TimeIndexHelper.getTime(time, timezone);
-    dayNow = TimeIndexHelper.getDay(timeDaily, timezone);
+    final clock = LocationClock.fromWeatherCard(
+      card,
+      settingsClockSkewSeconds: ref.read(settingsProvider).clockSkewSeconds,
+    );
+    final hour = TimeIndexHelper.getTime(time, clock);
+    final day = TimeIndexHelper.getDay(timeDaily, clock);
+    if (hour == timeNow && day == dayNow) return;
 
+    setState(() {
+      timeNow = hour;
+      dayNow = day;
+    });
+
+    if (!scrollToHour) return;
     Future.delayed(const Duration(milliseconds: 30), () {
       if (itemScrollController.isAttached) {
         itemScrollController.scrollTo(

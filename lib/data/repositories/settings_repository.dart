@@ -18,6 +18,13 @@ class SettingsRepository {
     onSaved?.call();
   }
 
+  /// Updates [clockSkewSeconds] on [settings] when the value changed.
+  Future<void> persistClockSkew(Settings settings, int clockSkewSeconds) async {
+    if (settings.clockSkewSeconds == clockSkewSeconds) return;
+    settings.clockSkewSeconds = clockSkewSeconds;
+    await save(settings);
+  }
+
   /// Returns the stored location cache, or an empty model if none exists.
   Future<LocationCache> getLocationCache() async =>
       await _isar.locationCaches.where().findFirst() ?? LocationCache();

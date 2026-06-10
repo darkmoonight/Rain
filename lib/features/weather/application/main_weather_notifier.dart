@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/core/settings/clock_skew_persistence.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/core/services/connectivity_service.dart';
 import 'package:rain/core/services/network_cache_handler.dart';
@@ -184,10 +185,17 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       district: district,
     );
     await ref.read(weatherRepositoryProvider).writeCache(weather, location);
+    await persistClockSkew(ref, weather.clockSkewSeconds ?? 0);
     syncBootstrapLocationCache(ref, location);
     refreshAppRouterFromRef(ref);
     await readCache();
   }
+
+  LocationClock _mainClock(MainWeatherCache cache) =>
+      LocationClock.fromMainWeather(
+        cache,
+        settingsClockSkewSeconds: ref.read(settingsProvider).clockSkewSeconds,
+      );
 
   // --- Cache ---
 
@@ -213,14 +221,9 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       }
     }
 
-    final hour = TimeIndexHelper.getTime(
-      cached.weather!.time!,
-      cached.weather!.timezone!,
-    );
-    final day = TimeIndexHelper.getDay(
-      cached.weather!.timeDaily!,
-      cached.weather!.timezone!,
-    );
+    final clock = _mainClock(cached.weather!);
+    final hour = TimeIndexHelper.getTime(cached.weather!.time!, clock);
+    final day = TimeIndexHelper.getDay(cached.weather!.timeDaily!, clock);
     if (Platform.isAndroid) {
       registerWidgetBackgroundTask();
     }
@@ -269,6 +272,26 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   /// Updates the selected hourly and daily indices for the detail view.
   void setHourAndDay(int hour, int day) {
+    state = state.copyWith(hourOfDay: hour, dayOfNow: day);
+  }
+
+  /// Realigns hour/day indices to the city's current local time.
+  void syncCurrentTimeIndices() {
+    final cache = state.mainWeather;
+    final time = cache.time;
+    final timeDaily = cache.timeDaily;
+    if (time == null ||
+        time.isEmpty ||
+        timeDaily == null ||
+        timeDaily.isEmpty ||
+        cache.timezone == null) {
+      return;
+    }
+
+    final clock = _mainClock(cache);
+    final hour = TimeIndexHelper.getTime(time, clock);
+    final day = TimeIndexHelper.getDay(timeDaily, clock);
+    if (hour == state.hourOfDay && day == state.dayOfNow) return;
     state = state.copyWith(hourOfDay: hour, dayOfNow: day);
   }
 

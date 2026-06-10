@@ -30,6 +30,9 @@ class Settings {
 
   /// Incremented when forecast cache schema changes; triggers a re-save migration.
   int weatherCacheVersion = 0;
+
+  /// Device clock minus server UTC at the last weather fetch (seconds).
+  int clockSkewSeconds = 0;
 }
 
 /// Cached forecast for the primary home-screen location.
@@ -90,6 +93,8 @@ class MainWeatherCache {
   // --- Metadata ---
 
   String? timezone;
+  int? utcOffsetSeconds;
+  int? clockSkewSeconds;
   DateTime? timestamp;
 
   /// Creates a [MainWeatherCache] with optional hourly, daily, and metadata fields.
@@ -136,6 +141,8 @@ class MainWeatherCache {
     this.rainSum,
     this.winddirection10MDominant,
     this.timezone,
+    this.utcOffsetSeconds,
+    this.clockSkewSeconds,
     this.timestamp,
   });
 
@@ -184,6 +191,8 @@ class MainWeatherCache {
     'rainSum': rainSum,
     'winddirection10MDominant': winddirection10MDominant,
     'timezone': timezone,
+    'utcOffsetSeconds': utcOffsetSeconds,
+    'clockSkewSeconds': clockSkewSeconds,
     'timestamp': timestamp,
   };
 }
@@ -272,6 +281,8 @@ class WeatherCard {
   String? city;
   String? district;
   String? timezone;
+  int? utcOffsetSeconds;
+  int? clockSkewSeconds;
   DateTime? timestamp;
   int? index;
 
@@ -323,6 +334,8 @@ class WeatherCard {
     this.city,
     this.district,
     this.timezone,
+    this.utcOffsetSeconds,
+    this.clockSkewSeconds,
     this.timestamp,
     this.index,
   });
@@ -372,6 +385,8 @@ class WeatherCard {
     'rainSum': rainSum,
     'winddirection10MDominant': winddirection10MDominant,
     'timezone': timezone,
+    'utcOffsetSeconds': utcOffsetSeconds,
+    'clockSkewSeconds': clockSkewSeconds,
     'timestamp': timestamp,
     'lat': lat,
     'lon': lon,
@@ -430,6 +445,8 @@ class WeatherCard {
     rainSum: cache.rainSum,
     winddirection10MDominant: cache.winddirection10MDominant,
     timezone: cache.timezone,
+    utcOffsetSeconds: cache.utcOffsetSeconds,
+    clockSkewSeconds: cache.clockSkewSeconds,
     timestamp: cache.timestamp,
     lat: lat,
     lon: lon,
@@ -510,6 +527,8 @@ class WeatherCard {
       city: json['city'],
       district: json['district'],
       timezone: json['timezone'],
+      utcOffsetSeconds: json['utcOffsetSeconds'],
+      clockSkewSeconds: json['clockSkewSeconds'],
       timestamp: json['timestamp'],
       index: json['index'],
     );

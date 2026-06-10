@@ -78,17 +78,19 @@ class HomeWidgetService {
       return null;
     }
 
-    final hour = TimeIndexHelper.resolveTimeIndex(
-      cache.time!,
-      cache.timezone!,
-    ).clamp(0, cache.weathercode!.length - 1);
-
+    final clock = LocationClock.fromMainWeather(
+      cache,
+      settingsClockSkewSeconds: settings.clockSkewSeconds,
+    );
+    final indices = TimeIndexHelper.currentIndices(
+      hourly: cache.time!,
+      daily: cache.timeDaily ?? const [],
+      clock: clock,
+    );
+    final hour = indices.hour.clamp(0, cache.weathercode!.length - 1);
     final day = cache.timeDaily == null || cache.timeDaily!.isEmpty
         ? 0
-        : TimeIndexHelper.resolveDayIndex(
-            cache.timeDaily!,
-            cache.timezone!,
-          ).clamp(0, cache.timeDaily!.length - 1);
+        : indices.day.clamp(0, cache.timeDaily!.length - 1);
 
     final location = await isar.locationCaches.where().findFirst();
     final locationName = location?.city ?? location?.district ?? '';

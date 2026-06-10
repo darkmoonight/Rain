@@ -19,6 +19,7 @@ WeatherDataApi _sampleApi() => WeatherDataApi(
     sunset: ['18:00'],
   ),
   timezone: 'Europe/Moscow',
+  utcOffsetSeconds: 10800,
 );
 
 void main() {
@@ -43,7 +44,6 @@ void main() {
         37.62,
         'Moscow',
         'Moscow Oblast',
-        'Europe/Moscow',
       );
 
       expect(card.lat, 55.75);
@@ -64,13 +64,13 @@ void main() {
         2,
         'New',
         'District',
-        'UTC',
       );
 
       WeatherMapper.copyWeatherCardFields(oldCard, updated);
 
       expect(oldCard.city, 'Old');
       expect(oldCard.temperature2M, [20.0]);
+      expect(oldCard.timezone, 'Europe/Moscow');
       expect(oldCard.timestamp, isNotNull);
     });
   });

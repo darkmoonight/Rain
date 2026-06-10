@@ -31,6 +31,7 @@
 
 **🌡️ Comprehensive Weather Data**
 - Real-time conditions with feels-like temperature • Hourly forecasts (12 days) • 12-day daily outlooks
+- Location-aware time: forecast slots use each place's Open-Meteo timezone and UTC offset; HTTP `Date` skew corrects a wrong device clock
 - Detailed metrics: UV index, humidity, wind speed/direction, precipitation, visibility, pressure, dew point
 - Day/night-aware weather icons • Sunrise/sunset times • Expandable hourly variable details
 
@@ -47,8 +48,9 @@
 
 **🏙️ Multi-City Management**
 - Save unlimited cities to your watchlist • Drag-to-reorder • Pull-to-refresh all
+- Live local wall clock on each city card • Correct offsets between cities even when the device clock is off
 - City search with autocomplete • Manual coordinate entry • GPS auto-detection
-- Edit or remove saved cities • View timezone for each location
+- Edit or remove saved cities • Timezone from the weather API for each location
 
 **🔔 Smart Notifications**
 - Scheduled weather forecasts (1-5 hour intervals) • Custom time window (start/end)
@@ -61,8 +63,8 @@
   - **Current (2×2)** — resizable card with temperature on top and weather icon at bottom-left
   - **Clock (4×1 bar)** — live clock and date, weather icon, city name and temperature; horizontally resizable
 - Respects app **Celsius/Fahrenheit**, **rounded temperature**, and **12h/24h** time format (Clock widget)
-- Background refresh (Workmanager, ~15 min minimum) • Custom background and text colors (HSV picker)
-- Updates when the app loads cached weather and after fresh fetches
+- Background refresh (Workmanager, ~15 min minimum): fetches stale main weather when online, then pushes widget data • Custom background and text colors (HSV picker)
+- Updates when the app loads cached weather, after fresh fetches, and from the periodic background task
 
 **🎨 Beautiful Design**
 - Material You dynamic theming (wallpaper colors) • Pure AMOLED black theme
@@ -117,7 +119,7 @@ flutter pub get
 
 # Generate code (Isar, Freezed, JSON, translations)
 dart run slang
-dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
 
 # Run the app (Android uses flavor gms by default; see pubspec `default-flavor`)
 flutter run
@@ -178,7 +180,7 @@ Same steps manually:
 cp tool/pubspec_overrides.floss.yaml pubspec_overrides.yaml
 flutter pub get
 ./scripts/patch_jni_reproducible_build.sh
-dart run slang && dart run build_runner build
+dart run slang && dart run build_runner build --delete-conflicting-outputs
 flutter build apk --release --flavor floss --target-platform android-arm64
 ./scripts/rename_apk_outputs.sh floss
 ```
@@ -194,7 +196,7 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Testing
 
-The project has **333** unit and widget tests (91 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
+The project has **338** unit and widget tests (93 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
 
 ```bash
 flutter test
@@ -209,7 +211,7 @@ Optional coverage report (output in `coverage/`, gitignored):
 flutter test --coverage
 ```
 
-**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers, air quality (`AqiHelper`, `AirQualityMapper`, graceful AQ API fallback).
+**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing, HTTP date parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers, location wall clock (`TimeIndexHelper`, clock skew persistence), air quality (`AqiHelper`, `AirQualityMapper`, graceful AQ API fallback).
 
 **Notification regression tests:** stable notification IDs (`notificationIdFor`), one slot per hour when duplicate daily rows exist, and `MainWeatherNotifier._init` not calling `cancelAll()` while notifications stay enabled.
 
@@ -229,13 +231,14 @@ The project uses code generation for:
 After changing models or locale files:
 ```bash
 dart run slang
-dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
 ```
 
 ### Tech Stack (highlights)
 - **Flutter** + **Riverpod 3** • **Go Router** • **Isar Community**
 - **home_widget** + **Workmanager** (Android widgets) • **flutter_local_notifications**
 - **Open-Meteo Weather API** • **Open-Meteo Air Quality API** • **flutter_map** + OSM tiles
+- **timezone** + **flutter_timezone** for IANA lookups and per-location wall clocks
 
 ---
 

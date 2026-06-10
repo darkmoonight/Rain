@@ -54,12 +54,12 @@ void main() {
         37.62,
         'Moscow',
         'Moscow Oblast',
-        'Europe/Moscow',
       );
 
       expect(card.city, 'Moscow');
       expect(card.district, 'Moscow Oblast');
       expect(card.lat, 55.75);
+      expect(card.timezone, 'Europe/Moscow');
     });
 
     test('searchCities returns normalized results', () async {

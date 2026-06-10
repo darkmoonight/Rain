@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/providers.dart';
@@ -9,12 +11,34 @@ import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/i18n/tr.dart';
 
 /// Main tab showing the current location's full weather detail view.
-class MainWeatherScreen extends ConsumerWidget {
+class MainWeatherScreen extends ConsumerStatefulWidget {
   const MainWeatherScreen({super.key});
+
+  @override
+  ConsumerState<MainWeatherScreen> createState() => _MainWeatherScreenState();
+}
+
+class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
+  Timer? _clockTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _clockTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+      if (!mounted) return;
+      ref.read(mainWeatherNotifierProvider.notifier).syncCurrentTimeIndices();
+    });
+  }
+
+  @override
+  void dispose() {
+    _clockTimer?.cancel();
+    super.dispose();
+  }
 
   /// Builds the refreshable main weather screen from [MainWeatherState].
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final state = ref.watch(mainWeatherNotifierProvider);
     final notifier = ref.read(mainWeatherNotifierProvider.notifier);
 

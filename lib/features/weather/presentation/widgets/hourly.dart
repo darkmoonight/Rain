@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/core/weather/status_data.dart';
+import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/weather/status_weather.dart';
 
 /// Single hour column in the horizontal hourly forecast strip.
@@ -47,18 +48,17 @@ class Hourly extends ConsumerWidget {
     StatusData statusData,
     Locale locale,
   ) {
-    final parsedTime = DateTime.tryParse(time);
+    final date = TimeIndexHelper.parseForecastDate(time);
 
     return Column(
       children: [
         Text(statusData.getTimeFormat(time), style: textTheme.labelLarge),
-        if (parsedTime != null)
-          Text(
-            DateFormat('E', locale.languageCode).format(parsedTime),
-            style: textTheme.labelLarge?.copyWith(
-              color: textTheme.bodySmall?.color,
-            ),
+        Text(
+          DateFormat('E', locale.languageCode).format(date),
+          style: textTheme.labelLarge?.copyWith(
+            color: textTheme.bodySmall?.color,
           ),
+        ),
       ],
     );
   }
