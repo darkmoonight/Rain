@@ -62,7 +62,6 @@ class _PlaceListState extends ConsumerState<PlaceList> {
 
     return Column(
       children: [
-        if (cities.isRefreshing) const LinearProgressIndicator(minHeight: 2),
         if (cities.loadError)
           MaterialBanner(
             content: Text('citiesLoadError'.tr),
