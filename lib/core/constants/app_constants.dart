@@ -90,6 +90,15 @@ class AppConstants {
   static const double cardPaddingHorizontal = 10.0;
   static const double cardPaddingVertical = 5.0;
 
+  /// Desc grid cell width inside [DescContainer].
+  static const double descGridItemWidth = 100.0;
+
+  /// Desc grid spacing inside [DescContainer].
+  static const double descGridSpacing = 8.0;
+
+  /// Desc grid row height inside [DescContainer].
+  static const double descGridRowHeight = 90.0;
+
   // Text
   static const double fontSizeSmall = 14.0;
   static const double fontSizeMedium = 16.0;

@@ -5,8 +5,8 @@ import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/data/models/db.dart';
-import 'package:rain/features/weather/presentation/widgets/air_quality/air_quality_card.dart';
 import 'package:rain/features/weather/presentation/widgets/desc/desc_container.dart';
+import 'package:rain/features/weather/presentation/widgets/weather_hourly_sections.dart';
 import 'package:rain/features/weather/presentation/widgets/hourly.dart';
 import 'package:rain/features/weather/presentation/widgets/hourly_strip.dart';
 import 'package:rain/features/weather/presentation/widgets/now.dart';
@@ -114,31 +114,15 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
           ),
           _buildHourlyList(weatherData, startIndex, sunrise, sunset),
           SunsetSunrise(timeSunrise: sunrise, timeSunset: sunset),
-          AirQualityCard(
+          WeatherHourlySections(
             weatherCard: weatherData,
             hourIndex: hourlyIndex,
             aqiStandard: aqiStandard,
+            hourlyVariablesExpanded: true,
           ),
-          DescContainer.fromHourlySlot(
+          DescContainer.fromDailySlot(
             card: weatherData,
-            hourIndex: hourlyIndex,
-            initiallyExpanded: true,
-            title: 'hourlyVariables'.tr,
-          ),
-          DescContainer(
-            apparentTemperatureMin:
-                weatherData.apparentTemperatureMin?[dayIndex],
-            apparentTemperatureMax:
-                weatherData.apparentTemperatureMax?[dayIndex],
-            uvIndexMax: weatherData.uvIndexMax?[dayIndex],
-            windDirection10MDominant:
-                weatherData.winddirection10MDominant?[dayIndex],
-            windSpeed10MMax: weatherData.windspeed10MMax?[dayIndex],
-            windGusts10MMax: weatherData.windgusts10MMax?[dayIndex],
-            precipitationProbabilityMax:
-                weatherData.precipitationProbabilityMax?[dayIndex],
-            rainSum: weatherData.rainSum?[dayIndex],
-            precipitationSum: weatherData.precipitationSum?[dayIndex],
+            dayIndex: dayIndex,
             initiallyExpanded: true,
             title: 'dailyVariables'.tr,
           ),

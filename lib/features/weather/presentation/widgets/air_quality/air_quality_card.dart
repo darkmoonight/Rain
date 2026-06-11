@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/theme/theme_text.dart';
+import 'package:rain/core/widgets/collapsible_section.dart';
 import 'package:rain/core/widgets/metric_help_tooltip.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
 import 'package:rain/data/models/db.dart';
@@ -49,9 +50,9 @@ class AirQualityCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: AppConstants.cardBottomMargin),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(
-          AppConstants.cardPaddingHorizontal,
           AppConstants.spacingL,
-          AppConstants.cardPaddingHorizontal,
+          AppConstants.spacingL,
+          AppConstants.spacingL,
           AppConstants.spacingS,
         ),
         child: Column(
@@ -68,11 +69,20 @@ class AirQualityCard extends StatelessWidget {
                 compactStyle: compactStyle,
               ),
             ),
-            _PollutantsSection(
-              weatherCard: weatherCard,
-              hourIndex: hourIndex,
-              titleStyle: textTheme.labelLarge,
-              labelStyle: compactStyle,
+            CollapsibleSection(
+              headerPadding: CollapsibleSection.nestedHeaderPadding,
+              title: Text('pollutants'.tr, style: textTheme.labelLarge),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Gap(AppConstants.spacingS),
+                  AqiPollutantList(
+                    weatherCard: weatherCard,
+                    hourIndex: hourIndex,
+                    labelStyle: compactStyle,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -143,85 +153,6 @@ class AirQualityCard extends StatelessWidget {
       ),
     ],
   );
-}
-
-/// Animated collapsible pollutant list (avoids Material 3 [ExpansionTile] chrome).
-class _PollutantsSection extends StatefulWidget {
-  const _PollutantsSection({
-    required this.weatherCard,
-    required this.hourIndex,
-    required this.titleStyle,
-    required this.labelStyle,
-  });
-
-  final WeatherCard weatherCard;
-  final int hourIndex;
-  final TextStyle? titleStyle;
-  final TextStyle? labelStyle;
-
-  @override
-  State<_PollutantsSection> createState() => _PollutantsSectionState();
-}
-
-class _PollutantsSectionState extends State<_PollutantsSection> {
-  static const _animationDuration = Duration(milliseconds: 250);
-
-  bool _expanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
-          onTap: () => setState(() => _expanded = !_expanded),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: AppConstants.spacingM,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text('pollutants'.tr, style: widget.titleStyle),
-                ),
-                AnimatedRotation(
-                  turns: _expanded ? 0.5 : 0,
-                  duration: _animationDuration,
-                  curve: Curves.easeInOut,
-                  child: Icon(
-                    Icons.expand_more,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        AnimatedSize(
-          duration: _animationDuration,
-          curve: Curves.easeInOut,
-          alignment: Alignment.topCenter,
-          clipBehavior: Clip.hardEdge,
-          child: _expanded
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Gap(AppConstants.spacingS),
-                    AqiPollutantList(
-                      weatherCard: widget.weatherCard,
-                      hourIndex: widget.hourIndex,
-                      labelStyle: widget.labelStyle,
-                    ),
-                  ],
-                )
-              : const SizedBox(width: double.infinity),
-        ),
-      ],
-    );
-  }
 }
 
 /// Pill showing the localized AQI severity level.

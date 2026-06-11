@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rain/i18n/tr.dart';
 import 'package:rain/data/models/db.dart';
-import 'package:rain/features/weather/presentation/widgets/air_quality/air_quality_card.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_container.dart';
-import 'package:rain/features/weather/presentation/widgets/desc/desc_container.dart';
+import 'package:rain/features/weather/presentation/widgets/weather_hourly_sections.dart';
 import 'package:rain/features/weather/presentation/widgets/hourly.dart';
 import 'package:rain/features/weather/presentation/widgets/hourly_strip.dart';
 import 'package:rain/features/weather/presentation/widgets/now.dart';
@@ -75,16 +73,10 @@ class WeatherDetailView extends StatelessWidget {
           ),
         ),
         SunsetSunrise(timeSunrise: sunrise, timeSunset: sunset),
-        AirQualityCard(
+        WeatherHourlySections(
           weatherCard: weatherCard,
           hourIndex: hourIndex,
           aqiStandard: aqiStandard,
-        ),
-        DescContainer.fromHourlySlot(
-          card: weatherCard,
-          hourIndex: hourIndex,
-          initiallyExpanded: false,
-          title: 'hourlyVariables'.tr,
         ),
         DailyContainer(
           weatherData: weatherCard,

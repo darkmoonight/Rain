@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/core/widgets/collapsible_section.dart';
 import 'package:rain/core/weather/desc_metrics_catalog.dart';
 import 'package:rain/core/weather/message.dart';
 import 'package:rain/core/weather/status_data.dart';
@@ -38,10 +40,6 @@ class DescContainer extends ConsumerWidget {
     required this.initiallyExpanded,
     required this.title,
   });
-
-  static const _itemWidth = 100.0;
-  static const _spacing = 8.0;
-  static const _rowHeight = 90.0;
 
   final int? humidity;
   final double? wind;
@@ -96,6 +94,26 @@ class DescContainer extends ConsumerWidget {
     title: title,
   );
 
+  /// Daily aggregate variable grid for one slot in [card].timeDaily.
+  factory DescContainer.fromDailySlot({
+    required WeatherCard card,
+    required int dayIndex,
+    required bool initiallyExpanded,
+    required String title,
+  }) => DescContainer(
+    apparentTemperatureMin: card.apparentTemperatureMin?[dayIndex],
+    apparentTemperatureMax: card.apparentTemperatureMax?[dayIndex],
+    uvIndexMax: card.uvIndexMax?[dayIndex],
+    windDirection10MDominant: card.winddirection10MDominant?[dayIndex],
+    windSpeed10MMax: card.windspeed10MMax?[dayIndex],
+    windGusts10MMax: card.windgusts10MMax?[dayIndex],
+    precipitationProbabilityMax: card.precipitationProbabilityMax?[dayIndex],
+    rainSum: card.rainSum?[dayIndex],
+    precipitationSum: card.precipitationSum?[dayIndex],
+    initiallyExpanded: initiallyExpanded,
+    title: title,
+  );
+
   /// Builds the expandable grid of available hourly or daily weather metrics.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -132,51 +150,44 @@ class DescContainer extends ConsumerWidget {
     ).where((m) => m.hasValue).toList();
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 15),
-      child: ExpansionTile(
-        shape: const Border(),
-        title: Text(title, style: Theme.of(context).textTheme.labelLarge),
+      margin: const EdgeInsets.only(bottom: AppConstants.cardBottomMargin),
+      child: CollapsibleSection(
         initiallyExpanded: initiallyExpanded,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 20,
-              bottom: 5,
-              left: 8,
-              right: 8,
-            ),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final crossAxisCount =
-                    ((constraints.maxWidth + _spacing) /
-                            (_itemWidth + _spacing))
-                        .floor()
-                        .clamp(1, 8);
+        title: Text(title, style: Theme.of(context).textTheme.labelLarge),
+        child: Padding(
+          padding: CollapsibleSection.cardBodyPadding,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final spacing = AppConstants.descGridSpacing;
+              final crossAxisCount =
+                  ((constraints.maxWidth + spacing) /
+                          (AppConstants.descGridItemWidth + spacing))
+                      .floor()
+                      .clamp(1, 8);
 
-                return GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: metrics.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    mainAxisExtent: _rowHeight,
-                    crossAxisSpacing: _spacing,
-                    mainAxisSpacing: _spacing,
-                  ),
-                  itemBuilder: (context, index) {
-                    final metric = metrics.elementAt(index);
-                    return DescWeather(
-                      imageName: metric.imageAsset,
-                      value: metric.displayValue,
-                      desc: metric.label,
-                      message: metric.helpText,
-                    );
-                  },
-                );
-              },
-            ),
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: metrics.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                  mainAxisExtent: AppConstants.descGridRowHeight,
+                  crossAxisSpacing: spacing,
+                  mainAxisSpacing: spacing,
+                ),
+                itemBuilder: (context, index) {
+                  final metric = metrics.elementAt(index);
+                  return DescWeather(
+                    imageName: metric.imageAsset,
+                    value: metric.displayValue,
+                    desc: metric.label,
+                    message: metric.helpText,
+                  );
+                },
+              );
+            },
           ),
-        ],
+        ),
       ),
     );
   }
