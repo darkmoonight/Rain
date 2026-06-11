@@ -3,10 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/data/models/db.dart';
-import 'package:rain/features/weather/presentation/widgets/daily/daily_card_info.dart';
+import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/weather/daily_display_helper.dart';
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/status_weather.dart';
-import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
@@ -16,10 +16,14 @@ class DailyContainer extends ConsumerStatefulWidget {
   const DailyContainer({
     super.key,
     required this.weatherData,
+    required this.dayIndex,
+    required this.hourIndex,
     required this.onTap,
   });
 
   final WeatherCard weatherData;
+  final int dayIndex;
+  final int hourIndex;
   final VoidCallback onTap;
 
   /// Creates the [ConsumerState] for [DailyContainer].
@@ -30,6 +34,10 @@ class DailyContainer extends ConsumerStatefulWidget {
 /// Renders the seven-day preview list and more-info action for [DailyContainer].
 class _DailyContainerState extends ConsumerState<DailyContainer> {
   late final StatusWeather _statusWeather = StatusWeather();
+  late final DailyForecastAnchor _anchor = DailyForecastAnchor(
+    dayIndex: widget.dayIndex,
+    hourIndex: widget.hourIndex,
+  );
   late Locale _locale;
   late StatusData _statusData;
 
@@ -38,15 +46,17 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
   Widget build(BuildContext context) {
     _locale = ref.watch(localeProvider);
     _statusData = StatusData(settings: ref.watch(settingsProvider));
-    final splashColor = Theme.of(
-      context,
-    ).colorScheme.primary.withValues(alpha: 0.4);
     const inkWellBorderRadius = BorderRadius.all(Radius.circular(16));
 
     final weatherData = widget.weatherData;
     final weatherCodeDaily = weatherData.weathercodeDaily ?? [];
+    final previewDays = weatherCodeDaily.length - widget.dayIndex;
     final textTheme = Theme.of(context).textTheme;
     final labelLarge = textTheme.labelLarge;
+
+    if (previewDays <= 0) {
+      return const SizedBox.shrink();
+    }
 
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
@@ -57,11 +67,11 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
             _buildDailyListView(
               context,
               weatherData,
-              weatherCodeDaily,
+              previewDays.clamp(0, 7),
               labelLarge,
             ),
             const Divider(),
-            _buildMoreInfoButton(context, splashColor, inkWellBorderRadius),
+            _buildMoreInfoButton(context, inkWellBorderRadius),
           ],
         ),
       ),
@@ -72,17 +82,16 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
   Widget _buildDailyListView(
     BuildContext context,
     WeatherCard weatherData,
-    List<int?> weatherCodeDaily,
+    int itemCount,
     TextStyle? labelLarge,
   ) => ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
-    itemCount: 7,
-    itemBuilder: (ctx, index) => _buildDailyItem(
+    itemCount: itemCount,
+    itemBuilder: (ctx, offset) => _buildDailyItem(
       context,
       weatherData,
-      weatherCodeDaily,
-      index,
+      widget.dayIndex + offset,
       labelLarge,
     ),
   );
@@ -91,23 +100,27 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
   Widget _buildDailyItem(
     BuildContext context,
     WeatherCard weatherData,
-    List<int?> weatherCodeDaily,
     int index,
     TextStyle? labelLarge,
   ) => InkWell(
-    splashColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.4),
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
     borderRadius: BorderRadius.all(Radius.circular(16)),
-    onTap: () => NavigationHelper.toDownToUp(
-      context,
-      () => DailyCardInfo(weatherData: weatherData, index: index),
-    ),
+    onTap: () => _anchor.openDetail(context, weatherData, index),
     child: Container(
       margin: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildDayText(weatherData, index, labelLarge),
-          _buildWeatherInfo(weatherCodeDaily, index, labelLarge),
+          Expanded(
+            flex: 2,
+            child: _buildDayText(weatherData, index, labelLarge),
+          ),
+          Expanded(
+            flex: 4,
+            child: _buildWeatherInfo(weatherData, index, labelLarge),
+          ),
+          const Gap(4),
           _buildTemperatureRange(weatherData, index, labelLarge),
         ],
       ),
@@ -119,42 +132,44 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     WeatherCard weatherData,
     int index,
     TextStyle? labelLarge,
-  ) => Expanded(
-    child: Text(
-      DateFormat.EEEE(
-        _locale.languageCode,
-      ).format((weatherData.timeDaily ?? [])[index]),
-      style: labelLarge,
-      overflow: TextOverflow.ellipsis,
-    ),
+  ) => Text(
+    DateFormat.EEEE(
+      _locale.languageCode,
+    ).format((weatherData.timeDaily ?? [])[index]),
+    style: labelLarge,
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
   );
 
   /// Displays the weather icon and description for the day at [index].
   Widget _buildWeatherInfo(
-    List<int?> weatherCodeDaily,
+    WeatherCard weatherData,
     int index,
     TextStyle? labelLarge,
   ) {
-    final weatherCode = weatherCodeDaily[index];
-    if (weatherCode == null) {
-      return const Expanded(child: SizedBox.shrink());
+    final weatherCode = _anchor.weatherCode(weatherData, index);
+    final imagePath = _anchor.previewImagePath(
+      _statusWeather,
+      weatherData,
+      index,
+    );
+    if (weatherCode == null || imagePath == null) {
+      return const SizedBox.shrink();
     }
 
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(_statusWeather.getImage7Day(weatherCode), scale: 3),
-          const Gap(5),
-          Expanded(
-            child: Text(
-              _statusWeather.getText(weatherCode),
-              style: labelLarge,
-              overflow: TextOverflow.ellipsis,
-            ),
+    return Row(
+      children: [
+        Image.asset(imagePath, scale: AppConstants.dailyPreviewIconScale),
+        const Gap(5),
+        Expanded(
+          child: Text(
+            _statusWeather.getText(weatherCode),
+            style: labelLarge,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -163,30 +178,28 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     WeatherCard weatherData,
     int index,
     TextStyle? labelLarge,
-  ) => Expanded(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Text(
-          _statusData.getDegree((weatherData.temperature2MMax ?? [])[index]),
-          style: labelLarge,
-        ),
-        Text(' / ', style: labelLarge),
-        Text(
-          _statusData.getDegree((weatherData.temperature2MMin ?? [])[index]),
-          style: labelLarge,
-        ),
-      ],
-    ),
+  ) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        _statusData.getDegree((weatherData.temperature2MMax ?? [])[index]),
+        style: labelLarge,
+      ),
+      Text(' / ', style: labelLarge),
+      Text(
+        _statusData.getDegree((weatherData.temperature2MMin ?? [])[index]),
+        style: labelLarge,
+      ),
+    ],
   );
 
   /// Builds the tappable footer that invokes [widget.onTap].
   Widget _buildMoreInfoButton(
     BuildContext context,
-    Color splashColor,
     BorderRadius inkWellBorderRadius,
   ) => InkWell(
-    splashColor: splashColor,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
     borderRadius: inkWellBorderRadius,
     onTap: widget.onTap,
     child: Padding(

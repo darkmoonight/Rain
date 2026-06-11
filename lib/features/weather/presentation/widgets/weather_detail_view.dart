@@ -49,6 +49,7 @@ class WeatherDetailView extends StatelessWidget {
           timeNight: sunset,
           tempMax: tempMax,
           tempMin: tempMin,
+          updatedAt: weatherCard.timestamp,
         ),
         Card(
           margin: const EdgeInsets.only(bottom: 15),
@@ -121,7 +122,12 @@ class WeatherDetailView extends StatelessWidget {
           initiallyExpanded: false,
           title: 'hourlyVariables'.tr,
         ),
-        DailyContainer(weatherData: weatherCard, onTap: showDailyTap ?? () {}),
+        DailyContainer(
+          weatherData: weatherCard,
+          dayIndex: dayIndex,
+          hourIndex: hourIndex,
+          onTap: showDailyTap ?? () {},
+        ),
       ],
     );
   }

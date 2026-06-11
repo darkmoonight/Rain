@@ -219,7 +219,11 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
               }),
               showDailyTap: () => NavigationHelper.toDownToUp(
                 context,
-                () => DailyCardList(weatherData: card),
+                () => DailyCardList(
+                  weatherData: card,
+                  dayIndex: dayNow,
+                  hourIndex: timeNow,
+                ),
               ),
             ),
           ),

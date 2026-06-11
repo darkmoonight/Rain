@@ -161,6 +161,17 @@ class TimeIndexHelper {
   static String formatCalendarDate(DateTime date, String languageCode) =>
       DateFormat.yMMMEd(languageCode).format(date);
 
+  /// Formats when forecast data was last saved to cache (date + clock time).
+  static String formatUpdatedAt(
+    DateTime updatedAt,
+    Settings settings,
+    String languageCode,
+  ) {
+    final date = DateFormat.yMMMd(languageCode).format(updatedAt);
+    final time = formatDateTime(updatedAt, settings, languageCode);
+    return '$date, $time';
+  }
+
   /// Whether [currentTime] falls between [sunrise] and [sunset].
   static bool isDaytime(String currentTime, String sunrise, String sunset) {
     final current = _minutesOfDay(_timePart(currentTime));

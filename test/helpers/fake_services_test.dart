@@ -21,6 +21,14 @@ void main() {
   });
 
   group('FakeNotificationService', () {
+    test('cancelScheduled increments counter', () async {
+      final service = FakeNotificationService();
+      await service.cancelScheduled();
+      await service.cancelScheduled();
+
+      expect(service.cancelScheduledCalls, 2);
+    });
+
     test('cancelAll increments counter', () async {
       final service = FakeNotificationService();
       await service.cancelAll();

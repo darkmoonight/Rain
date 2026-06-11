@@ -34,6 +34,13 @@ class StatusData {
   /// Formats an ISO time string using the user's clock preference.
   String getTimeFormat(String time) => _formatTime(time);
 
+  /// Formats when forecast data was last saved on the device.
+  String formatUpdatedAt(DateTime updatedAt) => TimeIndexHelper.formatUpdatedAt(
+    updatedAt,
+    settings,
+    _locale.languageCode,
+  );
+
   /// Formats a location wall clock using the user's clock preference.
   String getWallClockFormat(DateTime wallClock) =>
       TimeIndexHelper.formatWallClock(

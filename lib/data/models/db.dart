@@ -10,6 +10,7 @@ class Settings {
   String? theme = 'system';
   bool location = false;
   bool notifications = false;
+  bool persistentNotification = false;
   bool materialColor = false;
   bool amoledTheme = false;
   bool roundDegree = false;
@@ -22,6 +23,7 @@ class Settings {
   String wind = 'kph';
   String pressure = 'hPa';
   String timeformat = '24';
+  String appFont = 'ubuntu';
   String aqiStandard = 'european';
   String? language;
   int? timeRange;

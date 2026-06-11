@@ -109,7 +109,6 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get fog => 'Туман';
 	@override String get description2 => 'Вся навигация сделана таким образом, чтобы можно было взаимодействовать с приложением максимально удобно и быстро.';
 	@override String get mm => 'мм';
-	@override String get no_desc_data => 'Нет данных';
 	@override String get search_city => 'Найдите свой город';
 	@override String get weather_more => 'Прогноз погоды на 12 дней';
 	@override String get round_degree => 'Округлить градусы';
@@ -223,6 +222,38 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get aqi_advice_poor => 'Ограничьте активность на улице, особенно при повышенной чувствительности.';
 	@override String get aqi_advice_very_poor => 'Избегайте длительных нагрузок на улице. Возможны последствия для здоровья.';
 	@override String get aqi_advice_extremely_poor => 'По возможности оставайтесь дома. Прогулки на улице не рекомендуются.';
+	@override String get aqi_help_how_calculated_european => 'Почасовой европейский AQI от Open-Meteo (Copernicus CAMS). Сводный индекс — максимум из отдельных индексов PM2.5, PM10, озона, NO₂ и SO₂. Шкала: 0–20 хорошее, 20–40 удовлетворительное, 40–60 умеренное, 60–80 плохое, 80–100 очень плохое, выше 100 — крайне плохое.';
+	@override String get aqi_help_how_calculated_american => 'Почасовой US AQI от Open-Meteo (Copernicus CAMS). Сводный индекс — максимум из отдельных индексов PM2.5, PM10, озона, NO₂, SO₂ и CO. Шкала: 0–50 хорошее, 51–100 умеренное, 101–150 вредно для чувствительных, 151–200 вредное, 201–300 очень вредное, 301–500 опасное.';
+	@override String get aqi_help_dominant => 'Наибольший уровень загрязнителя';
+	@override String get aqi_help_advice_label => 'Рекомендация';
+	@override String get aqi_help_source => 'Источник: Open-Meteo Air Quality API — концентрации у земли (~10 м), сетка ~11 км.';
+	@override String get widget_battery_hint => 'Для стабильного обновления виджета отключите оптимизацию батареи для Rain в настройках приложения';
+	@override String get persistent_notification => 'Постоянное уведомление';
+	@override String get last_updated => 'Обновлено';
+	@override String get app_font => 'Шрифт';
+	@override String get font_ubuntu => 'Ubuntu (приложение)';
+	@override String get font_system => 'Системный';
+	@override String get font_inter => 'Inter';
+	@override String get font_open_sans => 'Open Sans';
+	@override String get font_roboto => 'Roboto';
+	@override String get font_barlow_condensed => 'Barlow Condensed';
+	@override String get metric_help_apparent_temperature_min => 'Минимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.';
+	@override String get metric_help_apparent_temperature_max => 'Максимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.';
+	@override String get metric_help_uv_index => 'Интенсивность ультрафиолета. Чем выше значение, тем быстрее солнечный ожог и выше риск для глаз.';
+	@override String get metric_help_direction => 'Направление ветра по компасу — откуда дует ветер (метеорологическая традиция).';
+	@override String get metric_help_wind => 'Средняя скорость ветра на высоте 10 м над землёй.';
+	@override String get metric_help_wind_gusts => 'Кратковременные порывы — пиковая скорость ветра за период.';
+	@override String get metric_help_precipitation_probability => 'Вероятность выпадения измеримых осадков за этот час или день.';
+	@override String get metric_help_rain => 'Только жидкие осадки (дождь), без снега.';
+	@override String get metric_help_precipitation => 'Суммарные осадки: дождь и снег (снег в пересчёте на воду).';
+	@override String get metric_help_dewpoint => 'Температура насыщения воздуха. Чем ближе к температуре воздуха, тем душнее.';
+	@override String get metric_help_feels => 'Ощущаемая температура в этот час с учётом влажности, ветра и солнца.';
+	@override String get metric_help_visibility => 'Максимальная дальность, на которой различимы предметы на горизонте.';
+	@override String get metric_help_evaporation => 'Испарение с почвы и растений для данной точки (1 мм/ч ≈ 1 л на м²).';
+	@override String get metric_help_humidity => 'Относительная влажность на высоте 2 м — доля насыщения воздуха в процентах.';
+	@override String get metric_help_cloudcover => 'Доля неба, закрытая облаками (0% — ясно, 100% — сплошная облачность).';
+	@override String get metric_help_pressure => 'Атмосферное давление, приведённое к уровню моря. Падение часто предвещает ухудшение погоды.';
+	@override String get metric_help_shortwave_radiation => 'Солнечная энергия на горизонтальной поверхности (ГГИ), усреднённая за предыдущий час.';
 }
 
 /// The flat map containing all translations for locale <ru-RU>.
@@ -303,7 +334,6 @@ extension on TranslationsRuRu {
 			'fog' => 'Туман',
 			'description2' => 'Вся навигация сделана таким образом, чтобы можно было взаимодействовать с приложением максимально удобно и быстро.',
 			'mm' => 'мм',
-			'no_desc_data' => 'Нет данных',
 			'search_city' => 'Найдите свой город',
 			'weather_more' => 'Прогноз погоды на 12 дней',
 			'round_degree' => 'Округлить градусы',
@@ -417,6 +447,38 @@ extension on TranslationsRuRu {
 			'aqi_advice_poor' => 'Ограничьте активность на улице, особенно при повышенной чувствительности.',
 			'aqi_advice_very_poor' => 'Избегайте длительных нагрузок на улице. Возможны последствия для здоровья.',
 			'aqi_advice_extremely_poor' => 'По возможности оставайтесь дома. Прогулки на улице не рекомендуются.',
+			'aqi_help_how_calculated_european' => 'Почасовой европейский AQI от Open-Meteo (Copernicus CAMS). Сводный индекс — максимум из отдельных индексов PM2.5, PM10, озона, NO₂ и SO₂. Шкала: 0–20 хорошее, 20–40 удовлетворительное, 40–60 умеренное, 60–80 плохое, 80–100 очень плохое, выше 100 — крайне плохое.',
+			'aqi_help_how_calculated_american' => 'Почасовой US AQI от Open-Meteo (Copernicus CAMS). Сводный индекс — максимум из отдельных индексов PM2.5, PM10, озона, NO₂, SO₂ и CO. Шкала: 0–50 хорошее, 51–100 умеренное, 101–150 вредно для чувствительных, 151–200 вредное, 201–300 очень вредное, 301–500 опасное.',
+			'aqi_help_dominant' => 'Наибольший уровень загрязнителя',
+			'aqi_help_advice_label' => 'Рекомендация',
+			'aqi_help_source' => 'Источник: Open-Meteo Air Quality API — концентрации у земли (~10 м), сетка ~11 км.',
+			'widget_battery_hint' => 'Для стабильного обновления виджета отключите оптимизацию батареи для Rain в настройках приложения',
+			'persistent_notification' => 'Постоянное уведомление',
+			'last_updated' => 'Обновлено',
+			'app_font' => 'Шрифт',
+			'font_ubuntu' => 'Ubuntu (приложение)',
+			'font_system' => 'Системный',
+			'font_inter' => 'Inter',
+			'font_open_sans' => 'Open Sans',
+			'font_roboto' => 'Roboto',
+			'font_barlow_condensed' => 'Barlow Condensed',
+			'metric_help_apparent_temperature_min' => 'Минимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.',
+			'metric_help_apparent_temperature_max' => 'Максимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.',
+			'metric_help_uv_index' => 'Интенсивность ультрафиолета. Чем выше значение, тем быстрее солнечный ожог и выше риск для глаз.',
+			'metric_help_direction' => 'Направление ветра по компасу — откуда дует ветер (метеорологическая традиция).',
+			'metric_help_wind' => 'Средняя скорость ветра на высоте 10 м над землёй.',
+			'metric_help_wind_gusts' => 'Кратковременные порывы — пиковая скорость ветра за период.',
+			'metric_help_precipitation_probability' => 'Вероятность выпадения измеримых осадков за этот час или день.',
+			'metric_help_rain' => 'Только жидкие осадки (дождь), без снега.',
+			'metric_help_precipitation' => 'Суммарные осадки: дождь и снег (снег в пересчёте на воду).',
+			'metric_help_dewpoint' => 'Температура насыщения воздуха. Чем ближе к температуре воздуха, тем душнее.',
+			'metric_help_feels' => 'Ощущаемая температура в этот час с учётом влажности, ветра и солнца.',
+			'metric_help_visibility' => 'Максимальная дальность, на которой различимы предметы на горизонте.',
+			'metric_help_evaporation' => 'Испарение с почвы и растений для данной точки (1 мм/ч ≈ 1 л на м²).',
+			'metric_help_humidity' => 'Относительная влажность на высоте 2 м — доля насыщения воздуха в процентах.',
+			'metric_help_cloudcover' => 'Доля неба, закрытая облаками (0% — ясно, 100% — сплошная облачность).',
+			'metric_help_pressure' => 'Атмосферное давление, приведённое к уровню моря. Падение часто предвещает ухудшение погоды.',
+			'metric_help_shortwave_radiation' => 'Солнечная энергия на горизонтальной поверхности (ГГИ), усреднённая за предыдущий час.',
 			_ => null,
 		};
 	}

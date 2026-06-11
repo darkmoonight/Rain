@@ -251,9 +251,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'mm'
 	String get mm => 'mm';
 
-	/// en-US: 'No data'
-	String get no_desc_data => 'No data';
-
 	/// en-US: 'Find your city'
 	String get search_city => 'Find your city';
 
@@ -592,6 +589,102 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'Stay indoors if possible. Outdoor activity is not recommended.'
 	String get aqi_advice_extremely_poor => 'Stay indoors if possible. Outdoor activity is not recommended.';
+
+	/// en-US: 'Hourly European AQI from Open-Meteo (Copernicus CAMS). The overall index is the maximum of the individual indices for PM2.5, PM10, ozone, NO₂, and SO₂. Scale: 0–20 good, 20–40 fair, 40–60 moderate, 60–80 poor, 80–100 very poor, above 100 extremely poor.'
+	String get aqi_help_how_calculated_european => 'Hourly European AQI from Open-Meteo (Copernicus CAMS). The overall index is the maximum of the individual indices for PM2.5, PM10, ozone, NO₂, and SO₂. Scale: 0–20 good, 20–40 fair, 40–60 moderate, 60–80 poor, 80–100 very poor, above 100 extremely poor.';
+
+	/// en-US: 'Hourly US AQI from Open-Meteo (Copernicus CAMS). The overall index is the maximum of the individual indices for PM2.5, PM10, ozone, NO₂, SO₂, and CO. Scale: 0–50 good, 51–100 moderate, 101–150 unhealthy for sensitive groups, 151–200 unhealthy, 201–300 very unhealthy, 301–500 hazardous.'
+	String get aqi_help_how_calculated_american => 'Hourly US AQI from Open-Meteo (Copernicus CAMS). The overall index is the maximum of the individual indices for PM2.5, PM10, ozone, NO₂, SO₂, and CO. Scale: 0–50 good, 51–100 moderate, 101–150 unhealthy for sensitive groups, 151–200 unhealthy, 201–300 very unhealthy, 301–500 hazardous.';
+
+	/// en-US: 'Highest pollutant level'
+	String get aqi_help_dominant => 'Highest pollutant level';
+
+	/// en-US: 'Recommendation'
+	String get aqi_help_advice_label => 'Recommendation';
+
+	/// en-US: 'Source: Open-Meteo Air Quality API — ground-level concentrations (~10 m), ~11 km grid.'
+	String get aqi_help_source => 'Source: Open-Meteo Air Quality API — ground-level concentrations (~10 m), ~11 km grid.';
+
+	/// en-US: 'For reliable widget updates, disable battery optimization for Rain in app settings'
+	String get widget_battery_hint => 'For reliable widget updates, disable battery optimization for Rain in app settings';
+
+	/// en-US: 'Persistent notification'
+	String get persistent_notification => 'Persistent notification';
+
+	/// en-US: 'Updated'
+	String get last_updated => 'Updated';
+
+	/// en-US: 'Font'
+	String get app_font => 'Font';
+
+	/// en-US: 'Ubuntu (app)'
+	String get font_ubuntu => 'Ubuntu (app)';
+
+	/// en-US: 'System'
+	String get font_system => 'System';
+
+	/// en-US: 'Inter'
+	String get font_inter => 'Inter';
+
+	/// en-US: 'Open Sans'
+	String get font_open_sans => 'Open Sans';
+
+	/// en-US: 'Roboto'
+	String get font_roboto => 'Roboto';
+
+	/// en-US: 'Barlow Condensed'
+	String get font_barlow_condensed => 'Barlow Condensed';
+
+	/// en-US: 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.'
+	String get metric_help_apparent_temperature_min => 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.';
+
+	/// en-US: 'Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.'
+	String get metric_help_apparent_temperature_max => 'Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.';
+
+	/// en-US: 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.'
+	String get metric_help_uv_index => 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.';
+
+	/// en-US: 'Compass direction the wind blows from (meteorological convention).'
+	String get metric_help_direction => 'Compass direction the wind blows from (meteorological convention).';
+
+	/// en-US: 'Average wind speed at 10 m above ground.'
+	String get metric_help_wind => 'Average wind speed at 10 m above ground.';
+
+	/// en-US: 'Peak wind speed in short bursts during the period.'
+	String get metric_help_wind_gusts => 'Peak wind speed in short bursts during the period.';
+
+	/// en-US: 'Chance that measurable precipitation falls in this hour or day.'
+	String get metric_help_precipitation_probability => 'Chance that measurable precipitation falls in this hour or day.';
+
+	/// en-US: 'Liquid rainfall only (does not include snow).'
+	String get metric_help_rain => 'Liquid rainfall only (does not include snow).';
+
+	/// en-US: 'Total water from rain and snow (snow shown as water equivalent).'
+	String get metric_help_precipitation => 'Total water from rain and snow (snow shown as water equivalent).';
+
+	/// en-US: 'Temperature at which air becomes saturated. Closer to the air temperature means muggier conditions.'
+	String get metric_help_dewpoint => 'Temperature at which air becomes saturated. Closer to the air temperature means muggier conditions.';
+
+	/// en-US: 'Perceived temperature at this hour from humidity, wind, and solar radiation.'
+	String get metric_help_feels => 'Perceived temperature at this hour from humidity, wind, and solar radiation.';
+
+	/// en-US: 'Farthest horizontal distance at which objects can be seen.'
+	String get metric_help_visibility => 'Farthest horizontal distance at which objects can be seen.';
+
+	/// en-US: 'Water evaporating from soil and plants; modelled for the location (1 mm/h ≈ 1 L per m²).'
+	String get metric_help_evaporation => 'Water evaporating from soil and plants; modelled for the location (1 mm/h ≈ 1 L per m²).';
+
+	/// en-US: 'Relative humidity at 2 m — moisture in the air as a percent of saturation.'
+	String get metric_help_humidity => 'Relative humidity at 2 m — moisture in the air as a percent of saturation.';
+
+	/// en-US: 'Share of the sky covered by clouds (0% clear, 100% overcast).'
+	String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
+
+	/// en-US: 'Sea-level air pressure. Falling pressure often signals worsening weather.'
+	String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
+
+	/// en-US: 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.'
+	String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
 }
 
 /// The flat map containing all translations for locale <en-US>.
@@ -672,7 +765,6 @@ extension on Translations {
 			'fog' => 'Fog',
 			'description2' => 'All navigation is designed to interact with the application as conveniently and quickly as possible.',
 			'mm' => 'mm',
-			'no_desc_data' => 'No data',
 			'search_city' => 'Find your city',
 			'weather_more' => '12-day weather forecast',
 			'round_degree' => 'Round degrees',
@@ -786,6 +878,38 @@ extension on Translations {
 			'aqi_advice_poor' => 'Limit outdoor activity, especially if you are sensitive to air pollution.',
 			'aqi_advice_very_poor' => 'Avoid prolonged outdoor exertion. Everyone may feel health effects.',
 			'aqi_advice_extremely_poor' => 'Stay indoors if possible. Outdoor activity is not recommended.',
+			'aqi_help_how_calculated_european' => 'Hourly European AQI from Open-Meteo (Copernicus CAMS). The overall index is the maximum of the individual indices for PM2.5, PM10, ozone, NO₂, and SO₂. Scale: 0–20 good, 20–40 fair, 40–60 moderate, 60–80 poor, 80–100 very poor, above 100 extremely poor.',
+			'aqi_help_how_calculated_american' => 'Hourly US AQI from Open-Meteo (Copernicus CAMS). The overall index is the maximum of the individual indices for PM2.5, PM10, ozone, NO₂, SO₂, and CO. Scale: 0–50 good, 51–100 moderate, 101–150 unhealthy for sensitive groups, 151–200 unhealthy, 201–300 very unhealthy, 301–500 hazardous.',
+			'aqi_help_dominant' => 'Highest pollutant level',
+			'aqi_help_advice_label' => 'Recommendation',
+			'aqi_help_source' => 'Source: Open-Meteo Air Quality API — ground-level concentrations (~10 m), ~11 km grid.',
+			'widget_battery_hint' => 'For reliable widget updates, disable battery optimization for Rain in app settings',
+			'persistent_notification' => 'Persistent notification',
+			'last_updated' => 'Updated',
+			'app_font' => 'Font',
+			'font_ubuntu' => 'Ubuntu (app)',
+			'font_system' => 'System',
+			'font_inter' => 'Inter',
+			'font_open_sans' => 'Open Sans',
+			'font_roboto' => 'Roboto',
+			'font_barlow_condensed' => 'Barlow Condensed',
+			'metric_help_apparent_temperature_min' => 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
+			'metric_help_apparent_temperature_max' => 'Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
+			'metric_help_uv_index' => 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.',
+			'metric_help_direction' => 'Compass direction the wind blows from (meteorological convention).',
+			'metric_help_wind' => 'Average wind speed at 10 m above ground.',
+			'metric_help_wind_gusts' => 'Peak wind speed in short bursts during the period.',
+			'metric_help_precipitation_probability' => 'Chance that measurable precipitation falls in this hour or day.',
+			'metric_help_rain' => 'Liquid rainfall only (does not include snow).',
+			'metric_help_precipitation' => 'Total water from rain and snow (snow shown as water equivalent).',
+			'metric_help_dewpoint' => 'Temperature at which air becomes saturated. Closer to the air temperature means muggier conditions.',
+			'metric_help_feels' => 'Perceived temperature at this hour from humidity, wind, and solar radiation.',
+			'metric_help_visibility' => 'Farthest horizontal distance at which objects can be seen.',
+			'metric_help_evaporation' => 'Water evaporating from soil and plants; modelled for the location (1 mm/h ≈ 1 L per m²).',
+			'metric_help_humidity' => 'Relative humidity at 2 m — moisture in the air as a percent of saturation.',
+			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
+			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
+			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
 			_ => null,
 		};
 	}

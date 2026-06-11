@@ -6,6 +6,7 @@ import 'package:rain/core/widgets/async_state_views.dart';
 import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card_list.dart';
+import 'package:rain/features/cities/presentation/widgets/place_card_shimmer.dart';
 
 /// Searchable, refreshable list of saved city weather cards.
 class PlaceList extends ConsumerStatefulWidget {
@@ -48,7 +49,7 @@ class _PlaceListState extends ConsumerState<PlaceList> {
     final cities = ref.watch(citiesNotifierProvider);
 
     if (cities.isLoading && cities.cards.isEmpty) {
-      return const LoadingStateView();
+      return const PlaceCardsLoadingView();
     }
     if (cities.loadError && cities.cards.isEmpty) {
       return ErrorRetryStateView(

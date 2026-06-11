@@ -34,11 +34,17 @@ class FakeNotificationService extends NotificationService {
   FakeNotificationService() : super(AssetCacheService());
 
   int cancelAllCalls = 0;
+  int cancelScheduledCalls = 0;
   int rescheduleCalls = 0;
 
   @override
   Future<void> cancelAll() async {
     cancelAllCalls++;
+  }
+
+  @override
+  Future<void> cancelScheduled() async {
+    cancelScheduledCalls++;
   }
 
   @override

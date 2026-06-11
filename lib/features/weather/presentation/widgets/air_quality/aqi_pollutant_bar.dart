@@ -22,7 +22,6 @@ class AqiPollutantBar extends StatelessWidget {
   static const _trackAlpha = 0.28;
   static const _minFillWidth = 4.0;
 
-  /// Builds the pollutant label, value, and EEA-colored track bar.
   @override
   Widget build(BuildContext context) {
     final valueStyle = labelStyle?.copyWith(fontWeight: FontWeight.w600);

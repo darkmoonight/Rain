@@ -22,88 +22,94 @@ const SettingsSchema = CollectionSchema(
       name: r'amoledTheme',
       type: IsarType.bool,
     ),
+    r'appFont': PropertySchema(id: 1, name: r'appFont', type: IsarType.string),
     r'aqiStandard': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'aqiStandard',
       type: IsarType.string,
     ),
     r'clockSkewSeconds': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'clockSkewSeconds',
       type: IsarType.long,
     ),
-    r'degrees': PropertySchema(id: 3, name: r'degrees', type: IsarType.string),
-    r'hideMap': PropertySchema(id: 4, name: r'hideMap', type: IsarType.bool),
+    r'degrees': PropertySchema(id: 4, name: r'degrees', type: IsarType.string),
+    r'hideMap': PropertySchema(id: 5, name: r'hideMap', type: IsarType.bool),
     r'language': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'language',
       type: IsarType.string,
     ),
     r'largeElement': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'largeElement',
       type: IsarType.bool,
     ),
-    r'location': PropertySchema(id: 7, name: r'location', type: IsarType.bool),
+    r'location': PropertySchema(id: 8, name: r'location', type: IsarType.bool),
     r'materialColor': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'materialColor',
       type: IsarType.bool,
     ),
     r'measurements': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'measurements',
       type: IsarType.string,
     ),
     r'notifications': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'notifications',
       type: IsarType.bool,
     ),
-    r'onboard': PropertySchema(id: 11, name: r'onboard', type: IsarType.bool),
+    r'onboard': PropertySchema(id: 12, name: r'onboard', type: IsarType.bool),
+    r'persistentNotification': PropertySchema(
+      id: 13,
+      name: r'persistentNotification',
+      type: IsarType.bool,
+    ),
     r'pressure': PropertySchema(
-      id: 12,
+      id: 14,
       name: r'pressure',
       type: IsarType.string,
     ),
     r'roundDegree': PropertySchema(
-      id: 13,
+      id: 15,
       name: r'roundDegree',
       type: IsarType.bool,
     ),
-    r'theme': PropertySchema(id: 14, name: r'theme', type: IsarType.string),
-    r'timeEnd': PropertySchema(id: 15, name: r'timeEnd', type: IsarType.string),
+    r'theme': PropertySchema(id: 16, name: r'theme', type: IsarType.string),
+    r'timeEnd': PropertySchema(id: 17, name: r'timeEnd', type: IsarType.string),
     r'timeRange': PropertySchema(
-      id: 16,
+      id: 18,
       name: r'timeRange',
       type: IsarType.long,
     ),
     r'timeStart': PropertySchema(
-      id: 17,
+      id: 19,
       name: r'timeStart',
       type: IsarType.string,
     ),
     r'timeformat': PropertySchema(
-      id: 18,
+      id: 20,
       name: r'timeformat',
       type: IsarType.string,
     ),
     r'weatherCacheVersion': PropertySchema(
-      id: 19,
+      id: 21,
       name: r'weatherCacheVersion',
       type: IsarType.long,
     ),
     r'widgetBackgroundColor': PropertySchema(
-      id: 20,
+      id: 22,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
     ),
     r'widgetTextColor': PropertySchema(
-      id: 21,
+      id: 23,
       name: r'widgetTextColor',
       type: IsarType.string,
     ),
-    r'wind': PropertySchema(id: 22, name: r'wind', type: IsarType.string),
+    r'wind': PropertySchema(id: 24, name: r'wind', type: IsarType.string),
   },
 
   estimateSize: _settingsEstimateSize,
@@ -127,6 +133,7 @@ int _settingsEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.appFont.length * 3;
   bytesCount += 3 + object.aqiStandard.length * 3;
   bytesCount += 3 + object.degrees.length * 3;
   {
@@ -179,28 +186,30 @@ void _settingsSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeBool(offsets[0], object.amoledTheme);
-  writer.writeString(offsets[1], object.aqiStandard);
-  writer.writeLong(offsets[2], object.clockSkewSeconds);
-  writer.writeString(offsets[3], object.degrees);
-  writer.writeBool(offsets[4], object.hideMap);
-  writer.writeString(offsets[5], object.language);
-  writer.writeBool(offsets[6], object.largeElement);
-  writer.writeBool(offsets[7], object.location);
-  writer.writeBool(offsets[8], object.materialColor);
-  writer.writeString(offsets[9], object.measurements);
-  writer.writeBool(offsets[10], object.notifications);
-  writer.writeBool(offsets[11], object.onboard);
-  writer.writeString(offsets[12], object.pressure);
-  writer.writeBool(offsets[13], object.roundDegree);
-  writer.writeString(offsets[14], object.theme);
-  writer.writeString(offsets[15], object.timeEnd);
-  writer.writeLong(offsets[16], object.timeRange);
-  writer.writeString(offsets[17], object.timeStart);
-  writer.writeString(offsets[18], object.timeformat);
-  writer.writeLong(offsets[19], object.weatherCacheVersion);
-  writer.writeString(offsets[20], object.widgetBackgroundColor);
-  writer.writeString(offsets[21], object.widgetTextColor);
-  writer.writeString(offsets[22], object.wind);
+  writer.writeString(offsets[1], object.appFont);
+  writer.writeString(offsets[2], object.aqiStandard);
+  writer.writeLong(offsets[3], object.clockSkewSeconds);
+  writer.writeString(offsets[4], object.degrees);
+  writer.writeBool(offsets[5], object.hideMap);
+  writer.writeString(offsets[6], object.language);
+  writer.writeBool(offsets[7], object.largeElement);
+  writer.writeBool(offsets[8], object.location);
+  writer.writeBool(offsets[9], object.materialColor);
+  writer.writeString(offsets[10], object.measurements);
+  writer.writeBool(offsets[11], object.notifications);
+  writer.writeBool(offsets[12], object.onboard);
+  writer.writeBool(offsets[13], object.persistentNotification);
+  writer.writeString(offsets[14], object.pressure);
+  writer.writeBool(offsets[15], object.roundDegree);
+  writer.writeString(offsets[16], object.theme);
+  writer.writeString(offsets[17], object.timeEnd);
+  writer.writeLong(offsets[18], object.timeRange);
+  writer.writeString(offsets[19], object.timeStart);
+  writer.writeString(offsets[20], object.timeformat);
+  writer.writeLong(offsets[21], object.weatherCacheVersion);
+  writer.writeString(offsets[22], object.widgetBackgroundColor);
+  writer.writeString(offsets[23], object.widgetTextColor);
+  writer.writeString(offsets[24], object.wind);
 }
 
 Settings _settingsDeserialize(
@@ -211,29 +220,31 @@ Settings _settingsDeserialize(
 ) {
   final object = Settings();
   object.amoledTheme = reader.readBool(offsets[0]);
-  object.aqiStandard = reader.readString(offsets[1]);
-  object.clockSkewSeconds = reader.readLong(offsets[2]);
-  object.degrees = reader.readString(offsets[3]);
-  object.hideMap = reader.readBool(offsets[4]);
+  object.appFont = reader.readString(offsets[1]);
+  object.aqiStandard = reader.readString(offsets[2]);
+  object.clockSkewSeconds = reader.readLong(offsets[3]);
+  object.degrees = reader.readString(offsets[4]);
+  object.hideMap = reader.readBool(offsets[5]);
   object.id = id;
-  object.language = reader.readStringOrNull(offsets[5]);
-  object.largeElement = reader.readBool(offsets[6]);
-  object.location = reader.readBool(offsets[7]);
-  object.materialColor = reader.readBool(offsets[8]);
-  object.measurements = reader.readString(offsets[9]);
-  object.notifications = reader.readBool(offsets[10]);
-  object.onboard = reader.readBool(offsets[11]);
-  object.pressure = reader.readString(offsets[12]);
-  object.roundDegree = reader.readBool(offsets[13]);
-  object.theme = reader.readStringOrNull(offsets[14]);
-  object.timeEnd = reader.readStringOrNull(offsets[15]);
-  object.timeRange = reader.readLongOrNull(offsets[16]);
-  object.timeStart = reader.readStringOrNull(offsets[17]);
-  object.timeformat = reader.readString(offsets[18]);
-  object.weatherCacheVersion = reader.readLong(offsets[19]);
-  object.widgetBackgroundColor = reader.readStringOrNull(offsets[20]);
-  object.widgetTextColor = reader.readStringOrNull(offsets[21]);
-  object.wind = reader.readString(offsets[22]);
+  object.language = reader.readStringOrNull(offsets[6]);
+  object.largeElement = reader.readBool(offsets[7]);
+  object.location = reader.readBool(offsets[8]);
+  object.materialColor = reader.readBool(offsets[9]);
+  object.measurements = reader.readString(offsets[10]);
+  object.notifications = reader.readBool(offsets[11]);
+  object.onboard = reader.readBool(offsets[12]);
+  object.persistentNotification = reader.readBool(offsets[13]);
+  object.pressure = reader.readString(offsets[14]);
+  object.roundDegree = reader.readBool(offsets[15]);
+  object.theme = reader.readStringOrNull(offsets[16]);
+  object.timeEnd = reader.readStringOrNull(offsets[17]);
+  object.timeRange = reader.readLongOrNull(offsets[18]);
+  object.timeStart = reader.readStringOrNull(offsets[19]);
+  object.timeformat = reader.readString(offsets[20]);
+  object.weatherCacheVersion = reader.readLong(offsets[21]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[22]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[23]);
+  object.wind = reader.readString(offsets[24]);
   return object;
 }
 
@@ -249,46 +260,50 @@ P _settingsDeserializeProp<P>(
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
-      return (reader.readLong(offset)) as P;
-    case 3:
       return (reader.readString(offset)) as P;
+    case 3:
+      return (reader.readLong(offset)) as P;
     case 4:
-      return (reader.readBool(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readStringOrNull(offset)) as P;
-    case 6:
       return (reader.readBool(offset)) as P;
+    case 6:
+      return (reader.readStringOrNull(offset)) as P;
     case 7:
       return (reader.readBool(offset)) as P;
     case 8:
       return (reader.readBool(offset)) as P;
     case 9:
-      return (reader.readString(offset)) as P;
-    case 10:
       return (reader.readBool(offset)) as P;
+    case 10:
+      return (reader.readString(offset)) as P;
     case 11:
       return (reader.readBool(offset)) as P;
     case 12:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 13:
       return (reader.readBool(offset)) as P;
     case 14:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 15:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 16:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 17:
       return (reader.readStringOrNull(offset)) as P;
     case 18:
-      return (reader.readString(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 19:
-      return (reader.readLong(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 20:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 21:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 22:
+      return (reader.readStringOrNull(offset)) as P;
+    case 23:
+      return (reader.readStringOrNull(offset)) as P;
+    case 24:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -393,6 +408,152 @@ extension SettingsQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(property: r'amoledTheme', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'appFont',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'appFont',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'appFont',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'appFont',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'appFont',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'appFont',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontContains(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'appFont',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'appFont',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'appFont', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> appFontIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'appFont', value: ''),
       );
     });
   }
@@ -1168,6 +1329,18 @@ extension SettingsQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(property: r'onboard', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  persistentNotificationEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'persistentNotification',
+          value: value,
+        ),
       );
     });
   }
@@ -2579,6 +2752,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByAppFont() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'appFont', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByAppFontDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'appFont', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByAqiStandard() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'aqiStandard', Sort.asc);
@@ -2708,6 +2893,20 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByOnboardDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'onboard', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  sortByPersistentNotification() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'persistentNotification', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  sortByPersistentNotificationDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'persistentNotification', Sort.desc);
     });
   }
 
@@ -2860,6 +3059,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByAppFont() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'appFont', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByAppFontDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'appFont', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByAqiStandard() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'aqiStandard', Sort.asc);
@@ -3001,6 +3212,20 @@ extension SettingsQuerySortThenBy
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByOnboardDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'onboard', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  thenByPersistentNotification() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'persistentNotification', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  thenByPersistentNotificationDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'persistentNotification', Sort.desc);
     });
   }
 
@@ -3147,6 +3372,14 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByAppFont({
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'appFont', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByAqiStandard({
     bool caseSensitive = true,
   }) {
@@ -3218,6 +3451,13 @@ extension SettingsQueryWhereDistinct
   QueryBuilder<Settings, Settings, QDistinct> distinctByOnboard() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'onboard');
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QDistinct>
+  distinctByPersistentNotification() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'persistentNotification');
     });
   }
 
@@ -3324,6 +3564,12 @@ extension SettingsQueryProperty
     });
   }
 
+  QueryBuilder<Settings, String, QQueryOperations> appFontProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'appFont');
+    });
+  }
+
   QueryBuilder<Settings, String, QQueryOperations> aqiStandardProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'aqiStandard');
@@ -3387,6 +3633,13 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, bool, QQueryOperations> onboardProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'onboard');
+    });
+  }
+
+  QueryBuilder<Settings, bool, QQueryOperations>
+  persistentNotificationProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'persistentNotification');
     });
   }
 

@@ -41,7 +41,7 @@ Before starting work on a larger change, check the [issue tracker](https://githu
 
 Ensure your changes do not break existing functionality. Add or update tests for new behavior and bug fixes when practical.
 
-The project currently has **338** tests in **93** `*_test.dart` files. Before opening a pull request, run:
+The project currently has **365** tests in **100** `*_test.dart` files. Before opening a pull request, run:
 
 ```bash
 flutter pub get

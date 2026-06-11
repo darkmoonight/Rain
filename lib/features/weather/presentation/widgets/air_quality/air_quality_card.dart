@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/theme/theme_text.dart';
+import 'package:rain/core/widgets/metric_help_tooltip.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
 import 'package:rain/data/models/db.dart';
-import 'package:rain/features/weather/presentation/widgets/air_quality/aqi_pollutant_bar.dart';
+import 'package:rain/features/weather/presentation/widgets/air_quality/aqi_pollutant_list.dart';
 import 'package:rain/features/weather/presentation/widgets/air_quality/aqi_scale_bar.dart';
 import 'package:rain/i18n/tr.dart';
 
-/// Summary air quality card: AQI core on the left, pollutant bars on the right.
+/// Summary air quality card: AQI core on top, collapsible pollutant bars below.
 class AirQualityCard extends StatelessWidget {
   const AirQualityCard({
     super.key,
@@ -21,63 +23,71 @@ class AirQualityCard extends StatelessWidget {
   final String aqiStandard;
 
   static const _sectionGap = AppConstants.spacingS;
-  static const _pollutantGap = 6.0;
   static const _adviceBackgroundAlpha = 0.08;
   static const _dividerAlpha = 0.35;
 
-  /// Builds the air quality summary card for [hourIndex], or nothing when data is missing.
   @override
   Widget build(BuildContext context) {
-    if (!AqiHelper.hasData(weatherCard, hourIndex, aqiStandard)) {
-      return const SizedBox.shrink();
-    }
-
-    final aqi = AqiHelper.resolveAqi(
-      aqiStandard,
-      weatherCard.europeanAqi?[hourIndex],
-      weatherCard.usAqi?[hourIndex],
-    )!;
+    final aqi = AqiHelper.aqiAt(weatherCard, hourIndex, aqiStandard);
+    if (aqi == null) return const SizedBox.shrink();
     final severityColor = AqiHelper.severityColor(aqiStandard, aqi);
+    final helpText = AqiHelper.buildHelpText(
+      standard: aqiStandard,
+      card: weatherCard,
+      hourIndex: hourIndex,
+    );
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final captionStyle = _mutedStyle(theme, textTheme.bodySmall, height: 1.25);
-    final compactStyle = _mutedStyle(theme, textTheme.labelSmall, height: 1.05);
+    final captionStyle = ThemeText.muted(theme, textTheme.bodySmall);
+    final compactStyle = ThemeText.muted(
+      theme,
+      textTheme.labelSmall,
+      height: 1.05,
+    );
 
     return Card(
       margin: const EdgeInsets.only(bottom: AppConstants.cardBottomMargin),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppConstants.cardPaddingHorizontal,
-          vertical: AppConstants.spacingL,
+        padding: const EdgeInsets.fromLTRB(
+          AppConstants.cardPaddingHorizontal,
+          AppConstants.spacingL,
+          AppConstants.cardPaddingHorizontal,
+          AppConstants.spacingS,
         ),
-        child: IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                flex: 5,
-                child: _buildCoreColumn(
-                  aqi: aqi,
-                  severityColor: severityColor,
-                  textTheme: textTheme,
-                  captionStyle: captionStyle,
-                  compactStyle: compactStyle,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MetricHelpTooltip.maybe(
+              message: helpText,
+              child: _buildCoreSection(
+                aqi: aqi,
+                severityColor: severityColor,
+                textTheme: textTheme,
+                captionStyle: captionStyle,
+                compactStyle: compactStyle,
               ),
-              _buildColumnDivider(theme),
-              Expanded(
-                flex: 4,
-                child: _buildPollutantsColumn(captionStyle, compactStyle),
-              ),
-            ],
-          ),
+            ),
+            const Gap(AppConstants.spacingS),
+            Divider(
+              height: AppConstants.borderWidthThin,
+              thickness: AppConstants.borderWidthThin,
+              color: theme.colorScheme.outline.withValues(alpha: _dividerAlpha),
+            ),
+            _PollutantsSection(
+              weatherCard: weatherCard,
+              hourIndex: hourIndex,
+              titleStyle: textTheme.labelLarge,
+              labelStyle: compactStyle,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  /// Builds the left column with AQI value, scale, and health advice.
-  Widget _buildCoreColumn({
+  /// AQI value, scale, and localized health advice.
+  Widget _buildCoreSection({
     required double aqi,
     required Color severityColor,
     required TextTheme textTheme,
@@ -123,7 +133,6 @@ class AirQualityCard extends StatelessWidget {
           ),
         ],
       ),
-      const Spacer(),
       const Gap(_sectionGap),
       DecoratedBox(
         decoration: BoxDecoration(
@@ -140,47 +149,87 @@ class AirQualityCard extends StatelessWidget {
       ),
     ],
   );
+}
 
-  /// Builds the right column with pollutant labels and track bars.
-  Widget _buildPollutantsColumn(
-    TextStyle? captionStyle,
-    TextStyle? compactStyle,
-  ) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text('pollutants'.tr, style: captionStyle),
-      const Gap(_sectionGap),
-      for (var i = 0; i < AqiHelper.pollutantKeys.length; i++) ...[
-        if (i > 0) const Gap(_pollutantGap),
-        AqiPollutantBar(
-          pollutantKey: AqiHelper.pollutantKeys[i],
-          value: AqiHelper.pollutantValue(
-            weatherCard,
-            hourIndex,
-            AqiHelper.pollutantKeys[i],
+/// Animated collapsible pollutant list (avoids Material 3 [ExpansionTile] chrome).
+class _PollutantsSection extends StatefulWidget {
+  const _PollutantsSection({
+    required this.weatherCard,
+    required this.hourIndex,
+    required this.titleStyle,
+    required this.labelStyle,
+  });
+
+  final WeatherCard weatherCard;
+  final int hourIndex;
+  final TextStyle? titleStyle;
+  final TextStyle? labelStyle;
+
+  @override
+  State<_PollutantsSection> createState() => _PollutantsSectionState();
+}
+
+class _PollutantsSectionState extends State<_PollutantsSection> {
+  static const _animationDuration = Duration(milliseconds: 250);
+
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkWell(
+          onTap: () => setState(() => _expanded = !_expanded),
+          splashColor: colorScheme.primary.withValues(alpha: 0.12),
+          highlightColor: Colors.transparent,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: AppConstants.spacingM,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text('pollutants'.tr, style: widget.titleStyle),
+                ),
+                AnimatedRotation(
+                  turns: _expanded ? 0.5 : 0,
+                  duration: _animationDuration,
+                  curve: Curves.easeInOut,
+                  child: Icon(
+                    Icons.expand_more,
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
           ),
-          labelStyle: compactStyle,
+        ),
+        AnimatedSize(
+          duration: _animationDuration,
+          curve: Curves.easeInOut,
+          alignment: Alignment.topCenter,
+          clipBehavior: Clip.hardEdge,
+          child: _expanded
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Gap(AppConstants.spacingS),
+                    AqiPollutantList(
+                      weatherCard: widget.weatherCard,
+                      hourIndex: widget.hourIndex,
+                      labelStyle: widget.labelStyle,
+                    ),
+                  ],
+                )
+              : const SizedBox(width: double.infinity),
         ),
       ],
-    ],
-  );
-
-  /// Builds the vertical divider between the AQI core and pollutant columns.
-  Widget _buildColumnDivider(ThemeData theme) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: AppConstants.spacingM),
-    child: VerticalDivider(
-      width: AppConstants.borderWidthThin,
-      thickness: AppConstants.borderWidthThin,
-      color: theme.colorScheme.outline.withValues(alpha: _dividerAlpha),
-    ),
-  );
-
-  static TextStyle? _mutedStyle(
-    ThemeData theme,
-    TextStyle? base, {
-    required double height,
-  }) =>
-      base?.copyWith(color: theme.colorScheme.onSurfaceVariant, height: height);
+    );
+  }
 }
 
 /// Pill showing the localized AQI severity level.

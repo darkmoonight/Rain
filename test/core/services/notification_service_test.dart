@@ -9,11 +9,11 @@ import 'package:rain/data/models/db.dart';
 class _SpyNotificationService extends NotificationService {
   _SpyNotificationService() : super(AssetCacheService());
 
-  int cancelCalls = 0;
+  int cancelScheduledCalls = 0;
 
   @override
-  Future<void> cancelAll() async {
-    cancelCalls++;
+  Future<void> cancelScheduled() async {
+    cancelScheduledCalls++;
   }
 }
 
@@ -37,7 +37,7 @@ void main() {
           cityLabel: 'Moscow',
         );
 
-        expect(service.cancelCalls, 0);
+        expect(service.cancelScheduledCalls, 0);
       },
     );
 
@@ -96,8 +96,29 @@ void main() {
           cityLabel: 'Moscow',
         );
 
-        expect(service.cancelCalls, 1);
+        expect(service.cancelScheduledCalls, 1);
       },
     );
+
+    test('buildPersistentNotificationContent uses current hour', () {
+      final cache = sampleMainWeatherCache();
+      final content = buildPersistentNotificationContent(
+        cache: cache,
+        settings: Settings()..degrees = 'celsius',
+        cityLabel: 'Moscow',
+      );
+
+      expect(content, isNotNull);
+      expect(content!.title, contains('Moscow'));
+      expect(content.body, isNotEmpty);
+    });
+
+    test('updatePersistentNotification is a no-op when disabled', () async {
+      await service.updatePersistentNotification(
+        cache: sampleMainWeatherCache(),
+        settings: Settings()..persistentNotification = false,
+        cityLabel: 'Moscow',
+      );
+    });
   });
 }

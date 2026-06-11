@@ -88,6 +88,37 @@ void main() {
     test('hasData returns false when AQI is missing', () {
       final card = WeatherCard(time: ['2026-06-05T12:00']);
       expect(AqiHelper.hasData(card, 0, AqiHelper.european), isFalse);
+      expect(AqiHelper.aqiAt(card, 0, AqiHelper.european), isNull);
+    });
+
+    test('aqiAt reads consolidated index from card', () {
+      final card = WeatherCard(europeanAqi: [26], usAqi: [45]);
+      expect(AqiHelper.aqiAt(card, 0, AqiHelper.european), 26);
+      expect(AqiHelper.aqiAt(card, 0, AqiHelper.american), 45);
+    });
+
+    test('buildHelpText includes index, pollutants, and advice', () {
+      final card = WeatherCard(
+        europeanAqi: [45],
+        pm25: [18],
+        pm10: [32],
+        ozone: [140],
+        no2: [50],
+      );
+
+      final help = AqiHelper.buildHelpText(
+        standard: AqiHelper.european,
+        card: card,
+        hourIndex: 0,
+      );
+
+      expect(help, contains('European AQI: 45'));
+      expect(help, contains('PM2.5'));
+      expect(help, contains('O₃'));
+      expect(help, contains('Pollutants'));
+      expect(help, contains('Recommendation'));
+      expect(help, contains('Open-Meteo'));
+      expect(help, contains('Highest pollutant level: O₃'));
     });
   });
 }

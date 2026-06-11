@@ -20,10 +20,12 @@ class DailyCardInfo extends ConsumerStatefulWidget {
     super.key,
     required this.weatherData,
     required this.index,
+    this.initialHourOfDay = 0,
   });
 
   final WeatherCard weatherData;
   final int index;
+  final int initialHourOfDay;
 
   /// Creates the [ConsumerState] for [DailyCardInfo].
   @override
@@ -43,6 +45,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
   void initState() {
     pageController = PageController(initialPage: widget.index);
     pageIndex = widget.index;
+    hourOfDay = widget.initialHourOfDay;
     super.initState();
   }
 
@@ -205,6 +208,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
       timeNight: sunset,
       tempMax: tempMax,
       tempMin: tempMin,
+      updatedAt: weatherData.timestamp,
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:rain/core/theme/app_font.dart';
 
 final ThemeData baseLight = ThemeData.light(useMaterial3: true);
 final ThemeData baseDark = ThemeData.dark(useMaterial3: true);
@@ -28,26 +28,30 @@ ColorScheme colorSchemeDark = ColorScheme.fromSeed(
 ThemeData lightTheme(
   Color? color,
   ColorScheme? colorScheme,
-  bool edgeToEdgeAvailable,
-) => _buildTheme(
+  bool edgeToEdgeAvailable, {
+  String appFont = AppFont.defaultId,
+}) => _buildTheme(
   baseTheme: baseLight,
   brightness: Brightness.light,
   color: color,
   colorScheme: colorScheme,
   edgeToEdgeAvailable: edgeToEdgeAvailable,
+  appFont: appFont,
 );
 
 /// Builds the dark app theme with optional accent and dynamic color scheme.
 ThemeData darkTheme(
   Color? color,
   ColorScheme? colorScheme,
-  bool edgeToEdgeAvailable,
-) => _buildTheme(
+  bool edgeToEdgeAvailable, {
+  String appFont = AppFont.defaultId,
+}) => _buildTheme(
   baseTheme: baseDark,
   brightness: Brightness.dark,
   color: color,
   colorScheme: colorScheme,
   edgeToEdgeAvailable: edgeToEdgeAvailable,
+  appFont: appFont,
 );
 
 /// Assembles a full [ThemeData] from base tokens and optional accent colors.
@@ -57,6 +61,7 @@ ThemeData _buildTheme({
   required Color? color,
   required ColorScheme? colorScheme,
   required bool edgeToEdgeAvailable,
+  required String appFont,
 }) {
   final harmonizedColorScheme = colorScheme
       ?.copyWith(brightness: brightness, surface: baseTheme.colorScheme.surface)
@@ -65,7 +70,7 @@ ThemeData _buildTheme({
   return baseTheme.copyWith(
     brightness: brightness,
     colorScheme: harmonizedColorScheme,
-    textTheme: GoogleFonts.ubuntuTextTheme(baseTheme.textTheme),
+    textTheme: AppFont.textTheme(appFont, baseTheme.textTheme),
     appBarTheme: _buildAppBarTheme(
       color,
       harmonizedColorScheme,
@@ -180,3 +185,38 @@ InputDecorationTheme _buildInputDecorationTheme(ThemeData baseTheme) =>
         borderSide: BorderSide(color: baseTheme.disabledColor),
       ),
     );
+
+/// Light and dark themes for the current appearance and font settings.
+typedef AppThemes = ({ThemeData light, ThemeData dark});
+
+/// Picks surface colors and schemes from Material You toggles and dynamic color.
+AppThemes resolveAppThemes({
+  required bool materialColor,
+  required bool amoledTheme,
+  required ColorScheme? lightDynamic,
+  required ColorScheme? darkDynamic,
+  required bool edgeToEdgeAvailable,
+  required String appFont,
+}) {
+  final font = AppFont.resolve(appFont);
+
+  ThemeData buildLight(Color? color, ColorScheme? scheme) =>
+      lightTheme(color, scheme, edgeToEdgeAvailable, appFont: font);
+
+  ThemeData buildDark(Color? color, ColorScheme? scheme) =>
+      darkTheme(color, scheme, edgeToEdgeAvailable, appFont: font);
+
+  final light = materialColor && lightDynamic != null
+      ? buildLight(lightDynamic.surface, lightDynamic)
+      : buildLight(lightColor, colorSchemeLight);
+
+  final dark = amoledTheme
+      ? (materialColor && darkDynamic != null
+            ? buildDark(oledColor, darkDynamic)
+            : buildDark(oledColor, colorSchemeDark))
+      : materialColor && darkDynamic != null
+      ? buildDark(darkDynamic.surface, darkDynamic)
+      : buildDark(darkColor, colorSchemeDark);
+
+  return (light: light, dark: dark);
+}

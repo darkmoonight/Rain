@@ -47,6 +47,27 @@ void main() {
     expect(find.byType(Card), findsOneWidget);
   });
 
+  testWidgets('Now shows last updated when timestamp is set', (tester) async {
+    await pumpRainWidget(
+      tester,
+      Now(
+        time: card.time!.first,
+        weather: card.weathercode!.first,
+        degree: card.temperature2M!.first,
+        feels: req(card.apparentTemperature!.first),
+        timeDay: card.sunrise!.first,
+        timeNight: card.sunset!.first,
+        tempMax: req(card.temperature2MMax!.first),
+        tempMin: req(card.temperature2MMin!.first),
+        updatedAt: DateTime(2026, 6, 9, 14, 30),
+      ),
+      bootstrap: ctx.bootstrap,
+    );
+
+    expect(find.textContaining('Updated:'), findsOneWidget);
+    expect(find.textContaining('14:30'), findsOneWidget);
+  });
+
   testWidgets('Now renders large layout when enabled', (tester) async {
     ctx.bootstrap.settings.largeElement = true;
 
@@ -142,7 +163,12 @@ void main() {
     final weekly = weeklyWeatherCard();
     await pumpRainWidget(
       tester,
-      DailyContainer(weatherData: weekly, onTap: () {}),
+      DailyContainer(
+        weatherData: weekly,
+        dayIndex: 0,
+        hourIndex: 0,
+        onTap: () {},
+      ),
       bootstrap: ctx.bootstrap,
     );
 

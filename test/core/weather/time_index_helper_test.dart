@@ -126,5 +126,16 @@ void main() {
       final settings = Settings()..timeformat = '24';
       expect(TimeIndexHelper.formatTime('13:35', settings, 'en'), '13:35');
     });
+
+    test('formatUpdatedAt formats date and time', () {
+      final settings = Settings()..timeformat = '24';
+      final formatted = TimeIndexHelper.formatUpdatedAt(
+        DateTime(2026, 6, 9, 14, 30),
+        settings,
+        'en',
+      );
+      expect(formatted, contains('Jun'));
+      expect(formatted, contains('14:30'));
+    });
   });
 }

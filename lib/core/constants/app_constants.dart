@@ -42,6 +42,12 @@ class AppConstants {
   static const double iconSizeLarge = 24.0;
   static const double iconSizeXLarge = 32.0;
 
+  /// [Image.asset] scale for icons in the 12-day [DailyCard] list.
+  static const double dailyExtendedListIconScale = 6.5;
+
+  /// [Image.asset] scale for icons in the home-screen daily preview rows.
+  static const double dailyPreviewIconScale = 3.0;
+
   // Constraints
   static const double maxDialogWidth = 400.0;
   static const double maxDesktopWidth = 1200.0;

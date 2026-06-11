@@ -37,6 +37,11 @@ void main() {
       ),
     );
 
+    expect(find.byType(AqiPollutantBar), findsNothing);
+
+    await tester.tap(find.text('Pollutants'));
+    await tester.pumpAndSettle();
+
     expect(find.byType(AqiPollutantBar), findsNWidgets(6));
   });
 }

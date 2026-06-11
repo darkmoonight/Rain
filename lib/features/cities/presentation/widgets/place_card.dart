@@ -7,6 +7,7 @@ import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/domain/weather_card_validator.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/status_data.dart';
+import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 
@@ -90,7 +91,7 @@ class PlaceCard extends ConsumerWidget {
                 card.sunrise![currentDayIndex],
                 card.sunset![currentDayIndex],
               ),
-              scale: 6.5,
+              scale: AppConstants.dailyExtendedListIconScale,
             ),
           ],
         ),

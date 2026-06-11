@@ -51,6 +51,7 @@ class RainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appSettings = ref.watch(appSettingsProvider);
+    final appFont = ref.watch(settingsProvider).appFont;
     final themeMode = ref.watch(themeModeProvider);
     final router = ref.watch(appRouterProvider);
     final edgeToEdgeAvailable = DeviceFeature().isEdgeToEdgeAvailable();
@@ -60,62 +61,21 @@ class RainApp extends ConsumerWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: DynamicColorBuilder(
         builder: (lightColorScheme, darkColorScheme) {
-          final lightMaterialTheme = lightTheme(
-            lightColorScheme?.surface,
-            lightColorScheme,
-            edgeToEdgeAvailable,
-          );
-          final darkMaterialTheme = darkTheme(
-            darkColorScheme?.surface,
-            darkColorScheme,
-            edgeToEdgeAvailable,
-          );
-          final darkMaterialThemeOled = darkTheme(
-            oledColor,
-            darkColorScheme,
-            edgeToEdgeAvailable,
+          final themes = resolveAppThemes(
+            materialColor: appSettings.materialColor,
+            amoledTheme: appSettings.amoledTheme,
+            lightDynamic: lightColorScheme,
+            darkDynamic: darkColorScheme,
+            edgeToEdgeAvailable: edgeToEdgeAvailable,
+            appFont: appFont,
           );
 
           return TranslationProvider(
             child: MaterialApp.router(
               routerConfig: router,
               themeMode: themeMode,
-              theme: appSettings.materialColor
-                  ? lightColorScheme != null
-                        ? lightMaterialTheme
-                        : lightTheme(
-                            lightColor,
-                            colorSchemeLight,
-                            edgeToEdgeAvailable,
-                          )
-                  : lightTheme(
-                      lightColor,
-                      colorSchemeLight,
-                      edgeToEdgeAvailable,
-                    ),
-              darkTheme: appSettings.amoledTheme
-                  ? appSettings.materialColor
-                        ? darkColorScheme != null
-                              ? darkMaterialThemeOled
-                              : darkTheme(
-                                  oledColor,
-                                  colorSchemeDark,
-                                  edgeToEdgeAvailable,
-                                )
-                        : darkTheme(
-                            oledColor,
-                            colorSchemeDark,
-                            edgeToEdgeAvailable,
-                          )
-                  : appSettings.materialColor
-                  ? darkColorScheme != null
-                        ? darkMaterialTheme
-                        : darkTheme(
-                            darkColor,
-                            colorSchemeDark,
-                            edgeToEdgeAvailable,
-                          )
-                  : darkTheme(darkColor, colorSchemeDark, edgeToEdgeAvailable),
+              theme: themes.light,
+              darkTheme: themes.dark,
               locale: appSettings.locale,
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: const [

@@ -29,4 +29,20 @@ void main() {
       expect(theme.brightness, Brightness.dark);
     });
   });
+
+  group('resolveAppThemes', () {
+    test('returns light and dark themes for default appearance', () {
+      final themes = resolveAppThemes(
+        materialColor: false,
+        amoledTheme: false,
+        lightDynamic: null,
+        darkDynamic: null,
+        edgeToEdgeAvailable: false,
+        appFont: 'ubuntu',
+      );
+
+      expect(themes.light.brightness, Brightness.light);
+      expect(themes.dark.brightness, Brightness.dark);
+    });
+  });
 }

@@ -201,15 +201,18 @@ void main() {
       () async {
         final fakeNotifications = await pumpInit(notificationsEnabled: true);
 
-        expect(fakeNotifications.cancelAllCalls, 0);
+        expect(fakeNotifications.cancelScheduledCalls, 0);
       },
     );
 
-    test('cancels notifications when cache is empty and disabled', () async {
-      final fakeNotifications = await pumpInit(notificationsEnabled: false);
+    test(
+      'cancels scheduled notifications when cache is empty and disabled',
+      () async {
+        final fakeNotifications = await pumpInit(notificationsEnabled: false);
 
-      expect(fakeNotifications.cancelAllCalls, 1);
-    });
+        expect(fakeNotifications.cancelScheduledCalls, 1);
+      },
+    );
   });
 }
 

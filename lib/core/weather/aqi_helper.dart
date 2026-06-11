@@ -83,6 +83,12 @@ class AqiHelper {
     'aqiAdviceExtremelyPoor',
   ];
 
+  /// Long-press help keys for how Open-Meteo derives each consolidated index.
+  static const _howCalculatedKeys = {
+    european: 'aqiHelpHowCalculatedEuropean',
+    american: 'aqiHelpHowCalculatedAmerican',
+  };
+
   static bool _isAmerican(String standard) => standard == american;
 
   static List<double> _aqiThresholds(String standard) =>
@@ -110,6 +116,16 @@ class AqiHelper {
     double? europeanAqi,
     double? usAqi,
   ) => _isAmerican(standard) ? usAqi : europeanAqi;
+
+  /// Consolidated AQI for [card] at [hourIndex] under [standard].
+  static double? aqiAt(WeatherCard card, int hourIndex, String standard) {
+    if (!hasData(card, hourIndex, standard)) return null;
+    return resolveAqi(
+      standard,
+      card.europeanAqi?[hourIndex],
+      card.usAqi?[hourIndex],
+    );
+  }
 
   /// Zero-based severity band index for [aqi] under [standard].
   static int severityIndex(String standard, double aqi) =>
@@ -168,6 +184,41 @@ class AqiHelper {
   static String recommendation(String standard, double aqi) =>
       _adviceKeys[severityIndex(standard, aqi)].tr;
 
+  /// Long-press help: standard, index, pollutants, advice, and data source.
+  static String buildHelpText({
+    required String standard,
+    required WeatherCard card,
+    required int hourIndex,
+  }) {
+    final aqi = aqiAt(card, hourIndex, standard);
+    if (aqi == null) return '';
+
+    final pollutants = _pollutantSummaries(card, hourIndex);
+    final sections = <String>[
+      '${standardLabel(standard)}: ${aqi.round()} — ${severityLabel(standard, aqi)}',
+      _howCalculatedHelp(standard),
+    ];
+
+    final dominant = pollutants.dominant;
+    if (dominant != null) {
+      sections.add(
+        '${'aqiHelpDominant'.tr}: ${dominant.key.tr} '
+        '(${_pollutantLevelSummary(dominant.key, dominant.value)})',
+      );
+    }
+
+    if (pollutants.lines.isNotEmpty) {
+      sections.add('${'pollutants'.tr}\n${pollutants.lines.join('\n')}');
+    }
+
+    sections.add(
+      '${'aqiHelpAdviceLabel'.tr}\n${recommendation(standard, aqi)}',
+    );
+    sections.add('aqiHelpSource'.tr);
+
+    return sections.join('\n\n');
+  }
+
   /// Accent color for badges, markers, and severity text.
   static Color severityColor(String standard, double aqi) =>
       _aqiColors(standard)[severityIndex(standard, aqi)];
@@ -198,5 +249,49 @@ class AqiHelper {
     if (index < 0) return false;
     final values = _isAmerican(standard) ? card.usAqi : card.europeanAqi;
     return values != null && index < values.length && values[index] != null;
+  }
+
+  static String _howCalculatedHelp(String standard) =>
+      (_howCalculatedKeys[standard] ?? _howCalculatedKeys[european]!).tr;
+
+  /// Localized EEA band label for a pollutant concentration (bar scale).
+  static String _pollutantBandLabel(String pollutantKey, double value) =>
+      _euLabelKeys[pollutantBandIndex(pollutantKey, value)].tr;
+
+  /// Concentration and EEA band, without the pollutant name prefix.
+  static String _pollutantLevelSummary(String pollutantKey, double value) =>
+      '${formatConcentration(value)} — ${_pollutantBandLabel(pollutantKey, value)}';
+
+  /// Full pollutant row for long-press help.
+  static String _pollutantLine(String pollutantKey, double value) =>
+      '${pollutantKey.tr}: ${_pollutantLevelSummary(pollutantKey, value)}';
+
+  /// One pass over [pollutantKeys]: help lines and the highest EEA band.
+  static ({List<String> lines, ({String key, double value})? dominant})
+  _pollutantSummaries(WeatherCard card, int hourIndex) {
+    final lines = <String>[];
+    String? dominantKey;
+    double? dominantValue;
+    var bestBand = -1;
+
+    for (final key in pollutantKeys) {
+      final value = pollutantValue(card, hourIndex, key);
+      if (value == null) continue;
+
+      lines.add(_pollutantLine(key, value));
+      final band = pollutantBandIndex(key, value);
+      if (band > bestBand) {
+        bestBand = band;
+        dominantKey = key;
+        dominantValue = value;
+      }
+    }
+
+    return (
+      lines: lines,
+      dominant: dominantKey == null
+          ? null
+          : (key: dominantKey, value: dominantValue!),
+    );
   }
 }

@@ -10,7 +10,9 @@ import 'package:rain/features/cities/application/cities_notifier.dart';
 import 'package:rain/features/cities/presentation/view/place_list.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card_list.dart';
+import 'package:rain/features/cities/presentation/widgets/place_card_shimmer.dart';
 import 'package:rain/features/cities/presentation/widgets/weather_card_tile.dart';
+import 'package:shimmer/shimmer.dart';
 
 void main() {
   late TestBootstrapContext ctx;
@@ -150,6 +152,23 @@ void main() {
   });
 
   group('PlaceList', () {
+    testWidgets('shows shimmer placeholders while loading', (tester) async {
+      await pumpRainWidget(
+        tester,
+        const Scaffold(body: PlaceList()),
+        bootstrap: ctx.bootstrap,
+        overrides: [
+          citiesNotifierProvider.overrideWith(LoadingCitiesNotifier.new),
+        ],
+      );
+      await tester.pump();
+
+      expect(find.byType(PlaceCardsLoadingView), findsOneWidget);
+      expect(find.byType(PlaceCardShimmer), findsNWidgets(4));
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+      expect(find.byType(Shimmer), findsWidgets);
+    });
+
     testWidgets('shows Add a city when list is empty without loadError', (
       tester,
     ) async {

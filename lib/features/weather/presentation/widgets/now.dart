@@ -20,6 +20,7 @@ class Now extends ConsumerWidget {
     required this.tempMax,
     required this.tempMin,
     required this.feels,
+    this.updatedAt,
   });
 
   final String time;
@@ -30,6 +31,7 @@ class Now extends ConsumerWidget {
   final double tempMax;
   final double tempMin;
   final double feels;
+  final DateTime? updatedAt;
 
   /// Builds the current-conditions header using the compact or large layout.
   @override
@@ -58,6 +60,7 @@ class Now extends ConsumerWidget {
           ),
           const Gap(5),
           _buildDateText(context, ref),
+          _buildUpdatedAtText(context, statusData),
         ],
       ),
     );
@@ -96,6 +99,7 @@ class Now extends ConsumerWidget {
                   _buildTemperatureCompactText(context, statusData),
                   const Gap(5),
                   _buildMinMaxTemperatureText(context, statusData),
+                  _buildUpdatedAtText(context, statusData),
                 ],
               ),
             ),
@@ -132,6 +136,22 @@ class Now extends ConsumerWidget {
     );
   }
 
+  /// Shows when forecast data was last fetched, if [updatedAt] is set.
+  Widget _buildUpdatedAtText(BuildContext context, StatusData statusData) {
+    final updatedAt = this.updatedAt;
+    if (updatedAt == null) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Text(
+        '${'lastUpdated'.tr}: ${statusData.formatUpdatedAt(updatedAt)}',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
+      ),
+    );
+  }
+
   /// Shows the date for the selected forecast hour slot.
   Widget _buildDateText(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeProvider);
@@ -146,9 +166,9 @@ class Now extends ConsumerWidget {
   Widget _buildFeelsLikeText(BuildContext context, StatusData statusData) =>
       Text(
         '${'feels'.tr} ${statusData.getDegree(feels)}',
-        style: Theme.of(
-          context,
-        ).textTheme.titleMedium?.copyWith(color: Colors.grey),
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
       );
 
   /// Displays the current temperature in the compact layout style.

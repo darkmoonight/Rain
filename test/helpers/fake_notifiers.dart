@@ -19,6 +19,12 @@ class IdleCitiesNotifier extends CitiesNotifier {
   CitiesState build() => const CitiesState(isLoading: false);
 }
 
+/// Initial cities load with no cards yet.
+class LoadingCitiesNotifier extends CitiesNotifier {
+  @override
+  CitiesState build() => const CitiesState(isLoading: true);
+}
+
 /// Cities notifier that skips network refresh on shell startup.
 class NoOpCitiesNotifier extends CitiesNotifier {
   @override

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rain/i18n/tr.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rain/features/weather/presentation/widgets/desc/desc.dart';
-import 'package:rain/core/weather/message.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/core/weather/desc_metrics_catalog.dart';
+import 'package:rain/core/weather/message.dart';
 import 'package:rain/core/weather/status_data.dart';
+import 'package:rain/features/weather/presentation/widgets/desc/desc.dart';
 
 /// Expandable grid of hourly or daily weather variables.
 class DescContainer extends ConsumerWidget {
@@ -38,6 +38,10 @@ class DescContainer extends ConsumerWidget {
     required this.title,
   });
 
+  static const _itemWidth = 100.0;
+  static const _spacing = 8.0;
+  static const _rowHeight = 90.0;
+
   final int? humidity;
   final double? wind;
   final double? visibility;
@@ -69,7 +73,36 @@ class DescContainer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final statusData = StatusData(settings: ref.watch(settingsProvider));
-    final message = Message();
+    final metrics = DescMetricsCatalog.build(
+      input: DescMetricsInput(
+        humidity: humidity,
+        wind: wind,
+        visibility: visibility,
+        feels: feels,
+        evaporation: evaporation,
+        precipitation: precipitation,
+        direction: direction,
+        pressure: pressure,
+        rain: rain,
+        cloudcover: cloudcover,
+        windgusts: windgusts,
+        uvIndex: uvIndex,
+        dewpoint2M: dewpoint2M,
+        precipitationProbability: precipitationProbability,
+        shortwaveRadiation: shortwaveRadiation,
+        apparentTemperatureMin: apparentTemperatureMin,
+        apparentTemperatureMax: apparentTemperatureMax,
+        uvIndexMax: uvIndexMax,
+        windDirection10MDominant: windDirection10MDominant,
+        windSpeed10MMax: windSpeed10MMax,
+        windGusts10MMax: windGusts10MMax,
+        precipitationProbabilityMax: precipitationProbabilityMax,
+        rainSum: rainSum,
+        precipitationSum: precipitationSum,
+      ),
+      statusData: statusData,
+      message: Message(),
+    ).where((m) => m.hasValue).toList();
 
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
@@ -87,29 +120,31 @@ class DescContainer extends ConsumerWidget {
             ),
             child: LayoutBuilder(
               builder: (context, constraints) {
-                const itemWidth = 100.0;
-                const spacing = 8.0;
                 final crossAxisCount =
-                    ((constraints.maxWidth + spacing) / (itemWidth + spacing))
+                    ((constraints.maxWidth + _spacing) /
+                            (_itemWidth + _spacing))
                         .floor()
                         .clamp(1, 8);
-                final descriptions = _buildWeatherDescriptions(
-                  context,
-                  statusData,
-                  message,
-                );
 
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: descriptions.length,
+                  itemCount: metrics.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    mainAxisExtent: 90,
-                    crossAxisSpacing: spacing,
-                    mainAxisSpacing: spacing,
+                    mainAxisExtent: _rowHeight,
+                    crossAxisSpacing: _spacing,
+                    mainAxisSpacing: _spacing,
                   ),
-                  itemBuilder: (context, index) => descriptions[index],
+                  itemBuilder: (context, index) {
+                    final metric = metrics.elementAt(index);
+                    return DescWeather(
+                      imageName: metric.imageAsset,
+                      value: metric.displayValue,
+                      desc: metric.label,
+                      message: metric.helpText,
+                    );
+                  },
                 );
               },
             ),
@@ -117,183 +152,5 @@ class DescContainer extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  /// Collects non-null weather values into [DescWeather] grid cells.
-  List<Widget> _buildWeatherDescriptions(
-    BuildContext context,
-    StatusData statusData,
-    Message message,
-  ) {
-    final List<Widget> descriptions = [];
-
-    /// Returns [message] or a localized fallback when it is empty or null.
-    String addMessageOrDefault(String? message) {
-      if (message == null || message.isEmpty || message == 'null') {
-        return 'no_desc_data'.tr;
-      }
-      return message;
-    }
-
-    /// Adds a [DescWeather] cell when [value] is present and non-empty.
-    void addDescriptionIfNotNull({
-      required dynamic value,
-      required String imageName,
-      required String desc,
-      String? message,
-    }) {
-      final stringValue = value?.toString();
-      if (stringValue != null &&
-          stringValue.isNotEmpty &&
-          !stringValue.startsWith('null')) {
-        descriptions.add(
-          DescWeather(
-            imageName: imageName,
-            value: stringValue,
-            desc: desc,
-            message: addMessageOrDefault(message),
-          ),
-        );
-      }
-    }
-
-    final weatherData = [
-      {
-        'value': statusData.getDegree(apparentTemperatureMin),
-        'imageName': 'assets/images/cold.png',
-        'desc': 'apparentTemperatureMin'.tr,
-      },
-      {
-        'value': statusData.getDegree(apparentTemperatureMax),
-        'imageName': 'assets/images/hot.png',
-        'desc': 'apparentTemperatureMax'.tr,
-      },
-      {
-        'value': uvIndexMax?.round(),
-        'imageName': 'assets/images/uv.png',
-        'desc': 'uvIndex'.tr,
-        'message': message.getUvIndex(uvIndexMax?.round()),
-      },
-      {
-        'value': '$windDirection10MDominant°',
-        'imageName': 'assets/images/windsock.png',
-        'desc': 'direction'.tr,
-        'message': message.getDirection(windDirection10MDominant),
-      },
-      {
-        'value': statusData.getSpeed(windSpeed10MMax?.round()),
-        'imageName': 'assets/images/wind.png',
-        'desc': 'wind'.tr,
-      },
-      {
-        'value': statusData.getSpeed(windGusts10MMax?.round()),
-        'imageName': 'assets/images/windgusts.png',
-        'desc': 'windgusts'.tr,
-      },
-      {
-        'value': '$precipitationProbabilityMax%',
-        'imageName': 'assets/images/precipitation_probability.png',
-        'desc': 'precipitationProbability'.tr,
-      },
-      {
-        'value': statusData.getPrecipitation(rainSum),
-        'imageName': 'assets/images/water.png',
-        'desc': 'rain'.tr,
-      },
-      {
-        'value': statusData.getPrecipitation(precipitationSum),
-        'imageName': 'assets/images/rainfall.png',
-        'desc': 'precipitation'.tr,
-      },
-      {
-        'value': statusData.getDegree(dewpoint2M),
-        'imageName': 'assets/images/dew.png',
-        'desc': 'dewpoint'.tr,
-      },
-      {
-        'value': statusData.getDegree(feels),
-        'imageName': 'assets/images/temperature.png',
-        'desc': 'feels'.tr,
-      },
-      {
-        'value': statusData.getVisibility(visibility),
-        'imageName': 'assets/images/fog.png',
-        'desc': 'visibility'.tr,
-      },
-      {
-        'value': '$direction°',
-        'imageName': 'assets/images/windsock.png',
-        'desc': 'direction'.tr,
-        'message': message.getDirection(direction),
-      },
-      {
-        'value': statusData.getSpeed(wind?.round()),
-        'imageName': 'assets/images/wind.png',
-        'desc': 'wind'.tr,
-      },
-      {
-        'value': statusData.getSpeed(windgusts?.round()),
-        'imageName': 'assets/images/windgusts.png',
-        'desc': 'windgusts'.tr,
-      },
-      {
-        'value': statusData.getPrecipitation(evaporation?.abs()),
-        'imageName': 'assets/images/evaporation.png',
-        'desc': 'evaporation'.tr,
-      },
-      {
-        'value': statusData.getPrecipitation(precipitation),
-        'imageName': 'assets/images/rainfall.png',
-        'desc': 'precipitation'.tr,
-      },
-      {
-        'value': statusData.getPrecipitation(rain),
-        'imageName': 'assets/images/water.png',
-        'desc': 'rain'.tr,
-      },
-      {
-        'value': '$precipitationProbability%',
-        'imageName': 'assets/images/precipitation_probability.png',
-        'desc': 'precipitationProbability'.tr,
-      },
-      {
-        'value': '$humidity%',
-        'imageName': 'assets/images/humidity.png',
-        'desc': 'humidity'.tr,
-      },
-      {
-        'value': '$cloudcover%',
-        'imageName': 'assets/images/cloudy.png',
-        'desc': 'cloudcover'.tr,
-      },
-      {
-        'value': statusData.getPressure(pressure?.round()),
-        'imageName': 'assets/images/atmospheric.png',
-        'desc': 'pressure'.tr,
-        'message': message.getPressure(pressure?.round()),
-      },
-      {
-        'value': uvIndex?.round(),
-        'imageName': 'assets/images/uv.png',
-        'desc': 'uvIndex'.tr,
-        'message': message.getUvIndex(uvIndex?.round()),
-      },
-      {
-        'value': '${shortwaveRadiation?.round()} ${'W/m2'.tr}',
-        'imageName': 'assets/images/shortwave_radiation.png',
-        'desc': 'shortwaveRadiation'.tr,
-      },
-    ];
-
-    for (var data in weatherData) {
-      addDescriptionIfNotNull(
-        value: data['value'],
-        imageName: '${data['imageName']}',
-        desc: '${data['desc']}',
-        message: data['message'] as String?,
-      );
-    }
-
-    return descriptions;
   }
 }

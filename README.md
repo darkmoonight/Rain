@@ -31,14 +31,18 @@
 
 **🌡️ Comprehensive Weather Data**
 - Real-time conditions with feels-like temperature • Hourly forecasts (12 days) • 12-day daily outlooks
+- **Last updated** time on the Now card (when weather was fetched or loaded from cache)
+- Today's row in the daily outlook uses the **current hourly** condition (matches the detail view)
 - Location-aware time: forecast slots use each place's Open-Meteo timezone and UTC offset; HTTP `Date` skew corrects a wrong device clock
 - Detailed metrics: UV index, humidity, wind speed/direction, precipitation, visibility, pressure, dew point
+- **Metric help:** tap a cell to toggle its short label; **long-press** for a themed tooltip with a fuller explanation (hourly and daily detail grids)
 - Day/night-aware weather icons • Sunrise/sunset times • Expandable hourly variable details
+- Home daily preview uses compact forecast icons; the **12-day list** uses large classic weather artwork
 
 **💨 Air Quality**
 - Hourly air quality from [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) (7-day forecast, aligned to weather timestamps)
 - Summary card on the main weather screen: AQI value, severity badge, colored scale, health advice
-- Pollutant breakdown with progress bars: PM2.5, PM10, O₃, NO₂, SO₂, CO (μg/m³)
+- Collapsible **Pollutants** section with expand animation and per-pollutant progress bars: PM2.5, PM10, O₃, NO₂, SO₂, CO (μg/m³)
 - Choose **European AQI** or **US AQI** in Settings • Cached offline with weather data
 
 **🗺️ Interactive Weather Map**
@@ -47,13 +51,14 @@
 - Visual city selection with GPS support • Map tile caching (30 days) • Dark mode styling
 
 **🏙️ Multi-City Management**
-- Save unlimited cities to your watchlist • Drag-to-reorder • Pull-to-refresh all
+- Save unlimited cities to your watchlist • Drag-to-reorder • Pull-to-refresh all • Shimmer placeholders while cities load
 - Live local wall clock on each city card • Correct offsets between cities even when the device clock is off
 - City search with autocomplete • Manual coordinate entry • GPS auto-detection
 - Edit or remove saved cities • Timezone from the weather API for each location
 
 **🔔 Smart Notifications**
 - Scheduled weather forecasts (1-5 hour intervals) • Custom time window (start/end)
+- **Persistent notification (Android):** optional ongoing status-bar tile with current temperature and conditions
 - Weather-condition-specific icons • Silent notifications (no sound/vibration)
 - Automatic cancellation when disabled • Background scheduling
 
@@ -64,12 +69,13 @@
   - **Clock (4×1 bar)** — live clock and date, weather icon, city name and temperature; horizontally resizable
 - Respects app **Celsius/Fahrenheit**, **rounded temperature**, and **12h/24h** time format (Clock widget)
 - Background refresh (Workmanager, ~15 min minimum): fetches stale main weather when online, then pushes widget data • Custom background and text colors (HSV picker)
-- Updates when the app loads cached weather, after fresh fetches, and from the periodic background task
+- Updates when the app loads cached weather, after fresh fetches, when returning to the app, and from the periodic background task (no background GPS required — uses saved location from cache)
 
 **🎨 Beautiful Design**
 - Material You dynamic theming (wallpaper colors) • Pure AMOLED black theme
 - Light/Dark/System modes • Large element mode toggle • Edge-to-edge display
-- Google Fonts (Ubuntu) • Smooth animations • Shimmer loading states
+- **App font** picker (Appearance): Ubuntu (default), system, Roboto, Barlow Condensed, Inter, Open Sans via Google Fonts
+- Smooth animations • Shimmer loading states
 
 **🌍 Extensive Localization**
 - 38 languages including: English, Русский, 中文, العربية, हिन्दी, Español, Français, Deutsch, Português, 한국어, 日本語, Türkçe, and many more
@@ -80,7 +86,7 @@
 - Wind speed: kph/m/s • Pressure: hPa/mmHg • Rounded temperatures (app + widget)
 - Air quality standard: European AQI / US AQI
 - 12h/24h time format (app, pickers, notifications, and Clock widget)
-- Widget color customization with HSV color picker
+- Widget color customization with HSV color picker • App font in Appearance
 
 ---
 
@@ -196,7 +202,7 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Testing
 
-The project has **338** unit and widget tests (93 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
+The project has **365** unit and widget tests (100 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
 
 ```bash
 flutter test
@@ -211,7 +217,7 @@ Optional coverage report (output in `coverage/`, gitignored):
 flutter test --coverage
 ```
 
-**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing, HTTP date parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers, location wall clock (`TimeIndexHelper`, clock skew persistence), air quality (`AqiHelper`, `AirQualityMapper`, graceful AQ API fallback).
+**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing, HTTP date parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers, location wall clock (`TimeIndexHelper`, clock skew persistence), air quality (`AqiHelper`, `AirQualityMapper`, graceful AQ API fallback), metric help copy (`Message`, `DescMetricsCatalog`), daily display helpers, city list shimmer.
 
 **Notification regression tests:** stable notification IDs (`notificationIdFor`), one slot per hour when duplicate daily rows exist, and `MainWeatherNotifier._init` not calling `cancelAll()` while notifications stay enabled.
 
@@ -238,7 +244,8 @@ dart run build_runner build --delete-conflicting-outputs
 - **Flutter** + **Riverpod 3** • **Go Router** • **Isar Community**
 - **home_widget** + **Workmanager** (Android widgets) • **flutter_local_notifications**
 - **Open-Meteo Weather API** • **Open-Meteo Air Quality API** • **flutter_map** + OSM tiles
-- **timezone** + **flutter_timezone** for IANA lookups and per-location wall clocks
+- **timezone** + **flutter_timezone** + **lat_lng_to_timezone** for IANA lookups and per-location wall clocks
+- **google_fonts** for configurable app typography • Dependencies in `pubspec.yaml` are grouped by purpose
 
 ---
 

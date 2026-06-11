@@ -58,5 +58,15 @@ void main() {
         expect(message.getDirection(315), isNotEmpty);
       });
     });
+
+    group('metric help', () {
+      test('returns non-empty help for each metric', () {
+        expect(message.helpHumidity(), isNotEmpty);
+        expect(message.helpWind(), isNotEmpty);
+        expect(message.helpPressure(1010), contains('\n'));
+        expect(message.helpUvIndex(5), contains('\n'));
+        expect(message.helpDirection(90), contains('\n'));
+      });
+    });
   });
 }

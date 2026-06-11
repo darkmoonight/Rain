@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:rain/core/weather/status_weather.dart';
+import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/weather/status_data.dart';
+import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 
@@ -78,26 +80,32 @@ class _DailyCardState extends ConsumerState<DailyCard> {
   );
 
   /// Formats and displays the localized date for [timeDaily].
-  Widget _buildDateText(BuildContext context) => Text(
-    DateFormat.MMMMEEEEd(_locale.languageCode).format(widget.timeDaily),
-    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-      color: Colors.grey,
-      fontWeight: FontWeight.w400,
-    ),
-  );
+  Widget _buildDateText(BuildContext context) {
+    final theme = Theme.of(context);
+    return Text(
+      DateFormat.MMMMEEEEd(_locale.languageCode).format(widget.timeDaily),
+      style: ThemeText.muted(
+        theme,
+        theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w400),
+      ),
+    );
+  }
 
   /// Displays the localized weather description for this day.
-  Widget _buildWeatherDescription(BuildContext context) => Text(
-    statusWeather.getText(widget.weathercodeDaily),
-    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-      color: Colors.grey,
-      fontWeight: FontWeight.w400,
-    ),
-  );
+  Widget _buildWeatherDescription(BuildContext context) {
+    final theme = Theme.of(context);
+    return Text(
+      statusWeather.getText(widget.weathercodeDaily),
+      style: ThemeText.muted(
+        theme,
+        theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w400),
+      ),
+    );
+  }
 
-  /// Renders the daily weather icon for [weathercodeDaily].
+  /// Large list icons ([StatusWeather.getImageNowDaily], not preview day/night assets).
   Widget _buildWeatherImage() => Image.asset(
     statusWeather.getImageNowDaily(widget.weathercodeDaily),
-    scale: 6.5,
+    scale: AppConstants.dailyExtendedListIconScale,
   );
 }

@@ -1,9 +1,13 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:isar_community/isar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/core/services/home_widget_service.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
@@ -35,6 +39,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   final _focusNode = FocusNode();
   late TabController tabController;
   final _controller = TextEditingController();
+  Timer? _persistentNotificationTimer;
 
   /// Initializes observers, tab controller, and triggers initial city refresh via [CitiesNotifier.refresh].
   @override
@@ -44,13 +49,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     _initData();
     _setupTabController(pageCount: ref.read(settingsProvider).hideMap ? 3 : 4);
     _checkLocationCache();
+    _startPersistentNotificationTimer();
   }
 
-  /// Refreshes city data when the app returns to the foreground.
+  /// Ticks while the app is open so the ongoing notification follows the hourly forecast.
+  void _startPersistentNotificationTimer() {
+    if (!Platform.isAndroid) return;
+    _persistentNotificationTimer?.cancel();
+    _persistentNotificationTimer = Timer.periodic(const Duration(minutes: 1), (
+      _,
+    ) {
+      if (!mounted) return;
+      if (!ref.read(settingsProvider).persistentNotification) return;
+      ref
+          .read(mainWeatherNotifierProvider.notifier)
+          .refreshPersistentNotification();
+    });
+  }
+
+  /// Refreshes city data and home widgets when the app returns to the foreground.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       ref.read(citiesNotifierProvider.notifier).refresh(all: false);
+      if (Platform.isAndroid) {
+        HomeWidgetService.updateFromDisk();
+        ref
+            .read(mainWeatherNotifierProvider.notifier)
+            .refreshPersistentNotification(force: true);
+      }
     }
   }
 
@@ -101,6 +128,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _persistentNotificationTimer?.cancel();
     tabController.dispose();
     _controller.dispose();
     super.dispose();

@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/di/settings_revision.dart';
+import 'package:rain/core/theme/app_font.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
@@ -190,6 +191,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
           ),
         ),
+        SettingsTile(
+          leading: const Icon(IconsaxPlusLinear.text),
+          title: 'appFont',
+          value: AppFont.label(settings.appFont),
+          onTap: () => _showAppFontDialog(context),
+        ),
       ],
     );
   }
@@ -222,6 +229,18 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
           ),
         ),
+        if (Platform.isAndroid)
+          SettingsTile(
+            leading: const Icon(IconsaxPlusLinear.notification_bing),
+            title: 'persistentNotification',
+            trailing: Transform.scale(
+              scale: 0.8,
+              child: Switch(
+                value: settings.persistentNotification,
+                onChanged: (value) => _onPersistentNotificationChanged(value),
+              ),
+            ),
+          ),
         SettingsTile(
           leading: const Icon(IconsaxPlusLinear.notification_status),
           title: 'timeRange',
@@ -495,7 +514,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         await ref.read(settingsRepositoryProvider).save(settings);
         if (!mounted) return;
         if (settings.notifications) {
-          await ref.read(notificationServiceProvider).cancelAll();
+          await ref.read(notificationServiceProvider).cancelScheduled();
           final w = ref.read(mainWeatherNotifierProvider);
           await ref
               .read(notificationServiceProvider)
@@ -603,6 +622,24 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Opens the app font picker.
+  void _showAppFontDialog(BuildContext context) {
+    showSelectionDialog<String>(
+      context: context,
+      title: 'appFont'.tr,
+      icon: IconsaxPlusLinear.text,
+      items: AppFont.choices,
+      currentValue: AppFont.resolve(settings.appFont),
+      itemBuilder: AppFont.label,
+      onSelected: (value) async {
+        settings.appFont = value;
+        await ref.read(settingsRepositoryProvider).save(settings);
+        if (!mounted) return;
+        setState(() {});
+      },
+    );
+  }
+
   /// Opens the 12/24-hour clock format picker.
   void _showTimeFormatDialog(BuildContext context) {
     showSelectionDialog<String>(
@@ -676,7 +713,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// When enabling, requests notification permissions and schedules alerts; when disabling, cancels all.
+  /// When enabling, requests notification permissions and schedules alerts; when disabling, cancels scheduled only.
   void _onNotificationsChanged(bool value) async {
     if (value) {
       await flutterLocalNotificationsPlugin
@@ -712,7 +749,34 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             cityLabel: weather.city,
           );
     } else {
-      await ref.read(notificationServiceProvider).cancelAll();
+      await ref.read(notificationServiceProvider).cancelScheduled();
+    }
+    if (!mounted) return;
+    setState(() {});
+  }
+
+  /// When enabling, requests notification permission and shows ongoing weather info.
+  void _onPersistentNotificationChanged(bool value) async {
+    if (value) {
+      final result = await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >()
+          ?.requestNotificationsPermission();
+      if (result == false) return;
+    }
+
+    final settings = ref.read(settingsProvider);
+    settings.persistentNotification = value;
+    await ref.read(settingsRepositoryProvider).save(settings);
+    if (value) {
+      await ref
+          .read(mainWeatherNotifierProvider.notifier)
+          .refreshPersistentNotification(force: true);
+    } else {
+      await ref
+          .read(notificationServiceProvider)
+          .cancelPersistentNotification();
     }
     if (!mounted) return;
     setState(() {});
@@ -734,7 +798,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       await ref.read(settingsRepositoryProvider).save(settings);
       if (!mounted) return;
       if (settings.notifications) {
-        await ref.read(notificationServiceProvider).cancelAll();
+        await ref.read(notificationServiceProvider).cancelScheduled();
         final weather = ref.read(mainWeatherNotifierProvider);
         await ref
             .read(notificationServiceProvider)
@@ -764,7 +828,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       await ref.read(settingsRepositoryProvider).save(settings);
       if (!mounted) return;
       if (settings.notifications) {
-        await ref.read(notificationServiceProvider).cancelAll();
+        await ref.read(notificationServiceProvider).cancelScheduled();
         final weather = ref.read(mainWeatherNotifierProvider);
         await ref
             .read(notificationServiceProvider)

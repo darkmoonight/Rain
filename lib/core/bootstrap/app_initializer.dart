@@ -35,6 +35,7 @@ class AppInitializer {
       await _setOptimalDisplayMode();
       Workmanager().initialize(callbackDispatcher);
       registerWidgetBackgroundTask();
+      registerWidgetBootUpdateTask();
       Future.microtask(HomeWidgetService.updateFromDisk);
     }
     if (Platform.isIOS) {

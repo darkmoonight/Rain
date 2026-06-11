@@ -95,8 +95,13 @@ class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
       aqiStandard: ref.watch(settingsProvider).aqiStandard,
       itemScrollController: notifier.itemScrollController,
       onHourSelected: notifier.setHourAndDay,
-      showDailyTap: () =>
-          context.pushRouteUp(DailyCardList(weatherData: weatherCard)),
+      showDailyTap: () => context.pushRouteUp(
+        DailyCardList(
+          weatherData: weatherCard,
+          dayIndex: dayOfNow,
+          hourIndex: hourOfDay,
+        ),
+      ),
     );
   }
 

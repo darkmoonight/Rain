@@ -10,62 +10,93 @@ environment:
   flutter: "^3.44.1"
 
 dependencies:
+  # Flutter SDK
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  gap: ^3.0.1
-  dio: ^5.9.2
-  intl: ^0.20.2
-  shimmer: ^3.0.0
-  latlong2: ^0.9.1
-  timezone: ^0.11.0
-  geocoding: ^4.0.0
+
+  # State management & navigation
+  flutter_riverpod: ^3.3.2
   go_router: ^17.3.0
-  geolocator: ^14.0.2
-  home_widget: ^0.9.3
-  restart_app: ^1.8.3
-  flutter_map: ^8.3.0
-  display_mode: ^0.0.2
-  workmanager: ^0.9.0+3
-  google_fonts: ^8.1.0
-  url_launcher: ^6.3.2
-  iconsax_plus: ^1.0.0
-  reorderables: ^0.6.0
-  dynamic_color: ^1.8.1
-  path_provider: ^2.1.5
-  flutter_riverpod: ^3.3.1
-  json_annotation: ^4.12.0
-  flutter_timezone: ^5.1.0
-  device_info_plus: ^13.1.0
-  package_info_plus: ^10.1.0
-  connectivity_plus: ^7.1.1
-  freezed_annotation: ^3.1.0
-  flutter_map_cache: ^2.1.0
-  line_awesome_flutter: ^3.0.1
+
+  # Networking & HTTP caching
+  dio: ^5.9.2
   dio_cache_interceptor: ^4.0.6
   http_cache_file_store: ^2.0.1
-  flutter_map_animations: ^0.10.0
-  flutter_expandable_fab: ^2.5.2
-  flutter_hsvcolor_picker: ^1.5.1
-  scrollable_positioned_list: ^0.3.8
-  flutter_local_notifications: ^22.0.0
   internet_connection_checker_plus: ^3.0.1
+  connectivity_plus: ^7.1.1
+
+  # Local storage
   isar_community: ^3.3.2
   isar_community_flutter_libs: ^3.3.2
-  slang: ^4.15.0
-  slang_flutter: ^4.15.0
+  path_provider: ^2.1.5
+
+  # API models (codegen runtime)
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.12.0
+
+  # Localization & formatting
+  intl: ^0.20.2
+  slang: ^4.16.0
+  slang_flutter: ^4.16.0
+
+  # Location, coordinates & timezone
+  geolocator: ^14.0.2
+  geocoding: ^4.0.0
+  latlong2: ^0.9.1
+  lat_lng_to_timezone: ^0.2.0
+  timezone: ^0.11.0
+  flutter_timezone: ^5.1.0
+
+  # Maps
+  flutter_map: ^8.3.0
+  flutter_map_cache: ^2.1.0
+  flutter_map_animations: ^0.10.0
+
+  # Android widgets & background work
+  home_widget: ^0.9.3
+  workmanager: ^0.9.0+3
+
+  # Notifications
+  flutter_local_notifications: ^22.0.0
+
+  # UI & theming
+  gap: ^3.0.1
+  shimmer: ^3.0.0
+  google_fonts: ^8.1.0
+  dynamic_color: ^1.8.1
+  iconsax_plus: ^1.0.0
+  line_awesome_flutter: ^3.0.1
+  reorderables: ^0.6.0
+  scrollable_positioned_list: ^0.3.8
+  flutter_expandable_fab: ^2.5.2
+  flutter_hsvcolor_picker: ^1.5.1
+
+  # Platform & utilities
+  url_launcher: ^6.3.2
+  restart_app: ^1.8.3
+  display_mode: ^0.0.2
+  device_info_plus: ^13.1.0
+  package_info_plus: ^10.1.0
 
 dev_dependencies:
+  # Testing
   flutter_test:
     sdk: flutter
-  freezed: ^3.2.5
+
+  # Code generation
   build_runner: ^2.15.0
-  flutter_lints: ^6.0.0
+  freezed: ^3.2.5
   json_serializable: ^6.14.0
+  isar_community_generator: ^3.3.2
+
+  # Linting
+  flutter_lints: ^6.0.0
+
+  # App assets (splash & launcher icons)
   flutter_native_splash: ^2.4.8
   flutter_launcher_icons: ^0.14.4
-  isar_community_generator: ^3.3.2
 
 flutter_launcher_icons:
   android: true

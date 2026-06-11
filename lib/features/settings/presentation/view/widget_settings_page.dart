@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/config/widget_registry.dart';
@@ -264,6 +265,11 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
                 ],
               ),
               onTap: _showTextColorPicker,
+            ),
+            SettingsTile(
+              leading: const Icon(IconsaxPlusLinear.battery_full),
+              title: 'widgetBatteryHint',
+              onTap: () => Geolocator.openAppSettings(),
             ),
           ],
         ),

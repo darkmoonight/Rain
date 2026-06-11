@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:rain/core/widgets/metric_help_tooltip.dart';
 
-/// Tappable grid cell for a single weather metric with optional tooltip.
+/// Tappable grid cell for a single weather metric with optional help tooltip.
 class DescWeather extends StatefulWidget {
   const DescWeather({
     super.key,
@@ -21,28 +22,27 @@ class DescWeather extends StatefulWidget {
   State<DescWeather> createState() => _DescWeatherState();
 }
 
-/// Manages tap-to-expand behavior for one [DescWeather] metric cell.
+/// Manages tap-to-expand label and long-press help for one metric cell.
 class _DescWeatherState extends State<DescWeather> {
-  bool hide = true;
+  bool _compactLabel = true;
 
-  /// Builds the tappable metric cell with tooltip and expandable description.
+  /// Builds the metric cell; long-press shows [MetricHelpTooltip] when [message] is set.
+  /// Builds the metric cell; long-press shows [MetricHelpTooltip] when [message] is set.
   @override
-  Widget build(BuildContext context) => GestureDetector(
-    onTap: _toggleDescriptionVisibility,
-    child: Tooltip(
-      message: widget.message,
-      child: SizedBox(
-        height: 90,
-        width: 100,
-        child: _buildContent(Theme.of(context).textTheme),
-      ),
-    ),
-  );
+  Widget build(BuildContext context) {
+    final content = SizedBox(
+      height: 90,
+      width: 100,
+      child: _buildContent(Theme.of(context).textTheme),
+    );
 
-  /// Toggles whether the metric description text is truncated.
-  void _toggleDescriptionVisibility() => setState(() => hide = !hide);
+    return GestureDetector(
+      onTap: () => setState(() => _compactLabel = !_compactLabel),
+      child: MetricHelpTooltip.maybe(message: widget.message, child: content),
+    );
+  }
 
-  /// Builds the icon, value, and description column for this metric.
+  /// Builds the icon, value, and short label column.
   Widget _buildContent(TextTheme textTheme) => Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -57,7 +57,9 @@ class _DescWeatherState extends State<DescWeather> {
         child: Text(
           widget.desc,
           style: textTheme.bodySmall,
-          overflow: hide ? TextOverflow.ellipsis : TextOverflow.visible,
+          overflow: _compactLabel
+              ? TextOverflow.ellipsis
+              : TextOverflow.visible,
           textAlign: TextAlign.center,
         ),
       ),

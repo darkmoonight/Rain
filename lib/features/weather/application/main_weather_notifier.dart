@@ -67,6 +67,9 @@ final mainWeatherNotifierProvider =
 class MainWeatherNotifier extends Notifier<MainWeatherState> {
   final itemScrollController = ItemScrollController();
 
+  int? _lastPersistentHourIndex;
+  int? _lastPersistentDayIndex;
+
   /// Timestamp before which cached forecast data is treated as stale.
   DateTime get _cacheExpiryThreshold =>
       AppConstants.weatherCacheExpiryThreshold();
@@ -85,7 +88,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     if (await ConnectivityService.hasInternet() &&
         await ref.read(weatherLocalDatasourceProvider).isMainWeatherEmpty() &&
         !ref.read(settingsProvider).notifications) {
-      await ref.read(notificationServiceProvider).cancelAll();
+      await ref.read(notificationServiceProvider).cancelScheduled();
     }
     await setLocation();
   }
@@ -251,7 +254,51 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
             cityLabel: cached.location!.city ?? '',
           );
     }
+    await refreshPersistentNotification(force: true);
     Future.delayed(AppConstants.scrollToCurrentHourDelay, scrollToCurrentHour);
+  }
+
+  /// Updates the ongoing notification when the hourly slot changes or [force] is set.
+  Future<void> refreshPersistentNotification({bool force = false}) async {
+    if (!Platform.isAndroid) return;
+
+    final settings = ref.read(settingsProvider);
+    if (!settings.persistentNotification) {
+      _lastPersistentHourIndex = null;
+      _lastPersistentDayIndex = null;
+      return;
+    }
+
+    final cache = state.mainWeather;
+    final time = cache.time;
+    final timeDaily = cache.timeDaily;
+    if (time == null ||
+        time.isEmpty ||
+        timeDaily == null ||
+        timeDaily.isEmpty ||
+        cache.timezone == null) {
+      return;
+    }
+
+    final clock = _mainClock(cache);
+    final hour = TimeIndexHelper.getTime(time, clock);
+    final day = TimeIndexHelper.getDay(timeDaily, clock);
+    if (!force &&
+        hour == _lastPersistentHourIndex &&
+        day == _lastPersistentDayIndex) {
+      return;
+    }
+
+    _lastPersistentHourIndex = hour;
+    _lastPersistentDayIndex = day;
+
+    await ref
+        .read(notificationServiceProvider)
+        .updatePersistentNotification(
+          cache: cache,
+          settings: settings,
+          cityLabel: state.city,
+        );
   }
 
   /// Scrolls the hourly list to the current hour, retrying until attached.
@@ -293,6 +340,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     final day = TimeIndexHelper.getDay(timeDaily, clock);
     if (hour == state.hourOfDay && day == state.dayOfNow) return;
     state = state.copyWith(hourOfDay: hour, dayOfNow: day);
+    refreshPersistentNotification();
   }
 
   /// Cancels notifications and clears main and/or location cache when online before a location change.
