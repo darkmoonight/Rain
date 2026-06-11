@@ -382,6 +382,9 @@ extension on TranslationsMrIn {
 			'done' => 'पूर्ण',
 			'theme' => 'थीम',
 			'name' => 'हवामान',
+
+			'today' => 'आज',
+			'tomorrow' => 'उद्या',
 			'time_range' => 'वारंवारता (तासांमध्ये)',
 			'about_app' => 'अॅप बद्दल',
 			'save' => 'संचयित करा',

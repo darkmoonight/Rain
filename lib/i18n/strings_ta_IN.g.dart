@@ -382,6 +382,9 @@ extension on TranslationsTaIn {
 			'done' => 'முடிந்தது',
 			'theme' => 'தீம்',
 			'name' => 'வானிலை',
+
+			'today' => 'இன்று',
+			'tomorrow' => 'நாளை',
 			'time_range' => 'அதிர்வெண் (மணிநேரங்களில்)',
 			'about_app' => 'பயன்பாடு பற்றி',
 			'save' => 'சேமி',

@@ -110,6 +110,38 @@ void main() {
     });
   });
 
+  group('TimeIndexHelper.isCurrentTimeSlot', () {
+    test('matches current hourly and daily indices', () {
+      final wall = TimeIndexHelper.wallClockNow(moscowClock);
+      final hour = wall.hour.toString().padLeft(2, '0');
+      final hourly = [
+        '${wall.year}-${wall.month.toString().padLeft(2, '0')}-${wall.day.toString().padLeft(2, '0')}T$hour:00',
+      ];
+      final daily = [DateTime(wall.year, wall.month, wall.day)];
+
+      expect(
+        TimeIndexHelper.isCurrentTimeSlot(
+          hourly: hourly,
+          daily: daily,
+          clock: moscowClock,
+          hourIndex: 0,
+          dayIndex: 0,
+        ),
+        isTrue,
+      );
+      expect(
+        TimeIndexHelper.isCurrentTimeSlot(
+          hourly: hourly,
+          daily: daily,
+          clock: moscowClock,
+          hourIndex: 1,
+          dayIndex: 0,
+        ),
+        isFalse,
+      );
+    });
+  });
+
   group('TimeIndexHelper clock formatting', () {
     test('detects 12h preference from settings', () {
       expect(

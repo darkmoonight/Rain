@@ -382,6 +382,9 @@ extension on TranslationsZhTw {
 			'done' => '完成',
 			'theme' => '主題',
 			'name' => '天氣',
+
+			'today' => '今天',
+			'tomorrow' => '明天',
 			'time_range' => '頻率(小時)',
 			'about_app' => '關於應用',
 			'save' => '儲存',

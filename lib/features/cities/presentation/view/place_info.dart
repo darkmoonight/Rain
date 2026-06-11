@@ -39,6 +39,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   late int dayNow;
   DateTime? _lastSyncedTimestamp;
   Timer? _clockTimer;
+  bool _followCurrentTime = true;
   final itemScrollController = ItemScrollController();
 
   @override
@@ -59,16 +60,23 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
     super.dispose();
   }
 
-  /// Updates hour/day indices and scrolls the hourly list when [card.timestamp] changes.
+  /// Resets hour/day to "now" only when forecast [card.timestamp] changes.
   void _syncTimeFor(WeatherCard card) {
     if (!WeatherCardValidator.isComplete(card)) return;
-    final shouldScroll = _lastSyncedTimestamp != card.timestamp;
+    if (_lastSyncedTimestamp == card.timestamp) return;
+
     _lastSyncedTimestamp = card.timestamp;
-    _refreshTimeIndices(card, scrollToHour: shouldScroll);
+    _followCurrentTime = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _refreshTimeIndices(card, scrollToHour: true);
+    });
   }
 
   /// Recomputes [timeNow] and [dayNow] from the city's timezone-aware clock.
   void _refreshTimeIndices(WeatherCard card, {required bool scrollToHour}) {
+    if (!_followCurrentTime) return;
+
     final time = card.time;
     final timeDaily = card.timeDaily;
     if (time == null || timeDaily == null || card.timezone == null) return;
@@ -77,13 +85,16 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
       card,
       settingsClockSkewSeconds: ref.read(settingsProvider).clockSkewSeconds,
     );
-    final hour = TimeIndexHelper.getTime(time, clock);
-    final day = TimeIndexHelper.getDay(timeDaily, clock);
-    if (hour == timeNow && day == dayNow) return;
+    final indices = TimeIndexHelper.currentIndices(
+      hourly: time,
+      daily: timeDaily,
+      clock: clock,
+    );
+    if (indices.hour == timeNow && indices.day == dayNow) return;
 
     setState(() {
-      timeNow = hour;
-      dayNow = day;
+      timeNow = indices.hour;
+      dayNow = indices.day;
     });
 
     if (!scrollToHour) return;
@@ -96,6 +107,30 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
         );
       }
     });
+  }
+
+  /// Whether [hour]/[day] match the city's current local forecast slot.
+  bool _isCurrentTimeSlot(WeatherCard card, int hour, int day) {
+    final time = card.time;
+    final timeDaily = card.timeDaily;
+    if (time == null ||
+        time.isEmpty ||
+        timeDaily == null ||
+        timeDaily.isEmpty ||
+        card.timezone == null) {
+      return false;
+    }
+
+    return TimeIndexHelper.isCurrentTimeSlot(
+      hourly: time,
+      daily: timeDaily,
+      clock: LocationClock.fromWeatherCard(
+        card,
+        settingsClockSkewSeconds: ref.read(settingsProvider).clockSkewSeconds,
+      ),
+      hourIndex: hour,
+      dayIndex: day,
+    );
   }
 
   /// Resolves the card from the cities list, optional [card] fallback, or main weather.
@@ -168,7 +203,9 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
         } else {
           await ref.read(mainWeatherNotifierProvider.notifier).refresh();
         }
-        if (mounted) setState(() {});
+        if (mounted) {
+          setState(() => _followCurrentTime = true);
+        }
       },
       child: Scaffold(
         appBar: AppBar(
@@ -207,6 +244,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
               onHourSelected: (h, d) => setState(() {
                 timeNow = h;
                 dayNow = d;
+                _followCurrentTime = _isCurrentTimeSlot(card, h, d);
               }),
               showDailyTap: () => NavigationHelper.toDownToUp(
                 context,

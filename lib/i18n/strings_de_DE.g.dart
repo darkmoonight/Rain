@@ -382,6 +382,9 @@ extension on TranslationsDeDe {
 			'done' => 'Fertig',
 			'theme' => 'Thema',
 			'name' => 'Wetter',
+
+			'today' => 'Heute',
+			'tomorrow' => 'Morgen',
 			'time_range' => 'Häufigkeit (in Stunden)',
 			'about_app' => 'Über die App',
 			'save' => 'Speichern',

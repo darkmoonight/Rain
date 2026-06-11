@@ -70,11 +70,13 @@ class DescContainer extends ConsumerWidget {
 
   /// Hourly variable grid for one slot in [card].time.
   factory DescContainer.fromHourlySlot({
+    Key? key,
     required WeatherCard card,
     required int hourIndex,
     required bool initiallyExpanded,
     required String title,
   }) => DescContainer(
+    key: key,
     humidity: card.relativehumidity2M?[hourIndex],
     wind: card.windspeed10M?[hourIndex],
     visibility: card.visibility?[hourIndex],
@@ -96,11 +98,13 @@ class DescContainer extends ConsumerWidget {
 
   /// Daily aggregate variable grid for one slot in [card].timeDaily.
   factory DescContainer.fromDailySlot({
+    Key? key,
     required WeatherCard card,
     required int dayIndex,
     required bool initiallyExpanded,
     required String title,
   }) => DescContainer(
+    key: key,
     apparentTemperatureMin: card.apparentTemperatureMin?[dayIndex],
     apparentTemperatureMax: card.apparentTemperatureMax?[dayIndex],
     uvIndexMax: card.uvIndexMax?[dayIndex],

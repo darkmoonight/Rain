@@ -382,6 +382,9 @@ extension on TranslationsJaJp {
 			'done' => '完了',
 			'theme' => 'テーマ',
 			'name' => '天気',
+
+			'today' => '今日',
+			'tomorrow' => '明日',
 			'time_range' => '頻度（時間単位）',
 			'about_app' => 'アプリについて',
 			'save' => '保存',

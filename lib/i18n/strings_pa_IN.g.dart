@@ -382,6 +382,9 @@ extension on TranslationsPaIn {
 			'done' => 'ਹੋ ਗਿਆ',
 			'theme' => 'ਥੀਮ',
 			'name' => 'ਮੌਸਮ',
+
+			'today' => 'ਅੱਜ',
+			'tomorrow' => 'ਕੱਲ੍ਹ',
 			'time_range' => 'ਬਾਰੰਬਾਰਤਾ (ਘੰਟਿਆਂ ਵਿੱਚ)',
 			'about_app' => 'ਐਪ ਬਾਰੇ',
 			'save' => 'ਸੰਭਾਲੋ',

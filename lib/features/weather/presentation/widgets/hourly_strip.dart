@@ -15,7 +15,14 @@ class HourlyStripCard extends StatelessWidget {
         horizontal: AppConstants.cardPaddingHorizontal,
         vertical: AppConstants.cardPaddingVertical,
       ),
-      child: SizedBox(height: AppConstants.hourlyWidgetHeight, child: child),
+      child: SizedBox(
+        height: AppConstants.hourlyWidgetHeight,
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (notification) =>
+              notification.metrics.axis == Axis.horizontal,
+          child: child,
+        ),
+      ),
     ),
   );
 }
@@ -47,6 +54,7 @@ class HourlyStripTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
+    behavior: HitTestBehavior.opaque,
     onTap: onTap,
     child: Container(
       margin: const EdgeInsets.symmetric(

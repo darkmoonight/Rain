@@ -382,6 +382,9 @@ extension on TranslationsHuHu {
 			'done' => 'Kész',
 			'theme' => 'Téma',
 			'name' => 'Időjárás',
+
+			'today' => 'Ma',
+			'tomorrow' => 'Holnap',
 			'time_range' => 'Gyakoriság (órákban)',
 			'about_app' => 'Az alkalmazásról',
 			'save' => 'Mentés',

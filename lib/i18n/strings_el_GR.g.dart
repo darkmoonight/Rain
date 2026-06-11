@@ -382,6 +382,9 @@ extension on TranslationsElGr {
 			'done' => 'Ολοκλήρωση',
 			'theme' => 'Θέμα',
 			'name' => 'Καιρός',
+
+			'today' => 'Σήμερα',
+			'tomorrow' => 'Αύριο',
 			'time_range' => 'Συχνότητα (σε ώρες)',
 			'about_app' => 'Σχετικά με την εφαρμογή',
 			'save' => 'Αποθήκευση',

@@ -382,6 +382,9 @@ extension on TranslationsKnIn {
 			'done' => 'ಮುಗಿದಿದೆ',
 			'theme' => 'ಥೀಮ್',
 			'name' => 'ಹವಾಮಾನ',
+
+			'today' => 'ಇಂದು',
+			'tomorrow' => 'ನಾಳೆ',
 			'time_range' => 'ಆವರ್ತನೆ (ಗಂಟೆಗಳಲ್ಲಿ)',
 			'about_app' => 'ಆ್ಯಪ್ ಬಗ್ಗೆ',
 			'save' => 'ಉಳಿಸಿ',

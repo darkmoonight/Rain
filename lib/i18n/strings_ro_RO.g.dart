@@ -382,6 +382,9 @@ extension on TranslationsRoRo {
 			'done' => 'Gata',
 			'theme' => 'Temă',
 			'name' => 'Vremea',
+
+			'today' => 'Astăzi',
+			'tomorrow' => 'Mâine',
 			'time_range' => 'Frecvența (în ore)',
 			'about_app' => 'Despre aplicație',
 			'save' => 'Salvează',

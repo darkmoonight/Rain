@@ -382,6 +382,9 @@ extension on TranslationsAsIn {
 			'done' => 'সম্পন্ন',
 			'theme' => 'থিম',
 			'name' => 'বতৰ',
+
+			'today' => 'আজ',
+			'tomorrow' => 'কাইলৈ',
 			'time_range' => 'কম্পাঙ্ক (ঘণ্টাত)',
 			'about_app' => 'এপৰ বিষয়ে',
 			'save' => 'সংৰক্ষণ',

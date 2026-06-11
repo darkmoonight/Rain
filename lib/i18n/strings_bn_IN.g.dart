@@ -382,6 +382,9 @@ extension on TranslationsBnIn {
 			'done' => 'Done',
 			'theme' => 'থিম',
 			'name' => 'আবহাওয়া',
+
+			'today' => 'আজ',
+			'tomorrow' => 'আগামীকাল',
 			'time_range' => 'সময় পরিস্থিতি (ঘণ্টায়)',
 			'about_app' => 'অ্যাপ সম্পর্কে',
 			'save' => 'সংরক্ষণ',

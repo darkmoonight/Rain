@@ -382,6 +382,9 @@ extension on TranslationsItIt {
 			'done' => 'Fatto',
 			'theme' => 'Tema',
 			'name' => 'Meteo',
+
+			'today' => 'Oggi',
+			'tomorrow' => 'Domani',
 			'time_range' => 'Frequenza (in ore)',
 			'about_app' => 'Informazioni sull\'app',
 			'save' => 'Salva',

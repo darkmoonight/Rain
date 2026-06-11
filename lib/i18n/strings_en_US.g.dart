@@ -396,6 +396,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	String get name => 'Weather';
 
 	/// en-US: 'Frequency (in hours)'
+
+	/// en-US: 'Today'
+	String get today => 'Today';
+
+	/// en-US: 'Tomorrow'
+	String get tomorrow => 'Tomorrow';
 	String get time_range => 'Frequency (in hours)';
 
 	/// en-US: 'About the app'
@@ -813,6 +819,9 @@ extension on Translations {
 			'done' => 'Done',
 			'theme' => 'Theme',
 			'name' => 'Weather',
+
+			'today' => 'Today',
+			'tomorrow' => 'Tomorrow',
 			'time_range' => 'Frequency (in hours)',
 			'about_app' => 'About the app',
 			'save' => 'Save',

@@ -382,6 +382,9 @@ extension on TranslationsTrTr {
 			'done' => 'Tamam',
 			'theme' => 'Tema',
 			'name' => 'Hava Durumu',
+
+			'today' => 'Bugün',
+			'tomorrow' => 'Yarın',
 			'time_range' => 'Sıklık (saat cinsinden)',
 			'about_app' => 'Uygulama hakkında',
 			'save' => 'Kaydet',

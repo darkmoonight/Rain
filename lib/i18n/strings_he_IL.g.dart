@@ -382,6 +382,9 @@ extension on TranslationsHeIl {
 			'done' => 'סיום',
 			'theme' => 'ערכת נושא',
 			'name' => 'מזג אויר',
+
+			'today' => 'היום',
+			'tomorrow' => 'מחר',
 			'time_range' => 'תדירות (בשעות)',
 			'about_app' => 'אודות האפליקציה',
 			'save' => 'שמור',

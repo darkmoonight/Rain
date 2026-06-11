@@ -69,6 +69,19 @@ void main() {
       expect(state.dayOfNow, 1);
     });
 
+    test('syncCurrentTimeIndices keeps manual hour selection', () async {
+      final container = createContainer();
+      final notifier = container.read(mainWeatherNotifierProvider.notifier);
+
+      await notifier.readCache();
+      notifier.setHourAndDay(10, 2);
+      notifier.syncCurrentTimeIndices();
+
+      final state = container.read(mainWeatherNotifierProvider);
+      expect(state.hourOfDay, 10);
+      expect(state.dayOfNow, 2);
+    });
+
     test('getLocation uses cache when offline', () async {
       setTestConnectivity(false);
       final container = createContainer();

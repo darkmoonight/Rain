@@ -382,6 +382,9 @@ extension on TranslationsKaGe {
 			'done' => 'დასრულებულია',
 			'theme' => 'თემა',
 			'name' => 'ამინდი',
+
+			'today' => 'დღეს',
+			'tomorrow' => 'ხვალ',
 			'time_range' => 'სიხშირე (საათებში)',
 			'about_app' => 'აპლიკაციის შესახებ',
 			'save' => 'შენახვა',

@@ -382,6 +382,9 @@ extension on TranslationsGaIe {
 			'done' => 'Críochnaithe',
 			'theme' => 'Téama',
 			'name' => 'Aimsir',
+
+			'today' => 'Inniu',
+			'tomorrow' => 'Amárach',
 			'time_range' => 'Raon Am (i n-uaireanta)',
 			'about_app' => 'Faoi an aip',
 			'save' => 'Sábháil',

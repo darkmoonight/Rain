@@ -382,6 +382,9 @@ extension on TranslationsCsCz {
 			'done' => 'Hotovo',
 			'theme' => 'Téma',
 			'name' => 'Počasí',
+
+			'today' => 'Dnes',
+			'tomorrow' => 'Zítra',
 			'time_range' => 'Frekvence (v hodinách)',
 			'about_app' => 'O aplikaci',
 			'save' => 'Uložit',

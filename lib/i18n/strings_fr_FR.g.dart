@@ -382,6 +382,9 @@ extension on TranslationsFrFr {
 			'done' => 'Terminé',
 			'theme' => 'Thème',
 			'name' => 'Météo',
+
+			'today' => 'Aujourd\'hui',
+			'tomorrow' => 'Demain',
 			'time_range' => 'Fréquence (en heures)',
 			'about_app' => 'À propos de l\'app',
 			'save' => 'Enregistrer',

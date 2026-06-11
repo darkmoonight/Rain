@@ -24,11 +24,13 @@ class WeatherHourlySections extends StatelessWidget {
     mainAxisSize: MainAxisSize.min,
     children: [
       AirQualityCard(
+        key: ValueKey('aqi-$hourIndex'),
         weatherCard: weatherCard,
         hourIndex: hourIndex,
         aqiStandard: aqiStandard,
       ),
       DescContainer.fromHourlySlot(
+        key: ValueKey('hourly-vars-$hourIndex'),
         card: weatherCard,
         hourIndex: hourIndex,
         initiallyExpanded: hourlyVariablesExpanded,

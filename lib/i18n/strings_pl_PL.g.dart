@@ -382,6 +382,9 @@ extension on TranslationsPlPl {
 			'done' => 'Gotowe',
 			'theme' => 'Motyw',
 			'name' => 'Pogoda',
+
+			'today' => 'Dziś',
+			'tomorrow' => 'Jutro',
 			'time_range' => 'Częstotliwość (w godzinach)',
 			'about_app' => 'O aplikacji',
 			'save' => 'Zapisz',

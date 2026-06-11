@@ -382,6 +382,9 @@ extension on TranslationsOrIn {
 			'done' => 'ସମ୍ପନ୍ନ',
 			'theme' => 'ଥିମ୍',
 			'name' => 'ପାଣିପାଗ',
+
+			'today' => 'ଆଜି',
+			'tomorrow' => 'ଆଗାମିକାଲି',
 			'time_range' => 'ଆବୃତ୍ତି (ଘଣ୍ଟାରେ)',
 			'about_app' => 'ଆପ ବିଷୟରେ',
 			'save' => 'ସଂରକ୍ଷଣ',

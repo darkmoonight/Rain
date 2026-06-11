@@ -382,6 +382,9 @@ extension on TranslationsZhCn {
 			'done' => '完成',
 			'theme' => '主题',
 			'name' => '天气',
+
+			'today' => '今天',
+			'tomorrow' => '明天',
 			'time_range' => '频率（小时）',
 			'about_app' => '关于应用',
 			'save' => '保存',

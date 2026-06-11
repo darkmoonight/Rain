@@ -382,6 +382,9 @@ extension on TranslationsGuIn {
 			'done' => 'પૂર્ણ',
 			'theme' => 'થીમ',
 			'name' => 'હવામાન',
+
+			'today' => 'આજે',
+			'tomorrow' => 'આવતીકાલે',
 			'time_range' => 'આવૃત્તિ (કલાકોમાં)',
 			'about_app' => 'એપ વિશે',
 			'save' => 'સંગ્રહ',

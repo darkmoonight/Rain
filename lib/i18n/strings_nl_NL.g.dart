@@ -382,6 +382,9 @@ extension on TranslationsNlNl {
 			'done' => 'Klaar',
 			'theme' => 'Thema',
 			'name' => 'Weer',
+
+			'today' => 'Vandaag',
+			'tomorrow' => 'Morgen',
 			'time_range' => 'Frequentie (in uren)',
 			'about_app' => 'Over de app',
 			'save' => 'Opslaan',

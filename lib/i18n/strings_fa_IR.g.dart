@@ -382,6 +382,9 @@ extension on TranslationsFaIr {
 			'done' => 'پایان',
 			'theme' => 'پوسته',
 			'name' => 'آب و هوا',
+
+			'today' => 'امروز',
+			'tomorrow' => 'فردا',
 			'time_range' => 'فرکانس (بر حسب ساعت)',
 			'about_app' => 'درباره برنامه',
 			'save' => 'ذخیره',

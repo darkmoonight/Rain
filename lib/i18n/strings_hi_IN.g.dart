@@ -382,6 +382,9 @@ extension on TranslationsHiIn {
 			'done' => 'किया',
 			'theme' => 'थीम',
 			'name' => 'मौसम',
+
+			'today' => 'आज',
+			'tomorrow' => 'कल',
 			'time_range' => 'अवधि (घंटों में)',
 			'about_app' => 'ऐप के बारे में',
 			'save' => 'सहेजें',

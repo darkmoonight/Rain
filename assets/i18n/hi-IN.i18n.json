@@ -213,5 +213,7 @@
   "metricHelpHumidity": "Relative humidity at 2 m — moisture in the air as a percent of saturation.",
   "metricHelpCloudcover": "Share of the sky covered by clouds (0% clear, 100% overcast).",
   "metricHelpPressure": "Sea-level air pressure. Falling pressure often signals worsening weather.",
-  "metricHelpShortwaveRadiation": "Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour."
+  "metricHelpShortwaveRadiation": "Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.",
+  "today": "आज",
+  "tomorrow": "कल"
 }

@@ -382,6 +382,9 @@ extension on TranslationsPtBr {
 			'done' => 'Concluído',
 			'theme' => 'Tema',
 			'name' => 'Clima',
+
+			'today' => 'Hoje',
+			'tomorrow' => 'Amanhã',
 			'time_range' => 'Frequência (em horas)',
 			'about_app' => 'Sobre o app',
 			'save' => 'Salvar',

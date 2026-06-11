@@ -382,6 +382,9 @@ extension on TranslationsKoKr {
 			'done' => '완료',
 			'theme' => '테마',
 			'name' => '날씨',
+
+			'today' => '오늘',
+			'tomorrow' => '내일',
 			'time_range' => '빈도 (시간 단위)',
 			'about_app' => '앱 정보',
 			'save' => '저장',

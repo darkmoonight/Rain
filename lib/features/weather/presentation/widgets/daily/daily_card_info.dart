@@ -202,6 +202,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     }
 
     return HourlyStripTile(
+      key: ValueKey('hour-$i-$hourOfDay'),
       selected: i == hourOfDay,
       onTap: () => setState(() => hourOfDay = i),
       child: Hourly(

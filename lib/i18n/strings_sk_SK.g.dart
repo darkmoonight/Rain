@@ -382,6 +382,9 @@ extension on TranslationsSkSk {
 			'done' => 'Hotovo',
 			'theme' => 'Téma',
 			'name' => 'Počasie',
+
+			'today' => 'Dnes',
+			'tomorrow' => 'Zajtra',
 			'time_range' => 'Frekvencia (v hodinách)',
 			'about_app' => 'O aplikácii',
 			'save' => 'Uložiť',

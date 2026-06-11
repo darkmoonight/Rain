@@ -382,6 +382,9 @@ extension on TranslationsEsEs {
 			'done' => 'Hecho',
 			'theme' => 'Tema',
 			'name' => 'Tiempo',
+
+			'today' => 'Hoy',
+			'tomorrow' => 'Mañana',
 			'time_range' => 'Frecuencia (en horas)',
 			'about_app' => 'Acerca de la app',
 			'save' => 'Guardar',

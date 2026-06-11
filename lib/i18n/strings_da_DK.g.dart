@@ -382,6 +382,9 @@ extension on TranslationsDaDk {
 			'done' => 'Færdig',
 			'theme' => 'Tema',
 			'name' => 'Vejr',
+
+			'today' => 'I dag',
+			'tomorrow' => 'I morgen',
 			'time_range' => 'Hyppighed (i timer)',
 			'about_app' => 'Om appen',
 			'save' => 'Gem',

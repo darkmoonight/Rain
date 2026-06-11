@@ -59,6 +59,7 @@ class WeatherDetailView extends StatelessWidget {
             itemBuilder: (ctx, i) {
               final day = (i / 24).floor();
               return HourlyStripTile(
+                key: ValueKey('hour-$i-$hourIndex'),
                 selected: i == hourIndex,
                 onTap: () => onHourSelected(i, day),
                 child: Hourly(

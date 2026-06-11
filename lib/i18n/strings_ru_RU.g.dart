@@ -382,6 +382,9 @@ extension on TranslationsRuRu {
 			'done' => 'Готово',
 			'theme' => 'Тема',
 			'name' => 'Погода',
+
+			'today' => 'Сегодня',
+			'tomorrow' => 'Завтра',
 			'time_range' => 'Периодичность (в часах)',
 			'about_app' => 'О приложении',
 			'save' => 'Сохранить',

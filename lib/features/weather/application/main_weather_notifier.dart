@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/constants/app_constants.dart';
@@ -69,6 +68,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   int? _lastPersistentHourIndex;
   int? _lastPersistentDayIndex;
+  bool _followCurrentTime = true;
 
   /// Timestamp before which cached forecast data is treated as stale.
   DateTime get _cacheExpiryThreshold =>
@@ -225,17 +225,21 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
 
     final clock = _mainClock(cached.weather!);
-    final hour = TimeIndexHelper.getTime(cached.weather!.time!, clock);
-    final day = TimeIndexHelper.getDay(cached.weather!.timeDaily!, clock);
+    final indices = TimeIndexHelper.currentIndices(
+      hourly: cached.weather!.time!,
+      daily: cached.weather!.timeDaily!,
+      clock: clock,
+    );
     if (Platform.isAndroid) {
       registerWidgetBackgroundTask();
     }
+    _followCurrentTime = true;
     state = state.copyWith(
       isLoading: false,
       mainWeather: cached.weather!,
       location: cached.location!,
-      hourOfDay: hour,
-      dayOfNow: day,
+      hourOfDay: indices.hour,
+      dayOfNow: indices.day,
     );
     syncBootstrapLocationCache(ref, cached.location!);
     if (Platform.isAndroid) {
@@ -319,11 +323,14 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   /// Updates the selected hourly and daily indices for the detail view.
   void setHourAndDay(int hour, int day) {
+    _followCurrentTime = _isCurrentTimeSlot(hour, day);
     state = state.copyWith(hourOfDay: hour, dayOfNow: day);
   }
 
   /// Realigns hour/day indices to the city's current local time.
   void syncCurrentTimeIndices() {
+    if (!_followCurrentTime) return;
+
     final cache = state.mainWeather;
     final time = cache.time;
     final timeDaily = cache.timeDaily;
@@ -336,10 +343,14 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
 
     final clock = _mainClock(cache);
-    final hour = TimeIndexHelper.getTime(time, clock);
-    final day = TimeIndexHelper.getDay(timeDaily, clock);
-    if (hour == state.hourOfDay && day == state.dayOfNow) return;
-    state = state.copyWith(hourOfDay: hour, dayOfNow: day);
+    final indices = TimeIndexHelper.currentIndices(
+      hourly: time,
+      daily: timeDaily,
+      clock: clock,
+    );
+    if (indices.hour == state.hourOfDay && indices.day == state.dayOfNow)
+      return;
+    state = state.copyWith(hourOfDay: indices.hour, dayOfNow: indices.day);
     refreshPersistentNotification();
   }
 
@@ -395,5 +406,27 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       return;
     }
     await readCache();
+  }
+
+  /// Whether [hour]/[day] match the city's current local forecast slot.
+  bool _isCurrentTimeSlot(int hour, int day) {
+    final cache = state.mainWeather;
+    final time = cache.time;
+    final timeDaily = cache.timeDaily;
+    if (time == null ||
+        time.isEmpty ||
+        timeDaily == null ||
+        timeDaily.isEmpty ||
+        cache.timezone == null) {
+      return false;
+    }
+
+    return TimeIndexHelper.isCurrentTimeSlot(
+      hourly: time,
+      daily: timeDaily,
+      clock: _mainClock(cache),
+      hourIndex: hour,
+      dayIndex: day,
+    );
   }
 }

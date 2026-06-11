@@ -119,6 +119,18 @@ class TimeIndexHelper {
     required LocationClock clock,
   }) => (hour: getTime(hourly, clock), day: getDay(daily, clock));
 
+  /// Whether [hourIndex]/[dayIndex] match [clock]'s current forecast slots.
+  static bool isCurrentTimeSlot({
+    required List<String> hourly,
+    required List<DateTime> daily,
+    required LocationClock clock,
+    required int hourIndex,
+    required int dayIndex,
+  }) {
+    final current = currentIndices(hourly: hourly, daily: daily, clock: clock);
+    return hourIndex == current.hour && dayIndex == current.day;
+  }
+
   /// Current wall clock in the location, aligned with Open-Meteo offsets.
   static DateTime wallClockNow(LocationClock clock) {
     final utc = DateTime.now().toUtc().add(

@@ -382,6 +382,9 @@ extension on TranslationsUrPk {
 			'done' => 'ہوگیا',
 			'theme' => 'تھیم',
 			'name' => 'موسم',
+
+			'today' => 'آج',
+			'tomorrow' => 'کل',
 			'time_range' => 'وقت کی مدت (گھنٹوں میں)',
 			'about_app' => 'ایپ کے بارے میں',
 			'save' => 'محفوظ',

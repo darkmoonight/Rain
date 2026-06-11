@@ -382,6 +382,9 @@ extension on TranslationsTeIn {
 			'done' => 'పూర్తయింది',
 			'theme' => 'థీమ్',
 			'name' => 'వాతావరణం',
+
+			'today' => 'నేడు',
+			'tomorrow' => 'రేపు',
 			'time_range' => 'ఫ్రీక్వెన్సీ (గంటలలో)',
 			'about_app' => 'యాప్ గురించి',
 			'save' => 'సేవ్',

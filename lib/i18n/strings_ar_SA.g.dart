@@ -382,6 +382,9 @@ extension on TranslationsArSa {
 			'done' => 'تم',
 			'theme' => 'المظهر',
 			'name' => 'الطقس',
+
+			'today' => 'اليوم',
+			'tomorrow' => 'غداً',
 			'time_range' => 'التكرار (بالساعات)',
 			'about_app' => 'حول التطبيق',
 			'save' => 'حفظ',

@@ -382,6 +382,9 @@ extension on TranslationsPtPt {
 			'done' => 'Concluído',
 			'theme' => 'Tema',
 			'name' => 'Meteorologia',
+
+			'today' => 'Hoje',
+			'tomorrow' => 'Amanhã',
 			'time_range' => 'Intervalo (horas)',
 			'about_app' => 'Sobre a app',
 			'save' => 'Guardar',

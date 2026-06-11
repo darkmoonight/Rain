@@ -382,6 +382,9 @@ extension on TranslationsMlIn {
 			'done' => 'പൂർത്തിയായി',
 			'theme' => 'തീം',
 			'name' => 'കാലാവസ്ഥ',
+
+			'today' => 'ഇന്ന്',
+			'tomorrow' => 'നാളെ',
 			'time_range' => 'ആവൃത്തി (മണിക്കൂറുകളിൽ)',
 			'about_app' => 'ആപ്പിനെക്കുറിച്ച്',
 			'save' => 'സേവ്',
