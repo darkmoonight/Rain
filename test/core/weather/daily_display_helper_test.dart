@@ -2,12 +2,49 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/data/models/db.dart';
+import '../../helpers/test_helpers.dart';
 
 WeatherCard _card({List<int?> daily = const [61, 0, 0]}) =>
     WeatherCard()..weathercodeDaily = daily;
 
 void main() {
+  setUpAll(() async {
+    await initTestEnvironment();
+  });
+
   group('DailyDisplayHelper', () {
+    test('previewDayLabel shows Today, Tomorrow, then weekday', () {
+      final monday = DateTime(2026, 6, 8);
+
+      expect(
+        DailyDisplayHelper.previewDayLabel(
+          listIndex: 0,
+          dayIndex: 0,
+          date: monday,
+          languageCode: 'en',
+        ),
+        'Today',
+      );
+      expect(
+        DailyDisplayHelper.previewDayLabel(
+          listIndex: 1,
+          dayIndex: 0,
+          date: DateTime(2026, 6, 9),
+          languageCode: 'en',
+        ),
+        'Tomorrow',
+      );
+      expect(
+        DailyDisplayHelper.previewDayLabel(
+          listIndex: 3,
+          dayIndex: 0,
+          date: monday,
+          languageCode: 'en',
+        ),
+        'Monday',
+      );
+    });
+
     test('dailyWeatherCode reads Open-Meteo daily series', () {
       final card = _card();
 

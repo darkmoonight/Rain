@@ -348,8 +348,9 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       daily: timeDaily,
       clock: clock,
     );
-    if (indices.hour == state.hourOfDay && indices.day == state.dayOfNow)
+    if (indices.hour == state.hourOfDay && indices.day == state.dayOfNow) {
       return;
+    }
     state = state.copyWith(hourOfDay: indices.hour, dayOfNow: indices.day);
     refreshPersistentNotification();
   }

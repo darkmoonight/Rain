@@ -13,8 +13,12 @@ Future<bool> performWeatherCacheMigrationIfNeeded(
     return false;
   }
 
-  final mainCaches = await isar.mainWeatherCaches.where().findAll();
-  final cards = await isar.weatherCards.where().findAll();
+  final mainCaches = (await isar.mainWeatherCaches.where().findAll())
+      .where((cache) => cache.time != null && cache.time!.isNotEmpty)
+      .toList();
+  final cards = (await isar.weatherCards.where().findAll())
+      .where((card) => card.time != null && card.time!.isNotEmpty)
+      .toList();
 
   await isar.writeTxn(() async {
     await isar.mainWeatherCaches.clear();

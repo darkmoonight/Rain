@@ -113,9 +113,17 @@ class _CollapsibleSectionState extends State<CollapsibleSection>
             ),
           ),
         ),
-        SizeTransition(
-          sizeFactor: _sizeFactor,
-          alignment: AlignmentDirectional.topStart,
+        AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return SizeTransition(
+              sizeFactor: _sizeFactor,
+              alignment: AlignmentDirectional.topStart,
+              child: _expanded || _controller.isAnimating
+                  ? child!
+                  : const SizedBox.shrink(),
+            );
+          },
           child: widget.child,
         ),
       ],

@@ -173,6 +173,8 @@ void main() {
     );
 
     expect(find.byType(InkWell), findsWidgets);
+    expect(find.text('Today'), findsOneWidget);
+    expect(find.text('Tomorrow'), findsOneWidget);
   });
 
   testWidgets('WeatherDetailView renders main sections', (tester) async {

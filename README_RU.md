@@ -1,7 +1,7 @@
 <div align='center'>
     <img src='/readme/icon.png' width='150'/>
     <h1>🌦️ Rain</h1>
-    <p><strong>Красивое многофункциональное приложение погоды, созданное с помощью Flutter</strong></p>
+    <p><strong>Красивое многофункциональное приложение погоды на Flutter</strong></p>
 </div>
 
 <p align='center'>
@@ -18,76 +18,21 @@
 </p>
 
 <p align='center'>
-    Устали от непредсказуемой погоды? Rain поможет вам быть готовыми к любым условиям благодаря точным прогнозам, интерактивным картам и красивому дизайну. 🌦️📱🗺️
-</p>
-
-<p align='center'>
-    <strong>🌍 Доступно на 38 языках</strong> • <strong>🎨 Material You и AMOLED</strong> • <strong>💨 Качество воздуха (EU/US AQI)</strong> • <strong>🗺️ Интерактивная карта погоды</strong> • <strong>📱 Виджеты на главный экран</strong>
+    Точные прогнозы, качество воздуха, интерактивная карта и Material You — на 38 языках.
 </p>
 
 ---
 
 ## ✨ Возможности
 
-**🌡️ Полные данные о погоде**
-- Текущие условия с ощущаемой температурой • Почасовые прогнозы (12 дней) • 12-дневные прогнозы
-- Время **последнего обновления** на карточке «Сейчас» (когда погода была загружена или взята из кэша)
-- Строка «сегодня» в дневном прогнозе показывает **текущее почасовое** состояние (как в детальном виде)
-- Время по месту: слоты прогноза привязаны к часовому поясу и UTC-смещению Open-Meteo; смещение по HTTP `Date` исправляет неверные системные часы
-- Подробные метрики: УФ-индекс, влажность, скорость/направление ветра, осадки, видимость, давление, точка росы
-- **Справка по метрикам:** нажатие переключает короткую подпись; **долгое нажатие** — подсказка с развёрнутым описанием (сетки почасовых и дневных деталей)
-- Иконки с учётом дня/ночи • Время восхода/заката • Раскрывающиеся подробные почасовые данные
-- Компактные иконки в превью дневного прогноза на главном экране; в **списке на 12 дней** — крупные классические иллюстрации погоды
-
-**💨 Качество воздуха**
-- Почасовые данные из [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) (прогноз на 7 дней, синхронизирован с погодой)
-- Карточка на главном экране и в **детальном дневном прогнозе** (по выбранному часу): индекс AQI, уровень загрязнения, цветная шкала, рекомендации
-- **Долгое нажатие** на карточку AQI — полная подсказка: стандарт, индекс, расчёт Open-Meteo, все загрязнители и совет
-- Сворачиваемый блок **«Загрязнители»** с анимацией и полосками прогресса: PM2.5, PM10, O₃, NO₂, SO₂, CO (μg/m³)
-- В настройках — **европейский AQI** или **US AQI** • Кэшируется вместе с прогнозом
-
-**🗺️ Интерактивная карта погоды**
-- Интерактивная карта на базе OpenStreetMap • Маркеры погоды для всех сохранённых городов
-- Нажмите на маркер для быстрого просмотра погоды • Долгое нажатие для добавления новых мест
-- Визуальный выбор городов с поддержкой GPS • Кэширование плиток карты (30 дней) • Оформление в тёмной теме
-
-**🏙️ Управление несколькими городами**
-- Сохраняйте неограниченное количество городов в список наблюдения • Перетаскивание для изменения порядка • Потяните для обновления всех • Shimmer-заглушки при загрузке списка
-- Живые местные часы на каждой карточке города • Корректная разница между городами даже при сбитых системных часах
-- Поиск городов с автодополнением • Ручной ввод координат • Автоопределение по GPS
-- Редактирование или удаление сохранённых городов • Часовой пояс из API погоды для каждого места
-
-**🔔 Умные уведомления**
-- Плановые прогнозы погоды (интервал 1-5 часов) • Настраиваемый временной диапазон (начало/конец)
-- **Постоянное уведомление (Android):** опциональная плитка в строке состояния с текущей температурой и погодой
-- Иконки, зависящие от погодных условий • Тихие уведомления (без звука/вибрации)
-- Автоматическая отмена при отключении • Фоновое планирование
-
-**📱 Виджеты на главный экран (Android)**
-- Три виджета Material You — добавление через Настройки → Виджет (главный экран и экран блокировки):
-  - **Compact (1×1)** — иконка погоды и температура, фиксированный размер
-  - **Current (2×2)** — масштабируемая карточка: температура сверху, иконка погоды внизу слева
-  - **Clock (полоска 4×1)** — часы и дата, иконка погоды, город и температура; масштабируется по ширине
-- Учитывает **°C/°F**, **округление температуры** и **формат 12/24 ч** (виджет Clock)
-- Фоновое обновление (Workmanager, минимум ~15 мин): при устаревшем кэше и наличии сети запрашивает погоду, затем обновляет виджеты • Свои цвета фона и текста (HSV-палитра)
-- Обновляется при загрузке кэша, после запроса свежей погоды, при возврате в приложение и по фоновой задаче (фоновая геолокация не нужна — используется сохранённый город из кэша)
-
-**🎨 Красивый дизайн**
-- Динамическая тема Material You (цвета обоев) • Чистая AMOLED чёрная тема
-- Светлая/Тёмная/Системная темы • Переключатель режима крупных элементов
-- Дисплей от края до края • Выбор **шрифта** (Внешний вид): Ubuntu (по умолчанию), системный, Roboto, Barlow Condensed, Inter, Open Sans через Google Fonts
-- Плавные анимации • Эффект мерцания при загрузке • **Без ripple и подсветки** при нажатии на элементы
-
-**🌍 Обширная локализация**
-- 38 языков, включая: Русский, English, 中文, العربية, हिन्दी, Español, Français, Deutsch, Português, 한국어, 日本語, Türkçe и многие другие
-- Региональные настройки • Поддержка 12/24-часового формата времени
-
-**🧮 Настройки персонализации**
-- Температура: Цельсий/Фаренгейт • Система единиц: Метрическая/Имперская
-- Скорость ветра: км/ч/м/с • Давление: гПа/мм рт.ст. • Округление температуры (в приложении и виджете)
-- Стандарт AQI: европейский / американский
-- Формат времени 12/24 ч (интерфейс, выбор времени, уведомления и виджет Clock)
-- Настройка цвета виджета с помощью HSV-палитры • Шрифт приложения во «Внешний вид»
+- **Погода** — текущие условия, почасовой и 12-дневный прогноз, подробные метрики, офлайн-кэш, часовые пояса по месту
+- **Качество воздуха** — европейский или US AQI, загрязнители, кэш вместе с погодой ([Open-Meteo AQ](https://open-meteo.com/en/docs/air-quality-api))
+- **Карта** — OpenStreetMap с маркерами сохранённых городов, поддержка GPS
+- **Города** — неограниченный список, поиск, сортировка перетаскиванием, pull-to-refresh
+- **Уведомления** — по расписанию; опциональная постоянная плитка в статус-баре (Android)
+- **Виджеты (Android)** — три размера Material You, свои цвета, фоновое обновление
+- **Оформление** — Material You, AMOLED, светлая/тёмная/системная тема, шрифт и единицы измерения
+- **Локализация** — 38 языков, метрическая/имперская система, формат 12/24 ч
 
 ---
 
@@ -99,177 +44,50 @@
 
 ## 📥 Загрузка
 
-### Android
 [![Play Store](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.yoshi.rain)
 [![IzzyOnDroid](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/com.yoshi.rain&style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAA4VBMVEXn9cuv7wDB9iGp4x2k5gKh3B6k3SyAxAGd4ASo6gCv5SCW2gHA7UTB6V+EwiOw3lK36zC+422d1yO78SWs3kfR7JhQiw2751G7+QCz8gCKzgGq3zay5DSm2jrF9jZLfwmNyiC77zXO7oaYzjW37CLj9Lze8LLA43uz3mK19ACR1QBcnRO78R6ExBek1kbE8FLI6nSPu0jH5YJxtQ2b1RiAmz53uwF7pitZkAeX1w7I72TY8KTO8HXD7La+0pKizWBzhExqjytpmR+UzSTA5Ctzy3uv1nOv3gyF3UuCsDRHcEx7M2pHAAAAS3RSTlP//////////////////////////////////////////////////////////////////////////////////////////////////wDLGfCsAAAB9ElEQVRIx72W53biMBCFhY0L7g0bTAktQEwgdMhuerbO+z/Q2sBiY0uKcvacnX8a3Y/R8YyuQPDJQP8KoExcro6ZC6C4TQXQx/oLABV3cfozgBgL/AWY9ScAsR7oBCD2AmSAoD8A+J3cWYECdBEaVm2z+U1hAuDx4fr6a08PGuuf6cmys5QvMEz0c12zhPWaAYBq9emp9/DlTrMUXsBOaw5Yjl5elrG+u9tYAxbAtjeL+Z3Wdl83Ovfr3BQyYAZBoLXbHDfQ2hykTSEAAIu+2LRcl4tD6UCm67jPCvD4/ON5YRhGpzOdrlar74fT5IcvOxDD0Xg0nvU7hjGVttv+0vYyAgyQdNgeey3Hce5DSZqN9GZmvzh8UO0F3thsiY4gqGoUtuL2AeaKpom5brVMryEKvCyXZVX0urd0wOxy4qwh8jxfLlcqZafpYoH0MzQGnNI/6CulOASFc/NWlZ17ADEG3oWjvn5TEvjbfJuyrnFaSfdyrK/f1Gp1tTAHF750aqgUJUCsr5UizFUv3EeQwmOFekmVmABDCiNVlqNwOwEqcM75vp+s/asrKpAmdxM/Gbnfuz0j8OYnPw2v9AqZ5Nt+f7hikwkw2T3Fc2l2jzdcst3DpwGCnvQ+EPUEu8c/STSAqMfZPeX5IQK0J+a//zn5MP4Am7ISN/4mSV8AAAAASUVORK5CYII=)](https://apt.izzysoft.de/packages/com.yoshi.rain)
 
-### Другие платформы
-Скачайте последнюю версию APK или сборки для других платформ можно в [разделе релизов](https://github.com/darkmoonight/Rain/releases/latest).
+APK и другие сборки: [Releases](https://github.com/darkmoonight/Rain/releases/latest)
 
 ---
 
-## 🛠️ Сборка из исходного кода
+## 🛠️ Сборка
 
-### Требования
-- Flutter SDK **3.44** или выше (см. `pubspec.yaml`)
-- Dart SDK **3.12** или выше
-- Android Studio / Xcode для сборки под конкретную платформу
+**Требования:** Flutter 3.44+, Dart 3.12+ (см. `pubspec.yaml`)
 
-### Шаги
 ```bash
-# Клонировать репозиторий
-git clone https://github.com/darkmoonight/Rain.git
-cd Rain
-
-# Установить зависимости
+git clone https://github.com/darkmoonight/Rain.git && cd Rain
 flutter pub get
-
-# Генерация кода (Isar, Freezed, JSON, переводы)
 dart run slang
 dart run build_runner build --delete-conflicting-outputs
-
-# Запустить приложение (на Android по умолчанию gms; см. `default-flavor` в pubspec)
-flutter run
-# floss на эмуляторе/устройстве: flutter run --flavor floss
-
-# Собрать для релиза
-flutter build appbundle --release  # Android App Bundle (Play Store)
-flutter build ios --release        # iOS
+flutter run                    # Android, flavor по умолчанию: gms
+flutter run --flavor floss     # FOSS без Play Services
 ```
 
-### Android APK
+Скрипты релизных APK (`gms` / `floss`), reproducible FOSS — см. [`scripts/`](scripts/) и [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-Gradle-flavors **`gms`** (по умолчанию, зависимости Play Store) и **`floss`** (без Play Services, IzzyOnDroid). Имена файлов как в [релизах GitHub](https://github.com/darkmoonight/Rain/releases).
+**Стек:** Flutter, Riverpod, Go Router, Isar, Open-Meteo, flutter_map, home_widget, Workmanager.
 
-| Вариант | Файлы |
-|---------|--------|
-| **gms** | `rain-release-gms.apk`, `rain-arm64-v8a-release-gms.apk`, `rain-armeabi-v7a-release-gms.apk`, `rain-x86_64-release-gms.apk` |
-| **floss** | `rain-release-floss.apk`, `rain-arm64-v8a-release-floss.apk`, `rain-armeabi-v7a-release-floss.apk`, `rain-x86_64-release-floss.apk` |
-
-Готовые APK — в `build/app/outputs/flutter-apk/` (после переименования скриптом).
-
-#### Один APK (одна архитектура)
-
-```bash
-chmod +x scripts/*.sh
-
-./scripts/build_apk.sh gms --target-platform android-arm64
-./scripts/build_apk.sh floss --target-platform android-arm64
-```
-
-#### Полный комплект релиза (8 APK, обе версии)
-
-Для каждого варианта: сначала **сплиты по ABI** (`--split-per-abi`), затем **универсальный** APK (без доп. флагов). Четыре сборки:
-
-```bash
-./scripts/build_release_apks.sh
-```
-
-Четыре сборки и в конце автоматически `./scripts/restore_pub_default.sh` (чтобы FOSS не остался в `pubspec.lock` для обычной разработки).
-
-Те же шаги вручную:
-
-```bash
-./scripts/build_apk.sh gms --split-per-abi
-./scripts/build_apk.sh gms
-
-./scripts/build_apk.sh floss --split-per-abi
-./scripts/build_apk.sh floss
-
-./scripts/restore_pub_default.sh
-```
-
-#### FOSS вручную (reproducible build / IzzyOnDroid)
-
-`pubspec_overrides.yaml` нужен **до** `flutter pub get`. После `pub get` — патч пакета `jni`, чтобы `libdartjni.so` совпадал при [воспроизводимой сборке](https://izzyondroid.org/about/security/ReproducibleBuilds/):
-
-```bash
-cp tool/pubspec_overrides.floss.yaml pubspec_overrides.yaml
-flutter pub get
-./scripts/patch_jni_reproducible_build.sh
-dart run slang && dart run build_runner build --delete-conflicting-outputs
-flutter build apk --release --flavor floss --target-platform android-arm64
-./scripts/rename_apk_outputs.sh floss
-```
-
-Тот же патч одной командой (идемпотентно; в CI задай `PUB_CACHE`):
-
-```bash
-sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|target_link_options(jni PRIVATE "-Wl,--build-id=none,-z,max-page-size=16384")|' \
-  "${PUB_CACHE:-$HOME/.pub-cache}"/hosted/*/jni-*/src/CMakeLists.txt
-```
-
-`pubspec_overrides.yaml` в `.gitignore`; `pubspec.lock` в репозитории — для **gms**.
-
-### Тестирование
-
-В проекте **368** unit- и widget-тестов (100 файлов `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
-
-```bash
-flutter test
-flutter analyze
-```
-
-Если widget-тесты зависают: `flutter test --concurrency=1`.
-
-Отчёт покрытия (результат в `coverage/`, в `.gitignore`):
-
-```bash
-flutter test --coverage
-```
-
-**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils (уведомления, connectivity, разбор placemark, HTTP Date), bootstrap (`AppInitializer`), redirect и sync кэша роутера, обновления settings provider, cities notifier (CRUD, `loadError`, edge cases удаления), confirmation/selection dialogs, weather widgets и notifiers (`WeatherDetailView`, `DailyCardInfo`, общая почасовая лента), местное время (`TimeIndexHelper`, сохранение clock skew), качество воздуха (`AqiHelper`, `AirQualityMapper`, graceful fallback, long-press help), тексты справки по метрикам (`Message`, `DescMetricsCatalog`), daily display helpers, shimmer списка городов, глобальная тема без splash.
-
-**Регрессии уведомлений:** стабильные ID (`notificationIdFor`), один слот на час при дублирующихся daily-строках, `MainWeatherNotifier._init` не вызывает `cancelAll()`, пока уведомления включены.
-
-**Пробелы (сознательно не трогаем):** cold-start `main.dart`, WorkManager, сеть/кэш OSM-тайлов, onboarding → home E2E, geolocation submit → полная navigation E2E.
-
-Если после обновления с исправлением планирования уведомлений алерты пропали — выключите и снова включите уведомления в настройках (на Android 13+ может понадобиться разрешение один раз).
-
-В widget-тестах с поиском городов и прогнозом используйте `createFakeWeatherRemoteDatasource()` из `test/helpers/fixtures.dart`, чтобы геокодинг и forecast шли через один stub Dio.
-
-### Генерация кода
-Проект использует генерацию кода для:
-- **Isar Community** — схемы локальной базы данных
-- **Freezed** — модели API
-- **JSON Serializable** — сериализация JSON
-- **Slang** — переводы из `assets/i18n/*.i18n.json`
-
-После изменения моделей или файлов локализации:
-```bash
-dart run slang
-dart run build_runner build --delete-conflicting-outputs
-```
-
-### Стек (кратко)
-- **Flutter** + **Riverpod 3** • **Go Router** • **Isar Community**
-- **home_widget** + **Workmanager** (виджеты Android) • **flutter_local_notifications**
-- API **Open-Meteo Weather** • **Open-Meteo Air Quality** • **flutter_map** и плитки OSM
-- **timezone** + **flutter_timezone** + **lat_lng_to_timezone** для IANA и местных часов по локации
-- **google_fonts** для настраиваемой типографики • Зависимости в `pubspec.yaml` сгруппированы по назначению
+**Тесты:** 377 — `flutter test` и `flutter analyze`. Подробности в [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
 ## 🌐 Источники данных
 
-Rain использует бесплатные открытые API погоды, не требующие ключа API:
+Бесплатные API без ключа:
 
-- **Данные о погоде:** [Open-Meteo Weather API](https://open-meteo.com/en/docs) - Бесплатный API погоды с открытым исходным кодом
-- **Качество воздуха:** [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) - Почасовой AQI и концентрации загрязнителей (CC BY 4.0)
-- **Геокодирование:** [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api) - Поиск городов и координаты
-- **Плитки карты:** [OpenStreetMap](https://www.openstreetmap.org/) - Совместный проект картографии
+- [Open-Meteo Weather](https://open-meteo.com/en/docs) · [Air Quality](https://open-meteo.com/en/docs/air-quality-api) · [Geocoding](https://open-meteo.com/en/docs/geocoding-api)
+- Плитки [OpenStreetMap](https://www.openstreetmap.org/)
 
 ---
 
-## 🤝 Участие в проекте
+## 🤝 Участие
 
-Мы приветствуем вклад в развитие проекта! См. [CONTRIBUTING.md](./CONTRIBUTING.md) — настройка, тесты и правила pull request. Для issues используйте шаблоны [bug report](.github/ISSUE_TEMPLATE/bug_report.md) или [feature request](.github/ISSUE_TEMPLATE/feature_request.md).
+См. [CONTRIBUTING.md](./CONTRIBUTING.md). Баги и идеи — через [шаблоны issues](.github/ISSUE_TEMPLATE/).
 
 ---
 
-## 💰 Поддержать проект
-
-Если Rain стал незаменимой частью вашей повседневной жизни, поддержите разработку:
+## 💰 Поддержка
 
 [![ЮMoney](https://img.shields.io/badge/ЮMoney-violet?style=for-the-badge)](https://yoomoney.ru/to/4100117672775961)
 
@@ -277,13 +95,11 @@ Rain использует бесплатные открытые API погоды
 
 ## 📃 Лицензия
 
-Этот проект распространяется под лицензией [MIT License](./LICENSE).
+[MIT License](./LICENSE)
 
 ---
 
-## 👨‍💻 Участники проекта
-
-Спасибо всем нашим замечательным участникам!
+## 👨‍💻 Участники
 
 <a href='https://github.com/darkmoonight/Rain/graphs/contributors'>
     <img src='https://contrib.rocks/image?repo=darkmoonight/Rain'/>

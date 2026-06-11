@@ -82,6 +82,32 @@ void main() {
       expect(state.dayOfNow, 2);
     });
 
+    test(
+      'syncCurrentTimeIndices realigns after selecting current slot again',
+      () async {
+        final container = createContainer();
+        final notifier = container.read(mainWeatherNotifierProvider.notifier);
+
+        await notifier.readCache();
+        final current = container.read(mainWeatherNotifierProvider);
+        final currentHour = current.hourOfDay;
+        final currentDay = current.dayOfNow;
+
+        notifier.setHourAndDay(10, 2);
+        notifier.syncCurrentTimeIndices();
+        expect(container.read(mainWeatherNotifierProvider).hourOfDay, 10);
+
+        notifier.setHourAndDay(currentHour, currentDay);
+        notifier.setHourAndDay(10, 2);
+        notifier.setHourAndDay(currentHour, currentDay);
+        notifier.syncCurrentTimeIndices();
+
+        final realigned = container.read(mainWeatherNotifierProvider);
+        expect(realigned.hourOfDay, currentHour);
+        expect(realigned.dayOfNow, currentDay);
+      },
+    );
+
     test('getLocation uses cache when offline', () async {
       setTestConnectivity(false);
       final container = createContainer();

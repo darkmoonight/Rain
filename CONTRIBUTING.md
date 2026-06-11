@@ -1,82 +1,76 @@
-# Contribution Guidelines
+# Contributing to Rain
 
-Thank you for considering contributing to Rain! We welcome bug fixes, tests, documentation updates, and new features. Please read this guide before opening a pull request.
+Thank you for helping improve Rain! We welcome bug fixes, tests, docs, and features.
 
 ## Code of Conduct
 
-This project and everyone participating in it are governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [darkmoonight2022@gmail.com](mailto:darkmoonight2022@gmail.com).
+Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). Report issues to [darkmoonight2022@gmail.com](mailto:darkmoonight2022@gmail.com).
 
-## Getting Started
+## Setup
 
-1. Fork the repository and clone it locally.
-2. Install [Flutter SDK 3.44+](https://docs.flutter.dev/get-started/install) and [Dart 3.12+](https://dart.dev/get-dart) (see `pubspec.yaml`).
-3. Set up the project:
+**Requirements:** Flutter 3.44+, Dart 3.12+ (`pubspec.yaml`)
 
 ```bash
+git clone https://github.com/darkmoonight/Rain.git && cd Rain
 flutter pub get
+dart run slang
+dart run build_runner build --delete-conflicting-outputs
+flutter run                  # gms (default)
+flutter run --flavor floss   # FOSS, no Play Services
+```
+
+**Project layout:** `lib/features/` — screens and notifiers · `lib/core/` — shared services, theme, navigation · `test/` mirrors `lib/`
+
+**Codegen** (after model or i18n changes):
+
+```bash
 dart run slang
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-4. Run the app: `flutter run` (Android default flavor is `gms`; use `flutter run --flavor floss` for the FOSS build).
+## Pull requests
 
-See [README.md](README.md) (English) or [README_RU.md](README_RU.md) (Русский) for build flavors, APK scripts, and reproducible FOSS builds.
+1. Fork, branch from `main`, make focused changes.
+2. Run checks (below) and add tests when behavior changes.
+3. Open a PR with a clear title and short description of *why*.
+4. For larger work, check [existing issues](https://github.com/darkmoonight/Rain/issues) first.
 
-## How to Contribute
+**Standards:** match existing style (Riverpod, feature folders), keep diffs small, fix new `flutter analyze` warnings.
 
-1. Create a new branch for your feature or bug fix.
-2. Make your changes and commit them with a clear message.
-3. Push your changes to your fork on GitHub.
-4. Open a pull request against `main` with a descriptive title and summary of what changed and why.
-
-Before starting work on a larger change, check the [issue tracker](https://github.com/darkmoonight/Rain/issues) for related discussions.
-
-## Coding Standards
-
-- Follow the existing code style and architecture (Riverpod, feature folders under `lib/features/`, shared code under `lib/core/`).
-- Keep diffs focused; avoid unrelated refactors in the same PR.
-- Run `flutter analyze` and fix any new warnings before submitting.
-
-## Testing
-
-Ensure your changes do not break existing functionality. Add or update tests for new behavior and bug fixes when practical.
-
-The project currently has **368** tests in **100** `*_test.dart` files. Before opening a pull request, run:
+## Checks before submit
 
 ```bash
-flutter pub get
 flutter analyze
 flutter test
 ```
 
-Tips:
+377 tests in `test/`. If widget tests hang: `flutter test --concurrency=1`.
 
-- If widget tests hang, use `flutter test --concurrency=1`.
-- Widget tests that hit city search or forecast APIs should use `createFakeWeatherRemoteDatasource()` from `test/helpers/fixtures.dart`.
-- Database tests rely on the Isar bootstrap in `test/helpers/`.
-- Optional local coverage: `flutter test --coverage` (output in `coverage/`, gitignored).
+**Test helpers:** Isar setup in `test/helpers/` · stubbed APIs via `createFakeWeatherRemoteDatasource()` in `test/helpers/fixtures.dart`
+
+## Release builds (maintainers)
+
+Android flavors **`gms`** (Play Store) and **`floss`** (IzzyOnDroid). Scripts in [`scripts/`](scripts/):
+
+```bash
+chmod +x scripts/*.sh
+./scripts/build_apk.sh gms --target-platform android-arm64
+./scripts/build_release_apks.sh   # full release set
+```
+
+FOSS reproducible build: see `tool/pubspec_overrides.floss.yaml` and `scripts/patch_jni_reproducible_build.sh`.
 
 ## Documentation
 
-Update documentation when your changes affect setup, behavior, or contributor workflow:
-
-- [README.md](README.md) and [README_RU.md](README_RU.md) — user-facing features, build steps, testing
-- [CONTRIBUTING.md](CONTRIBUTING.md) — contributor workflow (this file)
-- Issue templates under [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) — when bug/feature reporting fields should change
-
-Keep English and Russian README sections in sync when you edit both.
+- [README.md](README.md) / [README_RU.md](README_RU.md) — user-facing overview (keep short; sync both languages)
+- [CONTRIBUTING.md](CONTRIBUTING.md) — this file
 
 ## Issues
 
-Use the GitHub issue templates when reporting bugs or requesting features:
+Use templates: [bug report](.github/ISSUE_TEMPLATE/bug_report.md) · [feature request](.github/ISSUE_TEMPLATE/feature_request.md)
 
-- [Bug report](.github/ISSUE_TEMPLATE/bug_report.md)
-- [Feature request](.github/ISSUE_TEMPLATE/feature_request.md)
-
-Include app version, platform, and build variant (`gms` / `floss`) when relevant.
+Include version, platform, and flavor (`gms` / `floss`) when relevant.
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the project's [MIT License](LICENSE).
-
-Thank you for your contribution!
+Contributions are licensed under the [MIT License](LICENSE).
