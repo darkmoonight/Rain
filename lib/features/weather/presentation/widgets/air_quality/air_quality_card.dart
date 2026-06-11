@@ -24,7 +24,6 @@ class AirQualityCard extends StatelessWidget {
 
   static const _sectionGap = AppConstants.spacingS;
   static const _adviceBackgroundAlpha = 0.08;
-  static const _dividerAlpha = 0.35;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +34,7 @@ class AirQualityCard extends StatelessWidget {
       standard: aqiStandard,
       card: weatherCard,
       hourIndex: hourIndex,
+      aqi: aqi,
     );
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -67,12 +67,6 @@ class AirQualityCard extends StatelessWidget {
                 captionStyle: captionStyle,
                 compactStyle: compactStyle,
               ),
-            ),
-            const Gap(AppConstants.spacingS),
-            Divider(
-              height: AppConstants.borderWidthThin,
-              thickness: AppConstants.borderWidthThin,
-              color: theme.colorScheme.outline.withValues(alpha: _dividerAlpha),
             ),
             _PollutantsSection(
               weatherCard: weatherCard,
@@ -184,8 +178,6 @@ class _PollutantsSectionState extends State<_PollutantsSection> {
       children: [
         InkWell(
           onTap: () => setState(() => _expanded = !_expanded),
-          splashColor: colorScheme.primary.withValues(alpha: 0.12),
-          highlightColor: Colors.transparent,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: AppConstants.spacingM,

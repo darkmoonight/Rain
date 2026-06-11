@@ -41,7 +41,8 @@
 
 **💨 Air Quality**
 - Hourly air quality from [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) (7-day forecast, aligned to weather timestamps)
-- Summary card on the main weather screen: AQI value, severity badge, colored scale, health advice
+- Summary card on the main weather screen and **daily forecast detail** (updates with the selected hour): AQI value, severity badge, colored scale, health advice
+- **Long-press** the AQI card for a full tooltip — standard, index, how Open-Meteo derives it, all pollutant levels, and health advice
 - Collapsible **Pollutants** section with expand animation and per-pollutant progress bars: PM2.5, PM10, O₃, NO₂, SO₂, CO (μg/m³)
 - Choose **European AQI** or **US AQI** in Settings • Cached offline with weather data
 
@@ -75,7 +76,7 @@
 - Material You dynamic theming (wallpaper colors) • Pure AMOLED black theme
 - Light/Dark/System modes • Large element mode toggle • Edge-to-edge display
 - **App font** picker (Appearance): Ubuntu (default), system, Roboto, Barlow Condensed, Inter, Open Sans via Google Fonts
-- Smooth animations • Shimmer loading states
+- Smooth animations • Shimmer loading states • **No ripple or press highlight** on tappable controls (clean, flat interaction)
 
 **🌍 Extensive Localization**
 - 38 languages including: English, Русский, 中文, العربية, हिन्दी, Español, Français, Deutsch, Português, 한국어, 日本語, Türkçe, and many more
@@ -202,7 +203,7 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Testing
 
-The project has **365** unit and widget tests (100 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
+The project has **368** unit and widget tests (100 `*_test.dart` files) with an Isar test bootstrap and fake platform services (geocoding, home widget, path provider).
 
 ```bash
 flutter test
@@ -217,7 +218,7 @@ Optional coverage report (output in `coverage/`, gitignored):
 flutter test --coverage
 ```
 
-**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing, HTTP date parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers, location wall clock (`TimeIndexHelper`, clock skew persistence), air quality (`AqiHelper`, `AirQualityMapper`, graceful AQ API fallback), metric help copy (`Message`, `DescMetricsCatalog`), daily display helpers, city list shimmer.
+**Well covered:** data/domain (repos, mappers, validators), core services/utils (notifications, connectivity, location parsing, HTTP date parsing), bootstrap (`AppInitializer`), router redirect/cache sync, settings provider updates, cities notifier (CRUD, `loadError`, delete edge cases), confirmation/selection dialogs, weather widgets and notifiers (`WeatherDetailView`, `DailyCardInfo`, shared hourly strip), location wall clock (`TimeIndexHelper`, clock skew persistence), air quality (`AqiHelper`, `AirQualityMapper`, graceful AQ API fallback, long-press help), metric help copy (`Message`, `DescMetricsCatalog`), daily display helpers, city list shimmer, global no-splash theme.
 
 **Notification regression tests:** stable notification IDs (`notificationIdFor`), one slot per hour when duplicate daily rows exist, and `MainWeatherNotifier._init` not calling `cancelAll()` while notifications stay enabled.
 

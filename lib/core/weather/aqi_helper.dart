@@ -185,17 +185,21 @@ class AqiHelper {
       _adviceKeys[severityIndex(standard, aqi)].tr;
 
   /// Long-press help: standard, index, pollutants, advice, and data source.
+  ///
+  /// Pass [aqi] when the caller already resolved it (e.g. [AirQualityCard]).
   static String buildHelpText({
     required String standard,
     required WeatherCard card,
     required int hourIndex,
+    double? aqi,
   }) {
-    final aqi = aqiAt(card, hourIndex, standard);
-    if (aqi == null) return '';
+    final resolved = aqi ?? aqiAt(card, hourIndex, standard);
+    if (resolved == null) return '';
 
     final pollutants = _pollutantSummaries(card, hourIndex);
     final sections = <String>[
-      '${standardLabel(standard)}: ${aqi.round()} — ${severityLabel(standard, aqi)}',
+      '${standardLabel(standard)}: ${resolved.round()} — '
+          '${severityLabel(standard, resolved)}',
       _howCalculatedHelp(standard),
     ];
 
@@ -212,7 +216,7 @@ class AqiHelper {
     }
 
     sections.add(
-      '${'aqiHelpAdviceLabel'.tr}\n${recommendation(standard, aqi)}',
+      '${'aqiHelpAdviceLabel'.tr}\n${recommendation(standard, resolved)}',
     );
     sections.add('aqiHelpSource'.tr);
 

@@ -644,8 +644,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.'
 	String get metric_help_uv_index => 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.';
 
-	/// en-US: 'Compass direction the wind blows from (meteorological convention).'
-	String get metric_help_direction => 'Compass direction the wind blows from (meteorological convention).';
+	/// en-US: 'Compass direction the wind blows from.'
+	String get metric_help_direction => 'Compass direction the wind blows from.';
 
 	/// en-US: 'Average wind speed at 10 m above ground.'
 	String get metric_help_wind => 'Average wind speed at 10 m above ground.';
@@ -896,7 +896,7 @@ extension on Translations {
 			'metric_help_apparent_temperature_min' => 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
 			'metric_help_apparent_temperature_max' => 'Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
 			'metric_help_uv_index' => 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.',
-			'metric_help_direction' => 'Compass direction the wind blows from (meteorological convention).',
+			'metric_help_direction' => 'Compass direction the wind blows from.',
 			'metric_help_wind' => 'Average wind speed at 10 m above ground.',
 			'metric_help_wind_gusts' => 'Peak wind speed in short bursts during the period.',
 			'metric_help_precipitation_probability' => 'Chance that measurable precipitation falls in this hour or day.',

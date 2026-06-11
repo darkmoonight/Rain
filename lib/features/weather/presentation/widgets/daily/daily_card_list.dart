@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rain/i18n/tr.dart';
-import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';
+import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_card.dart';
-import 'package:rain/core/utils/navigation_helper.dart';
 
 /// Scrollable list of all daily forecast summary cards.
 class DailyCardList extends StatefulWidget {
@@ -52,18 +52,10 @@ class _DailyCardListState extends State<DailyCardList> {
   AppBar _buildAppBar(BuildContext context) => AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
-    leading: IconButton(
-      onPressed: () => NavigationHelper.back(context),
-      icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-    ),
+    leading: const AppBackButton(),
     title: Text(
       'weatherMore'.tr,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-        fontWeight: FontWeight.w600,
-        fontSize: 18,
-      ),
+      style: ThemeText.appBarTitle(Theme.of(context)),
     ),
   );
 

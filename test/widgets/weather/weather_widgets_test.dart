@@ -192,6 +192,12 @@ void main() {
     );
 
     expect(find.byType(Now), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.byType(DailyContainer),
+      500,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.byType(DailyContainer), findsOneWidget);
   });
 }

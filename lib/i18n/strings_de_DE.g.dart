@@ -240,7 +240,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_apparent_temperature_min => 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.';
 	@override String get metric_help_apparent_temperature_max => 'Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.';
 	@override String get metric_help_uv_index => 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.';
-	@override String get metric_help_direction => 'Compass direction the wind blows from (meteorological convention).';
+	@override String get metric_help_direction => 'Compass direction the wind blows from.';
 	@override String get metric_help_wind => 'Average wind speed at 10 m above ground.';
 	@override String get metric_help_wind_gusts => 'Peak wind speed in short bursts during the period.';
 	@override String get metric_help_precipitation_probability => 'Chance that measurable precipitation falls in this hour or day.';
@@ -465,7 +465,7 @@ extension on TranslationsDeDe {
 			'metric_help_apparent_temperature_min' => 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
 			'metric_help_apparent_temperature_max' => 'Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
 			'metric_help_uv_index' => 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.',
-			'metric_help_direction' => 'Compass direction the wind blows from (meteorological convention).',
+			'metric_help_direction' => 'Compass direction the wind blows from.',
 			'metric_help_wind' => 'Average wind speed at 10 m above ground.',
 			'metric_help_wind_gusts' => 'Peak wind speed in short bursts during the period.',
 			'metric_help_precipitation_probability' => 'Chance that measurable precipitation falls in this hour or day.',

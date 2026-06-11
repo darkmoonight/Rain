@@ -11,7 +11,9 @@ import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/services/widget_settings_service.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/color_converter.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
+import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/i18n/tr.dart';
@@ -176,19 +178,8 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
   AppBar _buildAppBar(BuildContext context) => AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
-    leading: IconButton(
-      onPressed: () => NavigationHelper.back(context),
-      icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-    ),
-    title: Text(
-      'widget'.tr,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-        fontWeight: FontWeight.w600,
-        fontSize: 18,
-      ),
-    ),
+    leading: const AppBackButton(),
+    title: Text('widget'.tr, style: ThemeText.appBarTitle(Theme.of(context))),
   );
 
   /// Builds the widget settings scaffold with pin and color options.

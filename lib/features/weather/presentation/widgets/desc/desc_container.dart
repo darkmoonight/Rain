@@ -4,6 +4,7 @@ import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/weather/desc_metrics_catalog.dart';
 import 'package:rain/core/weather/message.dart';
 import 'package:rain/core/weather/status_data.dart';
+import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/desc/desc.dart';
 
 /// Expandable grid of hourly or daily weather variables.
@@ -68,6 +69,32 @@ class DescContainer extends ConsumerWidget {
   final double? precipitationSum;
   final bool initiallyExpanded;
   final String title;
+
+  /// Hourly variable grid for one slot in [card].time.
+  factory DescContainer.fromHourlySlot({
+    required WeatherCard card,
+    required int hourIndex,
+    required bool initiallyExpanded,
+    required String title,
+  }) => DescContainer(
+    humidity: card.relativehumidity2M?[hourIndex],
+    wind: card.windspeed10M?[hourIndex],
+    visibility: card.visibility?[hourIndex],
+    feels: card.apparentTemperature?[hourIndex],
+    evaporation: card.evapotranspiration?[hourIndex],
+    precipitation: card.precipitation?[hourIndex],
+    direction: card.winddirection10M?[hourIndex],
+    pressure: card.surfacePressure?[hourIndex],
+    rain: card.rain?[hourIndex],
+    cloudcover: card.cloudcover?[hourIndex],
+    windgusts: card.windgusts10M?[hourIndex],
+    uvIndex: card.uvIndex?[hourIndex],
+    dewpoint2M: card.dewpoint2M?[hourIndex],
+    precipitationProbability: card.precipitationProbability?[hourIndex],
+    shortwaveRadiation: card.shortwaveRadiation?[hourIndex],
+    initiallyExpanded: initiallyExpanded,
+    title: title,
+  );
 
   /// Builds the expandable grid of available hourly or daily weather metrics.
   @override

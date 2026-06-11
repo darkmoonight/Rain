@@ -240,7 +240,7 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_apparent_temperature_min => 'Минимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.';
 	@override String get metric_help_apparent_temperature_max => 'Максимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.';
 	@override String get metric_help_uv_index => 'Интенсивность ультрафиолета. Чем выше значение, тем быстрее солнечный ожог и выше риск для глаз.';
-	@override String get metric_help_direction => 'Направление ветра по компасу — откуда дует ветер (метеорологическая традиция).';
+	@override String get metric_help_direction => 'Направление ветра по компасу — откуда дует ветер.';
 	@override String get metric_help_wind => 'Средняя скорость ветра на высоте 10 м над землёй.';
 	@override String get metric_help_wind_gusts => 'Кратковременные порывы — пиковая скорость ветра за период.';
 	@override String get metric_help_precipitation_probability => 'Вероятность выпадения измеримых осадков за этот час или день.';
@@ -465,7 +465,7 @@ extension on TranslationsRuRu {
 			'metric_help_apparent_temperature_min' => 'Минимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.',
 			'metric_help_apparent_temperature_max' => 'Максимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.',
 			'metric_help_uv_index' => 'Интенсивность ультрафиолета. Чем выше значение, тем быстрее солнечный ожог и выше риск для глаз.',
-			'metric_help_direction' => 'Направление ветра по компасу — откуда дует ветер (метеорологическая традиция).',
+			'metric_help_direction' => 'Направление ветра по компасу — откуда дует ветер.',
 			'metric_help_wind' => 'Средняя скорость ветра на высоте 10 м над землёй.',
 			'metric_help_wind_gusts' => 'Кратковременные порывы — пиковая скорость ветра за период.',
 			'metric_help_precipitation_probability' => 'Вероятность выпадения измеримых осадков за этот час или день.',

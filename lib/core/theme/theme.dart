@@ -6,6 +6,16 @@ import 'package:rain/core/theme/app_font.dart';
 final ThemeData baseLight = ThemeData.light(useMaterial3: true);
 final ThemeData baseDark = ThemeData.dark(useMaterial3: true);
 
+/// Disables Material ink splash and press/hover/focus overlays app-wide.
+const _noSplashFactory = NoSplash.splashFactory;
+const _transparentOverlay = WidgetStatePropertyAll<Color>(Colors.transparent);
+
+/// Shared overrides for Material buttons (ripple and overlay disabled).
+ButtonStyle _noSplashButtonStyle() => const ButtonStyle(
+  splashFactory: _noSplashFactory,
+  overlayColor: _transparentOverlay,
+);
+
 // Colors
 
 const Color lightColor = Colors.white;
@@ -70,7 +80,24 @@ ThemeData _buildTheme({
   return baseTheme.copyWith(
     brightness: brightness,
     colorScheme: harmonizedColorScheme,
+    splashFactory: _noSplashFactory,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    focusColor: Colors.transparent,
     textTheme: AppFont.textTheme(appFont, baseTheme.textTheme),
+    textButtonTheme: TextButtonThemeData(style: _noSplashButtonStyle()),
+    filledButtonTheme: FilledButtonThemeData(style: _noSplashButtonStyle()),
+    outlinedButtonTheme: OutlinedButtonThemeData(style: _noSplashButtonStyle()),
+    elevatedButtonTheme: ElevatedButtonThemeData(style: _noSplashButtonStyle()),
+    iconButtonTheme: IconButtonThemeData(style: _noSplashButtonStyle()),
+    listTileTheme: const ListTileThemeData(enableFeedback: false),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightElevation: 0,
+    ),
     appBarTheme: _buildAppBarTheme(
       color,
       harmonizedColorScheme,
@@ -165,6 +192,7 @@ NavigationBarThemeData _buildNavigationBarTheme(
   surfaceTintColor: color == oledColor
       ? Colors.transparent
       : colorScheme?.surfaceTint,
+  overlayColor: _transparentOverlay,
   labelTextStyle: WidgetStateProperty.all(
     const TextStyle(overflow: TextOverflow.ellipsis, fontSize: 12),
   ),

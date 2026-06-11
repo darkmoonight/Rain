@@ -200,7 +200,7 @@
   "metricHelpApparentTemperatureMin": "Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.",
   "metricHelpApparentTemperatureMax": "Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.",
   "metricHelpUvIndex": "Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.",
-  "metricHelpDirection": "Compass direction the wind blows from (meteorological convention).",
+  "metricHelpDirection": "Compass direction the wind blows from.",
   "metricHelpWind": "Average wind speed at 10 m above ground.",
   "metricHelpWindGusts": "Peak wind speed in short bursts during the period.",
   "metricHelpPrecipitationProbability": "Chance that measurable precipitation falls in this hour or day.",

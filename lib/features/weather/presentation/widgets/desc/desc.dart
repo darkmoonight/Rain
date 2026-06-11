@@ -26,8 +26,7 @@ class DescWeather extends StatefulWidget {
 class _DescWeatherState extends State<DescWeather> {
   bool _compactLabel = true;
 
-  /// Builds the metric cell; long-press shows [MetricHelpTooltip] when [message] is set.
-  /// Builds the metric cell; long-press shows [MetricHelpTooltip] when [message] is set.
+  /// Tap toggles label wrap; long-press shows [MetricHelpTooltip] when [message] is set.
   @override
   Widget build(BuildContext context) {
     final content = SizedBox(

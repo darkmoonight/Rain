@@ -41,7 +41,8 @@
 
 **💨 Качество воздуха**
 - Почасовые данные из [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api) (прогноз на 7 дней, синхронизирован с погодой)
-- Карточка на главном экране: индекс AQI, уровень загрязнения, цветная шкала, рекомендации
+- Карточка на главном экране и в **детальном дневном прогнозе** (по выбранному часу): индекс AQI, уровень загрязнения, цветная шкала, рекомендации
+- **Долгое нажатие** на карточку AQI — полная подсказка: стандарт, индекс, расчёт Open-Meteo, все загрязнители и совет
 - Сворачиваемый блок **«Загрязнители»** с анимацией и полосками прогресса: PM2.5, PM10, O₃, NO₂, SO₂, CO (μg/m³)
 - В настройках — **европейский AQI** или **US AQI** • Кэшируется вместе с прогнозом
 
@@ -75,7 +76,7 @@
 - Динамическая тема Material You (цвета обоев) • Чистая AMOLED чёрная тема
 - Светлая/Тёмная/Системная темы • Переключатель режима крупных элементов
 - Дисплей от края до края • Выбор **шрифта** (Внешний вид): Ubuntu (по умолчанию), системный, Roboto, Barlow Condensed, Inter, Open Sans через Google Fonts
-- Плавные анимации • Эффект мерцания при загрузке
+- Плавные анимации • Эффект мерцания при загрузке • **Без ripple и подсветки** при нажатии на элементы
 
 **🌍 Обширная локализация**
 - 38 языков, включая: Русский, English, 中文, العربية, हिन्दी, Español, Français, Deutsch, Português, 한국어, 日本語, Türkçe и многие другие
@@ -202,7 +203,7 @@ sed -i -E 's|target_link_options\(jni PRIVATE "-Wl,[^"]*max-page-size=16384"\)|t
 
 ### Тестирование
 
-В проекте **365** unit- и widget-тестов (100 файлов `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
+В проекте **368** unit- и widget-тестов (100 файлов `*_test.dart`) с Isar bootstrap и фейковыми платформенными сервисами (геокодинг, home widget, path provider).
 
 ```bash
 flutter test
@@ -217,7 +218,7 @@ flutter analyze
 flutter test --coverage
 ```
 
-**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils (уведомления, connectivity, разбор placemark, HTTP Date), bootstrap (`AppInitializer`), redirect и sync кэша роутера, обновления settings provider, cities notifier (CRUD, `loadError`, edge cases удаления), confirmation/selection dialogs, weather widgets и notifiers, местное время (`TimeIndexHelper`, сохранение clock skew), качество воздуха (`AqiHelper`, `AirQualityMapper`, graceful fallback при ошибке AQ API), тексты справки по метрикам (`Message`, `DescMetricsCatalog`), daily display helpers, shimmer списка городов.
+**Надёжно покрыто:** data/domain (репозитории, мапперы, валидаторы), core services/utils (уведомления, connectivity, разбор placemark, HTTP Date), bootstrap (`AppInitializer`), redirect и sync кэша роутера, обновления settings provider, cities notifier (CRUD, `loadError`, edge cases удаления), confirmation/selection dialogs, weather widgets и notifiers (`WeatherDetailView`, `DailyCardInfo`, общая почасовая лента), местное время (`TimeIndexHelper`, сохранение clock skew), качество воздуха (`AqiHelper`, `AirQualityMapper`, graceful fallback, long-press help), тексты справки по метрикам (`Message`, `DescMetricsCatalog`), daily display helpers, shimmer списка городов, глобальная тема без splash.
 
 **Регрессии уведомлений:** стабильные ID (`notificationIdFor`), один слот на час при дублирующихся daily-строках, `MainWeatherNotifier._init` не вызывает `cancelAll()`, пока уведомления включены.
 

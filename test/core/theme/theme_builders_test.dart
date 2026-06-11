@@ -17,6 +17,9 @@ void main() {
       final theme = tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!;
       expect(theme.useMaterial3, isTrue);
       expect(theme.brightness, Brightness.light);
+      expect(theme.splashFactory, NoSplash.splashFactory);
+      expect(theme.splashColor, Colors.transparent);
+      expect(theme.highlightColor, Colors.transparent);
     });
   });
 
@@ -27,6 +30,7 @@ void main() {
       final theme = tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!;
       expect(theme.useMaterial3, isTrue);
       expect(theme.brightness, Brightness.dark);
+      expect(theme.splashFactory, NoSplash.splashFactory);
     });
   });
 

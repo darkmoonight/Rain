@@ -12,6 +12,8 @@ import 'package:rain/core/navigation/app_routes.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/utils/url_launcher_util.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rain/core/theme/theme_text.dart';
+import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/core/widgets/button.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
 import 'package:rain/core/widgets/text_form.dart';
@@ -473,21 +475,11 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   /// Builds the app bar with optional back navigation for in-app entry.
   AppBar _buildAppBar() => AppBar(
     centerTitle: true,
-    leading: widget.isStart
-        ? null
-        : IconButton(
-            onPressed: () => NavigationHelper.back(context),
-            icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-          ),
+    leading: widget.isStart ? null : const AppBackButton(),
     automaticallyImplyLeading: false,
     title: Text(
       'searchCity'.tr,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-        fontWeight: FontWeight.w600,
-        fontSize: 18,
-      ),
+      style: ThemeText.appBarTitle(Theme.of(context)),
     ),
   );
 }

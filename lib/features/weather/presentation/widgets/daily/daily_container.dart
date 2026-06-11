@@ -103,8 +103,6 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     int index,
     TextStyle? labelLarge,
   ) => InkWell(
-    splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
     borderRadius: BorderRadius.all(Radius.circular(16)),
     onTap: () => _anchor.openDetail(context, weatherData, index),
     child: Container(
@@ -198,8 +196,6 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     BuildContext context,
     BorderRadius inkWellBorderRadius,
   ) => InkWell(
-    splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
     borderRadius: inkWellBorderRadius,
     onTap: widget.onTap,
     child: Padding(

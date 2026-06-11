@@ -72,15 +72,6 @@ class MyTextButton extends StatelessWidget {
           shadowColor: WidgetStatePropertyAll(
             colorScheme.shadow.withValues(alpha: 0.2),
           ),
-          overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
-            if (states.contains(WidgetState.pressed)) {
-              return colorScheme.onPrimaryContainer.withValues(alpha: 0.12);
-            }
-            if (states.contains(WidgetState.hovered)) {
-              return colorScheme.onPrimaryContainer.withValues(alpha: 0.08);
-            }
-            return Colors.transparent;
-          }),
           padding: WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: padding * 2),
           ),
@@ -121,15 +112,6 @@ class MyTextButton extends StatelessWidget {
               return BorderSide(color: colorScheme.primary, width: 1.5);
             }
             return BorderSide(color: colorScheme.outline, width: 1);
-          }),
-          overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
-            if (states.contains(WidgetState.pressed)) {
-              return colorScheme.primary.withValues(alpha: 0.12);
-            }
-            if (states.contains(WidgetState.hovered)) {
-              return colorScheme.primary.withValues(alpha: 0.08);
-            }
-            return Colors.transparent;
           }),
           padding: WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: padding * 2),

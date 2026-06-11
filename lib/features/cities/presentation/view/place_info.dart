@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
+import 'package:rain/core/theme/theme_text.dart';
+import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
@@ -144,12 +146,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
     // Missing id: spinner while loading, load error on failure, not-found otherwise.
     if (card == null) {
       return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () => NavigationHelper.back(context),
-            icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
-          ),
-        ),
+        appBar: AppBar(leading: const AppBackButton()),
         body: Center(
           child: cities.isLoading
               ? const CircularProgressIndicator()
@@ -177,16 +174,10 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () => NavigationHelper.back(context),
-            icon: const Icon(IconsaxPlusLinear.arrow_left_3, size: 20),
-          ),
+          leading: const AppBackButton(),
           title: Text(
             formatLocationLabel(card.city, card.district),
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-            ),
+            style: ThemeText.appBarTitle(Theme.of(context)),
           ),
           actions: [
             if (persisted)

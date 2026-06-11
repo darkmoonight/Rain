@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/features/weather/presentation/widgets/air_quality/air_quality_card.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_container.dart';
 import 'package:rain/features/weather/presentation/widgets/desc/desc_container.dart';
 import 'package:rain/features/weather/presentation/widgets/hourly.dart';
+import 'package:rain/features/weather/presentation/widgets/hourly_strip.dart';
 import 'package:rain/features/weather/presentation/widgets/now.dart';
-import 'package:rain/features/weather/presentation/widgets/air_quality/air_quality_card.dart';
 import 'package:rain/features/weather/presentation/widgets/sunset_sunrise.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -30,7 +31,6 @@ class WeatherDetailView extends StatelessWidget {
   final void Function(int hour, int day) onHourSelected;
   final VoidCallback? showDailyTap;
 
-  /// Builds the scrollable now, hourly, sunrise, hourly-variables, and daily forecast sections.
   @override
   Widget build(BuildContext context) {
     final sunrise = weatherCard.sunrise![dayIndex];
@@ -51,49 +51,27 @@ class WeatherDetailView extends StatelessWidget {
           tempMin: tempMin,
           updatedAt: weatherCard.timestamp,
         ),
-        Card(
-          margin: const EdgeInsets.only(bottom: 15),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: SizedBox(
-              height: 135,
-              child: ScrollablePositionedList.separated(
-                key: const PageStorageKey('hourly'),
-                separatorBuilder: (_, _) =>
-                    const VerticalDivider(width: 10, indent: 40, endIndent: 40),
-                scrollDirection: Axis.horizontal,
-                itemScrollController: itemScrollController,
-                itemCount: weatherCard.time!.length,
-                itemBuilder: (ctx, i) {
-                  final i24 = (i / 24).floor();
-                  return GestureDetector(
-                    onTap: () => onHourSelected(i, i24),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: i == hourIndex
-                            ? Theme.of(context).colorScheme.secondaryContainer
-                            : Colors.transparent,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      child: Hourly(
-                        time: weatherCard.time![i],
-                        weather: weatherCard.weathercode![i],
-                        degree: weatherCard.temperature2M![i],
-                        timeDay: weatherCard.sunrise![i24],
-                        timeNight: weatherCard.sunset![i24],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+        HourlyStripCard(
+          child: ScrollablePositionedList.separated(
+            key: const PageStorageKey('hourly'),
+            separatorBuilder: (_, _) => const HourlyStripSeparator(),
+            scrollDirection: Axis.horizontal,
+            itemScrollController: itemScrollController,
+            itemCount: weatherCard.time!.length,
+            itemBuilder: (ctx, i) {
+              final day = (i / 24).floor();
+              return HourlyStripTile(
+                selected: i == hourIndex,
+                onTap: () => onHourSelected(i, day),
+                child: Hourly(
+                  time: weatherCard.time![i],
+                  weather: weatherCard.weathercode![i],
+                  degree: weatherCard.temperature2M![i],
+                  timeDay: weatherCard.sunrise![day],
+                  timeNight: weatherCard.sunset![day],
+                ),
+              );
+            },
           ),
         ),
         SunsetSunrise(timeSunrise: sunrise, timeSunset: sunset),
@@ -102,23 +80,9 @@ class WeatherDetailView extends StatelessWidget {
           hourIndex: hourIndex,
           aqiStandard: aqiStandard,
         ),
-        DescContainer(
-          humidity: weatherCard.relativehumidity2M?[hourIndex],
-          wind: weatherCard.windspeed10M?[hourIndex],
-          visibility: weatherCard.visibility?[hourIndex],
-          feels: weatherCard.apparentTemperature?[hourIndex],
-          evaporation: weatherCard.evapotranspiration?[hourIndex],
-          precipitation: weatherCard.precipitation?[hourIndex],
-          direction: weatherCard.winddirection10M?[hourIndex],
-          pressure: weatherCard.surfacePressure?[hourIndex],
-          rain: weatherCard.rain?[hourIndex],
-          cloudcover: weatherCard.cloudcover?[hourIndex],
-          windgusts: weatherCard.windgusts10M?[hourIndex],
-          uvIndex: weatherCard.uvIndex?[hourIndex],
-          dewpoint2M: weatherCard.dewpoint2M?[hourIndex],
-          precipitationProbability:
-              weatherCard.precipitationProbability?[hourIndex],
-          shortwaveRadiation: weatherCard.shortwaveRadiation?[hourIndex],
+        DescContainer.fromHourlySlot(
+          card: weatherCard,
+          hourIndex: hourIndex,
           initiallyExpanded: false,
           title: 'hourlyVariables'.tr,
         ),
