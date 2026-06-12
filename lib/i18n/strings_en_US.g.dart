@@ -396,12 +396,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	String get name => 'Weather';
 
 	/// en-US: 'Frequency (in hours)'
-
-	/// en-US: 'Today'
-	String get today => 'Today';
-
-	/// en-US: 'Tomorrow'
-	String get tomorrow => 'Tomorrow';
 	String get time_range => 'Frequency (in hours)';
 
 	/// en-US: 'About the app'
@@ -691,6 +685,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.'
 	String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+
+	/// en-US: 'Today'
+	String get today => 'Today';
+
+	/// en-US: 'Tomorrow'
+	String get tomorrow => 'Tomorrow';
 }
 
 /// The flat map containing all translations for locale <en-US>.
@@ -819,9 +819,6 @@ extension on Translations {
 			'done' => 'Done',
 			'theme' => 'Theme',
 			'name' => 'Weather',
-
-			'today' => 'Today',
-			'tomorrow' => 'Tomorrow',
 			'time_range' => 'Frequency (in hours)',
 			'about_app' => 'About the app',
 			'save' => 'Save',
@@ -919,6 +916,8 @@ extension on Translations {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'Today',
+			'tomorrow' => 'Tomorrow',
 			_ => null,
 		};
 	}

@@ -254,6 +254,8 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'ಇಂದು';
+	@override String get tomorrow => 'ನಾಳೆ';
 }
 
 /// The flat map containing all translations for locale <kn-IN>.
@@ -382,9 +384,6 @@ extension on TranslationsKnIn {
 			'done' => 'ಮುಗಿದಿದೆ',
 			'theme' => 'ಥೀಮ್',
 			'name' => 'ಹವಾಮಾನ',
-
-			'today' => 'ಇಂದು',
-			'tomorrow' => 'ನಾಳೆ',
 			'time_range' => 'ಆವರ್ತನೆ (ಗಂಟೆಗಳಲ್ಲಿ)',
 			'about_app' => 'ಆ್ಯಪ್ ಬಗ್ಗೆ',
 			'save' => 'ಉಳಿಸಿ',
@@ -482,6 +481,8 @@ extension on TranslationsKnIn {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'ಇಂದು',
+			'tomorrow' => 'ನಾಳೆ',
 			_ => null,
 		};
 	}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/core/i18n/locale_format_helper.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
@@ -54,7 +54,7 @@ class Hourly extends ConsumerWidget {
       children: [
         Text(statusData.getTimeFormat(time), style: textTheme.labelLarge),
         Text(
-          DateFormat('E', locale.languageCode).format(date),
+          LocaleFormatHelper.weekdayAbbrev(date, locale.languageCode),
           style: textTheme.labelLarge?.copyWith(
             color: textTheme.bodySmall?.color,
           ),

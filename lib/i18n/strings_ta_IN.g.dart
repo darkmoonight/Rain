@@ -254,6 +254,8 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'இன்று';
+	@override String get tomorrow => 'நாளை';
 }
 
 /// The flat map containing all translations for locale <ta-IN>.
@@ -382,9 +384,6 @@ extension on TranslationsTaIn {
 			'done' => 'முடிந்தது',
 			'theme' => 'தீம்',
 			'name' => 'வானிலை',
-
-			'today' => 'இன்று',
-			'tomorrow' => 'நாளை',
 			'time_range' => 'அதிர்வெண் (மணிநேரங்களில்)',
 			'about_app' => 'பயன்பாடு பற்றி',
 			'save' => 'சேமி',
@@ -482,6 +481,8 @@ extension on TranslationsTaIn {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'இன்று',
+			'tomorrow' => 'நாளை',
 			_ => null,
 		};
 	}

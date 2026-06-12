@@ -254,6 +254,8 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'ഇന്ന്';
+	@override String get tomorrow => 'നാളെ';
 }
 
 /// The flat map containing all translations for locale <ml-IN>.
@@ -382,9 +384,6 @@ extension on TranslationsMlIn {
 			'done' => 'പൂർത്തിയായി',
 			'theme' => 'തീം',
 			'name' => 'കാലാവസ്ഥ',
-
-			'today' => 'ഇന്ന്',
-			'tomorrow' => 'നാളെ',
 			'time_range' => 'ആവൃത്തി (മണിക്കൂറുകളിൽ)',
 			'about_app' => 'ആപ്പിനെക്കുറിച്ച്',
 			'save' => 'സേവ്',
@@ -482,6 +481,8 @@ extension on TranslationsMlIn {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'ഇന്ന്',
+			'tomorrow' => 'നാളെ',
 			_ => null,
 		};
 	}

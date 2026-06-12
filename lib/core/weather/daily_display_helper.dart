@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:rain/core/i18n/locale_format_helper.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/data/models/db.dart';
@@ -97,7 +97,7 @@ class DailyDisplayHelper {
       case 1:
         return 'tomorrow'.tr;
       default:
-        return DateFormat.EEEE(languageCode).format(date);
+        return LocaleFormatHelper.weekdayName(date, languageCode);
     }
   }
 }

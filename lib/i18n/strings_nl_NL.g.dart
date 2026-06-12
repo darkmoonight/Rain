@@ -254,6 +254,8 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'Vandaag';
+	@override String get tomorrow => 'Morgen';
 }
 
 /// The flat map containing all translations for locale <nl-NL>.
@@ -382,9 +384,6 @@ extension on TranslationsNlNl {
 			'done' => 'Klaar',
 			'theme' => 'Thema',
 			'name' => 'Weer',
-
-			'today' => 'Vandaag',
-			'tomorrow' => 'Morgen',
 			'time_range' => 'Frequentie (in uren)',
 			'about_app' => 'Over de app',
 			'save' => 'Opslaan',
@@ -482,6 +481,8 @@ extension on TranslationsNlNl {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'Vandaag',
+			'tomorrow' => 'Morgen',
 			_ => null,
 		};
 	}

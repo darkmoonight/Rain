@@ -254,6 +254,8 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'আজ';
+	@override String get tomorrow => 'আগামীকাল';
 }
 
 /// The flat map containing all translations for locale <bn-IN>.
@@ -382,9 +384,6 @@ extension on TranslationsBnIn {
 			'done' => 'Done',
 			'theme' => 'থিম',
 			'name' => 'আবহাওয়া',
-
-			'today' => 'আজ',
-			'tomorrow' => 'আগামীকাল',
 			'time_range' => 'সময় পরিস্থিতি (ঘণ্টায়)',
 			'about_app' => 'অ্যাপ সম্পর্কে',
 			'save' => 'সংরক্ষণ',
@@ -482,6 +481,8 @@ extension on TranslationsBnIn {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'আজ',
+			'tomorrow' => 'আগামীকাল',
 			_ => null,
 		};
 	}

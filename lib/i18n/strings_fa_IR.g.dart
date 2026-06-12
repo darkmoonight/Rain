@@ -254,6 +254,8 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'امروز';
+	@override String get tomorrow => 'فردا';
 }
 
 /// The flat map containing all translations for locale <fa-IR>.
@@ -382,9 +384,6 @@ extension on TranslationsFaIr {
 			'done' => 'پایان',
 			'theme' => 'پوسته',
 			'name' => 'آب و هوا',
-
-			'today' => 'امروز',
-			'tomorrow' => 'فردا',
 			'time_range' => 'فرکانس (بر حسب ساعت)',
 			'about_app' => 'درباره برنامه',
 			'save' => 'ذخیره',
@@ -482,6 +481,8 @@ extension on TranslationsFaIr {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'امروز',
+			'tomorrow' => 'فردا',
 			_ => null,
 		};
 	}

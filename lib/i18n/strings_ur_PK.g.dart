@@ -254,6 +254,8 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'آج';
+	@override String get tomorrow => 'کل';
 }
 
 /// The flat map containing all translations for locale <ur-PK>.
@@ -382,9 +384,6 @@ extension on TranslationsUrPk {
 			'done' => 'ہوگیا',
 			'theme' => 'تھیم',
 			'name' => 'موسم',
-
-			'today' => 'آج',
-			'tomorrow' => 'کل',
 			'time_range' => 'وقت کی مدت (گھنٹوں میں)',
 			'about_app' => 'ایپ کے بارے میں',
 			'save' => 'محفوظ',
@@ -482,6 +481,8 @@ extension on TranslationsUrPk {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'آج',
+			'tomorrow' => 'کل',
 			_ => null,
 		};
 	}

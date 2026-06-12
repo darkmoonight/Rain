@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/i18n/locale_format_helper.dart';
 import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/status_weather.dart';
@@ -83,7 +83,10 @@ class _DailyCardState extends ConsumerState<DailyCard> {
   Widget _buildDateText(BuildContext context) {
     final theme = Theme.of(context);
     return Text(
-      DateFormat.MMMMEEEEd(_locale.languageCode).format(widget.timeDaily),
+      LocaleFormatHelper.fullDateWithWeekday(
+        widget.timeDaily,
+        _locale.languageCode,
+      ),
       style: ThemeText.muted(
         theme,
         theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w400),

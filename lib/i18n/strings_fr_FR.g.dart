@@ -254,6 +254,8 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'Aujourd\'hui';
+	@override String get tomorrow => 'Demain';
 }
 
 /// The flat map containing all translations for locale <fr-FR>.
@@ -382,9 +384,6 @@ extension on TranslationsFrFr {
 			'done' => 'Terminé',
 			'theme' => 'Thème',
 			'name' => 'Météo',
-
-			'today' => 'Aujourd\'hui',
-			'tomorrow' => 'Demain',
 			'time_range' => 'Fréquence (en heures)',
 			'about_app' => 'À propos de l\'app',
 			'save' => 'Enregistrer',
@@ -482,6 +481,8 @@ extension on TranslationsFrFr {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'Aujourd\'hui',
+			'tomorrow' => 'Demain',
 			_ => null,
 		};
 	}

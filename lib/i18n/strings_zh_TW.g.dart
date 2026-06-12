@@ -254,6 +254,8 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => '今天';
+	@override String get tomorrow => '明天';
 }
 
 /// The flat map containing all translations for locale <zh-TW>.
@@ -382,9 +384,6 @@ extension on TranslationsZhTw {
 			'done' => '完成',
 			'theme' => '主題',
 			'name' => '天氣',
-
-			'today' => '今天',
-			'tomorrow' => '明天',
 			'time_range' => '頻率(小時)',
 			'about_app' => '關於應用',
 			'save' => '儲存',
@@ -482,6 +481,8 @@ extension on TranslationsZhTw {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => '今天',
+			'tomorrow' => '明天',
 			_ => null,
 		};
 	}

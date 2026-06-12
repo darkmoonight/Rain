@@ -254,6 +254,8 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'Ma';
+	@override String get tomorrow => 'Holnap';
 }
 
 /// The flat map containing all translations for locale <hu-HU>.
@@ -382,9 +384,6 @@ extension on TranslationsHuHu {
 			'done' => 'Kész',
 			'theme' => 'Téma',
 			'name' => 'Időjárás',
-
-			'today' => 'Ma',
-			'tomorrow' => 'Holnap',
 			'time_range' => 'Gyakoriság (órákban)',
 			'about_app' => 'Az alkalmazásról',
 			'save' => 'Mentés',
@@ -482,6 +481,8 @@ extension on TranslationsHuHu {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'Ma',
+			'tomorrow' => 'Holnap',
 			_ => null,
 		};
 	}

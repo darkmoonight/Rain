@@ -4,6 +4,17 @@ import 'package:rain/core/weather/weather_cache_validator.dart';
 import 'package:rain/data/models/db.dart';
 
 void main() {
+  group('WeatherCacheValidator.hasHourlyTimestamps', () {
+    test('requires a non-empty hourly time list', () {
+      expect(
+        WeatherCacheValidator.hasHourlyTimestamps(['2026-06-05T12:00']),
+        isTrue,
+      );
+      expect(WeatherCacheValidator.hasHourlyTimestamps([]), isFalse);
+      expect(WeatherCacheValidator.hasHourlyTimestamps(null), isFalse);
+    });
+  });
+
   group('WeatherCacheValidator.isLikelyFahrenheit', () {
     test('detects legacy Fahrenheit cache values', () {
       final cache = MainWeatherCache(temperature2M: [72.5, 81.5, 82.2]);

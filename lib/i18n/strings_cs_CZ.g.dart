@@ -254,6 +254,8 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'Dnes';
+	@override String get tomorrow => 'Zítra';
 }
 
 /// The flat map containing all translations for locale <cs-CZ>.
@@ -382,9 +384,6 @@ extension on TranslationsCsCz {
 			'done' => 'Hotovo',
 			'theme' => 'Téma',
 			'name' => 'Počasí',
-
-			'today' => 'Dnes',
-			'tomorrow' => 'Zítra',
 			'time_range' => 'Frekvence (v hodinách)',
 			'about_app' => 'O aplikaci',
 			'save' => 'Uložit',
@@ -482,6 +481,8 @@ extension on TranslationsCsCz {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'Dnes',
+			'tomorrow' => 'Zítra',
 			_ => null,
 		};
 	}

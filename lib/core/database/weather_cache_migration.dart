@@ -1,5 +1,6 @@
 import 'package:isar_community/isar.dart';
 import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/weather/weather_cache_validator.dart';
 import 'package:rain/data/models/db.dart';
 
 /// Re-saves weather caches when the Isar schema changes (Isar migration recipe).
@@ -14,10 +15,10 @@ Future<bool> performWeatherCacheMigrationIfNeeded(
   }
 
   final mainCaches = (await isar.mainWeatherCaches.where().findAll())
-      .where((cache) => cache.time != null && cache.time!.isNotEmpty)
+      .where((cache) => WeatherCacheValidator.hasHourlyTimestamps(cache.time))
       .toList();
   final cards = (await isar.weatherCards.where().findAll())
-      .where((card) => card.time != null && card.time!.isNotEmpty)
+      .where((card) => WeatherCacheValidator.hasHourlyTimestamps(card.time))
       .toList();
 
   await isar.writeTxn(() async {

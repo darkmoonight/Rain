@@ -1,3 +1,4 @@
+import 'package:rain/core/weather/weather_cache_validator.dart';
 import 'package:rain/data/models/db.dart';
 
 /// Validates completeness, expiry, and searchability of saved weather cards.
@@ -6,8 +7,7 @@ class WeatherCardValidator {
 
   /// Returns true when [card] has forecast and location fields required for network refresh.
   static bool isComplete(WeatherCard card) =>
-      card.time != null &&
-      card.time!.isNotEmpty &&
+      WeatherCacheValidator.hasHourlyTimestamps(card.time) &&
       card.timeDaily != null &&
       card.timeDaily!.isNotEmpty &&
       card.sunrise != null &&

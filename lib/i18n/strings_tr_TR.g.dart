@@ -254,6 +254,8 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'Bugün';
+	@override String get tomorrow => 'Yarın';
 }
 
 /// The flat map containing all translations for locale <tr-TR>.
@@ -382,9 +384,6 @@ extension on TranslationsTrTr {
 			'done' => 'Tamam',
 			'theme' => 'Tema',
 			'name' => 'Hava Durumu',
-
-			'today' => 'Bugün',
-			'tomorrow' => 'Yarın',
 			'time_range' => 'Sıklık (saat cinsinden)',
 			'about_app' => 'Uygulama hakkında',
 			'save' => 'Kaydet',
@@ -482,6 +481,8 @@ extension on TranslationsTrTr {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'Bugün',
+			'tomorrow' => 'Yarın',
 			_ => null,
 		};
 	}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:rain/core/di/providers.dart';
+import 'package:rain/core/i18n/locale_format_helper.dart';
 import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/data/models/db.dart';
@@ -82,7 +82,10 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
     centerTitle: true,
     leading: const AppBackButton(),
     title: Text(
-      DateFormat.MMMMEEEEd(locale.languageCode).format(timeDaily[pageIndex]),
+      LocaleFormatHelper.fullDateWithWeekday(
+        timeDaily[pageIndex],
+        locale.languageCode,
+      ),
       style: ThemeText.appBarTitle(Theme.of(context)),
     ),
   );

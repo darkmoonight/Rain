@@ -254,6 +254,8 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'Dziś';
+	@override String get tomorrow => 'Jutro';
 }
 
 /// The flat map containing all translations for locale <pl-PL>.
@@ -382,9 +384,6 @@ extension on TranslationsPlPl {
 			'done' => 'Gotowe',
 			'theme' => 'Motyw',
 			'name' => 'Pogoda',
-
-			'today' => 'Dziś',
-			'tomorrow' => 'Jutro',
 			'time_range' => 'Częstotliwość (w godzinach)',
 			'about_app' => 'O aplikacji',
 			'save' => 'Zapisz',
@@ -482,6 +481,8 @@ extension on TranslationsPlPl {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'Dziś',
+			'tomorrow' => 'Jutro',
 			_ => null,
 		};
 	}

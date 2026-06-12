@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/data/models/db.dart';
@@ -10,6 +11,7 @@ WeatherCard _card({List<int?> daily = const [61, 0, 0]}) =>
 void main() {
   setUpAll(() async {
     await initTestEnvironment();
+    await initializeDateFormatting('ru');
   });
 
   group('DailyDisplayHelper', () {
@@ -42,6 +44,15 @@ void main() {
           languageCode: 'en',
         ),
         'Monday',
+      );
+      expect(
+        DailyDisplayHelper.previewDayLabel(
+          listIndex: 2,
+          dayIndex: 0,
+          date: DateTime(2026, 6, 7),
+          languageCode: 'ru',
+        ),
+        'Воскресенье',
       );
     });
 

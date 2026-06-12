@@ -254,6 +254,8 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'اليوم';
+	@override String get tomorrow => 'غداً';
 }
 
 /// The flat map containing all translations for locale <ar-SA>.
@@ -382,9 +384,6 @@ extension on TranslationsArSa {
 			'done' => 'تم',
 			'theme' => 'المظهر',
 			'name' => 'الطقس',
-
-			'today' => 'اليوم',
-			'tomorrow' => 'غداً',
 			'time_range' => 'التكرار (بالساعات)',
 			'about_app' => 'حول التطبيق',
 			'save' => 'حفظ',
@@ -482,6 +481,8 @@ extension on TranslationsArSa {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'اليوم',
+			'tomorrow' => 'غداً',
 			_ => null,
 		};
 	}

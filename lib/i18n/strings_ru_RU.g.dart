@@ -254,6 +254,8 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Доля неба, закрытая облаками (0% — ясно, 100% — сплошная облачность).';
 	@override String get metric_help_pressure => 'Атмосферное давление, приведённое к уровню моря. Падение часто предвещает ухудшение погоды.';
 	@override String get metric_help_shortwave_radiation => 'Солнечная энергия на горизонтальной поверхности (ГГИ), усреднённая за предыдущий час.';
+	@override String get today => 'Сегодня';
+	@override String get tomorrow => 'Завтра';
 }
 
 /// The flat map containing all translations for locale <ru-RU>.
@@ -382,9 +384,6 @@ extension on TranslationsRuRu {
 			'done' => 'Готово',
 			'theme' => 'Тема',
 			'name' => 'Погода',
-
-			'today' => 'Сегодня',
-			'tomorrow' => 'Завтра',
 			'time_range' => 'Периодичность (в часах)',
 			'about_app' => 'О приложении',
 			'save' => 'Сохранить',
@@ -482,6 +481,8 @@ extension on TranslationsRuRu {
 			'metric_help_cloudcover' => 'Доля неба, закрытая облаками (0% — ясно, 100% — сплошная облачность).',
 			'metric_help_pressure' => 'Атмосферное давление, приведённое к уровню моря. Падение часто предвещает ухудшение погоды.',
 			'metric_help_shortwave_radiation' => 'Солнечная энергия на горизонтальной поверхности (ГГИ), усреднённая за предыдущий час.',
+			'today' => 'Сегодня',
+			'tomorrow' => 'Завтра',
 			_ => null,
 		};
 	}

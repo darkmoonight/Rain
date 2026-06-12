@@ -254,6 +254,8 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => '오늘';
+	@override String get tomorrow => '내일';
 }
 
 /// The flat map containing all translations for locale <ko-KR>.
@@ -382,9 +384,6 @@ extension on TranslationsKoKr {
 			'done' => '완료',
 			'theme' => '테마',
 			'name' => '날씨',
-
-			'today' => '오늘',
-			'tomorrow' => '내일',
 			'time_range' => '빈도 (시간 단위)',
 			'about_app' => '앱 정보',
 			'save' => '저장',
@@ -482,6 +481,8 @@ extension on TranslationsKoKr {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => '오늘',
+			'tomorrow' => '내일',
 			_ => null,
 		};
 	}

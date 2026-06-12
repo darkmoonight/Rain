@@ -254,6 +254,8 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_cloudcover => 'Share of the sky covered by clouds (0% clear, 100% overcast).';
 	@override String get metric_help_pressure => 'Sea-level air pressure. Falling pressure often signals worsening weather.';
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
+	@override String get today => 'આજે';
+	@override String get tomorrow => 'આવતીકાલે';
 }
 
 /// The flat map containing all translations for locale <gu-IN>.
@@ -382,9 +384,6 @@ extension on TranslationsGuIn {
 			'done' => 'પૂર્ણ',
 			'theme' => 'થીમ',
 			'name' => 'હવામાન',
-
-			'today' => 'આજે',
-			'tomorrow' => 'આવતીકાલે',
 			'time_range' => 'આવૃત્તિ (કલાકોમાં)',
 			'about_app' => 'એપ વિશે',
 			'save' => 'સંગ્રહ',
@@ -482,6 +481,8 @@ extension on TranslationsGuIn {
 			'metric_help_cloudcover' => 'Share of the sky covered by clouds (0% clear, 100% overcast).',
 			'metric_help_pressure' => 'Sea-level air pressure. Falling pressure often signals worsening weather.',
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
+			'today' => 'આજે',
+			'tomorrow' => 'આવતીકાલે',
 			_ => null,
 		};
 	}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rain/core/i18n/locale_format_helper.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -171,7 +172,7 @@ class TimeIndexHelper {
 
   /// Formats a calendar [date] for the app locale (ignores device timezone).
   static String formatCalendarDate(DateTime date, String languageCode) =>
-      DateFormat.yMMMEd(languageCode).format(date);
+      LocaleFormatHelper.calendarDate(date, languageCode);
 
   /// Formats when forecast data was last saved to cache (date + clock time).
   static String formatUpdatedAt(

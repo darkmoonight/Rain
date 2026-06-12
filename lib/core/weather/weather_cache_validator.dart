@@ -1,8 +1,12 @@
 import 'package:rain/data/models/db.dart';
 
-/// Detects main-weather cache entries likely stored with Fahrenheit temperatures.
+/// Validates persisted main-weather cache rows.
 class WeatherCacheValidator {
   const WeatherCacheValidator._();
+
+  /// True when [time] has at least one hourly forecast timestamp.
+  static bool hasHourlyTimestamps(List<String>? time) =>
+      time != null && time.isNotEmpty;
 
   /// True when max temperature suggests values were stored as Fahrenheit, not Celsius.
   static bool isLikelyFahrenheit(MainWeatherCache cache) {
