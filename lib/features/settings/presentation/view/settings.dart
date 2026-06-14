@@ -20,7 +20,7 @@ import 'package:rain/features/settings/presentation/widgets/settings_section.dar
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
 import 'package:rain/core/utils/app_time_picker.dart';
-import 'package:rain/core/bootstrap/app_initializer.dart';
+import 'package:rain/core/bootstrap/background_bootstrap.dart';
 import 'package:rain/core/config/app_config.dart';
 import 'package:rain/features/settings/presentation/view/widget_settings_page.dart';
 import 'package:rain/i18n/tr.dart';
@@ -79,9 +79,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   /// Pushes the latest settings to Android home widgets when on Android.
   Future<void> _refreshWidgets() async {
     if (!Platform.isAndroid) return;
-    await ref
-        .read(homeWidgetServiceProvider)
-        .updateFromIsar(ref.read(isarProvider));
+    await ref.read(widgetSettingsServiceProvider).refreshWidgets();
   }
 
   /// Persists a new locale, updates in-memory settings, and refreshes widgets.
@@ -285,8 +283,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 await ref.read(settingsRepositoryProvider).save(settings);
                 if (Platform.isAndroid) {
                   await ref
-                      .read(homeWidgetServiceProvider)
-                      .updateFromIsar(ref.read(isarProvider));
+                      .read(widgetSettingsServiceProvider)
+                      .refreshWidgets();
                 }
                 if (!mounted) return;
                 setState(() {});
@@ -653,9 +651,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         settings.timeformat = value;
         await ref.read(settingsRepositoryProvider).save(settings);
         if (Platform.isAndroid) {
-          await ref
-              .read(homeWidgetServiceProvider)
-              .updateFromIsar(ref.read(isarProvider));
+          await ref.read(widgetSettingsServiceProvider).refreshWidgets();
         }
         if (!mounted) return;
         setState(() {});

@@ -10,6 +10,7 @@ import com.yoshi.rain.MainActivity
 import com.yoshi.rain.R
 import kotlin.math.roundToInt
 
+/// Binds cached weather data into Material You home-screen widget layouts.
 object WidgetBinders {
 
     private fun temperatureWithDegreeOnly(raw: String): String {
@@ -51,10 +52,14 @@ object WidgetBinders {
         )
         WidgetIconHelper.setIcon(views, R.id.widget_material_you_forecast_currentIcon, current.icon)
         WidgetIconHelper.applyColors(
+            context,
             views,
-            android.R.id.background,
+            R.id.widget_material_you_forecast_bg,
+            R.drawable.widget_m3_background,
             bundle.settings,
-            R.id.widget_material_you_forecast_currentTemperature,
+            intArrayOf(R.id.widget_material_you_forecast_currentTemperature),
+            widthDimen = R.dimen.widget_grid_1,
+            heightDimen = R.dimen.widget_grid_1,
         )
         return views
     }
@@ -74,10 +79,12 @@ object WidgetBinders {
             views.setFloat(R.id.widget_material_you_current_currentIcon, "setElevation", 8f)
         }
         WidgetIconHelper.applyColors(
+            context,
             views,
-            R.id.widget_material_you_current,
+            R.id.widget_material_you_current_bg,
+            R.drawable.widget_m3_current_background,
             bundle.settings,
-            R.id.widget_material_you_current_currentTemperature,
+            intArrayOf(R.id.widget_material_you_current_currentTemperature),
         )
         return views
     }
@@ -106,12 +113,18 @@ object WidgetBinders {
         SafeViews.setText(views, R.id.widget_clock_day_subtitle, subtitle)
 
         WidgetIconHelper.applyColors(
+            context,
             views,
-            R.id.widget_clock_day,
+            R.id.widget_clock_day_bg,
+            R.drawable.widget_m3_background,
             bundle.settings,
-            R.id.widget_clock_day_clock_light,
-            R.id.widget_clock_day_title,
-            R.id.widget_clock_day_subtitle,
+            intArrayOf(
+                R.id.widget_clock_day_clock_light,
+                R.id.widget_clock_day_title,
+                R.id.widget_clock_day_subtitle,
+            ),
+            widthDimen = R.dimen.widget_grid_4,
+            heightDimen = R.dimen.widget_forecast_bar_height,
         )
         return views
     }

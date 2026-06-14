@@ -12,8 +12,10 @@ class AppSettingsState {
     this.timeRange = AppConstants.defaultNotificationIntervalHours,
     this.timeStart = AppConstants.defaultNotificationTimeStart,
     this.timeEnd = AppConstants.defaultNotificationTimeEnd,
-    this.widgetBackgroundColor = '',
-    this.widgetTextColor = '',
+    this.widgetBackgroundColorLight = '',
+    this.widgetBackgroundColorDark = '',
+    this.widgetTextColorLight = '',
+    this.widgetTextColorDark = '',
   });
 
   final bool amoledTheme;
@@ -24,8 +26,10 @@ class AppSettingsState {
   final int timeRange;
   final String timeStart;
   final String timeEnd;
-  final String widgetBackgroundColor;
-  final String widgetTextColor;
+  final String widgetBackgroundColorLight;
+  final String widgetBackgroundColorDark;
+  final String widgetTextColorLight;
+  final String widgetTextColorDark;
 
   /// Returns a copy with selectively replaced theme, locale, widget, and notification fields.
   AppSettingsState copyWith({
@@ -37,8 +41,10 @@ class AppSettingsState {
     int? timeRange,
     String? timeStart,
     String? timeEnd,
-    String? widgetBackgroundColor,
-    String? widgetTextColor,
+    String? widgetBackgroundColorLight,
+    String? widgetBackgroundColorDark,
+    String? widgetTextColorLight,
+    String? widgetTextColorDark,
   }) => AppSettingsState(
     amoledTheme: amoledTheme ?? this.amoledTheme,
     materialColor: materialColor ?? this.materialColor,
@@ -48,7 +54,11 @@ class AppSettingsState {
     timeRange: timeRange ?? this.timeRange,
     timeStart: timeStart ?? this.timeStart,
     timeEnd: timeEnd ?? this.timeEnd,
-    widgetBackgroundColor: widgetBackgroundColor ?? this.widgetBackgroundColor,
-    widgetTextColor: widgetTextColor ?? this.widgetTextColor,
+    widgetBackgroundColorLight:
+        widgetBackgroundColorLight ?? this.widgetBackgroundColorLight,
+    widgetBackgroundColorDark:
+        widgetBackgroundColorDark ?? this.widgetBackgroundColorDark,
+    widgetTextColorLight: widgetTextColorLight ?? this.widgetTextColorLight,
+    widgetTextColorDark: widgetTextColorDark ?? this.widgetTextColorDark,
   );
 }

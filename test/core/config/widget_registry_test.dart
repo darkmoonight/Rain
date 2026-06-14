@@ -8,9 +8,9 @@ void main() {
       expect(rainWidgetRegistry.map((w) => w.id).toSet(), hasLength(3));
     });
 
-    test('every widget has a display label', () {
+    test('every widget has a slang label key and Android class name', () {
       for (final widget in rainWidgetRegistry) {
-        expect(widgetDisplayLabels[widget.id], isNotNull);
+        expect(widget.labelKey, isNotEmpty);
         expect(widget.androidName, isNotEmpty);
         expect(widget.qualifiedAndroidName, contains('com.yoshi.rain'));
       }

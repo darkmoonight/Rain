@@ -164,8 +164,35 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Licenses'
 	String get license => 'Licenses';
 
-	/// en-US: 'Widget background'
-	String get widget_background => 'Widget background';
+	/// en-US: 'Reload widgets'
+	String get reload_widget => 'Reload widgets';
+
+	/// en-US: 'Widgets reloaded'
+	String get reload_widget_success => 'Widgets reloaded';
+
+	/// en-US: 'Could not reload widgets'
+	String get reload_widget_failed => 'Could not reload widgets';
+
+	/// en-US: 'Widget background (light)'
+	String get widget_background_light => 'Widget background (light)';
+
+	/// en-US: 'Widget background (dark)'
+	String get widget_background_dark => 'Widget background (dark)';
+
+	/// en-US: 'Widget text (light)'
+	String get widget_text_light => 'Widget text (light)';
+
+	/// en-US: 'Widget text (dark)'
+	String get widget_text_dark => 'Widget text (dark)';
+
+	/// en-US: 'Reset to Material You'
+	String get reset_to_material_you => 'Reset to Material You';
+
+	/// en-US: 'Reset all widget colors'
+	String get reset_all_widget_colors => 'Reset all widget colors';
+
+	/// en-US: 'Widget colors reset'
+	String get reset_all_widget_colors_success => 'Widget colors reset';
 
 	/// en-US: 'Large weather display'
 	String get large_element => 'Large weather display';
@@ -181,6 +208,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'Widget'
 	String get widget => 'Widget';
+
+	/// en-US: 'Battery usage'
+	String get widget_battery => 'Battery usage';
+
+	/// en-US: 'Material You forecast (1×1)'
+	String get widget_material_you_compact => 'Material You forecast (1×1)';
+
+	/// en-US: 'Material You current weather'
+	String get widget_material_you_current => 'Material You current weather';
+
+	/// en-US: 'Material You clock & day'
+	String get widget_material_you_clock => 'Material You clock & day';
 
 	/// en-US: 'Precipitation'
 	String get precipitation => 'Precipitation';
@@ -238,9 +277,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'Northeast'
 	String get northeast => 'Northeast';
-
-	/// en-US: 'Add widget'
-	String get add_widget => 'Add widget';
 
 	/// en-US: 'Fog'
 	String get fog => 'Fog';
@@ -307,9 +343,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'Are you sure you want to clear the cache?'
 	String get deleted_cache_store_query => 'Are you sure you want to clear the cache?';
-
-	/// en-US: 'Widget text'
-	String get widget_text => 'Widget text';
 
 	/// en-US: 'Donate'
 	String get support => 'Donate';
@@ -742,12 +775,25 @@ extension on Translations {
 			'feels' => 'Feels',
 			'precipitation_probability' => 'Precipitation probability',
 			'license' => 'Licenses',
-			'widget_background' => 'Widget background',
+			'reload_widget' => 'Reload widgets',
+			'reload_widget_success' => 'Widgets reloaded',
+			'reload_widget_failed' => 'Could not reload widgets',
+			'widget_background_light' => 'Widget background (light)',
+			'widget_background_dark' => 'Widget background (dark)',
+			'widget_text_light' => 'Widget text (light)',
+			'widget_text_dark' => 'Widget text (dark)',
+			'reset_to_material_you' => 'Reset to Material You',
+			'reset_all_widget_colors' => 'Reset all widget colors',
+			'reset_all_widget_colors_success' => 'Widget colors reset',
 			'large_element' => 'Large weather display',
 			'unsaved_changes' => 'Unsaved changes',
 			'drizzling_rain' => 'Freezing Drizzle',
 			'cloudy' => 'Cloudy',
 			'widget' => 'Widget',
+			'widget_battery' => 'Battery usage',
+			'widget_material_you_compact' => 'Material You forecast (1×1)',
+			'widget_material_you_current' => 'Material You current weather',
+			'widget_material_you_clock' => 'Material You clock & day',
 			'precipitation' => 'Precipitation',
 			'delete' => 'Delete',
 			'deleted_cache_store' => 'Clearing the cache',
@@ -767,7 +813,6 @@ extension on Translations {
 			'amoled_theme' => 'AMOLED-theme',
 			'deleted_card_weather_query' => 'Are you sure you want to delete the city?',
 			'northeast' => 'Northeast',
-			'add_widget' => 'Add widget',
 			'fog' => 'Fog',
 			'description2' => 'All navigation is designed to interact with the application as conveniently and quickly as possible.',
 			'mm' => 'mm',
@@ -790,7 +835,6 @@ extension on Translations {
 			'ready' => 'Ready',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Are you sure you want to clear the cache?',
-			'widget_text' => 'Widget text',
 			'support' => 'Donate',
 			'groups' => 'Our groups',
 			'system' => 'System',

@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
@@ -38,6 +40,13 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
     settings.theme = themeMode;
     await ref.read(settingsRepositoryProvider).save(settings);
     state = _fromSettings(settings);
+    if (Platform.isAndroid) {
+      unawaited(
+        ref
+            .read(widgetSettingsServiceProvider)
+            .refreshWidgets(settings: settings),
+      );
+    }
   }
 
   /// Persists the AMOLED (pure black) theme toggle.

@@ -5,7 +5,7 @@
     android:minHeight="@dimen/widget_forecast_bar_height"
     android:minResizeWidth="@dimen/widget_grid_3"
     android:minResizeHeight="@dimen/widget_forecast_bar_height"
-    android:updatePeriodMillis="0"
+    android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/widget_clock_day_horizontal"
     android:previewLayout="@layout/widget_clock_day_horizontal_preview"
     android:resizeMode="horizontal"

@@ -42,7 +42,7 @@ dependencies:
   slang_flutter: ^4.16.0
 
   # Location, coordinates & timezone
-  geolocator: ^14.0.2
+  geolocator: ^14.0.3
   geocoding: ^4.0.0
   latlong2: ^0.9.1
   lat_lng_to_timezone: ^0.2.0
@@ -59,7 +59,7 @@ dependencies:
   workmanager: ^0.9.0+3
 
   # Notifications
-  flutter_local_notifications: ^22.0.0
+  flutter_local_notifications: ^22.0.1
 
   # UI & theming
   gap: ^3.0.1

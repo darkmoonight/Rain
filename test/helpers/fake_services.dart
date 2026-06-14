@@ -73,7 +73,7 @@ class FakeHomeWidgetService extends HomeWidgetService {
   int updateCalls = 0;
 
   @override
-  Future<bool> updateFromIsar(Isar isar) async {
+  Future<bool> updateFromIsar(Isar isar, {Settings? settings}) async {
     updateCalls++;
     return true;
   }

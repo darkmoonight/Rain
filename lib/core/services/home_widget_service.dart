@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:home_widget/home_widget.dart';
 import 'package:isar_community/isar.dart';
+import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/config/widget_registry.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/widget_background_service.dart';
@@ -27,40 +28,53 @@ class HomeWidgetService {
   // --- Widget update ---
 
   /// Reads Isar and writes widget data for all registered widget providers.
-  Future<bool> updateFromIsar(Isar isar) async {
+  Future<bool> updateFromIsar(Isar isar, {Settings? settings}) async {
     try {
-      final settings = await isar.settings.where().findFirst() ?? Settings();
-      final bundle = await _buildWidgetBundle(isar, settings);
+      final resolved =
+          settings ?? await isar.settings.where().findFirst() ?? Settings();
+      final bundle = await _buildWidgetBundle(isar, resolved);
 
-      final backgroundColor = settings.widgetBackgroundColor;
-      final textColor = settings.widgetTextColor;
-
-      final saves = <Future<bool?>>[
+      final dataResults = await Future.wait<bool?>([
         if (bundle != null)
           HomeWidget.saveWidgetData('widget_bundle', jsonEncode(bundle))
         else
           HomeWidget.saveWidgetData<String>('widget_bundle', null),
-        HomeWidget.saveWidgetData('timeformat', settings.timeformat),
-        if (backgroundColor != null && backgroundColor.isNotEmpty)
-          HomeWidget.saveWidgetData('background_color', backgroundColor)
-        else
-          HomeWidget.saveWidgetData<String>('background_color', null),
-        if (textColor != null && textColor.isNotEmpty)
-          HomeWidget.saveWidgetData('text_color', textColor)
-        else
-          HomeWidget.saveWidgetData<String>('text_color', null),
-        ...rainWidgetRegistry.map(
+        HomeWidget.saveWidgetData('timeformat', resolved.timeformat),
+        HomeWidget.saveWidgetData('widget_theme_mode', resolved.theme),
+        ..._colorSaveTasks(resolved),
+      ]);
+      if (dataResults.contains(false)) return false;
+
+      final updateResults = await Future.wait<bool?>(
+        rainWidgetRegistry.map(
           (widget) => HomeWidget.updateWidget(
+            androidName: widget.androidName,
             qualifiedAndroidName: widget.qualifiedAndroidName,
           ),
         ),
-      ];
-
-      final results = await Future.wait(saves);
-      return !results.contains(false);
-    } catch (_) {
+      );
+      return !updateResults.contains(false);
+    } catch (e, st) {
+      debugLogError('HomeWidgetService.updateFromIsar', e, st);
       return false;
     }
+  }
+
+  List<Future<bool?>> _colorSaveTasks(Settings settings) => [
+    _saveColorPref(
+      'background_color_light',
+      settings.widgetBackgroundColorLight,
+    ),
+    _saveColorPref('background_color_dark', settings.widgetBackgroundColorDark),
+    _saveColorPref('text_color_light', settings.widgetTextColorLight),
+    _saveColorPref('text_color_dark', settings.widgetTextColorDark),
+  ];
+
+  Future<bool?> _saveColorPref(String key, String? color) {
+    if (color != null && color.isNotEmpty) {
+      return HomeWidget.saveWidgetData(key, color);
+    }
+    return HomeWidget.saveWidgetData<String>(key, null);
   }
 
   /// Builds the JSON payload for the current hour from main weather cache.

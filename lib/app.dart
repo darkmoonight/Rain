@@ -28,8 +28,6 @@ class RainApp extends ConsumerWidget {
     int? newTimeRange,
     String? newTimeStart,
     String? newTimeEnd,
-    String? newWidgetBackgroundColor,
-    String? newWidgetTextColor,
   }) {
     ref
         .read(appSettingsProvider.notifier)
@@ -42,8 +40,6 @@ class RainApp extends ConsumerWidget {
           timeRange: newTimeRange,
           timeStart: newTimeStart,
           timeEnd: newTimeEnd,
-          widgetBackgroundColor: newWidgetBackgroundColor,
-          widgetTextColor: newWidgetTextColor,
         );
   }
 

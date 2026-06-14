@@ -5,6 +5,7 @@ import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/home_widget_service.dart';
 import 'package:rain/core/services/location_service.dart';
 import 'package:rain/core/services/notification_service.dart';
+import 'package:rain/core/services/widget_settings_service.dart';
 import 'package:rain/data/datasources/weather_local_datasource.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/data/models/db.dart';
@@ -57,6 +58,11 @@ final notificationServiceProvider = Provider<NotificationService>((ref) {
 final homeWidgetServiceProvider = Provider<HomeWidgetService>((ref) {
   return HomeWidgetService(ref.watch(assetCacheServiceProvider));
 });
+
+/// Provides widget appearance persistence and refresh orchestration.
+final widgetSettingsServiceProvider = Provider<WidgetSettingsService>(
+  (ref) => WidgetSettingsService(ref),
+);
 
 /// Provides the device geolocation service.
 final locationServiceProvider = Provider<LocationService>(

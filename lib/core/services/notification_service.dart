@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rain/core/bootstrap/app_initializer.dart';
+import 'package:rain/core/bootstrap/background_bootstrap.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/debug_log.dart';
@@ -141,10 +141,15 @@ class NotificationService {
   NotificationService(this._assets);
 
   final AssetCacheService _assets;
-  static const _channelId = 'Rain';
-  static const _channelName = 'DARK NIGHT';
-  static const _persistentChannelId = 'RainPersistent';
-  static const _persistentChannelName = 'Rain Current';
+  static const forecastChannelId = 'Rain';
+  static const forecastChannelName = 'DARK NIGHT';
+  static const persistentChannelId = 'RainPersistent';
+  static const persistentChannelName = 'Rain Current';
+
+  static const _channelId = forecastChannelId;
+  static const _channelName = forecastChannelName;
+  static const _persistentChannelId = persistentChannelId;
+  static const _persistentChannelName = persistentChannelName;
 
   /// Android [Notification.FLAG_NO_CLEAR] — not removed by "Clear all".
   static final Int32List _persistentNotificationFlags = Int32List.fromList([

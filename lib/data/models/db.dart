@@ -18,6 +18,10 @@ class Settings {
   bool hideMap = false;
   String? widgetBackgroundColor;
   String? widgetTextColor;
+  String? widgetBackgroundColorLight;
+  String? widgetBackgroundColorDark;
+  String? widgetTextColorLight;
+  String? widgetTextColorDark;
   String measurements = 'metric';
   String degrees = 'celsius';
   String wind = 'kph';

@@ -4,9 +4,17 @@
     android:id="@+id/widget_clock_day"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_m3_background"
     android:minHeight="@dimen/widget_forecast_bar_height"
     android:theme="@style/Theme.Android.AppWidgetContainer">
+
+    <ImageView
+        android:id="@+id/widget_clock_day_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_m3_background"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/widget_clock_day_weather"

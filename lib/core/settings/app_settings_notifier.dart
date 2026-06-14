@@ -38,8 +38,10 @@ class AppSettingsNotifier extends Notifier<AppSettingsState> {
       timeStart:
           settings.timeStart ?? AppConstants.defaultNotificationTimeStart,
       timeEnd: settings.timeEnd ?? AppConstants.defaultNotificationTimeEnd,
-      widgetBackgroundColor: settings.widgetBackgroundColor ?? '',
-      widgetTextColor: settings.widgetTextColor ?? '',
+      widgetBackgroundColorLight: settings.widgetBackgroundColorLight ?? '',
+      widgetBackgroundColorDark: settings.widgetBackgroundColorDark ?? '',
+      widgetTextColorLight: settings.widgetTextColorLight ?? '',
+      widgetTextColorDark: settings.widgetTextColorDark ?? '',
     );
   }
 
@@ -53,8 +55,10 @@ class AppSettingsNotifier extends Notifier<AppSettingsState> {
     int? timeRange,
     String? timeStart,
     String? timeEnd,
-    String? widgetBackgroundColor,
-    String? widgetTextColor,
+    String? widgetBackgroundColorLight,
+    String? widgetBackgroundColorDark,
+    String? widgetTextColorLight,
+    String? widgetTextColorDark,
   }) {
     state = state.copyWith(
       amoledTheme: amoledTheme,
@@ -65,8 +69,10 @@ class AppSettingsNotifier extends Notifier<AppSettingsState> {
       timeRange: timeRange,
       timeStart: timeStart,
       timeEnd: timeEnd,
-      widgetBackgroundColor: widgetBackgroundColor,
-      widgetTextColor: widgetTextColor,
+      widgetBackgroundColorLight: widgetBackgroundColorLight,
+      widgetBackgroundColorDark: widgetBackgroundColorDark,
+      widgetTextColorLight: widgetTextColorLight,
+      widgetTextColorDark: widgetTextColorDark,
     );
     if (locale != null) {
       LocaleSettings.setLocale(appLocaleFromFlutterLocale(locale));

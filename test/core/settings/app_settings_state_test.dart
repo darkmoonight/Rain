@@ -13,8 +13,10 @@ void main() {
       timeRange: 3,
       timeStart: '08:00',
       timeEnd: '22:00',
-      widgetBackgroundColor: '#111111',
-      widgetTextColor: '#FFFFFF',
+      widgetBackgroundColorLight: '#111111',
+      widgetBackgroundColorDark: '#222222',
+      widgetTextColorLight: '#FFFFFF',
+      widgetTextColorDark: '#EEEEEE',
     );
 
     test('preserves unchanged fields', () {
@@ -30,14 +32,14 @@ void main() {
         timeRange: 6,
         timeStart: '09:00',
         timeEnd: '21:00',
-        widgetBackgroundColor: '#000000',
-        widgetTextColor: '#EEEEEE',
+        widgetBackgroundColorLight: '#000000',
+        widgetTextColorDark: '#CCCCCC',
       );
       expect(copy.timeRange, 6);
       expect(copy.timeStart, '09:00');
       expect(copy.timeEnd, '21:00');
-      expect(copy.widgetBackgroundColor, '#000000');
-      expect(copy.widgetTextColor, '#EEEEEE');
+      expect(copy.widgetBackgroundColorLight, '#000000');
+      expect(copy.widgetTextColorDark, '#CCCCCC');
     });
   });
 }

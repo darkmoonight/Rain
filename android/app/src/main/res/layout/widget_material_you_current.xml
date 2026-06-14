@@ -5,11 +5,19 @@
     android:layout_width="@dimen/widget_material_you_default_size"
     android:layout_height="@dimen/widget_material_you_default_size"
     android:layout_margin="0dp"
-    android:background="@drawable/widget_m3_current_background"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:padding="0dp"
     android:theme="@style/Theme.Android.AppWidgetContainer">
+
+    <ImageView
+        android:id="@+id/widget_material_you_current_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/widget_m3_current_background"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/widget_material_you_current_currentTemperature"

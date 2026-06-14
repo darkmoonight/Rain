@@ -1,43 +1,52 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:rain/core/config/widget_color_sections.dart';
 import 'package:rain/core/config/widget_registry.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
-import 'package:rain/core/services/widget_settings_service.dart';
-import 'package:rain/core/settings/app_settings_state.dart';
-import 'package:rain/core/utils/color_converter.dart';
+import 'package:rain/core/services/background_platform_service.dart';
 import 'package:rain/core/theme/theme_text.dart';
-import 'package:rain/core/utils/navigation_helper.dart';
+import 'package:rain/core/utils/color_converter.dart';
+import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
+import 'package:rain/features/settings/presentation/widgets/widget_color_picker_dialog.dart';
 import 'package:rain/i18n/tr.dart';
 
 /// Android home-screen widget configuration and pin-to-home actions.
 class WidgetSettingsPage extends ConsumerStatefulWidget {
   const WidgetSettingsPage({super.key});
 
-  /// Creates the state for [WidgetSettingsPage].
   @override
   ConsumerState<WidgetSettingsPage> createState() => _WidgetSettingsPageState();
 }
 
-// --- WidgetSettingsPageState ---
-
 /// State for [WidgetSettingsPage] managing widget colors and pin actions.
 class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
-  String? _pickedBackgroundColor;
-  String? _pickedTextColor;
+  WidgetSettingsService get _service => ref.read(widgetSettingsServiceProvider);
 
-  /// In-memory app settings snapshot watched from Riverpod.
-  AppSettingsState get appSettings => ref.watch(appSettingsProvider);
+  /// Runs a widget action and shows a success or error snackbar.
+  Future<void> _runWidgetAction(
+    Future<bool> Function() action, {
+    required String successKey,
+    String failureKey = 'error_occurred',
+    bool showSuccess = true,
+  }) async {
+    final ok = await action();
+    if (!mounted) return;
+    if (ok && showSuccess) {
+      showSnackBar(successKey.tr, isInfo: true);
+    } else if (!ok) {
+      showSnackBar(failureKey.tr, isError: true);
+    }
+  }
 
-  /// Requests to pin a home-screen widget and refreshes widget data.
+  /// Pins a widget to the home screen, then pushes the latest data to it.
   Future<void> _requestPinWidget(WidgetDefinition widget) async {
     if (!Platform.isAndroid) return;
 
@@ -49,132 +58,86 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
       androidName: widget.androidName,
       qualifiedAndroidName: widget.qualifiedAndroidName,
     );
-    await ref
-        .read(homeWidgetServiceProvider)
-        .updateFromIsar(ref.read(isarProvider));
+    await _service.refreshWidgets();
   }
 
-  /// Shows the HSV color picker for widget background color.
-  void _showBackgroundPicker() {
-    _pickedBackgroundColor = null;
-    showDialog(
-      context: context,
-      builder: (dialogContext) => Dialog(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Text(
-                  'widgetBackground'.tr,
-                  style: Theme.of(
-                    dialogContext,
-                  ).textTheme.titleMedium?.copyWith(fontSize: 18),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: ColorPicker(
-                  color: appSettings.widgetBackgroundColor.isEmpty
-                      ? Theme.of(dialogContext).colorScheme.surface
-                      : HexColor.fromHex(appSettings.widgetBackgroundColor),
-                  onChanged: (color) => _pickedBackgroundColor = color.toHex(),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(IconsaxPlusLinear.rotate_left),
-                    tooltip: 'resetColor'.tr,
-                    onPressed: () {
-                      ref
-                          .read(widgetSettingsServiceProvider)
-                          .resetBackgroundColor();
-                      NavigationHelper.back(dialogContext);
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(IconsaxPlusLinear.tick_square),
-                    onPressed: () {
-                      final color = _pickedBackgroundColor;
-                      if (color == null) return;
-                      ref
-                          .read(widgetSettingsServiceProvider)
-                          .updateBackgroundColor(color);
-                      NavigationHelper.back(dialogContext);
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+  Color _resolvedColor(String hex, Color fallback) =>
+      hex.isEmpty ? fallback : HexColor.fromHex(hex);
+
+  Widget _colorSwatch(String hex, Color fallback) {
+    final outline = Theme.of(context).colorScheme.outlineVariant;
+    return CircleAvatar(
+      backgroundColor: outline.withValues(alpha: 0.4),
+      radius: 11,
+      child: CircleAvatar(
+        backgroundColor: _resolvedColor(hex, fallback),
+        radius: 10,
       ),
     );
   }
 
-  /// Shows the HSV color picker for widget text color.
-  void _showTextColorPicker() {
-    _pickedTextColor = null;
-    showDialog(
-      context: context,
-      builder: (dialogContext) => Dialog(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Text(
-                  'widgetText'.tr,
-                  style: Theme.of(
-                    dialogContext,
-                  ).textTheme.titleMedium?.copyWith(fontSize: 18),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: ColorPicker(
-                  color: appSettings.widgetTextColor.isEmpty
-                      ? Theme.of(dialogContext).colorScheme.onSurface
-                      : HexColor.fromHex(appSettings.widgetTextColor),
-                  onChanged: (color) => _pickedTextColor = color.toHex(),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(IconsaxPlusLinear.rotate_left),
-                    tooltip: 'resetColor'.tr,
-                    onPressed: () {
-                      ref.read(widgetSettingsServiceProvider).resetTextColor();
-                      NavigationHelper.back(dialogContext);
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(IconsaxPlusLinear.tick_square),
-                    onPressed: () {
-                      final color = _pickedTextColor;
-                      if (color == null) return;
-                      ref
-                          .read(widgetSettingsServiceProvider)
-                          .updateTextColor(color);
-                      NavigationHelper.back(dialogContext);
-                    },
-                  ),
-                ],
-              ),
-            ],
+  /// Builds one background or text color tile inside a theme section.
+  SettingsTile _colorTile({
+    required IconData leading,
+    required String titleKey,
+    required String colorHex,
+    required Color previewFallback,
+    required Future<void> Function(String) onSave,
+    required Future<void> Function() onReset,
+  }) {
+    return SettingsTile(
+      leading: Icon(leading),
+      title: titleKey,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _colorSwatch(colorHex, previewFallback),
+          const SizedBox(width: 8),
+          Icon(
+            IconsaxPlusLinear.arrow_right_3,
+            size: 20,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
-        ),
+        ],
+      ),
+      onTap: () => showWidgetColorPicker(
+        context: context,
+        titleKey: titleKey,
+        initialColor: _resolvedColor(colorHex, previewFallback),
+        onSave: onSave,
+        onReset: onReset,
       ),
     );
   }
 
-  /// Builds the widget settings app bar with back navigation.
+  /// Builds the light or dark widget color [SettingsSection].
+  Widget _buildColorSection(WidgetColorSectionDefinition definition) {
+    final settings = ref.watch(appSettingsProvider);
+
+    return SettingsSection(
+      title: definition.sectionTitleKey,
+      icon: definition.sectionIcon,
+      children: [
+        _colorTile(
+          leading: IconsaxPlusLinear.bucket_square,
+          titleKey: definition.backgroundTitleKey,
+          colorHex: definition.backgroundHex(settings),
+          previewFallback: definition.previewBackground,
+          onSave: definition.saveBackground(_service),
+          onReset: () => definition.resetBackground(_service)(),
+        ),
+        _colorTile(
+          leading: IconsaxPlusLinear.text_block,
+          titleKey: definition.textTitleKey,
+          colorHex: definition.textHex(settings),
+          previewFallback: definition.previewText,
+          onSave: definition.saveText(_service),
+          onReset: () => definition.resetText(_service)(),
+        ),
+      ],
+    );
+  }
+
   AppBar _buildAppBar(BuildContext context) => AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
@@ -182,85 +145,64 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
     title: Text('widget'.tr, style: ThemeText.appBarTitle(Theme.of(context))),
   );
 
-  /// Builds the widget settings scaffold with pin and color options.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: SettingsSection(
-          title: 'widget',
-          icon: IconsaxPlusBold.setting_3,
+        child: Column(
           children: [
-            ...rainWidgetRegistry.map(
-              (widget) => ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.spacingL,
-                  vertical: AppConstants.spacingXS,
+            SettingsSection(
+              title: 'widget',
+              icon: IconsaxPlusBold.setting_3,
+              children: [
+                ...rainWidgetRegistry.map(
+                  (widget) => SettingsTile(
+                    leading: const Icon(IconsaxPlusLinear.add_square),
+                    title: widget.labelKey.tr,
+                    onTap: () => _requestPinWidget(widget),
+                  ),
                 ),
-                leading: const Icon(IconsaxPlusLinear.add_square),
-                title: Text(widgetDisplayLabels[widget.id] ?? widget.id),
-                trailing: const Icon(IconsaxPlusLinear.arrow_right_3, size: 20),
-                onTap: () => _requestPinWidget(widget),
-              ),
+                SettingsTile(
+                  leading: const Icon(IconsaxPlusLinear.refresh),
+                  title: 'reloadWidget',
+                  onTap: () => _runWidgetAction(
+                    _service.refreshWidgets,
+                    successKey: 'reloadWidgetSuccess',
+                    failureKey: 'reloadWidgetFailed',
+                  ),
+                ),
+                SettingsTile(
+                  leading: const Icon(IconsaxPlusLinear.battery_full),
+                  title: 'widgetBattery',
+                  subtitle: 'widgetBatteryHint',
+                  onTap: () => _runWidgetAction(
+                    openBatterySettings,
+                    successKey: 'widgetBattery',
+                    showSuccess: false,
+                  ),
+                ),
+              ],
             ),
-            SettingsTile(
-              leading: const Icon(IconsaxPlusLinear.bucket_square),
-              title: 'widgetBackground',
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Theme.of(context).dividerColor,
-                    radius: 11,
-                    child: CircleAvatar(
-                      backgroundColor: appSettings.widgetBackgroundColor.isEmpty
-                          ? Theme.of(context).colorScheme.surface
-                          : HexColor.fromHex(appSettings.widgetBackgroundColor),
-                      radius: 10,
-                    ),
+            const SizedBox(height: AppConstants.spacingL),
+            for (final definition in WidgetColorSectionDefinition.sections) ...[
+              _buildColorSection(definition),
+              const SizedBox(height: AppConstants.spacingL),
+            ],
+            SettingsSection(
+              title: 'resetColor',
+              icon: IconsaxPlusBold.rotate_left,
+              children: [
+                SettingsTile(
+                  leading: const Icon(IconsaxPlusLinear.rotate_left),
+                  title: 'resetAllWidgetColors',
+                  onTap: () => _runWidgetAction(
+                    _service.resetAllWidgetColors,
+                    successKey: 'resetAllWidgetColorsSuccess',
                   ),
-                  const SizedBox(width: 8),
-                  Icon(
-                    IconsaxPlusLinear.arrow_right_3,
-                    size: 20,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ],
-              ),
-              onTap: _showBackgroundPicker,
-            ),
-            SettingsTile(
-              leading: const Icon(IconsaxPlusLinear.text_block),
-              title: 'widgetText',
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Theme.of(context).dividerColor,
-                    radius: 11,
-                    child: CircleAvatar(
-                      backgroundColor: appSettings.widgetTextColor.isEmpty
-                          ? Theme.of(context).colorScheme.onSurface
-                          : HexColor.fromHex(appSettings.widgetTextColor),
-                      radius: 10,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Icon(
-                    IconsaxPlusLinear.arrow_right_3,
-                    size: 20,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ],
-              ),
-              onTap: _showTextColorPicker,
-            ),
-            SettingsTile(
-              leading: const Icon(IconsaxPlusLinear.battery_full),
-              title: 'widgetBatteryHint',
-              onTap: () => Geolocator.openAppSettings(),
+                ),
+              ],
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -231,7 +232,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       clock: clock,
     );
     if (Platform.isAndroid) {
-      registerWidgetBackgroundTask();
+      unawaited(ensureWidgetBackgroundTaskScheduled());
     }
     _followCurrentTime = true;
     state = state.copyWith(
