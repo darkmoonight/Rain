@@ -4,6 +4,17 @@ import 'package:rain/core/weather/weather_cache_validator.dart';
 import 'package:rain/data/models/db.dart';
 
 void main() {
+  MainWeatherCache validMainCache() => MainWeatherCache(
+    time: ['2026-06-05T12:00'],
+    weathercode: [0],
+    temperature2M: [20.0],
+    timeDaily: [DateTime(2026, 6, 5)],
+    temperature2MMax: [25.0],
+    temperature2MMin: [15.0],
+    sunrise: ['2026-06-05T06:00'],
+    sunset: ['2026-06-05T20:00'],
+  );
+
   group('WeatherCacheValidator.hasHourlyTimestamps', () {
     test('requires a non-empty hourly time list', () {
       expect(
@@ -12,6 +23,25 @@ void main() {
       );
       expect(WeatherCacheValidator.hasHourlyTimestamps([]), isFalse);
       expect(WeatherCacheValidator.hasHourlyTimestamps(null), isFalse);
+    });
+  });
+
+  group('WeatherCacheValidator.hasMainDisplayData', () {
+    test('accepts cache with hourly and daily fields', () {
+      expect(
+        WeatherCacheValidator.hasMainDisplayData(validMainCache()),
+        isTrue,
+      );
+    });
+
+    test('rejects cache missing daily min/max', () {
+      final cache = validMainCache()..temperature2MMin = null;
+      expect(WeatherCacheValidator.hasMainDisplayData(cache), isFalse);
+    });
+
+    test('rejects cache missing hourly timestamps', () {
+      final cache = validMainCache()..time = [];
+      expect(WeatherCacheValidator.hasMainDisplayData(cache), isFalse);
     });
   });
 

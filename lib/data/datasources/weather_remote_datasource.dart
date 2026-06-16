@@ -8,6 +8,7 @@ import 'package:rain/data/models/city_api.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/data/models/weather_api.dart';
 import 'package:rain/data/mappers/weather_mapper.dart';
+import 'package:rain/core/weather/weather_cache_validator.dart';
 
 /// Fetches forecast data from Open-Meteo and city suggestions from its geocoding API.
 class WeatherRemoteDatasource {
@@ -60,6 +61,9 @@ class WeatherRemoteDatasource {
         weatherData,
         clockSkewSeconds: skew,
       );
+      if (!WeatherCacheValidator.hasMainDisplayData(cache)) {
+        throw const FormatException('Incomplete weather API response');
+      }
       if (aqData != null) {
         AirQualityMapper.merge(cache, aqData);
       }
@@ -87,6 +91,9 @@ class WeatherRemoteDatasource {
         district,
         clockSkewSeconds: skew,
       );
+      if (!WeatherCacheValidator.hasHourlyTimestamps(card.time)) {
+        throw const FormatException('Incomplete weather API response');
+      }
       if (aqData != null) {
         AirQualityMapper.merge(card, aqData);
       }

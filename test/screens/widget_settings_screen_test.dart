@@ -3,9 +3,11 @@ import '../helpers/fake_services.dart';
 import '../helpers/widget_test_harness.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rain/core/config/widget_registry.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/features/settings/presentation/view/widget_settings_page.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
+import 'package:rain/i18n/tr.dart';
 
 void main() {
   late TestBootstrapContext ctx;
@@ -33,9 +35,10 @@ void main() {
       expect(find.byType(SettingsSection), findsNWidgets(4));
       expect(find.text('Light'), findsOneWidget);
       expect(find.text('Dark'), findsOneWidget);
-      expect(find.text('Material You – Compact'), findsOneWidget);
-      expect(find.text('Material You – Current'), findsOneWidget);
-      expect(find.text('Material You – Clock'), findsOneWidget);
+      for (final widget in rainWidgetRegistry) {
+        expect(find.text(widget.labelKey.tr), findsOneWidget);
+      }
+      expect(find.text('Battery usage'), findsOneWidget);
     });
 
     testWidgets('shows reload and per-theme color tiles', (tester) async {

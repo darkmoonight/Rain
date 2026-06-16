@@ -86,7 +86,7 @@ class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
 
     final tempMax = mainWeather.temperature2MMax![dayOfNow];
     final tempMin = mainWeather.temperature2MMin![dayOfNow];
-    if (tempMax == null || tempMin == null) return _loadingView();
+    if (tempMax == null || tempMin == null) return _emptyView(context);
 
     return WeatherDetailView(
       weatherCard: weatherCard,

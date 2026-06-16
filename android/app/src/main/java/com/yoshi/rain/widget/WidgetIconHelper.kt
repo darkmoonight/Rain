@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
 import android.util.Log
+import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import androidx.annotation.DimenRes
@@ -70,6 +71,11 @@ object WidgetIconHelper {
         textIds: IntArray,
     ) {
         val (lightBg, darkBg) = resolveBackgroundColors(settings)
+        if (isFullyTransparent(lightBg) && isFullyTransparent(darkBg)) {
+            setBackgroundVisible(views, backgroundViewId, visible = false)
+            return
+        }
+        setBackgroundVisible(views, backgroundViewId, visible = true)
         try {
             views.setImageViewResource(backgroundViewId, tintableDrawable(shapeDrawable))
             views.setColorInt(backgroundViewId, "setColorFilter", lightBg, darkBg)
@@ -157,6 +163,11 @@ object WidgetIconHelper {
         @DimenRes heightDimen: Int,
     ) {
         try {
+            if (customColor != null && isFullyTransparent(customColor)) {
+                setBackgroundVisible(views, backgroundViewId, visible = false)
+                return
+            }
+            setBackgroundVisible(views, backgroundViewId, visible = true)
             views.setImageViewResource(backgroundViewId, shapeDrawable)
             if (customColor != null) {
                 views.setImageViewBitmap(
@@ -168,6 +179,19 @@ object WidgetIconHelper {
             Log.w(TAG, "Failed to apply widget background", e)
         }
     }
+
+    private fun setBackgroundVisible(
+        views: RemoteViews,
+        @IdRes backgroundViewId: Int,
+        visible: Boolean,
+    ) {
+        views.setViewVisibility(
+            backgroundViewId,
+            if (visible) View.VISIBLE else View.GONE,
+        )
+    }
+
+    private fun isFullyTransparent(@ColorInt color: Int): Boolean = Color.alpha(color) == 0
 
     private fun tintedShapeBitmap(
         context: Context,
