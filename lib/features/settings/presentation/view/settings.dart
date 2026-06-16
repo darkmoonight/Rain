@@ -12,6 +12,7 @@ import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/di/settings_revision.dart';
 import 'package:rain/core/theme/app_font.dart';
+import 'package:rain/core/weather/weather_icon_theme.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
@@ -194,6 +195,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           title: 'appFont',
           value: AppFont.label(settings.appFont),
           onTap: () => _showAppFontDialog(context),
+        ),
+        SettingsTile(
+          leading: const Icon(IconsaxPlusLinear.cloud_sunny),
+          title: 'weatherIconTheme',
+          value: WeatherIconTheme.label(settings.weatherIconTheme),
+          onTap: () => _showWeatherIconThemeDialog(context),
         ),
       ],
     );
@@ -632,6 +639,26 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       onSelected: (value) async {
         settings.appFont = value;
         await ref.read(settingsRepositoryProvider).save(settings);
+        if (!mounted) return;
+        setState(() {});
+      },
+    );
+  }
+
+  /// Opens the weather icon theme picker.
+  void _showWeatherIconThemeDialog(BuildContext context) {
+    showSelectionDialog<String>(
+      context: context,
+      title: 'weatherIconTheme'.tr,
+      icon: IconsaxPlusLinear.cloud_sunny,
+      items: WeatherIconTheme.choices,
+      currentValue: WeatherIconTheme.resolve(settings.weatherIconTheme),
+      itemBuilder: WeatherIconTheme.label,
+      leadingBuilder: WeatherIconTheme.previewLeading,
+      onSelected: (value) async {
+        settings.weatherIconTheme = value;
+        await ref.read(settingsRepositoryProvider).save(settings);
+        await ref.read(widgetSettingsServiceProvider).refreshWidgets();
         if (!mounted) return;
         setState(() {});
       },

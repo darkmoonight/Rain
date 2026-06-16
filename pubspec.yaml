@@ -117,5 +117,5 @@ flutter:
 
   assets:
     - assets/
-    - assets/images/
     - assets/icons/
+    - assets/weather_icons/classic/

@@ -208,6 +208,8 @@
   "fontOpenSans": "Open Sans",
   "fontRoboto": "Roboto",
   "fontBarlowCondensed": "Barlow Condensed",
+  "weatherIconTheme": "Weather icons",
+  "weatherIconClassic": "Classic",
   "metricHelpApparentTemperatureMin": "Минимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.",
   "metricHelpApparentTemperatureMax": "Максимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.",
   "metricHelpUvIndex": "Интенсивность ультрафиолета. Чем выше значение, тем быстрее солнечный ожог и выше риск для глаз.",

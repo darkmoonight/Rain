@@ -99,37 +99,42 @@ const SettingsSchema = CollectionSchema(
       name: r'weatherCacheVersion',
       type: IsarType.long,
     ),
-    r'widgetBackgroundColor': PropertySchema(
+    r'weatherIconTheme': PropertySchema(
       id: 22,
+      name: r'weatherIconTheme',
+      type: IsarType.string,
+    ),
+    r'widgetBackgroundColor': PropertySchema(
+      id: 23,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
     ),
     r'widgetBackgroundColorDark': PropertySchema(
-      id: 23,
+      id: 24,
       name: r'widgetBackgroundColorDark',
       type: IsarType.string,
     ),
     r'widgetBackgroundColorLight': PropertySchema(
-      id: 24,
+      id: 25,
       name: r'widgetBackgroundColorLight',
       type: IsarType.string,
     ),
     r'widgetTextColor': PropertySchema(
-      id: 25,
+      id: 26,
       name: r'widgetTextColor',
       type: IsarType.string,
     ),
     r'widgetTextColorDark': PropertySchema(
-      id: 26,
+      id: 27,
       name: r'widgetTextColorDark',
       type: IsarType.string,
     ),
     r'widgetTextColorLight': PropertySchema(
-      id: 27,
+      id: 28,
       name: r'widgetTextColorLight',
       type: IsarType.string,
     ),
-    r'wind': PropertySchema(id: 28, name: r'wind', type: IsarType.string),
+    r'wind': PropertySchema(id: 29, name: r'wind', type: IsarType.string),
   },
 
   estimateSize: _settingsEstimateSize,
@@ -183,6 +188,7 @@ int _settingsEstimateSize(
     }
   }
   bytesCount += 3 + object.timeformat.length * 3;
+  bytesCount += 3 + object.weatherIconTheme.length * 3;
   {
     final value = object.widgetBackgroundColor;
     if (value != null) {
@@ -251,13 +257,14 @@ void _settingsSerialize(
   writer.writeString(offsets[19], object.timeStart);
   writer.writeString(offsets[20], object.timeformat);
   writer.writeLong(offsets[21], object.weatherCacheVersion);
-  writer.writeString(offsets[22], object.widgetBackgroundColor);
-  writer.writeString(offsets[23], object.widgetBackgroundColorDark);
-  writer.writeString(offsets[24], object.widgetBackgroundColorLight);
-  writer.writeString(offsets[25], object.widgetTextColor);
-  writer.writeString(offsets[26], object.widgetTextColorDark);
-  writer.writeString(offsets[27], object.widgetTextColorLight);
-  writer.writeString(offsets[28], object.wind);
+  writer.writeString(offsets[22], object.weatherIconTheme);
+  writer.writeString(offsets[23], object.widgetBackgroundColor);
+  writer.writeString(offsets[24], object.widgetBackgroundColorDark);
+  writer.writeString(offsets[25], object.widgetBackgroundColorLight);
+  writer.writeString(offsets[26], object.widgetTextColor);
+  writer.writeString(offsets[27], object.widgetTextColorDark);
+  writer.writeString(offsets[28], object.widgetTextColorLight);
+  writer.writeString(offsets[29], object.wind);
 }
 
 Settings _settingsDeserialize(
@@ -290,13 +297,14 @@ Settings _settingsDeserialize(
   object.timeStart = reader.readStringOrNull(offsets[19]);
   object.timeformat = reader.readString(offsets[20]);
   object.weatherCacheVersion = reader.readLong(offsets[21]);
-  object.widgetBackgroundColor = reader.readStringOrNull(offsets[22]);
-  object.widgetBackgroundColorDark = reader.readStringOrNull(offsets[23]);
-  object.widgetBackgroundColorLight = reader.readStringOrNull(offsets[24]);
-  object.widgetTextColor = reader.readStringOrNull(offsets[25]);
-  object.widgetTextColorDark = reader.readStringOrNull(offsets[26]);
-  object.widgetTextColorLight = reader.readStringOrNull(offsets[27]);
-  object.wind = reader.readString(offsets[28]);
+  object.weatherIconTheme = reader.readString(offsets[22]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[23]);
+  object.widgetBackgroundColorDark = reader.readStringOrNull(offsets[24]);
+  object.widgetBackgroundColorLight = reader.readStringOrNull(offsets[25]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[26]);
+  object.widgetTextColorDark = reader.readStringOrNull(offsets[27]);
+  object.widgetTextColorLight = reader.readStringOrNull(offsets[28]);
+  object.wind = reader.readString(offsets[29]);
   return object;
 }
 
@@ -352,7 +360,7 @@ P _settingsDeserializeProp<P>(
     case 21:
       return (reader.readLong(offset)) as P;
     case 22:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 23:
       return (reader.readStringOrNull(offset)) as P;
     case 24:
@@ -364,6 +372,8 @@ P _settingsDeserializeProp<P>(
     case 27:
       return (reader.readStringOrNull(offset)) as P;
     case 28:
+      return (reader.readStringOrNull(offset)) as P;
+    case 29:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2326,6 +2336,147 @@ extension SettingsQueryFilter
   }
 
   QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'weatherIconTheme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'weatherIconTheme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'weatherIconTheme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'weatherIconTheme',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'weatherIconTheme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'weatherIconTheme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'weatherIconTheme',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'weatherIconTheme',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'weatherIconTheme', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  weatherIconThemeIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'weatherIconTheme', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
   widgetBackgroundColorIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
@@ -3744,6 +3895,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWeatherIconTheme() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'weatherIconTheme', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByWeatherIconThemeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'weatherIconTheme', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByWidgetBackgroundColor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetBackgroundColor', Sort.asc);
@@ -4117,6 +4280,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWeatherIconTheme() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'weatherIconTheme', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByWeatherIconThemeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'weatherIconTheme', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByWidgetBackgroundColor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetBackgroundColor', Sort.asc);
@@ -4364,6 +4539,17 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByWeatherIconTheme({
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(
+        r'weatherIconTheme',
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByWidgetBackgroundColor({
     bool caseSensitive = true,
   }) {
@@ -4575,6 +4761,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, int, QQueryOperations> weatherCacheVersionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weatherCacheVersion');
+    });
+  }
+
+  QueryBuilder<Settings, String, QQueryOperations> weatherIconThemeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'weatherIconTheme');
     });
   }
 

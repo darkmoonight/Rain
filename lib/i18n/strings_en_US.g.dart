@@ -668,6 +668,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Barlow Condensed'
 	String get font_barlow_condensed => 'Barlow Condensed';
 
+	/// en-US: 'Weather icons'
+	String get weather_icon_theme => 'Weather icons';
+
+	/// en-US: 'Classic'
+	String get weather_icon_classic => 'Classic';
+
 	/// en-US: 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.'
 	String get metric_help_apparent_temperature_min => 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.';
 
@@ -943,6 +949,8 @@ extension on Translations {
 			'font_open_sans' => 'Open Sans',
 			'font_roboto' => 'Roboto',
 			'font_barlow_condensed' => 'Barlow Condensed',
+			'weather_icon_theme' => 'Weather icons',
+			'weather_icon_classic' => 'Classic',
 			'metric_help_apparent_temperature_min' => 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
 			'metric_help_apparent_temperature_max' => 'Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
 			'metric_help_uv_index' => 'Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.',

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rain/i18n/tr.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/weather/status_data.dart';
+import 'package:rain/core/weather/weather_icon_theme.dart';
+import 'package:rain/i18n/tr.dart';
 
 /// Card showing sunrise and sunset times for the selected day.
 class SunsetSunrise extends ConsumerWidget {
@@ -18,7 +19,9 @@ class SunsetSunrise extends ConsumerWidget {
   /// Builds the sunrise and sunset times card for the selected day.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final statusData = StatusData(settings: ref.watch(settingsProvider));
+    final settings = ref.watch(settingsProvider);
+    final statusData = StatusData(settings: settings);
+    final themeId = settings.weatherIconTheme;
     final textTheme = Theme.of(context).textTheme;
     final titleSmall = textTheme.titleSmall;
     final titleLarge = textTheme.titleLarge;
@@ -33,7 +36,7 @@ class SunsetSunrise extends ConsumerWidget {
               context,
               'sunrise'.tr,
               statusData.getTimeFormat(timeSunrise),
-              'assets/images/sunrise.png',
+              WeatherIconTheme.asset('sunrise.png', themeId: themeId),
               titleSmall,
               titleLarge,
             ),
@@ -41,7 +44,7 @@ class SunsetSunrise extends ConsumerWidget {
               context,
               'sunset'.tr,
               statusData.getTimeFormat(timeSunset),
-              'assets/images/sunset.png',
+              WeatherIconTheme.asset('sunset.png', themeId: themeId),
               titleSmall,
               titleLarge,
             ),

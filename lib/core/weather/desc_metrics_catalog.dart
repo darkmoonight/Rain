@@ -1,5 +1,6 @@
 import 'package:rain/core/weather/message.dart';
 import 'package:rain/core/weather/status_data.dart';
+import 'package:rain/core/weather/weather_icon_theme.dart';
 import 'package:rain/i18n/tr.dart';
 
 /// One row in the hourly/daily weather-variables grid.
@@ -85,7 +86,11 @@ class DescMetricsCatalog {
     required DescMetricsInput input,
     required StatusData statusData,
     required Message message,
+    String? themeId,
   }) {
+    String img(String fileName) =>
+        WeatherIconTheme.asset(fileName, themeId: themeId);
+
     DescMetric metric({
       required String? value,
       required String imageAsset,
@@ -101,139 +106,139 @@ class DescMetricsCatalog {
     return [
       metric(
         value: statusData.getDegree(input.apparentTemperatureMin),
-        imageAsset: 'assets/images/cold.png',
+        imageAsset: img('cold.png'),
         labelKey: 'apparentTemperatureMin',
         helpText: message.helpApparentTemperatureMin(),
       ),
       metric(
         value: statusData.getDegree(input.apparentTemperatureMax),
-        imageAsset: 'assets/images/hot.png',
+        imageAsset: img('hot.png'),
         labelKey: 'apparentTemperatureMax',
         helpText: message.helpApparentTemperatureMax(),
       ),
       metric(
         value: _roundOrEmpty(input.uvIndexMax),
-        imageAsset: 'assets/images/uv.png',
+        imageAsset: img('uv.png'),
         labelKey: 'uvIndex',
         helpText: message.helpUvIndex(input.uvIndexMax?.round()),
       ),
       metric(
         value: _degrees(input.windDirection10MDominant),
-        imageAsset: 'assets/images/windsock.png',
+        imageAsset: img('windsock.png'),
         labelKey: 'direction',
         helpText: message.helpDirection(input.windDirection10MDominant),
       ),
       metric(
         value: statusData.getSpeed(input.windSpeed10MMax?.round()),
-        imageAsset: 'assets/images/wind.png',
+        imageAsset: img('wind.png'),
         labelKey: 'wind',
         helpText: message.helpWind(),
       ),
       metric(
         value: statusData.getSpeed(input.windGusts10MMax?.round()),
-        imageAsset: 'assets/images/windgusts.png',
+        imageAsset: img('windgusts.png'),
         labelKey: 'windgusts',
         helpText: message.helpWindGusts(),
       ),
       metric(
         value: _percent(input.precipitationProbabilityMax),
-        imageAsset: 'assets/images/precipitation_probability.png',
+        imageAsset: img('precipitation_probability.png'),
         labelKey: 'precipitationProbability',
         helpText: message.helpPrecipitationProbability(),
       ),
       metric(
         value: statusData.getPrecipitation(input.rainSum),
-        imageAsset: 'assets/images/water.png',
+        imageAsset: img('water.png'),
         labelKey: 'rain',
         helpText: message.helpRain(),
       ),
       metric(
         value: statusData.getPrecipitation(input.precipitationSum),
-        imageAsset: 'assets/images/rainfall.png',
+        imageAsset: img('rainfall.png'),
         labelKey: 'precipitation',
         helpText: message.helpPrecipitation(),
       ),
       metric(
         value: statusData.getDegree(input.dewpoint2M),
-        imageAsset: 'assets/images/dew.png',
+        imageAsset: img('dew.png'),
         labelKey: 'dewpoint',
         helpText: message.helpDewpoint(),
       ),
       metric(
         value: statusData.getDegree(input.feels),
-        imageAsset: 'assets/images/temperature.png',
+        imageAsset: img('temperature.png'),
         labelKey: 'feels',
         helpText: message.helpFeels(),
       ),
       metric(
         value: statusData.getVisibility(input.visibility),
-        imageAsset: 'assets/images/fog.png',
+        imageAsset: img('fog.png'),
         labelKey: 'visibility',
         helpText: message.helpVisibility(),
       ),
       metric(
         value: _degrees(input.direction),
-        imageAsset: 'assets/images/windsock.png',
+        imageAsset: img('windsock.png'),
         labelKey: 'direction',
         helpText: message.helpDirection(input.direction),
       ),
       metric(
         value: statusData.getSpeed(input.wind?.round()),
-        imageAsset: 'assets/images/wind.png',
+        imageAsset: img('wind.png'),
         labelKey: 'wind',
         helpText: message.helpWind(),
       ),
       metric(
         value: statusData.getSpeed(input.windgusts?.round()),
-        imageAsset: 'assets/images/windgusts.png',
+        imageAsset: img('windgusts.png'),
         labelKey: 'windgusts',
         helpText: message.helpWindGusts(),
       ),
       metric(
         value: statusData.getPrecipitation(input.evaporation?.abs()),
-        imageAsset: 'assets/images/evaporation.png',
+        imageAsset: img('evaporation.png'),
         labelKey: 'evaporation',
         helpText: message.helpEvaporation(),
       ),
       metric(
         value: statusData.getPrecipitation(input.precipitation),
-        imageAsset: 'assets/images/rainfall.png',
+        imageAsset: img('rainfall.png'),
         labelKey: 'precipitation',
         helpText: message.helpPrecipitation(),
       ),
       metric(
         value: statusData.getPrecipitation(input.rain),
-        imageAsset: 'assets/images/water.png',
+        imageAsset: img('water.png'),
         labelKey: 'rain',
         helpText: message.helpRain(),
       ),
       metric(
         value: _percent(input.precipitationProbability),
-        imageAsset: 'assets/images/precipitation_probability.png',
+        imageAsset: img('precipitation_probability.png'),
         labelKey: 'precipitationProbability',
         helpText: message.helpPrecipitationProbability(),
       ),
       metric(
         value: _percent(input.humidity),
-        imageAsset: 'assets/images/humidity.png',
+        imageAsset: img('humidity.png'),
         labelKey: 'humidity',
         helpText: message.helpHumidity(),
       ),
       metric(
         value: _percent(input.cloudcover),
-        imageAsset: 'assets/images/cloudy.png',
+        imageAsset: img('cloudy.png'),
         labelKey: 'cloudcover',
         helpText: message.helpCloudcover(),
       ),
       metric(
         value: statusData.getPressure(input.pressure?.round()),
-        imageAsset: 'assets/images/atmospheric.png',
+        imageAsset: img('atmospheric.png'),
         labelKey: 'pressure',
         helpText: message.helpPressure(input.pressure?.round()),
       ),
       metric(
         value: _roundOrEmpty(input.uvIndex),
-        imageAsset: 'assets/images/uv.png',
+        imageAsset: img('uv.png'),
         labelKey: 'uvIndex',
         helpText: message.helpUvIndex(input.uvIndex?.round()),
       ),
@@ -241,7 +246,7 @@ class DescMetricsCatalog {
         value: input.shortwaveRadiation == null
             ? ''
             : '${input.shortwaveRadiation!.round()} ${'W/m2'.tr}',
-        imageAsset: 'assets/images/shortwave_radiation.png',
+        imageAsset: img('shortwave_radiation.png'),
         labelKey: 'shortwaveRadiation',
         helpText: message.helpShortwaveRadiation(),
       ),

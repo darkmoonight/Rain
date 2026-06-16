@@ -15,6 +15,7 @@ Future<T?> showSelectionDialog<T>({
   required String Function(T) itemBuilder,
   required void Function(T) onSelected,
   bool enableSearch = false,
+  Widget? Function(T)? leadingBuilder,
 }) async {
   return NavigationHelper.showAppDialog<T>(
     context: context,
@@ -26,6 +27,7 @@ Future<T?> showSelectionDialog<T>({
       itemBuilder: itemBuilder,
       onSelected: onSelected,
       enableSearch: enableSearch,
+      leadingBuilder: leadingBuilder,
     ),
   );
 }
@@ -39,6 +41,7 @@ class SelectionDialog<T> extends StatefulWidget {
   final String Function(T) itemBuilder;
   final void Function(T) onSelected;
   final bool enableSearch;
+  final Widget? Function(T)? leadingBuilder;
 
   const SelectionDialog({
     super.key,
@@ -49,6 +52,7 @@ class SelectionDialog<T> extends StatefulWidget {
     required this.itemBuilder,
     required this.onSelected,
     required this.enableSearch,
+    this.leadingBuilder,
   });
 
   /// Creates the state for [SelectionDialog].
@@ -259,6 +263,7 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
             horizontal: AppConstants.spacingXXL,
             vertical: AppConstants.spacingXS,
           ),
+          leading: widget.leadingBuilder?.call(item),
           title: Text(
             widget.itemBuilder(item),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(

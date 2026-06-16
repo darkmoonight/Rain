@@ -16,7 +16,6 @@ class HomeWidgetService {
   HomeWidgetService(this._assets);
 
   final AssetCacheService _assets;
-  final StatusWeather _statusWeather = StatusWeather();
 
   /// Formats [temp] for widget display using user unit preferences.
   String _widgetTemperature(double temp, Settings settings) {
@@ -116,13 +115,16 @@ class HomeWidgetService {
         ? cache.sunset![day]
         : null;
 
+    final statusWeather = StatusWeather.forTheme(settings.weatherIconTheme);
+
     final currentIcon = await _assets.getLocalImagePath(
-      _statusWeather.getImageNotification(
+      statusWeather.getImageNotification(
         cache.weathercode![hour],
         cache.time![hour],
         sunrise ?? '06:00',
         sunset ?? '18:00',
       ),
+      assetRoot: statusWeather.assetRoot,
     );
 
     final temp = cache.temperature2M?[hour];

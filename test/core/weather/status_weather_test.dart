@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/weather/status_weather.dart';
+import 'package:rain/core/weather/weather_icon_theme.dart';
 
 void main() {
   final statusWeather = StatusWeather();
@@ -16,8 +17,8 @@ void main() {
 
   group('StatusWeather image paths', () {
     test('returns asset paths for known codes', () {
-      expect(statusWeather.getImageNowDaily(0), contains('assets/images/'));
-      expect(statusWeather.getImage7Day(61), contains('assets/images/'));
+      expect(statusWeather.getImageNowDaily(0), contains('assets/weather_icons/'));
+      expect(statusWeather.getImage7Day(61), contains('assets/weather_icons/'));
     });
 
     test('switches day/night icons based on time', () {
@@ -36,6 +37,19 @@ void main() {
       expect(day, isNotEmpty);
       expect(night, isNotEmpty);
       expect(day, isNot(equals(night)));
+    });
+
+    test('uses custom asset root when provided', () {
+      final themed = StatusWeather(assetRoot: 'assets/weather_icons/minimal/');
+      expect(
+        themed.getImageNowDaily(0),
+        'assets/weather_icons/minimal/sun.png',
+      );
+    });
+
+    test('forTheme uses resolved settings theme id', () {
+      final themed = StatusWeather.forTheme(WeatherIconTheme.classic);
+      expect(themed.assetRoot, 'assets/weather_icons/classic/');
     });
   });
 }

@@ -8,6 +8,7 @@ import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
+import 'package:rain/core/weather/weather_icon_theme.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
@@ -93,7 +94,7 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
   final currentTime = now ?? TimeIndexHelper.wallClockNow(clock);
   final startHour = TimeIndexHelper.parseTime(appSettings.timeStart).hour;
   final endHour = TimeIndexHelper.parseTime(appSettings.timeEnd).hour;
-  final statusWeather = StatusWeather();
+  final statusWeather = StatusWeather.forTheme(settings.weatherIconTheme);
   final statusData = StatusData(settings: settings);
   final slots = <WeatherNotificationSlot>[];
 
@@ -168,7 +169,7 @@ PersistentNotificationContent? buildPersistentNotificationContent({
     clock,
   ).clamp(0, cache.timeDaily!.length - 1);
   final hourIndex = hour.clamp(0, cache.time!.length - 1);
-  final statusWeather = StatusWeather();
+  final statusWeather = StatusWeather.forTheme(settings.weatherIconTheme);
   final statusData = StatusData(settings: settings);
 
   return PersistentNotificationContent(
@@ -223,6 +224,8 @@ class NotificationService {
       cityLabel: cityLabel,
     );
 
+    final iconRoot = WeatherIconTheme.assetRoot(settings.weatherIconTheme);
+
     for (final slot in slots) {
       await _showScheduled(
         notificationIdFor(slot),
@@ -230,6 +233,7 @@ class NotificationService {
         slot.body,
         slot.time,
         slot.icon,
+        assetRoot: iconRoot,
         timezone: cache.timezone,
       );
     }
@@ -279,7 +283,10 @@ class NotificationService {
     if (content == null) return;
 
     try {
-      final imagePath = await _assets.getLocalImagePath(content.icon);
+      final imagePath = await _assets.getLocalImagePath(
+        content.icon,
+        assetRoot: WeatherIconTheme.assetRoot(settings.weatherIconTheme),
+      );
       await flutterLocalNotificationsPlugin.show(
         id: persistentNotificationId,
         title: content.title,
@@ -340,6 +347,7 @@ class NotificationService {
     String body,
     DateTime date,
     String icon, {
+    required String assetRoot,
     String? timezone,
   }) async {
     try {
@@ -350,7 +358,10 @@ class NotificationService {
               >()
               ?.canScheduleExactNotifications() ??
           true;
-      final imagePath = await _assets.getLocalImagePath(icon);
+      final imagePath = await _assets.getLocalImagePath(
+        icon,
+        assetRoot: assetRoot,
+      );
       final details = NotificationDetails(
         android: AndroidNotificationDetails(
           _channelId,

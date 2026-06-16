@@ -8,7 +8,6 @@ import 'package:rain/features/cities/domain/weather_card_validator.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/constants/app_constants.dart';
-import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 
 /// Compact summary card for a complete saved city weather entry.
@@ -27,7 +26,7 @@ class PlaceCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
-    final statusWeather = StatusWeather();
+    final statusWeather = ref.watch(statusWeatherProvider);
     final statusData = StatusData(settings: settings);
     final clock = LocationClock.fromWeatherCard(
       card,

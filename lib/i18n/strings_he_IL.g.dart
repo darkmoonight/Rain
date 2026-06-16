@@ -267,6 +267,8 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
 	@override String get today => 'היום';
 	@override String get tomorrow => 'מחר';
+	@override String get weather_icon_theme => 'Weather icons';
+	@override String get weather_icon_classic => 'Classic';
 }
 
 /// The flat map containing all translations for locale <he-IL>.
@@ -505,6 +507,8 @@ extension on TranslationsHeIl {
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
 			'today' => 'היום',
 			'tomorrow' => 'מחר',
+			'weather_icon_theme' => 'Weather icons',
+			'weather_icon_classic' => 'Classic',
 			_ => null,
 		};
 	}

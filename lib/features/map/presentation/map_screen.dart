@@ -21,7 +21,6 @@ import 'package:rain/features/cities/presentation/view/place_info.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action.dart';
 import 'package:rain/features/cities/presentation/widgets/weather_card_tile.dart';
 import 'package:rain/core/weather/status_data.dart';
-import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
@@ -43,8 +42,7 @@ class _MapPageState extends ConsumerState<MapPage>
   late final AnimatedMapController _animatedMapController =
       AnimatedMapController(vsync: this);
 
-  final statusWeather = StatusWeather();
-  final Future<CacheStore> _cacheStoreFuture = _getCacheStore();
+  late final Future<CacheStore> _cacheStoreFuture = _getCacheStore();
 
   final GlobalKey<ExpandableFabState> _fabKey = GlobalKey<ExpandableFabState>();
 
@@ -132,7 +130,9 @@ class _MapPageState extends ConsumerState<MapPage>
     String sunset,
     double temperature2M, {
     required StatusData statusData,
-  }) => SizedBox(
+  }) {
+    final statusWeather = ref.watch(statusWeatherProvider);
+    return SizedBox(
     width: 100,
     height: 50,
     child: Card(
@@ -160,7 +160,8 @@ class _MapPageState extends ConsumerState<MapPage>
         ),
       ),
     ),
-  );
+    );
+  }
 
   /// Builds the primary-location [Marker] for [weatherCard].
   Marker _buildMainLocationMarker(

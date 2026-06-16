@@ -6,7 +6,6 @@ import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';
 import 'package:rain/core/weather/status_data.dart';
-import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/i18n/tr.dart';
 
@@ -34,7 +33,6 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
   static const _previewDayCount = 7;
   static const _inkWellBorderRadius = BorderRadius.all(Radius.circular(16));
 
-  late final StatusWeather _statusWeather = StatusWeather();
   late final DailyForecastAnchor _anchor = DailyForecastAnchor(
     dayIndex: widget.dayIndex,
     hourIndex: widget.hourIndex,
@@ -128,9 +126,10 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
     int index,
     TextStyle? labelLarge,
   ) {
+    final statusWeather = ref.watch(statusWeatherProvider);
     final weatherCode = _anchor.weatherCode(weatherData, index);
     final imagePath = _anchor.previewImagePath(
-      _statusWeather,
+      statusWeather,
       weatherData,
       index,
     );
@@ -144,7 +143,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
         const Gap(AppConstants.spacingS),
         Expanded(
           child: Text(
-            _statusWeather.getText(weatherCode),
+            statusWeather.getText(weatherCode),
             style: labelLarge,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

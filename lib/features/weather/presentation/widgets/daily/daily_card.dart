@@ -30,13 +30,13 @@ class DailyCard extends ConsumerStatefulWidget {
 
 /// Manages locale-aware rendering for a single [DailyCard] row.
 class _DailyCardState extends ConsumerState<DailyCard> {
-  final statusWeather = StatusWeather();
   late Locale _locale;
 
   /// Builds the daily summary card or an empty placeholder when the weather code is missing.
   @override
   Widget build(BuildContext context) {
     _locale = ref.watch(localeProvider);
+    final statusWeather = ref.watch(statusWeatherProvider);
     final statusData = StatusData(settings: ref.watch(settingsProvider));
     if (widget.weathercodeDaily == null) {
       return Container();
@@ -49,8 +49,8 @@ class _DailyCardState extends ConsumerState<DailyCard> {
         child: Row(
           spacing: 5,
           children: [
-            _buildTemperatureInfo(context, statusData),
-            _buildWeatherImage(),
+            _buildTemperatureInfo(context, statusData, statusWeather),
+            _buildWeatherImage(statusWeather),
           ],
         ),
       ),
@@ -61,6 +61,7 @@ class _DailyCardState extends ConsumerState<DailyCard> {
   Widget _buildTemperatureInfo(
     BuildContext context,
     StatusData statusData,
+    StatusWeather statusWeather,
   ) => Expanded(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +75,7 @@ class _DailyCardState extends ConsumerState<DailyCard> {
           ),
         ),
         _buildDateText(context),
-        _buildWeatherDescription(context),
+        _buildWeatherDescription(context, statusWeather),
       ],
     ),
   );
@@ -95,7 +96,10 @@ class _DailyCardState extends ConsumerState<DailyCard> {
   }
 
   /// Displays the localized weather description for this day.
-  Widget _buildWeatherDescription(BuildContext context) {
+  Widget _buildWeatherDescription(
+    BuildContext context,
+    StatusWeather statusWeather,
+  ) {
     final theme = Theme.of(context);
     return Text(
       statusWeather.getText(widget.weathercodeDaily),
@@ -107,7 +111,7 @@ class _DailyCardState extends ConsumerState<DailyCard> {
   }
 
   /// Large list icons ([StatusWeather.getImageNowDaily], not preview day/night assets).
-  Widget _buildWeatherImage() => Image.asset(
+  Widget _buildWeatherImage(StatusWeather statusWeather) => Image.asset(
     statusWeather.getImageNowDaily(widget.weathercodeDaily),
     scale: AppConstants.dailyExtendedListIconScale,
   );

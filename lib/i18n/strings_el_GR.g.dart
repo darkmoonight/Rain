@@ -267,6 +267,8 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
 	@override String get today => 'Σήμερα';
 	@override String get tomorrow => 'Αύριο';
+	@override String get weather_icon_theme => 'Weather icons';
+	@override String get weather_icon_classic => 'Classic';
 }
 
 /// The flat map containing all translations for locale <el-GR>.
@@ -505,6 +507,8 @@ extension on TranslationsElGr {
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
 			'today' => 'Σήμερα',
 			'tomorrow' => 'Αύριο',
+			'weather_icon_theme' => 'Weather icons',
+			'weather_icon_classic' => 'Classic',
 			_ => null,
 		};
 	}

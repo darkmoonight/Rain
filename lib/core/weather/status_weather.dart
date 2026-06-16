@@ -1,11 +1,18 @@
 import 'package:rain/core/weather/time_index_helper.dart';
+import 'package:rain/core/weather/weather_icon_theme.dart';
 import 'package:rain/i18n/tr.dart';
-
-/// Root path for bundled weather condition image assets.
-const assetImageRoot = 'assets/images/';
 
 /// Maps WMO weather codes to localized text and context-specific icons.
 class StatusWeather {
+  StatusWeather({String? assetRoot})
+    : assetRoot = assetRoot ?? WeatherIconTheme.assetRoot(null);
+
+  final String assetRoot;
+
+  /// Builds a mapper for the persisted [themeId] from settings.
+  factory StatusWeather.forTheme(String? themeId) =>
+      StatusWeather(assetRoot: WeatherIconTheme.assetRoot(themeId));
+
   /// Returns the current-condition icon path for day or night.
   String getImageNow(
     int weather,
@@ -17,7 +24,7 @@ class StatusWeather {
     time,
     timeDay,
     timeNight,
-    _getDayNightImagePaths,
+    _dayNightImagePaths,
   );
 
   /// Returns a simplified daily-forecast icon path.
@@ -34,7 +41,7 @@ class StatusWeather {
     time,
     timeDay,
     timeNight,
-    _getTodayImagePaths,
+    _todayImagePaths,
   );
 
   /// Returns a day-variant icon path for the 7-day forecast row.
@@ -54,7 +61,7 @@ class StatusWeather {
     time,
     timeDay,
     timeNight,
-    _getNotificationImagePaths,
+    _notificationImagePaths,
   );
 
   // --- Private helpers ---
@@ -75,14 +82,14 @@ class StatusWeather {
   String _getDailyImage(int? weather, {bool isDay = false}) {
     switch (weather) {
       case 0:
-        return '$assetImageRoot${isDay ? 'clear_day' : 'sun'}.png';
+        return '$assetRoot${isDay ? 'clear_day' : 'sun'}.png';
       case 1:
       case 2:
       case 3:
-        return '$assetImageRoot${isDay ? 'cloudy_day' : 'cloud'}.png';
+        return '$assetRoot${isDay ? 'cloudy_day' : 'cloud'}.png';
       case 45:
       case 48:
-        return '${assetImageRoot}fog${isDay ? '_day' : ''}.png';
+        return '${assetRoot}fog${isDay ? '_day' : ''}.png';
       case 51:
       case 53:
       case 55:
@@ -96,18 +103,18 @@ class StatusWeather {
       case 80:
       case 81:
       case 82:
-        return '${assetImageRoot}rain${isDay ? '_day' : ''}.png';
+        return '${assetRoot}rain${isDay ? '_day' : ''}.png';
       case 71:
       case 73:
       case 75:
       case 77:
       case 85:
       case 86:
-        return '${assetImageRoot}snow${isDay ? '_day' : ''}.png';
+        return '${assetRoot}snow${isDay ? '_day' : ''}.png';
       case 95:
       case 96:
       case 99:
-        return '${assetImageRoot}thunder${isDay ? '_day' : ''}.png';
+        return '${assetRoot}thunder${isDay ? '_day' : ''}.png';
       default:
         return '';
     }
@@ -161,182 +168,177 @@ class StatusWeather {
     }
   }
 
-  // Image path maps
-
-  final Map<int, Map<bool, String>> _getDayNightImagePaths = {
-    0: {
-      true: '${assetImageRoot}sun.png',
-      false: '${assetImageRoot}full-moon.png',
-    },
-    1: {true: '${assetImageRoot}cloud.png', false: '${assetImageRoot}moon.png'},
-    2: {true: '${assetImageRoot}cloud.png', false: '${assetImageRoot}moon.png'},
-    3: {true: '${assetImageRoot}cloud.png', false: '${assetImageRoot}moon.png'},
+  Map<int, Map<bool, String>> get _dayNightImagePaths => {
+    0: {true: '${assetRoot}sun.png', false: '${assetRoot}full-moon.png'},
+    1: {true: '${assetRoot}cloud.png', false: '${assetRoot}moon.png'},
+    2: {true: '${assetRoot}cloud.png', false: '${assetRoot}moon.png'},
+    3: {true: '${assetRoot}cloud.png', false: '${assetRoot}moon.png'},
     45: {
-      true: '${assetImageRoot}fog.png',
-      false: '${assetImageRoot}fog_moon.png',
+      true: '${assetRoot}fog.png',
+      false: '${assetRoot}fog_moon.png',
     },
     48: {
-      true: '${assetImageRoot}fog.png',
-      false: '${assetImageRoot}fog_moon.png',
+      true: '${assetRoot}fog.png',
+      false: '${assetRoot}fog_moon.png',
     },
-    51: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    53: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    55: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    56: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    57: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    61: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    63: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    65: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    66: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
-    67: {true: '${assetImageRoot}rain.png', false: '${assetImageRoot}rain.png'},
+    51: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    53: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    55: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    56: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    57: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    61: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    63: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    65: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    66: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
+    67: {true: '${assetRoot}rain.png', false: '${assetRoot}rain.png'},
     80: {
-      true: '${assetImageRoot}rain-fall.png',
-      false: '${assetImageRoot}rain-fall.png',
+      true: '${assetRoot}rain-fall.png',
+      false: '${assetRoot}rain-fall.png',
     },
     81: {
-      true: '${assetImageRoot}rain-fall.png',
-      false: '${assetImageRoot}rain-fall.png',
+      true: '${assetRoot}rain-fall.png',
+      false: '${assetRoot}rain-fall.png',
     },
     82: {
-      true: '${assetImageRoot}rain-fall.png',
-      false: '${assetImageRoot}rain-fall.png',
+      true: '${assetRoot}rain-fall.png',
+      false: '${assetRoot}rain-fall.png',
     },
-    71: {true: '${assetImageRoot}snow.png', false: '${assetImageRoot}snow.png'},
-    73: {true: '${assetImageRoot}snow.png', false: '${assetImageRoot}snow.png'},
-    75: {true: '${assetImageRoot}snow.png', false: '${assetImageRoot}snow.png'},
-    77: {true: '${assetImageRoot}snow.png', false: '${assetImageRoot}snow.png'},
-    85: {true: '${assetImageRoot}snow.png', false: '${assetImageRoot}snow.png'},
-    86: {true: '${assetImageRoot}snow.png', false: '${assetImageRoot}snow.png'},
+    71: {true: '${assetRoot}snow.png', false: '${assetRoot}snow.png'},
+    73: {true: '${assetRoot}snow.png', false: '${assetRoot}snow.png'},
+    75: {true: '${assetRoot}snow.png', false: '${assetRoot}snow.png'},
+    77: {true: '${assetRoot}snow.png', false: '${assetRoot}snow.png'},
+    85: {true: '${assetRoot}snow.png', false: '${assetRoot}snow.png'},
+    86: {true: '${assetRoot}snow.png', false: '${assetRoot}snow.png'},
     95: {
-      true: '${assetImageRoot}thunder.png',
-      false: '${assetImageRoot}thunder.png',
+      true: '${assetRoot}thunder.png',
+      false: '${assetRoot}thunder.png',
     },
     96: {
-      true: '${assetImageRoot}storm.png',
-      false: '${assetImageRoot}storm.png',
+      true: '${assetRoot}storm.png',
+      false: '${assetRoot}storm.png',
     },
     99: {
-      true: '${assetImageRoot}storm.png',
-      false: '${assetImageRoot}storm.png',
+      true: '${assetRoot}storm.png',
+      false: '${assetRoot}storm.png',
     },
   };
 
-  final Map<int, Map<bool, String>> _getTodayImagePaths = {
+  Map<int, Map<bool, String>> get _todayImagePaths => {
     0: {
-      true: '${assetImageRoot}clear_day.png',
-      false: '${assetImageRoot}clear_night.png',
+      true: '${assetRoot}clear_day.png',
+      false: '${assetRoot}clear_night.png',
     },
     1: {
-      true: '${assetImageRoot}cloudy_day.png',
-      false: '${assetImageRoot}cloudy_night.png',
+      true: '${assetRoot}cloudy_day.png',
+      false: '${assetRoot}cloudy_night.png',
     },
     2: {
-      true: '${assetImageRoot}cloudy_day.png',
-      false: '${assetImageRoot}cloudy_night.png',
+      true: '${assetRoot}cloudy_day.png',
+      false: '${assetRoot}cloudy_night.png',
     },
     3: {
-      true: '${assetImageRoot}cloudy_day.png',
-      false: '${assetImageRoot}cloudy_night.png',
+      true: '${assetRoot}cloudy_day.png',
+      false: '${assetRoot}cloudy_night.png',
     },
     45: {
-      true: '${assetImageRoot}fog_day.png',
-      false: '${assetImageRoot}fog_night.png',
+      true: '${assetRoot}fog_day.png',
+      false: '${assetRoot}fog_night.png',
     },
     48: {
-      true: '${assetImageRoot}fog_day.png',
-      false: '${assetImageRoot}fog_night.png',
+      true: '${assetRoot}fog_day.png',
+      false: '${assetRoot}fog_night.png',
     },
     51: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     53: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     55: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     56: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     57: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     61: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     63: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     65: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     66: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     67: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     80: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     81: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     82: {
-      true: '${assetImageRoot}rain_day.png',
-      false: '${assetImageRoot}rain_night.png',
+      true: '${assetRoot}rain_day.png',
+      false: '${assetRoot}rain_night.png',
     },
     71: {
-      true: '${assetImageRoot}snow_day.png',
-      false: '${assetImageRoot}snow_night.png',
+      true: '${assetRoot}snow_day.png',
+      false: '${assetRoot}snow_night.png',
     },
     73: {
-      true: '${assetImageRoot}snow_day.png',
-      false: '${assetImageRoot}snow_night.png',
+      true: '${assetRoot}snow_day.png',
+      false: '${assetRoot}snow_night.png',
     },
     75: {
-      true: '${assetImageRoot}snow_day.png',
-      false: '${assetImageRoot}snow_night.png',
+      true: '${assetRoot}snow_day.png',
+      false: '${assetRoot}snow_night.png',
     },
     77: {
-      true: '${assetImageRoot}snow_day.png',
-      false: '${assetImageRoot}snow_night.png',
+      true: '${assetRoot}snow_day.png',
+      false: '${assetRoot}snow_night.png',
     },
     85: {
-      true: '${assetImageRoot}snow_day.png',
-      false: '${assetImageRoot}snow_night.png',
+      true: '${assetRoot}snow_day.png',
+      false: '${assetRoot}snow_night.png',
     },
     86: {
-      true: '${assetImageRoot}snow_day.png',
-      false: '${assetImageRoot}snow_night.png',
+      true: '${assetRoot}snow_day.png',
+      false: '${assetRoot}snow_night.png',
     },
     95: {
-      true: '${assetImageRoot}thunder_day.png',
-      false: '${assetImageRoot}thunder_night.png',
+      true: '${assetRoot}thunder_day.png',
+      false: '${assetRoot}thunder_night.png',
     },
     96: {
-      true: '${assetImageRoot}thunder_day.png',
-      false: '${assetImageRoot}thunder_night.png',
+      true: '${assetRoot}thunder_day.png',
+      false: '${assetRoot}thunder_night.png',
     },
     99: {
-      true: '${assetImageRoot}thunder_day.png',
-      false: '${assetImageRoot}thunder_night.png',
+      true: '${assetRoot}thunder_day.png',
+      false: '${assetRoot}thunder_night.png',
     },
   };
 
-  final Map<int, Map<bool, String>> _getNotificationImagePaths = {
+  static const Map<int, Map<bool, String>> _notificationImagePaths = {
     0: {true: 'sun.png', false: 'full-moon.png'},
     1: {true: 'cloud.png', false: 'moon.png'},
     2: {true: 'cloud.png', false: 'moon.png'},

@@ -226,5 +226,7 @@
   "metricHelpPressure": "Sea-level air pressure. Falling pressure often signals worsening weather.",
   "metricHelpShortwaveRadiation": "Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.",
   "today": "Bugün",
-  "tomorrow": "Yarın"
+  "tomorrow": "Yarın",
+  "weatherIconTheme": "Weather icons",
+  "weatherIconClassic": "Classic"
 }

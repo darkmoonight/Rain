@@ -208,6 +208,8 @@
   "fontOpenSans": "Open Sans",
   "fontRoboto": "Roboto",
   "fontBarlowCondensed": "Barlow Condensed",
+  "weatherIconTheme": "Weather icons",
+  "weatherIconClassic": "Classic",
   "metricHelpApparentTemperatureMin": "Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.",
   "metricHelpApparentTemperatureMax": "Highest perceived temperature for the day, combining wind chill, humidity, and solar radiation.",
   "metricHelpUvIndex": "Ultraviolet radiation strength. Higher values mean faster sunburn and greater eye damage risk.",

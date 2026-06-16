@@ -28,6 +28,7 @@ class Settings {
   String pressure = 'hPa';
   String timeformat = '24';
   String appFont = 'ubuntu';
+  String weatherIconTheme = 'classic';
   String aqiStandard = 'european';
   String? language;
   int? timeRange;

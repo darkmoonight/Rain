@@ -5,8 +5,8 @@ import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/core/weather/status_data.dart';
-import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/status_weather.dart';
+import 'package:rain/i18n/tr.dart';
 
 /// Current conditions header with compact or large-element layout.
 class Now extends ConsumerWidget {
@@ -36,16 +36,22 @@ class Now extends ConsumerWidget {
   /// Builds the current-conditions header using the compact or large layout.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final largeElement = ref.watch(settingsProvider).largeElement;
-    return largeElement
-        ? _buildLargeElementLayout(context, ref)
-        : _buildCompactElementLayout(context, ref);
+    final settings = ref.watch(settingsProvider);
+    final statusWeather = ref.watch(statusWeatherProvider);
+    final statusData = StatusData(settings: settings);
+
+    return settings.largeElement
+        ? _buildLargeElementLayout(context, ref, statusWeather, statusData)
+        : _buildCompactElementLayout(context, ref, statusWeather, statusData);
   }
 
   /// Builds a centered large-icon layout for current conditions.
-  Widget _buildLargeElementLayout(BuildContext context, WidgetRef ref) {
-    final statusWeather = StatusWeather();
-    final statusData = StatusData(settings: ref.watch(settingsProvider));
+  Widget _buildLargeElementLayout(
+    BuildContext context,
+    WidgetRef ref,
+    StatusWeather statusWeather,
+    StatusData statusData,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: Column(
@@ -67,9 +73,12 @@ class Now extends ConsumerWidget {
   }
 
   /// Builds a card-based compact layout for current conditions.
-  Widget _buildCompactElementLayout(BuildContext context, WidgetRef ref) {
-    final statusWeather = StatusWeather();
-    final statusData = StatusData(settings: ref.watch(settingsProvider));
+  Widget _buildCompactElementLayout(
+    BuildContext context,
+    WidgetRef ref,
+    StatusWeather statusWeather,
+    StatusData statusData,
+  ) {
     return Card(
       margin: const EdgeInsets.only(bottom: 15),
       child: Padding(

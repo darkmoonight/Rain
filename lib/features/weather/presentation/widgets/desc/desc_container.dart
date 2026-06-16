@@ -121,7 +121,8 @@ class DescContainer extends ConsumerWidget {
   /// Builds the expandable grid of available hourly or daily weather metrics.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final statusData = StatusData(settings: ref.watch(settingsProvider));
+    final settings = ref.watch(settingsProvider);
+    final statusData = StatusData(settings: settings);
     final metrics = DescMetricsCatalog.build(
       input: DescMetricsInput(
         humidity: humidity,
@@ -151,6 +152,7 @@ class DescContainer extends ConsumerWidget {
       ),
       statusData: statusData,
       message: Message(),
+      themeId: settings.weatherIconTheme,
     ).where((m) => m.hasValue).toList();
 
     return Card(

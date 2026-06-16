@@ -267,6 +267,8 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
 	@override String get today => 'இன்று';
 	@override String get tomorrow => 'நாளை';
+	@override String get weather_icon_theme => 'Weather icons';
+	@override String get weather_icon_classic => 'Classic';
 }
 
 /// The flat map containing all translations for locale <ta-IN>.
@@ -505,6 +507,8 @@ extension on TranslationsTaIn {
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
 			'today' => 'இன்று',
 			'tomorrow' => 'நாளை',
+			'weather_icon_theme' => 'Weather icons',
+			'weather_icon_classic' => 'Classic',
 			_ => null,
 		};
 	}

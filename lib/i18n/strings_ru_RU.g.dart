@@ -248,6 +248,8 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get font_open_sans => 'Open Sans';
 	@override String get font_roboto => 'Roboto';
 	@override String get font_barlow_condensed => 'Barlow Condensed';
+	@override String get weather_icon_theme => 'Weather icons';
+	@override String get weather_icon_classic => 'Classic';
 	@override String get metric_help_apparent_temperature_min => 'Минимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.';
 	@override String get metric_help_apparent_temperature_max => 'Максимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.';
 	@override String get metric_help_uv_index => 'Интенсивность ультрафиолета. Чем выше значение, тем быстрее солнечный ожог и выше риск для глаз.';
@@ -486,6 +488,8 @@ extension on TranslationsRuRu {
 			'font_open_sans' => 'Open Sans',
 			'font_roboto' => 'Roboto',
 			'font_barlow_condensed' => 'Barlow Condensed',
+			'weather_icon_theme' => 'Weather icons',
+			'weather_icon_classic' => 'Classic',
 			'metric_help_apparent_temperature_min' => 'Минимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.',
 			'metric_help_apparent_temperature_max' => 'Максимальная ощущаемая температура за день с учётом ветра, влажности и солнечной радиации.',
 			'metric_help_uv_index' => 'Интенсивность ультрафиолета. Чем выше значение, тем быстрее солнечный ожог и выше риск для глаз.',

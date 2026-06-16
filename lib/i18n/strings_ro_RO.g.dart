@@ -267,6 +267,8 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.';
 	@override String get today => 'Astăzi';
 	@override String get tomorrow => 'Mâine';
+	@override String get weather_icon_theme => 'Weather icons';
+	@override String get weather_icon_classic => 'Classic';
 }
 
 /// The flat map containing all translations for locale <ro-RO>.
@@ -505,6 +507,8 @@ extension on TranslationsRoRo {
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
 			'today' => 'Astăzi',
 			'tomorrow' => 'Mâine',
+			'weather_icon_theme' => 'Weather icons',
+			'weather_icon_classic' => 'Classic',
 			_ => null,
 		};
 	}

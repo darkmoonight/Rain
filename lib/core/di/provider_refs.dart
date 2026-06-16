@@ -12,6 +12,8 @@ import 'package:rain/data/models/db.dart';
 import 'package:rain/data/repositories/cities_repository.dart';
 import 'package:rain/core/di/settings_revision.dart';
 import 'package:rain/data/repositories/settings_repository.dart';
+import 'package:rain/core/weather/status_weather.dart';
+import 'package:rain/core/weather/weather_icon_theme.dart';
 import 'package:rain/data/repositories/weather_repository.dart';
 
 /// Riverpod providers for bootstrap state, services, and repositories.
@@ -28,6 +30,17 @@ final isarProvider = Provider<Isar>((ref) => ref.watch(bootstrapProvider).isar);
 final settingsProvider = Provider<Settings>((ref) {
   ref.watch(settingsRevisionProvider);
   return ref.watch(bootstrapProvider).settings;
+});
+
+/// Asset root for the selected weather icon theme.
+final weatherIconAssetRootProvider = Provider<String>((ref) {
+  ref.watch(settingsRevisionProvider);
+  return WeatherIconTheme.assetRoot(ref.watch(settingsProvider).weatherIconTheme);
+});
+
+/// Maps WMO weather codes to icons for the selected weather icon theme.
+final statusWeatherProvider = Provider<StatusWeather>((ref) {
+  return StatusWeather(assetRoot: ref.watch(weatherIconAssetRootProvider));
 });
 
 /// Provides the primary location cache from [bootstrapProvider].

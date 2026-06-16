@@ -27,7 +27,7 @@ class Hourly extends ConsumerWidget {
   /// Builds the time, icon, and temperature column for one forecast hour.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final statusWeather = StatusWeather();
+    final statusWeather = ref.watch(statusWeatherProvider);
     final statusData = StatusData(settings: ref.watch(settingsProvider));
     final locale = ref.watch(localeProvider);
     final textTheme = Theme.of(context).textTheme;
