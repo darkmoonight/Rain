@@ -140,6 +140,14 @@ Future<bool> runWidgetBackgroundRefresh(
       failureError ??= e.toString();
     }
 
+    try {
+      await rescheduleNotificationsFromIsar(isar);
+      notificationUpdated = true;
+    } catch (e, st) {
+      logBackgroundError('rescheduleNotificationsFromIsar', e, st);
+      failureError ??= e.toString();
+    }
+
     final success = widgetUpdated || notificationUpdated;
     await recordBackgroundRefreshResult(
       success: success,

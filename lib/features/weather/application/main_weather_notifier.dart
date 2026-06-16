@@ -306,6 +306,26 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
         );
   }
 
+  /// Rebuilds scheduled forecast notifications when enabled and cache is loaded.
+  Future<void> rescheduleNotificationsIfEnabled() async {
+    if (!Platform.isAndroid) return;
+
+    final settings = ref.read(settingsProvider);
+    if (!settings.notifications) return;
+
+    final cache = state.mainWeather;
+    if (cache.time == null || cache.time!.isEmpty) return;
+
+    await ref
+        .read(notificationServiceProvider)
+        .rescheduleForWeather(
+          cache: cache,
+          settings: settings,
+          appSettings: ref.read(appSettingsProvider),
+          cityLabel: state.city,
+        );
+  }
+
   /// Scrolls the hourly list to the current hour, retrying until attached.
   void scrollToCurrentHour({int retryCount = 0}) {
     if (itemScrollController.isAttached) {

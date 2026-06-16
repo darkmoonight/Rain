@@ -74,9 +74,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       ref.read(citiesNotifierProvider.notifier).refresh(all: false);
       if (Platform.isAndroid) {
         HomeWidgetService.updateFromDisk();
-        ref
-            .read(mainWeatherNotifierProvider.notifier)
-            .refreshPersistentNotification(force: true);
+        final notifier = ref.read(mainWeatherNotifierProvider.notifier);
+        notifier.refreshPersistentNotification(force: true);
+        unawaited(notifier.rescheduleNotificationsIfEnabled());
       }
     }
   }

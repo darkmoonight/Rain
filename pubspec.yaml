@@ -42,7 +42,7 @@ dependencies:
   slang_flutter: ^4.16.0
 
   # Location, coordinates & timezone
-  geolocator: ^14.0.3internet_connection_checker_plus
+  geolocator: ^14.0.3
   geocoding: ^4.0.0
   latlong2: ^0.9.1
   lat_lng_to_timezone: ^0.2.0
