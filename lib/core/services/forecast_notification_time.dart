@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -15,17 +14,6 @@ const forecastNotificationMinimumLeadMillis = 60000;
 
 /// Device UTC epoch; [flutter_local_notifications] validates scheduled times against this clock.
 int deviceUtcNowMillis() => DateTime.now().toUtc().millisecondsSinceEpoch;
-
-/// Whether [slotTime] belongs to a forecast hour that already ended at [wallNow].
-bool isForecastHourPast(DateTime slotTime, DateTime wallNow) =>
-    TimeIndexHelper.wallClockHourStart(
-      slotTime,
-    ).isBefore(TimeIndexHelper.wallClockHourStart(wallNow));
-
-/// Whether [a] and [b] share the same forecast wall-clock hour.
-bool isSameForecastHour(DateTime a, DateTime b) =>
-    TimeIndexHelper.wallClockHourStart(a) ==
-    TimeIndexHelper.wallClockHourStart(b);
 
 /// Whether [hour] falls within a notification window that may cross midnight.
 ///
@@ -87,8 +75,10 @@ int notificationNowEpochMillis({
   );
 }
 
-/// Whether [naive] is still in the future for [flutter_local_notifications].
-@visibleForTesting
+/// Whether [naive] is still in the future at the location (or [referenceNowMillis]).
+///
+/// Used when building notification slots so past and current hours are skipped
+/// using the same UTC-epoch math as [zonedSchedule], not naive device [DateTime].
 bool isForecastNotificationInFuture(
   DateTime naive,
   String? timezone, {
@@ -147,6 +137,19 @@ int forecastAlarmEpoch(DateTime naive, MainWeatherCache cache) =>
       utcOffsetSeconds: cache.utcOffsetSeconds,
     );
 
+/// Whether a cached forecast hour is still in the future at [referenceNowMillis].
+bool isForecastAlarmInFuture(
+  MainWeatherCache cache,
+  DateTime naive, {
+  required int referenceNowMillis,
+}) =>
+    isForecastNotificationInFuture(
+      naive,
+      cache.timezone,
+      utcOffsetSeconds: cache.utcOffsetSeconds,
+      referenceNowMillis: referenceNowMillis,
+    );
+
 /// Epoch baseline for lead-time bumps (later of location and device clocks).
 ///
 /// [flutter_local_notifications] validates against the device clock; when the
@@ -156,18 +159,14 @@ int notificationReferenceNowMillis({
   required int deviceNowMillis,
 }) => locationNowMillis > deviceNowMillis ? locationNowMillis : deviceNowMillis;
 
-/// Resolves the alarm epoch for a forecast hour, or null when it should be skipped.
+/// Resolves the alarm epoch for a forecast hour, or null when its start already passed.
 ///
-/// Fully past hours are dropped. The active hour is scheduled once (lead time bump)
-/// unless [skipCurrentHourIfPending] is true — that prevents duplicate catch-up
-/// alarms when the app reschedules repeatedly during the same hour.
+/// Near-future hours are bumped to [forecastNotificationMinimumLeadMillis] ahead of
+/// the later of location and device clocks so the plugin accepts the [TZDateTime].
 int? resolveAlarmEpochMillis({
   required int nowMillis,
   required int deviceNowMillis,
   required int slotEpochMillis,
-  required DateTime slotTime,
-  required DateTime wallNow,
-  bool skipCurrentHourIfPending = false,
 }) {
   final referenceNow = notificationReferenceNowMillis(
     locationNowMillis: nowMillis,
@@ -175,11 +174,7 @@ int? resolveAlarmEpochMillis({
   );
   final minimumSchedule = referenceNow + forecastNotificationMinimumLeadMillis;
 
-  if (slotEpochMillis <= nowMillis) {
-    if (!isSameForecastHour(slotTime, wallNow)) return null;
-    if (skipCurrentHourIfPending) return null;
-    return minimumSchedule;
-  }
+  if (slotEpochMillis <= nowMillis) return null;
   if (slotEpochMillis < minimumSchedule) {
     return minimumSchedule;
   }

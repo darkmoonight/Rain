@@ -278,10 +278,10 @@ void main() {
         now: DateTime(2026, 6, 17, 16, 5),
       );
 
-      expect(slots.map((slot) => slot.time.hour), [16, 17]);
+      expect(slots.map((slot) => slot.time.hour), [17]);
     });
 
-    test('includes the active hour when rescheduling mid-hour', () {
+    test('skips the current hour when enabling notifications mid-hour', () {
       final cache = sampleMainWeatherCache()
         ..time = ['2026-06-17T17:00', '2026-06-17T18:00', '2026-06-17T19:00']
         ..timeDaily = [DateTime(2026, 6, 17)]
@@ -302,8 +302,31 @@ void main() {
         now: DateTime(2026, 6, 17, 17, 15),
       );
 
-      expect(slots.first.time.hour, 17);
-      expect(slots.map((slot) => slot.time.hour), [17, 18, 19]);
+      expect(slots.map((slot) => slot.time.hour), [18, 19]);
+    });
+
+    test('skips the current hour when enabling at 21:25', () {
+      final cache = sampleMainWeatherCache()
+        ..time = ['2026-06-17T21:00', '2026-06-17T22:00']
+        ..timeDaily = [DateTime(2026, 6, 17)]
+        ..sunrise = ['06:00']
+        ..sunset = ['21:00']
+        ..temperature2M = [21.0, 20.5]
+        ..weathercode = [3, 3];
+
+      final slots = buildWeatherNotificationSlots(
+        cache: cache,
+        settings: Settings(),
+        appSettings: const AppSettingsState(
+          timeStart: '00:00',
+          timeEnd: '23:59',
+          timeRange: 1,
+        ),
+        cityLabel: 'Ростов-на-Дону',
+        now: DateTime(2026, 6, 17, 21, 25),
+      );
+
+      expect(slots.map((slot) => slot.time.hour), [22]);
     });
 
     test('supports overnight notification windows', () {
