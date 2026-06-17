@@ -83,6 +83,41 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     await ref.read(widgetSettingsServiceProvider).refreshWidgets();
   }
 
+  /// Persists [settings] and optionally runs [afterSave] before rebuilding.
+  Future<void> _saveSettings({Future<void> Function()? afterSave}) async {
+    await ref.read(settingsRepositoryProvider).save(settings);
+    if (afterSave != null) await afterSave();
+    if (!mounted) return;
+    setState(() {});
+  }
+
+  /// Single-choice dialog for a persisted string-id settings catalog.
+  void _showCatalogDialog(
+    BuildContext context, {
+    required String titleKey,
+    required IconData icon,
+    required List<String> items,
+    required String currentValue,
+    required String Function(String) itemBuilder,
+    required void Function(String value) apply,
+    Widget? Function(String)? leadingBuilder,
+    Future<void> Function()? afterSave,
+  }) {
+    showSelectionDialog<String>(
+      context: context,
+      title: titleKey.tr,
+      icon: icon,
+      items: items,
+      currentValue: currentValue,
+      itemBuilder: itemBuilder,
+      leadingBuilder: leadingBuilder,
+      onSelected: (value) async {
+        apply(value);
+        await _saveSettings(afterSave: afterSave);
+      },
+    );
+  }
+
   /// Persists a new locale, updates in-memory settings, and refreshes widgets.
   Future<void> _updateLanguage(Locale locale) async {
     final settings = ref.read(settingsProvider);
@@ -629,39 +664,29 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   /// Opens the app font picker.
   void _showAppFontDialog(BuildContext context) {
-    showSelectionDialog<String>(
-      context: context,
-      title: 'appFont'.tr,
+    _showCatalogDialog(
+      context,
+      titleKey: 'appFont',
       icon: IconsaxPlusLinear.text,
       items: AppFont.choices,
       currentValue: AppFont.resolve(settings.appFont),
       itemBuilder: AppFont.label,
-      onSelected: (value) async {
-        settings.appFont = value;
-        await ref.read(settingsRepositoryProvider).save(settings);
-        if (!mounted) return;
-        setState(() {});
-      },
+      apply: (value) => settings.appFont = value,
     );
   }
 
   /// Opens the weather icon theme picker.
   void _showWeatherIconThemeDialog(BuildContext context) {
-    showSelectionDialog<String>(
-      context: context,
-      title: 'weatherIconTheme'.tr,
+    _showCatalogDialog(
+      context,
+      titleKey: 'weatherIconTheme',
       icon: IconsaxPlusLinear.cloud_sunny,
       items: WeatherIconTheme.choices,
       currentValue: WeatherIconTheme.resolve(settings.weatherIconTheme),
       itemBuilder: WeatherIconTheme.label,
       leadingBuilder: WeatherIconTheme.previewLeading,
-      onSelected: (value) async {
-        settings.weatherIconTheme = value;
-        await ref.read(settingsRepositoryProvider).save(settings);
-        await ref.read(widgetSettingsServiceProvider).refreshWidgets();
-        if (!mounted) return;
-        setState(() {});
-      },
+      apply: (value) => settings.weatherIconTheme = value,
+      afterSave: () => ref.read(widgetSettingsServiceProvider).refreshWidgets(),
     );
   }
 

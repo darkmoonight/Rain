@@ -650,23 +650,95 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Font'
 	String get app_font => 'Font';
 
-	/// en-US: 'Ubuntu (app)'
-	String get font_ubuntu => 'Ubuntu (app)';
+	/// en-US: 'Barlow Condensed'
+	String get font_barlow_condensed => 'Barlow Condensed';
 
-	/// en-US: 'System'
-	String get font_system => 'System';
+	/// en-US: 'Comfortaa'
+	String get font_comfortaa => 'Comfortaa';
+
+	/// en-US: 'DM Sans'
+	String get font_dm_sans => 'DM Sans';
+
+	/// en-US: 'Figtree'
+	String get font_figtree => 'Figtree';
+
+	/// en-US: 'Fira Sans'
+	String get font_fira_sans => 'Fira Sans';
+
+	/// en-US: 'IBM Plex Sans'
+	String get font_ibm_plex_sans => 'IBM Plex Sans';
 
 	/// en-US: 'Inter'
 	String get font_inter => 'Inter';
 
+	/// en-US: 'Josefin Sans'
+	String get font_josefin_sans => 'Josefin Sans';
+
+	/// en-US: 'Kanit'
+	String get font_kanit => 'Kanit';
+
+	/// en-US: 'Lato'
+	String get font_lato => 'Lato';
+
+	/// en-US: 'Lexend'
+	String get font_lexend => 'Lexend';
+
+	/// en-US: 'Manrope'
+	String get font_manrope => 'Manrope';
+
+	/// en-US: 'Montserrat'
+	String get font_montserrat => 'Montserrat';
+
+	/// en-US: 'Noto Sans'
+	String get font_noto_sans => 'Noto Sans';
+
+	/// en-US: 'Nunito'
+	String get font_nunito => 'Nunito';
+
 	/// en-US: 'Open Sans'
 	String get font_open_sans => 'Open Sans';
+
+	/// en-US: 'Oswald'
+	String get font_oswald => 'Oswald';
+
+	/// en-US: 'Outfit'
+	String get font_outfit => 'Outfit';
+
+	/// en-US: 'Playfair Display'
+	String get font_playfair_display => 'Playfair Display';
+
+	/// en-US: 'Poppins'
+	String get font_poppins => 'Poppins';
+
+	/// en-US: 'PT Sans'
+	String get font_pt_sans => 'PT Sans';
+
+	/// en-US: 'Quicksand'
+	String get font_quicksand => 'Quicksand';
+
+	/// en-US: 'Raleway'
+	String get font_raleway => 'Raleway';
 
 	/// en-US: 'Roboto'
 	String get font_roboto => 'Roboto';
 
-	/// en-US: 'Barlow Condensed'
-	String get font_barlow_condensed => 'Barlow Condensed';
+	/// en-US: 'Rubik'
+	String get font_rubik => 'Rubik';
+
+	/// en-US: 'Source Sans 3'
+	String get font_source_sans3 => 'Source Sans 3';
+
+	/// en-US: 'Space Grotesk'
+	String get font_space_grotesk => 'Space Grotesk';
+
+	/// en-US: 'Platform default'
+	String get font_system => 'Platform default';
+
+	/// en-US: 'Ubuntu (app)'
+	String get font_ubuntu => 'Ubuntu (app)';
+
+	/// en-US: 'Work Sans'
+	String get font_work_sans => 'Work Sans';
 
 	/// en-US: 'Weather icons'
 	String get weather_icon_theme => 'Weather icons';
@@ -943,12 +1015,36 @@ extension on Translations {
 			'persistent_notification' => 'Persistent notification',
 			'last_updated' => 'Updated',
 			'app_font' => 'Font',
-			'font_ubuntu' => 'Ubuntu (app)',
-			'font_system' => 'System',
-			'font_inter' => 'Inter',
-			'font_open_sans' => 'Open Sans',
-			'font_roboto' => 'Roboto',
 			'font_barlow_condensed' => 'Barlow Condensed',
+			'font_comfortaa' => 'Comfortaa',
+			'font_dm_sans' => 'DM Sans',
+			'font_figtree' => 'Figtree',
+			'font_fira_sans' => 'Fira Sans',
+			'font_ibm_plex_sans' => 'IBM Plex Sans',
+			'font_inter' => 'Inter',
+			'font_josefin_sans' => 'Josefin Sans',
+			'font_kanit' => 'Kanit',
+			'font_lato' => 'Lato',
+			'font_lexend' => 'Lexend',
+			'font_manrope' => 'Manrope',
+			'font_montserrat' => 'Montserrat',
+			'font_noto_sans' => 'Noto Sans',
+			'font_nunito' => 'Nunito',
+			'font_open_sans' => 'Open Sans',
+			'font_oswald' => 'Oswald',
+			'font_outfit' => 'Outfit',
+			'font_playfair_display' => 'Playfair Display',
+			'font_poppins' => 'Poppins',
+			'font_pt_sans' => 'PT Sans',
+			'font_quicksand' => 'Quicksand',
+			'font_raleway' => 'Raleway',
+			'font_roboto' => 'Roboto',
+			'font_rubik' => 'Rubik',
+			'font_source_sans3' => 'Source Sans 3',
+			'font_space_grotesk' => 'Space Grotesk',
+			'font_system' => 'Platform default',
+			'font_ubuntu' => 'Ubuntu (app)',
+			'font_work_sans' => 'Work Sans',
 			'weather_icon_theme' => 'Weather icons',
 			'weather_icon_classic' => 'Classic',
 			'metric_help_apparent_temperature_min' => 'Lowest perceived temperature for the day, combining wind chill, humidity, and solar radiation.',
