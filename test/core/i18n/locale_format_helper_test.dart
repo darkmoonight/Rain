@@ -18,6 +18,17 @@ void main() {
       );
     });
 
+    test(
+      'ensureDateFormatting loads locale data for background isolates',
+      () async {
+        await LocaleFormatHelper.ensureDateFormatting('en');
+        expect(
+          LocaleFormatHelper.weekdayName(DateTime(2026, 6, 7), 'en'),
+          'Sunday',
+        );
+      },
+    );
+
     test('fullDateWithWeekday capitalizes leading weekday letter', () {
       final label = LocaleFormatHelper.fullDateWithWeekday(
         DateTime(2026, 6, 7),

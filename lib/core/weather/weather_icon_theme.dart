@@ -43,9 +43,6 @@ class WeatherIconTheme {
   static String previewAsset(String id) => asset(previewFile, themeId: id);
 
   /// Thumbnail widget for [id] in selection dialogs.
-  static Widget previewLeading(String id, {double size = 32}) => Image.asset(
-    previewAsset(id),
-    width: size,
-    height: size,
-  );
+  static Widget previewLeading(String id, {double size = 32}) =>
+      Image.asset(previewAsset(id), width: size, height: size);
 }

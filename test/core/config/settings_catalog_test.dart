@@ -7,23 +7,17 @@ void main() {
 
   group('SettingsCatalog', () {
     test('resolve returns default for unknown ids', () {
-      expect(
-        SettingsCatalog.resolve(null, const ['a', 'b'], 'a'),
-        'a',
-      );
-      expect(
-        SettingsCatalog.resolve('missing', const ['a', 'b'], 'a'),
-        'a',
-      );
-      expect(
-        SettingsCatalog.resolve('b', const ['a', 'b'], 'a'),
-        'b',
-      );
+      expect(SettingsCatalog.resolve(null, const ['a', 'b'], 'a'), 'a');
+      expect(SettingsCatalog.resolve('missing', const ['a', 'b'], 'a'), 'a');
+      expect(SettingsCatalog.resolve('b', const ['a', 'b'], 'a'), 'b');
     });
 
     test('labelKey builds slang keys from prefix and id', () {
       expect(SettingsCatalog.labelKey('font', 'ubuntu'), 'fontUbuntu');
-      expect(SettingsCatalog.labelKey('font', 'ibmPlexSans'), 'fontIbmPlexSans');
+      expect(
+        SettingsCatalog.labelKey('font', 'ibmPlexSans'),
+        'fontIbmPlexSans',
+      );
       expect(
         SettingsCatalog.labelKey('weatherIcon', 'classic'),
         'weatherIconClassic',

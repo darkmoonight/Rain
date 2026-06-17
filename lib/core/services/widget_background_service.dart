@@ -86,11 +86,14 @@ Future<void> refreshMainWeatherIfStale(Isar isar) async {
 Future<void> _applyBackgroundLocale(Isar isar) async {
   try {
     final settings = await isar.settings.where().findFirst();
-    if (settings?.language != null) {
-      await LocaleSettings.setLocale(
-        appLocaleFromLanguageCode(settings!.language),
-      );
-    }
+    final appLocale = settings?.language != null
+        ? appLocaleFromLanguageCode(settings!.language)
+        : AppLocale.enUs;
+    await applyAppLocale(
+      appLocale,
+      onFormattingError: (e, st) =>
+          logBackgroundError('ensureDateFormatting', e, st),
+    );
   } catch (e, st) {
     logBackgroundError('applyBackgroundLocale', e, st);
   }

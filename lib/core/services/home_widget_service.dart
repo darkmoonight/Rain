@@ -106,7 +106,7 @@ class HomeWidgetService {
         : indices.day.clamp(0, cache.timeDaily!.length - 1);
 
     final location = await isar.locationCaches.where().findFirst();
-    final locationName = location?.city ?? location?.district ?? '';
+    final locationName = location?.displayLabel ?? '';
 
     final sunrise = cache.sunrise != null && day < cache.sunrise!.length
         ? cache.sunrise![day]

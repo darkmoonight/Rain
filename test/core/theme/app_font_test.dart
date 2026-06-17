@@ -43,10 +43,7 @@ void main() {
     for (final id in AppFont.choices) {
       expect(AppFont.resolve(id), id);
       expect(AppFont.label(id), isNotEmpty);
-      expect(
-        SettingsCatalog.labelKey('font', id),
-        startsWith('font'),
-      );
+      expect(SettingsCatalog.labelKey('font', id), startsWith('font'));
     }
   });
 }

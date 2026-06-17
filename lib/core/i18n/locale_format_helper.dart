@@ -1,3 +1,4 @@
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/core/utils/string_utils.dart';
 
@@ -7,6 +8,14 @@ import 'package:rain/core/utils/string_utils.dart';
 /// formatter here capitalizes the first letter for consistent UI labels.
 class LocaleFormatHelper {
   LocaleFormatHelper._();
+
+  /// Loads intl date symbols for [languageCode].
+  ///
+  /// Required in background isolates (Workmanager) where Flutter's
+  /// [MaterialApp] localizations are not initialized.
+  static Future<void> ensureDateFormatting(String languageCode) async {
+    await initializeDateFormatting(languageCode);
+  }
 
   static String _format(DateTime date, String languageCode, String pattern) =>
       capitalizeFirst(DateFormat(pattern, languageCode).format(date));

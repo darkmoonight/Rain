@@ -20,6 +20,5 @@ class SettingsCatalog {
     List<String> choices,
     String defaultId,
     String prefix,
-  ) =>
-      labelKey(prefix, resolve(id, choices, defaultId)).tr;
+  ) => labelKey(prefix, resolve(id, choices, defaultId)).tr;
 }

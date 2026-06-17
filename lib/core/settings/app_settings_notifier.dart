@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/di/settings_revision.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
@@ -24,25 +23,7 @@ class AppSettingsNotifier extends Notifier<AppSettingsState> {
   @override
   AppSettingsState build() {
     ref.watch(settingsRevisionProvider);
-    final settings = ref.watch(settingsProvider);
-    final appLocale = appLocaleFromLanguageCode(settings.language);
-    final locale = appLocale.flutterLocale;
-    return AppSettingsState(
-      amoledTheme: settings.amoledTheme,
-      materialColor: settings.materialColor,
-      roundDegree: settings.roundDegree,
-      largeElement: settings.largeElement,
-      locale: locale,
-      timeRange:
-          settings.timeRange ?? AppConstants.defaultNotificationIntervalHours,
-      timeStart:
-          settings.timeStart ?? AppConstants.defaultNotificationTimeStart,
-      timeEnd: settings.timeEnd ?? AppConstants.defaultNotificationTimeEnd,
-      widgetBackgroundColorLight: settings.widgetBackgroundColorLight ?? '',
-      widgetBackgroundColorDark: settings.widgetBackgroundColorDark ?? '',
-      widgetTextColorLight: settings.widgetTextColorLight ?? '',
-      widgetTextColorDark: settings.widgetTextColorDark ?? '',
-    );
+    return AppSettingsState.fromSettings(ref.watch(settingsProvider));
   }
 
   /// Updates in-memory settings and syncs locale changes to slang.

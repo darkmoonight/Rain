@@ -133,33 +133,33 @@ class _MapPageState extends ConsumerState<MapPage>
   }) {
     final statusWeather = ref.watch(statusWeatherProvider);
     return SizedBox(
-    width: 100,
-    height: 50,
-    child: Card(
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              statusWeather.getImageNow(weathercode, time, sunrise, sunset),
-              scale: 18,
-            ),
-            const SizedBox(width: 5),
-            Text(
-              statusData.getDegree(temperature2M),
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+      width: 100,
+      height: 50,
+      child: Card(
+        margin: EdgeInsets.zero,
+        clipBehavior: Clip.antiAlias,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                statusWeather.getImageNow(weathercode, time, sunrise, sunset),
+                scale: 18,
               ),
-            ),
-          ],
+              const SizedBox(width: 5),
+              Text(
+                statusData.getDegree(temperature2M),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 

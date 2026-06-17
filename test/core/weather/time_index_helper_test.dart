@@ -39,6 +39,28 @@ void main() {
     });
   });
 
+  group('TimeIndexHelper.parseForecastDateTime', () {
+    test('keeps wall-clock components from ISO', () {
+      expect(
+        TimeIndexHelper.parseForecastDateTime('2026-06-05T13:30'),
+        DateTime(2026, 6, 5, 13, 30),
+      );
+    });
+
+    test('compares correctly with wallClockNow for slot filtering', () {
+      const slot = '2026-06-17T15:00';
+      final forecastTime = TimeIndexHelper.parseForecastDateTime(slot);
+      expect(forecastTime.isUtc, isFalse);
+
+      // Regression: UTC-marked "now" made 15:00 look like the past at 14:40 local.
+      final brokenNow = DateTime.utc(2026, 6, 17, 14, 40);
+      expect(forecastTime.isAfter(brokenNow), isFalse);
+
+      final fixedNow = DateTime(2026, 6, 17, 14, 40);
+      expect(forecastTime.isAfter(fixedNow), isTrue);
+    });
+  });
+
   group('TimeIndexHelper.isDaytime', () {
     test('returns true between sunrise and sunset', () {
       expect(
@@ -53,12 +75,13 @@ void main() {
   });
 
   group('TimeIndexHelper.wallClockNow', () {
-    test('applies utc offset and clock skew', () {
+    test('applies utc offset and clock skew as naive wall clock', () {
       final utc = DateTime.now().toUtc();
       final wall = TimeIndexHelper.wallClockNow(
         const LocationClock(utcOffsetSeconds: 10800, clockSkewSeconds: 3600),
       );
       final expected = utc.add(const Duration(hours: 4));
+      expect(wall.isUtc, isFalse);
       expect(wall.hour, expected.hour);
       expect(wall.minute, expected.minute);
     });

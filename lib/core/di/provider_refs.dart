@@ -35,7 +35,9 @@ final settingsProvider = Provider<Settings>((ref) {
 /// Asset root for the selected weather icon theme.
 final weatherIconAssetRootProvider = Provider<String>((ref) {
   ref.watch(settingsRevisionProvider);
-  return WeatherIconTheme.assetRoot(ref.watch(settingsProvider).weatherIconTheme);
+  return WeatherIconTheme.assetRoot(
+    ref.watch(settingsProvider).weatherIconTheme,
+  );
 });
 
 /// Maps WMO weather codes to icons for the selected weather icon theme.

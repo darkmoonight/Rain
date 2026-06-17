@@ -17,7 +17,10 @@ void main() {
 
   group('StatusWeather image paths', () {
     test('returns asset paths for known codes', () {
-      expect(statusWeather.getImageNowDaily(0), contains('assets/weather_icons/'));
+      expect(
+        statusWeather.getImageNowDaily(0),
+        contains('assets/weather_icons/'),
+      );
       expect(statusWeather.getImage7Day(61), contains('assets/weather_icons/'));
     });
 

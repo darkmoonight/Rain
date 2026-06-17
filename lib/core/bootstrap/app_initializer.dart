@@ -13,7 +13,6 @@ import 'package:rain/core/database/weather_cache_migration.dart';
 import 'package:rain/core/database/widget_color_migration.dart';
 import 'package:rain/core/config/app_config.dart';
 import 'package:rain/i18n/locale_utils.dart';
-import 'package:rain/i18n/strings.g.dart';
 import 'package:rain/core/services/connectivity_service.dart';
 import 'package:rain/core/services/home_widget_service.dart';
 import 'package:rain/core/services/widget_background_service.dart';
@@ -64,9 +63,8 @@ class AppInitializer {
       await isar.writeTxn(() => isar.settings.put(settings));
     }
 
-    await LocaleSettings.setLocale(
-      appLocaleFromLanguageCode(settings.language),
-    );
+    final appLocale = appLocaleFromLanguageCode(settings.language);
+    await applyAppLocale(appLocale);
 
     return AppBootstrap(
       isar: isar,

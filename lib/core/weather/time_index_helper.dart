@@ -73,6 +73,7 @@ class TimeIndexHelper {
     });
     if (exact >= 0) return exact;
 
+    // No exact hour: use the latest slot today at or before the current hour.
     var fallback = 0;
     for (var i = 0; i < time.length; i++) {
       final parts = _parseIsoParts(time[i]);
@@ -83,7 +84,7 @@ class TimeIndexHelper {
         fallback = i;
       }
     }
-    return fallback.clamp(0, time.length - 1);
+    return fallback;
   }
 
   /// Index of today in a daily date series for [clock].
@@ -100,6 +101,7 @@ class TimeIndexHelper {
     );
     if (exact >= 0) return exact;
 
+    // First day on or after today; otherwise the last day in the series.
     final fallback = time.indexWhere(
       (entry) =>
           entry.year > now.year ||
@@ -110,7 +112,17 @@ class TimeIndexHelper {
     );
     if (fallback >= 0) return fallback;
 
-    return (time.length - 1).clamp(0, time.length - 1);
+    return time.length - 1;
+  }
+
+  /// Index of a calendar day in [days] matching [date]'s year/month/day.
+  static int indexOfCalendarDay(List<DateTime> days, DateTime date) {
+    return days.indexWhere(
+      (entry) =>
+          entry.year == date.year &&
+          entry.month == date.month &&
+          entry.day == date.day,
+    );
   }
 
   /// Resolves the current hourly and daily slot indices for [clock].
@@ -133,12 +145,23 @@ class TimeIndexHelper {
   }
 
   /// Current wall clock in the location, aligned with Open-Meteo offsets.
+  ///
+  /// Returns a naive [DateTime] whose components match the location wall clock
+  /// (same convention as [parseForecastDateTime]) — never UTC-marked.
   static DateTime wallClockNow(LocationClock clock) {
     final utc = DateTime.now().toUtc().add(
       Duration(seconds: clock.clockSkewSeconds),
     );
     if (clock.utcOffsetSeconds != null) {
-      return utc.add(Duration(seconds: clock.utcOffsetSeconds!));
+      final shifted = utc.add(Duration(seconds: clock.utcOffsetSeconds!));
+      return DateTime(
+        shifted.year,
+        shifted.month,
+        shifted.day,
+        shifted.hour,
+        shifted.minute,
+        shifted.second,
+      );
     }
     if (clock.timezone != null) {
       final tzNow = tz.TZDateTime.from(utc, tz.getLocation(clock.timezone!));
@@ -168,6 +191,21 @@ class TimeIndexHelper {
   static DateTime parseForecastDate(String iso) {
     final parts = _parseIsoParts(iso);
     return DateTime(parts.year, parts.month, parts.day);
+  }
+
+  /// Location-local naive date-time from an Open-Meteo hourly ISO string.
+  ///
+  /// Unlike [DateTime.parse], this ignores the device timezone and keeps the
+  /// wall-clock components from the forecast (matching [wallClockNow]).
+  static DateTime parseForecastDateTime(String iso) {
+    final parts = _parseIsoParts(iso);
+    return DateTime(
+      parts.year,
+      parts.month,
+      parts.day,
+      parts.hour,
+      parts.minute,
+    );
   }
 
   /// Formats a calendar [date] for the app locale (ignores device timezone).
@@ -237,6 +275,8 @@ class TimeIndexHelper {
   ) => appTimeFormat(settings, languageCode).format(dateTime);
 
   /// Formats a location wall clock for display.
+  ///
+  /// Uses a fixed calendar date so only the clock components affect formatting.
   static String formatWallClock(
     DateTime wallClock,
     Settings settings,
@@ -248,6 +288,8 @@ class TimeIndexHelper {
   );
 
   /// Formats a time-only string using the user's clock preference.
+  ///
+  /// Uses a dummy date so [DateFormat] only formats hours and minutes.
   static String formatTime(
     String? timeStr,
     Settings settings,
@@ -271,6 +313,7 @@ class TimeIndexHelper {
       int.parse(dateBits[1]),
       int.parse(dateBits[2]),
       int.parse(timeBits[0]),
+      timeBits.length > 1 ? int.parse(timeBits[1]) : 0,
     );
   }
 
@@ -290,13 +333,20 @@ class TimeIndexHelper {
   }
 }
 
-/// Parsed year, month, day, and hour parts from an ISO time string.
+/// Parsed year, month, day, hour, and minute from an ISO time string.
 class _IsoParts {
   /// Creates ISO date-time parts for index calculations.
-  const _IsoParts(this.year, this.month, this.day, this.hour);
+  const _IsoParts(
+    this.year,
+    this.month,
+    this.day,
+    this.hour, [
+    this.minute = 0,
+  ]);
 
   final int year;
   final int month;
   final int day;
   final int hour;
+  final int minute;
 }

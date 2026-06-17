@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/data/models/db.dart';
+import 'package:rain/i18n/locale_utils.dart';
+import 'package:rain/i18n/strings.g.dart';
 
 /// In-memory snapshot of user-facing app settings for UI and services.
 class AppSettingsState {
@@ -61,4 +64,25 @@ class AppSettingsState {
     widgetTextColorLight: widgetTextColorLight ?? this.widgetTextColorLight,
     widgetTextColorDark: widgetTextColorDark ?? this.widgetTextColorDark,
   );
+
+  /// Builds the live snapshot from persisted [Settings].
+  factory AppSettingsState.fromSettings(Settings settings) {
+    final locale = appLocaleFromLanguageCode(settings.language).flutterLocale;
+    return AppSettingsState(
+      amoledTheme: settings.amoledTheme,
+      materialColor: settings.materialColor,
+      roundDegree: settings.roundDegree,
+      largeElement: settings.largeElement,
+      locale: locale,
+      timeRange:
+          settings.timeRange ?? AppConstants.defaultNotificationIntervalHours,
+      timeStart:
+          settings.timeStart ?? AppConstants.defaultNotificationTimeStart,
+      timeEnd: settings.timeEnd ?? AppConstants.defaultNotificationTimeEnd,
+      widgetBackgroundColorLight: settings.widgetBackgroundColorLight ?? '',
+      widgetBackgroundColorDark: settings.widgetBackgroundColorDark ?? '',
+      widgetTextColorLight: settings.widgetTextColorLight ?? '',
+      widgetTextColorDark: settings.widgetTextColorDark ?? '',
+    );
+  }
 }

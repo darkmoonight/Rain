@@ -31,6 +31,23 @@ class WeatherCacheValidator {
     return true;
   }
 
+  /// True when [cache] has the fields required to build forecast notification slots.
+  static bool hasNotificationSlotData(MainWeatherCache cache) {
+    if (!hasHourlyTimestamps(cache.time)) return false;
+    final daily = cache.timeDaily;
+    if (daily == null || daily.isEmpty) return false;
+    if (cache.temperature2M == null || cache.temperature2M!.isEmpty) {
+      return false;
+    }
+    if (cache.weathercode == null || cache.weathercode!.isEmpty) return false;
+    if (cache.sunrise == null || cache.sunset == null) return false;
+    return true;
+  }
+
+  /// True when [cache] can drive the ongoing current-weather notification.
+  static bool hasPersistentNotificationData(MainWeatherCache cache) =>
+      hasNotificationSlotData(cache) && cache.timezone != null;
+
   /// True when max temperature suggests values were stored as Fahrenheit, not Celsius.
   static bool isLikelyFahrenheit(MainWeatherCache cache) {
     final temps = cache.temperature2M;

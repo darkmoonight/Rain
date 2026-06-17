@@ -216,6 +216,9 @@ class LocationCache {
   /// Creates a location cache with optional coordinates and labels.
   LocationCache({this.lat, this.lon, this.city, this.district});
 
+  /// City name for widgets and notifications, falling back to [district].
+  String get displayLabel => city ?? district ?? '';
+
   /// Serializes location fields to a JSON map.
   Map<String, dynamic> toJson() => {
     'id': id,

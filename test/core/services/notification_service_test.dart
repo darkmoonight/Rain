@@ -15,6 +15,11 @@ class _SpyNotificationService extends NotificationService {
   Future<void> cancelScheduled() async {
     cancelScheduledCalls++;
   }
+
+  @override
+  Future<void> cancelForecastNotifications() async {
+    cancelScheduledCalls++;
+  }
 }
 
 void main() {
@@ -69,7 +74,7 @@ void main() {
       },
     );
 
-    test('uses stable positive notification ids', () {
+    test('uses stable time-based notification ids', () {
       final slot = WeatherNotificationSlot(
         title: 'Moscow: 20°',
         body: 'Clear · 13:00',
@@ -79,8 +84,16 @@ void main() {
 
       final id = NotificationService.notificationIdFor(slot);
 
-      expect(id, greaterThan(0));
+      expect(id, greaterThan(NotificationService.persistentNotificationId));
       expect(NotificationService.notificationIdFor(slot), id);
+
+      final updated = WeatherNotificationSlot(
+        title: 'Moscow: 21°',
+        body: 'Cloudy · 13:00',
+        time: slot.time,
+        icon: slot.icon,
+      );
+      expect(NotificationService.notificationIdFor(updated), id);
     });
 
     test(

@@ -7,10 +7,7 @@ import 'package:rain/core/weather/weather_icon_theme.dart';
 /// Copies bundled weather icons to disk for widgets and notifications.
 class AssetCacheService {
   /// Returns a local file path for [icon], copying from [assetRoot] on first use.
-  Future<String> getLocalImagePath(
-    String icon, {
-    String? assetRoot,
-  }) async {
+  Future<String> getLocalImagePath(String icon, {String? assetRoot}) async {
     final root = assetRoot ?? WeatherIconTheme.assetRoot(null);
     final fileName = icon.isEmpty ? 'cloud.png' : icon;
     final cacheKey = root.replaceAll('/', '_');

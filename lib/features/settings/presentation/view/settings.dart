@@ -25,6 +25,7 @@ import 'package:rain/core/bootstrap/background_bootstrap.dart';
 import 'package:rain/core/config/app_config.dart';
 import 'package:rain/features/settings/presentation/view/widget_settings_page.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/url_launcher_util.dart';
 import 'package:restart_app/restart_app.dart';
@@ -118,12 +119,32 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
+  /// Rebuilds forecast notifications from the latest cache when alerts are enabled.
+  Future<void> _rescheduleWeatherNotifications() async {
+    if (!settings.notifications) return;
+
+    final weather = ref.read(mainWeatherNotifierProvider);
+    if (weather.mainWeather.time == null || weather.mainWeather.time!.isEmpty) {
+      return;
+    }
+
+    await ref
+        .read(notificationServiceProvider)
+        .rescheduleForWeather(
+          cache: weather.mainWeather,
+          settings: settings,
+          appSettings: ref.read(appSettingsProvider),
+          cityLabel: weather.location.city ?? weather.city,
+        );
+  }
+
   /// Persists a new locale, updates in-memory settings, and refreshes widgets.
   Future<void> _updateLanguage(Locale locale) async {
     final settings = ref.read(settingsProvider);
     settings.language = '${locale.languageCode}_${locale.countryCode}';
     await ref.read(settingsRepositoryProvider).save(settings);
     ref.read(appSettingsProvider.notifier).update(locale: locale);
+    await applyAppLocale(appLocaleFromFlutterLocale(locale));
     await _refreshWidgets();
     setState(() {});
   }
@@ -554,16 +575,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         await ref.read(settingsRepositoryProvider).save(settings);
         if (!mounted) return;
         if (settings.notifications) {
-          await ref.read(notificationServiceProvider).cancelScheduled();
-          final w = ref.read(mainWeatherNotifierProvider);
-          await ref
-              .read(notificationServiceProvider)
-              .scheduleForWeather(
-                cache: w.mainWeather,
-                settings: settings,
-                appSettings: appSettings,
-                cityLabel: w.location.city ?? '',
-              );
+          await _rescheduleWeatherNotifications();
         }
         setState(() {});
       },
@@ -787,15 +799,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     settings.notifications = value;
     await ref.read(settingsRepositoryProvider).save(settings);
     if (value) {
-      final weather = ref.read(mainWeatherNotifierProvider);
-      await ref
-          .read(notificationServiceProvider)
-          .scheduleForWeather(
-            cache: weather.mainWeather,
-            settings: settings,
-            appSettings: ref.read(appSettingsProvider),
-            cityLabel: weather.city,
-          );
+      await _rescheduleWeatherNotifications();
     } else {
       await ref.read(notificationServiceProvider).cancelScheduled();
     }
@@ -846,16 +850,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       await ref.read(settingsRepositoryProvider).save(settings);
       if (!mounted) return;
       if (settings.notifications) {
-        await ref.read(notificationServiceProvider).cancelScheduled();
-        final weather = ref.read(mainWeatherNotifierProvider);
-        await ref
-            .read(notificationServiceProvider)
-            .scheduleForWeather(
-              cache: weather.mainWeather,
-              settings: settings,
-              appSettings: ref.read(appSettingsProvider),
-              cityLabel: weather.city,
-            );
+        await _rescheduleWeatherNotifications();
       }
       setState(() {});
     }
@@ -876,16 +871,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       await ref.read(settingsRepositoryProvider).save(settings);
       if (!mounted) return;
       if (settings.notifications) {
-        await ref.read(notificationServiceProvider).cancelScheduled();
-        final weather = ref.read(mainWeatherNotifierProvider);
-        await ref
-            .read(notificationServiceProvider)
-            .scheduleForWeather(
-              cache: weather.mainWeather,
-              settings: settings,
-              appSettings: ref.read(appSettingsProvider),
-              cityLabel: weather.city,
-            );
+        await _rescheduleWeatherNotifications();
       }
       setState(() {});
     }
