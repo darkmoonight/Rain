@@ -171,6 +171,17 @@ MainWeatherCache sampleMainWeatherCache() => MainWeatherCache(
   timestamp: DateTime(2026, 6, 5, 12),
 );
 
+/// [sampleMainWeatherCache] with hourly rows guaranteed to be in the future.
+MainWeatherCache sampleFutureMainWeatherCache() {
+  final day = DateTime.now().add(const Duration(days: 2));
+  final y = day.year;
+  final m = day.month.toString().padLeft(2, '0');
+  final d = day.day.toString().padLeft(2, '0');
+  return sampleMainWeatherCache()
+    ..time = ['$y-$m-${d}T12:00', '$y-$m-${d}T13:00']
+    ..timeDaily = [DateTime(y, day.month, day.day)];
+}
+
 LocationCache sampleLocationCache() => LocationCache(
   lat: 55.75,
   lon: 37.62,

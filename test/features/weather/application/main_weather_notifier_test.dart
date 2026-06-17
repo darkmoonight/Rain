@@ -120,6 +120,39 @@ void main() {
       expect(state.mainWeather.timezone, 'Europe/Moscow');
     });
 
+    test(
+      'getLocation keeps visible forecast when showLoading is false',
+      () async {
+        final container = createContainer();
+        final notifier = container.read(mainWeatherNotifierProvider.notifier);
+
+        await notifier.readCache();
+        expect(container.read(mainWeatherNotifierProvider).isLoading, isFalse);
+
+        await notifier.getLocation(
+          55.75,
+          37.62,
+          'Moscow Oblast',
+          'Moscow',
+          showLoading: false,
+        );
+
+        final state = container.read(mainWeatherNotifierProvider);
+        expect(state.isLoading, isFalse);
+        expect(state.mainWeather.timezone, 'Europe/Moscow');
+      },
+    );
+
+    test('refreshIfStale skips network when cache is still fresh', () async {
+      final container = createContainer();
+      final notifier = container.read(mainWeatherNotifierProvider.notifier);
+
+      await notifier.readCache();
+      await notifier.refreshIfStale();
+
+      expect(container.read(mainWeatherNotifierProvider).isLoading, isFalse);
+    });
+
     test('refresh loads forecast when online', () async {
       final container = createContainer();
       final notifier = container.read(mainWeatherNotifierProvider.notifier);

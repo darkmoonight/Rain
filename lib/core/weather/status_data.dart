@@ -34,6 +34,15 @@ class StatusData {
   /// Formats an ISO time string using the user's clock preference.
   String getTimeFormat(String time) => _formatTime(time);
 
+  /// Forecast slot label for notifications (date + time when not today).
+  String formatForecastSlotLabel(DateTime notificationTime, DateTime wallNow) =>
+      TimeIndexHelper.formatForecastSlotLabel(
+        notificationTime: notificationTime,
+        wallNow: wallNow,
+        settings: settings,
+        languageCode: _locale.languageCode,
+      );
+
   /// Formats when forecast data was last saved on the device.
   String formatUpdatedAt(DateTime updatedAt) => TimeIndexHelper.formatUpdatedAt(
     updatedAt,

@@ -286,6 +286,7 @@ class _GeolocationSubmitMainWeatherNotifier extends MainWeatherNotifier {
     double latitude,
     double longitude,
     String district,
-    String locality,
-  ) async {}
+    String locality, {
+    bool showLoading = true,
+  }) async {}
 }

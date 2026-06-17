@@ -57,6 +57,12 @@ typedef NotificationIsarPayload = ({
   String cityLabel,
 });
 
+/// Alarm context plus slots built from the same [MainWeatherCache] snapshot.
+typedef ForecastNotificationPlan = ({
+  ForecastAlarmContext alarm,
+  List<WeatherNotificationSlot> slots,
+});
+
 /// Shared [StatusWeather] / [StatusData] formatters for notification text.
 ({StatusWeather weather, StatusData data}) _notificationFormatters(
   Settings settings,
@@ -71,6 +77,7 @@ WeatherNotificationSlot _buildNotificationSlot({
   required int hourIndex,
   required int dayIndex,
   required DateTime notificationTime,
+  required DateTime wallNow,
   required int scheduleEpochMillis,
   required String cityLabel,
   required StatusWeather weather,
@@ -79,7 +86,7 @@ WeatherNotificationSlot _buildNotificationSlot({
   return WeatherNotificationSlot(
     title: '$cityLabel: ${data.getDegree(cache.temperature2M![hourIndex])}',
     body:
-        '${weather.getText(cache.weathercode![hourIndex])} · ${data.getTimeFormat(cache.time![hourIndex])}',
+        '${weather.getText(cache.weathercode![hourIndex])} · ${data.formatForecastSlotLabel(notificationTime, wallNow)}',
     time: notificationTime,
     icon: weather.getImageNotification(
       cache.weathercode![hourIndex],
@@ -93,8 +100,7 @@ WeatherNotificationSlot _buildNotificationSlot({
 
 /// Builds notification slots from cached hourly forecast data.
 ///
-/// Only hours strictly after [alarmContext.nowMillis] are included so the active
-/// hour is never re-scheduled (that caused duplicate alerts on every reschedule).
+/// Only ended forecast hours are skipped; the active hour may be scheduled once.
 List<WeatherNotificationSlot> buildWeatherNotificationSlots({
   required MainWeatherCache cache,
   required Settings settings,
@@ -111,13 +117,14 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
   final startHour = TimeIndexHelper.parseTime(appSettings.timeStart).hour;
   final endHour = TimeIndexHelper.parseTime(appSettings.timeEnd).hour;
   final slots = <WeatherNotificationSlot>[];
+  final seenScheduleEpochs = <int>{};
 
   for (var i = 0; i < cache.time!.length; i += appSettings.timeRange) {
     final notificationTime = TimeIndexHelper.parseForecastDateTime(
       cache.time![i],
     );
     final scheduleEpochMillis = forecastAlarmEpoch(notificationTime, cache);
-    if (scheduleEpochMillis <= alarm.nowMillis) continue;
+    if (isForecastHourPast(notificationTime, alarm.wallNow)) continue;
     if (!isHourInNotificationWindow(
       notificationTime.hour,
       startHour,
@@ -128,13 +135,10 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
 
     final dayIndex = TimeIndexHelper.indexOfCalendarDay(
       cache.timeDaily!,
-      DateTime(
-        notificationTime.year,
-        notificationTime.month,
-        notificationTime.day,
-      ),
+      TimeIndexHelper.parseForecastDate(cache.time![i]),
     );
     if (dayIndex < 0) continue;
+    if (!seenScheduleEpochs.add(scheduleEpochMillis)) continue;
 
     slots.add(
       _buildNotificationSlot(
@@ -142,6 +146,7 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
         hourIndex: i,
         dayIndex: dayIndex,
         notificationTime: notificationTime,
+        wallNow: alarm.wallNow,
         scheduleEpochMillis: scheduleEpochMillis,
         cityLabel: cityLabel,
         weather: formatters.weather,
@@ -151,6 +156,24 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
   }
 
   return slots;
+}
+
+/// Builds alarm context and slots from one cache snapshot (shared by schedule/reschedule).
+ForecastNotificationPlan buildForecastNotificationPlan({
+  required MainWeatherCache cache,
+  required Settings settings,
+  required AppSettingsState appSettings,
+  required String cityLabel,
+}) {
+  final alarm = forecastAlarmContext(cache, settings);
+  final slots = buildWeatherNotificationSlots(
+    cache: cache,
+    settings: settings,
+    appSettings: appSettings,
+    cityLabel: cityLabel,
+    alarmContext: alarm,
+  );
+  return (alarm: alarm, slots: slots);
 }
 
 /// Builds title/body/icon for the ongoing current-weather notification.
@@ -221,23 +244,48 @@ class NotificationService {
     required AppSettingsState appSettings,
     required String cityLabel,
   }) async {
-    final alarm = forecastAlarmContext(cache, settings);
-    final slots = buildWeatherNotificationSlots(
+    final plan = buildForecastNotificationPlan(
       cache: cache,
       settings: settings,
       appSettings: appSettings,
       cityLabel: cityLabel,
-      alarmContext: alarm,
     );
+    await _scheduleSlots(plan: plan, cache: cache, settings: settings);
+  }
+
+  Future<Set<int>> _pendingNotificationIds() async {
+    try {
+      final pending = await flutterLocalNotificationsPlugin
+          .pendingNotificationRequests();
+      return pending.map((notification) => notification.id).toSet();
+    } catch (_) {
+      return {};
+    }
+  }
+
+  Future<void> _scheduleSlots({
+    required ForecastNotificationPlan plan,
+    required MainWeatherCache cache,
+    required Settings settings,
+  }) async {
+    final slots = plan.slots;
     if (slots.isEmpty) return;
 
+    final pendingIds = await _pendingNotificationIds();
     final iconRoot = WeatherIconTheme.assetRoot(settings.weatherIconTheme);
     final scheduleMode = await _androidScheduleMode();
+    final deviceNowMillis = deviceUtcNowMillis();
+    final tzLocation = notificationTzLocation(cache.timezone);
+    final alarm = plan.alarm;
 
     for (final slot in slots) {
       final scheduleMillis = resolveAlarmEpochMillis(
         nowMillis: alarm.nowMillis,
+        deviceNowMillis: deviceNowMillis,
         slotEpochMillis: slot.scheduleEpochMillis,
+        slotTime: slot.time,
+        wallNow: alarm.wallNow,
+        skipCurrentHourIfPending: pendingIds.contains(notificationIdFor(slot)),
       );
       if (scheduleMillis == null) continue;
 
@@ -249,16 +297,19 @@ class NotificationService {
         assetRoot: iconRoot,
         scheduleEpochMillis: scheduleMillis,
         scheduleMode: scheduleMode,
+        tzLocation: tzLocation,
+        deviceNowMillis: deviceNowMillis,
       );
     }
   }
 
-  /// Stable positive notification id for [slot] (time-based, avoids hash collisions).
+  /// Stable positive notification id for [slot] (UTC epoch of the forecast hour).
   ///
-  /// Stays above [persistentNotificationId] so the ongoing notification keeps its slot.
+  /// Uses [scheduleEpochMillis] so the same wall-clock hour on different calendar
+  /// days keeps distinct ids. Stays above [persistentNotificationId].
   @visibleForTesting
   static int notificationIdFor(WeatherNotificationSlot slot) {
-    var id = slot.time.millisecondsSinceEpoch & 0x7fffffff;
+    var id = slot.scheduleEpochMillis & 0x7fffffff;
     if (id <= persistentNotificationId) id += persistentNotificationId + 1;
     return id;
   }
@@ -275,6 +326,16 @@ class NotificationService {
   }) async {
     if (!settings.notifications) return;
 
+    final plan = buildForecastNotificationPlan(
+      cache: cache,
+      settings: settings,
+      appSettings: appSettings,
+      cityLabel: cityLabel,
+    );
+    // Never wipe pending alarms when nothing new can be scheduled (stale cache,
+    // empty window, etc.) — that left users with zero notifications after resume.
+    if (plan.slots.isEmpty) return;
+
     while (_rescheduleInFlight != null) {
       await _rescheduleInFlight;
     }
@@ -282,12 +343,7 @@ class NotificationService {
     _rescheduleInFlight = done.future;
     try {
       await cancelForecastNotifications();
-      await scheduleForWeather(
-        cache: cache,
-        settings: settings,
-        appSettings: appSettings,
-        cityLabel: cityLabel,
-      );
+      await _scheduleSlots(plan: plan, cache: cache, settings: settings);
     } finally {
       done.complete();
       _rescheduleInFlight = null;
@@ -395,8 +451,14 @@ class NotificationService {
     required String assetRoot,
     required int scheduleEpochMillis,
     required AndroidScheduleMode scheduleMode,
+    required tz.Location tzLocation,
+    required int deviceNowMillis,
   }) async {
-    if (!isAlarmEpochInFuture(scheduleEpochMillis)) return;
+    final aligned = alignScheduleEpochForPlugin(
+      scheduleEpochMillis: scheduleEpochMillis,
+      deviceNowMillis: deviceNowMillis,
+    );
+    if (aligned == null) return;
 
     try {
       final imagePath = await _assets.getLocalImagePath(
@@ -408,8 +470,8 @@ class NotificationService {
         title: title,
         body: body,
         scheduledDate: tz.TZDateTime.fromMillisecondsSinceEpoch(
-          tz.local,
-          scheduleEpochMillis,
+          tzLocation,
+          aligned,
         ),
         notificationDetails: NotificationDetails(
           android: AndroidNotificationDetails(

@@ -278,10 +278,10 @@ void main() {
         now: DateTime(2026, 6, 17, 16, 5),
       );
 
-      expect(slots.map((slot) => slot.time.hour), [17]);
+      expect(slots.map((slot) => slot.time.hour), [16, 17]);
     });
 
-    test('skips the current hour when rescheduling mid-hour', () {
+    test('includes the active hour when rescheduling mid-hour', () {
       final cache = sampleMainWeatherCache()
         ..time = ['2026-06-17T17:00', '2026-06-17T18:00', '2026-06-17T19:00']
         ..timeDaily = [DateTime(2026, 6, 17)]
@@ -302,8 +302,8 @@ void main() {
         now: DateTime(2026, 6, 17, 17, 15),
       );
 
-      expect(slots.first.time.hour, 18);
-      expect(slots.map((slot) => slot.time.hour), [18, 19]);
+      expect(slots.first.time.hour, 17);
+      expect(slots.map((slot) => slot.time.hour), [17, 18, 19]);
     });
 
     test('supports overnight notification windows', () {
@@ -322,6 +322,29 @@ void main() {
       );
 
       expect(slots.map((slot) => slot.time.hour), containsAll([23, 1]));
+    });
+
+    test('includes calendar date in body for slots on another day', () {
+      final cache = sampleMainWeatherCache()
+        ..time = ['2026-06-06T13:00']
+        ..timeDaily = [DateTime(2026, 6, 5), DateTime(2026, 6, 6)]
+        ..sunrise = ['06:00', '06:01']
+        ..sunset = ['18:00', '18:01'];
+
+      final slots = buildWeatherNotificationSlots(
+        cache: cache,
+        settings: Settings(),
+        appSettings: const AppSettingsState(
+          timeStart: '00:00',
+          timeEnd: '23:59',
+        ),
+        cityLabel: 'Moscow',
+        now: DateTime(2026, 6, 5, 12),
+      );
+
+      expect(slots, hasLength(1));
+      expect(slots.first.body, contains('6'));
+      expect(slots.first.body, contains('13'));
     });
   });
 }

@@ -121,21 +121,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   /// Rebuilds forecast notifications from the latest cache when alerts are enabled.
   Future<void> _rescheduleWeatherNotifications() async {
-    if (!settings.notifications) return;
-
-    final weather = ref.read(mainWeatherNotifierProvider);
-    if (weather.mainWeather.time == null || weather.mainWeather.time!.isEmpty) {
-      return;
-    }
-
     await ref
-        .read(notificationServiceProvider)
-        .rescheduleForWeather(
-          cache: weather.mainWeather,
-          settings: settings,
-          appSettings: ref.read(appSettingsProvider),
-          cityLabel: weather.locationLabel,
-        );
+        .read(mainWeatherNotifierProvider.notifier)
+        .rescheduleNotificationsIfEnabled();
   }
 
   /// Persists a new locale, updates in-memory settings, and refreshes widgets.

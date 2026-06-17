@@ -13,6 +13,20 @@ typedef ForecastAlarmContext = ({
 /// Minimum lead time before a forecast alarm (avoids plugin "must be in the future" races).
 const forecastNotificationMinimumLeadMillis = 60000;
 
+/// Device UTC epoch; [flutter_local_notifications] validates scheduled times against this clock.
+int deviceUtcNowMillis() => DateTime.now().toUtc().millisecondsSinceEpoch;
+
+/// Whether [slotTime] belongs to a forecast hour that already ended at [wallNow].
+bool isForecastHourPast(DateTime slotTime, DateTime wallNow) =>
+    TimeIndexHelper.wallClockHourStart(
+      slotTime,
+    ).isBefore(TimeIndexHelper.wallClockHourStart(wallNow));
+
+/// Whether [a] and [b] share the same forecast wall-clock hour.
+bool isSameForecastHour(DateTime a, DateTime b) =>
+    TimeIndexHelper.wallClockHourStart(a) ==
+    TimeIndexHelper.wallClockHourStart(b);
+
 /// Whether [hour] falls within a notification window that may cross midnight.
 ///
 /// Only whole hours are compared; minutes in [timeStart]/[timeEnd] are ignored.
@@ -133,24 +147,62 @@ int forecastAlarmEpoch(DateTime naive, MainWeatherCache cache) =>
       utcOffsetSeconds: cache.utcOffsetSeconds,
     );
 
-/// Resolves the alarm epoch for a forecast hour, or null when it already started.
+/// Epoch baseline for lead-time bumps (later of location and device clocks).
 ///
-/// Hours still in the future are bumped to [forecastNotificationMinimumLeadMillis]
-/// ahead of [nowMillis] so the plugin never receives a past [TZDateTime].
+/// [flutter_local_notifications] validates against the device clock; when the
+/// location wall clock lags behind, location-only math produced past [TZDateTime]s.
+int notificationReferenceNowMillis({
+  required int locationNowMillis,
+  required int deviceNowMillis,
+}) => locationNowMillis > deviceNowMillis ? locationNowMillis : deviceNowMillis;
+
+/// Resolves the alarm epoch for a forecast hour, or null when it should be skipped.
+///
+/// Fully past hours are dropped. The active hour is scheduled once (lead time bump)
+/// unless [skipCurrentHourIfPending] is true — that prevents duplicate catch-up
+/// alarms when the app reschedules repeatedly during the same hour.
 int? resolveAlarmEpochMillis({
   required int nowMillis,
+  required int deviceNowMillis,
   required int slotEpochMillis,
+  required DateTime slotTime,
+  required DateTime wallNow,
+  bool skipCurrentHourIfPending = false,
 }) {
-  if (slotEpochMillis <= nowMillis) return null;
-  if (slotEpochMillis < nowMillis + forecastNotificationMinimumLeadMillis) {
-    return nowMillis + forecastNotificationMinimumLeadMillis;
+  final referenceNow = notificationReferenceNowMillis(
+    locationNowMillis: nowMillis,
+    deviceNowMillis: deviceNowMillis,
+  );
+  final minimumSchedule = referenceNow + forecastNotificationMinimumLeadMillis;
+
+  if (slotEpochMillis <= nowMillis) {
+    if (!isSameForecastHour(slotTime, wallNow)) return null;
+    if (skipCurrentHourIfPending) return null;
+    return minimumSchedule;
+  }
+  if (slotEpochMillis < minimumSchedule) {
+    return minimumSchedule;
   }
   return slotEpochMillis;
 }
 
-/// True when [scheduleEpochMillis] is strictly after the device UTC clock.
-///
-/// Used as a last guard before [zonedSchedule]; location-based filtering happens
-/// earlier via [resolveAlarmEpochMillis] and [forecastAlarmContext].
-bool isAlarmEpochInFuture(int scheduleEpochMillis) =>
-    scheduleEpochMillis > DateTime.now().toUtc().millisecondsSinceEpoch;
+/// Last guard before [zonedSchedule]; returns null when the instant is too far in the past.
+int? alignScheduleEpochForPlugin({
+  required int scheduleEpochMillis,
+  required int deviceNowMillis,
+}) {
+  final minimum = deviceNowMillis + forecastNotificationMinimumLeadMillis;
+  if (scheduleEpochMillis >= minimum) return scheduleEpochMillis;
+  if (scheduleEpochMillis > deviceNowMillis) return minimum;
+  return null;
+}
+
+/// IANA timezone for forecast alarms, falling back to [tz.local].
+tz.Location notificationTzLocation(String? timezone) {
+  if (timezone != null) {
+    try {
+      return tz.getLocation(timezone);
+    } catch (_) {}
+  }
+  return tz.local;
+}

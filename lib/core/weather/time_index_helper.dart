@@ -287,6 +287,26 @@ class TimeIndexHelper {
     languageCode,
   );
 
+  /// Whether [a] and [b] are the same location calendar day (year/month/day).
+  static bool isSameCalendarDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+
+  /// Start of a location wall-clock hour (minutes and below cleared).
+  static DateTime wallClockHourStart(DateTime wallClock) =>
+      DateTime(wallClock.year, wallClock.month, wallClock.day, wallClock.hour);
+
+  /// Formats a forecast slot for notifications: time only today, date + time otherwise.
+  static String formatForecastSlotLabel({
+    required DateTime notificationTime,
+    required DateTime wallNow,
+    required Settings settings,
+    required String languageCode,
+  }) {
+    final time = formatWallClock(notificationTime, settings, languageCode);
+    if (isSameCalendarDay(notificationTime, wallNow)) return time;
+    return '${formatCalendarDate(notificationTime, languageCode)} · $time';
+  }
+
   /// Formats a time-only string using the user's clock preference.
   ///
   /// Uses a dummy date so [DateFormat] only formats hours and minutes.
