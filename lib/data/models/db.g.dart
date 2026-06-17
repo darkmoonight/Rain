@@ -13762,13 +13762,18 @@ const LocationCacheSchema = CollectionSchema(
   id: 6756051892239209721,
   properties: {
     r'city': PropertySchema(id: 0, name: r'city', type: IsarType.string),
-    r'district': PropertySchema(
+    r'displayLabel': PropertySchema(
       id: 1,
+      name: r'displayLabel',
+      type: IsarType.string,
+    ),
+    r'district': PropertySchema(
+      id: 2,
       name: r'district',
       type: IsarType.string,
     ),
-    r'lat': PropertySchema(id: 2, name: r'lat', type: IsarType.double),
-    r'lon': PropertySchema(id: 3, name: r'lon', type: IsarType.double),
+    r'lat': PropertySchema(id: 3, name: r'lat', type: IsarType.double),
+    r'lon': PropertySchema(id: 4, name: r'lon', type: IsarType.double),
   },
 
   estimateSize: _locationCacheEstimateSize,
@@ -13798,6 +13803,7 @@ int _locationCacheEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
+  bytesCount += 3 + object.displayLabel.length * 3;
   {
     final value = object.district;
     if (value != null) {
@@ -13814,9 +13820,10 @@ void _locationCacheSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.city);
-  writer.writeString(offsets[1], object.district);
-  writer.writeDouble(offsets[2], object.lat);
-  writer.writeDouble(offsets[3], object.lon);
+  writer.writeString(offsets[1], object.displayLabel);
+  writer.writeString(offsets[2], object.district);
+  writer.writeDouble(offsets[3], object.lat);
+  writer.writeDouble(offsets[4], object.lon);
 }
 
 LocationCache _locationCacheDeserialize(
@@ -13827,9 +13834,9 @@ LocationCache _locationCacheDeserialize(
 ) {
   final object = LocationCache(
     city: reader.readStringOrNull(offsets[0]),
-    district: reader.readStringOrNull(offsets[1]),
-    lat: reader.readDoubleOrNull(offsets[2]),
-    lon: reader.readDoubleOrNull(offsets[3]),
+    district: reader.readStringOrNull(offsets[2]),
+    lat: reader.readDoubleOrNull(offsets[3]),
+    lon: reader.readDoubleOrNull(offsets[4]),
   );
   object.id = id;
   return object;
@@ -13845,10 +13852,12 @@ P _locationCacheDeserializeProp<P>(
     case 0:
       return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 2:
-      return (reader.readDoubleOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 3:
+      return (reader.readDoubleOrNull(offset)) as P;
+    case 4:
       return (reader.readDoubleOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -14115,6 +14124,147 @@ extension LocationCacheQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(property: r'city', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'displayLabel',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'displayLabel',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'displayLabel',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'displayLabel',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'displayLabel',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'displayLabel',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'displayLabel',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'displayLabel',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'displayLabel', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterFilterCondition>
+  displayLabelIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'displayLabel', value: ''),
       );
     });
   }
@@ -14542,6 +14692,20 @@ extension LocationCacheQuerySortBy
     });
   }
 
+  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
+  sortByDisplayLabel() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'displayLabel', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
+  sortByDisplayLabelDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'displayLabel', Sort.desc);
+    });
+  }
+
   QueryBuilder<LocationCache, LocationCache, QAfterSortBy> sortByDistrict() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'district', Sort.asc);
@@ -14591,6 +14755,20 @@ extension LocationCacheQuerySortThenBy
   QueryBuilder<LocationCache, LocationCache, QAfterSortBy> thenByCityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.desc);
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
+  thenByDisplayLabel() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'displayLabel', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LocationCache, LocationCache, QAfterSortBy>
+  thenByDisplayLabelDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'displayLabel', Sort.desc);
     });
   }
 
@@ -14654,6 +14832,14 @@ extension LocationCacheQueryWhereDistinct
     });
   }
 
+  QueryBuilder<LocationCache, LocationCache, QDistinct> distinctByDisplayLabel({
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'displayLabel', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<LocationCache, LocationCache, QDistinct> distinctByDistrict({
     bool caseSensitive = true,
   }) {
@@ -14686,6 +14872,12 @@ extension LocationCacheQueryProperty
   QueryBuilder<LocationCache, String?, QQueryOperations> cityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'city');
+    });
+  }
+
+  QueryBuilder<LocationCache, String, QQueryOperations> displayLabelProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'displayLabel');
     });
   }
 

@@ -278,10 +278,10 @@ void main() {
         now: DateTime(2026, 6, 17, 16, 5),
       );
 
-      expect(slots.map((slot) => slot.time.hour), [16, 17]);
+      expect(slots.map((slot) => slot.time.hour), [17]);
     });
 
-    test('includes the current hour when rescheduling mid-hour', () {
+    test('skips the current hour when rescheduling mid-hour', () {
       final cache = sampleMainWeatherCache()
         ..time = ['2026-06-17T17:00', '2026-06-17T18:00', '2026-06-17T19:00']
         ..timeDaily = [DateTime(2026, 6, 17)]
@@ -302,8 +302,8 @@ void main() {
         now: DateTime(2026, 6, 17, 17, 15),
       );
 
-      expect(slots.first.time.hour, 17);
-      expect(slots.map((slot) => slot.time.hour), [17, 18, 19]);
+      expect(slots.first.time.hour, 18);
+      expect(slots.map((slot) => slot.time.hour), [18, 19]);
     });
 
     test('supports overnight notification windows', () {

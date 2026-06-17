@@ -38,6 +38,9 @@ class MainWeatherState {
   /// Returns the cached city label, or an empty string when unset.
   String get city => location.city ?? '';
 
+  /// City or district label for widgets and notifications.
+  String get locationLabel => location.displayLabel;
+
   /// Returns the cached district label, or an empty string when unset.
   String get district => location.district ?? '';
 
@@ -250,14 +253,10 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
     final settings = ref.read(settingsProvider);
     if (settings.notifications) {
-      await ref
-          .read(notificationServiceProvider)
-          .rescheduleForWeather(
-            cache: cached.weather!,
-            settings: settings,
-            appSettings: ref.read(appSettingsProvider),
-            cityLabel: cached.location!.city ?? '',
-          );
+      await _rescheduleForecastNotifications(
+        cache: cached.weather!,
+        settings: settings,
+      );
     }
     await refreshPersistentNotification(force: true);
     Future.delayed(AppConstants.scrollToCurrentHourDelay, scrollToCurrentHour);
@@ -302,7 +301,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
         .updatePersistentNotification(
           cache: cache,
           settings: settings,
-          cityLabel: state.city,
+          cityLabel: state.locationLabel,
         );
   }
 
@@ -316,13 +315,21 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     final cache = state.mainWeather;
     if (cache.time == null || cache.time!.isEmpty) return;
 
+    await _rescheduleForecastNotifications(cache: cache, settings: settings);
+  }
+
+  /// Shared entry point for UI and cache refresh paths.
+  Future<void> _rescheduleForecastNotifications({
+    required MainWeatherCache cache,
+    required Settings settings,
+  }) async {
     await ref
         .read(notificationServiceProvider)
         .rescheduleForWeather(
           cache: cache,
           settings: settings,
           appSettings: ref.read(appSettingsProvider),
-          cityLabel: state.city,
+          cityLabel: state.locationLabel,
         );
   }
 

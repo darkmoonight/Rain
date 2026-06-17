@@ -80,6 +80,7 @@ void main() {
         body: 'Clear · 13:00',
         time: DateTime(2026, 6, 5, 13),
         icon: 'assets/icons/weather/0.png',
+        scheduleEpochMillis: DateTime(2026, 6, 5, 13).millisecondsSinceEpoch,
       );
 
       final id = NotificationService.notificationIdFor(slot);
@@ -92,6 +93,7 @@ void main() {
         body: 'Cloudy · 13:00',
         time: slot.time,
         icon: slot.icon,
+        scheduleEpochMillis: slot.scheduleEpochMillis,
       );
       expect(NotificationService.notificationIdFor(updated), id);
     });

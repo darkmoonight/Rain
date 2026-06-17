@@ -23,13 +23,6 @@ bool isHourInNotificationWindow(int hour, int startHour, int endHour) {
   return hour >= startHour || hour <= endHour;
 }
 
-/// Whether [a] and [b] share the same forecast wall-clock hour.
-bool isSameForecastClockHour(DateTime a, DateTime b) =>
-    a.year == b.year &&
-    a.month == b.month &&
-    a.day == b.day &&
-    a.hour == b.hour;
-
 /// UTC epoch for when the Open-Meteo hourly timestamp occurs at the location.
 ///
 /// Hourly `time` strings follow [utcOffsetSeconds] from the API response; that
@@ -140,32 +133,24 @@ int forecastAlarmEpoch(DateTime naive, MainWeatherCache cache) =>
       utcOffsetSeconds: cache.utcOffsetSeconds,
     );
 
-/// Resolves the alarm epoch for [slotTime], or null when the slot should be skipped.
+/// Resolves the alarm epoch for a forecast hour, or null when it already started.
 ///
-/// Past hours are dropped except the active hour (once per reschedule). Future
-/// hours are bumped to [forecastNotificationMinimumLeadMillis] ahead of [nowMillis].
+/// Hours still in the future are bumped to [forecastNotificationMinimumLeadMillis]
+/// ahead of [nowMillis] so the plugin never receives a past [TZDateTime].
 int? resolveAlarmEpochMillis({
-  required DateTime slotTime,
-  required DateTime wallNow,
   required int nowMillis,
-  required int realNowMillis,
   required int slotEpochMillis,
-  required bool currentHourAlreadyScheduled,
 }) {
-  if (slotEpochMillis <= nowMillis) {
-    if (!isSameForecastClockHour(slotTime, wallNow) ||
-        currentHourAlreadyScheduled) {
-      return null;
-    }
-    return (nowMillis > realNowMillis ? nowMillis : realNowMillis) +
-        forecastNotificationMinimumLeadMillis;
-  }
+  if (slotEpochMillis <= nowMillis) return null;
   if (slotEpochMillis < nowMillis + forecastNotificationMinimumLeadMillis) {
     return nowMillis + forecastNotificationMinimumLeadMillis;
   }
   return slotEpochMillis;
 }
 
-/// True when [scheduleEpochMillis] is strictly after the device clock.
+/// True when [scheduleEpochMillis] is strictly after the device UTC clock.
+///
+/// Used as a last guard before [zonedSchedule]; location-based filtering happens
+/// earlier via [resolveAlarmEpochMillis] and [forecastAlarmContext].
 bool isAlarmEpochInFuture(int scheduleEpochMillis) =>
     scheduleEpochMillis > DateTime.now().toUtc().millisecondsSinceEpoch;

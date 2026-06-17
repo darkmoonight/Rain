@@ -134,7 +134,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           cache: weather.mainWeather,
           settings: settings,
           appSettings: ref.read(appSettingsProvider),
-          cityLabel: weather.location.city ?? weather.city,
+          cityLabel: weather.locationLabel,
         );
   }
 

@@ -23,12 +23,18 @@ class WeatherNotificationSlot {
     required this.body,
     required this.time,
     required this.icon,
+    required this.scheduleEpochMillis,
   });
 
   final String title;
   final String body;
+
+  /// Forecast hour in location wall-clock (naive, same as Open-Meteo `time` strings).
   final DateTime time;
   final String icon;
+
+  /// UTC epoch used with [flutter_local_notifications] for this hour.
+  final int scheduleEpochMillis;
 }
 
 /// Content for the ongoing current-weather notification.
@@ -44,6 +50,13 @@ class PersistentNotificationContent {
   final String icon;
 }
 
+/// Settings, cache, and city label loaded from Isar for notification work.
+typedef NotificationIsarPayload = ({
+  Settings settings,
+  MainWeatherCache? cache,
+  String cityLabel,
+});
+
 /// Shared [StatusWeather] / [StatusData] formatters for notification text.
 ({StatusWeather weather, StatusData data}) _notificationFormatters(
   Settings settings,
@@ -52,17 +65,48 @@ class PersistentNotificationContent {
   data: StatusData(settings: settings),
 );
 
+/// Builds one forecast notification slot from a cached hourly row.
+WeatherNotificationSlot _buildNotificationSlot({
+  required MainWeatherCache cache,
+  required int hourIndex,
+  required int dayIndex,
+  required DateTime notificationTime,
+  required int scheduleEpochMillis,
+  required String cityLabel,
+  required StatusWeather weather,
+  required StatusData data,
+}) {
+  return WeatherNotificationSlot(
+    title: '$cityLabel: ${data.getDegree(cache.temperature2M![hourIndex])}',
+    body:
+        '${weather.getText(cache.weathercode![hourIndex])} · ${data.getTimeFormat(cache.time![hourIndex])}',
+    time: notificationTime,
+    icon: weather.getImageNotification(
+      cache.weathercode![hourIndex],
+      cache.time![hourIndex],
+      cache.sunrise![dayIndex],
+      cache.sunset![dayIndex],
+    ),
+    scheduleEpochMillis: scheduleEpochMillis,
+  );
+}
+
 /// Builds notification slots from cached hourly forecast data.
+///
+/// Only hours strictly after [alarmContext.nowMillis] are included so the active
+/// hour is never re-scheduled (that caused duplicate alerts on every reschedule).
 List<WeatherNotificationSlot> buildWeatherNotificationSlots({
   required MainWeatherCache cache,
   required Settings settings,
   required AppSettingsState appSettings,
   required String cityLabel,
+  ForecastAlarmContext? alarmContext,
   DateTime? now,
 }) {
   if (!WeatherCacheValidator.hasNotificationSlotData(cache)) return [];
 
-  final alarm = forecastAlarmContext(cache, settings, wallNow: now);
+  final alarm =
+      alarmContext ?? forecastAlarmContext(cache, settings, wallNow: now);
   final formatters = _notificationFormatters(settings);
   final startHour = TimeIndexHelper.parseTime(appSettings.timeStart).hour;
   final endHour = TimeIndexHelper.parseTime(appSettings.timeEnd).hour;
@@ -72,14 +116,8 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
     final notificationTime = TimeIndexHelper.parseForecastDateTime(
       cache.time![i],
     );
-    final scheduleMillis = forecastAlarmEpoch(notificationTime, cache);
-    final isCurrentHour = isSameForecastClockHour(
-      notificationTime,
-      alarm.wallNow,
-    );
-
-    // Skip past hours; keep only the active hour (e.g. 16:xx → 16:00 slot).
-    if (!isCurrentHour && scheduleMillis <= alarm.nowMillis) continue;
+    final scheduleEpochMillis = forecastAlarmEpoch(notificationTime, cache);
+    if (scheduleEpochMillis <= alarm.nowMillis) continue;
     if (!isHourInNotificationWindow(
       notificationTime.hour,
       startHour,
@@ -99,18 +137,15 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
     if (dayIndex < 0) continue;
 
     slots.add(
-      WeatherNotificationSlot(
-        title:
-            '$cityLabel: ${formatters.data.getDegree(cache.temperature2M![i])}',
-        body:
-            '${formatters.weather.getText(cache.weathercode![i])} · ${formatters.data.getTimeFormat(cache.time![i])}',
-        time: notificationTime,
-        icon: formatters.weather.getImageNotification(
-          cache.weathercode![i],
-          cache.time![i],
-          cache.sunrise![dayIndex],
-          cache.sunset![dayIndex],
-        ),
+      _buildNotificationSlot(
+        cache: cache,
+        hourIndex: i,
+        dayIndex: dayIndex,
+        notificationTime: notificationTime,
+        scheduleEpochMillis: scheduleEpochMillis,
+        cityLabel: cityLabel,
+        weather: formatters.weather,
+        data: formatters.data,
       ),
     );
   }
@@ -126,14 +161,11 @@ PersistentNotificationContent? buildPersistentNotificationContent({
 }) {
   if (!WeatherCacheValidator.hasPersistentNotificationData(cache)) return null;
 
-  final clock = LocationClock.fromMainWeather(
-    cache,
-    settingsClockSkewSeconds: settings.clockSkewSeconds,
-  );
+  final alarm = forecastAlarmContext(cache, settings);
   final indices = TimeIndexHelper.currentIndices(
     hourly: cache.time!,
     daily: cache.timeDaily!,
-    clock: clock,
+    clock: alarm.clock,
   );
   final hourIndex = indices.hour.clamp(0, cache.time!.length - 1);
   final day = indices.day.clamp(0, cache.timeDaily!.length - 1);
@@ -172,6 +204,12 @@ class NotificationService {
   /// Fixed id for the ongoing current-weather notification.
   static const persistentNotificationId = 1;
 
+  AndroidFlutterLocalNotificationsPlugin? get _android =>
+      flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+
   // --- Scheduling ---
 
   /// Schedules future notifications whose hour falls within the user's start/end hours.
@@ -183,35 +221,25 @@ class NotificationService {
     required AppSettingsState appSettings,
     required String cityLabel,
   }) async {
+    final alarm = forecastAlarmContext(cache, settings);
     final slots = buildWeatherNotificationSlots(
       cache: cache,
       settings: settings,
       appSettings: appSettings,
       cityLabel: cityLabel,
+      alarmContext: alarm,
     );
     if (slots.isEmpty) return;
 
-    final alarm = forecastAlarmContext(cache, settings);
     final iconRoot = WeatherIconTheme.assetRoot(settings.weatherIconTheme);
     final scheduleMode = await _androidScheduleMode();
-    final realNowMillis = DateTime.now().toUtc().millisecondsSinceEpoch;
-    var scheduledCurrentHour = false;
 
     for (final slot in slots) {
-      final slotEpochMillis = forecastAlarmEpoch(slot.time, cache);
       final scheduleMillis = resolveAlarmEpochMillis(
-        slotTime: slot.time,
-        wallNow: alarm.wallNow,
         nowMillis: alarm.nowMillis,
-        realNowMillis: realNowMillis,
-        slotEpochMillis: slotEpochMillis,
-        currentHourAlreadyScheduled: scheduledCurrentHour,
+        slotEpochMillis: slot.scheduleEpochMillis,
       );
       if (scheduleMillis == null) continue;
-      if (slotEpochMillis <= alarm.nowMillis &&
-          isSameForecastClockHour(slot.time, alarm.wallNow)) {
-        scheduledCurrentHour = true;
-      }
 
       await _showScheduled(
         notificationIdFor(slot),
@@ -236,6 +264,9 @@ class NotificationService {
   }
 
   /// When notifications are enabled, cancels pending ones and reschedules from the latest cache.
+  ///
+  /// Serialized per isolate via [_rescheduleInFlight] so overlapping UI/background
+  /// calls do not interleave cancel + schedule steps.
   Future<void> rescheduleForWeather({
     required MainWeatherCache cache,
     required Settings settings,
@@ -335,11 +366,7 @@ class NotificationService {
     try {
       await cancelScheduled();
 
-      final android = flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin
-          >();
-      final active = await android?.getActiveNotifications() ?? [];
+      final active = await _android?.getActiveNotifications() ?? [];
       for (final notification in active) {
         final id = notification.id;
         if (id == null || id == persistentNotificationId) continue;
@@ -407,12 +434,7 @@ class NotificationService {
   Future<AndroidScheduleMode> _androidScheduleMode() async {
     try {
       final canScheduleExact =
-          await flutterLocalNotificationsPlugin
-              .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin
-              >()
-              ?.canScheduleExactNotifications() ??
-          true;
+          await _android?.canScheduleExactNotifications() ?? true;
       return canScheduleExact
           ? AndroidScheduleMode.exactAllowWhileIdle
           : AndroidScheduleMode.inexactAllowWhileIdle;
@@ -423,8 +445,7 @@ class NotificationService {
 }
 
 /// Loads settings, cache, and city label for notification work in background isolates.
-Future<({Settings settings, MainWeatherCache? cache, String cityLabel})>
-_notificationPayloadFromIsar(Isar isar) async {
+Future<NotificationIsarPayload> _notificationPayloadFromIsar(Isar isar) async {
   final settings = await isar.settings.where().findFirst() ?? Settings();
   final cache = await isar.mainWeatherCaches.where().findFirst();
   final location = await isar.locationCaches.where().findFirst();
