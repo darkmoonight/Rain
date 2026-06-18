@@ -206,7 +206,38 @@ void main() {
       expect(cache.location, isNull);
     });
 
-    test('readCache reschedules notifications when enabled', () async {
+    test(
+      'readCache schedules notifications when pending queue is empty',
+      () async {
+        ctx.bootstrap.settings.notifications = true;
+        final fakeNotifications = FakeNotificationService();
+
+        final container = createTestContainer(
+          bootstrap: ctx.bootstrap,
+          overrides: [
+            mainWeatherNotifierProvider.overrideWith(
+              _TestMainWeatherNotifier.new,
+            ),
+            weatherRemoteDatasourceProvider.overrideWithValue(
+              createFakeWeatherRemoteDatasource(),
+            ),
+            notificationServiceProvider.overrideWithValue(fakeNotifications),
+            homeWidgetServiceProvider.overrideWithValue(
+              FakeHomeWidgetService(),
+            ),
+            locationServiceProvider.overrideWithValue(FakeLocationService()),
+          ],
+        );
+        addTearDown(container.dispose);
+
+        await container.read(mainWeatherNotifierProvider.notifier).readCache();
+
+        expect(fakeNotifications.scheduleIfEmptyCalls, 1);
+        expect(fakeNotifications.rescheduleCalls, 0);
+      },
+    );
+
+    test('readCache reschedules notifications after a network fetch', () async {
       ctx.bootstrap.settings.notifications = true;
       final fakeNotifications = FakeNotificationService();
 
@@ -226,9 +257,12 @@ void main() {
       );
       addTearDown(container.dispose);
 
-      await container.read(mainWeatherNotifierProvider.notifier).readCache();
+      await container
+          .read(mainWeatherNotifierProvider.notifier)
+          .readCache(rescheduleNotifications: true);
 
       expect(fakeNotifications.rescheduleCalls, 1);
+      expect(fakeNotifications.scheduleIfEmptyCalls, 0);
     });
   });
 

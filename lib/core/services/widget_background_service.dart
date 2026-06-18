@@ -83,6 +83,7 @@ Future<void> refreshMainWeatherIfStale(Isar isar) async {
   }
 }
 
+/// Applies the stored UI locale before formatting weather in a background isolate.
 Future<void> _applyBackgroundLocale(Isar isar) async {
   try {
     final settings = await isar.settings.where().findFirst();
@@ -100,6 +101,10 @@ Future<void> _applyBackgroundLocale(Isar isar) async {
 }
 
 /// Fetches stale main weather when online, then pushes widget data from disk.
+///
+/// Forecast alarms are not touched here — they are scheduled from the foreground
+/// when the cache loads or notification settings change. Only the persistent
+/// weather notification is refreshed in the background.
 Future<bool> runWidgetBackgroundRefresh(
   Future<bool> Function(Isar isar) updateWidgets, {
   Future<void> Function(Isar isar)? refreshStaleWeather,
@@ -140,14 +145,6 @@ Future<bool> runWidgetBackgroundRefresh(
       notificationUpdated = true;
     } catch (e, st) {
       logBackgroundError('updatePersistentNotificationFromIsar', e, st);
-      failureError ??= e.toString();
-    }
-
-    try {
-      await rescheduleNotificationsFromIsar(isar);
-      notificationUpdated = true;
-    } catch (e, st) {
-      logBackgroundError('rescheduleNotificationsFromIsar', e, st);
       failureError ??= e.toString();
     }
 

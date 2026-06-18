@@ -137,19 +137,6 @@ int forecastAlarmEpoch(DateTime naive, MainWeatherCache cache) =>
       utcOffsetSeconds: cache.utcOffsetSeconds,
     );
 
-/// Whether a cached forecast hour is still in the future at [referenceNowMillis].
-bool isForecastAlarmInFuture(
-  MainWeatherCache cache,
-  DateTime naive, {
-  required int referenceNowMillis,
-}) =>
-    isForecastNotificationInFuture(
-      naive,
-      cache.timezone,
-      utcOffsetSeconds: cache.utcOffsetSeconds,
-      referenceNowMillis: referenceNowMillis,
-    );
-
 /// Epoch baseline for lead-time bumps (later of location and device clocks).
 ///
 /// [flutter_local_notifications] validates against the device clock; when the

@@ -16,11 +16,6 @@ class _SpyNotificationService extends NotificationService {
   Future<void> cancelScheduled() async {
     cancelScheduledCalls++;
   }
-
-  @override
-  Future<void> cancelForecastNotifications() async {
-    cancelScheduledCalls++;
-  }
 }
 
 void main() {

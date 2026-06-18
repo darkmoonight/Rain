@@ -789,7 +789,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     if (value) {
       await _rescheduleWeatherNotifications();
     } else {
-      await ref.read(notificationServiceProvider).cancelScheduled();
+      await ref.read(notificationServiceProvider).cancelForecastNotifications();
     }
     if (!mounted) return;
     setState(() {});

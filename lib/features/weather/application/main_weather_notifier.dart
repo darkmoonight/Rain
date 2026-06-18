@@ -234,7 +234,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     await persistClockSkew(ref, weather.clockSkewSeconds ?? 0);
     syncBootstrapLocationCache(ref, location);
     refreshAppRouterFromRef(ref);
-    await readCache();
+    await readCache(rescheduleNotifications: true);
   }
 
   LocationClock _mainClock(MainWeatherCache cache) =>
@@ -246,7 +246,10 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
   // --- Cache ---
 
   /// Loads cached forecast into state, refreshes widgets/notifications, and may re-fetch when cache values look like Fahrenheit.
-  Future<void> readCache() async {
+  ///
+  /// Pass [rescheduleNotifications] after a network fetch so pending alarms pick up
+  /// new forecast text; routine loads use [scheduleIfEmpty] only.
+  Future<void> readCache({bool rescheduleNotifications = false}) async {
     final cached = await ref.read(weatherRepositoryProvider).readCache();
     if (cached.weather == null || cached.location == null) {
       state = state.copyWith(isLoading: false);
@@ -296,9 +299,10 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
     final settings = ref.read(settingsProvider);
     if (settings.notifications) {
-      await _rescheduleForecastNotifications(
+      await _syncForecastNotifications(
         cache: cached.weather!,
         cityLabel: cached.location!.displayLabel,
+        reschedulePending: rescheduleNotifications,
       );
     }
     await refreshPersistentNotification(force: true);
@@ -348,27 +352,26 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
         );
   }
 
-  /// Rebuilds scheduled forecast notifications from the latest Isar cache.
+  /// Rebuilds scheduled forecast notifications after settings change.
   Future<void> rescheduleNotificationsIfEnabled() async {
     if (!Platform.isAndroid) return;
 
     final cached = await ref.read(weatherRepositoryProvider).readCache();
-    await _rescheduleForecastNotifications(
+    await _syncForecastNotifications(
       cache: cached.weather,
       cityLabel: cached.location?.displayLabel,
+      reschedulePending: true,
     );
   }
 
-  /// Refreshes stale forecast data, then replans notifications from disk.
-  Future<void> refreshIfStaleAndRescheduleNotifications() async {
-    await refreshIfStale();
-    await rescheduleNotificationsIfEnabled();
-  }
-
-  /// Shared entry point for UI and cache refresh paths.
-  Future<void> _rescheduleForecastNotifications({
+  /// Schedules or replans forecast alarms from cache.
+  ///
+  /// [reschedulePending] is false on routine [readCache] ([scheduleIfEmpty]);
+  /// true when notification settings change ([rescheduleForWeather]).
+  Future<void> _syncForecastNotifications({
     MainWeatherCache? cache,
     String? cityLabel,
+    bool reschedulePending = false,
   }) async {
     final settings = ref.read(settingsProvider);
     if (!settings.notifications) return;
@@ -376,14 +379,25 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     final resolvedCache = cache ?? state.mainWeather;
     if (resolvedCache.time == null || resolvedCache.time!.isEmpty) return;
 
-    await ref
-        .read(notificationServiceProvider)
-        .rescheduleForWeather(
-          cache: resolvedCache,
-          settings: settings,
-          appSettings: ref.read(appSettingsProvider),
-          cityLabel: cityLabel ?? state.locationLabel,
-        );
+    final service = ref.read(notificationServiceProvider);
+    final appSettings = ref.read(appSettingsProvider);
+    final label = cityLabel ?? state.locationLabel;
+
+    if (reschedulePending) {
+      await service.rescheduleForWeather(
+        cache: resolvedCache,
+        settings: settings,
+        appSettings: appSettings,
+        cityLabel: label,
+      );
+    } else {
+      await service.scheduleIfEmpty(
+        cache: resolvedCache,
+        settings: settings,
+        appSettings: appSettings,
+        cityLabel: label,
+      );
+    }
   }
 
   /// Scrolls the hourly list to the current hour, retrying until attached.

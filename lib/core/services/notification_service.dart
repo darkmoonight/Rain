@@ -84,13 +84,12 @@ String _weatherNotificationIcon({
   required MainWeatherCache cache,
   required int hourIndex,
   required int dayIndex,
-}) =>
-    weather.getImageNotification(
-      cache.weathercode![hourIndex],
-      cache.time![hourIndex],
-      cache.sunrise![dayIndex],
-      cache.sunset![dayIndex],
-    );
+}) => weather.getImageNotification(
+  cache.weathercode![hourIndex],
+  cache.time![hourIndex],
+  cache.sunrise![dayIndex],
+  cache.sunset![dayIndex],
+);
 
 /// Builds one forecast notification slot from a cached hourly row.
 WeatherNotificationSlot _buildNotificationSlot({
@@ -150,13 +149,8 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
       cache.time![i],
     );
     final scheduleEpochMillis = forecastAlarmEpoch(notificationTime, cache);
-    if (!isForecastAlarmInFuture(
-      cache,
-      notificationTime,
-      referenceNowMillis: alarm.nowMillis,
-    )) {
-      continue;
-    }
+    // Same rule as [isForecastNotificationInFuture] — hour start must be ahead of location now.
+    if (scheduleEpochMillis <= alarm.nowMillis) continue;
     if (!isHourInNotificationWindow(
       notificationTime.hour,
       startHour,
@@ -272,7 +266,8 @@ class NotificationService {
 
   /// Schedules future notifications whose hour falls within the user's start/end hours.
   ///
-  /// Prefer [rescheduleForWeather] so stale alarms are cleared before replanning.
+  /// Prefer [rescheduleForWeather] when notification settings change so stale
+  /// pending alarms are cleared before replanning.
   Future<void> scheduleForWeather({
     required MainWeatherCache cache,
     required Settings settings,
@@ -291,6 +286,28 @@ class NotificationService {
     );
   }
 
+  /// Schedules forecast alarms only when none are pending.
+  ///
+  /// Routine cache loads call this instead of [rescheduleForWeather] so queued
+  /// alarms are not cancelled and replanned on every app open.
+  Future<void> scheduleIfEmpty({
+    required MainWeatherCache cache,
+    required Settings settings,
+    required AppSettingsState appSettings,
+    required String cityLabel,
+  }) async {
+    if (!settings.notifications) return;
+    if (await _hasPendingForecastNotifications()) return;
+
+    await scheduleForWeather(
+      cache: cache,
+      settings: settings,
+      appSettings: appSettings,
+      cityLabel: cityLabel,
+    );
+  }
+
+  /// Schedules [plan] slots via [zonedSchedule], skipping hours the plugin rejects.
   Future<void> _scheduleSlots({
     required ForecastNotificationPlan plan,
     required MainWeatherCache cache,
@@ -340,6 +357,10 @@ class NotificationService {
 
   /// When notifications are enabled, cancels pending ones and reschedules from the latest cache.
   ///
+  /// Only [cancelScheduled] runs before replanning — delivered alerts stay in the
+  /// shade until the user dismisses them. [cancelForecastNotifications] also clears
+  /// active notifications and is reserved for explicit off/disable flows.
+  ///
   /// Serialized per isolate via [_rescheduleInFlight] so overlapping UI/background
   /// calls do not interleave cancel + schedule steps.
   Future<void> rescheduleForWeather({
@@ -366,7 +387,7 @@ class NotificationService {
     final done = Completer<void>();
     _rescheduleInFlight = done.future;
     try {
-      await cancelForecastNotifications();
+      await cancelScheduled();
       await _scheduleSlots(plan: plan, cache: cache, settings: settings);
     } finally {
       done.complete();
@@ -442,6 +463,9 @@ class NotificationService {
   }
 
   /// Clears pending and visible hourly forecast notifications (not the persistent one).
+  ///
+  /// Does not run during [rescheduleForWeather] — background/widget refresh would
+  /// otherwise remove alerts the user has not dismissed yet (more visible on Android 14+).
   Future<void> cancelForecastNotifications() async {
     try {
       await cancelScheduled();
@@ -465,6 +489,28 @@ class NotificationService {
   Future<void> cancelAll() => flutterLocalNotificationsPlugin.cancelAll();
 
   // --- Platform ---
+
+  /// True when any hourly forecast alarm is still queued (excludes [persistentNotificationId]).
+  Future<bool> _hasPendingForecastNotifications() async {
+    final pending = await flutterLocalNotificationsPlugin
+        .pendingNotificationRequests();
+    return pending.any(
+      (notification) => notification.id != persistentNotificationId,
+    );
+  }
+
+  /// Shared Android details for hourly forecast notifications.
+  AndroidNotificationDetails _forecastAndroidDetails(String imagePath) =>
+      AndroidNotificationDetails(
+        forecastChannelId,
+        forecastChannelName,
+        icon: 'ic_notification',
+        priority: Priority.high,
+        importance: Importance.max,
+        playSound: false,
+        enableVibration: false,
+        largeIcon: FilePathAndroidBitmap(imagePath),
+      );
 
   /// Shows a single zoned notification with a cached weather icon.
   Future<void> _showScheduled(
@@ -498,16 +544,7 @@ class NotificationService {
           aligned,
         ),
         notificationDetails: NotificationDetails(
-          android: AndroidNotificationDetails(
-            forecastChannelId,
-            forecastChannelName,
-            icon: 'ic_notification',
-            priority: Priority.high,
-            importance: Importance.max,
-            playSound: false,
-            enableVibration: false,
-            largeIcon: FilePathAndroidBitmap(imagePath),
-          ),
+          android: _forecastAndroidDetails(imagePath),
         ),
         androidScheduleMode: scheduleMode,
         payload: imagePath,
@@ -531,7 +568,7 @@ class NotificationService {
   }
 }
 
-/// Loads settings, cache, and city label for notification work in background isolates.
+/// Loads settings, cache, and city label for background notification work.
 Future<NotificationIsarPayload> _notificationPayloadFromIsar(Isar isar) async {
   final settings = await isar.settings.where().findFirst() ?? Settings();
   final cache = await isar.mainWeatherCaches.where().findFirst();
@@ -546,19 +583,6 @@ Future<NotificationIsarPayload> _notificationPayloadFromIsar(Isar isar) async {
 /// [NotificationService] without Riverpod — safe in background isolates.
 NotificationService _backgroundNotificationService() =>
     NotificationService(AssetCacheService());
-
-/// Reschedules forecast notifications from Isar (background isolate safe).
-Future<void> rescheduleNotificationsFromIsar(Isar isar) async {
-  final payload = await _notificationPayloadFromIsar(isar);
-  if (!payload.settings.notifications || payload.cache == null) return;
-
-  await _backgroundNotificationService().rescheduleForWeather(
-    cache: payload.cache!,
-    settings: payload.settings,
-    appSettings: AppSettingsState.fromSettings(payload.settings),
-    cityLabel: payload.cityLabel,
-  );
-}
 
 /// Updates the persistent notification from an Isar instance (background isolate safe).
 Future<void> updatePersistentNotificationFromIsar(Isar isar) async {

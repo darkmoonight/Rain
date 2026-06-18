@@ -76,7 +76,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
         HomeWidgetService.updateFromDisk();
         final notifier = ref.read(mainWeatherNotifierProvider.notifier);
         notifier.refreshPersistentNotification(force: true);
-        unawaited(notifier.refreshIfStaleAndRescheduleNotifications());
+        unawaited(notifier.refreshIfStale());
       }
     }
   }
