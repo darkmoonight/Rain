@@ -33,6 +33,7 @@
   "discord": "डिस्कॉर्ड",
   "discardChanges": "तुम्हाला खरोखर तुमचे बदल रद्द करायचे आहेत का?",
   "notifications": "सूचना",
+  "notificationSound": "सूचना आवाज",
   "mph": "मैल/तास",
   "west": "पश्चिम",
   "validate90": "मूल्य -90 आणि 90 दरम्यान असावे",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "समुद्रसपाटीचा वायुदाब. घट अनेकदा वाईट हवामानाची खुण.",
   "metricHelpShortwaveRadiation": "आडव्या पृष्ठभागावर सौर ऊर्जा (जागतिक आडवे विकिरण), मागील तासाची सरासरी.",
   "today": "आज",
-  "tomorrow": "उद्या"
+  "tomorrow": "उद्या",
+  "notificationWeekdays": "सूचना दिवस",
+  "notificationWeekdaysAll": "दररोज",
+  "notificationWeekdaysNone": "काहीही नाही",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "ओपन-सोर्स सॉफ्टवेअरने तयार केले. परवाना वाचण्यासाठी पॅकेजवर टॅप करा.",
+  "licenseDependencies": "अवलंबित्व",
+  "licensePackages": "पॅकेज",
+  "close": "बंद करा"
 }

@@ -19,7 +19,10 @@ class _SpyNotificationService extends NotificationService {
 }
 
 void main() {
-  setUpAll(initTestEnvironment);
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await initTestEnvironment();
+  });
 
   group('NotificationService', () {
     late _SpyNotificationService service;
@@ -42,33 +45,23 @@ void main() {
       },
     );
 
-    test(
-      'scheduleForWeather delegates to slot builder without throwing',
-      () async {
-        final cache = sampleMainWeatherCache();
-        final appSettings = const AppSettingsState(
-          timeStart: '00:00',
-          timeEnd: '23:59',
-          timeRange: 1,
-        );
-        final expectedSlots = buildWeatherNotificationSlots(
-          cache: cache,
-          settings: Settings()..notifications = true,
-          appSettings: appSettings,
-          cityLabel: 'Moscow',
-          now: DateTime(2026, 6, 5, 11),
-        );
+    test('scheduleForWeather builds and schedules forecast slots', () async {
+      final cache = sampleFutureMainWeatherCache();
+      final appSettings = const AppSettingsState(
+        timeStart: '00:00',
+        timeEnd: '23:59',
+        timeRange: 1,
+      );
 
-        await service.scheduleForWeather(
-          cache: cache,
-          settings: Settings()..notifications = true,
-          appSettings: appSettings,
-          cityLabel: 'Moscow',
-        );
+      await service.scheduleForWeather(
+        cache: cache,
+        settings: Settings()..notifications = true,
+        appSettings: appSettings,
+        cityLabel: 'Moscow',
+      );
 
-        expect(expectedSlots, isNotEmpty);
-      },
-    );
+      expect(service.lastScheduledSlotCount, greaterThan(0));
+    });
 
     test('uses stable schedule-epoch notification ids', () {
       const epoch = 1_715_000_000_000;

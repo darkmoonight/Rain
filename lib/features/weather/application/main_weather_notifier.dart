@@ -73,6 +73,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
   int? _lastPersistentHourIndex;
   int? _lastPersistentDayIndex;
   bool _followCurrentTime = true;
+  bool _channelMigrationRescheduleDone = false;
 
   /// Timestamp before which cached forecast data is treated as stale.
   DateTime get _cacheExpiryThreshold =>
@@ -93,8 +94,6 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     Future.microtask(_init);
     return MainWeatherState();
   }
-
-  // --- Initialization ---
 
   /// Cancels notifications when online and the main weather cache is empty, then resolves location.
   Future<void> _init() async {
@@ -142,10 +141,17 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
   }
 
-  // --- Location fetch ---
-
   /// Fetches weather from GPS when online and location is enabled; otherwise shows a snackbar and loads cache.
-  Future<void> getCurrentLocation({bool showLoading = true}) async {
+  ///
+  /// Pass [forceLoading] when switching to GPS so the main tab shows a loader
+  /// instead of the previous manual city's forecast.
+  Future<void> getCurrentLocation({
+    bool showLoading = true,
+    bool forceLoading = false,
+  }) async {
+    if (showLoading && (!_hasDisplayableForecast || forceLoading)) {
+      state = state.copyWith(isLoading: true);
+    }
     if (!await ConnectivityService.hasInternet()) {
       showSnackBar('no_inter'.tr);
       await readCache();
@@ -156,9 +162,6 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       showSnackBar('no_location'.tr);
       await readCache();
       return;
-    }
-    if (showLoading && !_hasDisplayableForecast) {
-      state = state.copyWith(isLoading: true);
     }
     try {
       await NetworkCacheHandler.fetchOrKeepCache(
@@ -243,12 +246,10 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
         settingsClockSkewSeconds: ref.read(settingsProvider).clockSkewSeconds,
       );
 
-  // --- Cache ---
-
   /// Loads cached forecast into state, refreshes widgets/notifications, and may re-fetch when cache values look like Fahrenheit.
   ///
   /// Pass [rescheduleNotifications] after a network fetch so pending alarms pick up
-  /// new forecast text; routine loads use [scheduleIfEmpty] only.
+  /// new forecast text; routine loads top up missing slots only.
   Future<void> readCache({bool rescheduleNotifications = false}) async {
     final cached = await ref.read(weatherRepositoryProvider).readCache();
     if (cached.weather == null || cached.location == null) {
@@ -292,20 +293,33 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       dayOfNow: indices.day,
     );
     syncBootstrapLocationCache(ref, cached.location!);
+    // Widget and notification sync can load many assets; keep off the UI thread.
     if (Platform.isAndroid) {
-      await ref
-          .read(homeWidgetServiceProvider)
-          .updateFromIsar(ref.read(isarProvider));
+      unawaited(
+        ref
+            .read(homeWidgetServiceProvider)
+            .updateFromIsar(ref.read(isarProvider)),
+      );
     }
     final settings = ref.read(settingsProvider);
     if (settings.notifications) {
-      await _syncForecastNotifications(
-        cache: cached.weather!,
-        cityLabel: cached.location!.displayLabel,
-        reschedulePending: rescheduleNotifications,
+      final bootstrap = ref.read(bootstrapProvider);
+      final migrateReschedule =
+          bootstrap.rescheduleForecastNotifications &&
+          !_channelMigrationRescheduleDone;
+      if (migrateReschedule) _channelMigrationRescheduleDone = true;
+
+      unawaited(
+        _syncForecastNotifications(
+          cache: cached.weather!,
+          cityLabel: cached.location!.displayLabel,
+          reschedulePending: rescheduleNotifications || migrateReschedule,
+        ),
       );
     }
-    await refreshPersistentNotification(force: true);
+    if (Platform.isAndroid) {
+      unawaited(refreshPersistentNotification(force: true));
+    }
     Future.delayed(AppConstants.scrollToCurrentHourDelay, scrollToCurrentHour);
   }
 
@@ -352,11 +366,21 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
         );
   }
 
-  /// Rebuilds scheduled forecast notifications after settings change.
+  Future<void> rebuildNotificationContentFromCache() async {
+    if (!Platform.isAndroid) return;
+    await rescheduleNotificationsIfEnabled();
+    await refreshPersistentNotification(force: true);
+  }
+
   Future<void> rescheduleNotificationsIfEnabled() async {
     if (!Platform.isAndroid) return;
 
-    final cached = await ref.read(weatherRepositoryProvider).readCache();
+    final inMemory = state.mainWeather;
+    final hasInMemoryCache = inMemory.time != null && inMemory.time!.isNotEmpty;
+    final cached = hasInMemoryCache
+        ? (weather: inMemory, location: state.location)
+        : await ref.read(weatherRepositoryProvider).readCache();
+
     await _syncForecastNotifications(
       cache: cached.weather,
       cityLabel: cached.location?.displayLabel,
@@ -366,7 +390,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   /// Schedules or replans forecast alarms from cache.
   ///
-  /// [reschedulePending] is false on routine [readCache] ([scheduleIfEmpty]);
+  /// [reschedulePending] is false on routine [readCache] (top-up missing slots);
   /// true when notification settings change ([rescheduleForWeather]).
   Future<void> _syncForecastNotifications({
     MainWeatherCache? cache,
@@ -391,13 +415,29 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
         cityLabel: label,
       );
     } else {
-      await service.scheduleIfEmpty(
+      await service.ensureForecastNotificationsScheduled(
         cache: resolvedCache,
         settings: settings,
         appSettings: appSettings,
         cityLabel: label,
       );
     }
+  }
+
+  Future<void> replenishForecastNotificationsIfEnabled() async {
+    if (!Platform.isAndroid) return;
+
+    final inMemory = state.mainWeather;
+    final hasInMemoryCache = inMemory.time != null && inMemory.time!.isNotEmpty;
+    final cached = hasInMemoryCache
+        ? (weather: inMemory, location: state.location)
+        : await ref.read(weatherRepositoryProvider).readCache();
+
+    await _syncForecastNotifications(
+      cache: cached.weather,
+      cityLabel: cached.location?.displayLabel,
+      reschedulePending: false,
+    );
   }
 
   /// Scrolls the hourly list to the current hour, retrying until attached.
@@ -466,8 +506,6 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
   }
 
-  // --- Refresh ---
-
   /// Pulls fresh forecast data when online, otherwise reloads from cache.
   Future<void> refresh() async {
     await NetworkCacheHandler.fetchOrKeepCache(
@@ -489,6 +527,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
     if (!await repo.isCacheExpired(_cacheExpiryThreshold)) {
       syncCurrentTimeIndices();
+      unawaited(replenishForecastNotificationsIfEnabled());
       return;
     }
 

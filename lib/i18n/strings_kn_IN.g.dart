@@ -73,6 +73,7 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ಡಿಸ್ಕಾರ್ಡ್';
 	@override String get discard_changes => 'ನಿಮ್ಮ ಬದಲಾವಣೆಗಳನ್ನು ತ್ಯಜಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ?';
 	@override String get notifications => 'ಅಧಿಸೂಚನೆಗಳು';
+	@override String get notification_sound => 'ಅಧಿಸೂಚನೆ ಧ್ವನಿ';
 	@override String get mph => 'ಮೈಲ್/ಗಂ';
 	@override String get west => 'ಪಶ್ಚಿಮ';
 	@override String get validate90 => 'ಮೌಲ್ಯವು -90 ಮತ್ತು 90 ರ ನಡುವೆ ಇರಬೇಕು';
@@ -293,6 +294,14 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'ಅಡ್ಡ ಮೇಲ್ಮೈಯ ಮೇಲೆ ಸೌರ ಶಕ್ತಿ (ಜಾಗತಿಕ ಅಡ್ಡ ವಿಕಿರಣ), ಹಿಂದಿನ ಗಂಟೆಯ ಸರಾಸರಿ.';
 	@override String get today => 'ಇಂದು';
 	@override String get tomorrow => 'ನಾಳೆ';
+	@override String get notification_weekdays => 'ಅಧಿಸೂಚನೆ ದಿನಗಳು';
+	@override String get notification_weekdays_all => 'ಪ್ರತಿ ದಿನ';
+	@override String get notification_weekdays_none => 'ಯಾವುದೂ ಇಲ್ಲ';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ಓಪನ್-ಸೋರ್ಸ್ ಸಾಫ್ಟ್‌ವೇರ್‌ನಿಂದ ನಿರ್ಮಿಸಲಾಗಿದೆ. ಪರವಾನಗಿ ಓದಲು ಪ್ಯಾಕೇಜ್ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಿ.';
+	@override String get license_dependencies => 'ಅವಲಂಬನೆಗಳು';
+	@override String get license_packages => 'ಪ್ಯಾಕೇಜ್‌ಗಳು';
+	@override String get close => 'ಮುಚ್ಚಿ';
 }
 
 /// The flat map containing all translations for locale <kn-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsKnIn {
 			'discord' => 'ಡಿಸ್ಕಾರ್ಡ್',
 			'discard_changes' => 'ನಿಮ್ಮ ಬದಲಾವಣೆಗಳನ್ನು ತ್ಯಜಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ?',
 			'notifications' => 'ಅಧಿಸೂಚನೆಗಳು',
+			'notification_sound' => 'ಅಧಿಸೂಚನೆ ಧ್ವನಿ',
 			'mph' => 'ಮೈಲ್/ಗಂ',
 			'west' => 'ಪಶ್ಚಿಮ',
 			'validate90' => 'ಮೌಲ್ಯವು -90 ಮತ್ತು 90 ರ ನಡುವೆ ಇರಬೇಕು',
@@ -557,6 +567,14 @@ extension on TranslationsKnIn {
 			'metric_help_shortwave_radiation' => 'ಅಡ್ಡ ಮೇಲ್ಮೈಯ ಮೇಲೆ ಸೌರ ಶಕ್ತಿ (ಜಾಗತಿಕ ಅಡ್ಡ ವಿಕಿರಣ), ಹಿಂದಿನ ಗಂಟೆಯ ಸರಾಸರಿ.',
 			'today' => 'ಇಂದು',
 			'tomorrow' => 'ನಾಳೆ',
+			'notification_weekdays' => 'ಅಧಿಸೂಚನೆ ದಿನಗಳು',
+			'notification_weekdays_all' => 'ಪ್ರತಿ ದಿನ',
+			'notification_weekdays_none' => 'ಯಾವುದೂ ಇಲ್ಲ',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ಓಪನ್-ಸೋರ್ಸ್ ಸಾಫ್ಟ್‌ವೇರ್‌ನಿಂದ ನಿರ್ಮಿಸಲಾಗಿದೆ. ಪರವಾನಗಿ ಓದಲು ಪ್ಯಾಕೇಜ್ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಿ.',
+			'license_dependencies' => 'ಅವಲಂಬನೆಗಳು',
+			'license_packages' => 'ಪ್ಯಾಕೇಜ್‌ಗಳು',
+			'close' => 'ಮುಚ್ಚಿ',
 			_ => null,
 		};
 	}

@@ -11,8 +11,6 @@ class CitiesRepository {
   final Isar _isar;
   final WeatherRemoteDatasource _remote;
 
-  // --- Read ---
-
   /// Returns all weather cards sorted by display index, repairing gaps first.
   Future<List<WeatherCard>> getAllSorted() async {
     await repairIndices();
@@ -39,8 +37,6 @@ class CitiesRepository {
     return WeatherCardValidator.filterExpired(cards, expiry);
   }
 
-  // --- Remote fetch ---
-
   /// Fetches fresh forecast data for a city and returns it as a weather card.
   Future<WeatherCard> fetchCard(
     double lat,
@@ -48,8 +44,6 @@ class CitiesRepository {
     String city,
     String district,
   ) => _remote.fetchWeatherCard(lat, lon, city, district);
-
-  // --- Write ---
 
   /// Appends a new weather card at the end of the saved list.
   Future<void> addCard(WeatherCard card) async {
@@ -78,8 +72,6 @@ class CitiesRepository {
     WeatherMapper.copyWeatherCardFields(oldCard, updated);
     await _isar.writeTxn(() => _isar.weatherCards.put(oldCard));
   }
-
-  // --- Reorder ---
 
   /// Moves a card from [oldIndex] to [newIndex] and rewrites display indices.
   Future<void> reorder(int oldIndex, int newIndex) async {

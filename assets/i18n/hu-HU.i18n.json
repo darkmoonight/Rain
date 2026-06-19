@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Biztosan el akarja vetni a módosításait?",
   "notifications": "Értesítések",
+  "notificationSound": "Értesítési hang",
   "mph": "mph",
   "west": "Nyugat",
   "validate90": "Az érték -90 és 90 közötti kell legyen",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Tengerszinti légnyomás. A csökkenés gyakran rosszabbodó időjárást jelez.",
   "metricHelpShortwaveRadiation": "Napenergia vízszintes felületen (globális horizontális sugárzás), az előző óra átlaga.",
   "today": "Ma",
-  "tomorrow": "Holnap"
+  "tomorrow": "Holnap",
+  "notificationWeekdays": "Értesítési napok",
+  "notificationWeekdaysAll": "Minden nap",
+  "notificationWeekdaysNone": "Nincs",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Nyílt forráskódú szoftverrel készült. Érintsen meg egy csomagot a licenc olvasásához.",
+  "licenseDependencies": "Függőségek",
+  "licensePackages": "csomag",
+  "close": "Bezárás"
 }

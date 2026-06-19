@@ -73,6 +73,7 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => '変更を破棄しますか？';
 	@override String get notifications => '通知';
+	@override String get notification_sound => '通知音';
 	@override String get mph => 'mph';
 	@override String get west => '西';
 	@override String get validate90 => '値は -90 〜 90 の範囲で入力してください';
@@ -293,6 +294,14 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => '水平面の日射エネルギー（全天日射量）、直前 1 時間の平均。';
 	@override String get today => '今日';
 	@override String get tomorrow => '明日';
+	@override String get notification_weekdays => '通知する曜日';
+	@override String get notification_weekdays_all => '毎日';
+	@override String get notification_weekdays_none => 'なし';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'オープンソースソフトウェアで構築されています。パッケージをタップしてライセンスを読めます。';
+	@override String get license_dependencies => '依存関係';
+	@override String get license_packages => 'パッケージ';
+	@override String get close => '閉じる';
 }
 
 /// The flat map containing all translations for locale <ja-JP>.
@@ -337,6 +346,7 @@ extension on TranslationsJaJp {
 			'discord' => 'Discord',
 			'discard_changes' => '変更を破棄しますか？',
 			'notifications' => '通知',
+			'notification_sound' => '通知音',
 			'mph' => 'mph',
 			'west' => '西',
 			'validate90' => '値は -90 〜 90 の範囲で入力してください',
@@ -557,6 +567,14 @@ extension on TranslationsJaJp {
 			'metric_help_shortwave_radiation' => '水平面の日射エネルギー（全天日射量）、直前 1 時間の平均。',
 			'today' => '今日',
 			'tomorrow' => '明日',
+			'notification_weekdays' => '通知する曜日',
+			'notification_weekdays_all' => '毎日',
+			'notification_weekdays_none' => 'なし',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'オープンソースソフトウェアで構築されています。パッケージをタップしてライセンスを読めます。',
+			'license_dependencies' => '依存関係',
+			'license_packages' => 'パッケージ',
+			'close' => '閉じる',
 			_ => null,
 		};
 	}

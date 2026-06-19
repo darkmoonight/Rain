@@ -1,98 +1,83 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_cache_file_store/http_cache_file_store.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
-import 'package:rain/core/di/settings_revision.dart';
 import 'package:rain/core/theme/app_font.dart';
 import 'package:rain/core/weather/weather_icon_theme.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
-import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_about_section.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_functions_section.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_save_actions.dart';
 import 'package:rain/features/settings/presentation/widgets/selection_dialog.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
-import 'package:rain/core/utils/app_time_picker.dart';
-import 'package:rain/core/bootstrap/background_bootstrap.dart';
 import 'package:rain/core/config/app_config.dart';
-import 'package:rain/features/settings/presentation/view/widget_settings_page.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/i18n/locale_utils.dart';
-import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/url_launcher_util.dart';
+import 'package:rain/core/navigation/app_router.dart';
+import 'package:rain/features/settings/presentation/view/widget_settings_page.dart';
 import 'package:restart_app/restart_app.dart';
 
-/// Scrollable settings screen grouped into themed sections.
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
-  /// Creates the state for [SettingsPage].
   @override
   ConsumerState<SettingsPage> createState() => _SettingsPageState();
 }
 
-// --- SettingsPageState ---
-
-/// State for [SettingsPage] handling settings UI, dialogs, and persistence.
 class _SettingsPageState extends ConsumerState<SettingsPage> {
-  String? appVersion;
+  late final SettingsSaveActions _saveActions;
 
-  /// Persisted Isar settings watched from Riverpod.
   Settings get settings => ref.watch(settingsProvider);
 
-  /// In-memory app settings snapshot watched from Riverpod.
-  AppSettingsState get appSettings => ref.watch(appSettingsProvider);
-
-  /// Active UI locale watched from Riverpod.
   Locale get locale => ref.watch(localeProvider);
 
-  /// Loads package version on first frame.
   @override
   void initState() {
     super.initState();
-    _infoVersion();
+    _saveActions = SettingsSaveActions(ref, setState);
   }
 
-  /// Loads the app version string from package info for the about section.
-  Future<void> _infoVersion() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    setState(() => appVersion = packageInfo.version);
-  }
-
-  /// Formats a stored time string, or `--:--` when null or empty.
-  String _safeFormatTime(String? timeStr) {
-    if (timeStr == null || timeStr.isEmpty) return '--:--';
-    ref.watch(settingsRevisionProvider);
-    return TimeIndexHelper.formatTime(
-      timeStr,
-      ref.watch(settingsProvider),
-      ref.watch(localeProvider).languageCode,
-    );
-  }
-
-  /// Pushes the latest settings to Android home widgets when on Android.
   Future<void> _refreshWidgets() async {
     if (!Platform.isAndroid) return;
     await ref.read(widgetSettingsServiceProvider).refreshWidgets();
   }
 
-  /// Persists [settings] and optionally runs [afterSave] before rebuilding.
-  Future<void> _saveSettings({Future<void> Function()? afterSave}) async {
-    await ref.read(settingsRepositoryProvider).save(settings);
-    if (afterSave != null) await afterSave();
-    if (!mounted) return;
-    setState(() {});
+  Future<void> _saveSettings({
+    Future<void> Function()? afterSave,
+    bool backgroundAfterSave = false,
+  }) => _saveActions.saveSettings(
+    afterSave: afterSave,
+    backgroundAfterSave: backgroundAfterSave,
+  );
+
+  Future<void> _saveWithNotificationContentSync({
+    bool refreshWidgets = false,
+  }) => _saveSettings(
+    afterSave: refreshWidgets
+        ? _syncWidgetsAndNotificationContent
+        : _saveActions.weather.rebuildNotificationContentFromCache,
+    backgroundAfterSave: true,
+  );
+
+  Future<void> _syncWidgetsAndNotificationContent() async {
+    await _refreshWidgets();
+    await _saveActions.weather.rebuildNotificationContentFromCache();
   }
 
-  /// Single-choice dialog for a persisted string-id settings catalog.
+  void _runInBackground(Future<void> Function()? action) =>
+      _saveActions.runInBackground(action);
+
   void _showCatalogDialog(
     BuildContext context, {
     required String titleKey,
@@ -103,6 +88,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     required void Function(String value) apply,
     Widget? Function(String)? leadingBuilder,
     Future<void> Function()? afterSave,
+    bool backgroundAfterSave = false,
   }) {
     showSelectionDialog<String>(
       context: context,
@@ -114,19 +100,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       leadingBuilder: leadingBuilder,
       onSelected: (value) async {
         apply(value);
-        await _saveSettings(afterSave: afterSave);
+        await _saveSettings(
+          afterSave: afterSave,
+          backgroundAfterSave: backgroundAfterSave,
+        );
       },
     );
   }
 
-  /// Rebuilds forecast notifications from the latest cache when alerts are enabled.
-  Future<void> _rescheduleWeatherNotifications() async {
-    await ref
-        .read(mainWeatherNotifierProvider.notifier)
-        .rescheduleNotificationsIfEnabled();
-  }
-
-  /// Persists a new locale, updates in-memory settings, and refreshes widgets.
   Future<void> _updateLanguage(Locale locale) async {
     final settings = ref.read(settingsProvider);
     settings.language = '${locale.languageCode}_${locale.countryCode}';
@@ -134,21 +115,24 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     ref.read(appSettingsProvider.notifier).update(locale: locale);
     await applyAppLocale(appLocaleFromFlutterLocale(locale));
     await _refreshWidgets();
+    _runInBackground(_saveActions.weather.rebuildNotificationContentFromCache);
     setState(() {});
   }
 
-  /// Builds the scrollable settings page with all sections.
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppConstants.spacingL,
+          vertical: AppConstants.spacingM,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildAppearanceSection(context),
             const Gap(24),
-            _buildFunctionsSection(context),
+            const SettingsFunctionsSection(),
             const Gap(24),
             _buildDataSection(context),
             if (Platform.isAndroid) ...[
@@ -162,9 +146,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             const Gap(24),
             _buildGroupsSection(context),
             const Gap(24),
-            _buildAboutSection(context),
-            const Gap(16),
-            _buildOpenMeteoText(context),
+            const SettingsAboutSection(),
             const Gap(16),
           ],
         ),
@@ -172,9 +154,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  // --- Sections ---
-
-  /// Builds the appearance settings section.
   Widget _buildAppearanceSection(BuildContext context) {
     return SettingsSection(
       title: 'appearance',
@@ -227,9 +206,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               value: settings.largeElement,
               onChanged: (value) async {
                 settings.largeElement = value;
-                await ref.read(settingsRepositoryProvider).save(settings);
-                if (!mounted) return;
-                setState(() {});
+                await _saveSettings();
               },
             ),
           ),
@@ -250,73 +227,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Builds the functions settings section.
-  Widget _buildFunctionsSection(BuildContext context) {
-    return SettingsSection(
-      title: 'functions',
-      icon: IconsaxPlusBold.code_1,
-      children: [
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.map),
-          title: 'location',
-          trailing: Transform.scale(
-            scale: 0.8,
-            child: Switch(
-              value: settings.location,
-              onChanged: (value) => _onLocationChanged(value, context),
-            ),
-          ),
-        ),
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.notification_1),
-          title: 'notifications',
-          trailing: Transform.scale(
-            scale: 0.8,
-            child: Switch(
-              value: settings.notifications,
-              onChanged: (value) => _onNotificationsChanged(value),
-            ),
-          ),
-        ),
-        if (Platform.isAndroid)
-          SettingsTile(
-            leading: const Icon(IconsaxPlusLinear.notification_bing),
-            title: 'persistentNotification',
-            trailing: Transform.scale(
-              scale: 0.8,
-              child: Switch(
-                value: settings.persistentNotification,
-                onChanged: (value) => _onPersistentNotificationChanged(value),
-              ),
-            ),
-          ),
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.notification_status),
-          title: 'timeRange',
-          value: '${appSettings.timeRange}',
-          onTap: () => _showTimeRangeDialog(context),
-        ),
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.timer_start),
-          title: 'timeStart',
-          value: _safeFormatTime(
-            settings.timeStart ?? AppConstants.defaultNotificationTimeStart,
-          ),
-          onTap: () => _showTimeStartPicker(context),
-        ),
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.timer_pause),
-          title: 'timeEnd',
-          value: _safeFormatTime(
-            settings.timeEnd ?? AppConstants.defaultNotificationTimeEnd,
-          ),
-          onTap: () => _showTimeEndPicker(context),
-        ),
-      ],
-    );
-  }
-
-  /// Builds the data and units settings section.
   Widget _buildDataSection(BuildContext context) {
     return SettingsSection(
       title: 'data',
@@ -331,14 +241,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               value: settings.roundDegree,
               onChanged: (value) async {
                 settings.roundDegree = value;
-                await ref.read(settingsRepositoryProvider).save(settings);
-                if (Platform.isAndroid) {
-                  await ref
-                      .read(widgetSettingsServiceProvider)
-                      .refreshWidgets();
-                }
-                if (!mounted) return;
-                setState(() {});
+                await _saveWithNotificationContentSync(refreshWidgets: true);
               },
             ),
           ),
@@ -383,7 +286,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Builds the Android home widget settings section.
   Widget _buildWidgetSection(BuildContext context) {
     return SettingsSection(
       title: 'widget',
@@ -397,17 +299,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             size: 20,
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const WidgetSettingsPage()),
-            );
-          },
+          onTap: () => context.pushRouteUp(const WidgetSettingsPage()),
         ),
       ],
     );
   }
 
-  /// Builds the map and cache settings section.
   Widget _buildMapSection(BuildContext context) {
     return SettingsSection(
       title: 'map',
@@ -442,7 +339,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Builds the language selection settings section.
   Widget _buildLanguageSection(BuildContext context) {
     final currentLanguage = appLanguages
         .firstWhere(
@@ -465,7 +361,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Builds the community links settings section.
   Widget _buildGroupsSection(BuildContext context) {
     return SettingsSection(
       title: 'groups',
@@ -485,54 +380,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Builds the about app settings section.
-  Widget _buildAboutSection(BuildContext context) {
-    return SettingsSection(
-      title: 'aboutApp',
-      icon: IconsaxPlusBold.info_circle,
-      children: [
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.document_text),
-          title: 'license',
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => LicensePage(
-                  applicationIcon: Container(
-                    width: 100,
-                    height: 100,
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      image: DecorationImage(
-                        image: AssetImage('assets/icons/icon.png'),
-                      ),
-                    ),
-                  ),
-                  applicationName: 'Rain',
-                  applicationVersion: appVersion,
-                ),
-              ),
-            );
-          },
-        ),
-        SettingsTile(
-          leading: const Icon(LineAwesomeIcons.github),
-          title: '${'project'.tr} GitHub',
-          onTap: () => openUrl('https://github.com/darkmoonight/Rain'),
-        ),
-        SettingsTile(
-          leading: const Icon(IconsaxPlusLinear.hierarchy_square_2),
-          title: 'version',
-          value: appVersion ?? '...',
-        ),
-      ],
-    );
-  }
-
-  // --- Dialogs ---
-
-  /// Opens the light/dark/system theme picker.
   void _showThemeDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -549,28 +396,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Opens the notification interval picker and reschedules when needed.
-  void _showTimeRangeDialog(BuildContext context) {
-    showSelectionDialog<String>(
-      context: context,
-      title: 'timeRange'.tr,
-      icon: IconsaxPlusLinear.notification_status,
-      items: const ['1', '2', '3', '4', '5'],
-      currentValue: '${appSettings.timeRange}',
-      itemBuilder: (value) => value,
-      onSelected: (value) async {
-        settings.timeRange = int.parse(value);
-        await ref.read(settingsRepositoryProvider).save(settings);
-        if (!mounted) return;
-        if (settings.notifications) {
-          await _rescheduleWeatherNotifications();
-        }
-        setState(() {});
-      },
-    );
-  }
-
-  /// Opens the Celsius/Fahrenheit temperature unit picker.
   void _showDegreesDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -581,15 +406,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       itemBuilder: (value) => value.tr,
       onSelected: (value) async {
         settings.degrees = value;
-        await ref.read(settingsRepositoryProvider).save(settings);
-        await _refreshWidgets();
-        if (!mounted) return;
-        setState(() {});
+        await _saveWithNotificationContentSync(refreshWidgets: true);
       },
     );
   }
 
-  /// Opens the metric/imperial measurements picker.
   void _showMeasurementsDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -600,15 +421,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       itemBuilder: (value) => value.tr,
       onSelected: (value) async {
         settings.measurements = value;
-        await ref.read(settingsRepositoryProvider).save(settings);
-        await _refreshWidgets();
-        if (!mounted) return;
-        setState(() {});
+        await _saveSettings(afterSave: _refreshWidgets);
       },
     );
   }
 
-  /// Opens the wind speed unit picker.
   void _showWindDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -619,14 +436,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       itemBuilder: (value) => value.tr,
       onSelected: (value) async {
         settings.wind = value;
-        await ref.read(settingsRepositoryProvider).save(settings);
-        if (!mounted) return;
-        setState(() {});
+        await _saveSettings();
       },
     );
   }
 
-  /// Opens the pressure unit picker.
   void _showPressureDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -637,14 +451,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       itemBuilder: (value) => value.tr,
       onSelected: (value) async {
         settings.pressure = value;
-        await ref.read(settingsRepositoryProvider).save(settings);
-        if (!mounted) return;
-        setState(() {});
+        await _saveSettings();
       },
     );
   }
 
-  /// Opens the European / US AQI standard picker.
   void _showAqiStandardDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -655,14 +466,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       itemBuilder: (value) => value.tr,
       onSelected: (value) async {
         settings.aqiStandard = value;
-        await ref.read(settingsRepositoryProvider).save(settings);
-        if (!mounted) return;
-        setState(() {});
+        await _saveSettings();
       },
     );
   }
 
-  /// Opens the app font picker.
   void _showAppFontDialog(BuildContext context) {
     _showCatalogDialog(
       context,
@@ -675,7 +483,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Opens the weather icon theme picker.
   void _showWeatherIconThemeDialog(BuildContext context) {
     _showCatalogDialog(
       context,
@@ -686,11 +493,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       itemBuilder: WeatherIconTheme.label,
       leadingBuilder: WeatherIconTheme.previewLeading,
       apply: (value) => settings.weatherIconTheme = value,
-      afterSave: () => ref.read(widgetSettingsServiceProvider).refreshWidgets(),
+      afterSave: _syncWidgetsAndNotificationContent,
+      backgroundAfterSave: true,
     );
   }
 
-  /// Opens the 12/24-hour clock format picker.
   void _showTimeFormatDialog(BuildContext context) {
     showSelectionDialog<String>(
       context: context,
@@ -701,17 +508,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       itemBuilder: (value) => value.tr,
       onSelected: (value) async {
         settings.timeformat = value;
-        await ref.read(settingsRepositoryProvider).save(settings);
-        if (Platform.isAndroid) {
-          await ref.read(widgetSettingsServiceProvider).refreshWidgets();
-        }
-        if (!mounted) return;
-        setState(() {});
+        await _saveWithNotificationContentSync(refreshWidgets: true);
       },
     );
   }
 
-  /// Opens the searchable language list and applies the selection.
   void _showLanguageDialog(BuildContext context) {
     showSelectionDialog<LanguageOption>(
       context: context,
@@ -728,144 +529,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 
-  /// Toggles GPS-based weather and prompts when location services are off.
-  Future<void> _onLocationChanged(bool value, BuildContext context) async {
-    if (value) {
-      final serviceEnabled = await ref
-          .read(locationServiceProvider)
-          .isServiceEnabled();
-      if (!serviceEnabled) {
-        if (!context.mounted) return;
-        await _showLocationDialog(context);
-        return;
-      }
-    }
-    settings.location = value;
-    await ref.read(settingsRepositoryProvider).save(settings);
-    if (value) {
-      await ref.read(mainWeatherNotifierProvider.notifier).getCurrentLocation();
-    }
-    if (!mounted) return;
-    setState(() {});
-  }
-
-  /// Prompts the user to open system location settings.
-  Future<bool> _showLocationDialog(BuildContext context) async {
-    return showConfirmationDialog(
-      context: context,
-      title: 'location'.tr,
-      message: 'no_location'.tr,
-      icon: IconsaxPlusBold.location,
-      confirmText: 'settings'.tr,
-      onConfirm: () => ref.read(locationServiceProvider).openLocationSettings(),
-    );
-  }
-
-  /// When enabling, requests notification permissions and schedules alerts; when disabling, cancels scheduled only.
-  void _onNotificationsChanged(bool value) async {
-    if (value) {
-      await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin
-          >()
-          ?.requestExactAlarmsPermission();
-      final result = Platform.isIOS
-          ? await flutterLocalNotificationsPlugin
-                .resolvePlatformSpecificImplementation<
-                  IOSFlutterLocalNotificationsPlugin
-                >()
-                ?.requestPermissions()
-          : await flutterLocalNotificationsPlugin
-                .resolvePlatformSpecificImplementation<
-                  AndroidFlutterLocalNotificationsPlugin
-                >()
-                ?.requestNotificationsPermission();
-      if (result == false) return;
-    }
-
-    final settings = ref.read(settingsProvider);
-    settings.notifications = value;
-    await ref.read(settingsRepositoryProvider).save(settings);
-    if (value) {
-      await _rescheduleWeatherNotifications();
-    } else {
-      await ref.read(notificationServiceProvider).cancelForecastNotifications();
-    }
-    if (!mounted) return;
-    setState(() {});
-  }
-
-  /// When enabling, requests notification permission and shows ongoing weather info.
-  void _onPersistentNotificationChanged(bool value) async {
-    if (value) {
-      final result = await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin
-          >()
-          ?.requestNotificationsPermission();
-      if (result == false) return;
-    }
-
-    final settings = ref.read(settingsProvider);
-    settings.persistentNotification = value;
-    await ref.read(settingsRepositoryProvider).save(settings);
-    if (value) {
-      await ref
-          .read(mainWeatherNotifierProvider.notifier)
-          .refreshPersistentNotification(force: true);
-    } else {
-      await ref
-          .read(notificationServiceProvider)
-          .cancelPersistentNotification();
-    }
-    if (!mounted) return;
-    setState(() {});
-  }
-
-  /// Picks the daily notification window start time and reschedules alerts.
-  Future<void> _showTimeStartPicker(BuildContext context) async {
-    final settings = ref.read(settingsProvider);
-    final stored =
-        settings.timeStart ?? AppConstants.defaultNotificationTimeStart;
-    final TimeOfDay? timeStartPicker = await showAppTimePicker(
-      context: context,
-      ref: ref,
-      initialTime: TimeIndexHelper.parseTime(stored),
-    );
-    if (timeStartPicker != null) {
-      final time24h = TimeIndexHelper.timeTo24h(timeStartPicker);
-      settings.timeStart = time24h;
-      await ref.read(settingsRepositoryProvider).save(settings);
-      if (!mounted) return;
-      if (settings.notifications) {
-        await _rescheduleWeatherNotifications();
-      }
-      setState(() {});
-    }
-  }
-
-  /// Picks the daily notification window end time and reschedules alerts.
-  Future<void> _showTimeEndPicker(BuildContext context) async {
-    final settings = ref.read(settingsProvider);
-    final stored = settings.timeEnd ?? AppConstants.defaultNotificationTimeEnd;
-    final TimeOfDay? timeEndPicker = await showAppTimePicker(
-      context: context,
-      ref: ref,
-      initialTime: TimeIndexHelper.parseTime(stored),
-    );
-    if (timeEndPicker != null) {
-      final time24h = TimeIndexHelper.timeTo24h(timeEndPicker);
-      settings.timeEnd = time24h;
-      await ref.read(settingsRepositoryProvider).save(settings);
-      if (!mounted) return;
-      if (settings.notifications) {
-        await _rescheduleWeatherNotifications();
-      }
-      setState(() {});
-    }
-  }
-
-  /// Confirms and clears cached map tile files.
   void _showClearCacheDialog(BuildContext context) {
     showConfirmationDialog(
       context: context,
@@ -883,19 +546,4 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       },
     );
   }
-
-  // --- Widgets ---
-
-  /// Builds the tappable Open-Meteo attribution footer.
-  Widget _buildOpenMeteoText(BuildContext context) => GestureDetector(
-    child: Center(
-      child: Text(
-        'openMeteo'.tr,
-        style: Theme.of(context).textTheme.bodyMedium,
-        overflow: TextOverflow.visible,
-        textAlign: TextAlign.center,
-      ),
-    ),
-    onTap: () => openUrl('https://open-meteo.com/'),
-  );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:rain/core/theme/app_font.dart';
+import 'package:rain/core/constants/app_constants.dart';
 
 final ThemeData baseLight = ThemeData.light(useMaterial3: true);
 final ThemeData baseDark = ThemeData.dark(useMaterial3: true);
@@ -169,7 +170,9 @@ CardThemeData _buildCardTheme(Color? color, ColorScheme? colorScheme) =>
       surfaceTintColor: color == oledColor
           ? Colors.transparent
           : colorScheme?.surfaceTint,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusXLarge),
+      ),
       shadowColor: Colors.transparent,
     );
 
@@ -206,11 +209,11 @@ InputDecorationTheme _buildInputDecorationTheme(ThemeData baseTheme) =>
         (Set<WidgetState> states) => const TextStyle(fontSize: 14),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusXLarge),
         borderSide: BorderSide(color: baseTheme.disabledColor),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusXLarge),
         borderSide: BorderSide(color: baseTheme.disabledColor),
       ),
     );

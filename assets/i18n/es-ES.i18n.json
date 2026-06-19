@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "¿Estás seguro de que deseas descartar tus cambios?",
   "notifications": "Notificaciones",
+  "notificationSound": "Sonido de notificaciones",
   "mph": "mph",
   "west": "Oeste",
   "validate90": "El valor tiene que estar entre -90 y 90",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Presión atmosférica a nivel del mar. La caída suele anunciar empeoramiento del tiempo.",
   "metricHelpShortwaveRadiation": "Energía solar en superficie horizontal (irradiancia horizontal global), media de la hora anterior.",
   "today": "Hoy",
-  "tomorrow": "Mañana"
+  "tomorrow": "Mañana",
+  "notificationWeekdays": "Días de notificación",
+  "notificationWeekdaysAll": "Todos los días",
+  "notificationWeekdaysNone": "Ninguno",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Creado con software de código abierto. Toca un paquete para leer su licencia.",
+  "licenseDependencies": "Dependencias",
+  "licensePackages": "paquetes",
+  "close": "Cerrar"
 }

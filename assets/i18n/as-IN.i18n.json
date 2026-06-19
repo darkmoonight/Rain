@@ -33,6 +33,7 @@
   "discord": "ডিস্কৰ্ড",
   "discardChanges": "আপুনি সঁচাকৈয়ে আপোনাৰ পৰিৱৰ্তনসমূহ বাদ দিব বিচাৰে নেকি?",
   "notifications": "জাননী",
+  "notificationSound": "জাননীৰ শব্দ",
   "mph": "মাইল/ঘণ্টা",
   "west": "পশ্চিম",
   "validate90": "মান -90 আৰু 90 ৰ মাজত হ'ব লাগিব",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "সমুদ্ৰপৃষ্ঠৰ বায়ুচাপ। চাপ হ্ৰাসে প্রায়ে বেয়া বতাহৰ ইংগিত দিয়ে।",
   "metricHelpShortwaveRadiation": "অনুভূমিক পৃষ্ঠত সৌৰ শক্তি (গ্ল’বেল হ’ৰাইজ’ন্টেল ইৰেডিয়েন্স), পূৰ্ববৰ্তী ঘণ্টাৰ গড়।",
   "today": "আজ",
-  "tomorrow": "কাইলৈ"
+  "tomorrow": "কাইলৈ",
+  "notificationWeekdays": "জাননীৰ দিন",
+  "notificationWeekdaysAll": "প্ৰতিদিনে",
+  "notificationWeekdaysNone": "নাই",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "মুক্ত উৎসৰ ছফ্টৱেৰেৰে নিৰ্মিত। লাইচেন্স পঢ়িবলৈ এটা পেকেজত টিপক।",
+  "licenseDependencies": "নির্ভরতা",
+  "licensePackages": "পেকেজ",
+  "close": "বন্ধ কৰক"
 }

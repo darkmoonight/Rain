@@ -73,6 +73,7 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'An bhfuil tú cinnte go bhfuil tú ag iarraidh d\'athruithe a chaitheamh?';
 	@override String get notifications => 'Fógraí';
+	@override String get notification_sound => 'Fuaim fógra';
 	@override String get mph => 'mi/u';
 	@override String get west => 'Iarthar';
 	@override String get validate90 => 'Caithfidh luach a bheith idir -90 agus 90';
@@ -168,7 +169,7 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get done => 'Críochnaithe';
 	@override String get theme => 'Téama';
 	@override String get name => 'Aimsir';
-	@override String get time_range => 'Raon Am (i n-uaireanta)';
+	@override String get time_range => 'Minicíocht (i n-uaireanta)';
 	@override String get about_app => 'Faoi an aip';
 	@override String get save => 'Sábháil';
 	@override String get evaporation => 'Buirtheasaiteacht';
@@ -293,6 +294,14 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Fuinneamh gréine ar dhromchla cothrománach (irradiance cothrománach domhanda), meán na huaire roimhe seo.';
 	@override String get today => 'Inniu';
 	@override String get tomorrow => 'Amárach';
+	@override String get notification_weekdays => 'Laethanta fógra';
+	@override String get notification_weekdays_all => 'Gach lá';
+	@override String get notification_weekdays_none => 'Dada';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Tógtha le bogearraí foinse oscailte. Tapáil pacáiste chun a cheadúnas a léamh.';
+	@override String get license_dependencies => 'Spleáchais';
+	@override String get license_packages => 'pacáistí';
+	@override String get close => 'Dún';
 }
 
 /// The flat map containing all translations for locale <ga-IE>.
@@ -337,6 +346,7 @@ extension on TranslationsGaIe {
 			'discord' => 'Discord',
 			'discard_changes' => 'An bhfuil tú cinnte go bhfuil tú ag iarraidh d\'athruithe a chaitheamh?',
 			'notifications' => 'Fógraí',
+			'notification_sound' => 'Fuaim fógra',
 			'mph' => 'mi/u',
 			'west' => 'Iarthar',
 			'validate90' => 'Caithfidh luach a bheith idir -90 agus 90',
@@ -432,7 +442,7 @@ extension on TranslationsGaIe {
 			'done' => 'Críochnaithe',
 			'theme' => 'Téama',
 			'name' => 'Aimsir',
-			'time_range' => 'Raon Am (i n-uaireanta)',
+			'time_range' => 'Minicíocht (i n-uaireanta)',
 			'about_app' => 'Faoi an aip',
 			'save' => 'Sábháil',
 			'evaporation' => 'Buirtheasaiteacht',
@@ -557,6 +567,14 @@ extension on TranslationsGaIe {
 			'metric_help_shortwave_radiation' => 'Fuinneamh gréine ar dhromchla cothrománach (irradiance cothrománach domhanda), meán na huaire roimhe seo.',
 			'today' => 'Inniu',
 			'tomorrow' => 'Amárach',
+			'notification_weekdays' => 'Laethanta fógra',
+			'notification_weekdays_all' => 'Gach lá',
+			'notification_weekdays_none' => 'Dada',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Tógtha le bogearraí foinse oscailte. Tapáil pacáiste chun a cheadúnas a léamh.',
+			'license_dependencies' => 'Spleáchais',
+			'license_packages' => 'pacáistí',
+			'close' => 'Dún',
 			_ => null,
 		};
 	}

@@ -176,6 +176,27 @@ void main() {
       expect(state.city, 'Moscow');
     });
 
+    test(
+      'getCurrentLocation shows loading when forceLoading with cached forecast',
+      () async {
+        final container = createContainer();
+        final notifier = container.read(mainWeatherNotifierProvider.notifier);
+        ctx.bootstrap.settings.location = true;
+
+        await notifier.readCache();
+        expect(container.read(mainWeatherNotifierProvider).isLoading, isFalse);
+
+        final future = notifier.getCurrentLocation(forceLoading: true);
+        expect(container.read(mainWeatherNotifierProvider).isLoading, isTrue);
+
+        await future;
+
+        final state = container.read(mainWeatherNotifierProvider);
+        expect(state.isLoading, isFalse);
+        expect(state.city, 'Moscow');
+      },
+    );
+
     test('readCache refetches legacy Fahrenheit cache when online', () async {
       final fahrenheitCache = sampleMainWeatherCache()
         ..temperature2M = [82.0, 83.0]
@@ -231,8 +252,9 @@ void main() {
         addTearDown(container.dispose);
 
         await container.read(mainWeatherNotifierProvider.notifier).readCache();
+        await Future<void>.delayed(Duration.zero);
 
-        expect(fakeNotifications.scheduleIfEmptyCalls, 1);
+        expect(fakeNotifications.ensureForecastCalls, 1);
         expect(fakeNotifications.rescheduleCalls, 0);
       },
     );
@@ -260,9 +282,10 @@ void main() {
       await container
           .read(mainWeatherNotifierProvider.notifier)
           .readCache(rescheduleNotifications: true);
+      await Future<void>.delayed(Duration.zero);
 
       expect(fakeNotifications.rescheduleCalls, 1);
-      expect(fakeNotifications.scheduleIfEmptyCalls, 0);
+      expect(fakeNotifications.ensureForecastCalls, 0);
     });
   });
 

@@ -33,7 +33,6 @@ class CitySearchField extends ConsumerStatefulWidget {
   final void Function(String)? onChanged;
   final Widget? iconButton;
 
-  /// Creates the state for [CitySearchField].
   @override
   ConsumerState<CitySearchField> createState() => _CitySearchFieldState();
 }

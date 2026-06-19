@@ -73,6 +73,7 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Weet u zeker dat u uw wijzigingen wilt negeren?';
 	@override String get notifications => 'Notificaties';
+	@override String get notification_sound => 'Meldingsgeluid';
 	@override String get mph => 'mph';
 	@override String get west => 'West';
 	@override String get validate90 => 'Waarde moet tussen -90 and 90 zijn';
@@ -293,6 +294,14 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Zonne-energie op een horizontaal oppervlak (globale horizontale instraling), gemiddelde van het vorige uur.';
 	@override String get today => 'Vandaag';
 	@override String get tomorrow => 'Morgen';
+	@override String get notification_weekdays => 'Meldingsdagen';
+	@override String get notification_weekdays_all => 'Elke dag';
+	@override String get notification_weekdays_none => 'Geen';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Gebouwd met open-sourcesoftware. Tik op een pakket om de licentie te lezen.';
+	@override String get license_dependencies => 'Afhankelijkheden';
+	@override String get license_packages => 'pakketten';
+	@override String get close => 'Sluiten';
 }
 
 /// The flat map containing all translations for locale <nl-NL>.
@@ -337,6 +346,7 @@ extension on TranslationsNlNl {
 			'discord' => 'Discord',
 			'discard_changes' => 'Weet u zeker dat u uw wijzigingen wilt negeren?',
 			'notifications' => 'Notificaties',
+			'notification_sound' => 'Meldingsgeluid',
 			'mph' => 'mph',
 			'west' => 'West',
 			'validate90' => 'Waarde moet tussen -90 and 90 zijn',
@@ -557,6 +567,14 @@ extension on TranslationsNlNl {
 			'metric_help_shortwave_radiation' => 'Zonne-energie op een horizontaal oppervlak (globale horizontale instraling), gemiddelde van het vorige uur.',
 			'today' => 'Vandaag',
 			'tomorrow' => 'Morgen',
+			'notification_weekdays' => 'Meldingsdagen',
+			'notification_weekdays_all' => 'Elke dag',
+			'notification_weekdays_none' => 'Geen',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Gebouwd met open-sourcesoftware. Tik op een pakket om de licentie te lezen.',
+			'license_dependencies' => 'Afhankelijkheden',
+			'license_packages' => 'pakketten',
+			'close' => 'Sluiten',
 			_ => null,
 		};
 	}

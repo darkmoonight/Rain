@@ -7,8 +7,6 @@ class WeatherLocalDatasource {
 
   final Isar _isar;
 
-  // --- Cache read ---
-
   /// Returns the stored main weather cache, or null if none exists.
   Future<MainWeatherCache?> getMainWeather() =>
       _isar.mainWeatherCaches.where().findFirst();
@@ -16,8 +14,6 @@ class WeatherLocalDatasource {
   /// Returns the stored location cache, or null if none exists.
   Future<LocationCache?> getLocation() =>
       _isar.locationCaches.where().findFirst();
-
-  // --- Cache write ---
 
   /// Upserts main weather and location caches in a single transaction.
   Future<void> saveMainWeather(
@@ -38,8 +34,6 @@ class WeatherLocalDatasource {
     });
   }
 
-  // --- Cache validation ---
-
   /// Returns true if a cache row exists and its timestamp is missing or before [expiry]; false if absent.
   Future<bool> isMainWeatherExpired(DateTime expiry) async {
     final weather = await getMainWeather();
@@ -51,8 +45,6 @@ class WeatherLocalDatasource {
   /// Returns true when no main weather cache row is stored.
   Future<bool> isMainWeatherEmpty() =>
       _isar.mainWeatherCaches.where().isEmpty();
-
-  // --- Cache deletion ---
 
   /// Deletes all rows from the main weather cache collection.
   Future<void> deleteMainWeather() async {

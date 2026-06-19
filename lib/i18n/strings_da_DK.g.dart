@@ -73,6 +73,7 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Er du sikker på, at du vil kassere dine ændringer?';
 	@override String get notifications => 'Notifikationer';
+	@override String get notification_sound => 'Notifikationslyd';
 	@override String get mph => 'mph';
 	@override String get west => 'Vest';
 	@override String get validate90 => 'Værdien skal være mellem -90 og 90';
@@ -293,6 +294,14 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Solenergi på en vandret flade (global horisontal irradians), gennemsnit for den foregående time.';
 	@override String get today => 'I dag';
 	@override String get tomorrow => 'I morgen';
+	@override String get notification_weekdays => 'Notifikationsdage';
+	@override String get notification_weekdays_all => 'Hver dag';
+	@override String get notification_weekdays_none => 'Ingen';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Bygget med open source-software. Tryk på en pakke for at læse dens licens.';
+	@override String get license_dependencies => 'Afhængigheder';
+	@override String get license_packages => 'pakker';
+	@override String get close => 'Luk';
 }
 
 /// The flat map containing all translations for locale <da-DK>.
@@ -337,6 +346,7 @@ extension on TranslationsDaDk {
 			'discord' => 'Discord',
 			'discard_changes' => 'Er du sikker på, at du vil kassere dine ændringer?',
 			'notifications' => 'Notifikationer',
+			'notification_sound' => 'Notifikationslyd',
 			'mph' => 'mph',
 			'west' => 'Vest',
 			'validate90' => 'Værdien skal være mellem -90 og 90',
@@ -557,6 +567,14 @@ extension on TranslationsDaDk {
 			'metric_help_shortwave_radiation' => 'Solenergi på en vandret flade (global horisontal irradians), gennemsnit for den foregående time.',
 			'today' => 'I dag',
 			'tomorrow' => 'I morgen',
+			'notification_weekdays' => 'Notifikationsdage',
+			'notification_weekdays_all' => 'Hver dag',
+			'notification_weekdays_none' => 'Ingen',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Bygget med open source-software. Tryk på en pakke for at læse dens licens.',
+			'license_dependencies' => 'Afhængigheder',
+			'license_packages' => 'pakker',
+			'close' => 'Luk',
 			_ => null,
 		};
 	}

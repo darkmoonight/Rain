@@ -96,6 +96,9 @@ void main() {
       expect(ctx.bootstrap.settings.location, isTrue);
     });
 
+    // Notification weekdays UI: covered by notification_weekdays_test.dart
+    // (widget taps hang under flutter test --concurrency>1).
+
     // Selection dialogs: see test/widgets/settings/selection_dialog_test.dart
     // (integration taps here hang under flutter test --concurrency>1).
   });

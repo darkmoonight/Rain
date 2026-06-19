@@ -33,6 +33,7 @@
   "discord": "ڈسکورڈ",
   "discardChanges": "کیا آپ واقعی اپنی تبدیلیوں کو مسترد کرنا چاہتے ہیں؟",
   "notifications": "خبریں",
+  "notificationSound": "اطلاع کی آواز",
   "mph": "میل فی گھنٹہ",
   "west": "مغرب",
   "validate90": "قدر -90 سے 90 کے اندر ہونی چاہئے",
@@ -128,7 +129,7 @@
   "done": "ہوگیا",
   "theme": "تھیم",
   "name": "موسم",
-  "timeRange": "وقت کی مدت (گھنٹوں میں)",
+  "timeRange": "تعدد (گھنٹوں میں)",
   "aboutApp": "ایپ کے بارے میں",
   "save": "محفوظ",
   "evaporation": "بخاری",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "سمندر کی سطح کا ہوا کا دباؤ۔ کمی اکثر خراب موسم کی نشاندہی کرتی ہے۔",
   "metricHelpShortwaveRadiation": "افقی سطح پر شمسی توانائی (عالمی افقی تابکاری)، پچھلے گھنٹے کا اوسط۔",
   "today": "آج",
-  "tomorrow": "کل"
+  "tomorrow": "کل",
+  "notificationWeekdays": "اطلاع کے دن",
+  "notificationWeekdaysAll": "ہر روز",
+  "notificationWeekdaysNone": "کوئی نہیں",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "اوپن سورس سافٹ ویئر سے بنایا گیا۔ لائسنس پڑھنے کے لیے کسی پیکج پر ٹیپ کریں۔",
+  "licenseDependencies": "انحصار",
+  "licensePackages": "پیکج",
+  "close": "بند کریں"
 }

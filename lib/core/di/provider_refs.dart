@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar_community/isar.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/home_widget_service.dart';
@@ -30,6 +31,12 @@ final isarProvider = Provider<Isar>((ref) => ref.watch(bootstrapProvider).isar);
 final settingsProvider = Provider<Settings>((ref) {
   ref.watch(settingsRevisionProvider);
   return ref.watch(bootstrapProvider).settings;
+});
+
+/// Installed app version from the platform package info.
+final appVersionProvider = FutureProvider<String>((ref) async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.version;
 });
 
 /// Asset root for the selected weather icon theme.

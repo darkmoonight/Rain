@@ -73,6 +73,7 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'دیسکورد';
 	@override String get discard_changes => 'آیا مطمئن هستید که می‌خواهید تغییرات خود را نادیده بگیرید؟';
 	@override String get notifications => 'اعلانات';
+	@override String get notification_sound => 'صدای اعلان';
 	@override String get mph => 'mph';
 	@override String get west => 'غرب';
 	@override String get validate90 => 'مقدار شما باید بین -۹۰ و ۹۰ باشد.';
@@ -114,7 +115,7 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get on_inter => 'برای دریافت تغییرات جوی اینترنت خود را روشن کنید.';
 	@override String get thunderstorm => 'طوفان';
 	@override String get version => 'نگارش برنامه';
-	@override String get project => 'Project on';
+	@override String get project => 'پروژه در';
 	@override String get amoled_theme => 'پوسته امولد';
 	@override String get deleted_card_weather_query => 'آیا از حذف این شهر اطمینان دارید؟';
 	@override String get northeast => 'شمال شرقی';
@@ -293,6 +294,14 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'انرژی خورشیدی روی سطح افقی (تابش افقی کل)، میانگین ساعت قبل.';
 	@override String get today => 'امروز';
 	@override String get tomorrow => 'فردا';
+	@override String get notification_weekdays => 'روزهای اعلان';
+	@override String get notification_weekdays_all => 'هر روز';
+	@override String get notification_weekdays_none => 'هیچ';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ساخته‌شده با نرم‌افزار متن‌باز. برای خواندن مجوز روی یک بسته بزنید.';
+	@override String get license_dependencies => 'وابستگی‌ها';
+	@override String get license_packages => 'بسته';
+	@override String get close => 'بستن';
 }
 
 /// The flat map containing all translations for locale <fa-IR>.
@@ -337,6 +346,7 @@ extension on TranslationsFaIr {
 			'discord' => 'دیسکورد',
 			'discard_changes' => 'آیا مطمئن هستید که می‌خواهید تغییرات خود را نادیده بگیرید؟',
 			'notifications' => 'اعلانات',
+			'notification_sound' => 'صدای اعلان',
 			'mph' => 'mph',
 			'west' => 'غرب',
 			'validate90' => 'مقدار شما باید بین -۹۰ و ۹۰ باشد.',
@@ -378,7 +388,7 @@ extension on TranslationsFaIr {
 			'on_inter' => 'برای دریافت تغییرات جوی اینترنت خود را روشن کنید.',
 			'thunderstorm' => 'طوفان',
 			'version' => 'نگارش برنامه',
-			'project' => 'Project on',
+			'project' => 'پروژه در',
 			'amoled_theme' => 'پوسته امولد',
 			'deleted_card_weather_query' => 'آیا از حذف این شهر اطمینان دارید؟',
 			'northeast' => 'شمال شرقی',
@@ -557,6 +567,14 @@ extension on TranslationsFaIr {
 			'metric_help_shortwave_radiation' => 'انرژی خورشیدی روی سطح افقی (تابش افقی کل)، میانگین ساعت قبل.',
 			'today' => 'امروز',
 			'tomorrow' => 'فردا',
+			'notification_weekdays' => 'روزهای اعلان',
+			'notification_weekdays_all' => 'هر روز',
+			'notification_weekdays_none' => 'هیچ',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ساخته‌شده با نرم‌افزار متن‌باز. برای خواندن مجوز روی یک بسته بزنید.',
+			'license_dependencies' => 'وابستگی‌ها',
+			'license_packages' => 'بسته',
+			'close' => 'بستن',
 			_ => null,
 		};
 	}

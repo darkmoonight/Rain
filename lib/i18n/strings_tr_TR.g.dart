@@ -73,6 +73,7 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Değişikliklerinizi iptal etmek istediğinizden emin misiniz?';
 	@override String get notifications => 'Bildirme';
+	@override String get notification_sound => 'Bildirim sesi';
 	@override String get mph => 'mil/sa';
 	@override String get west => 'Batı';
 	@override String get validate90 => 'Değer -90 ile 90 arasında olmalıdır';
@@ -293,6 +294,14 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Yatay yüzeyde güneş enerjisi (küresel yatay ışınım), önceki saatin ortalaması.';
 	@override String get today => 'Bugün';
 	@override String get tomorrow => 'Yarın';
+	@override String get notification_weekdays => 'Bildirim günleri';
+	@override String get notification_weekdays_all => 'Her gün';
+	@override String get notification_weekdays_none => 'Yok';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Açık kaynak yazılımla oluşturuldu. Lisansı okumak için bir pakete dokunun.';
+	@override String get license_dependencies => 'Bağımlılıklar';
+	@override String get license_packages => 'paket';
+	@override String get close => 'Kapat';
 }
 
 /// The flat map containing all translations for locale <tr-TR>.
@@ -337,6 +346,7 @@ extension on TranslationsTrTr {
 			'discord' => 'Discord',
 			'discard_changes' => 'Değişikliklerinizi iptal etmek istediğinizden emin misiniz?',
 			'notifications' => 'Bildirme',
+			'notification_sound' => 'Bildirim sesi',
 			'mph' => 'mil/sa',
 			'west' => 'Batı',
 			'validate90' => 'Değer -90 ile 90 arasında olmalıdır',
@@ -557,6 +567,14 @@ extension on TranslationsTrTr {
 			'metric_help_shortwave_radiation' => 'Yatay yüzeyde güneş enerjisi (küresel yatay ışınım), önceki saatin ortalaması.',
 			'today' => 'Bugün',
 			'tomorrow' => 'Yarın',
+			'notification_weekdays' => 'Bildirim günleri',
+			'notification_weekdays_all' => 'Her gün',
+			'notification_weekdays_none' => 'Yok',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Açık kaynak yazılımla oluşturuldu. Lisansı okumak için bir pakete dokunun.',
+			'license_dependencies' => 'Bağımlılıklar',
+			'license_packages' => 'paket',
+			'close' => 'Kapat',
 			_ => null,
 		};
 	}

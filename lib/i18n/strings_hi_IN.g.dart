@@ -73,6 +73,7 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'डिस्कॉर्ड';
 	@override String get discard_changes => 'क्या आप वाकई अपने बदलावों को छोड़ना चाहते हैं?';
 	@override String get notifications => 'सूचनाएं';
+	@override String get notification_sound => 'सूचना ध्वनि';
 	@override String get mph => 'मील/घंटा';
 	@override String get west => 'पश्चिम';
 	@override String get validate90 => 'मान -९० और ९० के बीच होना चाहिए';
@@ -168,7 +169,7 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get done => 'किया';
 	@override String get theme => 'थीम';
 	@override String get name => 'मौसम';
-	@override String get time_range => 'अवधि (घंटों में)';
+	@override String get time_range => 'आवृत्ति (घंटों में)';
 	@override String get about_app => 'ऐप के बारे में';
 	@override String get save => 'सहेजें';
 	@override String get evaporation => 'वाष्पीकरण';
@@ -293,6 +294,14 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'क्षैतिज सतह पर सौर ऊर्जा (वैश्विक क्षैतिज विकिरण), पिछले घंटे का औसत।';
 	@override String get today => 'आज';
 	@override String get tomorrow => 'कल';
+	@override String get notification_weekdays => 'सूचना के दिन';
+	@override String get notification_weekdays_all => 'हर दिन';
+	@override String get notification_weekdays_none => 'कोई नहीं';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ओपन-सोर्स सॉफ़्टवेयर से बनाया गया। लाइसेंस पढ़ने के लिए किसी पैकेज पर टैप करें।';
+	@override String get license_dependencies => 'निर्भरताएँ';
+	@override String get license_packages => 'पैकेज';
+	@override String get close => 'बंद करें';
 }
 
 /// The flat map containing all translations for locale <hi-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsHiIn {
 			'discord' => 'डिस्कॉर्ड',
 			'discard_changes' => 'क्या आप वाकई अपने बदलावों को छोड़ना चाहते हैं?',
 			'notifications' => 'सूचनाएं',
+			'notification_sound' => 'सूचना ध्वनि',
 			'mph' => 'मील/घंटा',
 			'west' => 'पश्चिम',
 			'validate90' => 'मान -९० और ९० के बीच होना चाहिए',
@@ -432,7 +442,7 @@ extension on TranslationsHiIn {
 			'done' => 'किया',
 			'theme' => 'थीम',
 			'name' => 'मौसम',
-			'time_range' => 'अवधि (घंटों में)',
+			'time_range' => 'आवृत्ति (घंटों में)',
 			'about_app' => 'ऐप के बारे में',
 			'save' => 'सहेजें',
 			'evaporation' => 'वाष्पीकरण',
@@ -557,6 +567,14 @@ extension on TranslationsHiIn {
 			'metric_help_shortwave_radiation' => 'क्षैतिज सतह पर सौर ऊर्जा (वैश्विक क्षैतिज विकिरण), पिछले घंटे का औसत।',
 			'today' => 'आज',
 			'tomorrow' => 'कल',
+			'notification_weekdays' => 'सूचना के दिन',
+			'notification_weekdays_all' => 'हर दिन',
+			'notification_weekdays_none' => 'कोई नहीं',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ओपन-सोर्स सॉफ़्टवेयर से बनाया गया। लाइसेंस पढ़ने के लिए किसी पैकेज पर टैप करें।',
+			'license_dependencies' => 'निर्भरताएँ',
+			'license_packages' => 'पैकेज',
+			'close' => 'बंद करें',
 			_ => null,
 		};
 	}

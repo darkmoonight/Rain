@@ -73,6 +73,7 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'דיסקורד';
 	@override String get discard_changes => 'האם אתה בטוח שברצונך לבטל את השינויים?';
 	@override String get notifications => 'התראות';
+	@override String get notification_sound => 'צליל התראות';
 	@override String get mph => 'מייל/שעה';
 	@override String get west => 'מערב';
 	@override String get validate90 => 'הערך חייב להיות בין -90 ל-90';
@@ -293,6 +294,14 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'אנרגיה סולארית על משטח אופקי (קרינה אופקית גלובלית), ממוצע השעה הקודמת.';
 	@override String get today => 'היום';
 	@override String get tomorrow => 'מחר';
+	@override String get notification_weekdays => 'ימי התראות';
+	@override String get notification_weekdays_all => 'כל יום';
+	@override String get notification_weekdays_none => 'ללא';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'נבנה בתוכנות קוד פתוח. הקש על חבילה כדי לקרוא את הרישיון.';
+	@override String get license_dependencies => 'תלויות';
+	@override String get license_packages => 'חבילות';
+	@override String get close => 'סגור';
 }
 
 /// The flat map containing all translations for locale <he-IL>.
@@ -337,6 +346,7 @@ extension on TranslationsHeIl {
 			'discord' => 'דיסקורד',
 			'discard_changes' => 'האם אתה בטוח שברצונך לבטל את השינויים?',
 			'notifications' => 'התראות',
+			'notification_sound' => 'צליל התראות',
 			'mph' => 'מייל/שעה',
 			'west' => 'מערב',
 			'validate90' => 'הערך חייב להיות בין -90 ל-90',
@@ -557,6 +567,14 @@ extension on TranslationsHeIl {
 			'metric_help_shortwave_radiation' => 'אנרגיה סולארית על משטח אופקי (קרינה אופקית גלובלית), ממוצע השעה הקודמת.',
 			'today' => 'היום',
 			'tomorrow' => 'מחר',
+			'notification_weekdays' => 'ימי התראות',
+			'notification_weekdays_all' => 'כל יום',
+			'notification_weekdays_none' => 'ללא',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'נבנה בתוכנות קוד פתוח. הקש על חבילה כדי לקרוא את הרישיון.',
+			'license_dependencies' => 'תלויות',
+			'license_packages' => 'חבילות',
+			'close' => 'סגור',
 			_ => null,
 		};
 	}

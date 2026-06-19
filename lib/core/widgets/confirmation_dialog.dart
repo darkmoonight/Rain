@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/utils/navigation_helper.dart';
+import 'package:rain/core/utils/responsive_utils.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_list_dialog_shell.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:rain/core/utils/responsive_utils.dart';
-import 'package:rain/core/constants/app_constants.dart';
 
 /// Material confirmation dialog with icon, title, and action buttons.
 class ConfirmationDialog extends StatelessWidget {
@@ -31,162 +33,66 @@ class ConfirmationDialog extends StatelessWidget {
   final bool isDestructive;
   final bool showCancelButton;
 
-  /// Builds the confirmation dialog layout with icon, text, and actions.
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isMobile = ResponsiveUtils.isMobile(context);
-
     final resolvedIconColor =
         iconColor ?? (isDestructive ? colorScheme.error : colorScheme.primary);
 
-    final buttonBgColor = isDestructive
-        ? colorScheme.errorContainer
-        : colorScheme.primaryContainer;
-
-    final buttonTextColor = isDestructive
-        ? colorScheme.onErrorContainer
-        : colorScheme.onPrimaryContainer;
-
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        constraints: BoxConstraints(
-          maxWidth: isMobile ? double.infinity : AppConstants.maxDialogWidth,
-        ),
-        child: Card(
-          elevation: 0,
-          margin: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              AppConstants.borderRadiusXXLarge,
-            ),
-            side: BorderSide(
-              color: colorScheme.outlineVariant.withValues(alpha: 0.3),
-              width: AppConstants.borderWidthThin,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(AppConstants.spacingXXL),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildIcon(resolvedIconColor, colorScheme),
-                const SizedBox(height: AppConstants.spacingL),
-                _buildTitle(context, colorScheme),
-                const SizedBox(height: AppConstants.spacingM),
-                _buildMessage(context, colorScheme),
-                const SizedBox(height: AppConstants.spacingXXL),
-                _buildActions(
-                  context,
-                  colorScheme,
-                  buttonBgColor,
-                  buttonTextColor,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Builds the circular icon badge at the top of the dialog.
-  Widget _buildIcon(Color resolvedIconColor, ColorScheme colorScheme) {
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.spacingL),
-      decoration: BoxDecoration(
-        color: resolvedIconColor.withValues(alpha: 0.2),
-        shape: BoxShape.circle,
-      ),
-      child: Icon(
-        icon,
-        size: AppConstants.iconSizeXLarge,
-        color: resolvedIconColor,
-      ),
-    );
-  }
-
-  /// Builds the localized dialog title text.
-  Widget _buildTitle(BuildContext context, ColorScheme colorScheme) {
-    return Text(
-      title.tr,
-      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-        fontWeight: FontWeight.w600,
-        color: colorScheme.onSurface,
-        fontSize: ResponsiveUtils.getResponsiveFontSize(context, 20),
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-
-  /// Builds the localized dialog message body.
-  Widget _buildMessage(BuildContext context, ColorScheme colorScheme) {
-    return Text(
-      message.tr,
-      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-        color: colorScheme.onSurfaceVariant,
-        fontSize: ResponsiveUtils.getResponsiveFontSize(context, 14),
-        height: 1.5,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-
-  /// Builds the confirm button and optional cancel button.
-  Widget _buildActions(
-    BuildContext context,
-    ColorScheme colorScheme,
-    Color buttonBgColor,
-    Color buttonTextColor,
-  ) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        if (showCancelButton) ...[
-          TextButton(
-            onPressed: () {
-              onCancel?.call();
-              Navigator.of(context).pop(false);
-            },
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.spacingXL,
-                vertical: AppConstants.spacingM,
+    return SettingsListDialogShell(
+      maxHeightFraction: 1,
+      body: Padding(
+        padding: const EdgeInsets.all(AppConstants.spacingXXL),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(AppConstants.spacingL),
+              decoration: BoxDecoration(
+                color: resolvedIconColor.withValues(alpha: 0.2),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icon,
+                size: AppConstants.iconSizeXLarge,
+                color: resolvedIconColor,
               ),
             ),
-            child: Text(
-              (cancelText ?? 'cancel').tr,
-              style: TextStyle(
-                fontSize: ResponsiveUtils.getResponsiveFontSize(context, 14),
+            const SizedBox(height: AppConstants.spacingL),
+            Text(
+              title.tr,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w600,
+                color: colorScheme.onSurface,
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, 20),
               ),
+              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(width: AppConstants.spacingS),
-        ],
-        FilledButton.tonal(
-          onPressed: () {
-            onConfirm?.call();
-            Navigator.of(context).pop(true);
-          },
-          style: FilledButton.styleFrom(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.spacingXL,
-              vertical: AppConstants.spacingM,
+            const SizedBox(height: AppConstants.spacingM),
+            Text(
+              message.tr,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, 14),
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
             ),
-            backgroundColor: buttonBgColor,
-            foregroundColor: buttonTextColor,
-          ),
-          child: Text(
-            (confirmText ?? 'confirm').tr,
-            style: TextStyle(
-              fontSize: ResponsiveUtils.getResponsiveFontSize(context, 14),
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          ],
         ),
-      ],
+      ),
+      footer: SettingsListDialogConfirmActions(
+        confirmLabelKey: confirmText ?? 'confirm',
+        cancelLabelKey: cancelText ?? 'cancel',
+        isDestructive: isDestructive,
+        showCancelButton: showCancelButton,
+        cancelResult: false,
+        onCancel: onCancel,
+        onConfirm: () {
+          onConfirm?.call();
+          NavigationHelper.back(context, result: true);
+        },
+      ),
     );
   }
 }
@@ -205,9 +111,9 @@ Future<bool> showConfirmationDialog({
   bool isDestructive = false,
   bool showCancelButton = true,
 }) async {
-  final result = await showDialog<bool>(
+  final result = await NavigationHelper.showAppDialog<bool>(
     context: context,
-    builder: (context) => ConfirmationDialog(
+    child: ConfirmationDialog(
       title: title,
       message: message,
       icon: icon,

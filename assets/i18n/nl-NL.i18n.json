@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Weet u zeker dat u uw wijzigingen wilt negeren?",
   "notifications": "Notificaties",
+  "notificationSound": "Meldingsgeluid",
   "mph": "mph",
   "west": "West",
   "validate90": "Waarde moet tussen -90 and 90 zijn",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Luchtdruk op zeeniveau. Dalende druk wijst vaak op verslechterend weer.",
   "metricHelpShortwaveRadiation": "Zonne-energie op een horizontaal oppervlak (globale horizontale instraling), gemiddelde van het vorige uur.",
   "today": "Vandaag",
-  "tomorrow": "Morgen"
+  "tomorrow": "Morgen",
+  "notificationWeekdays": "Meldingsdagen",
+  "notificationWeekdaysAll": "Elke dag",
+  "notificationWeekdaysNone": "Geen",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Gebouwd met open-sourcesoftware. Tik op een pakket om de licentie te lezen.",
+  "licenseDependencies": "Afhankelijkheden",
+  "licensePackages": "pakketten",
+  "close": "Sluiten"
 }

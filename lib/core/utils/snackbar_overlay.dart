@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:rain/core/constants/app_constants.dart';
 
 /// Global toast controller mounted above the app scaffold.
 class SnackBarOverlay {
@@ -186,7 +187,10 @@ class _ToastOverlayState extends State<_ToastOverlay>
           },
           style: TextButton.styleFrom(
             foregroundColor: textColor,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.spacingM,
+              vertical: AppConstants.spacingS,
+            ),
           ),
           child: Text(
             'settings'.tr,
@@ -211,10 +215,15 @@ class _ToastOverlayState extends State<_ToastOverlay>
           child: Material(
             color: Colors.transparent,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.spacingXL,
+                vertical: AppConstants.spacingL,
+              ),
               decoration: BoxDecoration(
                 color: backgroundColor,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(
+                  AppConstants.borderRadiusLarge,
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.2),

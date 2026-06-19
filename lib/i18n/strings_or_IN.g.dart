@@ -73,6 +73,7 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ଡିସ୍କର୍ଡ';
 	@override String get discard_changes => 'ଆପଣ ନିଶ୍ଚିତ ରୂପେ ଆପଣଙ୍କର ପରିବର୍ତ୍ତନଗୁଡିକୁ ବାତିଲ କରିବାକୁ ଚାହାଁନ୍ତି କି?';
 	@override String get notifications => 'ବିଜ୍ଞପ୍ତି';
+	@override String get notification_sound => 'ବିଜ୍ଞପ୍ତି ଧ୍ୱନି';
 	@override String get mph => 'ମାଇଲ୍/ଘଣ୍ଟା';
 	@override String get west => 'ପଶ୍ଚିମ';
 	@override String get validate90 => 'ମୂଲ୍ୟ -90 ଏବଂ 90 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ';
@@ -293,6 +294,14 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'ଆଡ଼ ପୃଷ୍ଠରେ ସୌର ଶକ୍ତି (ଗ୍ଲୋବାଲ ହରାଇଜଣ୍ଟାଲ ଇରେଡିଆନ୍ସ), ପୂର୍ବବର୍ତ୍ତୀ ଘଣ୍ଟାର ହାରାହାରି।';
 	@override String get today => 'ଆଜି';
 	@override String get tomorrow => 'ଆଗାମିକାଲି';
+	@override String get notification_weekdays => 'ବିଜ୍ଞପ୍ତି ଦିନ';
+	@override String get notification_weekdays_all => 'ପ୍ରତିଦିନ';
+	@override String get notification_weekdays_none => 'କିଛି ନାହିଁ';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ଓପନ-ସୋର୍ସ ସଫ୍ଟୱେର୍ ଦ୍ୱାରା ନିର୍ମିତ। ଲାଇସେନ୍ସ ପଢ଼ିବାକୁ ଏକ ପ୍ୟାକେଜ୍ ଉପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ।';
+	@override String get license_dependencies => 'ନିର୍ଭରତା';
+	@override String get license_packages => 'ପ୍ୟାକେଜ୍';
+	@override String get close => 'ବନ୍ଦ କରନ୍ତୁ';
 }
 
 /// The flat map containing all translations for locale <or-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsOrIn {
 			'discord' => 'ଡିସ୍କର୍ଡ',
 			'discard_changes' => 'ଆପଣ ନିଶ୍ଚିତ ରୂପେ ଆପଣଙ୍କର ପରିବର୍ତ୍ତନଗୁଡିକୁ ବାତିଲ କରିବାକୁ ଚାହାଁନ୍ତି କି?',
 			'notifications' => 'ବିଜ୍ଞପ୍ତି',
+			'notification_sound' => 'ବିଜ୍ଞପ୍ତି ଧ୍ୱନି',
 			'mph' => 'ମାଇଲ୍/ଘଣ୍ଟା',
 			'west' => 'ପଶ୍ଚିମ',
 			'validate90' => 'ମୂଲ୍ୟ -90 ଏବଂ 90 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ',
@@ -557,6 +567,14 @@ extension on TranslationsOrIn {
 			'metric_help_shortwave_radiation' => 'ଆଡ଼ ପୃଷ୍ଠରେ ସୌର ଶକ୍ତି (ଗ୍ଲୋବାଲ ହରାଇଜଣ୍ଟାଲ ଇରେଡିଆନ୍ସ), ପୂର୍ବବର୍ତ୍ତୀ ଘଣ୍ଟାର ହାରାହାରି।',
 			'today' => 'ଆଜି',
 			'tomorrow' => 'ଆଗାମିକାଲି',
+			'notification_weekdays' => 'ବିଜ୍ଞପ୍ତି ଦିନ',
+			'notification_weekdays_all' => 'ପ୍ରତିଦିନ',
+			'notification_weekdays_none' => 'କିଛି ନାହିଁ',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ଓପନ-ସୋର୍ସ ସଫ୍ଟୱେର୍ ଦ୍ୱାରା ନିର୍ମିତ। ଲାଇସେନ୍ସ ପଢ଼ିବାକୁ ଏକ ପ୍ୟାକେଜ୍ ଉପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ।',
+			'license_dependencies' => 'ନିର୍ଭରତା',
+			'license_packages' => 'ପ୍ୟାକେଜ୍',
+			'close' => 'ବନ୍ଦ କରନ୍ତୁ',
 			_ => null,
 		};
 	}

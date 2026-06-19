@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Вы уверены, что хотите отменить изменения?",
   "notifications": "Уведомления",
+  "notificationSound": "Звук уведомлений",
   "mph": "миль/ч",
   "west": "Запад",
   "validate90": "Значение должно быть в диапазоне от -90 до 90",
@@ -109,6 +110,7 @@
   "language": "Язык",
   "hideMap": "Скрыть карту",
   "cancel": "Отмена",
+  "close": "Закрыть",
   "loading": "Загрузка...",
   "timeformat": "Формат времени",
   "lat": "Широта",
@@ -252,5 +254,12 @@
   "metricHelpPressure": "Атмосферное давление, приведённое к уровню моря. Падение часто предвещает ухудшение погоды.",
   "metricHelpShortwaveRadiation": "Солнечная энергия на горизонтальной поверхности (ГГИ), усреднённая за предыдущий час.",
   "today": "Сегодня",
-  "tomorrow": "Завтра"
+  "tomorrow": "Завтра",
+  "notificationWeekdays": "Дни уведомлений",
+  "notificationWeekdaysAll": "Каждый день",
+  "notificationWeekdaysNone": "Нет",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Приложение использует ПО с открытым исходным кодом. Нажмите на пакет, чтобы прочитать лицензию.",
+  "licenseDependencies": "Зависимости",
+  "licensePackages": "пакетов"
 }

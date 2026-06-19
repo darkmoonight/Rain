@@ -28,7 +28,6 @@ class PlaceInfo extends ConsumerStatefulWidget {
   /// In-memory card when the location is not saved (e.g. main weather on the map).
   final WeatherCard? card;
 
-  /// Creates the mutable state for this [PlaceInfo] widget.
   @override
   ConsumerState<PlaceInfo> createState() => _PlaceInfoState();
 }

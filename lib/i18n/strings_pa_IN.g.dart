@@ -73,6 +73,7 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ਡਿਸਕਾਰਡ';
 	@override String get discard_changes => 'ਕੀ ਤੁਸੀਂ ਆਪਣੇ ਬਦਲਾਅ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?';
 	@override String get notifications => 'ਸੂਚਨਾਵਾਂ';
+	@override String get notification_sound => 'ਸੂਚਨਾ ਆਵਾਜ਼';
 	@override String get mph => 'ਮੀਲ/ਘੰਟਾ';
 	@override String get west => 'ਪੱਛਮ';
 	@override String get validate90 => 'ਮੁੱਲ -90 ਅਤੇ 90 ਦੇ ਵਿਚਕਾਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ';
@@ -293,6 +294,14 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'ਲੇਟਵੀਂ ਸਤਹ \'ਤੇ ਸੂਰਜੀ ਊਰਜਾ (ਗਲੋਬਲ ਹੌਰੀਜ਼ੌਂਟਲ ਇਰੇਡੀਐਂਸ), ਪਿਛਲੇ ਘੰਟੇ ਦਾ ਔਸਤ।';
 	@override String get today => 'ਅੱਜ';
 	@override String get tomorrow => 'ਕੱਲ੍ਹ';
+	@override String get notification_weekdays => 'ਸੂਚਨਾ ਦਿਨ';
+	@override String get notification_weekdays_all => 'ਹਰ ਰੋਜ਼';
+	@override String get notification_weekdays_none => 'ਕੋਈ ਨਹੀਂ';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ਓਪਨ-ਸੋਰਸ ਸਾਫਟਵੇਅਰ ਨਾਲ ਬਣਾਇਆ ਗਿਆ। ਲਾਇਸੈਂਸ ਪੜ੍ਹਨ ਲਈ ਕਿਸੇ ਪੈਕੇਜ \'ਤੇ ਟੈਪ ਕਰੋ।';
+	@override String get license_dependencies => 'ਨਿਰਭਰਤਾਵਾਂ';
+	@override String get license_packages => 'ਪੈਕੇਜ';
+	@override String get close => 'ਬੰਦ ਕਰੋ';
 }
 
 /// The flat map containing all translations for locale <pa-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsPaIn {
 			'discord' => 'ਡਿਸਕਾਰਡ',
 			'discard_changes' => 'ਕੀ ਤੁਸੀਂ ਆਪਣੇ ਬਦਲਾਅ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?',
 			'notifications' => 'ਸੂਚਨਾਵਾਂ',
+			'notification_sound' => 'ਸੂਚਨਾ ਆਵਾਜ਼',
 			'mph' => 'ਮੀਲ/ਘੰਟਾ',
 			'west' => 'ਪੱਛਮ',
 			'validate90' => 'ਮੁੱਲ -90 ਅਤੇ 90 ਦੇ ਵਿਚਕਾਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ',
@@ -557,6 +567,14 @@ extension on TranslationsPaIn {
 			'metric_help_shortwave_radiation' => 'ਲੇਟਵੀਂ ਸਤਹ \'ਤੇ ਸੂਰਜੀ ਊਰਜਾ (ਗਲੋਬਲ ਹੌਰੀਜ਼ੌਂਟਲ ਇਰੇਡੀਐਂਸ), ਪਿਛਲੇ ਘੰਟੇ ਦਾ ਔਸਤ।',
 			'today' => 'ਅੱਜ',
 			'tomorrow' => 'ਕੱਲ੍ਹ',
+			'notification_weekdays' => 'ਸੂਚਨਾ ਦਿਨ',
+			'notification_weekdays_all' => 'ਹਰ ਰੋਜ਼',
+			'notification_weekdays_none' => 'ਕੋਈ ਨਹੀਂ',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ਓਪਨ-ਸੋਰਸ ਸਾਫਟਵੇਅਰ ਨਾਲ ਬਣਾਇਆ ਗਿਆ। ਲਾਇਸੈਂਸ ਪੜ੍ਹਨ ਲਈ ਕਿਸੇ ਪੈਕੇਜ \'ਤੇ ਟੈਪ ਕਰੋ।',
+			'license_dependencies' => 'ਨਿਰਭਰਤਾਵਾਂ',
+			'license_packages' => 'ਪੈਕੇਜ',
+			'close' => 'ਬੰਦ ਕਰੋ',
 			_ => null,
 		};
 	}

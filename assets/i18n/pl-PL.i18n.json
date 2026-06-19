@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Czy na pewno chcesz odrzucić zmiany?",
   "notifications": "Powiadomienia",
+  "notificationSound": "Dźwięk powiadomień",
   "mph": "mph",
   "west": "Zachód",
   "validate90": "Wartość musi mieścić się w zakresie od -90 do 90",
@@ -74,7 +75,7 @@
   "on_inter": "Włącz Internet, aby uzyskać dane meteorologiczne.",
   "thunderstorm": "Burza z piorunami",
   "version": "Wersja aplikacji",
-  "project": "Project on",
+  "project": "Projekt na",
   "amoledTheme": "Motyw AMOLED",
   "deletedCardWeatherQuery": "Czy na pewno chcesz usunąć miasto?",
   "northeast": "Północny wschód",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Ciśnienie na poziomie morza. Spadek często zapowiada pogorszenie pogody.",
   "metricHelpShortwaveRadiation": "Energia słoneczna na powierzchni poziomej (globalne napromieniowanie poziome), średnia z poprzedniej godziny.",
   "today": "Dziś",
-  "tomorrow": "Jutro"
+  "tomorrow": "Jutro",
+  "notificationWeekdays": "Dni powiadomień",
+  "notificationWeekdaysAll": "Codziennie",
+  "notificationWeekdaysNone": "Brak",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Zbudowano przy użyciu oprogramowania open source. Dotknij pakietu, aby przeczytać licencję.",
+  "licenseDependencies": "Zależności",
+  "licensePackages": "pakietów",
+  "close": "Zamknij"
 }

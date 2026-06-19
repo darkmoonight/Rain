@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Êtes-vous sûr de vouloir annuler vos modifications ?",
   "notifications": "Notifications",
+  "notificationSound": "Son des notifications",
   "mph": "mph",
   "west": "Ouest",
   "validate90": "La valeur doit être comprise entre -90 et 90",
@@ -73,8 +74,8 @@
   "low": "Bas",
   "on_inter": "Connectez-vous à internet pour obtenir des données météorologiques.",
   "thunderstorm": "Orage",
-  "version": "Application version",
-  "project": "Project on",
+  "version": "Version de l'application",
+  "project": "Projet sur",
   "amoledTheme": "AMOLED-thème",
   "deletedCardWeatherQuery": "Êtes-vous sûr de vouloir supprimer la ville ?",
   "northeast": "Nord-Est",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Pression atmosphérique au niveau de la mer. Une baisse annonce souvent une dégradation.",
   "metricHelpShortwaveRadiation": "Énergie solaire sur une surface horizontale (irradiance horizontale globale), moyenne de l'heure précédente.",
   "today": "Aujourd'hui",
-  "tomorrow": "Demain"
+  "tomorrow": "Demain",
+  "notificationWeekdays": "Jours de notification",
+  "notificationWeekdaysAll": "Tous les jours",
+  "notificationWeekdaysNone": "Aucun",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Conçu avec des logiciels open source. Appuyez sur un package pour lire sa licence.",
+  "licenseDependencies": "Dépendances",
+  "licensePackages": "packages",
+  "close": "Fermer"
 }

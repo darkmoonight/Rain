@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "変更を破棄しますか？",
   "notifications": "通知",
+  "notificationSound": "通知音",
   "mph": "mph",
   "west": "西",
   "validate90": "値は -90 〜 90 の範囲で入力してください",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "海面更正気圧。低下は悪天候の前兆となることが多い。",
   "metricHelpShortwaveRadiation": "水平面の日射エネルギー（全天日射量）、直前 1 時間の平均。",
   "today": "今日",
-  "tomorrow": "明日"
+  "tomorrow": "明日",
+  "notificationWeekdays": "通知する曜日",
+  "notificationWeekdaysAll": "毎日",
+  "notificationWeekdaysNone": "なし",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "オープンソースソフトウェアで構築されています。パッケージをタップしてライセンスを読めます。",
+  "licenseDependencies": "依存関係",
+  "licensePackages": "パッケージ",
+  "close": "閉じる"
 }

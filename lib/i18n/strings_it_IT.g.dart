@@ -73,6 +73,7 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Sei sicuro di voler annullare le modifiche?';
 	@override String get notifications => 'Notifiche';
+	@override String get notification_sound => 'Suono notifiche';
 	@override String get mph => 'mph';
 	@override String get west => 'Ovest';
 	@override String get validate90 => 'Il valore deve essere compreso tra -90 e 90';
@@ -293,6 +294,14 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Energia solare su superficie orizzontale (irradianza orizzontale globale), media dell\'ora precedente.';
 	@override String get today => 'Oggi';
 	@override String get tomorrow => 'Domani';
+	@override String get notification_weekdays => 'Giorni di notifica';
+	@override String get notification_weekdays_all => 'Ogni giorno';
+	@override String get notification_weekdays_none => 'Nessuno';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Realizzato con software open source. Tocca un pacchetto per leggere la licenza.';
+	@override String get license_dependencies => 'Dipendenze';
+	@override String get license_packages => 'pacchetti';
+	@override String get close => 'Chiudi';
 }
 
 /// The flat map containing all translations for locale <it-IT>.
@@ -337,6 +346,7 @@ extension on TranslationsItIt {
 			'discord' => 'Discord',
 			'discard_changes' => 'Sei sicuro di voler annullare le modifiche?',
 			'notifications' => 'Notifiche',
+			'notification_sound' => 'Suono notifiche',
 			'mph' => 'mph',
 			'west' => 'Ovest',
 			'validate90' => 'Il valore deve essere compreso tra -90 e 90',
@@ -557,6 +567,14 @@ extension on TranslationsItIt {
 			'metric_help_shortwave_radiation' => 'Energia solare su superficie orizzontale (irradianza orizzontale globale), media dell\'ora precedente.',
 			'today' => 'Oggi',
 			'tomorrow' => 'Domani',
+			'notification_weekdays' => 'Giorni di notifica',
+			'notification_weekdays_all' => 'Ogni giorno',
+			'notification_weekdays_none' => 'Nessuno',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Realizzato con software open source. Tocca un pacchetto per leggere la licenza.',
+			'license_dependencies' => 'Dipendenze',
+			'license_packages' => 'pacchetti',
+			'close' => 'Chiudi',
 			_ => null,
 		};
 	}

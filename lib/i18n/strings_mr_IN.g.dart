@@ -73,6 +73,7 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'डिस्कॉर्ड';
 	@override String get discard_changes => 'तुम्हाला खरोखर तुमचे बदल रद्द करायचे आहेत का?';
 	@override String get notifications => 'सूचना';
+	@override String get notification_sound => 'सूचना आवाज';
 	@override String get mph => 'मैल/तास';
 	@override String get west => 'पश्चिम';
 	@override String get validate90 => 'मूल्य -90 आणि 90 दरम्यान असावे';
@@ -293,6 +294,14 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'आडव्या पृष्ठभागावर सौर ऊर्जा (जागतिक आडवे विकिरण), मागील तासाची सरासरी.';
 	@override String get today => 'आज';
 	@override String get tomorrow => 'उद्या';
+	@override String get notification_weekdays => 'सूचना दिवस';
+	@override String get notification_weekdays_all => 'दररोज';
+	@override String get notification_weekdays_none => 'काहीही नाही';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ओपन-सोर्स सॉफ्टवेअरने तयार केले. परवाना वाचण्यासाठी पॅकेजवर टॅप करा.';
+	@override String get license_dependencies => 'अवलंबित्व';
+	@override String get license_packages => 'पॅकेज';
+	@override String get close => 'बंद करा';
 }
 
 /// The flat map containing all translations for locale <mr-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsMrIn {
 			'discord' => 'डिस्कॉर्ड',
 			'discard_changes' => 'तुम्हाला खरोखर तुमचे बदल रद्द करायचे आहेत का?',
 			'notifications' => 'सूचना',
+			'notification_sound' => 'सूचना आवाज',
 			'mph' => 'मैल/तास',
 			'west' => 'पश्चिम',
 			'validate90' => 'मूल्य -90 आणि 90 दरम्यान असावे',
@@ -557,6 +567,14 @@ extension on TranslationsMrIn {
 			'metric_help_shortwave_radiation' => 'आडव्या पृष्ठभागावर सौर ऊर्जा (जागतिक आडवे विकिरण), मागील तासाची सरासरी.',
 			'today' => 'आज',
 			'tomorrow' => 'उद्या',
+			'notification_weekdays' => 'सूचना दिवस',
+			'notification_weekdays_all' => 'दररोज',
+			'notification_weekdays_none' => 'काहीही नाही',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ओपन-सोर्स सॉफ्टवेअरने तयार केले. परवाना वाचण्यासाठी पॅकेजवर टॅप करा.',
+			'license_dependencies' => 'अवलंबित्व',
+			'license_packages' => 'पॅकेज',
+			'close' => 'बंद करा',
 			_ => null,
 		};
 	}

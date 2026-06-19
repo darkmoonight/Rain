@@ -73,6 +73,7 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Biztosan el akarja vetni a módosításait?';
 	@override String get notifications => 'Értesítések';
+	@override String get notification_sound => 'Értesítési hang';
 	@override String get mph => 'mph';
 	@override String get west => 'Nyugat';
 	@override String get validate90 => 'Az érték -90 és 90 közötti kell legyen';
@@ -293,6 +294,14 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Napenergia vízszintes felületen (globális horizontális sugárzás), az előző óra átlaga.';
 	@override String get today => 'Ma';
 	@override String get tomorrow => 'Holnap';
+	@override String get notification_weekdays => 'Értesítési napok';
+	@override String get notification_weekdays_all => 'Minden nap';
+	@override String get notification_weekdays_none => 'Nincs';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Nyílt forráskódú szoftverrel készült. Érintsen meg egy csomagot a licenc olvasásához.';
+	@override String get license_dependencies => 'Függőségek';
+	@override String get license_packages => 'csomag';
+	@override String get close => 'Bezárás';
 }
 
 /// The flat map containing all translations for locale <hu-HU>.
@@ -337,6 +346,7 @@ extension on TranslationsHuHu {
 			'discord' => 'Discord',
 			'discard_changes' => 'Biztosan el akarja vetni a módosításait?',
 			'notifications' => 'Értesítések',
+			'notification_sound' => 'Értesítési hang',
 			'mph' => 'mph',
 			'west' => 'Nyugat',
 			'validate90' => 'Az érték -90 és 90 közötti kell legyen',
@@ -557,6 +567,14 @@ extension on TranslationsHuHu {
 			'metric_help_shortwave_radiation' => 'Napenergia vízszintes felületen (globális horizontális sugárzás), az előző óra átlaga.',
 			'today' => 'Ma',
 			'tomorrow' => 'Holnap',
+			'notification_weekdays' => 'Értesítési napok',
+			'notification_weekdays_all' => 'Minden nap',
+			'notification_weekdays_none' => 'Nincs',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Nyílt forráskódú szoftverrel készült. Érintsen meg egy csomagot a licenc olvasásához.',
+			'license_dependencies' => 'Függőségek',
+			'license_packages' => 'csomag',
+			'close' => 'Bezárás',
 			_ => null,
 		};
 	}

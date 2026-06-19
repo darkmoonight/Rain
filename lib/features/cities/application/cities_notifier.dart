@@ -66,8 +66,6 @@ class CitiesNotifier extends Notifier<CitiesState> {
   @override
   CitiesState build() => const CitiesState(isLoading: true);
 
-  // --- Loading ---
-
   /// Reads cards from the database; DB errors set [loadError] only when cards remain in state.
   Future<void> _loadImpl() async {
     try {
@@ -144,8 +142,6 @@ class CitiesNotifier extends Notifier<CitiesState> {
     await persistClockSkew(ref, updated.clockSkewSeconds ?? 0);
   }
 
-  // --- Refresh ---
-
   /// Queues a network refresh for expired cards, or all cards when [all] is true.
   Future<void> refresh({bool all = true}) =>
       _queue.enqueue(() => _refreshImpl(all: all));
@@ -202,8 +198,6 @@ class CitiesNotifier extends Notifier<CitiesState> {
       return false;
     }
   }
-
-  // --- Public API ---
 
   /// Fetches and saves a new city card at the given coordinates.
   Future<void> addCard(

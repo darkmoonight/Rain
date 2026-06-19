@@ -143,6 +143,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Notifications'
 	String get notifications => 'Notifications';
 
+	/// en-US: 'Notification sound'
+	String get notification_sound => 'Notification sound';
+
 	/// en-US: 'mph'
 	String get mph => 'mph';
 
@@ -370,6 +373,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'Cancel'
 	String get cancel => 'Cancel';
+
+	/// en-US: 'Close'
+	String get close => 'Close';
 
 	/// en-US: 'Loading...'
 	String get loading => 'Loading...';
@@ -802,6 +808,27 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en-US: 'Tomorrow'
 	String get tomorrow => 'Tomorrow';
+
+	/// en-US: 'Notification days'
+	String get notification_weekdays => 'Notification days';
+
+	/// en-US: 'Every day'
+	String get notification_weekdays_all => 'Every day';
+
+	/// en-US: 'None'
+	String get notification_weekdays_none => 'None';
+
+	/// en-US: '--:--'
+	String get time_unavailable => '--:--';
+
+	/// en-US: 'Built with open-source software. Tap a package to read its license.'
+	String get license_app_summary => 'Built with open-source software. Tap a package to read its license.';
+
+	/// en-US: 'Dependencies'
+	String get license_dependencies => 'Dependencies';
+
+	/// en-US: 'packages'
+	String get license_packages => 'packages';
 }
 
 /// The flat map containing all translations for locale <en-US>.
@@ -846,6 +873,7 @@ extension on Translations {
 			'discord' => 'Discord',
 			'discard_changes' => 'Are you sure you want to discard your changes?',
 			'notifications' => 'Notifications',
+			'notification_sound' => 'Notification sound',
 			'mph' => 'mph',
 			'west' => 'West',
 			'validate90' => 'Value must be between -90 and 90',
@@ -922,6 +950,7 @@ extension on Translations {
 			'language' => 'Language',
 			'hide_map' => 'Hide map',
 			'cancel' => 'Cancel',
+			'close' => 'Close',
 			'loading' => 'Loading...',
 			'timeformat' => 'Time format',
 			'lat' => 'Latitude',
@@ -1066,6 +1095,13 @@ extension on Translations {
 			'metric_help_shortwave_radiation' => 'Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.',
 			'today' => 'Today',
 			'tomorrow' => 'Tomorrow',
+			'notification_weekdays' => 'Notification days',
+			'notification_weekdays_all' => 'Every day',
+			'notification_weekdays_none' => 'None',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Built with open-source software. Tap a package to read its license.',
+			'license_dependencies' => 'Dependencies',
+			'license_packages' => 'packages',
 			_ => null,
 		};
 	}

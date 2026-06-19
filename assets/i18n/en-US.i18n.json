@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Are you sure you want to discard your changes?",
   "notifications": "Notifications",
+  "notificationSound": "Notification sound",
   "mph": "mph",
   "west": "West",
   "validate90": "Value must be between -90 and 90",
@@ -109,6 +110,7 @@
   "language": "Language",
   "hideMap": "Hide map",
   "cancel": "Cancel",
+  "close": "Close",
   "loading": "Loading...",
   "timeformat": "Time format",
   "lat": "Latitude",
@@ -252,5 +254,12 @@
   "metricHelpPressure": "Sea-level air pressure. Falling pressure often signals worsening weather.",
   "metricHelpShortwaveRadiation": "Solar energy on a horizontal surface (global horizontal irradiance), averaged over the preceding hour.",
   "today": "Today",
-  "tomorrow": "Tomorrow"
+  "tomorrow": "Tomorrow",
+  "notificationWeekdays": "Notification days",
+  "notificationWeekdaysAll": "Every day",
+  "notificationWeekdaysNone": "None",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Built with open-source software. Tap a package to read its license.",
+  "licenseDependencies": "Dependencies",
+  "licensePackages": "packages"
 }

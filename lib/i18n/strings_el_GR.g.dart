@@ -73,6 +73,7 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Είστε σίγουροι ότι θέλετε να απορρίψετε τις αλλαγές σας;';
 	@override String get notifications => 'Ειδοποιήσεις';
+	@override String get notification_sound => 'Ήχος ειδοποιήσεων';
 	@override String get mph => 'mph';
 	@override String get west => 'Δύση';
 	@override String get validate90 => 'Η τιμή πρέπει να είναι μεταξύ -90 και 90';
@@ -293,6 +294,14 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Ηλιακή ενέργεια σε οριζόντια επιφάνεια (ολική οριζόντια ακτινοβολία), μέσος όρος προηγούμενης ώρας.';
 	@override String get today => 'Σήμερα';
 	@override String get tomorrow => 'Αύριο';
+	@override String get notification_weekdays => 'Ημέρες ειδοποιήσεων';
+	@override String get notification_weekdays_all => 'Κάθε μέρα';
+	@override String get notification_weekdays_none => 'Καμία';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Δημιουργήθηκε με λογισμικό ανοικτού κώδικα. Πατήστε ένα πακέτο για να διαβάσετε την άδεια.';
+	@override String get license_dependencies => 'Εξαρτήσεις';
+	@override String get license_packages => 'πακέτα';
+	@override String get close => 'Κλείσιμο';
 }
 
 /// The flat map containing all translations for locale <el-GR>.
@@ -337,6 +346,7 @@ extension on TranslationsElGr {
 			'discord' => 'Discord',
 			'discard_changes' => 'Είστε σίγουροι ότι θέλετε να απορρίψετε τις αλλαγές σας;',
 			'notifications' => 'Ειδοποιήσεις',
+			'notification_sound' => 'Ήχος ειδοποιήσεων',
 			'mph' => 'mph',
 			'west' => 'Δύση',
 			'validate90' => 'Η τιμή πρέπει να είναι μεταξύ -90 και 90',
@@ -557,6 +567,14 @@ extension on TranslationsElGr {
 			'metric_help_shortwave_radiation' => 'Ηλιακή ενέργεια σε οριζόντια επιφάνεια (ολική οριζόντια ακτινοβολία), μέσος όρος προηγούμενης ώρας.',
 			'today' => 'Σήμερα',
 			'tomorrow' => 'Αύριο',
+			'notification_weekdays' => 'Ημέρες ειδοποιήσεων',
+			'notification_weekdays_all' => 'Κάθε μέρα',
+			'notification_weekdays_none' => 'Καμία',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Δημιουργήθηκε με λογισμικό ανοικτού κώδικα. Πατήστε ένα πακέτο για να διαβάσετε την άδεια.',
+			'license_dependencies' => 'Εξαρτήσεις',
+			'license_packages' => 'πακέτα',
+			'close' => 'Κλείσιμο',
 			_ => null,
 		};
 	}

@@ -73,6 +73,7 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Tem certeza que deseja descartar suas alterações?';
 	@override String get notifications => 'Notificações';
+	@override String get notification_sound => 'Som de notificações';
 	@override String get mph => 'mph';
 	@override String get west => 'Oeste';
 	@override String get validate90 => 'Valor deve estar entre -90 and 90';
@@ -293,6 +294,14 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Energia solar em superfície horizontal (irradiância horizontal global), média da hora anterior.';
 	@override String get today => 'Hoje';
 	@override String get tomorrow => 'Amanhã';
+	@override String get notification_weekdays => 'Dias de notificação';
+	@override String get notification_weekdays_all => 'Todos os dias';
+	@override String get notification_weekdays_none => 'Nenhum';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Feito com software de código aberto. Toque em um pacote para ler a licença.';
+	@override String get license_dependencies => 'Dependências';
+	@override String get license_packages => 'pacotes';
+	@override String get close => 'Fechar';
 }
 
 /// The flat map containing all translations for locale <pt-BR>.
@@ -337,6 +346,7 @@ extension on TranslationsPtBr {
 			'discord' => 'Discord',
 			'discard_changes' => 'Tem certeza que deseja descartar suas alterações?',
 			'notifications' => 'Notificações',
+			'notification_sound' => 'Som de notificações',
 			'mph' => 'mph',
 			'west' => 'Oeste',
 			'validate90' => 'Valor deve estar entre -90 and 90',
@@ -557,6 +567,14 @@ extension on TranslationsPtBr {
 			'metric_help_shortwave_radiation' => 'Energia solar em superfície horizontal (irradiância horizontal global), média da hora anterior.',
 			'today' => 'Hoje',
 			'tomorrow' => 'Amanhã',
+			'notification_weekdays' => 'Dias de notificação',
+			'notification_weekdays_all' => 'Todos os dias',
+			'notification_weekdays_none' => 'Nenhum',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Feito com software de código aberto. Toque em um pacote para ler a licença.',
+			'license_dependencies' => 'Dependências',
+			'license_packages' => 'pacotes',
+			'close' => 'Fechar',
 			_ => null,
 		};
 	}

@@ -73,6 +73,7 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ديسكورد';
 	@override String get discard_changes => 'هل أنت متأكد من أنك تريد تجاهل تغييراتك؟';
 	@override String get notifications => 'الإشعارات';
+	@override String get notification_sound => 'صوت الإشعارات';
 	@override String get mph => 'ميل/س';
 	@override String get west => 'غرب';
 	@override String get validate90 => 'يجب أن تكون القيمة بين -90 و 90';
@@ -293,6 +294,14 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'طاقة شمسية على سطح أفقي (إشعاع أفقي كلي)، متوسط الساعة السابقة.';
 	@override String get today => 'اليوم';
 	@override String get tomorrow => 'غداً';
+	@override String get notification_weekdays => 'أيام الإشعارات';
+	@override String get notification_weekdays_all => 'كل يوم';
+	@override String get notification_weekdays_none => 'لا شيء';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'مبني ببرمجيات مفتوحة المصدر. اضغط على حزمة لقراءة ترخيصها.';
+	@override String get license_dependencies => 'التبعيات';
+	@override String get license_packages => 'حزم';
+	@override String get close => 'إغلاق';
 }
 
 /// The flat map containing all translations for locale <ar-SA>.
@@ -337,6 +346,7 @@ extension on TranslationsArSa {
 			'discord' => 'ديسكورد',
 			'discard_changes' => 'هل أنت متأكد من أنك تريد تجاهل تغييراتك؟',
 			'notifications' => 'الإشعارات',
+			'notification_sound' => 'صوت الإشعارات',
 			'mph' => 'ميل/س',
 			'west' => 'غرب',
 			'validate90' => 'يجب أن تكون القيمة بين -90 و 90',
@@ -557,6 +567,14 @@ extension on TranslationsArSa {
 			'metric_help_shortwave_radiation' => 'طاقة شمسية على سطح أفقي (إشعاع أفقي كلي)، متوسط الساعة السابقة.',
 			'today' => 'اليوم',
 			'tomorrow' => 'غداً',
+			'notification_weekdays' => 'أيام الإشعارات',
+			'notification_weekdays_all' => 'كل يوم',
+			'notification_weekdays_none' => 'لا شيء',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'مبني ببرمجيات مفتوحة المصدر. اضغط على حزمة لقراءة ترخيصها.',
+			'license_dependencies' => 'التبعيات',
+			'license_packages' => 'حزم',
+			'close' => 'إغلاق',
 			_ => null,
 		};
 	}

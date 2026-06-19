@@ -49,12 +49,9 @@ class OnboardingConstants {
 class OnBoarding extends ConsumerStatefulWidget {
   const OnBoarding({super.key});
 
-  /// Creates the mutable state for [OnBoarding].
   @override
   ConsumerState<OnBoarding> createState() => _OnBoardingState();
 }
-
-// --- OnBoardingState ---
 
 /// Manages carousel paging, skip, and onboarding completion.
 class _OnBoardingState extends ConsumerState<OnBoarding> {

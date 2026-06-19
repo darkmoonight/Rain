@@ -33,6 +33,7 @@
   "discord": "디스코드",
   "discardChanges": "변경사항을 취소하시겠습니까?",
   "notifications": "알림",
+  "notificationSound": "알림 소리",
   "mph": "mph",
   "west": "서",
   "validate90": "-90과 90 사이의 값만 가능합니다",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "해면 기압. 하강은 종종 날씨 악화를 예고.",
   "metricHelpShortwaveRadiation": "수평면 태양 에너지(전천일사량), 직전 1시간 평균.",
   "today": "오늘",
-  "tomorrow": "내일"
+  "tomorrow": "내일",
+  "notificationWeekdays": "알림 요일",
+  "notificationWeekdaysAll": "매일",
+  "notificationWeekdaysNone": "없음",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "오픈 소스 소프트웨어로 제작되었습니다. 패키지를 눌러 라이선스를 읽으세요.",
+  "licenseDependencies": "종속성",
+  "licensePackages": "패키지",
+  "close": "닫기"
 }

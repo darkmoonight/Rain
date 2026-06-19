@@ -73,6 +73,7 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Êtes-vous sûr de vouloir annuler vos modifications ?';
 	@override String get notifications => 'Notifications';
+	@override String get notification_sound => 'Son des notifications';
 	@override String get mph => 'mph';
 	@override String get west => 'Ouest';
 	@override String get validate90 => 'La valeur doit être comprise entre -90 et 90';
@@ -113,8 +114,8 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get low => 'Bas';
 	@override String get on_inter => 'Connectez-vous à internet pour obtenir des données météorologiques.';
 	@override String get thunderstorm => 'Orage';
-	@override String get version => 'Application version';
-	@override String get project => 'Project on';
+	@override String get version => 'Version de l\'application';
+	@override String get project => 'Projet sur';
 	@override String get amoled_theme => 'AMOLED-thème';
 	@override String get deleted_card_weather_query => 'Êtes-vous sûr de vouloir supprimer la ville ?';
 	@override String get northeast => 'Nord-Est';
@@ -293,6 +294,14 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Énergie solaire sur une surface horizontale (irradiance horizontale globale), moyenne de l\'heure précédente.';
 	@override String get today => 'Aujourd\'hui';
 	@override String get tomorrow => 'Demain';
+	@override String get notification_weekdays => 'Jours de notification';
+	@override String get notification_weekdays_all => 'Tous les jours';
+	@override String get notification_weekdays_none => 'Aucun';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Conçu avec des logiciels open source. Appuyez sur un package pour lire sa licence.';
+	@override String get license_dependencies => 'Dépendances';
+	@override String get license_packages => 'packages';
+	@override String get close => 'Fermer';
 }
 
 /// The flat map containing all translations for locale <fr-FR>.
@@ -337,6 +346,7 @@ extension on TranslationsFrFr {
 			'discord' => 'Discord',
 			'discard_changes' => 'Êtes-vous sûr de vouloir annuler vos modifications ?',
 			'notifications' => 'Notifications',
+			'notification_sound' => 'Son des notifications',
 			'mph' => 'mph',
 			'west' => 'Ouest',
 			'validate90' => 'La valeur doit être comprise entre -90 et 90',
@@ -377,8 +387,8 @@ extension on TranslationsFrFr {
 			'low' => 'Bas',
 			'on_inter' => 'Connectez-vous à internet pour obtenir des données météorologiques.',
 			'thunderstorm' => 'Orage',
-			'version' => 'Application version',
-			'project' => 'Project on',
+			'version' => 'Version de l\'application',
+			'project' => 'Projet sur',
 			'amoled_theme' => 'AMOLED-thème',
 			'deleted_card_weather_query' => 'Êtes-vous sûr de vouloir supprimer la ville ?',
 			'northeast' => 'Nord-Est',
@@ -557,6 +567,14 @@ extension on TranslationsFrFr {
 			'metric_help_shortwave_radiation' => 'Énergie solaire sur une surface horizontale (irradiance horizontale globale), moyenne de l\'heure précédente.',
 			'today' => 'Aujourd\'hui',
 			'tomorrow' => 'Demain',
+			'notification_weekdays' => 'Jours de notification',
+			'notification_weekdays_all' => 'Tous les jours',
+			'notification_weekdays_none' => 'Aucun',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Conçu avec des logiciels open source. Appuyez sur un package pour lire sa licence.',
+			'license_dependencies' => 'Dépendances',
+			'license_packages' => 'packages',
+			'close' => 'Fermer',
 			_ => null,
 		};
 	}

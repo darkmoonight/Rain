@@ -33,6 +33,7 @@
   "discord": "دیسکورد",
   "discardChanges": "آیا مطمئن هستید که می‌خواهید تغییرات خود را نادیده بگیرید؟",
   "notifications": "اعلانات",
+  "notificationSound": "صدای اعلان",
   "mph": "mph",
   "west": "غرب",
   "validate90": "مقدار شما باید بین -۹۰ و ۹۰ باشد.",
@@ -74,7 +75,7 @@
   "on_inter": "برای دریافت تغییرات جوی اینترنت خود را روشن کنید.",
   "thunderstorm": "طوفان",
   "version": "نگارش برنامه",
-  "project": "Project on",
+  "project": "پروژه در",
   "amoledTheme": "پوسته امولد",
   "deletedCardWeatherQuery": "آیا از حذف این شهر اطمینان دارید؟",
   "northeast": "شمال شرقی",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "فشار هوا در سطح دریا. کاهش فشار اغلب نشانهٔ بدتر شدن هواست.",
   "metricHelpShortwaveRadiation": "انرژی خورشیدی روی سطح افقی (تابش افقی کل)، میانگین ساعت قبل.",
   "today": "امروز",
-  "tomorrow": "فردا"
+  "tomorrow": "فردا",
+  "notificationWeekdays": "روزهای اعلان",
+  "notificationWeekdaysAll": "هر روز",
+  "notificationWeekdaysNone": "هیچ",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "ساخته‌شده با نرم‌افزار متن‌باز. برای خواندن مجوز روی یک بسته بزنید.",
+  "licenseDependencies": "وابستگی‌ها",
+  "licensePackages": "بسته",
+  "close": "بستن"
 }

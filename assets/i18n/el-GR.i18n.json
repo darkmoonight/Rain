@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Είστε σίγουροι ότι θέλετε να απορρίψετε τις αλλαγές σας;",
   "notifications": "Ειδοποιήσεις",
+  "notificationSound": "Ήχος ειδοποιήσεων",
   "mph": "mph",
   "west": "Δύση",
   "validate90": "Η τιμή πρέπει να είναι μεταξύ -90 και 90",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Ατμοσφαιρική πίεση σε επίπεδο θαλάσσης. Η πτώση συχνά προμηνύει επιδείνωση καιρού.",
   "metricHelpShortwaveRadiation": "Ηλιακή ενέργεια σε οριζόντια επιφάνεια (ολική οριζόντια ακτινοβολία), μέσος όρος προηγούμενης ώρας.",
   "today": "Σήμερα",
-  "tomorrow": "Αύριο"
+  "tomorrow": "Αύριο",
+  "notificationWeekdays": "Ημέρες ειδοποιήσεων",
+  "notificationWeekdaysAll": "Κάθε μέρα",
+  "notificationWeekdaysNone": "Καμία",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Δημιουργήθηκε με λογισμικό ανοικτού κώδικα. Πατήστε ένα πακέτο για να διαβάσετε την άδεια.",
+  "licenseDependencies": "Εξαρτήσεις",
+  "licensePackages": "πακέτα",
+  "close": "Κλείσιμο"
 }

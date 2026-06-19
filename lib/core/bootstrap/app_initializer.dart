@@ -9,6 +9,7 @@ import 'package:home_widget/home_widget.dart';
 import 'package:isar_community/isar.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
 import 'package:rain/core/database/isar_schemas.dart';
+import 'package:rain/core/database/notification_channel_migration.dart';
 import 'package:rain/core/database/weather_cache_migration.dart';
 import 'package:rain/core/database/widget_color_migration.dart';
 import 'package:rain/core/config/app_config.dart';
@@ -59,7 +60,14 @@ class AppInitializer {
       isar,
       settings,
     );
-    if (seeded && !migrated && !widgetColorsMigrated) {
+    final channelMigration = await performNotificationChannelMigrationIfNeeded(
+      isar,
+      settings,
+    );
+    if (seeded &&
+        !migrated &&
+        !widgetColorsMigrated &&
+        !channelMigration.migrated) {
       await isar.writeTxn(() => isar.settings.put(settings));
     }
 
@@ -70,6 +78,7 @@ class AppInitializer {
       isar: isar,
       settings: settings,
       locationCache: locationCache,
+      rescheduleForecastNotifications: channelMigration.reschedule,
     );
   }
 

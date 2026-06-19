@@ -73,6 +73,7 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => '确定要放弃更改吗？';
 	@override String get notifications => '通知';
+	@override String get notification_sound => '通知声音';
 	@override String get mph => '英里/小时';
 	@override String get west => '西';
 	@override String get validate90 => '值必须介于-90和90之间';
@@ -293,6 +294,14 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => '水平面太阳能量（全球水平辐照度），上一小时平均值。';
 	@override String get today => '今天';
 	@override String get tomorrow => '明天';
+	@override String get notification_weekdays => '通知日期';
+	@override String get notification_weekdays_all => '每天';
+	@override String get notification_weekdays_none => '无';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => '使用开源软件构建。点击软件包可查看其许可证。';
+	@override String get license_dependencies => '依赖项';
+	@override String get license_packages => '个软件包';
+	@override String get close => '关闭';
 }
 
 /// The flat map containing all translations for locale <zh-CN>.
@@ -337,6 +346,7 @@ extension on TranslationsZhCn {
 			'discord' => 'Discord',
 			'discard_changes' => '确定要放弃更改吗？',
 			'notifications' => '通知',
+			'notification_sound' => '通知声音',
 			'mph' => '英里/小时',
 			'west' => '西',
 			'validate90' => '值必须介于-90和90之间',
@@ -557,6 +567,14 @@ extension on TranslationsZhCn {
 			'metric_help_shortwave_radiation' => '水平面太阳能量（全球水平辐照度），上一小时平均值。',
 			'today' => '今天',
 			'tomorrow' => '明天',
+			'notification_weekdays' => '通知日期',
+			'notification_weekdays_all' => '每天',
+			'notification_weekdays_none' => '无',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => '使用开源软件构建。点击软件包可查看其许可证。',
+			'license_dependencies' => '依赖项',
+			'license_packages' => '个软件包',
+			'close' => '关闭',
 			_ => null,
 		};
 	}

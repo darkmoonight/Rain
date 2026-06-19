@@ -73,6 +73,7 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ડિસ્કોર્ડ';
 	@override String get discard_changes => 'શું તમે ખરેખર તમારા ફેરફારો રદ્દ કરવા માંગો છો?';
 	@override String get notifications => 'સૂચનાઓ';
+	@override String get notification_sound => 'સૂચના અવાજ';
 	@override String get mph => 'માઇલ/કલાક';
 	@override String get west => 'પશ્ચિમ';
 	@override String get validate90 => 'મૂલ્ય -90 અને 90 વચ્ચે હોવું જોઈએ';
@@ -293,6 +294,14 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'આડી સપાટી પર સૂર્ય ઊર્જા (ગ્લોબલ હોરિઝોન્ટલ ઇરેડિયન્સ), પાછલા કલાકનો સરેરાશ.';
 	@override String get today => 'આજે';
 	@override String get tomorrow => 'આવતીકાલે';
+	@override String get notification_weekdays => 'સૂચના દિવસો';
+	@override String get notification_weekdays_all => 'દરરોજ';
+	@override String get notification_weekdays_none => 'કોઈ નહીં';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ઓપન-સોર્સ સોફ્ટવેરથી બનાવેલું. લાઇસન્સ વાંચવા પેકેજ પર ટૅપ કરો.';
+	@override String get license_dependencies => 'નિર્ભરતાઓ';
+	@override String get license_packages => 'પેકેજ';
+	@override String get close => 'બંધ કરો';
 }
 
 /// The flat map containing all translations for locale <gu-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsGuIn {
 			'discord' => 'ડિસ્કોર્ડ',
 			'discard_changes' => 'શું તમે ખરેખર તમારા ફેરફારો રદ્દ કરવા માંગો છો?',
 			'notifications' => 'સૂચનાઓ',
+			'notification_sound' => 'સૂચના અવાજ',
 			'mph' => 'માઇલ/કલાક',
 			'west' => 'પશ્ચિમ',
 			'validate90' => 'મૂલ્ય -90 અને 90 વચ્ચે હોવું જોઈએ',
@@ -557,6 +567,14 @@ extension on TranslationsGuIn {
 			'metric_help_shortwave_radiation' => 'આડી સપાટી પર સૂર્ય ઊર્જા (ગ્લોબલ હોરિઝોન્ટલ ઇરેડિયન્સ), પાછલા કલાકનો સરેરાશ.',
 			'today' => 'આજે',
 			'tomorrow' => 'આવતીકાલે',
+			'notification_weekdays' => 'સૂચના દિવસો',
+			'notification_weekdays_all' => 'દરરોજ',
+			'notification_weekdays_none' => 'કોઈ નહીં',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ઓપન-સોર્સ સોફ્ટવેરથી બનાવેલું. લાઇસન્સ વાંચવા પેકેજ પર ટૅપ કરો.',
+			'license_dependencies' => 'નિર્ભરતાઓ',
+			'license_packages' => 'પેકેજ',
+			'close' => 'બંધ કરો',
 			_ => null,
 		};
 	}

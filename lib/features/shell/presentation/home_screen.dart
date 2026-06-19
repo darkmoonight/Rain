@@ -19,18 +19,13 @@ import 'package:rain/features/map/presentation/map_screen.dart';
 import 'package:rain/features/settings/presentation/view/settings.dart';
 import 'package:rain/features/weather/presentation/main_weather_screen.dart';
 
-/// Root shell with bottom navigation across weather, cities, optional map, and settings.
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
-  /// Creates the mutable state for [HomeScreen].
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-// --- HomeScreenState ---
-
-/// Hosts tab navigation, app bar actions, and city search on the weather tab.
 class _HomeScreenState extends ConsumerState<HomeScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   int tabIndex = 0;
@@ -41,7 +36,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   final _controller = TextEditingController();
   Timer? _persistentNotificationTimer;
 
-  /// Initializes observers, tab controller, and triggers initial city refresh via [CitiesNotifier.refresh].
   @override
   void initState() {
     super.initState();
@@ -52,7 +46,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     _startPersistentNotificationTimer();
   }
 
-  /// Ticks while the app is open so the ongoing notification follows the hourly forecast.
   void _startPersistentNotificationTimer() {
     if (!Platform.isAndroid) return;
     _persistentNotificationTimer?.cancel();
@@ -67,7 +60,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     });
   }
 
-  /// Refreshes city data and home widgets when the app returns to the foreground.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -81,7 +73,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     }
   }
 
-  /// Keeps [tabIndex] valid when map visibility changes the tab count.
   void _syncTabIndexAfterPageCountChange(int oldPageCount, int newPageCount) {
     if (newPageCount < oldPageCount) {
       if (tabIndex >= newPageCount) {

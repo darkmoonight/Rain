@@ -56,85 +56,100 @@ const SettingsSchema = CollectionSchema(
       name: r'measurements',
       type: IsarType.string,
     ),
-    r'notifications': PropertySchema(
+    r'notificationChannelVersion': PropertySchema(
       id: 11,
+      name: r'notificationChannelVersion',
+      type: IsarType.long,
+    ),
+    r'notificationSound': PropertySchema(
+      id: 12,
+      name: r'notificationSound',
+      type: IsarType.bool,
+    ),
+    r'notificationWeekdaysMask': PropertySchema(
+      id: 13,
+      name: r'notificationWeekdaysMask',
+      type: IsarType.long,
+    ),
+    r'notifications': PropertySchema(
+      id: 14,
       name: r'notifications',
       type: IsarType.bool,
     ),
-    r'onboard': PropertySchema(id: 12, name: r'onboard', type: IsarType.bool),
+    r'onboard': PropertySchema(id: 15, name: r'onboard', type: IsarType.bool),
     r'persistentNotification': PropertySchema(
-      id: 13,
+      id: 16,
       name: r'persistentNotification',
       type: IsarType.bool,
     ),
     r'pressure': PropertySchema(
-      id: 14,
+      id: 17,
       name: r'pressure',
       type: IsarType.string,
     ),
     r'roundDegree': PropertySchema(
-      id: 15,
+      id: 18,
       name: r'roundDegree',
       type: IsarType.bool,
     ),
-    r'theme': PropertySchema(id: 16, name: r'theme', type: IsarType.string),
-    r'timeEnd': PropertySchema(id: 17, name: r'timeEnd', type: IsarType.string),
+    r'theme': PropertySchema(id: 19, name: r'theme', type: IsarType.string),
+    r'timeEnd': PropertySchema(id: 20, name: r'timeEnd', type: IsarType.string),
     r'timeRange': PropertySchema(
-      id: 18,
+      id: 21,
       name: r'timeRange',
       type: IsarType.long,
     ),
     r'timeStart': PropertySchema(
-      id: 19,
+      id: 22,
       name: r'timeStart',
       type: IsarType.string,
     ),
     r'timeformat': PropertySchema(
-      id: 20,
+      id: 23,
       name: r'timeformat',
       type: IsarType.string,
     ),
     r'weatherCacheVersion': PropertySchema(
-      id: 21,
+      id: 24,
       name: r'weatherCacheVersion',
       type: IsarType.long,
     ),
     r'weatherIconTheme': PropertySchema(
-      id: 22,
+      id: 25,
       name: r'weatherIconTheme',
       type: IsarType.string,
     ),
     r'widgetBackgroundColor': PropertySchema(
-      id: 23,
+      id: 26,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
     ),
     r'widgetBackgroundColorDark': PropertySchema(
-      id: 24,
+      id: 27,
       name: r'widgetBackgroundColorDark',
       type: IsarType.string,
     ),
     r'widgetBackgroundColorLight': PropertySchema(
-      id: 25,
+      id: 28,
       name: r'widgetBackgroundColorLight',
       type: IsarType.string,
     ),
     r'widgetTextColor': PropertySchema(
-      id: 26,
+      id: 29,
       name: r'widgetTextColor',
       type: IsarType.string,
     ),
     r'widgetTextColorDark': PropertySchema(
-      id: 27,
+      id: 30,
       name: r'widgetTextColorDark',
       type: IsarType.string,
     ),
     r'widgetTextColorLight': PropertySchema(
-      id: 28,
+      id: 31,
       name: r'widgetTextColorLight',
       type: IsarType.string,
     ),
-    r'wind': PropertySchema(id: 29, name: r'wind', type: IsarType.string),
+    r'wind': PropertySchema(id: 32, name: r'wind', type: IsarType.string),
   },
 
   estimateSize: _settingsEstimateSize,
@@ -246,25 +261,28 @@ void _settingsSerialize(
   writer.writeBool(offsets[8], object.location);
   writer.writeBool(offsets[9], object.materialColor);
   writer.writeString(offsets[10], object.measurements);
-  writer.writeBool(offsets[11], object.notifications);
-  writer.writeBool(offsets[12], object.onboard);
-  writer.writeBool(offsets[13], object.persistentNotification);
-  writer.writeString(offsets[14], object.pressure);
-  writer.writeBool(offsets[15], object.roundDegree);
-  writer.writeString(offsets[16], object.theme);
-  writer.writeString(offsets[17], object.timeEnd);
-  writer.writeLong(offsets[18], object.timeRange);
-  writer.writeString(offsets[19], object.timeStart);
-  writer.writeString(offsets[20], object.timeformat);
-  writer.writeLong(offsets[21], object.weatherCacheVersion);
-  writer.writeString(offsets[22], object.weatherIconTheme);
-  writer.writeString(offsets[23], object.widgetBackgroundColor);
-  writer.writeString(offsets[24], object.widgetBackgroundColorDark);
-  writer.writeString(offsets[25], object.widgetBackgroundColorLight);
-  writer.writeString(offsets[26], object.widgetTextColor);
-  writer.writeString(offsets[27], object.widgetTextColorDark);
-  writer.writeString(offsets[28], object.widgetTextColorLight);
-  writer.writeString(offsets[29], object.wind);
+  writer.writeLong(offsets[11], object.notificationChannelVersion);
+  writer.writeBool(offsets[12], object.notificationSound);
+  writer.writeLong(offsets[13], object.notificationWeekdaysMask);
+  writer.writeBool(offsets[14], object.notifications);
+  writer.writeBool(offsets[15], object.onboard);
+  writer.writeBool(offsets[16], object.persistentNotification);
+  writer.writeString(offsets[17], object.pressure);
+  writer.writeBool(offsets[18], object.roundDegree);
+  writer.writeString(offsets[19], object.theme);
+  writer.writeString(offsets[20], object.timeEnd);
+  writer.writeLong(offsets[21], object.timeRange);
+  writer.writeString(offsets[22], object.timeStart);
+  writer.writeString(offsets[23], object.timeformat);
+  writer.writeLong(offsets[24], object.weatherCacheVersion);
+  writer.writeString(offsets[25], object.weatherIconTheme);
+  writer.writeString(offsets[26], object.widgetBackgroundColor);
+  writer.writeString(offsets[27], object.widgetBackgroundColorDark);
+  writer.writeString(offsets[28], object.widgetBackgroundColorLight);
+  writer.writeString(offsets[29], object.widgetTextColor);
+  writer.writeString(offsets[30], object.widgetTextColorDark);
+  writer.writeString(offsets[31], object.widgetTextColorLight);
+  writer.writeString(offsets[32], object.wind);
 }
 
 Settings _settingsDeserialize(
@@ -286,25 +304,28 @@ Settings _settingsDeserialize(
   object.location = reader.readBool(offsets[8]);
   object.materialColor = reader.readBool(offsets[9]);
   object.measurements = reader.readString(offsets[10]);
-  object.notifications = reader.readBool(offsets[11]);
-  object.onboard = reader.readBool(offsets[12]);
-  object.persistentNotification = reader.readBool(offsets[13]);
-  object.pressure = reader.readString(offsets[14]);
-  object.roundDegree = reader.readBool(offsets[15]);
-  object.theme = reader.readStringOrNull(offsets[16]);
-  object.timeEnd = reader.readStringOrNull(offsets[17]);
-  object.timeRange = reader.readLongOrNull(offsets[18]);
-  object.timeStart = reader.readStringOrNull(offsets[19]);
-  object.timeformat = reader.readString(offsets[20]);
-  object.weatherCacheVersion = reader.readLong(offsets[21]);
-  object.weatherIconTheme = reader.readString(offsets[22]);
-  object.widgetBackgroundColor = reader.readStringOrNull(offsets[23]);
-  object.widgetBackgroundColorDark = reader.readStringOrNull(offsets[24]);
-  object.widgetBackgroundColorLight = reader.readStringOrNull(offsets[25]);
-  object.widgetTextColor = reader.readStringOrNull(offsets[26]);
-  object.widgetTextColorDark = reader.readStringOrNull(offsets[27]);
-  object.widgetTextColorLight = reader.readStringOrNull(offsets[28]);
-  object.wind = reader.readString(offsets[29]);
+  object.notificationChannelVersion = reader.readLong(offsets[11]);
+  object.notificationSound = reader.readBool(offsets[12]);
+  object.notificationWeekdaysMask = reader.readLongOrNull(offsets[13]);
+  object.notifications = reader.readBool(offsets[14]);
+  object.onboard = reader.readBool(offsets[15]);
+  object.persistentNotification = reader.readBool(offsets[16]);
+  object.pressure = reader.readString(offsets[17]);
+  object.roundDegree = reader.readBool(offsets[18]);
+  object.theme = reader.readStringOrNull(offsets[19]);
+  object.timeEnd = reader.readStringOrNull(offsets[20]);
+  object.timeRange = reader.readLongOrNull(offsets[21]);
+  object.timeStart = reader.readStringOrNull(offsets[22]);
+  object.timeformat = reader.readString(offsets[23]);
+  object.weatherCacheVersion = reader.readLong(offsets[24]);
+  object.weatherIconTheme = reader.readString(offsets[25]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[26]);
+  object.widgetBackgroundColorDark = reader.readStringOrNull(offsets[27]);
+  object.widgetBackgroundColorLight = reader.readStringOrNull(offsets[28]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[29]);
+  object.widgetTextColorDark = reader.readStringOrNull(offsets[30]);
+  object.widgetTextColorLight = reader.readStringOrNull(offsets[31]);
+  object.wind = reader.readString(offsets[32]);
   return object;
 }
 
@@ -338,35 +359,35 @@ P _settingsDeserializeProp<P>(
     case 10:
       return (reader.readString(offset)) as P;
     case 11:
-      return (reader.readBool(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 12:
       return (reader.readBool(offset)) as P;
     case 13:
-      return (reader.readBool(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 14:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 15:
       return (reader.readBool(offset)) as P;
     case 16:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 17:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 18:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 19:
       return (reader.readStringOrNull(offset)) as P;
     case 20:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 21:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 22:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 23:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 24:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 25:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 26:
       return (reader.readStringOrNull(offset)) as P;
     case 27:
@@ -374,6 +395,12 @@ P _settingsDeserializeProp<P>(
     case 28:
       return (reader.readStringOrNull(offset)) as P;
     case 29:
+      return (reader.readStringOrNull(offset)) as P;
+    case 30:
+      return (reader.readStringOrNull(offset)) as P;
+    case 31:
+      return (reader.readStringOrNull(offset)) as P;
+    case 32:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1379,6 +1406,149 @@ extension SettingsQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(property: r'measurements', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationChannelVersionEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'notificationChannelVersion',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationChannelVersionGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'notificationChannelVersion',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationChannelVersionLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'notificationChannelVersion',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationChannelVersionBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'notificationChannelVersion',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationSoundEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'notificationSound', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationWeekdaysMaskIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'notificationWeekdaysMask'),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationWeekdaysMaskIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'notificationWeekdaysMask'),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationWeekdaysMaskEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'notificationWeekdaysMask',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationWeekdaysMaskGreaterThan(int? value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'notificationWeekdaysMask',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationWeekdaysMaskLessThan(int? value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'notificationWeekdaysMask',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  notificationWeekdaysMaskBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'notificationWeekdaysMask',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
@@ -3760,6 +3930,46 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  sortByNotificationChannelVersion() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationChannelVersion', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  sortByNotificationChannelVersionDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationChannelVersion', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByNotificationSound() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationSound', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByNotificationSoundDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationSound', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  sortByNotificationWeekdaysMask() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationWeekdaysMask', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  sortByNotificationWeekdaysMaskDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationWeekdaysMask', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByNotifications() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'notifications', Sort.asc);
@@ -4145,6 +4355,46 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  thenByNotificationChannelVersion() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationChannelVersion', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  thenByNotificationChannelVersionDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationChannelVersion', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByNotificationSound() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationSound', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByNotificationSoundDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationSound', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  thenByNotificationWeekdaysMask() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationWeekdaysMask', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy>
+  thenByNotificationWeekdaysMaskDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'notificationWeekdaysMask', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByNotifications() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'notifications', Sort.asc);
@@ -4462,6 +4712,26 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct>
+  distinctByNotificationChannelVersion() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'notificationChannelVersion');
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QDistinct> distinctByNotificationSound() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'notificationSound');
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QDistinct>
+  distinctByNotificationWeekdaysMask() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'notificationWeekdaysMask');
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByNotifications() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'notifications');
@@ -4694,6 +4964,26 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, String, QQueryOperations> measurementsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'measurements');
+    });
+  }
+
+  QueryBuilder<Settings, int, QQueryOperations>
+  notificationChannelVersionProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'notificationChannelVersion');
+    });
+  }
+
+  QueryBuilder<Settings, bool, QQueryOperations> notificationSoundProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'notificationSound');
+    });
+  }
+
+  QueryBuilder<Settings, int?, QQueryOperations>
+  notificationWeekdaysMaskProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'notificationWeekdaysMask');
     });
   }
 

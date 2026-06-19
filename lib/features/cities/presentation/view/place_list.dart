@@ -12,7 +12,6 @@ import 'package:rain/features/cities/presentation/widgets/place_card_shimmer.dar
 class PlaceList extends ConsumerStatefulWidget {
   const PlaceList({super.key});
 
-  /// Creates the mutable state for this [PlaceList] widget.
   @override
   ConsumerState<PlaceList> createState() => _PlaceListState();
 }

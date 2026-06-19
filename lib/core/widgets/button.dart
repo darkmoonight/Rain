@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
+import 'package:rain/core/constants/app_constants.dart';
 
 /// Full-width primary or outlined action button with optional icon.
 class MyTextButton extends StatelessWidget {
@@ -76,7 +77,11 @@ class MyTextButton extends StatelessWidget {
             EdgeInsets.symmetric(horizontal: padding * 2),
           ),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                AppConstants.borderRadiusLarge,
+              ),
+            ),
           ),
         ),
         onPressed: isLoading ? null : onPressed,
@@ -117,7 +122,11 @@ class MyTextButton extends StatelessWidget {
             EdgeInsets.symmetric(horizontal: padding * 2),
           ),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                AppConstants.borderRadiusLarge,
+              ),
+            ),
           ),
         ),
         onPressed: isLoading ? null : onPressed,

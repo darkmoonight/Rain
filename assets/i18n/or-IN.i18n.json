@@ -33,6 +33,7 @@
   "discord": "ଡିସ୍କର୍ଡ",
   "discardChanges": "ଆପଣ ନିଶ୍ଚିତ ରୂପେ ଆପଣଙ୍କର ପରିବର୍ତ୍ତନଗୁଡିକୁ ବାତିଲ କରିବାକୁ ଚାହାଁନ୍ତି କି?",
   "notifications": "ବିଜ୍ଞପ୍ତି",
+  "notificationSound": "ବିଜ୍ଞପ୍ତି ଧ୍ୱନି",
   "mph": "ମାଇଲ୍/ଘଣ୍ଟା",
   "west": "ପଶ୍ଚିମ",
   "validate90": "ମୂଲ୍ୟ -90 ଏବଂ 90 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "ସମୁଦ୍ର ସପାଟିର ବାୟୁ ଚାପ। ହ୍ରାସ ପ୍ରାୟତଃ ଖରାପ ପାଣିପାଗ ସୂଚାଏ।",
   "metricHelpShortwaveRadiation": "ଆଡ଼ ପୃଷ୍ଠରେ ସୌର ଶକ୍ତି (ଗ୍ଲୋବାଲ ହରାଇଜଣ୍ଟାଲ ଇରେଡିଆନ୍ସ), ପୂର୍ବବର୍ତ୍ତୀ ଘଣ୍ଟାର ହାରାହାରି।",
   "today": "ଆଜି",
-  "tomorrow": "ଆଗାମିକାଲି"
+  "tomorrow": "ଆଗାମିକାଲି",
+  "notificationWeekdays": "ବିଜ୍ଞପ୍ତି ଦିନ",
+  "notificationWeekdaysAll": "ପ୍ରତିଦିନ",
+  "notificationWeekdaysNone": "କିଛି ନାହିଁ",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "ଓପନ-ସୋର୍ସ ସଫ୍ଟୱେର୍ ଦ୍ୱାରା ନିର୍ମିତ। ଲାଇସେନ୍ସ ପଢ଼ିବାକୁ ଏକ ପ୍ୟାକେଜ୍ ଉପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ।",
+  "licenseDependencies": "ନିର୍ଭରତା",
+  "licensePackages": "ପ୍ୟାକେଜ୍",
+  "close": "ବନ୍ଦ କରନ୍ତୁ"
 }

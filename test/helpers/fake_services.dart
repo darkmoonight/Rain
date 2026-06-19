@@ -36,7 +36,7 @@ class FakeNotificationService extends NotificationService {
   int cancelAllCalls = 0;
   int cancelScheduledCalls = 0;
   int rescheduleCalls = 0;
-  int scheduleIfEmptyCalls = 0;
+  int ensureForecastCalls = 0;
 
   @override
   Future<void> cancelAll() async {
@@ -49,13 +49,13 @@ class FakeNotificationService extends NotificationService {
   }
 
   @override
-  Future<void> scheduleIfEmpty({
+  Future<void> ensureForecastNotificationsScheduled({
     required MainWeatherCache cache,
     required Settings settings,
     required AppSettingsState appSettings,
     required String cityLabel,
   }) async {
-    scheduleIfEmptyCalls++;
+    ensureForecastCalls++;
   }
 
   @override

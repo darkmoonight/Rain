@@ -33,6 +33,7 @@
   "discord": "דיסקורד",
   "discardChanges": "האם אתה בטוח שברצונך לבטל את השינויים?",
   "notifications": "התראות",
+  "notificationSound": "צליל התראות",
   "mph": "מייל/שעה",
   "west": "מערב",
   "validate90": "הערך חייב להיות בין -90 ל-90",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "לחץ אוויר בגובה פני הים. ירידה בלחץ לעיתים קרובות מסמנת החמרה במזג האוויר.",
   "metricHelpShortwaveRadiation": "אנרגיה סולארית על משטח אופקי (קרינה אופקית גלובלית), ממוצע השעה הקודמת.",
   "today": "היום",
-  "tomorrow": "מחר"
+  "tomorrow": "מחר",
+  "notificationWeekdays": "ימי התראות",
+  "notificationWeekdaysAll": "כל יום",
+  "notificationWeekdaysNone": "ללא",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "נבנה בתוכנות קוד פתוח. הקש על חבילה כדי לקרוא את הרישיון.",
+  "licenseDependencies": "תלויות",
+  "licensePackages": "חבילות",
+  "close": "סגור"
 }

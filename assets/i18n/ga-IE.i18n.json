@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "An bhfuil tú cinnte go bhfuil tú ag iarraidh d'athruithe a chaitheamh?",
   "notifications": "Fógraí",
+  "notificationSound": "Fuaim fógra",
   "mph": "mi/u",
   "west": "Iarthar",
   "validate90": "Caithfidh luach a bheith idir -90 agus 90",
@@ -128,7 +129,7 @@
   "done": "Críochnaithe",
   "theme": "Téama",
   "name": "Aimsir",
-  "timeRange": "Raon Am (i n-uaireanta)",
+  "timeRange": "Minicíocht (i n-uaireanta)",
   "aboutApp": "Faoi an aip",
   "save": "Sábháil",
   "evaporation": "Buirtheasaiteacht",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Brú aeir ag leibhéal na farraige. Is minic a thugann laghdú brú drochaimsir le tuiscint.",
   "metricHelpShortwaveRadiation": "Fuinneamh gréine ar dhromchla cothrománach (irradiance cothrománach domhanda), meán na huaire roimhe seo.",
   "today": "Inniu",
-  "tomorrow": "Amárach"
+  "tomorrow": "Amárach",
+  "notificationWeekdays": "Laethanta fógra",
+  "notificationWeekdaysAll": "Gach lá",
+  "notificationWeekdaysNone": "Dada",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Tógtha le bogearraí foinse oscailte. Tapáil pacáiste chun a cheadúnas a léamh.",
+  "licenseDependencies": "Spleáchais",
+  "licensePackages": "pacáistí",
+  "close": "Dún"
 }

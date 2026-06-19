@@ -29,12 +29,9 @@ import 'package:rain/core/utils/responsive_utils.dart';
 class MapPage extends ConsumerStatefulWidget {
   const MapPage({super.key});
 
-  /// Creates the mutable state for [MapPage].
   @override
   ConsumerState<MapPage> createState() => _MapPageState();
 }
-
-// --- MapPageState ---
 
 /// Renders the weather map, markers, search, and selected-card overlay.
 class _MapPageState extends ConsumerState<MapPage>

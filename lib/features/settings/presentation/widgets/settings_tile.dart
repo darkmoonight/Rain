@@ -4,11 +4,19 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
-/// Single row in a settings section with optional value and trailing control.
+/// Single row inside a [SettingsSection] card.
 class SettingsTile extends StatelessWidget {
   final Widget leading;
-  final String title;
+
+  /// i18n key for the title (ignored when [titleText] is set).
+  final String? title;
+
+  /// Pre-localized title when the text must not go through `.tr`.
+  final String? titleText;
   final String? subtitle;
+
+  /// Pre-localized subtitle when the text is built at runtime (e.g. weekday list).
+  final String? subtitleText;
   final String? value;
   final Widget? trailing;
   final VoidCallback? onTap;
@@ -18,8 +26,10 @@ class SettingsTile extends StatelessWidget {
   const SettingsTile({
     super.key,
     required this.leading,
-    required this.title,
+    this.title,
+    this.titleText,
     this.subtitle,
+    this.subtitleText,
     this.value,
     this.trailing,
     this.onTap,
@@ -27,9 +37,12 @@ class SettingsTile extends StatelessWidget {
     this.iconColor,
   });
 
-  /// Builds the settings list tile with leading icon and trailing control.
   @override
   Widget build(BuildContext context) {
+    assert(
+      title != null || titleText != null,
+      'SettingsTile needs title or titleText',
+    );
     final colorScheme = Theme.of(context).colorScheme;
 
     return ListTile(
@@ -46,37 +59,50 @@ class SettingsTile extends StatelessWidget {
         child: leading,
       ),
       title: Text(
-        title.tr,
+        titleText ?? title!.tr,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
           fontWeight: FontWeight.w500,
           color: titleColor ?? colorScheme.onSurface,
           fontSize: ResponsiveUtils.getResponsiveFontSize(context, 15),
         ),
       ),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle!.tr,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-                fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
-              ),
-            )
-          : null,
+      subtitle: _buildSubtitle(context, colorScheme),
       trailing: trailing ?? _buildDefaultTrailing(context, colorScheme),
     );
   }
 
-  /// Builds the default trailing value text or chevron when none is provided.
+  /// Subtitle from [subtitleText] or translated [subtitle].
+  Widget? _buildSubtitle(BuildContext context, ColorScheme colorScheme) {
+    final text = subtitleText ?? subtitle?.tr;
+    if (text == null) return null;
+
+    return Text(
+      text,
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+        color: colorScheme.onSurfaceVariant,
+        fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
+      ),
+    );
+  }
+
   Widget? _buildDefaultTrailing(BuildContext context, ColorScheme colorScheme) {
     if (value != null) {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            value!,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-              fontSize: ResponsiveUtils.getResponsiveFontSize(context, 14),
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.sizeOf(context).width * 0.35,
+            ),
+            child: Text(
+              value!,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.end,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, 14),
+              ),
             ),
           ),
           const SizedBox(width: AppConstants.spacingS),

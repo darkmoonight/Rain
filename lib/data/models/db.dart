@@ -10,6 +10,8 @@ class Settings {
   String? theme = 'system';
   bool location = false;
   bool notifications = false;
+  bool notificationSound = false;
+  int? notificationWeekdaysMask;
   bool persistentNotification = false;
   bool materialColor = false;
   bool amoledTheme = false;
@@ -38,6 +40,9 @@ class Settings {
   /// Incremented when forecast cache schema changes; triggers a re-save migration.
   int weatherCacheVersion = 0;
 
+  /// Bumped when Android notification channel ids/settings change.
+  int notificationChannelVersion = 0;
+
   /// Device clock minus server UTC at the last weather fetch (seconds).
   int clockSkewSeconds = 0;
 }
@@ -46,8 +51,6 @@ class Settings {
 @collection
 class MainWeatherCache {
   Id id = Isar.autoIncrement;
-
-  // --- Hourly fields ---
 
   List<String>? time;
   List<int>? weathercode;
@@ -68,8 +71,6 @@ class MainWeatherCache {
   List<int?>? precipitationProbability;
   List<double?>? shortwaveRadiation;
 
-  // --- Air quality hourly fields ---
-
   List<double?>? europeanAqi;
   List<double?>? usAqi;
   List<double?>? pm25;
@@ -78,8 +79,6 @@ class MainWeatherCache {
   List<double?>? co;
   List<double?>? no2;
   List<double?>? so2;
-
-  // --- Daily fields ---
 
   List<DateTime>? timeDaily;
   List<int?>? weathercodeDaily;
@@ -96,8 +95,6 @@ class MainWeatherCache {
   List<double?>? uvIndexMax;
   List<double?>? rainSum;
   List<int?>? winddirection10MDominant;
-
-  // --- Metadata ---
 
   String? timezone;
   int? utcOffsetSeconds;
@@ -234,8 +231,6 @@ class LocationCache {
 class WeatherCard {
   Id id = Isar.autoIncrement;
 
-  // --- Hourly fields ---
-
   List<String>? time;
   List<int>? weathercode;
   List<double>? temperature2M;
@@ -255,8 +250,6 @@ class WeatherCard {
   List<int?>? precipitationProbability;
   List<double?>? shortwaveRadiation;
 
-  // --- Air quality hourly fields ---
-
   List<double?>? europeanAqi;
   List<double?>? usAqi;
   List<double?>? pm25;
@@ -265,8 +258,6 @@ class WeatherCard {
   List<double?>? co;
   List<double?>? no2;
   List<double?>? so2;
-
-  // --- Daily fields ---
 
   List<DateTime>? timeDaily;
   List<int?>? weathercodeDaily;
@@ -283,8 +274,6 @@ class WeatherCard {
   List<double?>? uvIndexMax;
   List<double?>? rainSum;
   List<int?>? winddirection10MDominant;
-
-  // --- Location and metadata ---
 
   double? lat;
   double? lon;

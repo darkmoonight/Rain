@@ -27,12 +27,9 @@ class SelectGeolocation extends ConsumerStatefulWidget {
   /// Whether the screen is shown during first-run onboarding ([true]) or in-app ([false]).
   final bool isStart;
 
-  /// Creates the mutable state for [SelectGeolocation].
   @override
   ConsumerState<SelectGeolocation> createState() => _SelectGeolocationState();
 }
-
-// --- SelectGeolocationState ---
 
 /// Form, map, and search UI for selecting or editing the primary location.
 class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
@@ -155,7 +152,11 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
           type: TextInputType.text,
           icon: const Icon(IconsaxPlusLinear.global_search),
           controller: _controller,
-          margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+          margin: const EdgeInsets.only(
+            left: AppConstants.cardPaddingHorizontal,
+            right: AppConstants.cardPaddingHorizontal,
+            top: AppConstants.cardPaddingHorizontal,
+          ),
           focusNode: _focusNode,
         ),
     optionsBuilder: (TextEditingValue textEditingValue) {
@@ -184,11 +185,14 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     AutocompleteOnSelected<CitySearchResult> onSelected,
     Iterable<CitySearchResult> options,
   ) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    padding: const EdgeInsets.symmetric(
+      horizontal: AppConstants.cardPaddingHorizontal,
+      vertical: AppConstants.cardPaddingVertical,
+    ),
     child: Align(
       alignment: Alignment.topCenter,
       child: Material(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusXLarge),
         elevation: 4,
         child: ListView.builder(
           padding: EdgeInsets.zero,
@@ -214,7 +218,10 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   /// Builds the current-location [IconButton] beside the search field.
   Widget _buildLocationButton() => Card(
     elevation: AppConstants.mapTextFieldElevation,
-    margin: const EdgeInsets.only(top: 10, right: 10),
+    margin: const EdgeInsets.only(
+      top: AppConstants.cardPaddingHorizontal,
+      right: AppConstants.cardPaddingHorizontal,
+    ),
     child: Container(
       margin: const EdgeInsets.all(2.5),
       child: IconButton(
@@ -239,7 +246,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
       if (ref.read(settingsProvider).location && !widget.isStart) {
         await ref
             .read(mainWeatherNotifierProvider.notifier)
-            .getCurrentLocation();
+            .getCurrentLocation(forceLoading: true);
         if (!mounted) return;
         NavigationHelper.back(context);
         return;
@@ -281,7 +288,11 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     labelText: 'lat'.tr,
     type: TextInputType.number,
     icon: const Icon(IconsaxPlusLinear.location),
-    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+    margin: const EdgeInsets.only(
+      left: AppConstants.cardPaddingHorizontal,
+      right: AppConstants.cardPaddingHorizontal,
+      top: AppConstants.cardPaddingHorizontal,
+    ),
     validator: (value) => _validateLatitude(value),
   );
 
@@ -292,7 +303,11 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     labelText: 'lon'.tr,
     type: TextInputType.number,
     icon: const Icon(IconsaxPlusLinear.location),
-    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+    margin: const EdgeInsets.only(
+      left: AppConstants.cardPaddingHorizontal,
+      right: AppConstants.cardPaddingHorizontal,
+      top: AppConstants.cardPaddingHorizontal,
+    ),
     validator: (value) => _validateLongitude(value),
   );
 
@@ -303,7 +318,11 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     labelText: 'city'.tr,
     type: TextInputType.name,
     icon: const Icon(IconsaxPlusLinear.building_3),
-    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+    margin: const EdgeInsets.only(
+      left: AppConstants.cardPaddingHorizontal,
+      right: AppConstants.cardPaddingHorizontal,
+      top: AppConstants.cardPaddingHorizontal,
+    ),
     validator: (value) => _validateCity(value),
   );
 
@@ -314,12 +333,19 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     labelText: 'district'.tr,
     type: TextInputType.streetAddress,
     icon: const Icon(IconsaxPlusLinear.global),
-    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+    margin: const EdgeInsets.only(
+      left: AppConstants.cardPaddingHorizontal,
+      right: AppConstants.cardPaddingHorizontal,
+      top: AppConstants.cardPaddingHorizontal,
+    ),
   );
 
   /// Builds the submit [MyTextButton] that saves the selected location.
   Widget _buildSubmitButton() => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    padding: const EdgeInsets.symmetric(
+      horizontal: AppConstants.cardPaddingHorizontal,
+      vertical: AppConstants.spacingS,
+    ),
     child: MyTextButton(
       text: 'done'.tr,
       isLoading: _isSubmitting,

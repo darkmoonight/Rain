@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "確定要放棄變更嗎？",
   "notifications": "通知",
+  "notificationSound": "通知聲音",
   "mph": "英里/時",
   "west": "西",
   "validate90": "數值必須在-90和90之間",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "海平面氣壓。氣壓下降常預示天氣轉壞。",
   "metricHelpShortwaveRadiation": "水平面太陽能量（全球水平輻照度），上一小時平均值。",
   "today": "今天",
-  "tomorrow": "明天"
+  "tomorrow": "明天",
+  "notificationWeekdays": "通知日期",
+  "notificationWeekdaysAll": "每天",
+  "notificationWeekdaysNone": "無",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "使用開源軟體建置。點選套件以查看其授權條款。",
+  "licenseDependencies": "相依項目",
+  "licensePackages": "個套件",
+  "close": "關閉"
 }

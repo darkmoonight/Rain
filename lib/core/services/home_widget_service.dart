@@ -24,8 +24,6 @@ class HomeWidgetService {
     return '$converted${UnitConverter.temperatureSuffix(settings)}';
   }
 
-  // --- Widget update ---
-
   /// Reads Isar and writes widget data for all registered widget providers.
   Future<bool> updateFromIsar(Isar isar, {Settings? settings}) async {
     try {

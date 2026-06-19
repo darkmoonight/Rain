@@ -73,6 +73,7 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'டிஸ்கார்டு';
 	@override String get discard_changes => 'உங்கள் மாற்றங்களை நிராகரிக்க விரும்புகிறீர்களா?';
 	@override String get notifications => 'அறிவிப்புகள்';
+	@override String get notification_sound => 'அறிவிப்பு ஒலி';
 	@override String get mph => 'மைல்/மணி';
 	@override String get west => 'மேற்கு';
 	@override String get validate90 => 'மதிப்பு -90 மற்றும் 90 க்கு இடையில் இருக்க வேண்டும்';
@@ -293,6 +294,14 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'கிடைமட்ட மேற்பரப்பில் சூரிய ஆற்றல் (உலகளாவிய கிடைமட்ட கதிர்வீச்சு), முந்தைய மணியின் சராசரி.';
 	@override String get today => 'இன்று';
 	@override String get tomorrow => 'நாளை';
+	@override String get notification_weekdays => 'அறிவிப்பு நாட்கள்';
+	@override String get notification_weekdays_all => 'தினமும்';
+	@override String get notification_weekdays_none => 'இல்லை';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'திறந்த மூல மென்பொருளால் உருவாக்கப்பட்டது. உரிமத்தைப் படிக்க ஒரு தொகுப்பைத் தட்டவும்.';
+	@override String get license_dependencies => 'சார்புகள்';
+	@override String get license_packages => 'தொகுப்புகள்';
+	@override String get close => 'மூடு';
 }
 
 /// The flat map containing all translations for locale <ta-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsTaIn {
 			'discord' => 'டிஸ்கார்டு',
 			'discard_changes' => 'உங்கள் மாற்றங்களை நிராகரிக்க விரும்புகிறீர்களா?',
 			'notifications' => 'அறிவிப்புகள்',
+			'notification_sound' => 'அறிவிப்பு ஒலி',
 			'mph' => 'மைல்/மணி',
 			'west' => 'மேற்கு',
 			'validate90' => 'மதிப்பு -90 மற்றும் 90 க்கு இடையில் இருக்க வேண்டும்',
@@ -557,6 +567,14 @@ extension on TranslationsTaIn {
 			'metric_help_shortwave_radiation' => 'கிடைமட்ட மேற்பரப்பில் சூரிய ஆற்றல் (உலகளாவிய கிடைமட்ட கதிர்வீச்சு), முந்தைய மணியின் சராசரி.',
 			'today' => 'இன்று',
 			'tomorrow' => 'நாளை',
+			'notification_weekdays' => 'அறிவிப்பு நாட்கள்',
+			'notification_weekdays_all' => 'தினமும்',
+			'notification_weekdays_none' => 'இல்லை',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'திறந்த மூல மென்பொருளால் உருவாக்கப்பட்டது. உரிமத்தைப் படிக்க ஒரு தொகுப்பைத் தட்டவும்.',
+			'license_dependencies' => 'சார்புகள்',
+			'license_packages' => 'தொகுப்புகள்',
+			'close' => 'மூடு',
 			_ => null,
 		};
 	}

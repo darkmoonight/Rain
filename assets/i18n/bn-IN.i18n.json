@@ -33,6 +33,7 @@
   "discord": "ডিসকর্ড",
   "discardChanges": "আপনি কি নিশ্চিত যে আপনি আপনার পরিবর্তনগুলি বাতিল করতে চান?",
   "notifications": "বিজ্ঞপ্তি",
+  "notificationSound": "বিজ্ঞপ্তির শব্দ",
   "mph": "মাইল/ঘণ্টা",
   "west": "পশ্চিম",
   "validate90": "মান -৯০ থেকে ৯০ মধ্যে হতে হবে",
@@ -128,7 +129,7 @@
   "done": "সম্পন্ন",
   "theme": "থিম",
   "name": "আবহাওয়া",
-  "timeRange": "সময় পরিস্থিতি (ঘণ্টায়)",
+  "timeRange": "ফ্রিকোয়েন্সি (ঘণ্টায়)",
   "aboutApp": "অ্যাপ সম্পর্কে",
   "save": "সংরক্ষণ",
   "evaporation": "অবপাত ও প্রবাহ",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "সমুদ্রপৃষ্ঠের বায়ুচাপ। চাপ কমলে প্রায়ই খারাপ আবহাওয়ার ইঙ্গিত।",
   "metricHelpShortwaveRadiation": "অনুভূমিক পৃষ্ঠে সৌর শক্তি (গ্লোবাল হরাইজন্টাল ইরেডিয়েন্স), পূর্ববর্তী ঘণ্টার গড়।",
   "today": "আজ",
-  "tomorrow": "আগামীকাল"
+  "tomorrow": "আগামীকাল",
+  "notificationWeekdays": "বিজ্ঞপ্তির দিন",
+  "notificationWeekdaysAll": "প্রতিদিন",
+  "notificationWeekdaysNone": "কোনোটিই নয়",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "ওপেন-সোর্স সফ্টওয়্যার দিয়ে তৈরি। লাইসেন্স পড়তে একটি প্যাকেজে ট্যাপ করুন।",
+  "licenseDependencies": "নির্ভরতা",
+  "licensePackages": "প্যাকেজ",
+  "close": "বন্ধ করুন"
 }

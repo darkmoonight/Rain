@@ -73,6 +73,7 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => '디스코드';
 	@override String get discard_changes => '변경사항을 취소하시겠습니까?';
 	@override String get notifications => '알림';
+	@override String get notification_sound => '알림 소리';
 	@override String get mph => 'mph';
 	@override String get west => '서';
 	@override String get validate90 => '-90과 90 사이의 값만 가능합니다';
@@ -293,6 +294,14 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => '수평면 태양 에너지(전천일사량), 직전 1시간 평균.';
 	@override String get today => '오늘';
 	@override String get tomorrow => '내일';
+	@override String get notification_weekdays => '알림 요일';
+	@override String get notification_weekdays_all => '매일';
+	@override String get notification_weekdays_none => '없음';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => '오픈 소스 소프트웨어로 제작되었습니다. 패키지를 눌러 라이선스를 읽으세요.';
+	@override String get license_dependencies => '종속성';
+	@override String get license_packages => '패키지';
+	@override String get close => '닫기';
 }
 
 /// The flat map containing all translations for locale <ko-KR>.
@@ -337,6 +346,7 @@ extension on TranslationsKoKr {
 			'discord' => '디스코드',
 			'discard_changes' => '변경사항을 취소하시겠습니까?',
 			'notifications' => '알림',
+			'notification_sound' => '알림 소리',
 			'mph' => 'mph',
 			'west' => '서',
 			'validate90' => '-90과 90 사이의 값만 가능합니다',
@@ -557,6 +567,14 @@ extension on TranslationsKoKr {
 			'metric_help_shortwave_radiation' => '수평면 태양 에너지(전천일사량), 직전 1시간 평균.',
 			'today' => '오늘',
 			'tomorrow' => '내일',
+			'notification_weekdays' => '알림 요일',
+			'notification_weekdays_all' => '매일',
+			'notification_weekdays_none' => '없음',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => '오픈 소스 소프트웨어로 제작되었습니다. 패키지를 눌러 라이선스를 읽으세요.',
+			'license_dependencies' => '종속성',
+			'license_packages' => '패키지',
+			'close' => '닫기',
 			_ => null,
 		};
 	}

@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/utils/color_converter.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
+import 'package:rain/core/utils/responsive_utils.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_list_dialog_shell.dart';
 import 'package:rain/i18n/tr.dart';
 
-/// Opens an HSV picker for a widget color slot with save and Material You reset.
-void showWidgetColorPicker({
+Future<void> showWidgetColorPicker({
   required BuildContext context,
   required String titleKey,
   required Color initialColor,
   required Future<void> Function(String color) onSave,
   required Future<void> Function() onReset,
-}) {
-  showDialog(
+}) async {
+  await NavigationHelper.showAppDialog<void>(
     context: context,
-    builder: (dialogContext) => _WidgetColorPickerDialog(
+    child: _WidgetColorPickerDialog(
       titleKey: titleKey,
       initialColor: initialColor,
       onSave: onSave,
@@ -24,7 +26,6 @@ void showWidgetColorPicker({
   );
 }
 
-/// Dialog content for picking a single widget background or text color.
 class _WidgetColorPickerDialog extends StatefulWidget {
   const _WidgetColorPickerDialog({
     required this.titleKey,
@@ -48,48 +49,67 @@ class _WidgetColorPickerDialogState extends State<_WidgetColorPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return SettingsListDialogShell(
+      maxHeightFraction: 0.85,
+      header: SettingsListDialogHeader(
+        title: widget.titleKey.tr,
+        icon: IconsaxPlusLinear.colorfilter,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(
+          AppConstants.spacingXXL,
+          0,
+          AppConstants.spacingXXL,
+          AppConstants.spacingS,
+        ),
+        child: ColorPicker(
+          color: widget.initialColor,
+          onChanged: (color) => _pickedColor = color.toHex(),
+        ),
+      ),
+      footer: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          AppConstants.spacingXXL,
+          AppConstants.spacingS,
+          AppConstants.spacingXXL,
+          AppConstants.spacingXXL,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+            IconButton(
+              icon: const Icon(IconsaxPlusLinear.rotate_left),
+              tooltip: 'resetToMaterialYou'.tr,
+              onPressed: () async {
+                await widget.onReset();
+                if (context.mounted) NavigationHelper.back(context);
+              },
+            ),
+            const SizedBox(width: AppConstants.spacingS),
+            FilledButton.tonal(
+              onPressed: () async {
+                final color = _pickedColor;
+                if (color == null) return;
+                await widget.onSave(color);
+                if (context.mounted) NavigationHelper.back(context);
+              },
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.spacingXL,
+                  vertical: AppConstants.spacingM,
+                ),
+                backgroundColor: colorScheme.primaryContainer,
+                foregroundColor: colorScheme.onPrimaryContainer,
+              ),
               child: Text(
-                widget.titleKey.tr,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontSize: 18),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: ColorPicker(
-                color: widget.initialColor,
-                onChanged: (color) => _pickedColor = color.toHex(),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: const Icon(IconsaxPlusLinear.rotate_left),
-                  tooltip: 'resetToMaterialYou'.tr,
-                  onPressed: () async {
-                    await widget.onReset();
-                    if (context.mounted) NavigationHelper.back(context);
-                  },
+                'save'.tr,
+                style: TextStyle(
+                  fontSize: ResponsiveUtils.getResponsiveFontSize(context, 14),
+                  fontWeight: FontWeight.w600,
                 ),
-                IconButton(
-                  icon: const Icon(IconsaxPlusLinear.tick_square),
-                  onPressed: () async {
-                    final color = _pickedColor;
-                    if (color == null) return;
-                    await widget.onSave(color);
-                    if (context.mounted) NavigationHelper.back(context);
-                  },
-                ),
-              ],
+              ),
             ),
           ],
         ),

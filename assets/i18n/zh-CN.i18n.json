@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "确定要放弃更改吗？",
   "notifications": "通知",
+  "notificationSound": "通知声音",
   "mph": "英里/小时",
   "west": "西",
   "validate90": "值必须介于-90和90之间",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "海平面气压。气压下降常预示天气转坏。",
   "metricHelpShortwaveRadiation": "水平面太阳能量（全球水平辐照度），上一小时平均值。",
   "today": "今天",
-  "tomorrow": "明天"
+  "tomorrow": "明天",
+  "notificationWeekdays": "通知日期",
+  "notificationWeekdaysAll": "每天",
+  "notificationWeekdaysNone": "无",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "使用开源软件构建。点击软件包可查看其许可证。",
+  "licenseDependencies": "依赖项",
+  "licensePackages": "个软件包",
+  "close": "关闭"
 }

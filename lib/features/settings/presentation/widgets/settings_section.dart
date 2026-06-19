@@ -3,14 +3,11 @@ import 'package:rain/i18n/tr.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_card_shape.dart';
 import 'package:rain/core/di/provider_refs.dart';
 
-/// Titled card grouping related settings tiles.
+/// Grouped settings rows with a section title and card container.
 class SettingsSection extends ConsumerWidget {
-  final String title;
-  final IconData icon;
-  final List<Widget> children;
-
   const SettingsSection({
     super.key,
     required this.title,
@@ -18,11 +15,15 @@ class SettingsSection extends ConsumerWidget {
     required this.children,
   });
 
-  /// Builds the section header and card wrapping [children] tiles.
+  final String title;
+  final IconData icon;
+  final List<Widget> children;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
     final colorScheme = Theme.of(context).colorScheme;
+    final dividerColor = SettingsCardShape.settingsDividerColor(colorScheme);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,24 +51,16 @@ class SettingsSection extends ConsumerWidget {
         ),
         Card(
           margin: EdgeInsets.zero,
-          shape: settings.amoledTheme
-              ? RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: colorScheme.outlineVariant.withValues(alpha: 0.3),
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                )
-              : null,
+          shape: SettingsCardShape.cardShape(
+            amoledTheme: settings.amoledTheme,
+            colorScheme: colorScheme,
+          ),
           child: Column(
             children: [
               for (int i = 0; i < children.length; i++) ...[
                 children[i],
                 if (i < children.length - 1)
-                  Divider(
-                    height: 1,
-                    color: colorScheme.outlineVariant.withValues(alpha: 0.3),
-                  ),
+                  Divider(height: 1, color: dividerColor),
               ],
             ],
           ),

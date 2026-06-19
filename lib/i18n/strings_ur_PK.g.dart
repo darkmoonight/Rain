@@ -73,6 +73,7 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ڈسکورڈ';
 	@override String get discard_changes => 'کیا آپ واقعی اپنی تبدیلیوں کو مسترد کرنا چاہتے ہیں؟';
 	@override String get notifications => 'خبریں';
+	@override String get notification_sound => 'اطلاع کی آواز';
 	@override String get mph => 'میل فی گھنٹہ';
 	@override String get west => 'مغرب';
 	@override String get validate90 => 'قدر -90 سے 90 کے اندر ہونی چاہئے';
@@ -168,7 +169,7 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get done => 'ہوگیا';
 	@override String get theme => 'تھیم';
 	@override String get name => 'موسم';
-	@override String get time_range => 'وقت کی مدت (گھنٹوں میں)';
+	@override String get time_range => 'تعدد (گھنٹوں میں)';
 	@override String get about_app => 'ایپ کے بارے میں';
 	@override String get save => 'محفوظ';
 	@override String get evaporation => 'بخاری';
@@ -293,6 +294,14 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'افقی سطح پر شمسی توانائی (عالمی افقی تابکاری)، پچھلے گھنٹے کا اوسط۔';
 	@override String get today => 'آج';
 	@override String get tomorrow => 'کل';
+	@override String get notification_weekdays => 'اطلاع کے دن';
+	@override String get notification_weekdays_all => 'ہر روز';
+	@override String get notification_weekdays_none => 'کوئی نہیں';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'اوپن سورس سافٹ ویئر سے بنایا گیا۔ لائسنس پڑھنے کے لیے کسی پیکج پر ٹیپ کریں۔';
+	@override String get license_dependencies => 'انحصار';
+	@override String get license_packages => 'پیکج';
+	@override String get close => 'بند کریں';
 }
 
 /// The flat map containing all translations for locale <ur-PK>.
@@ -337,6 +346,7 @@ extension on TranslationsUrPk {
 			'discord' => 'ڈسکورڈ',
 			'discard_changes' => 'کیا آپ واقعی اپنی تبدیلیوں کو مسترد کرنا چاہتے ہیں؟',
 			'notifications' => 'خبریں',
+			'notification_sound' => 'اطلاع کی آواز',
 			'mph' => 'میل فی گھنٹہ',
 			'west' => 'مغرب',
 			'validate90' => 'قدر -90 سے 90 کے اندر ہونی چاہئے',
@@ -432,7 +442,7 @@ extension on TranslationsUrPk {
 			'done' => 'ہوگیا',
 			'theme' => 'تھیم',
 			'name' => 'موسم',
-			'time_range' => 'وقت کی مدت (گھنٹوں میں)',
+			'time_range' => 'تعدد (گھنٹوں میں)',
 			'about_app' => 'ایپ کے بارے میں',
 			'save' => 'محفوظ',
 			'evaporation' => 'بخاری',
@@ -557,6 +567,14 @@ extension on TranslationsUrPk {
 			'metric_help_shortwave_radiation' => 'افقی سطح پر شمسی توانائی (عالمی افقی تابکاری)، پچھلے گھنٹے کا اوسط۔',
 			'today' => 'آج',
 			'tomorrow' => 'کل',
+			'notification_weekdays' => 'اطلاع کے دن',
+			'notification_weekdays_all' => 'ہر روز',
+			'notification_weekdays_none' => 'کوئی نہیں',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'اوپن سورس سافٹ ویئر سے بنایا گیا۔ لائسنس پڑھنے کے لیے کسی پیکج پر ٹیپ کریں۔',
+			'license_dependencies' => 'انحصار',
+			'license_packages' => 'پیکج',
+			'close' => 'بند کریں',
 			_ => null,
 		};
 	}

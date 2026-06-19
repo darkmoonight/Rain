@@ -73,6 +73,7 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'ნამდვილად გსურთ ცვლილებების გაუქმება?';
 	@override String get notifications => 'შეტყობინებები';
+	@override String get notification_sound => 'შეტყობინების ხმა';
 	@override String get mph => 'მილი/სთ';
 	@override String get west => 'დასავლეთი';
 	@override String get validate90 => 'მნიშვნელობა უნდა იყოს -90-დან 90-მდე';
@@ -293,6 +294,14 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'მზის ენერგია ჰორიზონტალურ ზედაპირზე (გლობალური ჰორიზონტალური გამოსხივება), წინა საათის საშუალო.';
 	@override String get today => 'დღეს';
 	@override String get tomorrow => 'ხვალ';
+	@override String get notification_weekdays => 'შეტყობინების დღეები';
+	@override String get notification_weekdays_all => 'ყოველდღე';
+	@override String get notification_weekdays_none => 'არცერთი';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'შექმნილია ღია კოდის პროგრამული უზრუნველყოფით. ლიცენზიის წასაკითხად შეეხეთ პაკეტს.';
+	@override String get license_dependencies => 'დამოკიდებულებები';
+	@override String get license_packages => 'პაკეტი';
+	@override String get close => 'დახურვა';
 }
 
 /// The flat map containing all translations for locale <ka-GE>.
@@ -337,6 +346,7 @@ extension on TranslationsKaGe {
 			'discord' => 'Discord',
 			'discard_changes' => 'ნამდვილად გსურთ ცვლილებების გაუქმება?',
 			'notifications' => 'შეტყობინებები',
+			'notification_sound' => 'შეტყობინების ხმა',
 			'mph' => 'მილი/სთ',
 			'west' => 'დასავლეთი',
 			'validate90' => 'მნიშვნელობა უნდა იყოს -90-დან 90-მდე',
@@ -557,6 +567,14 @@ extension on TranslationsKaGe {
 			'metric_help_shortwave_radiation' => 'მზის ენერგია ჰორიზონტალურ ზედაპირზე (გლობალური ჰორიზონტალური გამოსხივება), წინა საათის საშუალო.',
 			'today' => 'დღეს',
 			'tomorrow' => 'ხვალ',
+			'notification_weekdays' => 'შეტყობინების დღეები',
+			'notification_weekdays_all' => 'ყოველდღე',
+			'notification_weekdays_none' => 'არცერთი',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'შექმნილია ღია კოდის პროგრამული უზრუნველყოფით. ლიცენზიის წასაკითხად შეეხეთ პაკეტს.',
+			'license_dependencies' => 'დამოკიდებულებები',
+			'license_packages' => 'პაკეტი',
+			'close' => 'დახურვა',
 			_ => null,
 		};
 	}

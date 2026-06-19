@@ -73,6 +73,7 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'డిస్కార్డ్';
 	@override String get discard_changes => 'మీ మార్పులను విస్మరించాలనుకుంటున్నారా?';
 	@override String get notifications => 'నోటిఫికేషన్లు';
+	@override String get notification_sound => 'నోటిఫికేషన్ ధ్వని';
 	@override String get mph => 'మైలు/గం';
 	@override String get west => 'పడమర';
 	@override String get validate90 => 'విలువ -90 మరియు 90 మధ్య ఉండాలి';
@@ -293,6 +294,14 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'అడ్డ మేరుపై సౌర శక్తి (గ్లోబల్ హారిజాంటల్ ఇరేడియన్స్), మునుపటి గంట సగటు.';
 	@override String get today => 'నేడు';
 	@override String get tomorrow => 'రేపు';
+	@override String get notification_weekdays => 'నోటిఫికేషన్ రోజులు';
+	@override String get notification_weekdays_all => 'ప్రతి రోజు';
+	@override String get notification_weekdays_none => 'ఏమీ లేదు';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ఓపెన్-సోర్స్ సాఫ్ట్‌వేర్‌తో నిర్మించబడింది. లైసెన్స్ చదవడానికి ప్యాకేజీపై ట్యాప్ చేయండి.';
+	@override String get license_dependencies => 'ఆధారాలు';
+	@override String get license_packages => 'ప్యాకేజీలు';
+	@override String get close => 'మూసివేయి';
 }
 
 /// The flat map containing all translations for locale <te-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsTeIn {
 			'discord' => 'డిస్కార్డ్',
 			'discard_changes' => 'మీ మార్పులను విస్మరించాలనుకుంటున్నారా?',
 			'notifications' => 'నోటిఫికేషన్లు',
+			'notification_sound' => 'నోటిఫికేషన్ ధ్వని',
 			'mph' => 'మైలు/గం',
 			'west' => 'పడమర',
 			'validate90' => 'విలువ -90 మరియు 90 మధ్య ఉండాలి',
@@ -557,6 +567,14 @@ extension on TranslationsTeIn {
 			'metric_help_shortwave_radiation' => 'అడ్డ మేరుపై సౌర శక్తి (గ్లోబల్ హారిజాంటల్ ఇరేడియన్స్), మునుపటి గంట సగటు.',
 			'today' => 'నేడు',
 			'tomorrow' => 'రేపు',
+			'notification_weekdays' => 'నోటిఫికేషన్ రోజులు',
+			'notification_weekdays_all' => 'ప్రతి రోజు',
+			'notification_weekdays_none' => 'ఏమీ లేదు',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ఓపెన్-సోర్స్ సాఫ్ట్‌వేర్‌తో నిర్మించబడింది. లైసెన్స్ చదవడానికి ప్యాకేజీపై ట్యాప్ చేయండి.',
+			'license_dependencies' => 'ఆధారాలు',
+			'license_packages' => 'ప్యాకేజీలు',
+			'close' => 'మూసివేయి',
 			_ => null,
 		};
 	}

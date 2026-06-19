@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
@@ -10,6 +9,8 @@ import 'package:rain/data/models/db.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
 import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
+import 'package:rain/core/utils/show_snack_bar.dart';
+import 'package:rain/features/cities/presentation/widgets/place_action_editing_controller.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
 /// Bottom sheet for creating or editing a saved city card.
@@ -27,12 +28,9 @@ class PlaceAction extends ConsumerStatefulWidget {
   final bool edit;
   final WeatherCard? card;
 
-  /// Creates the mutable state for this [PlaceAction] widget.
   @override
   ConsumerState<PlaceAction> createState() => _PlaceActionState();
 }
-
-// --- PlaceActionState ---
 
 /// State for [PlaceAction], managing form fields, validation, and save flow.
 class _PlaceActionState extends ConsumerState<PlaceAction>
@@ -54,7 +52,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
   late final Animation<double> _fadeAnimation;
   late final Animation<Offset> _slideAnimation;
 
-  late final _EditingController _editingController;
+  late final PlaceActionEditingController _editingController;
 
   /// Initializes controllers, edit mode, animations, and editing state.
   @override
@@ -110,7 +108,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
 
   /// Wires the [_EditingController] to the current field values.
   void _setupEditingController() {
-    _editingController = _EditingController(
+    _editingController = PlaceActionEditingController(
       _latController.text,
       _lonController.text,
       _cityController.text,
@@ -692,81 +690,10 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
         if (mounted) NavigationHelper.back(context);
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('error_occurred'.tr)));
+          showSnackBar('error_occurred'.tr, isError: true);
         }
         rethrow;
       }
     }
-  }
-}
-
-// --- EditingController ---
-
-/// Tracks field changes and whether the form is complete enough to save.
-class _EditingController extends ChangeNotifier {
-  /// Creates an editing controller seeded with initial field values.
-  _EditingController(
-    this._initialLat,
-    this._initialLon,
-    this._initialCity,
-    this._initialDistrict,
-  ) {
-    lat.value = _initialLat;
-    lon.value = _initialLon;
-    city.value = _initialCity;
-    district.value = _initialDistrict;
-
-    lat.addListener(_updateCanCompose);
-    lon.addListener(_updateCanCompose);
-    city.addListener(_updateCanCompose);
-    district.addListener(_updateCanCompose);
-  }
-
-  final String _initialLat;
-  final String _initialLon;
-  final String _initialCity;
-  final String _initialDistrict;
-
-  final ValueNotifier<String> lat = ValueNotifier<String>('');
-  final ValueNotifier<String> lon = ValueNotifier<String>('');
-  final ValueNotifier<String> city = ValueNotifier<String>('');
-  final ValueNotifier<String> district = ValueNotifier<String>('');
-
-  final _canCompose = ValueNotifier<bool>(false);
-
-  /// Whether all fields are filled and differ from their initial values.
-  ValueListenable<bool> get canCompose => _canCompose;
-
-  /// Recomputes [canCompose] when any field value changes.
-  void _updateCanCompose() {
-    final hasChanges =
-        lat.value != _initialLat ||
-        lon.value != _initialLon ||
-        city.value != _initialCity ||
-        district.value != _initialDistrict;
-
-    final isComplete =
-        lat.value.isNotEmpty &&
-        lon.value.isNotEmpty &&
-        city.value.isNotEmpty &&
-        district.value.isNotEmpty;
-
-    _canCompose.value = hasChanges && isComplete;
-  }
-
-  /// Removes listeners and disposes the field [ValueNotifier] instances.
-  @override
-  void dispose() {
-    lat.removeListener(_updateCanCompose);
-    lon.removeListener(_updateCanCompose);
-    city.removeListener(_updateCanCompose);
-    district.removeListener(_updateCanCompose);
-    lat.dispose();
-    lon.dispose();
-    city.dispose();
-    district.dispose();
-    super.dispose();
   }
 }

@@ -73,6 +73,7 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Sigur doriți să renunțați la modificări?';
 	@override String get notifications => 'Notificări';
+	@override String get notification_sound => 'Sunet notificări';
 	@override String get mph => 'mph';
 	@override String get west => 'Vest';
 	@override String get validate90 => 'Valoarea trebuie să fie între -90 și 90';
@@ -293,6 +294,14 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Energie solară pe o suprafață orizontală (iradianță orizontală globală), media orei anterioare.';
 	@override String get today => 'Astăzi';
 	@override String get tomorrow => 'Mâine';
+	@override String get notification_weekdays => 'Zile de notificare';
+	@override String get notification_weekdays_all => 'În fiecare zi';
+	@override String get notification_weekdays_none => 'Niciuna';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Construit cu software open source. Atinge un pachet pentru a citi licența.';
+	@override String get license_dependencies => 'Dependențe';
+	@override String get license_packages => 'pachete';
+	@override String get close => 'Închide';
 }
 
 /// The flat map containing all translations for locale <ro-RO>.
@@ -337,6 +346,7 @@ extension on TranslationsRoRo {
 			'discord' => 'Discord',
 			'discard_changes' => 'Sigur doriți să renunțați la modificări?',
 			'notifications' => 'Notificări',
+			'notification_sound' => 'Sunet notificări',
 			'mph' => 'mph',
 			'west' => 'Vest',
 			'validate90' => 'Valoarea trebuie să fie între -90 și 90',
@@ -557,6 +567,14 @@ extension on TranslationsRoRo {
 			'metric_help_shortwave_radiation' => 'Energie solară pe o suprafață orizontală (iradianță orizontală globală), media orei anterioare.',
 			'today' => 'Astăzi',
 			'tomorrow' => 'Mâine',
+			'notification_weekdays' => 'Zile de notificare',
+			'notification_weekdays_all' => 'În fiecare zi',
+			'notification_weekdays_none' => 'Niciuna',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Construit cu software open source. Atinge un pachet pentru a citi licența.',
+			'license_dependencies' => 'Dependențe',
+			'license_packages' => 'pachete',
+			'close' => 'Închide',
 			_ => null,
 		};
 	}

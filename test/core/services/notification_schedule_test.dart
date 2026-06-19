@@ -347,6 +347,35 @@ void main() {
       expect(slots.map((slot) => slot.time.hour), containsAll([23, 1]));
     });
 
+    test('skips slots on disabled weekdays', () {
+      final cache = sampleMainWeatherCache()
+        ..time = ['2026-06-17T12:00', '2026-06-18T12:00', '2026-06-19T12:00']
+        ..timeDaily = [
+          DateTime(2026, 6, 17),
+          DateTime(2026, 6, 18),
+          DateTime(2026, 6, 19),
+        ]
+        ..sunrise = ['06:00', '06:00', '06:00']
+        ..sunset = ['18:00', '18:00', '18:00']
+        ..temperature2M = [20.0, 21.0, 22.0]
+        ..weathercode = [0, 1, 2];
+
+      final slots = buildWeatherNotificationSlots(
+        cache: cache,
+        settings: Settings()..notificationWeekdaysMask = 4,
+        appSettings: const AppSettingsState(
+          timeStart: '00:00',
+          timeEnd: '23:59',
+          timeRange: 1,
+        ),
+        cityLabel: 'Moscow',
+        now: DateTime(2026, 6, 17, 10),
+      );
+
+      expect(slots, hasLength(1));
+      expect(slots.single.time.weekday, DateTime.wednesday);
+    });
+
     test('includes calendar date in body for slots on another day', () {
       final cache = sampleMainWeatherCache()
         ..time = ['2026-06-06T13:00']

@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "ნამდვილად გსურთ ცვლილებების გაუქმება?",
   "notifications": "შეტყობინებები",
+  "notificationSound": "შეტყობინების ხმა",
   "mph": "მილი/სთ",
   "west": "დასავლეთი",
   "validate90": "მნიშვნელობა უნდა იყოს -90-დან 90-მდე",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "ატმოსფერული წნევა ზღვის დონეზე. დაცემა ხშირად უარეს ამინდს ნიშნავს.",
   "metricHelpShortwaveRadiation": "მზის ენერგია ჰორიზონტალურ ზედაპირზე (გლობალური ჰორიზონტალური გამოსხივება), წინა საათის საშუალო.",
   "today": "დღეს",
-  "tomorrow": "ხვალ"
+  "tomorrow": "ხვალ",
+  "notificationWeekdays": "შეტყობინების დღეები",
+  "notificationWeekdaysAll": "ყოველდღე",
+  "notificationWeekdaysNone": "არცერთი",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "შექმნილია ღია კოდის პროგრამული უზრუნველყოფით. ლიცენზიის წასაკითხად შეეხეთ პაკეტს.",
+  "licenseDependencies": "დამოკიდებულებები",
+  "licensePackages": "პაკეტი",
+  "close": "დახურვა"
 }

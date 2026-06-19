@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Er du sikker på, at du vil kassere dine ændringer?",
   "notifications": "Notifikationer",
+  "notificationSound": "Notifikationslyd",
   "mph": "mph",
   "west": "Vest",
   "validate90": "Værdien skal være mellem -90 og 90",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Lufttryk ved havniveau. Faldende tryk varsler ofte forværret vejr.",
   "metricHelpShortwaveRadiation": "Solenergi på en vandret flade (global horisontal irradians), gennemsnit for den foregående time.",
   "today": "I dag",
-  "tomorrow": "I morgen"
+  "tomorrow": "I morgen",
+  "notificationWeekdays": "Notifikationsdage",
+  "notificationWeekdaysAll": "Hver dag",
+  "notificationWeekdaysNone": "Ingen",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Bygget med open source-software. Tryk på en pakke for at læse dens licens.",
+  "licenseDependencies": "Afhængigheder",
+  "licensePackages": "pakker",
+  "close": "Luk"
 }

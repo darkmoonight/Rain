@@ -43,8 +43,6 @@ class PlaceCardList extends ConsumerWidget {
   }
 }
 
-// --- DismissibleCard ---
-
 /// Swipeable wrapper that navigates to detail or deletes a city card.
 class _DismissibleCard extends ConsumerWidget {
   const _DismissibleCard({required this.card});

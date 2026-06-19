@@ -73,6 +73,7 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ഡിസ്കോർഡ്';
 	@override String get discard_changes => 'നിങ്ങളുടെ മാറ്റങ്ങൾ ഉപേക്ഷിക്കണമെന്ന് ഉറപ്പാണോ?';
 	@override String get notifications => 'അറിയിപ്പുകൾ';
+	@override String get notification_sound => 'അറിയിപ്പ് ശബ്ദം';
 	@override String get mph => 'മൈൽ/മണിക്കൂർ';
 	@override String get west => 'പടിഞ്ഞാറ്';
 	@override String get validate90 => 'മൂല്യം -90 നും 90 നും ഇടയിൽ ആയിരിക്കണം';
@@ -293,6 +294,14 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'തിരശ്ചീന ഉപരിതലത്തിൽ സൗര ഊർജ്ജം (ഗ്ലോബൽ ഹോറിസോണ്ടൽ ഇറേഡിയൻസ്), മുൻ മണിക്കൂറിന്റെ ശരാശരി.';
 	@override String get today => 'ഇന്ന്';
 	@override String get tomorrow => 'നാളെ';
+	@override String get notification_weekdays => 'അറിയിപ്പ് ദിവസങ്ങൾ';
+	@override String get notification_weekdays_all => 'എല്ലാ ദിവസവും';
+	@override String get notification_weekdays_none => 'ഒന്നുമില്ല';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ഓപ്പൺ സോഴ്സ് സോഫ്റ്റ്വെയർ ഉപയോഗിച്ച് നിർമ്മിച്ചത്. ലൈസൻസ് വായിക്കാൻ ഒരു പാക്കേജിൽ ടാപ്പ് ചെയ്യുക.';
+	@override String get license_dependencies => 'ആശ്രയങ്ങൾ';
+	@override String get license_packages => 'പാക്കേജുകൾ';
+	@override String get close => 'അടയ്ക്കുക';
 }
 
 /// The flat map containing all translations for locale <ml-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsMlIn {
 			'discord' => 'ഡിസ്കോർഡ്',
 			'discard_changes' => 'നിങ്ങളുടെ മാറ്റങ്ങൾ ഉപേക്ഷിക്കണമെന്ന് ഉറപ്പാണോ?',
 			'notifications' => 'അറിയിപ്പുകൾ',
+			'notification_sound' => 'അറിയിപ്പ് ശബ്ദം',
 			'mph' => 'മൈൽ/മണിക്കൂർ',
 			'west' => 'പടിഞ്ഞാറ്',
 			'validate90' => 'മൂല്യം -90 നും 90 നും ഇടയിൽ ആയിരിക്കണം',
@@ -557,6 +567,14 @@ extension on TranslationsMlIn {
 			'metric_help_shortwave_radiation' => 'തിരശ്ചീന ഉപരിതലത്തിൽ സൗര ഊർജ്ജം (ഗ്ലോബൽ ഹോറിസോണ്ടൽ ഇറേഡിയൻസ്), മുൻ മണിക്കൂറിന്റെ ശരാശരി.',
 			'today' => 'ഇന്ന്',
 			'tomorrow' => 'നാളെ',
+			'notification_weekdays' => 'അറിയിപ്പ് ദിവസങ്ങൾ',
+			'notification_weekdays_all' => 'എല്ലാ ദിവസവും',
+			'notification_weekdays_none' => 'ഒന്നുമില്ല',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ഓപ്പൺ സോഴ്സ് സോഫ്റ്റ്വെയർ ഉപയോഗിച്ച് നിർമ്മിച്ചത്. ലൈസൻസ് വായിക്കാൻ ഒരു പാക്കേജിൽ ടാപ്പ് ചെയ്യുക.',
+			'license_dependencies' => 'ആശ്രയങ്ങൾ',
+			'license_packages' => 'പാക്കേജുകൾ',
+			'close' => 'അടയ്ക്കുക',
 			_ => null,
 		};
 	}

@@ -73,6 +73,7 @@ class TranslationsPtPt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Tem a certeza de que deseja descartar as alterações?';
 	@override String get notifications => 'Notificações';
+	@override String get notification_sound => 'Som de notificações';
 	@override String get mph => 'mph';
 	@override String get west => 'Oeste';
 	@override String get validate90 => 'O valor deve estar entre -90 e 90';
@@ -168,7 +169,7 @@ class TranslationsPtPt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get done => 'Concluído';
 	@override String get theme => 'Tema';
 	@override String get name => 'Meteorologia';
-	@override String get time_range => 'Intervalo (horas)';
+	@override String get time_range => 'Frequência (em horas)';
 	@override String get about_app => 'Sobre a app';
 	@override String get save => 'Guardar';
 	@override String get evaporation => 'Evapotranspiração';
@@ -293,6 +294,14 @@ class TranslationsPtPt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Energia solar numa superfície horizontal (irradiância horizontal global), média da hora anterior.';
 	@override String get today => 'Hoje';
 	@override String get tomorrow => 'Amanhã';
+	@override String get notification_weekdays => 'Dias de notificação';
+	@override String get notification_weekdays_all => 'Todos os dias';
+	@override String get notification_weekdays_none => 'Nenhum';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Criado com software de código aberto. Toque num pacote para ler a licença.';
+	@override String get license_dependencies => 'Dependências';
+	@override String get license_packages => 'pacotes';
+	@override String get close => 'Fechar';
 }
 
 /// The flat map containing all translations for locale <pt-PT>.
@@ -337,6 +346,7 @@ extension on TranslationsPtPt {
 			'discord' => 'Discord',
 			'discard_changes' => 'Tem a certeza de que deseja descartar as alterações?',
 			'notifications' => 'Notificações',
+			'notification_sound' => 'Som de notificações',
 			'mph' => 'mph',
 			'west' => 'Oeste',
 			'validate90' => 'O valor deve estar entre -90 e 90',
@@ -432,7 +442,7 @@ extension on TranslationsPtPt {
 			'done' => 'Concluído',
 			'theme' => 'Tema',
 			'name' => 'Meteorologia',
-			'time_range' => 'Intervalo (horas)',
+			'time_range' => 'Frequência (em horas)',
 			'about_app' => 'Sobre a app',
 			'save' => 'Guardar',
 			'evaporation' => 'Evapotranspiração',
@@ -557,6 +567,14 @@ extension on TranslationsPtPt {
 			'metric_help_shortwave_radiation' => 'Energia solar numa superfície horizontal (irradiância horizontal global), média da hora anterior.',
 			'today' => 'Hoje',
 			'tomorrow' => 'Amanhã',
+			'notification_weekdays' => 'Dias de notificação',
+			'notification_weekdays_all' => 'Todos os dias',
+			'notification_weekdays_none' => 'Nenhum',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Criado com software de código aberto. Toque num pacote para ler a licença.',
+			'license_dependencies' => 'Dependências',
+			'license_packages' => 'pacotes',
+			'close' => 'Fechar',
 			_ => null,
 		};
 	}

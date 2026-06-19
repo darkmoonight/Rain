@@ -9,10 +9,9 @@ import 'package:rain/core/config/widget_registry.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/services/background_platform_service.dart';
-import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/utils/color_converter.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
-import 'package:rain/core/widgets/app_back_button.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_secondary_app_bar.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/features/settings/presentation/widgets/widget_color_picker_dialog.dart';
@@ -138,12 +137,8 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) => AppBar(
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    leading: const AppBackButton(),
-    title: Text('widget'.tr, style: ThemeText.appBarTitle(Theme.of(context))),
-  );
+  PreferredSizeWidget _buildAppBar(BuildContext context) =>
+      SettingsSecondaryAppBar(title: 'widget'.tr);
 
   @override
   Widget build(BuildContext context) {

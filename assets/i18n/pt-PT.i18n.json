@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Tem a certeza de que deseja descartar as alterações?",
   "notifications": "Notificações",
+  "notificationSound": "Som de notificações",
   "mph": "mph",
   "west": "Oeste",
   "validate90": "O valor deve estar entre -90 e 90",
@@ -128,7 +129,7 @@
   "done": "Concluído",
   "theme": "Tema",
   "name": "Meteorologia",
-  "timeRange": "Intervalo (horas)",
+  "timeRange": "Frequência (em horas)",
   "aboutApp": "Sobre a app",
   "save": "Guardar",
   "evaporation": "Evapotranspiração",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Pressão atmosférica ao nível do mar. A descida frequentemente anuncia piora do tempo.",
   "metricHelpShortwaveRadiation": "Energia solar numa superfície horizontal (irradiância horizontal global), média da hora anterior.",
   "today": "Hoje",
-  "tomorrow": "Amanhã"
+  "tomorrow": "Amanhã",
+  "notificationWeekdays": "Dias de notificação",
+  "notificationWeekdaysAll": "Todos os dias",
+  "notificationWeekdaysNone": "Nenhum",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Criado com software de código aberto. Toque num pacote para ler a licença.",
+  "licenseDependencies": "Dependências",
+  "licensePackages": "pacotes",
+  "close": "Fechar"
 }

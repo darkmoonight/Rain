@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Opravdu chcete zahodit své změny?",
   "notifications": "Notifikace",
+  "notificationSound": "Zvuk oznámení",
   "mph": "mph",
   "west": "Západ",
   "validate90": "Hodnota musí být mezi -90 a 90",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Atmosférický tlak převedený na hladinu moře. Pokles často předznamenává zhoršení počasí.",
   "metricHelpShortwaveRadiation": "Sluneční energie na vodorovném povrchu (globální horizontální irradiance), průměr za předchozí hodinu.",
   "today": "Dnes",
-  "tomorrow": "Zítra"
+  "tomorrow": "Zítra",
+  "notificationWeekdays": "Dny oznámení",
+  "notificationWeekdaysAll": "Každý den",
+  "notificationWeekdaysNone": "Žádné",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Vytvořeno pomocí open-source softwaru. Klepněte na balíček a přečtěte si licenci.",
+  "licenseDependencies": "Závislosti",
+  "licensePackages": "balíčků",
+  "close": "Zavřít"
 }

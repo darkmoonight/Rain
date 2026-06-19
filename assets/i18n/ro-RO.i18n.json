@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Sigur doriți să renunțați la modificări?",
   "notifications": "Notificări",
+  "notificationSound": "Sunet notificări",
   "mph": "mph",
   "west": "Vest",
   "validate90": "Valoarea trebuie să fie între -90 și 90",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Presiune atmosferică la nivelul mării. Scăderea anunță adesea înrăutățirea vremii.",
   "metricHelpShortwaveRadiation": "Energie solară pe o suprafață orizontală (iradianță orizontală globală), media orei anterioare.",
   "today": "Astăzi",
-  "tomorrow": "Mâine"
+  "tomorrow": "Mâine",
+  "notificationWeekdays": "Zile de notificare",
+  "notificationWeekdaysAll": "În fiecare zi",
+  "notificationWeekdaysNone": "Niciuna",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Construit cu software open source. Atinge un pachet pentru a citi licența.",
+  "licenseDependencies": "Dependențe",
+  "licensePackages": "pachete",
+  "close": "Închide"
 }

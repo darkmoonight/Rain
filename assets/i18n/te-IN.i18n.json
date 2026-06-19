@@ -33,6 +33,7 @@
   "discord": "డిస్కార్డ్",
   "discardChanges": "మీ మార్పులను విస్మరించాలనుకుంటున్నారా?",
   "notifications": "నోటిఫికేషన్లు",
+  "notificationSound": "నోటిఫికేషన్ ధ్వని",
   "mph": "మైలు/గం",
   "west": "పడమర",
   "validate90": "విలువ -90 మరియు 90 మధ్య ఉండాలి",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "సముద్ర మట్టం వాయు ఒత్తిడి. తగ్గుదల తరచుగా చెడు వాతావరణాన్ని సూచిస్తుంది.",
   "metricHelpShortwaveRadiation": "అడ్డ మేరుపై సౌర శక్తి (గ్లోబల్ హారిజాంటల్ ఇరేడియన్స్), మునుపటి గంట సగటు.",
   "today": "నేడు",
-  "tomorrow": "రేపు"
+  "tomorrow": "రేపు",
+  "notificationWeekdays": "నోటిఫికేషన్ రోజులు",
+  "notificationWeekdaysAll": "ప్రతి రోజు",
+  "notificationWeekdaysNone": "ఏమీ లేదు",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "ఓపెన్-సోర్స్ సాఫ్ట్‌వేర్‌తో నిర్మించబడింది. లైసెన్స్ చదవడానికి ప్యాకేజీపై ట్యాప్ చేయండి.",
+  "licenseDependencies": "ఆధారాలు",
+  "licensePackages": "ప్యాకేజీలు",
+  "close": "మూసివేయి"
 }

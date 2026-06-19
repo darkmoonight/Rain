@@ -73,6 +73,7 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ডিসকর্ড';
 	@override String get discard_changes => 'আপনি কি নিশ্চিত যে আপনি আপনার পরিবর্তনগুলি বাতিল করতে চান?';
 	@override String get notifications => 'বিজ্ঞপ্তি';
+	@override String get notification_sound => 'বিজ্ঞপ্তির শব্দ';
 	@override String get mph => 'মাইল/ঘণ্টা';
 	@override String get west => 'পশ্চিম';
 	@override String get validate90 => 'মান -৯০ থেকে ৯০ মধ্যে হতে হবে';
@@ -168,7 +169,7 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get done => 'সম্পন্ন';
 	@override String get theme => 'থিম';
 	@override String get name => 'আবহাওয়া';
-	@override String get time_range => 'সময় পরিস্থিতি (ঘণ্টায়)';
+	@override String get time_range => 'ফ্রিকোয়েন্সি (ঘণ্টায়)';
 	@override String get about_app => 'অ্যাপ সম্পর্কে';
 	@override String get save => 'সংরক্ষণ';
 	@override String get evaporation => 'অবপাত ও প্রবাহ';
@@ -293,6 +294,14 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'অনুভূমিক পৃষ্ঠে সৌর শক্তি (গ্লোবাল হরাইজন্টাল ইরেডিয়েন্স), পূর্ববর্তী ঘণ্টার গড়।';
 	@override String get today => 'আজ';
 	@override String get tomorrow => 'আগামীকাল';
+	@override String get notification_weekdays => 'বিজ্ঞপ্তির দিন';
+	@override String get notification_weekdays_all => 'প্রতিদিন';
+	@override String get notification_weekdays_none => 'কোনোটিই নয়';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'ওপেন-সোর্স সফ্টওয়্যার দিয়ে তৈরি। লাইসেন্স পড়তে একটি প্যাকেজে ট্যাপ করুন।';
+	@override String get license_dependencies => 'নির্ভরতা';
+	@override String get license_packages => 'প্যাকেজ';
+	@override String get close => 'বন্ধ করুন';
 }
 
 /// The flat map containing all translations for locale <bn-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsBnIn {
 			'discord' => 'ডিসকর্ড',
 			'discard_changes' => 'আপনি কি নিশ্চিত যে আপনি আপনার পরিবর্তনগুলি বাতিল করতে চান?',
 			'notifications' => 'বিজ্ঞপ্তি',
+			'notification_sound' => 'বিজ্ঞপ্তির শব্দ',
 			'mph' => 'মাইল/ঘণ্টা',
 			'west' => 'পশ্চিম',
 			'validate90' => 'মান -৯০ থেকে ৯০ মধ্যে হতে হবে',
@@ -432,7 +442,7 @@ extension on TranslationsBnIn {
 			'done' => 'সম্পন্ন',
 			'theme' => 'থিম',
 			'name' => 'আবহাওয়া',
-			'time_range' => 'সময় পরিস্থিতি (ঘণ্টায়)',
+			'time_range' => 'ফ্রিকোয়েন্সি (ঘণ্টায়)',
 			'about_app' => 'অ্যাপ সম্পর্কে',
 			'save' => 'সংরক্ষণ',
 			'evaporation' => 'অবপাত ও প্রবাহ',
@@ -557,6 +567,14 @@ extension on TranslationsBnIn {
 			'metric_help_shortwave_radiation' => 'অনুভূমিক পৃষ্ঠে সৌর শক্তি (গ্লোবাল হরাইজন্টাল ইরেডিয়েন্স), পূর্ববর্তী ঘণ্টার গড়।',
 			'today' => 'আজ',
 			'tomorrow' => 'আগামীকাল',
+			'notification_weekdays' => 'বিজ্ঞপ্তির দিন',
+			'notification_weekdays_all' => 'প্রতিদিন',
+			'notification_weekdays_none' => 'কোনোটিই নয়',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'ওপেন-সোর্স সফ্টওয়্যার দিয়ে তৈরি। লাইসেন্স পড়তে একটি প্যাকেজে ট্যাপ করুন।',
+			'license_dependencies' => 'নির্ভরতা',
+			'license_packages' => 'প্যাকেজ',
+			'close' => 'বন্ধ করুন',
 			_ => null,
 		};
 	}

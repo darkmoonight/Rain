@@ -73,6 +73,7 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'ডিস্কৰ্ড';
 	@override String get discard_changes => 'আপুনি সঁচাকৈয়ে আপোনাৰ পৰিৱৰ্তনসমূহ বাদ দিব বিচাৰে নেকি?';
 	@override String get notifications => 'জাননী';
+	@override String get notification_sound => 'জাননীৰ শব্দ';
 	@override String get mph => 'মাইল/ঘণ্টা';
 	@override String get west => 'পশ্চিম';
 	@override String get validate90 => 'মান -90 আৰু 90 ৰ মাজত হ\'ব লাগিব';
@@ -293,6 +294,14 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'অনুভূমিক পৃষ্ঠত সৌৰ শক্তি (গ্ল’বেল হ’ৰাইজ’ন্টেল ইৰেডিয়েন্স), পূৰ্ববৰ্তী ঘণ্টাৰ গড়।';
 	@override String get today => 'আজ';
 	@override String get tomorrow => 'কাইলৈ';
+	@override String get notification_weekdays => 'জাননীৰ দিন';
+	@override String get notification_weekdays_all => 'প্ৰতিদিনে';
+	@override String get notification_weekdays_none => 'নাই';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'মুক্ত উৎসৰ ছফ্টৱেৰেৰে নিৰ্মিত। লাইচেন্স পঢ়িবলৈ এটা পেকেজত টিপক।';
+	@override String get license_dependencies => 'নির্ভরতা';
+	@override String get license_packages => 'পেকেজ';
+	@override String get close => 'বন্ধ কৰক';
 }
 
 /// The flat map containing all translations for locale <as-IN>.
@@ -337,6 +346,7 @@ extension on TranslationsAsIn {
 			'discord' => 'ডিস্কৰ্ড',
 			'discard_changes' => 'আপুনি সঁচাকৈয়ে আপোনাৰ পৰিৱৰ্তনসমূহ বাদ দিব বিচাৰে নেকি?',
 			'notifications' => 'জাননী',
+			'notification_sound' => 'জাননীৰ শব্দ',
 			'mph' => 'মাইল/ঘণ্টা',
 			'west' => 'পশ্চিম',
 			'validate90' => 'মান -90 আৰু 90 ৰ মাজত হ\'ব লাগিব',
@@ -557,6 +567,14 @@ extension on TranslationsAsIn {
 			'metric_help_shortwave_radiation' => 'অনুভূমিক পৃষ্ঠত সৌৰ শক্তি (গ্ল’বেল হ’ৰাইজ’ন্টেল ইৰেডিয়েন্স), পূৰ্ববৰ্তী ঘণ্টাৰ গড়।',
 			'today' => 'আজ',
 			'tomorrow' => 'কাইলৈ',
+			'notification_weekdays' => 'জাননীৰ দিন',
+			'notification_weekdays_all' => 'প্ৰতিদিনে',
+			'notification_weekdays_none' => 'নাই',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'মুক্ত উৎসৰ ছফ্টৱেৰেৰে নিৰ্মিত। লাইচেন্স পঢ়িবলৈ এটা পেকেজত টিপক।',
+			'license_dependencies' => 'নির্ভরতা',
+			'license_packages' => 'পেকেজ',
+			'close' => 'বন্ধ কৰক',
 			_ => null,
 		};
 	}

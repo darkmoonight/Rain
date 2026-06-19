@@ -59,8 +59,6 @@ class StatusWeather {
     _notificationImagePaths,
   );
 
-  // --- Private helpers ---
-
   /// Picks a day or night icon from [imagePaths] based on sunrise/sunset.
   String _getImageBasedOnTime(
     int weather,

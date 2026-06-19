@@ -33,6 +33,7 @@
   "discord": "ડિસ્કોર્ડ",
   "discardChanges": "શું તમે ખરેખર તમારા ફેરફારો રદ્દ કરવા માંગો છો?",
   "notifications": "સૂચનાઓ",
+  "notificationSound": "સૂચના અવાજ",
   "mph": "માઇલ/કલાક",
   "west": "પશ્ચિમ",
   "validate90": "મૂલ્ય -90 અને 90 વચ્ચે હોવું જોઈએ",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "સમુદ્ર સપાટીનું વાયુ દબાણ. ઘટાડો ઘણીવાર ખરાબ હવામાન સૂચવે છે.",
   "metricHelpShortwaveRadiation": "આડી સપાટી પર સૂર્ય ઊર્જા (ગ્લોબલ હોરિઝોન્ટલ ઇરેડિયન્સ), પાછલા કલાકનો સરેરાશ.",
   "today": "આજે",
-  "tomorrow": "આવતીકાલે"
+  "tomorrow": "આવતીકાલે",
+  "notificationWeekdays": "સૂચના દિવસો",
+  "notificationWeekdaysAll": "દરરોજ",
+  "notificationWeekdaysNone": "કોઈ નહીં",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "ઓપન-સોર્સ સોફ્ટવેરથી બનાવેલું. લાઇસન્સ વાંચવા પેકેજ પર ટૅપ કરો.",
+  "licenseDependencies": "નિર્ભરતાઓ",
+  "licensePackages": "પેકેજ",
+  "close": "બંધ કરો"
 }

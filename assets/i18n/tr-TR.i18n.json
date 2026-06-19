@@ -33,6 +33,7 @@
   "discord": "Discord",
   "discardChanges": "Değişikliklerinizi iptal etmek istediğinizden emin misiniz?",
   "notifications": "Bildirme",
+  "notificationSound": "Bildirim sesi",
   "mph": "mil/sa",
   "west": "Batı",
   "validate90": "Değer -90 ile 90 arasında olmalıdır",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "Deniz seviyesi hava basıncı. Düşüş genellikle kötüleşen havayı işaret eder.",
   "metricHelpShortwaveRadiation": "Yatay yüzeyde güneş enerjisi (küresel yatay ışınım), önceki saatin ortalaması.",
   "today": "Bugün",
-  "tomorrow": "Yarın"
+  "tomorrow": "Yarın",
+  "notificationWeekdays": "Bildirim günleri",
+  "notificationWeekdaysAll": "Her gün",
+  "notificationWeekdaysNone": "Yok",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "Açık kaynak yazılımla oluşturuldu. Lisansı okumak için bir pakete dokunun.",
+  "licenseDependencies": "Bağımlılıklar",
+  "licensePackages": "paket",
+  "close": "Kapat"
 }

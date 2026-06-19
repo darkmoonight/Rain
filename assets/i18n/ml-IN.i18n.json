@@ -33,6 +33,7 @@
   "discord": "ഡിസ്കോർഡ്",
   "discardChanges": "നിങ്ങളുടെ മാറ്റങ്ങൾ ഉപേക്ഷിക്കണമെന്ന് ഉറപ്പാണോ?",
   "notifications": "അറിയിപ്പുകൾ",
+  "notificationSound": "അറിയിപ്പ് ശബ്ദം",
   "mph": "മൈൽ/മണിക്കൂർ",
   "west": "പടിഞ്ഞാറ്",
   "validate90": "മൂല്യം -90 നും 90 നും ഇടയിൽ ആയിരിക്കണം",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "കടൽനിരപ്പിലെ വായു മർദ്ദം. കുറവ് പലപ്പോഴും കാലാവസ്ഥ മോശമാകുന്നതിന് സൂചന.",
   "metricHelpShortwaveRadiation": "തിരശ്ചീന ഉപരിതലത്തിൽ സൗര ഊർജ്ജം (ഗ്ലോബൽ ഹോറിസോണ്ടൽ ഇറേഡിയൻസ്), മുൻ മണിക്കൂറിന്റെ ശരാശരി.",
   "today": "ഇന്ന്",
-  "tomorrow": "നാളെ"
+  "tomorrow": "നാളെ",
+  "notificationWeekdays": "അറിയിപ്പ് ദിവസങ്ങൾ",
+  "notificationWeekdaysAll": "എല്ലാ ദിവസവും",
+  "notificationWeekdaysNone": "ഒന്നുമില്ല",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "ഓപ്പൺ സോഴ്സ് സോഫ്റ്റ്വെയർ ഉപയോഗിച്ച് നിർമ്മിച്ചത്. ലൈസൻസ് വായിക്കാൻ ഒരു പാക്കേജിൽ ടാപ്പ് ചെയ്യുക.",
+  "licenseDependencies": "ആശ്രയങ്ങൾ",
+  "licensePackages": "പാക്കേജുകൾ",
+  "close": "അടയ്ക്കുക"
 }

@@ -73,6 +73,7 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Вы уверены, что хотите отменить изменения?';
 	@override String get notifications => 'Уведомления';
+	@override String get notification_sound => 'Звук уведомлений';
 	@override String get mph => 'миль/ч';
 	@override String get west => 'Запад';
 	@override String get validate90 => 'Значение должно быть в диапазоне от -90 до 90';
@@ -149,6 +150,7 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get language => 'Язык';
 	@override String get hide_map => 'Скрыть карту';
 	@override String get cancel => 'Отмена';
+	@override String get close => 'Закрыть';
 	@override String get loading => 'Загрузка...';
 	@override String get timeformat => 'Формат времени';
 	@override String get lat => 'Широта';
@@ -293,6 +295,13 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Солнечная энергия на горизонтальной поверхности (ГГИ), усреднённая за предыдущий час.';
 	@override String get today => 'Сегодня';
 	@override String get tomorrow => 'Завтра';
+	@override String get notification_weekdays => 'Дни уведомлений';
+	@override String get notification_weekdays_all => 'Каждый день';
+	@override String get notification_weekdays_none => 'Нет';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Приложение использует ПО с открытым исходным кодом. Нажмите на пакет, чтобы прочитать лицензию.';
+	@override String get license_dependencies => 'Зависимости';
+	@override String get license_packages => 'пакетов';
 }
 
 /// The flat map containing all translations for locale <ru-RU>.
@@ -337,6 +346,7 @@ extension on TranslationsRuRu {
 			'discord' => 'Discord',
 			'discard_changes' => 'Вы уверены, что хотите отменить изменения?',
 			'notifications' => 'Уведомления',
+			'notification_sound' => 'Звук уведомлений',
 			'mph' => 'миль/ч',
 			'west' => 'Запад',
 			'validate90' => 'Значение должно быть в диапазоне от -90 до 90',
@@ -413,6 +423,7 @@ extension on TranslationsRuRu {
 			'language' => 'Язык',
 			'hide_map' => 'Скрыть карту',
 			'cancel' => 'Отмена',
+			'close' => 'Закрыть',
 			'loading' => 'Загрузка...',
 			'timeformat' => 'Формат времени',
 			'lat' => 'Широта',
@@ -557,6 +568,13 @@ extension on TranslationsRuRu {
 			'metric_help_shortwave_radiation' => 'Солнечная энергия на горизонтальной поверхности (ГГИ), усреднённая за предыдущий час.',
 			'today' => 'Сегодня',
 			'tomorrow' => 'Завтра',
+			'notification_weekdays' => 'Дни уведомлений',
+			'notification_weekdays_all' => 'Каждый день',
+			'notification_weekdays_none' => 'Нет',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Приложение использует ПО с открытым исходным кодом. Нажмите на пакет, чтобы прочитать лицензию.',
+			'license_dependencies' => 'Зависимости',
+			'license_packages' => 'пакетов',
 			_ => null,
 		};
 	}

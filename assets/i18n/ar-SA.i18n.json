@@ -33,6 +33,7 @@
   "discord": "ديسكورد",
   "discardChanges": "هل أنت متأكد من أنك تريد تجاهل تغييراتك؟",
   "notifications": "الإشعارات",
+  "notificationSound": "صوت الإشعارات",
   "mph": "ميل/س",
   "west": "غرب",
   "validate90": "يجب أن تكون القيمة بين -90 و 90",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "ضغط الهواء عند مستوى سطح البحر. انخفاض الضغط غالباً يشير إلى تدهور الطقس.",
   "metricHelpShortwaveRadiation": "طاقة شمسية على سطح أفقي (إشعاع أفقي كلي)، متوسط الساعة السابقة.",
   "today": "اليوم",
-  "tomorrow": "غداً"
+  "tomorrow": "غداً",
+  "notificationWeekdays": "أيام الإشعارات",
+  "notificationWeekdaysAll": "كل يوم",
+  "notificationWeekdaysNone": "لا شيء",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "مبني ببرمجيات مفتوحة المصدر. اضغط على حزمة لقراءة ترخيصها.",
+  "licenseDependencies": "التبعيات",
+  "licensePackages": "حزم",
+  "close": "إغلاق"
 }

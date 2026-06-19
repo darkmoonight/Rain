@@ -33,6 +33,7 @@
   "discord": "ಡಿಸ್ಕಾರ್ಡ್",
   "discardChanges": "ನಿಮ್ಮ ಬದಲಾವಣೆಗಳನ್ನು ತ್ಯಜಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ?",
   "notifications": "ಅಧಿಸೂಚನೆಗಳು",
+  "notificationSound": "ಅಧಿಸೂಚನೆ ಧ್ವನಿ",
   "mph": "ಮೈಲ್/ಗಂ",
   "west": "ಪಶ್ಚಿಮ",
   "validate90": "ಮೌಲ್ಯವು -90 ಮತ್ತು 90 ರ ನಡುವೆ ಇರಬೇಕು",
@@ -252,5 +253,13 @@
   "metricHelpPressure": "ಸಮುದ್ರ ಮಟ್ಟದ ವಾಯು ಒತ್ತಡ. ಇಳಿಕೆ ಹೆಚ್ಚಾಗಿ ಕೆಟ್ಟ ಹವಾಮಾನ ಸೂಚಿಸುತ್ತದೆ.",
   "metricHelpShortwaveRadiation": "ಅಡ್ಡ ಮೇಲ್ಮೈಯ ಮೇಲೆ ಸೌರ ಶಕ್ತಿ (ಜಾಗತಿಕ ಅಡ್ಡ ವಿಕಿರಣ), ಹಿಂದಿನ ಗಂಟೆಯ ಸರಾಸರಿ.",
   "today": "ಇಂದು",
-  "tomorrow": "ನಾಳೆ"
+  "tomorrow": "ನಾಳೆ",
+  "notificationWeekdays": "ಅಧಿಸೂಚನೆ ದಿನಗಳು",
+  "notificationWeekdaysAll": "ಪ್ರತಿ ದಿನ",
+  "notificationWeekdaysNone": "ಯಾವುದೂ ಇಲ್ಲ",
+  "timeUnavailable": "--:--",
+  "licenseAppSummary": "ಓಪನ್-ಸೋರ್ಸ್ ಸಾಫ್ಟ್‌ವೇರ್‌ನಿಂದ ನಿರ್ಮಿಸಲಾಗಿದೆ. ಪರವಾನಗಿ ಓದಲು ಪ್ಯಾಕೇಜ್ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಿ.",
+  "licenseDependencies": "ಅವಲಂಬನೆಗಳು",
+  "licensePackages": "ಪ್ಯಾಕೇಜ್‌ಗಳು",
+  "close": "ಮುಚ್ಚಿ"
 }

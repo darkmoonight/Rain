@@ -73,6 +73,7 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Opravdu chcete zahodit své změny?';
 	@override String get notifications => 'Notifikace';
+	@override String get notification_sound => 'Zvuk oznámení';
 	@override String get mph => 'mph';
 	@override String get west => 'Západ';
 	@override String get validate90 => 'Hodnota musí být mezi -90 a 90';
@@ -293,6 +294,14 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get metric_help_shortwave_radiation => 'Sluneční energie na vodorovném povrchu (globální horizontální irradiance), průměr za předchozí hodinu.';
 	@override String get today => 'Dnes';
 	@override String get tomorrow => 'Zítra';
+	@override String get notification_weekdays => 'Dny oznámení';
+	@override String get notification_weekdays_all => 'Každý den';
+	@override String get notification_weekdays_none => 'Žádné';
+	@override String get time_unavailable => '--:--';
+	@override String get license_app_summary => 'Vytvořeno pomocí open-source softwaru. Klepněte na balíček a přečtěte si licenci.';
+	@override String get license_dependencies => 'Závislosti';
+	@override String get license_packages => 'balíčků';
+	@override String get close => 'Zavřít';
 }
 
 /// The flat map containing all translations for locale <cs-CZ>.
@@ -337,6 +346,7 @@ extension on TranslationsCsCz {
 			'discord' => 'Discord',
 			'discard_changes' => 'Opravdu chcete zahodit své změny?',
 			'notifications' => 'Notifikace',
+			'notification_sound' => 'Zvuk oznámení',
 			'mph' => 'mph',
 			'west' => 'Západ',
 			'validate90' => 'Hodnota musí být mezi -90 a 90',
@@ -557,6 +567,14 @@ extension on TranslationsCsCz {
 			'metric_help_shortwave_radiation' => 'Sluneční energie na vodorovném povrchu (globální horizontální irradiance), průměr za předchozí hodinu.',
 			'today' => 'Dnes',
 			'tomorrow' => 'Zítra',
+			'notification_weekdays' => 'Dny oznámení',
+			'notification_weekdays_all' => 'Každý den',
+			'notification_weekdays_none' => 'Žádné',
+			'time_unavailable' => '--:--',
+			'license_app_summary' => 'Vytvořeno pomocí open-source softwaru. Klepněte na balíček a přečtěte si licenci.',
+			'license_dependencies' => 'Závislosti',
+			'license_packages' => 'balíčků',
+			'close' => 'Zavřít',
 			_ => null,
 		};
 	}
