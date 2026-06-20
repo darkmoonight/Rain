@@ -304,6 +304,11 @@ class NotificationService {
   }) async {
     if (!settings.notifications) return;
 
+    await cancelExpiredPendingForecastNotifications(
+      cache: cache,
+      settings: settings,
+    );
+
     final plan = buildForecastNotificationPlan(
       cache: cache,
       settings: settings,
@@ -388,15 +393,53 @@ class NotificationService {
     }
   }
 
+  /// Cancels pending forecast alarms whose hour start is past the grace window.
+  ///
+  /// Prevents Doze-delayed alarms from firing hours late (e.g. a 23:00 alert at 01:00).
+  Future<void> cancelExpiredPendingForecastNotifications({
+    required MainWeatherCache cache,
+    required Settings settings,
+    int? referenceNowMillis,
+  }) async {
+    if (!settings.notifications) return;
+
+    final pending = await flutterLocalNotificationsPlugin
+        .pendingNotificationRequests();
+    if (pending.isEmpty) return;
+
+    final pendingIds = {
+      for (final notification in pending)
+        if (notification.id != persistentNotificationId) notification.id,
+    };
+    if (pendingIds.isEmpty) return;
+
+    final expiredIds = expiredForecastNotificationIds(
+      cache: cache,
+      settings: settings,
+      notificationIdForEpoch: notificationIdForEpoch,
+      referenceNowMillis: referenceNowMillis,
+    ).where(pendingIds.contains).toSet();
+
+    for (final id in expiredIds) {
+      await flutterLocalNotificationsPlugin.cancel(id: id);
+    }
+  }
+
+  /// Stable positive notification id for a forecast hour epoch.
+  @visibleForTesting
+  static int notificationIdForEpoch(int scheduleEpochMillis) {
+    var id = scheduleEpochMillis & 0x7fffffff;
+    if (id <= persistentNotificationId) id += persistentNotificationId + 1;
+    return id;
+  }
+
   /// Stable positive notification id for [slot] (UTC epoch of the forecast hour).
   ///
   /// Uses [scheduleEpochMillis] so the same wall-clock hour on different calendar
   /// days keeps distinct ids. Stays above [persistentNotificationId].
   @visibleForTesting
   static int notificationIdFor(WeatherNotificationSlot slot) {
-    var id = slot.scheduleEpochMillis & 0x7fffffff;
-    if (id <= persistentNotificationId) id += persistentNotificationId + 1;
-    return id;
+    return notificationIdForEpoch(slot.scheduleEpochMillis);
   }
 
   /// When notifications are enabled, cancels pending ones and reschedules from the latest cache.
@@ -601,10 +644,12 @@ class NotificationService {
   Future<AndroidScheduleMode> _androidScheduleMode() async {
     try {
       final canScheduleExact =
-          await _android?.canScheduleExactNotifications() ?? true;
-      return canScheduleExact
-          ? AndroidScheduleMode.exactAllowWhileIdle
-          : AndroidScheduleMode.inexactAllowWhileIdle;
+          await _android?.canScheduleExactNotifications() ?? false;
+      if (canScheduleExact) {
+        // Wakes the device on time; less affected by Doze than inexact alarms.
+        return AndroidScheduleMode.alarmClock;
+      }
+      return AndroidScheduleMode.inexactAllowWhileIdle;
     } catch (_) {
       return AndroidScheduleMode.inexactAllowWhileIdle;
     }
@@ -634,6 +679,26 @@ Future<void> updatePersistentNotificationFromIsar(Isar isar) async {
   await _backgroundNotificationService().updatePersistentNotification(
     cache: payload.cache!,
     settings: payload.settings,
+    cityLabel: payload.cityLabel,
+  );
+}
+
+/// Top-up forecast alarms and drop stale pending ones while the app is backgrounded.
+Future<void> replenishForecastNotificationsFromIsar(Isar isar) async {
+  final payload = await _notificationPayloadFromIsar(isar);
+  if (!payload.settings.notifications || payload.cache == null) return;
+
+  final service = _backgroundNotificationService();
+  final appSettings = AppSettingsState.fromSettings(payload.settings);
+
+  await service.cancelExpiredPendingForecastNotifications(
+    cache: payload.cache!,
+    settings: payload.settings,
+  );
+  await service.ensureForecastNotificationsScheduled(
+    cache: payload.cache!,
+    settings: payload.settings,
+    appSettings: appSettings,
     cityLabel: payload.cityLabel,
   );
 }

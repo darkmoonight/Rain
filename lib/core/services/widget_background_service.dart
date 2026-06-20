@@ -148,6 +148,13 @@ Future<bool> runWidgetBackgroundRefresh(
       failureError ??= e.toString();
     }
 
+    try {
+      await replenishForecastNotificationsFromIsar(isar);
+    } catch (e, st) {
+      logBackgroundError('replenishForecastNotificationsFromIsar', e, st);
+      failureError ??= e.toString();
+    }
+
     final success = widgetUpdated || notificationUpdated;
     await recordBackgroundRefreshResult(
       success: success,

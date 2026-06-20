@@ -12,6 +12,9 @@ typedef ForecastAlarmContext = ({
 /// Minimum lead time before a forecast alarm (avoids plugin "must be in the future" races).
 const forecastNotificationMinimumLeadMillis = 60000;
 
+/// After this grace period past the hour start, a pending alarm is treated as stale.
+const forecastNotificationDeliveryGraceMillis = 20 * 60 * 1000;
+
 /// Device UTC epoch; [flutter_local_notifications] validates scheduled times against this clock.
 int deviceUtcNowMillis() => DateTime.now().toUtc().millisecondsSinceEpoch;
 
@@ -177,6 +180,36 @@ int? alignScheduleEpochForPlugin({
   if (scheduleEpochMillis >= minimum) return scheduleEpochMillis;
   if (scheduleEpochMillis > deviceNowMillis) return minimum;
   return null;
+}
+
+/// Whether a forecast hour is too far in the past to deliver usefully.
+bool isForecastNotificationExpired(
+  int slotEpochMillis,
+  int referenceNowMillis, {
+  int graceMillis = forecastNotificationDeliveryGraceMillis,
+}) => slotEpochMillis + graceMillis <= referenceNowMillis;
+
+/// Pending notification ids for forecast hours that are past the delivery grace window.
+Set<int> expiredForecastNotificationIds({
+  required MainWeatherCache cache,
+  required Settings settings,
+  required int Function(int scheduleEpochMillis) notificationIdForEpoch,
+  int? referenceNowMillis,
+}) {
+  if (cache.time == null || cache.time!.isEmpty) return {};
+
+  final alarm = forecastAlarmContext(cache, settings);
+  final nowMillis = referenceNowMillis ?? alarm.nowMillis;
+  final expired = <int>{};
+
+  for (final time in cache.time!) {
+    final naive = TimeIndexHelper.parseForecastDateTime(time);
+    final epoch = forecastAlarmEpoch(naive, cache);
+    if (!isForecastNotificationExpired(epoch, nowMillis)) continue;
+    expired.add(notificationIdForEpoch(epoch));
+  }
+
+  return expired;
 }
 
 /// IANA timezone for forecast alarms, falling back to [tz.local].
