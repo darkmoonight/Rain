@@ -33,123 +33,128 @@ const SettingsSchema = CollectionSchema(
       name: r'clockSkewSeconds',
       type: IsarType.long,
     ),
-    r'degrees': PropertySchema(id: 4, name: r'degrees', type: IsarType.string),
-    r'hideMap': PropertySchema(id: 5, name: r'hideMap', type: IsarType.bool),
+    r'colorPalette': PropertySchema(
+      id: 4,
+      name: r'colorPalette',
+      type: IsarType.string,
+    ),
+    r'degrees': PropertySchema(id: 5, name: r'degrees', type: IsarType.string),
+    r'hideMap': PropertySchema(id: 6, name: r'hideMap', type: IsarType.bool),
     r'language': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'language',
       type: IsarType.string,
     ),
     r'largeElement': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'largeElement',
       type: IsarType.bool,
     ),
-    r'location': PropertySchema(id: 8, name: r'location', type: IsarType.bool),
+    r'location': PropertySchema(id: 9, name: r'location', type: IsarType.bool),
     r'materialColor': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'materialColor',
       type: IsarType.bool,
     ),
     r'measurements': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'measurements',
       type: IsarType.string,
     ),
     r'notificationChannelVersion': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'notificationChannelVersion',
       type: IsarType.long,
     ),
     r'notificationSound': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'notificationSound',
       type: IsarType.bool,
     ),
     r'notificationWeekdaysMask': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'notificationWeekdaysMask',
       type: IsarType.long,
     ),
     r'notifications': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'notifications',
       type: IsarType.bool,
     ),
-    r'onboard': PropertySchema(id: 15, name: r'onboard', type: IsarType.bool),
+    r'onboard': PropertySchema(id: 16, name: r'onboard', type: IsarType.bool),
     r'persistentNotification': PropertySchema(
-      id: 16,
+      id: 17,
       name: r'persistentNotification',
       type: IsarType.bool,
     ),
     r'pressure': PropertySchema(
-      id: 17,
+      id: 18,
       name: r'pressure',
       type: IsarType.string,
     ),
     r'roundDegree': PropertySchema(
-      id: 18,
+      id: 19,
       name: r'roundDegree',
       type: IsarType.bool,
     ),
-    r'theme': PropertySchema(id: 19, name: r'theme', type: IsarType.string),
-    r'timeEnd': PropertySchema(id: 20, name: r'timeEnd', type: IsarType.string),
+    r'theme': PropertySchema(id: 20, name: r'theme', type: IsarType.string),
+    r'timeEnd': PropertySchema(id: 21, name: r'timeEnd', type: IsarType.string),
     r'timeRange': PropertySchema(
-      id: 21,
+      id: 22,
       name: r'timeRange',
       type: IsarType.long,
     ),
     r'timeStart': PropertySchema(
-      id: 22,
+      id: 23,
       name: r'timeStart',
       type: IsarType.string,
     ),
     r'timeformat': PropertySchema(
-      id: 23,
+      id: 24,
       name: r'timeformat',
       type: IsarType.string,
     ),
     r'weatherCacheVersion': PropertySchema(
-      id: 24,
+      id: 25,
       name: r'weatherCacheVersion',
       type: IsarType.long,
     ),
     r'weatherIconTheme': PropertySchema(
-      id: 25,
+      id: 26,
       name: r'weatherIconTheme',
       type: IsarType.string,
     ),
     r'widgetBackgroundColor': PropertySchema(
-      id: 26,
+      id: 27,
       name: r'widgetBackgroundColor',
       type: IsarType.string,
     ),
     r'widgetBackgroundColorDark': PropertySchema(
-      id: 27,
+      id: 28,
       name: r'widgetBackgroundColorDark',
       type: IsarType.string,
     ),
     r'widgetBackgroundColorLight': PropertySchema(
-      id: 28,
+      id: 29,
       name: r'widgetBackgroundColorLight',
       type: IsarType.string,
     ),
     r'widgetTextColor': PropertySchema(
-      id: 29,
+      id: 30,
       name: r'widgetTextColor',
       type: IsarType.string,
     ),
     r'widgetTextColorDark': PropertySchema(
-      id: 30,
+      id: 31,
       name: r'widgetTextColorDark',
       type: IsarType.string,
     ),
     r'widgetTextColorLight': PropertySchema(
-      id: 31,
+      id: 32,
       name: r'widgetTextColorLight',
       type: IsarType.string,
     ),
-    r'wind': PropertySchema(id: 32, name: r'wind', type: IsarType.string),
+    r'wind': PropertySchema(id: 33, name: r'wind', type: IsarType.string),
   },
 
   estimateSize: _settingsEstimateSize,
@@ -175,6 +180,7 @@ int _settingsEstimateSize(
   var bytesCount = offsets.last;
   bytesCount += 3 + object.appFont.length * 3;
   bytesCount += 3 + object.aqiStandard.length * 3;
+  bytesCount += 3 + object.colorPalette.length * 3;
   bytesCount += 3 + object.degrees.length * 3;
   {
     final value = object.language;
@@ -254,35 +260,36 @@ void _settingsSerialize(
   writer.writeString(offsets[1], object.appFont);
   writer.writeString(offsets[2], object.aqiStandard);
   writer.writeLong(offsets[3], object.clockSkewSeconds);
-  writer.writeString(offsets[4], object.degrees);
-  writer.writeBool(offsets[5], object.hideMap);
-  writer.writeString(offsets[6], object.language);
-  writer.writeBool(offsets[7], object.largeElement);
-  writer.writeBool(offsets[8], object.location);
-  writer.writeBool(offsets[9], object.materialColor);
-  writer.writeString(offsets[10], object.measurements);
-  writer.writeLong(offsets[11], object.notificationChannelVersion);
-  writer.writeBool(offsets[12], object.notificationSound);
-  writer.writeLong(offsets[13], object.notificationWeekdaysMask);
-  writer.writeBool(offsets[14], object.notifications);
-  writer.writeBool(offsets[15], object.onboard);
-  writer.writeBool(offsets[16], object.persistentNotification);
-  writer.writeString(offsets[17], object.pressure);
-  writer.writeBool(offsets[18], object.roundDegree);
-  writer.writeString(offsets[19], object.theme);
-  writer.writeString(offsets[20], object.timeEnd);
-  writer.writeLong(offsets[21], object.timeRange);
-  writer.writeString(offsets[22], object.timeStart);
-  writer.writeString(offsets[23], object.timeformat);
-  writer.writeLong(offsets[24], object.weatherCacheVersion);
-  writer.writeString(offsets[25], object.weatherIconTheme);
-  writer.writeString(offsets[26], object.widgetBackgroundColor);
-  writer.writeString(offsets[27], object.widgetBackgroundColorDark);
-  writer.writeString(offsets[28], object.widgetBackgroundColorLight);
-  writer.writeString(offsets[29], object.widgetTextColor);
-  writer.writeString(offsets[30], object.widgetTextColorDark);
-  writer.writeString(offsets[31], object.widgetTextColorLight);
-  writer.writeString(offsets[32], object.wind);
+  writer.writeString(offsets[4], object.colorPalette);
+  writer.writeString(offsets[5], object.degrees);
+  writer.writeBool(offsets[6], object.hideMap);
+  writer.writeString(offsets[7], object.language);
+  writer.writeBool(offsets[8], object.largeElement);
+  writer.writeBool(offsets[9], object.location);
+  writer.writeBool(offsets[10], object.materialColor);
+  writer.writeString(offsets[11], object.measurements);
+  writer.writeLong(offsets[12], object.notificationChannelVersion);
+  writer.writeBool(offsets[13], object.notificationSound);
+  writer.writeLong(offsets[14], object.notificationWeekdaysMask);
+  writer.writeBool(offsets[15], object.notifications);
+  writer.writeBool(offsets[16], object.onboard);
+  writer.writeBool(offsets[17], object.persistentNotification);
+  writer.writeString(offsets[18], object.pressure);
+  writer.writeBool(offsets[19], object.roundDegree);
+  writer.writeString(offsets[20], object.theme);
+  writer.writeString(offsets[21], object.timeEnd);
+  writer.writeLong(offsets[22], object.timeRange);
+  writer.writeString(offsets[23], object.timeStart);
+  writer.writeString(offsets[24], object.timeformat);
+  writer.writeLong(offsets[25], object.weatherCacheVersion);
+  writer.writeString(offsets[26], object.weatherIconTheme);
+  writer.writeString(offsets[27], object.widgetBackgroundColor);
+  writer.writeString(offsets[28], object.widgetBackgroundColorDark);
+  writer.writeString(offsets[29], object.widgetBackgroundColorLight);
+  writer.writeString(offsets[30], object.widgetTextColor);
+  writer.writeString(offsets[31], object.widgetTextColorDark);
+  writer.writeString(offsets[32], object.widgetTextColorLight);
+  writer.writeString(offsets[33], object.wind);
 }
 
 Settings _settingsDeserialize(
@@ -296,36 +303,37 @@ Settings _settingsDeserialize(
   object.appFont = reader.readString(offsets[1]);
   object.aqiStandard = reader.readString(offsets[2]);
   object.clockSkewSeconds = reader.readLong(offsets[3]);
-  object.degrees = reader.readString(offsets[4]);
-  object.hideMap = reader.readBool(offsets[5]);
+  object.colorPalette = reader.readString(offsets[4]);
+  object.degrees = reader.readString(offsets[5]);
+  object.hideMap = reader.readBool(offsets[6]);
   object.id = id;
-  object.language = reader.readStringOrNull(offsets[6]);
-  object.largeElement = reader.readBool(offsets[7]);
-  object.location = reader.readBool(offsets[8]);
-  object.materialColor = reader.readBool(offsets[9]);
-  object.measurements = reader.readString(offsets[10]);
-  object.notificationChannelVersion = reader.readLong(offsets[11]);
-  object.notificationSound = reader.readBool(offsets[12]);
-  object.notificationWeekdaysMask = reader.readLongOrNull(offsets[13]);
-  object.notifications = reader.readBool(offsets[14]);
-  object.onboard = reader.readBool(offsets[15]);
-  object.persistentNotification = reader.readBool(offsets[16]);
-  object.pressure = reader.readString(offsets[17]);
-  object.roundDegree = reader.readBool(offsets[18]);
-  object.theme = reader.readStringOrNull(offsets[19]);
-  object.timeEnd = reader.readStringOrNull(offsets[20]);
-  object.timeRange = reader.readLongOrNull(offsets[21]);
-  object.timeStart = reader.readStringOrNull(offsets[22]);
-  object.timeformat = reader.readString(offsets[23]);
-  object.weatherCacheVersion = reader.readLong(offsets[24]);
-  object.weatherIconTheme = reader.readString(offsets[25]);
-  object.widgetBackgroundColor = reader.readStringOrNull(offsets[26]);
-  object.widgetBackgroundColorDark = reader.readStringOrNull(offsets[27]);
-  object.widgetBackgroundColorLight = reader.readStringOrNull(offsets[28]);
-  object.widgetTextColor = reader.readStringOrNull(offsets[29]);
-  object.widgetTextColorDark = reader.readStringOrNull(offsets[30]);
-  object.widgetTextColorLight = reader.readStringOrNull(offsets[31]);
-  object.wind = reader.readString(offsets[32]);
+  object.language = reader.readStringOrNull(offsets[7]);
+  object.largeElement = reader.readBool(offsets[8]);
+  object.location = reader.readBool(offsets[9]);
+  object.materialColor = reader.readBool(offsets[10]);
+  object.measurements = reader.readString(offsets[11]);
+  object.notificationChannelVersion = reader.readLong(offsets[12]);
+  object.notificationSound = reader.readBool(offsets[13]);
+  object.notificationWeekdaysMask = reader.readLongOrNull(offsets[14]);
+  object.notifications = reader.readBool(offsets[15]);
+  object.onboard = reader.readBool(offsets[16]);
+  object.persistentNotification = reader.readBool(offsets[17]);
+  object.pressure = reader.readString(offsets[18]);
+  object.roundDegree = reader.readBool(offsets[19]);
+  object.theme = reader.readStringOrNull(offsets[20]);
+  object.timeEnd = reader.readStringOrNull(offsets[21]);
+  object.timeRange = reader.readLongOrNull(offsets[22]);
+  object.timeStart = reader.readStringOrNull(offsets[23]);
+  object.timeformat = reader.readString(offsets[24]);
+  object.weatherCacheVersion = reader.readLong(offsets[25]);
+  object.weatherIconTheme = reader.readString(offsets[26]);
+  object.widgetBackgroundColor = reader.readStringOrNull(offsets[27]);
+  object.widgetBackgroundColorDark = reader.readStringOrNull(offsets[28]);
+  object.widgetBackgroundColorLight = reader.readStringOrNull(offsets[29]);
+  object.widgetTextColor = reader.readStringOrNull(offsets[30]);
+  object.widgetTextColorDark = reader.readStringOrNull(offsets[31]);
+  object.widgetTextColorLight = reader.readStringOrNull(offsets[32]);
+  object.wind = reader.readString(offsets[33]);
   return object;
 }
 
@@ -347,49 +355,49 @@ P _settingsDeserializeProp<P>(
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readBool(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 6:
-      return (reader.readStringOrNull(offset)) as P;
-    case 7:
       return (reader.readBool(offset)) as P;
+    case 7:
+      return (reader.readStringOrNull(offset)) as P;
     case 8:
       return (reader.readBool(offset)) as P;
     case 9:
       return (reader.readBool(offset)) as P;
     case 10:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 11:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 12:
-      return (reader.readBool(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 13:
-      return (reader.readLongOrNull(offset)) as P;
-    case 14:
       return (reader.readBool(offset)) as P;
+    case 14:
+      return (reader.readLongOrNull(offset)) as P;
     case 15:
       return (reader.readBool(offset)) as P;
     case 16:
       return (reader.readBool(offset)) as P;
     case 17:
-      return (reader.readString(offset)) as P;
-    case 18:
       return (reader.readBool(offset)) as P;
+    case 18:
+      return (reader.readString(offset)) as P;
     case 19:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 20:
       return (reader.readStringOrNull(offset)) as P;
     case 21:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 22:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 23:
-      return (reader.readString(offset)) as P;
-    case 24:
-      return (reader.readLong(offset)) as P;
-    case 25:
-      return (reader.readString(offset)) as P;
-    case 26:
       return (reader.readStringOrNull(offset)) as P;
+    case 24:
+      return (reader.readString(offset)) as P;
+    case 25:
+      return (reader.readLong(offset)) as P;
+    case 26:
+      return (reader.readString(offset)) as P;
     case 27:
       return (reader.readStringOrNull(offset)) as P;
     case 28:
@@ -401,6 +409,8 @@ P _settingsDeserializeProp<P>(
     case 31:
       return (reader.readStringOrNull(offset)) as P;
     case 32:
+      return (reader.readStringOrNull(offset)) as P;
+    case 33:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -854,6 +864,153 @@ extension SettingsQueryFilter
           upper: upper,
           includeUpper: includeUpper,
         ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> colorPaletteEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'colorPalette',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  colorPaletteGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'colorPalette',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> colorPaletteLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'colorPalette',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> colorPaletteBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'colorPalette',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  colorPaletteStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'colorPalette',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> colorPaletteEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'colorPalette',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> colorPaletteContains(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'colorPalette',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition> colorPaletteMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'colorPalette',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  colorPaletteIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'colorPalette', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterFilterCondition>
+  colorPaletteIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'colorPalette', value: ''),
       );
     });
   }
@@ -3846,6 +4003,18 @@ extension SettingsQuerySortBy on QueryBuilder<Settings, Settings, QSortBy> {
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByColorPalette() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorPalette', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> sortByColorPaletteDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorPalette', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> sortByDegrees() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'degrees', Sort.asc);
@@ -4259,6 +4428,18 @@ extension SettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByColorPalette() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorPalette', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Settings, Settings, QAfterSortBy> thenByColorPaletteDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'colorPalette', Sort.desc);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QAfterSortBy> thenByDegrees() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'degrees', Sort.asc);
@@ -4664,6 +4845,14 @@ extension SettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Settings, Settings, QDistinct> distinctByColorPalette({
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'colorPalette', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Settings, Settings, QDistinct> distinctByDegrees({
     bool caseSensitive = true,
   }) {
@@ -4922,6 +5111,12 @@ extension SettingsQueryProperty
   QueryBuilder<Settings, int, QQueryOperations> clockSkewSecondsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'clockSkewSeconds');
+    });
+  }
+
+  QueryBuilder<Settings, String, QQueryOperations> colorPaletteProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'colorPalette');
     });
   }
 

@@ -79,5 +79,24 @@ void main() {
 
       expect(results, isEmpty);
     });
+
+    test('reverseGeocode maps Nominatim address fields', () async {
+      final results = await datasource.reverseGeocode(
+        55.75,
+        37.62,
+        languageCode: 'en',
+      );
+
+      expect(results, isNotNull);
+      expect(results!.city, 'Moscow');
+      expect(results.district, 'Central Federal District');
+    });
+
+    test('parseNominatimLabels returns null for empty address', () {
+      expect(
+        WeatherRemoteDatasource.parseNominatimLabels({'address': {}}),
+        isNull,
+      );
+    });
   });
 }

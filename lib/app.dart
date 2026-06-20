@@ -1,4 +1,4 @@
-import 'package:dynamic_color/dynamic_color.dart';
+import 'package:dynamic_system_colors/dynamic_system_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -48,6 +48,7 @@ class RainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appSettings = ref.watch(appSettingsProvider);
     final appFont = ref.watch(settingsProvider).appFont;
+    final colorPalette = ref.watch(settingsProvider).colorPalette;
     final themeMode = ref.watch(themeModeProvider);
     final router = ref.watch(appRouterProvider);
     final edgeToEdgeAvailable = DeviceFeature().isEdgeToEdgeAvailable();
@@ -60,6 +61,7 @@ class RainApp extends ConsumerWidget {
           final themes = resolveAppThemes(
             materialColor: appSettings.materialColor,
             amoledTheme: appSettings.amoledTheme,
+            colorPalette: colorPalette,
             lightDynamic: lightColorScheme,
             darkDynamic: darkColorScheme,
             edgeToEdgeAvailable: edgeToEdgeAvailable,

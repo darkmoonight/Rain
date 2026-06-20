@@ -4,7 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
-  dynamic_color
+  dynamic_system_colors
   flutter_timezone
   geolocator_windows
   isar_community_flutter_libs

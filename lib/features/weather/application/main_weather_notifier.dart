@@ -10,6 +10,7 @@ import 'package:rain/core/services/connectivity_service.dart';
 import 'package:rain/core/services/network_cache_handler.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/weather/weather_cache_validator.dart';
@@ -208,13 +209,25 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
   /// Resolves the current GPS position and persists its forecast.
   Future<void> _fetchFromGps() async {
-    final place = await ref.read(locationServiceProvider).getCurrentPlace();
+    final place = await ref
+        .read(locationServiceProvider)
+        .getCurrentPlace(resolveLabels: _reverseGeocodeLabels);
     if (place == null) {
       showSnackBar('location_not_found'.tr);
       await readCache();
       return;
     }
     await _fetchAndSave(place.lat, place.lon, place.district, place.city);
+  }
+
+  Future<({String city, String district})?> _reverseGeocodeLabels(
+    double lat,
+    double lon,
+  ) async {
+    final languageCode = ref.read(localeProvider).languageCode;
+    return ref
+        .read(weatherRemoteDatasourceProvider)
+        .reverseGeocode(lat, lon, languageCode: languageCode);
   }
 
   /// Fetches remote data, writes cache, and reloads local state.
@@ -224,20 +237,50 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     String district,
     String city,
   ) async {
+    final resolvedLabels = await _resolveMissingLabels(
+      lat,
+      lon,
+      city,
+      district,
+    );
     final weather = await ref
         .read(weatherRepositoryProvider)
         .fetchWeather(lat, lon);
     final location = LocationCache(
       lat: lat,
       lon: lon,
-      city: city,
-      district: district,
+      city: resolvedLabels.city,
+      district: resolvedLabels.district,
     );
     await ref.read(weatherRepositoryProvider).writeCache(weather, location);
     await persistClockSkew(ref, weather.clockSkewSeconds ?? 0);
     syncBootstrapLocationCache(ref, location);
     refreshAppRouterFromRef(ref);
     await readCache(rescheduleNotifications: true);
+  }
+
+  /// Fills missing city or district labels via reverse geocoding when needed.
+  Future<({String city, String district})> _resolveMissingLabels(
+    double lat,
+    double lon,
+    String city,
+    String district,
+  ) async {
+    if (hasNonEmptyLocationText(city) || hasNonEmptyLocationText(district)) {
+      return (city: city, district: district);
+    }
+
+    final labels = await _reverseGeocodeLabels(lat, lon);
+    if (labels == null) {
+      return (city: city, district: district);
+    }
+
+    return (
+      city: hasNonEmptyLocationText(labels.city) ? labels.city : city,
+      district: hasNonEmptyLocationText(labels.district)
+          ? labels.district
+          : district,
+    );
   }
 
   LocationClock _mainClock(MainWeatherCache cache) =>
@@ -539,6 +582,11 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
 
     if (!_hasDisplayableForecast) {
       await readCache();
+    }
+
+    if (ref.read(settingsProvider).location) {
+      await getCurrentLocation(showLoading: false);
+      return;
     }
 
     await getLocation(

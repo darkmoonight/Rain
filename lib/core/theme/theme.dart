@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:dynamic_color/dynamic_color.dart';
+import 'package:dynamic_system_colors/dynamic_system_colors.dart';
 import 'package:rain/core/theme/app_font.dart';
+import 'package:rain/core/theme/color_palette.dart';
 import 'package:rain/core/constants/app_constants.dart';
 
 final ThemeData baseLight = ThemeData.light(useMaterial3: true);
@@ -23,15 +24,8 @@ const Color lightColor = Colors.white;
 const Color darkColor = Color.fromRGBO(30, 30, 30, 1);
 const Color oledColor = Colors.black;
 
-ColorScheme colorSchemeLight = ColorScheme.fromSeed(
-  seedColor: Colors.deepPurple,
-  brightness: Brightness.light,
-);
-
-ColorScheme colorSchemeDark = ColorScheme.fromSeed(
-  seedColor: Colors.deepPurple,
-  brightness: Brightness.dark,
-);
+ColorScheme colorSchemeLight = AppColorPalette.of(null).lightScheme();
+ColorScheme colorSchemeDark = AppColorPalette.of(null).darkScheme();
 
 // Theme builders
 
@@ -221,16 +215,20 @@ InputDecorationTheme _buildInputDecorationTheme(ThemeData baseTheme) =>
 /// Light and dark themes for the current appearance and font settings.
 typedef AppThemes = ({ThemeData light, ThemeData dark});
 
-/// Picks surface colors and schemes from Material You toggles and dynamic color.
+/// Picks surface colors and schemes from dynamic color and palette settings.
 AppThemes resolveAppThemes({
   required bool materialColor,
   required bool amoledTheme,
+  required String colorPalette,
   required ColorScheme? lightDynamic,
   required ColorScheme? darkDynamic,
   required bool edgeToEdgeAvailable,
   required String appFont,
 }) {
   final font = AppFont.resolve(appFont);
+  final palette = AppColorPalette.of(colorPalette);
+  final paletteLight = palette.lightScheme();
+  final paletteDark = palette.darkScheme();
 
   ThemeData buildLight(Color? color, ColorScheme? scheme) =>
       lightTheme(color, scheme, edgeToEdgeAvailable, appFont: font);
@@ -240,15 +238,15 @@ AppThemes resolveAppThemes({
 
   final light = materialColor && lightDynamic != null
       ? buildLight(lightDynamic.surface, lightDynamic)
-      : buildLight(lightColor, colorSchemeLight);
+      : buildLight(lightColor, paletteLight);
 
   final dark = amoledTheme
       ? (materialColor && darkDynamic != null
             ? buildDark(oledColor, darkDynamic)
-            : buildDark(oledColor, colorSchemeDark))
+            : buildDark(oledColor, paletteDark))
       : materialColor && darkDynamic != null
       ? buildDark(darkDynamic.surface, darkDynamic)
-      : buildDark(darkColor, colorSchemeDark);
+      : buildDark(darkColor, paletteDark);
 
   return (light: light, dark: dark);
 }

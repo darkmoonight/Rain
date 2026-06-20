@@ -78,6 +78,15 @@ Map<String, dynamic> sampleCitySearchJson() => {
   ],
 };
 
+/// Sample Nominatim reverse-geocoding JSON.
+Map<String, dynamic> sampleNominatimReverseJson() => {
+  'address': {
+    'city': 'Moscow',
+    'state': 'Central Federal District',
+    'country': 'Russia',
+  },
+};
+
 WeatherDataApi sampleWeatherApi() =>
     WeatherDataApi.fromJson(sampleWeatherJson());
 
@@ -375,6 +384,7 @@ Dio createFakeWeatherDio({
   Map<String, dynamic>? weatherJson,
   Map<String, dynamic>? cityJson,
   Map<String, dynamic>? airQualityJson,
+  Map<String, dynamic>? nominatimJson,
 }) {
   final dio = Dio();
   dio.interceptors.add(
@@ -382,7 +392,9 @@ Dio createFakeWeatherDio({
       onRequest: (options, handler) {
         final host = options.uri.host;
         final Map<String, dynamic> data;
-        if (host.contains('geocoding')) {
+        if (host.contains('nominatim')) {
+          data = nominatimJson ?? sampleNominatimReverseJson();
+        } else if (host.contains('geocoding')) {
           data = cityJson ?? sampleCitySearchJson();
         } else if (host.contains('air-quality')) {
           data = airQualityJson ?? sampleAirQualityJson();

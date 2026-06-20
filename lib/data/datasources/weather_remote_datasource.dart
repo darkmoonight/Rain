@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/utils/http_date_parser.dart';
+import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/data/datasources/air_quality_remote_datasource.dart';
 import 'package:rain/data/mappers/air_quality_mapper.dart';
 import 'package:rain/data/models/air_quality_api.dart';
@@ -130,6 +133,62 @@ class WeatherRemoteDatasource {
       rethrow;
     }
   }
+
+  /// Reverse-geocodes coordinates via Nominatim when platform geocoding fails.
+  Future<({String city, String district})?> reverseGeocode(
+    double lat,
+    double lon, {
+    String? languageCode,
+  }) async {
+    final languageParam = languageCode != null && languageCode.isNotEmpty
+        ? '&accept-language=$languageCode'
+        : '';
+    final url =
+        '${AppConstants.nominatimReverseUrl}?lat=$lat&lon=$lon&format=json&addressdetails=1$languageParam';
+    try {
+      final response = await _dioLocation.get(
+        url,
+        options: Options(
+          headers: {'User-Agent': AppConstants.nominatimUserAgent},
+        ),
+      );
+      if (response.statusCode != 200) return null;
+      return _parseNominatimLabels(response.data);
+    } on DioException catch (e, stackTrace) {
+      debugLogError('WeatherRemoteDatasource.reverseGeocode', e, stackTrace);
+      return null;
+    }
+  }
+
+  /// Maps a Nominatim reverse-geocoding payload to city and district labels.
+  @visibleForTesting
+  static ({String city, String district})? parseNominatimLabels(dynamic data) {
+    if (data is! Map) return null;
+    final address = data['address'];
+    if (address is! Map) return null;
+
+    final city = firstNonEmptyLocationLabel([
+      address['city'] as String?,
+      address['town'] as String?,
+      address['village'] as String?,
+      address['municipality'] as String?,
+      address['hamlet'] as String?,
+      address['suburb'] as String?,
+      address['county'] as String?,
+    ]);
+    final district = firstNonEmptyLocationLabel([
+      address['state'] as String?,
+      address['region'] as String?,
+      address['state_district'] as String?,
+      address['country'] as String?,
+    ]);
+
+    if (city.isEmpty && district.isEmpty) return null;
+    return (city: city, district: district);
+  }
+
+  ({String city, String district})? _parseNominatimLabels(dynamic data) =>
+      parseNominatimLabels(data);
 }
 
 /// A normalized city match returned from geocoding search.

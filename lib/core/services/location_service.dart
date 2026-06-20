@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:rain/core/utils/location_label.dart';
 
 /// Wraps Geolocator and geocoding — the only layer that talks to platform GPS APIs.
 class LocationService {
@@ -20,14 +21,48 @@ class LocationService {
   }
 
   /// Resolves coordinates and a human-readable city/district label.
+  ///
+  /// When platform reverse geocoding fails, [resolveLabels] is tried as a fallback.
   Future<({double lat, double lon, String city, String district})?>
-  getCurrentPlace() async {
+  getCurrentPlace({
+    Future<({String city, String district})?> Function(double lat, double lon)?
+    resolveLabels,
+  }) async {
     final position = await determinePosition();
-    final placemarks = await placemarkFromCoordinates(
-      position.latitude,
-      position.longitude,
-    );
-    return parsePlaceFromPlacemarks(position, placemarks);
+
+    try {
+      final placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+      final place = parsePlaceFromPlacemarks(position, placemarks);
+      if (place != null) return place;
+    } catch (_) {
+      // Platform geocoder failed; network fallback may still resolve labels.
+    }
+
+    if (resolveLabels != null) {
+      try {
+        final labels = await resolveLabels(
+          position.latitude,
+          position.longitude,
+        );
+        if (labels != null &&
+            (hasNonEmptyLocationText(labels.city) ||
+                hasNonEmptyLocationText(labels.district))) {
+          return (
+            lat: position.latitude,
+            lon: position.longitude,
+            city: labels.city,
+            district: labels.district,
+          );
+        }
+      } catch (_) {
+        // Ignore fallback failures; caller handles unresolved place below.
+      }
+    }
+
+    return null;
   }
 
   /// Builds a place record from GPS coordinates and geocoding results.
@@ -36,13 +71,13 @@ class LocationService {
   parsePlaceFromPlacemarks(Position position, List<Placemark> placemarks) {
     if (placemarks.isEmpty) return null;
     final place = placemarks.first;
-    final city = firstNonEmpty([
+    final city = firstNonEmptyLocationLabel([
       place.locality,
       place.subAdministrativeArea,
       place.name,
       place.subLocality,
     ]);
-    final district = firstNonEmpty([
+    final district = firstNonEmptyLocationLabel([
       place.administrativeArea,
       place.subAdministrativeArea,
     ]);
@@ -63,11 +98,6 @@ class LocationService {
 
   /// Returns the first trimmed non-empty string from [values].
   @visibleForTesting
-  static String firstNonEmpty(List<String?> values) {
-    for (final value in values) {
-      final trimmed = value?.trim();
-      if (trimmed != null && trimmed.isNotEmpty) return trimmed;
-    }
-    return '';
-  }
+  static String firstNonEmpty(List<String?> values) =>
+      firstNonEmptyLocationLabel(values);
 }

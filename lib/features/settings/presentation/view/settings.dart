@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/theme/app_font.dart';
+import 'package:rain/core/theme/color_palette.dart';
 import 'package:rain/core/weather/weather_icon_theme.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
 import 'package:rain/data/models/db.dart';
@@ -89,6 +90,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     Widget? Function(String)? leadingBuilder,
     Future<void> Function()? afterSave,
     bool backgroundAfterSave = false,
+    bool enableSearch = false,
   }) {
     showSelectionDialog<String>(
       context: context,
@@ -98,6 +100,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       currentValue: currentValue,
       itemBuilder: itemBuilder,
       leadingBuilder: leadingBuilder,
+      enableSearch: enableSearch,
       onSelected: (value) async {
         apply(value);
         await _saveSettings(
@@ -196,6 +199,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               },
             ),
           ),
+        ),
+        SettingsTile(
+          leading: const Icon(IconsaxPlusLinear.color_swatch),
+          title: 'colorPalette',
+          value: AppColorPalette.label(settings.colorPalette),
+          onTap: () => _showColorPaletteDialog(context),
         ),
         SettingsTile(
           leading: const Icon(IconsaxPlusLinear.additem),
@@ -393,6 +402,20 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         if (!mounted) return;
         setState(() {});
       },
+    );
+  }
+
+  void _showColorPaletteDialog(BuildContext context) {
+    _showCatalogDialog(
+      context,
+      titleKey: 'colorPalette',
+      icon: IconsaxPlusLinear.color_swatch,
+      items: AppColorPalette.choices,
+      currentValue: AppColorPalette.resolve(settings.colorPalette),
+      itemBuilder: AppColorPalette.label,
+      leadingBuilder: AppColorPalette.previewLeading,
+      enableSearch: true,
+      apply: (value) => settings.colorPalette = value,
     );
   }
 

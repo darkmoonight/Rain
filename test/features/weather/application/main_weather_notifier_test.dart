@@ -153,6 +153,45 @@ void main() {
       expect(container.read(mainWeatherNotifierProvider).isLoading, isFalse);
     });
 
+    test(
+      'refreshIfStale uses GPS refresh when location mode is enabled',
+      () async {
+        final staleWeather = sampleMainWeatherCache()
+          ..timestamp = DateTime.now().subtract(const Duration(hours: 24));
+        await seedMainWeatherCache(
+          ctx.isarContext.isar,
+          weather: staleWeather,
+          location: LocationCache(
+            lat: 55.75,
+            lon: 37.62,
+            city: '',
+            district: '',
+          ),
+        );
+
+        final container = createContainer();
+        final notifier = container.read(mainWeatherNotifierProvider.notifier);
+        ctx.bootstrap.settings.location = true;
+
+        await notifier.readCache();
+        await notifier.refreshIfStale();
+
+        final state = container.read(mainWeatherNotifierProvider);
+        expect(state.city, 'Moscow');
+      },
+    );
+
+    test('getLocation reverse-geocodes missing labels', () async {
+      final container = createContainer();
+      final notifier = container.read(mainWeatherNotifierProvider.notifier);
+
+      await notifier.getLocation(55.75, 37.62, '', '');
+
+      final state = container.read(mainWeatherNotifierProvider);
+      expect(state.city, 'Moscow');
+      expect(state.district, 'Central Federal District');
+    });
+
     test('refresh loads forecast when online', () async {
       final container = createContainer();
       final notifier = container.read(mainWeatherNotifierProvider.notifier);

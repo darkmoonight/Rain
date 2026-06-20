@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rain/core/theme/color_palette.dart';
 import 'package:rain/core/theme/theme.dart';
 
 void main() {
@@ -39,6 +40,7 @@ void main() {
       final themes = resolveAppThemes(
         materialColor: false,
         amoledTheme: false,
+        colorPalette: AppColorPalette.defaultId,
         lightDynamic: null,
         darkDynamic: null,
         edgeToEdgeAvailable: false,

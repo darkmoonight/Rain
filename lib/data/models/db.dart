@@ -14,6 +14,7 @@ class Settings {
   int? notificationWeekdaysMask;
   bool persistentNotification = false;
   bool materialColor = false;
+  String colorPalette = 'purple';
   bool amoledTheme = false;
   bool roundDegree = false;
   bool largeElement = false;

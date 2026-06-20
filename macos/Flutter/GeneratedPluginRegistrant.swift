@@ -7,7 +7,7 @@ import Foundation
 
 import connectivity_plus
 import device_info_plus
-import dynamic_color
+import dynamic_system_colors
 import flutter_local_notifications
 import flutter_timezone
 import geolocator_apple

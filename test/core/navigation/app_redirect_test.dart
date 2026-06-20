@@ -85,6 +85,25 @@ void main() {
           _location(district: null),
           AppRoutes.home,
         ),
+        isNull,
+      );
+    });
+
+    test('needs location when labels are blank strings', () {
+      expect(
+        resolveAppRedirect(
+          _settings(),
+          _location(city: '', district: ''),
+          AppRoutes.home,
+        ),
+        AppRoutes.geolocationStart,
+      );
+      expect(
+        resolveAppRedirect(
+          _settings(),
+          _location(city: '   ', district: ''),
+          AppRoutes.home,
+        ),
         AppRoutes.geolocationStart,
       );
     });

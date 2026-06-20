@@ -26,7 +26,27 @@ class FakeLocationService extends LocationService {
 
   @override
   Future<({double lat, double lon, String city, String district})?>
-  getCurrentPlace() async => place;
+  getCurrentPlace({
+    Future<({String city, String district})?> Function(double lat, double lon)?
+    resolveLabels,
+  }) async {
+    if (place != null) return place;
+    if (resolveLabels != null) {
+      final labels = await resolveLabels(
+        place?.lat ?? 55.75,
+        place?.lon ?? 37.62,
+      );
+      if (labels != null) {
+        return (
+          lat: place?.lat ?? 55.75,
+          lon: place?.lon ?? 37.62,
+          city: labels.city,
+          district: labels.district,
+        );
+      }
+    }
+    return null;
+  }
 }
 
 /// No-op notification service for widget and notifier tests.

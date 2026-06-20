@@ -527,6 +527,141 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Dynamic colors'
 	String get material_color => 'Dynamic colors';
 
+	/// en-US: 'Color palette'
+	String get color_palette => 'Color palette';
+
+	/// en-US: 'Purple'
+	String get color_palette_purple => 'Purple';
+
+	/// en-US: 'Blue'
+	String get color_palette_blue => 'Blue';
+
+	/// en-US: 'Teal'
+	String get color_palette_teal => 'Teal';
+
+	/// en-US: 'Green'
+	String get color_palette_green => 'Green';
+
+	/// en-US: 'Orange'
+	String get color_palette_orange => 'Orange';
+
+	/// en-US: 'Red'
+	String get color_palette_red => 'Red';
+
+	/// en-US: 'Pink'
+	String get color_palette_pink => 'Pink';
+
+	/// en-US: 'Cyan'
+	String get color_palette_cyan => 'Cyan';
+
+	/// en-US: 'Indigo'
+	String get color_palette_indigo => 'Indigo';
+
+	/// en-US: 'Sky'
+	String get color_palette_sky => 'Sky';
+
+	/// en-US: 'Mint'
+	String get color_palette_mint => 'Mint';
+
+	/// en-US: 'Lime'
+	String get color_palette_lime => 'Lime';
+
+	/// en-US: 'Amber'
+	String get color_palette_amber => 'Amber';
+
+	/// en-US: 'Coral'
+	String get color_palette_coral => 'Coral';
+
+	/// en-US: 'Crimson'
+	String get color_palette_crimson => 'Crimson';
+
+	/// en-US: 'Rose'
+	String get color_palette_rose => 'Rose';
+
+	/// en-US: 'Brown'
+	String get color_palette_brown => 'Brown';
+
+	/// en-US: 'Slate'
+	String get color_palette_slate => 'Slate';
+
+	/// en-US: 'Navy'
+	String get color_palette_navy => 'Navy';
+
+	/// en-US: 'Gold'
+	String get color_palette_gold => 'Gold';
+
+	/// en-US: 'Grape'
+	String get color_palette_grape => 'Grape';
+
+	/// en-US: 'Forest'
+	String get color_palette_forest => 'Forest';
+
+	/// en-US: 'Turquoise'
+	String get color_palette_turquoise => 'Turquoise';
+
+	/// en-US: 'Violet'
+	String get color_palette_violet => 'Violet';
+
+	/// en-US: 'Lavender'
+	String get color_palette_lavender => 'Lavender';
+
+	/// en-US: 'Lilac'
+	String get color_palette_lilac => 'Lilac';
+
+	/// en-US: 'Orchid'
+	String get color_palette_orchid => 'Orchid';
+
+	/// en-US: 'Magenta'
+	String get color_palette_magenta => 'Magenta';
+
+	/// en-US: 'Raspberry'
+	String get color_palette_raspberry => 'Raspberry';
+
+	/// en-US: 'Wine'
+	String get color_palette_wine => 'Wine';
+
+	/// en-US: 'Maroon'
+	String get color_palette_maroon => 'Maroon';
+
+	/// en-US: 'Peach'
+	String get color_palette_peach => 'Peach';
+
+	/// en-US: 'Copper'
+	String get color_palette_copper => 'Copper';
+
+	/// en-US: 'Yellow'
+	String get color_palette_yellow => 'Yellow';
+
+	/// en-US: 'Olive'
+	String get color_palette_olive => 'Olive';
+
+	/// en-US: 'Sage'
+	String get color_palette_sage => 'Sage';
+
+	/// en-US: 'Emerald'
+	String get color_palette_emerald => 'Emerald';
+
+	/// en-US: 'Jade'
+	String get color_palette_jade => 'Jade';
+
+	/// en-US: 'Aqua'
+	String get color_palette_aqua => 'Aqua';
+
+	/// en-US: 'Azure'
+	String get color_palette_azure => 'Azure';
+
+	/// en-US: 'Cobalt'
+	String get color_palette_cobalt => 'Cobalt';
+
+	/// en-US: 'Midnight'
+	String get color_palette_midnight => 'Midnight';
+
+	/// en-US: 'Charcoal'
+	String get color_palette_charcoal => 'Charcoal';
+
+	/// en-US: 'Sand'
+	String get color_palette_sand => 'Sand';
+
 	/// en-US: 'Confirm'
 	String get confirm => 'Confirm';
 
@@ -1001,6 +1136,51 @@ extension on Translations {
 			'fahrenheit' => 'Fahrenheit',
 			'm_s' => 'm/s',
 			'material_color' => 'Dynamic colors',
+			'color_palette' => 'Color palette',
+			'color_palette_purple' => 'Purple',
+			'color_palette_blue' => 'Blue',
+			'color_palette_teal' => 'Teal',
+			'color_palette_green' => 'Green',
+			'color_palette_orange' => 'Orange',
+			'color_palette_red' => 'Red',
+			'color_palette_pink' => 'Pink',
+			'color_palette_cyan' => 'Cyan',
+			'color_palette_indigo' => 'Indigo',
+			'color_palette_sky' => 'Sky',
+			'color_palette_mint' => 'Mint',
+			'color_palette_lime' => 'Lime',
+			'color_palette_amber' => 'Amber',
+			'color_palette_coral' => 'Coral',
+			'color_palette_crimson' => 'Crimson',
+			'color_palette_rose' => 'Rose',
+			'color_palette_brown' => 'Brown',
+			'color_palette_slate' => 'Slate',
+			'color_palette_navy' => 'Navy',
+			'color_palette_gold' => 'Gold',
+			'color_palette_grape' => 'Grape',
+			'color_palette_forest' => 'Forest',
+			'color_palette_turquoise' => 'Turquoise',
+			'color_palette_violet' => 'Violet',
+			'color_palette_lavender' => 'Lavender',
+			'color_palette_lilac' => 'Lilac',
+			'color_palette_orchid' => 'Orchid',
+			'color_palette_magenta' => 'Magenta',
+			'color_palette_raspberry' => 'Raspberry',
+			'color_palette_wine' => 'Wine',
+			'color_palette_maroon' => 'Maroon',
+			'color_palette_peach' => 'Peach',
+			'color_palette_copper' => 'Copper',
+			'color_palette_yellow' => 'Yellow',
+			'color_palette_olive' => 'Olive',
+			'color_palette_sage' => 'Sage',
+			'color_palette_emerald' => 'Emerald',
+			'color_palette_jade' => 'Jade',
+			'color_palette_aqua' => 'Aqua',
+			'color_palette_azure' => 'Azure',
+			'color_palette_cobalt' => 'Cobalt',
+			'color_palette_midnight' => 'Midnight',
+			'color_palette_charcoal' => 'Charcoal',
+			'color_palette_sand' => 'Sand',
 			'confirm' => 'Confirm',
 			'no_results' => 'No results',
 			'cities_load_error' => 'Failed to load cities',

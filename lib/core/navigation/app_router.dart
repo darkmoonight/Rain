@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/navigation/app_routes.dart';
 import 'package:rain/core/navigation/route_transitions.dart';
+import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/features/geolocation/presentation/geolocation_screen.dart';
 import 'package:rain/features/onboarding/presentation/onboarding_screen.dart';
@@ -77,11 +78,7 @@ String? resolveAppRedirect(
   if (!settings.onboard) {
     return path == AppRoutes.onboarding ? null : AppRoutes.onboarding;
   }
-  final needsLocation =
-      location.city == null ||
-      location.district == null ||
-      location.lat == null ||
-      location.lon == null;
+  final needsLocation = !hasResolvedLocation(location);
   if (needsLocation) {
     return path.startsWith(AppRoutes.geolocation)
         ? null
