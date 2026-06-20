@@ -303,6 +303,7 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'ਪੈਕੇਜ';
 	@override String get close => 'ਬੰਦ ਕਰੋ';
 	@override String get color_palette => 'ਰੰਗ ਪੈਲੇਟ';
+	@override String get color_palette_system_hint => 'ਸਿਸਟਮ ਰੰਗ ਵਰਤੇ ਜਾ ਰਹੇ ਹਨ';
 	@override String get color_palette_purple => 'ਜਾਮਨੀ';
 	@override String get color_palette_blue => 'ਨੀਲਾ';
 	@override String get color_palette_teal => 'ਹਰਾ-ਨੀਲਾ';
@@ -326,7 +327,7 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'ਅੰਗੂਰ';
 	@override String get color_palette_forest => 'ਜੰਗਲੀ ਹਰਾ';
 	@override String get color_palette_turquoise => 'ਫ਼ਿਰੋਜ਼ੀ';
-	@override String get color_palette_violet => 'ਬੈਂਗਣੀ';
+	@override String get color_palette_violet => 'ਵਾਇਲਟ';
 	@override String get color_palette_lavender => 'ਲੈਵੈਂਡਰ';
 	@override String get color_palette_lilac => 'ਲਾਇਲੈਕ';
 	@override String get color_palette_orchid => 'ਔਰਕਿਡ';
@@ -621,6 +622,7 @@ extension on TranslationsPaIn {
 			'license_packages' => 'ਪੈਕੇਜ',
 			'close' => 'ਬੰਦ ਕਰੋ',
 			'color_palette' => 'ਰੰਗ ਪੈਲੇਟ',
+			'color_palette_system_hint' => 'ਸਿਸਟਮ ਰੰਗ ਵਰਤੇ ਜਾ ਰਹੇ ਹਨ',
 			'color_palette_purple' => 'ਜਾਮਨੀ',
 			'color_palette_blue' => 'ਨੀਲਾ',
 			'color_palette_teal' => 'ਹਰਾ-ਨੀਲਾ',
@@ -644,7 +646,7 @@ extension on TranslationsPaIn {
 			'color_palette_grape' => 'ਅੰਗੂਰ',
 			'color_palette_forest' => 'ਜੰਗਲੀ ਹਰਾ',
 			'color_palette_turquoise' => 'ਫ਼ਿਰੋਜ਼ੀ',
-			'color_palette_violet' => 'ਬੈਂਗਣੀ',
+			'color_palette_violet' => 'ਵਾਇਲਟ',
 			'color_palette_lavender' => 'ਲੈਵੈਂਡਰ',
 			'color_palette_lilac' => 'ਲਾਇਲੈਕ',
 			'color_palette_orchid' => 'ਔਰਕਿਡ',

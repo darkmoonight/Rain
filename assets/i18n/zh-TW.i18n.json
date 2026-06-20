@@ -263,6 +263,7 @@
   "licensePackages": "個套件",
   "close": "關閉",
   "colorPalette": "調色盤",
+  "colorPaletteSystemHint": "使用系統顏色",
   "colorPalettePurple": "紫色",
   "colorPaletteBlue": "藍色",
   "colorPaletteTeal": "藍綠色",

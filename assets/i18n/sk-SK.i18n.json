@@ -263,6 +263,7 @@
   "licensePackages": "balíkov",
   "close": "Zavrieť",
   "colorPalette": "Farebná paleta",
+  "colorPaletteSystemHint": "Používajú sa systémové farby",
   "colorPalettePurple": "Fialová",
   "colorPaletteBlue": "Modrá",
   "colorPaletteTeal": "Modrozelená",

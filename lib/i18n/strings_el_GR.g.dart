@@ -303,6 +303,7 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'πακέτα';
 	@override String get close => 'Κλείσιμο';
 	@override String get color_palette => 'Παλέτα χρωμάτων';
+	@override String get color_palette_system_hint => 'Χρησιμοποιούνται χρώματα συστήματος';
 	@override String get color_palette_purple => 'Μωβ';
 	@override String get color_palette_blue => 'Μπλε';
 	@override String get color_palette_teal => 'Πετρόλ';
@@ -621,6 +622,7 @@ extension on TranslationsElGr {
 			'license_packages' => 'πακέτα',
 			'close' => 'Κλείσιμο',
 			'color_palette' => 'Παλέτα χρωμάτων',
+			'color_palette_system_hint' => 'Χρησιμοποιούνται χρώματα συστήματος',
 			'color_palette_purple' => 'Μωβ',
 			'color_palette_blue' => 'Μπλε',
 			'color_palette_teal' => 'Πετρόλ',

@@ -263,6 +263,7 @@
   "licensePackages": "pachete",
   "close": "Închide",
   "colorPalette": "Paletă de culori",
+  "colorPaletteSystemHint": "Se folosesc culorile sistemului",
   "colorPalettePurple": "Mov",
   "colorPaletteBlue": "Albastru",
   "colorPaletteTeal": "Turcoaz",

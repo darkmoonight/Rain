@@ -303,6 +303,7 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'پیکج';
 	@override String get close => 'بند کریں';
 	@override String get color_palette => 'رنگ پیلیٹ';
+	@override String get color_palette_system_hint => 'سسٹم کے رنگ استعمال ہو رہے ہیں';
 	@override String get color_palette_purple => 'جامنی';
 	@override String get color_palette_blue => 'نیلا';
 	@override String get color_palette_teal => 'سبز نیلا';
@@ -326,7 +327,7 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'انگور';
 	@override String get color_palette_forest => 'جنگلی سبز';
 	@override String get color_palette_turquoise => 'فیروزی';
-	@override String get color_palette_violet => 'بنفشی';
+	@override String get color_palette_violet => 'وائلٹ';
 	@override String get color_palette_lavender => 'لیونڈر';
 	@override String get color_palette_lilac => 'لائلاک';
 	@override String get color_palette_orchid => 'آرکڈ';
@@ -621,6 +622,7 @@ extension on TranslationsUrPk {
 			'license_packages' => 'پیکج',
 			'close' => 'بند کریں',
 			'color_palette' => 'رنگ پیلیٹ',
+			'color_palette_system_hint' => 'سسٹم کے رنگ استعمال ہو رہے ہیں',
 			'color_palette_purple' => 'جامنی',
 			'color_palette_blue' => 'نیلا',
 			'color_palette_teal' => 'سبز نیلا',
@@ -644,7 +646,7 @@ extension on TranslationsUrPk {
 			'color_palette_grape' => 'انگور',
 			'color_palette_forest' => 'جنگلی سبز',
 			'color_palette_turquoise' => 'فیروزی',
-			'color_palette_violet' => 'بنفشی',
+			'color_palette_violet' => 'وائلٹ',
 			'color_palette_lavender' => 'لیونڈر',
 			'color_palette_lilac' => 'لائلاک',
 			'color_palette_orchid' => 'آرکڈ',

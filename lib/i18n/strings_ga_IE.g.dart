@@ -303,6 +303,7 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'pacáistí';
 	@override String get close => 'Dún';
 	@override String get color_palette => 'Pailéad dathanna';
+	@override String get color_palette_system_hint => 'Dathanna an chórais i úsáid';
 	@override String get color_palette_purple => 'Corcra';
 	@override String get color_palette_blue => 'Gorm';
 	@override String get color_palette_teal => 'Gormghlas';
@@ -326,7 +327,7 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'Fíonchaor';
 	@override String get color_palette_forest => 'Foraois';
 	@override String get color_palette_turquoise => 'Turcóis';
-	@override String get color_palette_violet => 'Corcra éadrom';
+	@override String get color_palette_violet => 'Violet';
 	@override String get color_palette_lavender => 'Labhandar';
 	@override String get color_palette_lilac => 'Liolac';
 	@override String get color_palette_orchid => 'Magairlín';
@@ -621,6 +622,7 @@ extension on TranslationsGaIe {
 			'license_packages' => 'pacáistí',
 			'close' => 'Dún',
 			'color_palette' => 'Pailéad dathanna',
+			'color_palette_system_hint' => 'Dathanna an chórais i úsáid',
 			'color_palette_purple' => 'Corcra',
 			'color_palette_blue' => 'Gorm',
 			'color_palette_teal' => 'Gormghlas',
@@ -644,7 +646,7 @@ extension on TranslationsGaIe {
 			'color_palette_grape' => 'Fíonchaor',
 			'color_palette_forest' => 'Foraois',
 			'color_palette_turquoise' => 'Turcóis',
-			'color_palette_violet' => 'Corcra éadrom',
+			'color_palette_violet' => 'Violet',
 			'color_palette_lavender' => 'Labhandar',
 			'color_palette_lilac' => 'Liolac',
 			'color_palette_orchid' => 'Magairlín',

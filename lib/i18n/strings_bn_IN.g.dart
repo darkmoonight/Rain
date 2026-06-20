@@ -303,6 +303,7 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'প্যাকেজ';
 	@override String get close => 'বন্ধ করুন';
 	@override String get color_palette => 'রঙ প্যালেট';
+	@override String get color_palette_system_hint => 'সিস্টেমের রং ব্যবহৃত হচ্ছে';
 	@override String get color_palette_purple => 'বেগুনি';
 	@override String get color_palette_blue => 'নীল';
 	@override String get color_palette_teal => 'সবুজ-নীল';
@@ -326,7 +327,7 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'আঙুর';
 	@override String get color_palette_forest => 'অরণ্য';
 	@override String get color_palette_turquoise => 'ফিরোজা';
-	@override String get color_palette_violet => 'বেগুনি আভা';
+	@override String get color_palette_violet => 'ভায়োলেট';
 	@override String get color_palette_lavender => 'ল্যাভেন্ডার';
 	@override String get color_palette_lilac => 'লাইলাক';
 	@override String get color_palette_orchid => 'অর্কিড';
@@ -621,6 +622,7 @@ extension on TranslationsBnIn {
 			'license_packages' => 'প্যাকেজ',
 			'close' => 'বন্ধ করুন',
 			'color_palette' => 'রঙ প্যালেট',
+			'color_palette_system_hint' => 'সিস্টেমের রং ব্যবহৃত হচ্ছে',
 			'color_palette_purple' => 'বেগুনি',
 			'color_palette_blue' => 'নীল',
 			'color_palette_teal' => 'সবুজ-নীল',
@@ -644,7 +646,7 @@ extension on TranslationsBnIn {
 			'color_palette_grape' => 'আঙুর',
 			'color_palette_forest' => 'অরণ্য',
 			'color_palette_turquoise' => 'ফিরোজা',
-			'color_palette_violet' => 'বেগুনি আভা',
+			'color_palette_violet' => 'ভায়োলেট',
 			'color_palette_lavender' => 'ল্যাভেন্ডার',
 			'color_palette_lilac' => 'লাইলাক',
 			'color_palette_orchid' => 'অর্কিড',

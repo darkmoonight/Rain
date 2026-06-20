@@ -530,6 +530,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Color palette'
 	String get color_palette => 'Color palette';
 
+	/// en-US: 'Using system colors'
+	String get color_palette_system_hint => 'Using system colors';
+
 	/// en-US: 'Purple'
 	String get color_palette_purple => 'Purple';
 
@@ -1137,6 +1140,7 @@ extension on Translations {
 			'm_s' => 'm/s',
 			'material_color' => 'Dynamic colors',
 			'color_palette' => 'Color palette',
+			'color_palette_system_hint' => 'Using system colors',
 			'color_palette_purple' => 'Purple',
 			'color_palette_blue' => 'Blue',
 			'color_palette_teal' => 'Teal',

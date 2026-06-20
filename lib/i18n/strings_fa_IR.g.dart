@@ -303,6 +303,7 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'بسته';
 	@override String get close => 'بستن';
 	@override String get color_palette => 'پالت رنگ';
+	@override String get color_palette_system_hint => 'رنگ‌های سیستم فعال است';
 	@override String get color_palette_purple => 'بنفش';
 	@override String get color_palette_blue => 'آبی';
 	@override String get color_palette_teal => 'فیروزه‌ای';
@@ -326,7 +327,7 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'انگور';
 	@override String get color_palette_forest => 'جنگل';
 	@override String get color_palette_turquoise => 'فیروزه';
-	@override String get color_palette_violet => 'بنفش روشن';
+	@override String get color_palette_violet => 'بنفش ارغوانی';
 	@override String get color_palette_lavender => 'اسطوخودوس';
 	@override String get color_palette_lilac => 'یاسی';
 	@override String get color_palette_orchid => 'ارکیده';
@@ -621,6 +622,7 @@ extension on TranslationsFaIr {
 			'license_packages' => 'بسته',
 			'close' => 'بستن',
 			'color_palette' => 'پالت رنگ',
+			'color_palette_system_hint' => 'رنگ‌های سیستم فعال است',
 			'color_palette_purple' => 'بنفش',
 			'color_palette_blue' => 'آبی',
 			'color_palette_teal' => 'فیروزه‌ای',
@@ -644,7 +646,7 @@ extension on TranslationsFaIr {
 			'color_palette_grape' => 'انگور',
 			'color_palette_forest' => 'جنگل',
 			'color_palette_turquoise' => 'فیروزه',
-			'color_palette_violet' => 'بنفش روشن',
+			'color_palette_violet' => 'بنفش ارغوانی',
 			'color_palette_lavender' => 'اسطوخودوس',
 			'color_palette_lilac' => 'یاسی',
 			'color_palette_orchid' => 'ارکیده',

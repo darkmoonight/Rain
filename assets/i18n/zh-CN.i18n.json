@@ -263,6 +263,7 @@
   "licensePackages": "个软件包",
   "close": "关闭",
   "colorPalette": "调色板",
+  "colorPaletteSystemHint": "使用系统颜色",
   "colorPalettePurple": "紫色",
   "colorPaletteBlue": "蓝色",
   "colorPaletteTeal": "蓝绿色",

@@ -263,6 +263,7 @@
   "licensePackages": "paket",
   "close": "Kapat",
   "colorPalette": "Renk paleti",
+  "colorPaletteSystemHint": "Sistem renkleri kullanılıyor",
   "colorPalettePurple": "Mor",
   "colorPaletteBlue": "Mavi",
   "colorPaletteTeal": "Camgöbeği",

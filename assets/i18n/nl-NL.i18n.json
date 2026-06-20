@@ -263,6 +263,7 @@
   "licensePackages": "pakketten",
   "close": "Sluiten",
   "colorPalette": "Kleurenpalet",
+  "colorPaletteSystemHint": "Systeemkleuren actief",
   "colorPalettePurple": "Paars",
   "colorPaletteBlue": "Blauw",
   "colorPaletteTeal": "Blauwgroen",

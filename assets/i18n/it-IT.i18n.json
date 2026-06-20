@@ -263,6 +263,7 @@
   "licensePackages": "pacchetti",
   "close": "Chiudi",
   "colorPalette": "Tavolozza colori",
+  "colorPaletteSystemHint": "Colori di sistema attivi",
   "colorPalettePurple": "Viola",
   "colorPaletteBlue": "Blu",
   "colorPaletteTeal": "Verde acqua",

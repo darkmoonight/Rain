@@ -303,6 +303,7 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'pacchetti';
 	@override String get close => 'Chiudi';
 	@override String get color_palette => 'Tavolozza colori';
+	@override String get color_palette_system_hint => 'Colori di sistema attivi';
 	@override String get color_palette_purple => 'Viola';
 	@override String get color_palette_blue => 'Blu';
 	@override String get color_palette_teal => 'Verde acqua';
@@ -621,6 +622,7 @@ extension on TranslationsItIt {
 			'license_packages' => 'pacchetti',
 			'close' => 'Chiudi',
 			'color_palette' => 'Tavolozza colori',
+			'color_palette_system_hint' => 'Colori di sistema attivi',
 			'color_palette_purple' => 'Viola',
 			'color_palette_blue' => 'Blu',
 			'color_palette_teal' => 'Verde acqua',

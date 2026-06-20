@@ -162,6 +162,7 @@
   "m/s": "m/s",
   "materialColor": "Dynamic colors",
   "colorPalette": "Color palette",
+  "colorPaletteSystemHint": "Using system colors",
   "colorPalettePurple": "Purple",
   "colorPaletteBlue": "Blue",
   "colorPaletteTeal": "Teal",

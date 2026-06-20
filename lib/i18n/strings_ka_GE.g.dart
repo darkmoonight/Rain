@@ -303,6 +303,7 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'პაკეტი';
 	@override String get close => 'დახურვა';
 	@override String get color_palette => 'ფერების პალიტრა';
+	@override String get color_palette_system_hint => 'გამოიყენება სისტემის ფერები';
 	@override String get color_palette_purple => 'იასამნისფერი';
 	@override String get color_palette_blue => 'ლურჯი';
 	@override String get color_palette_teal => 'ლურჯ-მომწვანო';
@@ -621,6 +622,7 @@ extension on TranslationsKaGe {
 			'license_packages' => 'პაკეტი',
 			'close' => 'დახურვა',
 			'color_palette' => 'ფერების პალიტრა',
+			'color_palette_system_hint' => 'გამოიყენება სისტემის ფერები',
 			'color_palette_purple' => 'იასამნისფერი',
 			'color_palette_blue' => 'ლურჯი',
 			'color_palette_teal' => 'ლურჯ-მომწვანო',

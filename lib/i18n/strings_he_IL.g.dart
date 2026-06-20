@@ -303,6 +303,7 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'חבילות';
 	@override String get close => 'סגור';
 	@override String get color_palette => 'פלטת צבעים';
+	@override String get color_palette_system_hint => 'נעשה שימוש בצבעי המערכת';
 	@override String get color_palette_purple => 'סגול';
 	@override String get color_palette_blue => 'כחול';
 	@override String get color_palette_teal => 'טורקיז';
@@ -326,7 +327,7 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'ענבים';
 	@override String get color_palette_forest => 'ירוק יער';
 	@override String get color_palette_turquoise => 'טורקיז בהיר';
-	@override String get color_palette_violet => 'סגול בהיר';
+	@override String get color_palette_violet => 'סגולון';
 	@override String get color_palette_lavender => 'לבנדר';
 	@override String get color_palette_lilac => 'לילך';
 	@override String get color_palette_orchid => 'סחלב';
@@ -621,6 +622,7 @@ extension on TranslationsHeIl {
 			'license_packages' => 'חבילות',
 			'close' => 'סגור',
 			'color_palette' => 'פלטת צבעים',
+			'color_palette_system_hint' => 'נעשה שימוש בצבעי המערכת',
 			'color_palette_purple' => 'סגול',
 			'color_palette_blue' => 'כחול',
 			'color_palette_teal' => 'טורקיז',
@@ -644,7 +646,7 @@ extension on TranslationsHeIl {
 			'color_palette_grape' => 'ענבים',
 			'color_palette_forest' => 'ירוק יער',
 			'color_palette_turquoise' => 'טורקיז בהיר',
-			'color_palette_violet' => 'סגול בהיר',
+			'color_palette_violet' => 'סגולון',
 			'color_palette_lavender' => 'לבנדר',
 			'color_palette_lilac' => 'לילך',
 			'color_palette_orchid' => 'סחלב',

@@ -303,6 +303,7 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => '個套件';
 	@override String get close => '關閉';
 	@override String get color_palette => '調色盤';
+	@override String get color_palette_system_hint => '使用系統顏色';
 	@override String get color_palette_purple => '紫色';
 	@override String get color_palette_blue => '藍色';
 	@override String get color_palette_teal => '藍綠色';
@@ -621,6 +622,7 @@ extension on TranslationsZhTw {
 			'license_packages' => '個套件',
 			'close' => '關閉',
 			'color_palette' => '調色盤',
+			'color_palette_system_hint' => '使用系統顏色',
 			'color_palette_purple' => '紫色',
 			'color_palette_blue' => '藍色',
 			'color_palette_teal' => '藍綠色',

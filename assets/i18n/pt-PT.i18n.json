@@ -263,6 +263,7 @@
   "licensePackages": "pacotes",
   "close": "Fechar",
   "colorPalette": "Paleta de cores",
+  "colorPaletteSystemHint": "Cores do sistema ativas",
   "colorPalettePurple": "Roxo",
   "colorPaletteBlue": "Azul",
   "colorPaletteTeal": "Verde-azulado",

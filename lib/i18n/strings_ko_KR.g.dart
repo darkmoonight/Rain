@@ -303,6 +303,7 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => '패키지';
 	@override String get close => '닫기';
 	@override String get color_palette => '색상 팔레트';
+	@override String get color_palette_system_hint => '시스템 색상 사용 중';
 	@override String get color_palette_purple => '보라';
 	@override String get color_palette_blue => '파랑';
 	@override String get color_palette_teal => '청록';
@@ -326,7 +327,7 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => '포도';
 	@override String get color_palette_forest => '숲';
 	@override String get color_palette_turquoise => '터키즈';
-	@override String get color_palette_violet => '보라색';
+	@override String get color_palette_violet => '바이올렛';
 	@override String get color_palette_lavender => '라벤더';
 	@override String get color_palette_lilac => '라일락';
 	@override String get color_palette_orchid => '난초';
@@ -621,6 +622,7 @@ extension on TranslationsKoKr {
 			'license_packages' => '패키지',
 			'close' => '닫기',
 			'color_palette' => '색상 팔레트',
+			'color_palette_system_hint' => '시스템 색상 사용 중',
 			'color_palette_purple' => '보라',
 			'color_palette_blue' => '파랑',
 			'color_palette_teal' => '청록',
@@ -644,7 +646,7 @@ extension on TranslationsKoKr {
 			'color_palette_grape' => '포도',
 			'color_palette_forest' => '숲',
 			'color_palette_turquoise' => '터키즈',
-			'color_palette_violet' => '보라색',
+			'color_palette_violet' => '바이올렛',
 			'color_palette_lavender' => '라벤더',
 			'color_palette_lilac' => '라일락',
 			'color_palette_orchid' => '난초',

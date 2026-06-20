@@ -303,6 +303,7 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'paket';
 	@override String get close => 'Kapat';
 	@override String get color_palette => 'Renk paleti';
+	@override String get color_palette_system_hint => 'Sistem renkleri kullanılıyor';
 	@override String get color_palette_purple => 'Mor';
 	@override String get color_palette_blue => 'Mavi';
 	@override String get color_palette_teal => 'Camgöbeği';
@@ -621,6 +622,7 @@ extension on TranslationsTrTr {
 			'license_packages' => 'paket',
 			'close' => 'Kapat',
 			'color_palette' => 'Renk paleti',
+			'color_palette_system_hint' => 'Sistem renkleri kullanılıyor',
 			'color_palette_purple' => 'Mor',
 			'color_palette_blue' => 'Mavi',
 			'color_palette_teal' => 'Camgöbeği',

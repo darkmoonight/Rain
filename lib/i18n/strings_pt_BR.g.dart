@@ -303,6 +303,7 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'pacotes';
 	@override String get close => 'Fechar';
 	@override String get color_palette => 'Paleta de cores';
+	@override String get color_palette_system_hint => 'Cores do sistema ativas';
 	@override String get color_palette_purple => 'Roxo';
 	@override String get color_palette_blue => 'Azul';
 	@override String get color_palette_teal => 'Verde-azulado';
@@ -621,6 +622,7 @@ extension on TranslationsPtBr {
 			'license_packages' => 'pacotes',
 			'close' => 'Fechar',
 			'color_palette' => 'Paleta de cores',
+			'color_palette_system_hint' => 'Cores do sistema ativas',
 			'color_palette_purple' => 'Roxo',
 			'color_palette_blue' => 'Azul',
 			'color_palette_teal' => 'Verde-azulado',

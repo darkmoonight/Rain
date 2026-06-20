@@ -303,6 +303,7 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'pakker';
 	@override String get close => 'Luk';
 	@override String get color_palette => 'Farvepalet';
+	@override String get color_palette_system_hint => 'Systemfarver er aktive';
 	@override String get color_palette_purple => 'Lilla';
 	@override String get color_palette_blue => 'Blå';
 	@override String get color_palette_teal => 'Blågrøn';
@@ -621,6 +622,7 @@ extension on TranslationsDaDk {
 			'license_packages' => 'pakker',
 			'close' => 'Luk',
 			'color_palette' => 'Farvepalet',
+			'color_palette_system_hint' => 'Systemfarver er aktive',
 			'color_palette_purple' => 'Lilla',
 			'color_palette_blue' => 'Blå',
 			'color_palette_teal' => 'Blågrøn',

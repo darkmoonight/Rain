@@ -303,6 +303,7 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'पैकेज';
 	@override String get close => 'बंद करें';
 	@override String get color_palette => 'रंग पैलेट';
+	@override String get color_palette_system_hint => 'सिस्टम रंग उपयोग में';
 	@override String get color_palette_purple => 'बैंगनी';
 	@override String get color_palette_blue => 'नीला';
 	@override String get color_palette_teal => 'हरा-नीला';
@@ -326,7 +327,7 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'अंगूर';
 	@override String get color_palette_forest => 'जंगल';
 	@override String get color_palette_turquoise => 'फ़िरोज़ी';
-	@override String get color_palette_violet => 'बैंगनी हल्का';
+	@override String get color_palette_violet => 'बैंगन';
 	@override String get color_palette_lavender => 'लैवेंडर';
 	@override String get color_palette_lilac => 'लिलैक';
 	@override String get color_palette_orchid => 'ऑर्किड';
@@ -621,6 +622,7 @@ extension on TranslationsHiIn {
 			'license_packages' => 'पैकेज',
 			'close' => 'बंद करें',
 			'color_palette' => 'रंग पैलेट',
+			'color_palette_system_hint' => 'सिस्टम रंग उपयोग में',
 			'color_palette_purple' => 'बैंगनी',
 			'color_palette_blue' => 'नीला',
 			'color_palette_teal' => 'हरा-नीला',
@@ -644,7 +646,7 @@ extension on TranslationsHiIn {
 			'color_palette_grape' => 'अंगूर',
 			'color_palette_forest' => 'जंगल',
 			'color_palette_turquoise' => 'फ़िरोज़ी',
-			'color_palette_violet' => 'बैंगनी हल्का',
+			'color_palette_violet' => 'बैंगन',
 			'color_palette_lavender' => 'लैवेंडर',
 			'color_palette_lilac' => 'लिलैक',
 			'color_palette_orchid' => 'ऑर्किड',

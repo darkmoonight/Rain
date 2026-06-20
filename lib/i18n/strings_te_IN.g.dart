@@ -303,6 +303,7 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'ప్యాకేజీలు';
 	@override String get close => 'మూసివేయి';
 	@override String get color_palette => 'రంగు ప్యాలెట్';
+	@override String get color_palette_system_hint => 'సిస్టమ్ రంగులు ఉపయోగంలో ఉన్నాయి';
 	@override String get color_palette_purple => 'ఊదా';
 	@override String get color_palette_blue => 'నీలం';
 	@override String get color_palette_teal => 'ఆకుపచ్చ-నీలం';
@@ -326,7 +327,7 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'ద్రాక్ష';
 	@override String get color_palette_forest => 'అడవి';
 	@override String get color_palette_turquoise => 'పచ్చ-నీలం';
-	@override String get color_palette_violet => 'జామునీ';
+	@override String get color_palette_violet => 'వైలెట్';
 	@override String get color_palette_lavender => 'లేవెండరు';
 	@override String get color_palette_lilac => 'లిలైక';
 	@override String get color_palette_orchid => 'ఆర్కిడ్';
@@ -621,6 +622,7 @@ extension on TranslationsTeIn {
 			'license_packages' => 'ప్యాకేజీలు',
 			'close' => 'మూసివేయి',
 			'color_palette' => 'రంగు ప్యాలెట్',
+			'color_palette_system_hint' => 'సిస్టమ్ రంగులు ఉపయోగంలో ఉన్నాయి',
 			'color_palette_purple' => 'ఊదా',
 			'color_palette_blue' => 'నీలం',
 			'color_palette_teal' => 'ఆకుపచ్చ-నీలం',
@@ -644,7 +646,7 @@ extension on TranslationsTeIn {
 			'color_palette_grape' => 'ద్రాక్ష',
 			'color_palette_forest' => 'అడవి',
 			'color_palette_turquoise' => 'పచ్చ-నీలం',
-			'color_palette_violet' => 'జామునీ',
+			'color_palette_violet' => 'వైలెట్',
 			'color_palette_lavender' => 'లేవెండరు',
 			'color_palette_lilac' => 'లిలైక',
 			'color_palette_orchid' => 'ఆర్కిడ్',

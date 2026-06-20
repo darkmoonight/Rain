@@ -263,6 +263,7 @@
   "licensePackages": "csomag",
   "close": "Bezárás",
   "colorPalette": "Színpaletta",
+  "colorPaletteSystemHint": "Rendszerszínek használatban",
   "colorPalettePurple": "Lila",
   "colorPaletteBlue": "Kék",
   "colorPaletteTeal": "Türkiz",

@@ -263,6 +263,7 @@
   "licensePackages": "പാക്കേജുകൾ",
   "close": "അടയ്ക്കുക",
   "colorPalette": "നിറം പാലറ്റ്",
+  "colorPaletteSystemHint": "സിസ്റ്റം നിറങ്ങൾ ഉപയോഗിക്കുന്നു",
   "colorPalettePurple": "ഊത",
   "colorPaletteBlue": "നീലം",
   "colorPaletteTeal": "പച്ചനീലം",

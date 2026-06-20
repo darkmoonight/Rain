@@ -303,6 +303,7 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'balíčků';
 	@override String get close => 'Zavřít';
 	@override String get color_palette => 'Barevná paleta';
+	@override String get color_palette_system_hint => 'Používají se systémové barvy';
 	@override String get color_palette_purple => 'Fialová';
 	@override String get color_palette_blue => 'Modrá';
 	@override String get color_palette_teal => 'Modrozelená';
@@ -621,6 +622,7 @@ extension on TranslationsCsCz {
 			'license_packages' => 'balíčků',
 			'close' => 'Zavřít',
 			'color_palette' => 'Barevná paleta',
+			'color_palette_system_hint' => 'Používají se systémové barvy',
 			'color_palette_purple' => 'Fialová',
 			'color_palette_blue' => 'Modrá',
 			'color_palette_teal' => 'Modrozelená',

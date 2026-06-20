@@ -303,6 +303,7 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'pakietów';
 	@override String get close => 'Zamknij';
 	@override String get color_palette => 'Paleta kolorów';
+	@override String get color_palette_system_hint => 'Używane kolory systemowe';
 	@override String get color_palette_purple => 'Fioletowy';
 	@override String get color_palette_blue => 'Niebieski';
 	@override String get color_palette_teal => 'Morski';
@@ -326,7 +327,7 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'Winogronowy';
 	@override String get color_palette_forest => 'Leśny';
 	@override String get color_palette_turquoise => 'Turkusowy';
-	@override String get color_palette_violet => 'Fiolet';
+	@override String get color_palette_violet => 'Fiołek';
 	@override String get color_palette_lavender => 'Lawendowy';
 	@override String get color_palette_lilac => 'Liliowy';
 	@override String get color_palette_orchid => 'Orchidea';
@@ -621,6 +622,7 @@ extension on TranslationsPlPl {
 			'license_packages' => 'pakietów',
 			'close' => 'Zamknij',
 			'color_palette' => 'Paleta kolorów',
+			'color_palette_system_hint' => 'Używane kolory systemowe',
 			'color_palette_purple' => 'Fioletowy',
 			'color_palette_blue' => 'Niebieski',
 			'color_palette_teal' => 'Morski',
@@ -644,7 +646,7 @@ extension on TranslationsPlPl {
 			'color_palette_grape' => 'Winogronowy',
 			'color_palette_forest' => 'Leśny',
 			'color_palette_turquoise' => 'Turkusowy',
-			'color_palette_violet' => 'Fiolet',
+			'color_palette_violet' => 'Fiołek',
 			'color_palette_lavender' => 'Lawendowy',
 			'color_palette_lilac' => 'Liliowy',
 			'color_palette_orchid' => 'Orchidea',

@@ -202,6 +202,7 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get m_s => 'м/с';
 	@override String get material_color => 'Динамические цвета';
 	@override String get color_palette => 'Цветовая палитра';
+	@override String get color_palette_system_hint => 'Используются системные цвета';
 	@override String get color_palette_purple => 'Фиолетовый';
 	@override String get color_palette_blue => 'Синий';
 	@override String get color_palette_teal => 'Бирюзовый';
@@ -225,7 +226,7 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'Виноградный';
 	@override String get color_palette_forest => 'Лесной';
 	@override String get color_palette_turquoise => 'Лазурный';
-	@override String get color_palette_violet => 'Фиолетовый';
+	@override String get color_palette_violet => 'Фиалковый';
 	@override String get color_palette_lavender => 'Лавандовый';
 	@override String get color_palette_lilac => 'Сиреневый';
 	@override String get color_palette_orchid => 'Орхидея';
@@ -520,6 +521,7 @@ extension on TranslationsRuRu {
 			'm_s' => 'м/с',
 			'material_color' => 'Динамические цвета',
 			'color_palette' => 'Цветовая палитра',
+			'color_palette_system_hint' => 'Используются системные цвета',
 			'color_palette_purple' => 'Фиолетовый',
 			'color_palette_blue' => 'Синий',
 			'color_palette_teal' => 'Бирюзовый',
@@ -543,7 +545,7 @@ extension on TranslationsRuRu {
 			'color_palette_grape' => 'Виноградный',
 			'color_palette_forest' => 'Лесной',
 			'color_palette_turquoise' => 'Лазурный',
-			'color_palette_violet' => 'Фиолетовый',
+			'color_palette_violet' => 'Фиалковый',
 			'color_palette_lavender' => 'Лавандовый',
 			'color_palette_lilac' => 'Сиреневый',
 			'color_palette_orchid' => 'Орхидея',

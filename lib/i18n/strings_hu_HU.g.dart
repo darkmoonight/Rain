@@ -303,6 +303,7 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'csomag';
 	@override String get close => 'Bezárás';
 	@override String get color_palette => 'Színpaletta';
+	@override String get color_palette_system_hint => 'Rendszerszínek használatban';
 	@override String get color_palette_purple => 'Lila';
 	@override String get color_palette_blue => 'Kék';
 	@override String get color_palette_teal => 'Türkiz';
@@ -621,6 +622,7 @@ extension on TranslationsHuHu {
 			'license_packages' => 'csomag',
 			'close' => 'Bezárás',
 			'color_palette' => 'Színpaletta',
+			'color_palette_system_hint' => 'Rendszerszínek használatban',
 			'color_palette_purple' => 'Lila',
 			'color_palette_blue' => 'Kék',
 			'color_palette_teal' => 'Türkiz',

@@ -303,6 +303,7 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'pachete';
 	@override String get close => 'Închide';
 	@override String get color_palette => 'Paletă de culori';
+	@override String get color_palette_system_hint => 'Se folosesc culorile sistemului';
 	@override String get color_palette_purple => 'Mov';
 	@override String get color_palette_blue => 'Albastru';
 	@override String get color_palette_teal => 'Turcoaz';
@@ -621,6 +622,7 @@ extension on TranslationsRoRo {
 			'license_packages' => 'pachete',
 			'close' => 'Închide',
 			'color_palette' => 'Paletă de culori',
+			'color_palette_system_hint' => 'Se folosesc culorile sistemului',
 			'color_palette_purple' => 'Mov',
 			'color_palette_blue' => 'Albastru',
 			'color_palette_teal' => 'Turcoaz',

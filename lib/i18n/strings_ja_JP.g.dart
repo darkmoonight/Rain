@@ -303,6 +303,7 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'パッケージ';
 	@override String get close => '閉じる';
 	@override String get color_palette => 'カラーパレット';
+	@override String get color_palette_system_hint => 'システムの色を使用中';
 	@override String get color_palette_purple => '紫';
 	@override String get color_palette_blue => '青';
 	@override String get color_palette_teal => 'ティール';
@@ -326,7 +327,7 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'ぶどう';
 	@override String get color_palette_forest => '森';
 	@override String get color_palette_turquoise => 'ターコイズ';
-	@override String get color_palette_violet => 'バイオレット';
+	@override String get color_palette_violet => 'スミレ';
 	@override String get color_palette_lavender => 'ラベンダー';
 	@override String get color_palette_lilac => 'ライラック';
 	@override String get color_palette_orchid => '蘭';
@@ -621,6 +622,7 @@ extension on TranslationsJaJp {
 			'license_packages' => 'パッケージ',
 			'close' => '閉じる',
 			'color_palette' => 'カラーパレット',
+			'color_palette_system_hint' => 'システムの色を使用中',
 			'color_palette_purple' => '紫',
 			'color_palette_blue' => '青',
 			'color_palette_teal' => 'ティール',
@@ -644,7 +646,7 @@ extension on TranslationsJaJp {
 			'color_palette_grape' => 'ぶどう',
 			'color_palette_forest' => '森',
 			'color_palette_turquoise' => 'ターコイズ',
-			'color_palette_violet' => 'バイオレット',
+			'color_palette_violet' => 'スミレ',
 			'color_palette_lavender' => 'ラベンダー',
 			'color_palette_lilac' => 'ライラック',
 			'color_palette_orchid' => '蘭',

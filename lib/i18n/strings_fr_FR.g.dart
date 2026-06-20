@@ -303,7 +303,8 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'packages';
 	@override String get close => 'Fermer';
 	@override String get color_palette => 'Palette de couleurs';
-	@override String get color_palette_purple => 'Violet';
+	@override String get color_palette_system_hint => 'Couleurs système utilisées';
+	@override String get color_palette_purple => 'Pourpre';
 	@override String get color_palette_blue => 'Bleu';
 	@override String get color_palette_teal => 'Sarcelle';
 	@override String get color_palette_green => 'Vert';
@@ -621,7 +622,8 @@ extension on TranslationsFrFr {
 			'license_packages' => 'packages',
 			'close' => 'Fermer',
 			'color_palette' => 'Palette de couleurs',
-			'color_palette_purple' => 'Violet',
+			'color_palette_system_hint' => 'Couleurs système utilisées',
+			'color_palette_purple' => 'Pourpre',
 			'color_palette_blue' => 'Bleu',
 			'color_palette_teal' => 'Sarcelle',
 			'color_palette_green' => 'Vert',

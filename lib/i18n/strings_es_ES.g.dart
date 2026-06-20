@@ -303,6 +303,7 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'paquetes';
 	@override String get close => 'Cerrar';
 	@override String get color_palette => 'Paleta de colores';
+	@override String get color_palette_system_hint => 'Colores del sistema activos';
 	@override String get color_palette_purple => 'Púrpura';
 	@override String get color_palette_blue => 'Azul';
 	@override String get color_palette_teal => 'Verde azulado';
@@ -621,6 +622,7 @@ extension on TranslationsEsEs {
 			'license_packages' => 'paquetes',
 			'close' => 'Cerrar',
 			'color_palette' => 'Paleta de colores',
+			'color_palette_system_hint' => 'Colores del sistema activos',
 			'color_palette_purple' => 'Púrpura',
 			'color_palette_blue' => 'Azul',
 			'color_palette_teal' => 'Verde azulado',

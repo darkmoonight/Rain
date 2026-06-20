@@ -303,6 +303,7 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'pakketten';
 	@override String get close => 'Sluiten';
 	@override String get color_palette => 'Kleurenpalet';
+	@override String get color_palette_system_hint => 'Systeemkleuren actief';
 	@override String get color_palette_purple => 'Paars';
 	@override String get color_palette_blue => 'Blauw';
 	@override String get color_palette_teal => 'Blauwgroen';
@@ -621,6 +622,7 @@ extension on TranslationsNlNl {
 			'license_packages' => 'pakketten',
 			'close' => 'Sluiten',
 			'color_palette' => 'Kleurenpalet',
+			'color_palette_system_hint' => 'Systeemkleuren actief',
 			'color_palette_purple' => 'Paars',
 			'color_palette_blue' => 'Blauw',
 			'color_palette_teal' => 'Blauwgroen',

@@ -303,6 +303,7 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'पॅकेज';
 	@override String get close => 'बंद करा';
 	@override String get color_palette => 'रंग पॅलेट';
+	@override String get color_palette_system_hint => 'सिस्टम रंग वापरले जात आहेत';
 	@override String get color_palette_purple => 'जांभळा';
 	@override String get color_palette_blue => 'निळा';
 	@override String get color_palette_teal => 'हिरवा-निळा';
@@ -621,6 +622,7 @@ extension on TranslationsMrIn {
 			'license_packages' => 'पॅकेज',
 			'close' => 'बंद करा',
 			'color_palette' => 'रंग पॅलेट',
+			'color_palette_system_hint' => 'सिस्टम रंग वापरले जात आहेत',
 			'color_palette_purple' => 'जांभळा',
 			'color_palette_blue' => 'निळा',
 			'color_palette_teal' => 'हिरवा-निळा',

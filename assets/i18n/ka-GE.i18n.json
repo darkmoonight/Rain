@@ -263,6 +263,7 @@
   "licensePackages": "პაკეტი",
   "close": "დახურვა",
   "colorPalette": "ფერების პალიტრა",
+  "colorPaletteSystemHint": "გამოიყენება სისტემის ფერები",
   "colorPalettePurple": "იასამნისფერი",
   "colorPaletteBlue": "ლურჯი",
   "colorPaletteTeal": "ლურჯ-მომწვანო",

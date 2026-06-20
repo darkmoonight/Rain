@@ -303,6 +303,7 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'தொகுப்புகள்';
 	@override String get close => 'மூடு';
 	@override String get color_palette => 'நிறத் தட்டு';
+	@override String get color_palette_system_hint => 'கணினி நிறங்கள் பயன்படுத்தப்படுகின்றன';
 	@override String get color_palette_purple => 'ஊதா';
 	@override String get color_palette_blue => 'நீலம்';
 	@override String get color_palette_teal => 'பச்சை-நீலம்';
@@ -326,7 +327,7 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'திராட்சை';
 	@override String get color_palette_forest => 'காடு';
 	@override String get color_palette_turquoise => 'வைர நீலம்';
-	@override String get color_palette_violet => 'ஊதா நிறம்';
+	@override String get color_palette_violet => 'வயலெட்';
 	@override String get color_palette_lavender => 'லேவண்டர்';
 	@override String get color_palette_lilac => 'லிலாக்';
 	@override String get color_palette_orchid => 'ஆர்க்கிட்';
@@ -621,6 +622,7 @@ extension on TranslationsTaIn {
 			'license_packages' => 'தொகுப்புகள்',
 			'close' => 'மூடு',
 			'color_palette' => 'நிறத் தட்டு',
+			'color_palette_system_hint' => 'கணினி நிறங்கள் பயன்படுத்தப்படுகின்றன',
 			'color_palette_purple' => 'ஊதா',
 			'color_palette_blue' => 'நீலம்',
 			'color_palette_teal' => 'பச்சை-நீலம்',
@@ -644,7 +646,7 @@ extension on TranslationsTaIn {
 			'color_palette_grape' => 'திராட்சை',
 			'color_palette_forest' => 'காடு',
 			'color_palette_turquoise' => 'வைர நீலம்',
-			'color_palette_violet' => 'ஊதா நிறம்',
+			'color_palette_violet' => 'வயலெட்',
 			'color_palette_lavender' => 'லேவண்டர்',
 			'color_palette_lilac' => 'லிலாக்',
 			'color_palette_orchid' => 'ஆர்க்கிட்',

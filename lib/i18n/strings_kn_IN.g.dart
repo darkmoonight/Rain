@@ -303,6 +303,7 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'ಪ್ಯಾಕೇಜ್‌ಗಳು';
 	@override String get close => 'ಮುಚ್ಚಿ';
 	@override String get color_palette => 'ಬಣ್ಣದ ಪ್ಯಾಲೆಟ್';
+	@override String get color_palette_system_hint => 'ಸಿಸ್ಟಂ ಬಣ್ಣಗಳನ್ನು ಬಳಸಲಾಗುತ್ತಿದೆ';
 	@override String get color_palette_purple => 'ನೇರಳೆ';
 	@override String get color_palette_blue => 'ನೀಲಿ';
 	@override String get color_palette_teal => 'ಹಸಿರು-ನೀಲಿ';
@@ -326,7 +327,7 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'ದ್ರಾಕ್ಷಿ';
 	@override String get color_palette_forest => 'ಅಡವಿ';
 	@override String get color_palette_turquoise => 'ಪಚ್ಚ-ನೀಲಿ';
-	@override String get color_palette_violet => 'ಜಾಮುನಿ';
+	@override String get color_palette_violet => 'ವೈಲೆಟ್';
 	@override String get color_palette_lavender => 'ಲೇವೆಂಡರು';
 	@override String get color_palette_lilac => 'ಲಿಲೈಕ';
 	@override String get color_palette_orchid => 'ಆರ್ಕಿಡ್';
@@ -621,6 +622,7 @@ extension on TranslationsKnIn {
 			'license_packages' => 'ಪ್ಯಾಕೇಜ್‌ಗಳು',
 			'close' => 'ಮುಚ್ಚಿ',
 			'color_palette' => 'ಬಣ್ಣದ ಪ್ಯಾಲೆಟ್',
+			'color_palette_system_hint' => 'ಸಿಸ್ಟಂ ಬಣ್ಣಗಳನ್ನು ಬಳಸಲಾಗುತ್ತಿದೆ',
 			'color_palette_purple' => 'ನೇರಳೆ',
 			'color_palette_blue' => 'ನೀಲಿ',
 			'color_palette_teal' => 'ಹಸಿರು-ನೀಲಿ',
@@ -644,7 +646,7 @@ extension on TranslationsKnIn {
 			'color_palette_grape' => 'ದ್ರಾಕ್ಷಿ',
 			'color_palette_forest' => 'ಅಡವಿ',
 			'color_palette_turquoise' => 'ಪಚ್ಚ-ನೀಲಿ',
-			'color_palette_violet' => 'ಜಾಮುನಿ',
+			'color_palette_violet' => 'ವೈಲೆಟ್',
 			'color_palette_lavender' => 'ಲೇವೆಂಡರು',
 			'color_palette_lilac' => 'ಲಿಲೈಕ',
 			'color_palette_orchid' => 'ಆರ್ಕಿಡ್',

@@ -303,6 +303,7 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'حزم';
 	@override String get close => 'إغلاق';
 	@override String get color_palette => 'لوحة الألوان';
+	@override String get color_palette_system_hint => 'يتم استخدام ألوان النظام';
 	@override String get color_palette_purple => 'بنفسجي';
 	@override String get color_palette_blue => 'أزرق';
 	@override String get color_palette_teal => 'تركواز';
@@ -326,7 +327,7 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'عنب';
 	@override String get color_palette_forest => 'غابة';
 	@override String get color_palette_turquoise => 'فيروزي';
-	@override String get color_palette_violet => 'بنفسجي فاتح';
+	@override String get color_palette_violet => 'بنفسجي أرجواني';
 	@override String get color_palette_lavender => 'لافندر';
 	@override String get color_palette_lilac => 'أرجواني';
 	@override String get color_palette_orchid => 'أوركيد';
@@ -621,6 +622,7 @@ extension on TranslationsArSa {
 			'license_packages' => 'حزم',
 			'close' => 'إغلاق',
 			'color_palette' => 'لوحة الألوان',
+			'color_palette_system_hint' => 'يتم استخدام ألوان النظام',
 			'color_palette_purple' => 'بنفسجي',
 			'color_palette_blue' => 'أزرق',
 			'color_palette_teal' => 'تركواز',
@@ -644,7 +646,7 @@ extension on TranslationsArSa {
 			'color_palette_grape' => 'عنب',
 			'color_palette_forest' => 'غابة',
 			'color_palette_turquoise' => 'فيروزي',
-			'color_palette_violet' => 'بنفسجي فاتح',
+			'color_palette_violet' => 'بنفسجي أرجواني',
 			'color_palette_lavender' => 'لافندر',
 			'color_palette_lilac' => 'أرجواني',
 			'color_palette_orchid' => 'أوركيد',

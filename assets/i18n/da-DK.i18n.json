@@ -263,6 +263,7 @@
   "licensePackages": "pakker",
   "close": "Luk",
   "colorPalette": "Farvepalet",
+  "colorPaletteSystemHint": "Systemfarver er aktive",
   "colorPalettePurple": "Lilla",
   "colorPaletteBlue": "Blå",
   "colorPaletteTeal": "Blågrøn",

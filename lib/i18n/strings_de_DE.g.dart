@@ -303,6 +303,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'Pakete';
 	@override String get close => 'Schließen';
 	@override String get color_palette => 'Farbpalette';
+	@override String get color_palette_system_hint => 'Systemfarben aktiv';
 	@override String get color_palette_purple => 'Violett';
 	@override String get color_palette_blue => 'Blau';
 	@override String get color_palette_teal => 'Blaugrün';
@@ -326,7 +327,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'Traube';
 	@override String get color_palette_forest => 'Waldgrün';
 	@override String get color_palette_turquoise => 'Türkis';
-	@override String get color_palette_violet => 'Violett';
+	@override String get color_palette_violet => 'Veilchen';
 	@override String get color_palette_lavender => 'Lavendel';
 	@override String get color_palette_lilac => 'Flieder';
 	@override String get color_palette_orchid => 'Orchidee';
@@ -621,6 +622,7 @@ extension on TranslationsDeDe {
 			'license_packages' => 'Pakete',
 			'close' => 'Schließen',
 			'color_palette' => 'Farbpalette',
+			'color_palette_system_hint' => 'Systemfarben aktiv',
 			'color_palette_purple' => 'Violett',
 			'color_palette_blue' => 'Blau',
 			'color_palette_teal' => 'Blaugrün',
@@ -644,7 +646,7 @@ extension on TranslationsDeDe {
 			'color_palette_grape' => 'Traube',
 			'color_palette_forest' => 'Waldgrün',
 			'color_palette_turquoise' => 'Türkis',
-			'color_palette_violet' => 'Violett',
+			'color_palette_violet' => 'Veilchen',
 			'color_palette_lavender' => 'Lavendel',
 			'color_palette_lilac' => 'Flieder',
 			'color_palette_orchid' => 'Orchidee',

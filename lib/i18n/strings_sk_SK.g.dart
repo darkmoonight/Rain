@@ -303,6 +303,7 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'balíkov';
 	@override String get close => 'Zavrieť';
 	@override String get color_palette => 'Farebná paleta';
+	@override String get color_palette_system_hint => 'Používajú sa systémové farby';
 	@override String get color_palette_purple => 'Fialová';
 	@override String get color_palette_blue => 'Modrá';
 	@override String get color_palette_teal => 'Modrozelená';
@@ -621,6 +622,7 @@ extension on TranslationsSkSk {
 			'license_packages' => 'balíkov',
 			'close' => 'Zavrieť',
 			'color_palette' => 'Farebná paleta',
+			'color_palette_system_hint' => 'Používajú sa systémové farby',
 			'color_palette_purple' => 'Fialová',
 			'color_palette_blue' => 'Modrá',
 			'color_palette_teal' => 'Modrozelená',

@@ -303,6 +303,7 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'ପ୍ୟାକେଜ୍';
 	@override String get close => 'ବନ୍ଦ କରନ୍ତୁ';
 	@override String get color_palette => 'ରଙ୍ଗ ପାଲେଟ';
+	@override String get color_palette_system_hint => 'ସିଷ୍ଟମ୍ ରଙ୍ଗ ବ୍ୟବହୃତ ହେଉଛି';
 	@override String get color_palette_purple => 'ବଙ୍ଗାନୀ';
 	@override String get color_palette_blue => 'ନୀଳ';
 	@override String get color_palette_teal => 'ହରିତ-ନୀଳ';
@@ -326,7 +327,7 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'ଦ୍ରାକ୍ଷା';
 	@override String get color_palette_forest => 'ଜଙ୍ଗଲ';
 	@override String get color_palette_turquoise => 'ଫିରୋଜା';
-	@override String get color_palette_violet => 'ବାଇଗଣୀ';
+	@override String get color_palette_violet => 'ଭାୟୋଲେଟ';
 	@override String get color_palette_lavender => 'ଲାଭେଣ୍ଡର';
 	@override String get color_palette_lilac => 'ଲାଇଲାକ';
 	@override String get color_palette_orchid => 'ଅର୍କିଡ';
@@ -621,6 +622,7 @@ extension on TranslationsOrIn {
 			'license_packages' => 'ପ୍ୟାକେଜ୍',
 			'close' => 'ବନ୍ଦ କରନ୍ତୁ',
 			'color_palette' => 'ରଙ୍ଗ ପାଲେଟ',
+			'color_palette_system_hint' => 'ସିଷ୍ଟମ୍ ରଙ୍ଗ ବ୍ୟବହୃତ ହେଉଛି',
 			'color_palette_purple' => 'ବଙ୍ଗାନୀ',
 			'color_palette_blue' => 'ନୀଳ',
 			'color_palette_teal' => 'ହରିତ-ନୀଳ',
@@ -644,7 +646,7 @@ extension on TranslationsOrIn {
 			'color_palette_grape' => 'ଦ୍ରାକ୍ଷା',
 			'color_palette_forest' => 'ଜଙ୍ଗଲ',
 			'color_palette_turquoise' => 'ଫିରୋଜା',
-			'color_palette_violet' => 'ବାଇଗଣୀ',
+			'color_palette_violet' => 'ଭାୟୋଲେଟ',
 			'color_palette_lavender' => 'ଲାଭେଣ୍ଡର',
 			'color_palette_lilac' => 'ଲାଇଲାକ',
 			'color_palette_orchid' => 'ଅର୍କିଡ',

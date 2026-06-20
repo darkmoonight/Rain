@@ -263,6 +263,7 @@
   "licensePackages": "paquetes",
   "close": "Cerrar",
   "colorPalette": "Paleta de colores",
+  "colorPaletteSystemHint": "Colores del sistema activos",
   "colorPalettePurple": "Púrpura",
   "colorPaletteBlue": "Azul",
   "colorPaletteTeal": "Verde azulado",

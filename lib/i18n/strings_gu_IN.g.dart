@@ -303,6 +303,7 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'પેકેજ';
 	@override String get close => 'બંધ કરો';
 	@override String get color_palette => 'રંગ પેલેટ';
+	@override String get color_palette_system_hint => 'સિસ્ટમ રંગો વપરાય છે';
 	@override String get color_palette_purple => 'જાંબલી';
 	@override String get color_palette_blue => 'વાદળી';
 	@override String get color_palette_teal => 'લીલો-વાદળી';
@@ -326,7 +327,7 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'દ્રાક્ષ';
 	@override String get color_palette_forest => 'જંગલ';
 	@override String get color_palette_turquoise => 'ફિરોઝી';
-	@override String get color_palette_violet => 'જાંબલી આભા';
+	@override String get color_palette_violet => 'વાયોલેટ';
 	@override String get color_palette_lavender => 'લૅવેન્ડર';
 	@override String get color_palette_lilac => 'લિલેક';
 	@override String get color_palette_orchid => 'ઓર્કિડ';
@@ -621,6 +622,7 @@ extension on TranslationsGuIn {
 			'license_packages' => 'પેકેજ',
 			'close' => 'બંધ કરો',
 			'color_palette' => 'રંગ પેલેટ',
+			'color_palette_system_hint' => 'સિસ્ટમ રંગો વપરાય છે',
 			'color_palette_purple' => 'જાંબલી',
 			'color_palette_blue' => 'વાદળી',
 			'color_palette_teal' => 'લીલો-વાદળી',
@@ -644,7 +646,7 @@ extension on TranslationsGuIn {
 			'color_palette_grape' => 'દ્રાક્ષ',
 			'color_palette_forest' => 'જંગલ',
 			'color_palette_turquoise' => 'ફિરોઝી',
-			'color_palette_violet' => 'જાંબલી આભા',
+			'color_palette_violet' => 'વાયોલેટ',
 			'color_palette_lavender' => 'લૅવેન્ડર',
 			'color_palette_lilac' => 'લિલેક',
 			'color_palette_orchid' => 'ઓર્કિડ',

@@ -303,6 +303,7 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => 'പാക്കേജുകൾ';
 	@override String get close => 'അടയ്ക്കുക';
 	@override String get color_palette => 'നിറം പാലറ്റ്';
+	@override String get color_palette_system_hint => 'സിസ്റ്റം നിറങ്ങൾ ഉപയോഗിക്കുന്നു';
 	@override String get color_palette_purple => 'ഊത';
 	@override String get color_palette_blue => 'നീലം';
 	@override String get color_palette_teal => 'പച്ചനീലം';
@@ -621,6 +622,7 @@ extension on TranslationsMlIn {
 			'license_packages' => 'പാക്കേജുകൾ',
 			'close' => 'അടയ്ക്കുക',
 			'color_palette' => 'നിറം പാലറ്റ്',
+			'color_palette_system_hint' => 'സിസ്റ്റം നിറങ്ങൾ ഉപയോഗിക്കുന്നു',
 			'color_palette_purple' => 'ഊത',
 			'color_palette_blue' => 'നീലം',
 			'color_palette_teal' => 'പച്ചനീലം',

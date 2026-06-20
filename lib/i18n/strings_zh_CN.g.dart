@@ -303,6 +303,7 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_packages => '个软件包';
 	@override String get close => '关闭';
 	@override String get color_palette => '调色板';
+	@override String get color_palette_system_hint => '使用系统颜色';
 	@override String get color_palette_purple => '紫色';
 	@override String get color_palette_blue => '蓝色';
 	@override String get color_palette_teal => '蓝绿色';
@@ -621,6 +622,7 @@ extension on TranslationsZhCn {
 			'license_packages' => '个软件包',
 			'close' => '关闭',
 			'color_palette' => '调色板',
+			'color_palette_system_hint' => '使用系统颜色',
 			'color_palette_purple' => '紫色',
 			'color_palette_blue' => '蓝色',
 			'color_palette_teal' => '蓝绿色',

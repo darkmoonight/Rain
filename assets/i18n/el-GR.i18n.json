@@ -263,6 +263,7 @@
   "licensePackages": "πακέτα",
   "close": "Κλείσιμο",
   "colorPalette": "Παλέτα χρωμάτων",
+  "colorPaletteSystemHint": "Χρησιμοποιούνται χρώματα συστήματος",
   "colorPalettePurple": "Μωβ",
   "colorPaletteBlue": "Μπλε",
   "colorPaletteTeal": "Πετρόλ",

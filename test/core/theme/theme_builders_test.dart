@@ -36,7 +36,9 @@ void main() {
   });
 
   group('resolveAppThemes', () {
-    test('returns light and dark themes for default appearance', () {
+    test('palette mode uses Material You tonal surfaces', () {
+      final paletteLight = AppColorPalette.of('purple').lightScheme();
+      final paletteDark = AppColorPalette.of('purple').darkScheme();
       final themes = resolveAppThemes(
         materialColor: false,
         amoledTheme: false,
@@ -47,8 +49,10 @@ void main() {
         appFont: 'ubuntu',
       );
 
-      expect(themes.light.brightness, Brightness.light);
-      expect(themes.dark.brightness, Brightness.dark);
+      expect(themes.light.scaffoldBackgroundColor, paletteLight.surface);
+      expect(themes.dark.scaffoldBackgroundColor, paletteDark.surface);
+      expect(themes.light.scaffoldBackgroundColor, isNot(lightColor));
+      expect(themes.dark.scaffoldBackgroundColor, isNot(darkColor));
     });
   });
 }

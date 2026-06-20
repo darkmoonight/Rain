@@ -263,6 +263,7 @@
   "licensePackages": "balíčků",
   "close": "Zavřít",
   "colorPalette": "Barevná paleta",
+  "colorPaletteSystemHint": "Používají se systémové barvy",
   "colorPalettePurple": "Fialová",
   "colorPaletteBlue": "Modrá",
   "colorPaletteTeal": "Modrozelená",

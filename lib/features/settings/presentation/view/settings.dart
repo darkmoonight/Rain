@@ -203,8 +203,19 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         SettingsTile(
           leading: const Icon(IconsaxPlusLinear.color_swatch),
           title: 'colorPalette',
-          value: AppColorPalette.label(settings.colorPalette),
-          onTap: () => _showColorPaletteDialog(context),
+          subtitle: settings.materialColor ? 'colorPaletteSystemHint' : null,
+          value: settings.materialColor
+              ? null
+              : AppColorPalette.label(settings.colorPalette),
+          titleColor: settings.materialColor
+              ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38)
+              : null,
+          iconColor: settings.materialColor
+              ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38)
+              : null,
+          onTap: settings.materialColor
+              ? null
+              : () => _showColorPaletteDialog(context),
         ),
         SettingsTile(
           leading: const Icon(IconsaxPlusLinear.additem),

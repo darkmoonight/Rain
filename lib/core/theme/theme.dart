@@ -238,7 +238,7 @@ AppThemes resolveAppThemes({
 
   final light = materialColor && lightDynamic != null
       ? buildLight(lightDynamic.surface, lightDynamic)
-      : buildLight(lightColor, paletteLight);
+      : buildLight(paletteLight.surface, paletteLight);
 
   final dark = amoledTheme
       ? (materialColor && darkDynamic != null
@@ -246,7 +246,7 @@ AppThemes resolveAppThemes({
             : buildDark(oledColor, paletteDark))
       : materialColor && darkDynamic != null
       ? buildDark(darkDynamic.surface, darkDynamic)
-      : buildDark(darkColor, paletteDark);
+      : buildDark(paletteDark.surface, paletteDark);
 
   return (light: light, dark: dark);
 }
