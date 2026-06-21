@@ -6,3 +6,5 @@ translate_var: t
 string_interpolation: dart
 flutter_integration: true
 key_case: snake
+timestamp: false
+statistics: false
