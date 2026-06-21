@@ -17,21 +17,41 @@ class MyShimmer extends StatelessWidget {
   static Color placeholderFillColor(BuildContext context) =>
       shimmerMaskColor(context);
 
-  /// Shimmer gradient endpoints tuned for light, dark, and AMOLED themes.
+  /// Skeleton tone slightly above [cardColor] / scaffold for the current theme.
+  static Color _surfaceTone(
+    BuildContext context, {
+    required double onSurfaceAlpha,
+    double primaryAlpha = 0,
+  }) {
+    final scheme = Theme.of(context).colorScheme;
+    final background = Theme.of(context).cardColor;
+    var tone = Color.alphaBlend(
+      scheme.onSurface.withValues(alpha: onSurfaceAlpha),
+      background,
+    );
+    if (primaryAlpha > 0) {
+      tone = Color.alphaBlend(
+        scheme.primary.withValues(alpha: primaryAlpha),
+        tone,
+      );
+    }
+    return tone;
+  }
+
+  /// Shimmer gradient tuned to scaffold/card colors with a subtle primary sweep.
   static (Color base, Color highlight) shimmerGradientColors(
     BuildContext context,
   ) {
-    final onSurface = Theme.of(context).colorScheme.onSurface;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     if (isDark) {
       return (
-        onSurface.withValues(alpha: 0.14),
-        onSurface.withValues(alpha: 0.35),
+        _surfaceTone(context, onSurfaceAlpha: 0.05),
+        _surfaceTone(context, onSurfaceAlpha: 0.10, primaryAlpha: 0.06),
       );
     }
     return (
-      onSurface.withValues(alpha: 0.06),
-      onSurface.withValues(alpha: 0.18),
+      _surfaceTone(context, onSurfaceAlpha: 0.04),
+      _surfaceTone(context, onSurfaceAlpha: 0.08, primaryAlpha: 0.05),
     );
   }
 
