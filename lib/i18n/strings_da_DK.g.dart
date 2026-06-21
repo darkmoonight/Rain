@@ -49,7 +49,7 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get time_end => 'Slut tid';
 	@override String get search_method => 'Brug søgning eller geolokation';
 	@override String get hourly_variables => 'Timevise vejrfaktorer';
-	@override String get uv_index => 'UV-index';
+	@override String get uv_index => 'UV-indeks';
 	@override String get clear_sky => 'Skyfri himmel';
 	@override String get k_24 => '24-timer';
 	@override String get no_weather_card => 'Tilføj en by';
@@ -143,7 +143,7 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get deleted_cache_store_query => 'Er du sikker på, at du vil rydde cachen?';
 	@override String get support => 'Support';
 	@override String get groups => 'Vores grupper';
-	@override String get system => 'System';
+	@override String get system => 'Systemstandard';
 	@override String get sunset => 'Solnedgang';
 	@override String get dewpoint => 'Dugpunktet';
 	@override String get shortwave_radiation => 'Kortbølgestråling';
@@ -153,7 +153,7 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get loading => 'Henter...';
 	@override String get timeformat => 'Tids format';
 	@override String get lat => 'Breddegrad';
-	@override String get data => 'Data';
+	@override String get data => 'Enheder';
 	@override String get visibility => 'Sigtbarhed';
 	@override String get deleted_card_weather => 'Slet en by';
 	@override String get celsius => 'Celsius';
@@ -180,13 +180,13 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get overcast => 'Overskyet';
 	@override String get pressure => 'Tryk';
 	@override String get inch => 'tommer';
-	@override String get imperial => 'Imperialistisk';
+	@override String get imperial => 'Imperielle enheder';
 	@override String get location => 'Placering';
 	@override String get error_occurred => 'Der opstod en fejl';
 	@override String get validate_value => 'Indtast en værdi';
 	@override String get lon => 'Længdegrad';
 	@override String get wind => 'Vind';
-	@override String get normal => 'Normal';
+	@override String get normal => 'Normale';
 	@override String get dark => 'Mørk';
 	@override String get settings => 'Inds.';
 	@override String get south => 'Syd';
@@ -310,12 +310,12 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_green => 'Grøn';
 	@override String get color_palette_orange => 'Orange';
 	@override String get color_palette_red => 'Rød';
-	@override String get color_palette_pink => 'Pink';
+	@override String get color_palette_pink => 'Lyserød';
 	@override String get color_palette_cyan => 'Cyan';
 	@override String get color_palette_indigo => 'Indigo';
 	@override String get color_palette_sky => 'Himmel';
 	@override String get color_palette_mint => 'Mynte';
-	@override String get color_palette_lime => 'Lime';
+	@override String get color_palette_lime => 'Limegrøn';
 	@override String get color_palette_amber => 'Rav';
 	@override String get color_palette_coral => 'Koral';
 	@override String get color_palette_crimson => 'Karmosin';
@@ -341,13 +341,16 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_olive => 'Oliven';
 	@override String get color_palette_sage => 'Salvie';
 	@override String get color_palette_emerald => 'Smaragd';
-	@override String get color_palette_jade => 'Jade';
-	@override String get color_palette_aqua => 'Aqua';
+	@override String get color_palette_jade => 'Jadegrøn';
+	@override String get color_palette_aqua => 'Akva';
 	@override String get color_palette_azure => 'Azur';
 	@override String get color_palette_cobalt => 'Kobolt';
 	@override String get color_palette_midnight => 'Midnat';
 	@override String get color_palette_charcoal => 'Kul';
 	@override String get color_palette_sand => 'Sand';
+	@override String get last_background_refresh => 'Seneste baggrundsopdatering';
+	@override String get last_background_refresh_never => 'Ingen baggrundsopdatering endnu';
+	@override String get background_refresh_error => 'Seneste baggrundsfejl';
 }
 
 /// The flat map containing all translations for locale <da-DK>.
@@ -368,7 +371,7 @@ extension on TranslationsDaDk {
 			'time_end' => 'Slut tid',
 			'search_method' => 'Brug søgning eller geolokation',
 			'hourly_variables' => 'Timevise vejrfaktorer',
-			'uv_index' => 'UV-index',
+			'uv_index' => 'UV-indeks',
 			'clear_sky' => 'Skyfri himmel',
 			'k_24' => '24-timer',
 			'no_weather_card' => 'Tilføj en by',
@@ -462,7 +465,7 @@ extension on TranslationsDaDk {
 			'deleted_cache_store_query' => 'Er du sikker på, at du vil rydde cachen?',
 			'support' => 'Support',
 			'groups' => 'Vores grupper',
-			'system' => 'System',
+			'system' => 'Systemstandard',
 			'sunset' => 'Solnedgang',
 			'dewpoint' => 'Dugpunktet',
 			'shortwave_radiation' => 'Kortbølgestråling',
@@ -472,7 +475,7 @@ extension on TranslationsDaDk {
 			'loading' => 'Henter...',
 			'timeformat' => 'Tids format',
 			'lat' => 'Breddegrad',
-			'data' => 'Data',
+			'data' => 'Enheder',
 			'visibility' => 'Sigtbarhed',
 			'deleted_card_weather' => 'Slet en by',
 			'celsius' => 'Celsius',
@@ -499,13 +502,13 @@ extension on TranslationsDaDk {
 			'overcast' => 'Overskyet',
 			'pressure' => 'Tryk',
 			'inch' => 'tommer',
-			'imperial' => 'Imperialistisk',
+			'imperial' => 'Imperielle enheder',
 			'location' => 'Placering',
 			'error_occurred' => 'Der opstod en fejl',
 			'validate_value' => 'Indtast en værdi',
 			'lon' => 'Længdegrad',
 			'wind' => 'Vind',
-			'normal' => 'Normal',
+			'normal' => 'Normale',
 			'dark' => 'Mørk',
 			'settings' => 'Inds.',
 			'south' => 'Syd',
@@ -629,12 +632,12 @@ extension on TranslationsDaDk {
 			'color_palette_green' => 'Grøn',
 			'color_palette_orange' => 'Orange',
 			'color_palette_red' => 'Rød',
-			'color_palette_pink' => 'Pink',
+			'color_palette_pink' => 'Lyserød',
 			'color_palette_cyan' => 'Cyan',
 			'color_palette_indigo' => 'Indigo',
 			'color_palette_sky' => 'Himmel',
 			'color_palette_mint' => 'Mynte',
-			'color_palette_lime' => 'Lime',
+			'color_palette_lime' => 'Limegrøn',
 			'color_palette_amber' => 'Rav',
 			'color_palette_coral' => 'Koral',
 			'color_palette_crimson' => 'Karmosin',
@@ -660,13 +663,16 @@ extension on TranslationsDaDk {
 			'color_palette_olive' => 'Oliven',
 			'color_palette_sage' => 'Salvie',
 			'color_palette_emerald' => 'Smaragd',
-			'color_palette_jade' => 'Jade',
-			'color_palette_aqua' => 'Aqua',
+			'color_palette_jade' => 'Jadegrøn',
+			'color_palette_aqua' => 'Akva',
 			'color_palette_azure' => 'Azur',
 			'color_palette_cobalt' => 'Kobolt',
 			'color_palette_midnight' => 'Midnat',
 			'color_palette_charcoal' => 'Kul',
 			'color_palette_sand' => 'Sand',
+			'last_background_refresh' => 'Seneste baggrundsopdatering',
+			'last_background_refresh_never' => 'Ingen baggrundsopdatering endnu',
+			'background_refresh_error' => 'Seneste baggrundsfejl',
 			_ => null,
 		};
 	}

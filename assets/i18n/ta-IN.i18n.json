@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "கோபால்ட்",
   "colorPaletteMidnight": "நள்ளிரவு",
   "colorPaletteCharcoal": "கரி",
-  "colorPaletteSand": "மணல்"
+  "colorPaletteSand": "மணல்",
+  "lastBackgroundRefresh": "கடைசி பின்னணி புதுப்பிப்பு",
+  "lastBackgroundRefreshNever": "இன்னும் பின்னணி புதுப்பிப்பு இல்லை",
+  "backgroundRefreshError": "கடைசி பின்னணி பிழை"
 }

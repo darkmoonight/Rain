@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "କୋବାଲ୍ଟ",
   "colorPaletteMidnight": "ମଧ୍ୟରାତ୍ରି",
   "colorPaletteCharcoal": "କୋଇଲା",
-  "colorPaletteSand": "ବାଳି"
+  "colorPaletteSand": "ବାଳି",
+  "lastBackgroundRefresh": "ଶେଷ ପୃଷ୍ଠପଟି ରିଫ୍ରେଶ",
+  "lastBackgroundRefreshNever": "ଏପର୍ଯ୍ୟନ୍ତ କono ପୃଷ୍ଠପଟି ରିଫ୍ରେଶ ନାହିଁ",
+  "backgroundRefreshError": "ଶେଷ ପୃଷ୍ଠପଟି ତ୍ରୁଟି"
 }

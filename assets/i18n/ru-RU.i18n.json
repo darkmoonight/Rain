@@ -307,5 +307,8 @@
   "timeUnavailable": "--:--",
   "licenseAppSummary": "Приложение использует ПО с открытым исходным кодом. Нажмите на пакет, чтобы прочитать лицензию.",
   "licenseDependencies": "Зависимости",
-  "licensePackages": "пакетов"
+  "licensePackages": "пакетов",
+  "lastBackgroundRefresh": "Последнее фоновое обновление",
+  "lastBackgroundRefreshNever": "Фоновых обновлений ещё не было",
+  "backgroundRefreshError": "Последняя фоновая ошибка"
 }

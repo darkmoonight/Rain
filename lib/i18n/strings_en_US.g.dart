@@ -785,6 +785,15 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'For reliable widget updates, disable battery optimization for Rain in app settings'
 	String get widget_battery_hint => 'For reliable widget updates, disable battery optimization for Rain in app settings';
 
+	/// en-US: 'Last background refresh'
+	String get last_background_refresh => 'Last background refresh';
+
+	/// en-US: 'No background refresh yet'
+	String get last_background_refresh_never => 'No background refresh yet';
+
+	/// en-US: 'Last background error'
+	String get background_refresh_error => 'Last background error';
+
 	/// en-US: 'Persistent notification'
 	String get persistent_notification => 'Persistent notification';
 
@@ -1225,6 +1234,9 @@ extension on Translations {
 			'aqi_help_advice_label' => 'Recommendation',
 			'aqi_help_source' => 'Source: Open-Meteo Air Quality API — ground-level concentrations (~10 m), ~11 km grid.',
 			'widget_battery_hint' => 'For reliable widget updates, disable battery optimization for Rain in app settings',
+			'last_background_refresh' => 'Last background refresh',
+			'last_background_refresh_never' => 'No background refresh yet',
+			'background_refresh_error' => 'Last background error',
 			'persistent_notification' => 'Persistent notification',
 			'last_updated' => 'Updated',
 			'app_font' => 'Font',

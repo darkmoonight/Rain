@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "ಕೋಬಾಲ್ಟ್",
   "colorPaletteMidnight": "ಮಧ್ಯರಾತ್ರಿ",
   "colorPaletteCharcoal": "ಕುಲಿ",
-  "colorPaletteSand": "ಮರಳು"
+  "colorPaletteSand": "ಮರಳು",
+  "lastBackgroundRefresh": "ಕೊನೆಯ ಹಿನ್ನೆಲೆ ರಿಫ್ರೆಶ್",
+  "lastBackgroundRefreshNever": "ಇನ್ನೂ ಹಿನ್ನೆಲೆ ರಿಫ್ರೆಶ್ ಇಲ್ಲ",
+  "backgroundRefreshError": "ಕೊನೆಯ ಹಿನ್ನೆಲೆ ದೋಷ"
 }

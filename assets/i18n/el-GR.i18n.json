@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "Κοβάλτιο",
   "colorPaletteMidnight": "Μεσάνυχτα",
   "colorPaletteCharcoal": "Άνθρακας",
-  "colorPaletteSand": "Άμμος"
+  "colorPaletteSand": "Άμμος",
+  "lastBackgroundRefresh": "Τελευταία ανανέωση στο παρασκήνιο",
+  "lastBackgroundRefreshNever": "Καμία ανανέωση στο παρασκήνιο ακόμα",
+  "backgroundRefreshError": "Τελευταίο σφάλμα παρασκηνίου"
 }

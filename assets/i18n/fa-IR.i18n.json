@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "کبالت",
   "colorPaletteMidnight": "نیمه‌شب",
   "colorPaletteCharcoal": "ذغال",
-  "colorPaletteSand": "شن"
+  "colorPaletteSand": "شن",
+  "lastBackgroundRefresh": "آخرین به‌روزرسانی پس‌زمینه",
+  "lastBackgroundRefreshNever": "هنوز به‌روزرسانی پس‌زمینه‌ای انجام نشده",
+  "backgroundRefreshError": "آخرین خطای پس‌زمینه"
 }

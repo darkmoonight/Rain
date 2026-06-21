@@ -315,7 +315,7 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_indigo => 'Indigó';
 	@override String get color_palette_sky => 'Ég';
 	@override String get color_palette_mint => 'Menta';
-	@override String get color_palette_lime => 'Lime';
+	@override String get color_palette_lime => 'Limezöld';
 	@override String get color_palette_amber => 'Borostyán';
 	@override String get color_palette_coral => 'Korall';
 	@override String get color_palette_crimson => 'Karmazsin';
@@ -331,7 +331,7 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_lavender => 'Levendula';
 	@override String get color_palette_lilac => 'Orgona';
 	@override String get color_palette_orchid => 'Orchidea';
-	@override String get color_palette_magenta => 'Magenta';
+	@override String get color_palette_magenta => 'Bíborvörös';
 	@override String get color_palette_raspberry => 'Málna';
 	@override String get color_palette_wine => 'Bor';
 	@override String get color_palette_maroon => 'Bordó';
@@ -341,13 +341,16 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_olive => 'Olaj';
 	@override String get color_palette_sage => 'Zsálya';
 	@override String get color_palette_emerald => 'Smaragd';
-	@override String get color_palette_jade => 'Jade';
-	@override String get color_palette_aqua => 'Aqua';
+	@override String get color_palette_jade => 'Jadezöld';
+	@override String get color_palette_aqua => 'Vízszín';
 	@override String get color_palette_azure => 'Azúr';
 	@override String get color_palette_cobalt => 'Kobalt';
 	@override String get color_palette_midnight => 'Éjfél';
 	@override String get color_palette_charcoal => 'Antracit';
 	@override String get color_palette_sand => 'Homok';
+	@override String get last_background_refresh => 'Utolsó háttérfrissítés';
+	@override String get last_background_refresh_never => 'Még nincs háttérfrissítés';
+	@override String get background_refresh_error => 'Utolsó háttérhiba';
 }
 
 /// The flat map containing all translations for locale <hu-HU>.
@@ -634,7 +637,7 @@ extension on TranslationsHuHu {
 			'color_palette_indigo' => 'Indigó',
 			'color_palette_sky' => 'Ég',
 			'color_palette_mint' => 'Menta',
-			'color_palette_lime' => 'Lime',
+			'color_palette_lime' => 'Limezöld',
 			'color_palette_amber' => 'Borostyán',
 			'color_palette_coral' => 'Korall',
 			'color_palette_crimson' => 'Karmazsin',
@@ -650,7 +653,7 @@ extension on TranslationsHuHu {
 			'color_palette_lavender' => 'Levendula',
 			'color_palette_lilac' => 'Orgona',
 			'color_palette_orchid' => 'Orchidea',
-			'color_palette_magenta' => 'Magenta',
+			'color_palette_magenta' => 'Bíborvörös',
 			'color_palette_raspberry' => 'Málna',
 			'color_palette_wine' => 'Bor',
 			'color_palette_maroon' => 'Bordó',
@@ -660,13 +663,16 @@ extension on TranslationsHuHu {
 			'color_palette_olive' => 'Olaj',
 			'color_palette_sage' => 'Zsálya',
 			'color_palette_emerald' => 'Smaragd',
-			'color_palette_jade' => 'Jade',
-			'color_palette_aqua' => 'Aqua',
+			'color_palette_jade' => 'Jadezöld',
+			'color_palette_aqua' => 'Vízszín',
 			'color_palette_azure' => 'Azúr',
 			'color_palette_cobalt' => 'Kobalt',
 			'color_palette_midnight' => 'Éjfél',
 			'color_palette_charcoal' => 'Antracit',
 			'color_palette_sand' => 'Homok',
+			'last_background_refresh' => 'Utolsó háttérfrissítés',
+			'last_background_refresh_never' => 'Még nincs háttérfrissítés',
+			'background_refresh_error' => 'Utolsó háttérhiba',
 			_ => null,
 		};
 	}

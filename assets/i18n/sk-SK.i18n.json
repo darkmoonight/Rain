@@ -9,7 +9,7 @@
   "timeEnd": "Čas ukončenia",
   "searchMethod": "Použite vyhľadávanie alebo geolokáciu",
   "hourlyVariables": "Hodinové meteorologické premenné",
-  "uvIndex": "UV-index",
+  "uvIndex": "UV index",
   "clear_sky": "Jasno",
   "24": "24-hodinový",
   "noWeatherCard": "Pridať mesto",
@@ -272,7 +272,7 @@
   "colorPaletteRed": "Červená",
   "colorPalettePink": "Ružová",
   "colorPaletteCyan": "Azúrová",
-  "colorPaletteIndigo": "Indigo",
+  "colorPaletteIndigo": "Indigová",
   "colorPaletteSky": "Nebeská",
   "colorPaletteMint": "Mätová",
   "colorPaletteLime": "Limetková",
@@ -302,10 +302,13 @@
   "colorPaletteSage": "Šalvia",
   "colorPaletteEmerald": "Smaragdová",
   "colorPaletteJade": "Nefrit",
-  "colorPaletteAqua": "Aqua",
+  "colorPaletteAqua": "Azúrová",
   "colorPaletteAzure": "Azúrová",
   "colorPaletteCobalt": "Kobalt",
   "colorPaletteMidnight": "Polnoc",
   "colorPaletteCharcoal": "Antracit",
-  "colorPaletteSand": "Piesková"
+  "colorPaletteSand": "Piesková",
+  "lastBackgroundRefresh": "Posledná aktualizácia na pozadí",
+  "lastBackgroundRefreshNever": "Zatiaľ žiadna aktualizácia na pozadí",
+  "backgroundRefreshError": "Posledná chyba na pozadí"
 }

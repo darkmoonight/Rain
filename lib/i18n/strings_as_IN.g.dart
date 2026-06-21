@@ -348,6 +348,9 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'মধ্যৰাতি';
 	@override String get color_palette_charcoal => 'কয়লা';
 	@override String get color_palette_sand => 'বালি';
+	@override String get last_background_refresh => 'শেষৰ পটভূমি সতেজকৰণ';
+	@override String get last_background_refresh_never => 'এতিয়ালৈকে কোনো পটভূমি সতেজকৰণ নাই';
+	@override String get background_refresh_error => 'শেষৰ পটভূমি ত্ৰুটি';
 }
 
 /// The flat map containing all translations for locale <as-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsAsIn {
 			'color_palette_midnight' => 'মধ্যৰাতি',
 			'color_palette_charcoal' => 'কয়লা',
 			'color_palette_sand' => 'বালি',
+			'last_background_refresh' => 'শেষৰ পটভূমি সতেজকৰণ',
+			'last_background_refresh_never' => 'এতিয়ালৈকে কোনো পটভূমি সতেজকৰণ নাই',
+			'background_refresh_error' => 'শেষৰ পটভূমি ত্ৰুটি',
 			_ => null,
 		};
 	}

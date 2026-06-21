@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "കോബാൾട്ട്",
   "colorPaletteMidnight": "അർധരാത്രി",
   "colorPaletteCharcoal": "ചാർക്കോൾ",
-  "colorPaletteSand": "മണൽ"
+  "colorPaletteSand": "മണൽ",
+  "lastBackgroundRefresh": "അവസാന പശ്ചാത്തല റിഫ്രഷ്",
+  "lastBackgroundRefreshNever": "ഇതുവരെ പശ്ചാത്തല റിഫ്രESH ഇല്ല",
+  "backgroundRefreshError": "അവസാന പശ്ചാത്തല പിശക്"
 }

@@ -327,7 +327,7 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_grape => 'Fíonchaor';
 	@override String get color_palette_forest => 'Foraois';
 	@override String get color_palette_turquoise => 'Turcóis';
-	@override String get color_palette_violet => 'Violet';
+	@override String get color_palette_violet => 'Corcra';
 	@override String get color_palette_lavender => 'Labhandar';
 	@override String get color_palette_lilac => 'Liolac';
 	@override String get color_palette_orchid => 'Magairlín';
@@ -348,6 +348,9 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'Meán oíche';
 	@override String get color_palette_charcoal => 'Gualach';
 	@override String get color_palette_sand => 'Gainimh';
+	@override String get last_background_refresh => 'An nuashonrú cúlra is déanaí';
+	@override String get last_background_refresh_never => 'Níl aon nuashonrú cúlra fós';
+	@override String get background_refresh_error => 'An earráid chúlra is déanaí';
 }
 
 /// The flat map containing all translations for locale <ga-IE>.
@@ -646,7 +649,7 @@ extension on TranslationsGaIe {
 			'color_palette_grape' => 'Fíonchaor',
 			'color_palette_forest' => 'Foraois',
 			'color_palette_turquoise' => 'Turcóis',
-			'color_palette_violet' => 'Violet',
+			'color_palette_violet' => 'Corcra',
 			'color_palette_lavender' => 'Labhandar',
 			'color_palette_lilac' => 'Liolac',
 			'color_palette_orchid' => 'Magairlín',
@@ -667,6 +670,9 @@ extension on TranslationsGaIe {
 			'color_palette_midnight' => 'Meán oíche',
 			'color_palette_charcoal' => 'Gualach',
 			'color_palette_sand' => 'Gainimh',
+			'last_background_refresh' => 'An nuashonrú cúlra is déanaí',
+			'last_background_refresh_never' => 'Níl aon nuashonrú cúlra fós',
+			'background_refresh_error' => 'An earráid chúlra is déanaí',
 			_ => null,
 		};
 	}

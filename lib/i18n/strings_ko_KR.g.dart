@@ -348,6 +348,9 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => '자정';
 	@override String get color_palette_charcoal => '차콜';
 	@override String get color_palette_sand => '모래';
+	@override String get last_background_refresh => '마지막 백그라운드 새로고침';
+	@override String get last_background_refresh_never => '백그라운드 새로고침 없음';
+	@override String get background_refresh_error => '마지막 백그라운드 오류';
 }
 
 /// The flat map containing all translations for locale <ko-KR>.
@@ -667,6 +670,9 @@ extension on TranslationsKoKr {
 			'color_palette_midnight' => '자정',
 			'color_palette_charcoal' => '차콜',
 			'color_palette_sand' => '모래',
+			'last_background_refresh' => '마지막 백그라운드 새로고침',
+			'last_background_refresh_never' => '백그라운드 새로고침 없음',
+			'background_refresh_error' => '마지막 백그라운드 오류',
 			_ => null,
 		};
 	}

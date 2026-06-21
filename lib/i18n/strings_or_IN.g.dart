@@ -348,6 +348,9 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'ମଧ୍ୟରାତ୍ରି';
 	@override String get color_palette_charcoal => 'କୋଇଲା';
 	@override String get color_palette_sand => 'ବାଳି';
+	@override String get last_background_refresh => 'ଶେଷ ପୃଷ୍ଠପଟି ରିଫ୍ରେଶ';
+	@override String get last_background_refresh_never => 'ଏପର୍ଯ୍ୟନ୍ତ କono ପୃଷ୍ଠପଟି ରିଫ୍ରେଶ ନାହିଁ';
+	@override String get background_refresh_error => 'ଶେଷ ପୃଷ୍ଠପଟି ତ୍ରୁଟି';
 }
 
 /// The flat map containing all translations for locale <or-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsOrIn {
 			'color_palette_midnight' => 'ମଧ୍ୟରାତ୍ରି',
 			'color_palette_charcoal' => 'କୋଇଲା',
 			'color_palette_sand' => 'ବାଳି',
+			'last_background_refresh' => 'ଶେଷ ପୃଷ୍ଠପଟି ରିଫ୍ରେଶ',
+			'last_background_refresh_never' => 'ଏପର୍ଯ୍ୟନ୍ତ କono ପୃଷ୍ଠପଟି ରିଫ୍ରେଶ ନାହିଁ',
+			'background_refresh_error' => 'ଶେଷ ପୃଷ୍ଠପଟି ତ୍ରୁଟି',
 			_ => null,
 		};
 	}

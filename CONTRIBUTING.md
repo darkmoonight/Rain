@@ -25,8 +25,11 @@ flutter run --flavor floss   # FOSS, no Play Services
 
 ```bash
 dart run slang
+dart run tool/validate_i18n.dart --fail-on-english
 dart run build_runner build --delete-conflicting-outputs
 ```
+
+When adding or updating translations, edit `assets/i18n/<locale>.i18n.json`, run `dart run slang`, then `dart run tool/validate_i18n.dart --fail-on-english`. Locale-specific fixes can be applied via `python3 tool/apply_i18n_overrides.py` when using `tool/i18n_overrides.json`.
 
 ## Pull requests
 
@@ -41,10 +44,15 @@ dart run build_runner build --delete-conflicting-outputs
 
 ```bash
 flutter analyze
+dart format --output=none --set-exit-if-changed .
+dart run slang
+dart run build_runner build --delete-conflicting-outputs
+git diff --exit-code
+dart run tool/validate_i18n.dart --fail-on-english
 flutter test
 ```
 
-377 tests in `test/`. If widget tests hang: `flutter test --concurrency=1`.
+496 tests in `test/`. If widget tests hang: `flutter test --concurrency=1`.
 
 **Test helpers:** Isar setup in `test/helpers/` · stubbed APIs via `createFakeWeatherRemoteDatasource()` in `test/helpers/fixtures.dart`
 
@@ -63,6 +71,7 @@ FOSS reproducible build: see `tool/pubspec_overrides.floss.yaml` and `scripts/pa
 ## Documentation
 
 - [README.md](README.md) / [README_RU.md](README_RU.md) — user-facing overview (keep short; sync both languages)
+- [CHANGELOG.md](CHANGELOG.md) — release notes for maintainers
 - [CONTRIBUTING.md](CONTRIBUTING.md) — this file
 
 ## Issues

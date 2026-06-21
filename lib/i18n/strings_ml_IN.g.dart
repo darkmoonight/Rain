@@ -348,6 +348,9 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'അർധരാത്രി';
 	@override String get color_palette_charcoal => 'ചാർക്കോൾ';
 	@override String get color_palette_sand => 'മണൽ';
+	@override String get last_background_refresh => 'അവസാന പശ്ചാത്തല റിഫ്രഷ്';
+	@override String get last_background_refresh_never => 'ഇതുവരെ പശ്ചാത്തല റിഫ്രESH ഇല്ല';
+	@override String get background_refresh_error => 'അവസാന പശ്ചാത്തല പിശക്';
 }
 
 /// The flat map containing all translations for locale <ml-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsMlIn {
 			'color_palette_midnight' => 'അർധരാത്രി',
 			'color_palette_charcoal' => 'ചാർക്കോൾ',
 			'color_palette_sand' => 'മണൽ',
+			'last_background_refresh' => 'അവസാന പശ്ചാത്തല റിഫ്രഷ്',
+			'last_background_refresh_never' => 'ഇതുവരെ പശ്ചാത്തല റിഫ്രESH ഇല്ല',
+			'background_refresh_error' => 'അവസാന പശ്ചാത്തല പിശക്',
 			_ => null,
 		};
 	}

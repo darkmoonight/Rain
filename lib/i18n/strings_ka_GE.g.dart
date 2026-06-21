@@ -348,6 +348,9 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'შუაღამე';
 	@override String get color_palette_charcoal => 'ნახშირისფერი';
 	@override String get color_palette_sand => 'ქვიშისფერი';
+	@override String get last_background_refresh => 'ბოლო ფონური განახლება';
+	@override String get last_background_refresh_never => 'ფონური განახლება ჯერ არ მომხდარა';
+	@override String get background_refresh_error => 'ბოლო ფონური შეცდომა';
 }
 
 /// The flat map containing all translations for locale <ka-GE>.
@@ -667,6 +670,9 @@ extension on TranslationsKaGe {
 			'color_palette_midnight' => 'შუაღამე',
 			'color_palette_charcoal' => 'ნახშირისფერი',
 			'color_palette_sand' => 'ქვიშისფერი',
+			'last_background_refresh' => 'ბოლო ფონური განახლება',
+			'last_background_refresh_never' => 'ფონური განახლება ჯერ არ მომხდარა',
+			'background_refresh_error' => 'ბოლო ფონური შეცდომა',
 			_ => null,
 		};
 	}

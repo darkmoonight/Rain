@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "कोबाल्ट",
   "colorPaletteMidnight": "मध्यरात्र",
   "colorPaletteCharcoal": "कोळसा",
-  "colorPaletteSand": "वाळू"
+  "colorPaletteSand": "वाळू",
+  "lastBackgroundRefresh": "शेवटचे पार्श्वभूमी रिफ्रेश",
+  "lastBackgroundRefreshNever": "अद्याप पार्श्वभूमी रिफ्रेश नाही",
+  "backgroundRefreshError": "शेवटची पार्श्वभूमी त्रुटी"
 }

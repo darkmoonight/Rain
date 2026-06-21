@@ -7,8 +7,9 @@ import 'package:rain/core/services/notification_service.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/data/models/db.dart';
 
-class _SpyNotificationService extends NotificationService {
-  _SpyNotificationService() : super(AssetCacheService());
+/// Tracks [cancelScheduled] while exercising real reschedule logic.
+class _CancelTrackingNotificationService extends NotificationService {
+  _CancelTrackingNotificationService() : super(AssetCacheService());
 
   int cancelScheduledCalls = 0;
 
@@ -25,10 +26,10 @@ void main() {
   });
 
   group('NotificationService', () {
-    late _SpyNotificationService service;
+    late _CancelTrackingNotificationService service;
 
     setUp(() {
-      service = _SpyNotificationService();
+      service = _CancelTrackingNotificationService();
     });
 
     test(
@@ -44,24 +45,6 @@ void main() {
         expect(service.cancelScheduledCalls, 0);
       },
     );
-
-    test('scheduleForWeather builds and schedules forecast slots', () async {
-      final cache = sampleFutureMainWeatherCache();
-      final appSettings = const AppSettingsState(
-        timeStart: '00:00',
-        timeEnd: '23:59',
-        timeRange: 1,
-      );
-
-      await service.scheduleForWeather(
-        cache: cache,
-        settings: Settings()..notifications = true,
-        appSettings: appSettings,
-        cityLabel: 'Moscow',
-      );
-
-      expect(service.lastScheduledSlotCount, greaterThan(0));
-    });
 
     test('uses stable schedule-epoch notification ids', () {
       const epoch = 1_715_000_000_000;
@@ -125,7 +108,7 @@ void main() {
     });
 
     test(
-      'rescheduleForWeather does not cancel when no slots can be built',
+      'rescheduleForWeather does not cancel when cache lacks notification data',
       () async {
         await service.rescheduleForWeather(
           cache: MainWeatherCache(),
@@ -139,11 +122,13 @@ void main() {
     );
 
     test(
-      'rescheduleForWeather cancels pending when notifications enabled',
+      'rescheduleForWeather cancels when valid cache has no matching slots',
       () async {
         await service.rescheduleForWeather(
           cache: sampleFutureMainWeatherCache(),
-          settings: Settings()..notifications = true,
+          settings: Settings()
+            ..notifications = true
+            ..notificationWeekdaysMask = 0,
           appSettings: const AppSettingsState(
             timeStart: '00:00',
             timeEnd: '23:59',

@@ -68,14 +68,19 @@ class AppSettingsState {
   /// Builds the live snapshot from persisted [Settings].
   factory AppSettingsState.fromSettings(Settings settings) {
     final locale = appLocaleFromLanguageCode(settings.language).flutterLocale;
+    final rawRange =
+        settings.timeRange ?? AppConstants.defaultNotificationIntervalHours;
+    final timeRange = rawRange.clamp(
+      AppConstants.minNotificationIntervalHours,
+      AppConstants.maxNotificationIntervalHours,
+    );
     return AppSettingsState(
       amoledTheme: settings.amoledTheme,
       materialColor: settings.materialColor,
       roundDegree: settings.roundDegree,
       largeElement: settings.largeElement,
       locale: locale,
-      timeRange:
-          settings.timeRange ?? AppConstants.defaultNotificationIntervalHours,
+      timeRange: timeRange,
       timeStart:
           settings.timeStart ?? AppConstants.defaultNotificationTimeStart,
       timeEnd: settings.timeEnd ?? AppConstants.defaultNotificationTimeEnd,

@@ -1,29 +1,24 @@
-import 'dart:io';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
-import 'package:flutter_map_cache/flutter_map_cache.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http_cache_file_store/http_cache_file_store.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
-import 'package:rain/i18n/tr.dart';
-import 'package:rain/core/utils/url_launcher_util.dart';
+import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
-import 'package:rain/data/datasources/weather_remote_datasource.dart';
+import 'package:rain/core/widgets/city_search_field.dart';
+import 'package:rain/core/widgets/map_tiles.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/presentation/view/place_info.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action.dart';
 import 'package:rain/features/cities/presentation/widgets/weather_card_tile.dart';
 import 'package:rain/core/weather/status_data.dart';
-import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
-import 'package:rain/core/utils/responsive_utils.dart';
+import 'package:rain/core/utils/url_launcher_util.dart';
 
 /// Interactive map showing the main location and saved city markers.
 class MapPage extends ConsumerStatefulWidget {
@@ -39,7 +34,7 @@ class _MapPageState extends ConsumerState<MapPage>
   late final AnimatedMapController _animatedMapController =
       AnimatedMapController(vsync: this);
 
-  late final Future<CacheStore> _cacheStoreFuture = _getCacheStore();
+  late final Future<CacheStore> _cacheStoreFuture = openMapTilesCacheStore();
 
   final GlobalKey<ExpandableFabState> _fabKey = GlobalKey<ExpandableFabState>();
 
@@ -48,22 +43,15 @@ class _MapPageState extends ConsumerState<MapPage>
   late final AnimationController _animationController;
   late final Animation<Offset> _offsetAnimation;
   static const _useTransformerId = 'useTransformerId';
-  final bool _useTransformer = true;
 
   final _focusNode = FocusNode();
   late final TextEditingController _controllerSearch = TextEditingController();
-
-  /// Opens a file-backed [CacheStore] for cached map tiles.
-  static Future<CacheStore> _getCacheStore() async {
-    final dir = await getTemporaryDirectory();
-    return FileCacheStore('${dir.path}${Platform.pathSeparator}MapTiles');
-  }
 
   /// Initializes slide animation for the selected weather card overlay.
   @override
   void initState() {
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 300),
+      duration: AppConstants.animationDuration,
       vsync: this,
     );
 
@@ -82,6 +70,7 @@ class _MapPageState extends ConsumerState<MapPage>
   void dispose() {
     _animatedMapController.dispose();
     _controllerSearch.dispose();
+    _focusNode.dispose();
     _animationController.dispose();
     super.dispose();
   }
@@ -89,11 +78,11 @@ class _MapPageState extends ConsumerState<MapPage>
   /// Animates the map to [center] and [zoom] with north-up orientation.
   void _resetMapOrientation({LatLng? center, double? zoom}) =>
       _animatedMapController.animateTo(
-        customId: _useTransformer ? _useTransformerId : null,
+        customId: _useTransformerId,
         dest: center,
         zoom: zoom,
         rotation: 0,
-        duration: const Duration(milliseconds: 500),
+        duration: AppConstants.longAnimation,
         curve: Curves.easeInOut,
       );
 
@@ -214,14 +203,8 @@ class _MapPageState extends ConsumerState<MapPage>
   }
 
   /// Builds the cached OpenStreetMap [TileLayer] for the weather map.
-  Widget _buildMapTileLayer(CacheStore cacheStore) => TileLayer(
-    urlTemplate: AppConstants.mapTileUrlTemplate,
-    userAgentPackageName: AppConstants.mapUserAgentPackageName,
-    tileProvider: CachedTileProvider(
-      store: cacheStore,
-      maxStale: AppConstants.mapTileCacheDays,
-    ),
-  );
+  Widget _buildMapTileLayer(CacheStore cacheStore) =>
+      buildRainMapTileLayer(cacheStore: cacheStore);
 
   /// Builds the sliding [WeatherCardTile] overlay for the selected marker.
   Widget _buildWeatherCard() => _isCardVisible && _selectedWeatherCard != null
@@ -240,118 +223,67 @@ class _MapPageState extends ConsumerState<MapPage>
         )
       : const SizedBox.shrink();
 
-  /// Builds the city search field that pans the map to a selected result.
+  /// City search field that pans the map to a selected result.
   Widget _buildSearchField() {
     final searchTextStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
       fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
     );
 
-    return RawAutocomplete<CitySearchResult>(
+    return CitySearchField(
+      controller: _controllerSearch,
       focusNode: _focusNode,
-      textEditingController: _controllerSearch,
-      fieldViewBuilder:
-          (
-            BuildContext context,
-            TextEditingController fieldTextEditingController,
-            FocusNode fieldFocusNode,
-            VoidCallback onFieldSubmitted,
-          ) => MyTextForm(
-            labelText: 'search'.tr,
-            type: TextInputType.text,
-            icon: const Icon(IconsaxPlusLinear.global_search, size: 20),
-            variant: TextFieldVariant.card,
-            controller: _controllerSearch,
-            margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-            focusNode: _focusNode,
-            style: searchTextStyle,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 10,
-            ),
-            onChanged: (value) {},
-            iconButton: _controllerSearch.text.isNotEmpty
-                ? IconButton(
-                    onPressed: () => _controllerSearch.clear(),
-                    icon: const Icon(
-                      IconsaxPlusLinear.close_circle,
-                      color: Colors.grey,
-                      size: 20,
-                    ),
-                  )
-                : null,
-          ),
-      optionsBuilder: (TextEditingValue textEditingValue) {
-        if (textEditingValue.text.isEmpty) {
-          return const Iterable<CitySearchResult>.empty();
-        }
-        final locale = ref.read(localeProvider);
-        return ref
-            .read(weatherRemoteDatasourceProvider)
-            .searchCities(textEditingValue.text, locale.languageCode);
-      },
-      onSelected: (CitySearchResult selection) {
+      margin: const EdgeInsets.only(
+        left: AppConstants.cardPaddingHorizontal,
+        right: AppConstants.cardPaddingHorizontal,
+        top: AppConstants.cardPaddingHorizontal,
+      ),
+      style: searchTextStyle,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      optionsStyle: CitySearchOptionsStyle.compact,
+      optionsPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      onChanged: (_) => setState(() {}),
+      iconButton: _controllerSearch.text.isNotEmpty
+          ? IconButton(
+              onPressed: () => _controllerSearch.clear(),
+              icon: const Icon(
+                IconsaxPlusLinear.close_circle,
+                color: Colors.grey,
+                size: 20,
+              ),
+            )
+          : null,
+      onSelected: (selection) {
+        if (selection.latitude == null || selection.longitude == null) return;
         _animatedMapController.mapController.move(
           LatLng(selection.latitude!, selection.longitude!),
-          14,
+          AppConstants.mapSearchZoom,
         );
         _controllerSearch.clear();
         _focusNode.unfocus();
       },
-      displayStringForOption: (CitySearchResult option) =>
-          '${option.name}, ${option.admin1}',
-      optionsViewBuilder:
-          (
-            BuildContext context,
-            AutocompleteOnSelected<CitySearchResult> onSelected,
-            Iterable<CitySearchResult> options,
-          ) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Material(
-                borderRadius: BorderRadius.circular(20),
-                elevation: 4,
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  itemCount: options.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final CitySearchResult option = options.elementAt(index);
-                    return InkWell(
-                      onTap: () => onSelected(option),
-                      child: ListTile(
-                        dense: true,
-                        visualDensity: VisualDensity.compact,
-                        title: Text(
-                          '${option.name}, ${option.admin1}',
-                          style: searchTextStyle,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
     );
   }
 
   /// Builds the weather map with markers, FAB controls, and search overlay.
   @override
   Widget build(BuildContext context) {
-    final weatherState = ref.watch(mainWeatherNotifierProvider);
+    final (:isLoading, :location, :mainWeather, :hourOfDay, :dayOfNow) = ref
+        .watch(
+          mainWeatherNotifierProvider.select(
+            (s) => (
+              isLoading: s.isLoading,
+              location: s.location,
+              mainWeather: s.mainWeather,
+              hourOfDay: s.hourOfDay,
+              dayOfNow: s.dayOfNow,
+            ),
+          ),
+        );
     final settings = ref.watch(settingsProvider);
     final statusData = StatusData(settings: settings);
-    final mainLocation = weatherState.location;
-    final mainWeather = weatherState.mainWeather;
-    final hourOfDay = weatherState.hourOfDay;
-    final dayOfNow = weatherState.dayOfNow;
+    final mainLocation = location;
 
-    if (weatherState.isLoading ||
-        mainLocation.lat == null ||
-        mainLocation.lon == null) {
+    if (isLoading || mainLocation.lat == null || mainLocation.lon == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
@@ -379,7 +311,7 @@ class _MapPageState extends ConsumerState<MapPage>
                 options: MapOptions(
                   backgroundColor: Theme.of(context).colorScheme.surface,
                   initialCenter: LatLng(lat, lon),
-                  initialZoom: 8,
+                  initialZoom: AppConstants.mapDefaultZoom,
                   interactionOptions: const InteractionOptions(
                     flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
                   ),
@@ -402,18 +334,10 @@ class _MapPageState extends ConsumerState<MapPage>
                   ),
                 ),
                 children: [
-                  if (Theme.of(context).brightness == Brightness.dark)
-                    ColorFiltered(
-                      colorFilter: const ColorFilter.matrix(<double>[
-                        -0.2, -0.7, -0.08, 0, 255, // Red channel
-                        -0.2, -0.7, -0.08, 0, 255, // Green channel
-                        -0.2, -0.7, -0.08, 0, 255, // Blue channel
-                        0, 0, 0, 1, 0, // Alpha channel
-                      ]),
-                      child: _buildMapTileLayer(cacheStore),
-                    )
-                  else
-                    _buildMapTileLayer(cacheStore),
+                  buildRainMapDarkModeFilter(
+                    isDark: Theme.of(context).brightness == Brightness.dark,
+                    child: _buildMapTileLayer(cacheStore),
+                  ),
                   RichAttributionWidget(
                     animationConfig: const ScaleRAWA(),
                     alignment: AttributionAlignment.bottomLeft,
@@ -470,21 +394,21 @@ class _MapPageState extends ConsumerState<MapPage>
                         child: const Icon(IconsaxPlusLinear.home_2),
                         onPressed: () => _resetMapOrientation(
                           center: LatLng(lat, lon),
-                          zoom: 8,
+                          zoom: AppConstants.mapDefaultZoom,
                         ),
                       ),
                       FloatingActionButton(
                         heroTag: null,
                         child: const Icon(IconsaxPlusLinear.search_zoom_out_1),
                         onPressed: () => _animatedMapController.animatedZoomOut(
-                          customId: _useTransformer ? _useTransformerId : null,
+                          customId: _useTransformerId,
                         ),
                       ),
                       FloatingActionButton(
                         heroTag: null,
                         child: const Icon(IconsaxPlusLinear.search_zoom_in),
                         onPressed: () => _animatedMapController.animatedZoomIn(
-                          customId: _useTransformer ? _useTransformerId : null,
+                          customId: _useTransformerId,
                         ),
                       ),
                     ],

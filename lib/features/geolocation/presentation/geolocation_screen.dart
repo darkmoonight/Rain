@@ -5,6 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:rain/core/utils/place_form_helpers.dart';
+import 'package:rain/core/widgets/city_search_field.dart';
+import 'package:rain/core/widgets/map_tiles.dart';
+import 'package:rain/core/widgets/place_form_fields.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
@@ -16,7 +20,6 @@ import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/core/widgets/button.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
-import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 
@@ -44,28 +47,19 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   final _controllerCity = TextEditingController();
   final _controllerDistrict = TextEditingController();
 
-  static final colorFilter = ColorFilter.matrix(
-    AppConstants.mapDarkColorFilterMatrix,
-  );
-
   final mapController = MapController();
-
-  /// Trims whitespace and collapses repeated spaces in [value].
-  void textTrim(TextEditingController value) {
-    value.text = value.text.trim();
-    while (value.text.contains('  ')) {
-      value.text = value.text.replaceAll('  ', ' ');
-    }
-  }
 
   /// Fills coordinate and label fields from a [CitySearchResult].
   void fillController(CitySearchResult selection) {
-    _controllerLat.text = '${selection.latitude}';
-    _controllerLon.text = '${selection.longitude}';
-    _controllerCity.text = selection.name ?? '';
-    _controllerDistrict.text = selection.admin1 ?? '';
-    _controller.clear();
-    _focusNode.unfocus();
+    fillPlaceControllers(
+      selection: selection,
+      latitude: _controllerLat,
+      longitude: _controllerLon,
+      city: _controllerCity,
+      district: _controllerDistrict,
+      search: _controller,
+      focusNode: _focusNode,
+    );
   }
 
   /// Fills coordinate and label fields from a geolocation [location] map.
@@ -82,25 +76,24 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     _controllerLon.text = '$longitude';
   }
 
-  /// Builds the OpenStreetMap [TileLayer] for the location picker.
-  Widget _buildMapTileLayer() => TileLayer(
-    urlTemplate: AppConstants.mapTileUrlTemplate,
-    userAgentPackageName: AppConstants.mapUserAgentPackageName,
-  );
-
   /// Builds the interactive [FlutterMap] with dark-mode tile filtering.
   Widget _buildMap() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(20)),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(AppConstants.mapBorderRadius),
+      ),
       child: SizedBox(
-        height: MediaQuery.sizeOf(context).height * 0.3,
+        height: MediaQuery.sizeOf(context).height * AppConstants.mapHeight,
         child: FlutterMap(
           mapController: mapController,
           options: MapOptions(
             backgroundColor: Theme.of(context).colorScheme.surface,
-            initialCenter: const LatLng(55.7522, 37.6156),
-            initialZoom: 3,
+            initialCenter: const LatLng(
+              AppConstants.mapInitialCenterLat,
+              AppConstants.mapInitialCenterLon,
+            ),
+            initialZoom: AppConstants.mapInitialZoom,
             interactionOptions: const InteractionOptions(
               flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
             ),
@@ -114,13 +107,10 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
                 fillMap(point.latitude, point.longitude),
           ),
           children: [
-            if (isDark)
-              ColorFiltered(
-                colorFilter: colorFilter,
-                child: _buildMapTileLayer(),
-              )
-            else
-              _buildMapTileLayer(),
+            buildRainMapDarkModeFilter(
+              isDark: isDark,
+              child: buildRainMapTileLayer(),
+            ),
             RichAttributionWidget(
               animationConfig: const ScaleRAWA(),
               attributions: [
@@ -136,83 +126,23 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     );
   }
 
-  /// Builds the city search [RawAutocomplete] field.
-  Widget _buildSearchField() => RawAutocomplete<CitySearchResult>(
+  /// Builds the city search field.
+  Widget _buildSearchField() => CitySearchField(
+    controller: _controller,
     focusNode: _focusNode,
-    textEditingController: _controller,
-    fieldViewBuilder:
-        (
-          BuildContext context,
-          TextEditingController fieldTextEditingController,
-          FocusNode fieldFocusNode,
-          VoidCallback onFieldSubmitted,
-        ) => MyTextForm(
-          elevation: AppConstants.mapTextFieldElevation,
-          labelText: 'search'.tr,
-          type: TextInputType.text,
-          icon: const Icon(IconsaxPlusLinear.global_search),
-          controller: _controller,
-          margin: const EdgeInsets.only(
-            left: AppConstants.cardPaddingHorizontal,
-            right: AppConstants.cardPaddingHorizontal,
-            top: AppConstants.cardPaddingHorizontal,
-          ),
-          focusNode: _focusNode,
-        ),
-    optionsBuilder: (TextEditingValue textEditingValue) {
-      if (textEditingValue.text.isEmpty) {
-        return const Iterable<CitySearchResult>.empty();
-      }
-      final locale = ref.read(localeProvider);
-      return ref
-          .read(weatherRemoteDatasourceProvider)
-          .searchCities(textEditingValue.text, locale.languageCode);
-    },
-    onSelected: (CitySearchResult selection) => fillController(selection),
-    displayStringForOption: (CitySearchResult option) =>
-        '${option.name}, ${option.admin1}',
-    optionsViewBuilder:
-        (
-          BuildContext context,
-          AutocompleteOnSelected<CitySearchResult> onSelected,
-          Iterable<CitySearchResult> options,
-        ) => _buildOptionsView(context, onSelected, options),
-  );
-
-  /// Builds the dropdown list of [CitySearchResult] autocomplete options.
-  Widget _buildOptionsView(
-    BuildContext context,
-    AutocompleteOnSelected<CitySearchResult> onSelected,
-    Iterable<CitySearchResult> options,
-  ) => Padding(
-    padding: const EdgeInsets.symmetric(
+    elevation: AppConstants.mapTextFieldElevation,
+    icon: const Icon(IconsaxPlusLinear.global_search),
+    margin: const EdgeInsets.only(
+      left: AppConstants.cardPaddingHorizontal,
+      right: AppConstants.cardPaddingHorizontal,
+      top: AppConstants.cardPaddingHorizontal,
+    ),
+    optionsStyle: CitySearchOptionsStyle.paddedCard,
+    optionsPadding: const EdgeInsets.symmetric(
       horizontal: AppConstants.cardPaddingHorizontal,
       vertical: AppConstants.cardPaddingVertical,
     ),
-    child: Align(
-      alignment: Alignment.topCenter,
-      child: Material(
-        borderRadius: BorderRadius.circular(AppConstants.borderRadiusXLarge),
-        elevation: 4,
-        child: ListView.builder(
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          itemCount: options.length,
-          itemBuilder: (BuildContext context, int index) {
-            final CitySearchResult option = options.elementAt(index);
-            return InkWell(
-              onTap: () => onSelected(option),
-              child: ListTile(
-                title: Text(
-                  '${option.name}, ${option.admin1}',
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    ),
+    onSelected: fillController,
   );
 
   /// Builds the current-location [IconButton] beside the search field.
@@ -251,7 +181,17 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
         NavigationHelper.back(context);
         return;
       }
-      final place = await ref.read(locationServiceProvider).getCurrentPlace();
+      final place = await ref
+          .read(locationServiceProvider)
+          .getCurrentPlace(
+            resolveLabels: (lat, lon) => ref
+                .read(weatherRemoteDatasourceProvider)
+                .reverseGeocode(
+                  lat,
+                  lon,
+                  languageCode: ref.read(localeProvider).languageCode,
+                ),
+          );
       if (place == null) {
         if (mounted) showSnackBar('location_not_found'.tr, isError: true);
         return;
@@ -273,72 +213,13 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   Future<void> _showLocationDialog() async {
     await showConfirmationDialog(
       context: context,
-      title: 'location'.tr,
-      message: 'no_location'.tr,
+      title: 'location',
+      message: 'no_location',
       icon: IconsaxPlusBold.location,
       confirmText: 'settings'.tr,
       onConfirm: () => ref.read(locationServiceProvider).openLocationSettings(),
     );
   }
-
-  /// Builds the latitude [MyTextForm] with range validation.
-  Widget _buildLatitudeField() => MyTextForm(
-    elevation: AppConstants.mapTextFieldElevation,
-    controller: _controllerLat,
-    labelText: 'lat'.tr,
-    type: TextInputType.number,
-    icon: const Icon(IconsaxPlusLinear.location),
-    margin: const EdgeInsets.only(
-      left: AppConstants.cardPaddingHorizontal,
-      right: AppConstants.cardPaddingHorizontal,
-      top: AppConstants.cardPaddingHorizontal,
-    ),
-    validator: (value) => _validateLatitude(value),
-  );
-
-  /// Builds the longitude [MyTextForm] with range validation.
-  Widget _buildLongitudeField() => MyTextForm(
-    elevation: AppConstants.mapTextFieldElevation,
-    controller: _controllerLon,
-    labelText: 'lon'.tr,
-    type: TextInputType.number,
-    icon: const Icon(IconsaxPlusLinear.location),
-    margin: const EdgeInsets.only(
-      left: AppConstants.cardPaddingHorizontal,
-      right: AppConstants.cardPaddingHorizontal,
-      top: AppConstants.cardPaddingHorizontal,
-    ),
-    validator: (value) => _validateLongitude(value),
-  );
-
-  /// Builds the city name [MyTextForm].
-  Widget _buildCityField() => MyTextForm(
-    elevation: AppConstants.mapTextFieldElevation,
-    controller: _controllerCity,
-    labelText: 'city'.tr,
-    type: TextInputType.name,
-    icon: const Icon(IconsaxPlusLinear.building_3),
-    margin: const EdgeInsets.only(
-      left: AppConstants.cardPaddingHorizontal,
-      right: AppConstants.cardPaddingHorizontal,
-      top: AppConstants.cardPaddingHorizontal,
-    ),
-    validator: (value) => _validateCity(value),
-  );
-
-  /// Builds the district or region [MyTextForm].
-  Widget _buildDistrictField() => MyTextForm(
-    elevation: AppConstants.mapTextFieldElevation,
-    controller: _controllerDistrict,
-    labelText: 'district'.tr,
-    type: TextInputType.streetAddress,
-    icon: const Icon(IconsaxPlusLinear.global),
-    margin: const EdgeInsets.only(
-      left: AppConstants.cardPaddingHorizontal,
-      right: AppConstants.cardPaddingHorizontal,
-      top: AppConstants.cardPaddingHorizontal,
-    ),
-  );
 
   /// Builds the submit [MyTextButton] that saves the selected location.
   Widget _buildSubmitButton() => Padding(
@@ -353,53 +234,15 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
     ),
   );
 
-  /// Validates that [value] is a latitude between -90 and 90.
-  String? _validateLatitude(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'validateValue'.tr;
-    }
-    double? numericValue = double.tryParse(value);
-    if (numericValue == null) {
-      return 'validateNumber'.tr;
-    }
-    if (numericValue < -90 || numericValue > 90) {
-      return 'validate90'.tr;
-    }
-    return null;
-  }
-
-  /// Validates that [value] is a longitude between -180 and 180.
-  String? _validateLongitude(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'validateValue'.tr;
-    }
-    double? numericValue = double.tryParse(value);
-    if (numericValue == null) {
-      return 'validateNumber'.tr;
-    }
-    if (numericValue < -180 || numericValue > 180) {
-      return 'validate180'.tr;
-    }
-    return null;
-  }
-
-  /// Validates that [value] is a non-empty city name.
-  String? _validateCity(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'validateName'.tr;
-    }
-    return null;
-  }
-
   /// Validates the form and persists the chosen location as primary weather.
   Future<void> _handleSubmit() async {
     if (_isSubmitting) return;
     if (!formKeySearch.currentState!.validate()) return;
 
-    textTrim(_controllerLat);
-    textTrim(_controllerLon);
-    textTrim(_controllerCity);
-    textTrim(_controllerDistrict);
+    trimPlaceController(_controllerLat);
+    trimPlaceController(_controllerLon);
+    trimPlaceController(_controllerCity);
+    trimPlaceController(_controllerDistrict);
     setState(() => _isSubmitting = true);
     try {
       await ref.read(mainWeatherNotifierProvider.notifier).deleteAll(true);
@@ -472,10 +315,12 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
                                   _buildLocationButton(),
                                 ],
                               ),
-                              _buildLatitudeField(),
-                              _buildLongitudeField(),
-                              _buildCityField(),
-                              _buildDistrictField(),
+                              PlaceFormFields(
+                                latitudeController: _controllerLat,
+                                longitudeController: _controllerLon,
+                                cityController: _controllerCity,
+                                districtController: _controllerDistrict,
+                              ),
                               const Gap(20),
                             ],
                           ),

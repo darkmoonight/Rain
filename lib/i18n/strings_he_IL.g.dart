@@ -348,6 +348,9 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'חצות';
 	@override String get color_palette_charcoal => 'פחם';
 	@override String get color_palette_sand => 'חול';
+	@override String get last_background_refresh => 'רענון רקע אחרון';
+	@override String get last_background_refresh_never => 'עדיין אין רענון רקע';
+	@override String get background_refresh_error => 'שגיאת רקע אחרונה';
 }
 
 /// The flat map containing all translations for locale <he-IL>.
@@ -667,6 +670,9 @@ extension on TranslationsHeIl {
 			'color_palette_midnight' => 'חצות',
 			'color_palette_charcoal' => 'פחם',
 			'color_palette_sand' => 'חול',
+			'last_background_refresh' => 'רענון רקע אחרון',
+			'last_background_refresh_never' => 'עדיין אין רענון רקע',
+			'background_refresh_error' => 'שגיאת רקע אחרונה',
 			_ => null,
 		};
 	}

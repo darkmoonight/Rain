@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "కోబాల్ట్",
   "colorPaletteMidnight": "అధి రాత్రి",
   "colorPaletteCharcoal": "కంగాలు",
-  "colorPaletteSand": "ఇసుక"
+  "colorPaletteSand": "ఇసుక",
+  "lastBackgroundRefresh": "చివరి నేపథ్య రిఫ్రెష్",
+  "lastBackgroundRefreshNever": "ఇంకా నేపథ్య రిఫ్రెష్ లేదు",
+  "backgroundRefreshError": "చివరి నేపథ్య లోపం"
 }

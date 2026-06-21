@@ -348,6 +348,9 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get license_app_summary => 'Приложение использует ПО с открытым исходным кодом. Нажмите на пакет, чтобы прочитать лицензию.';
 	@override String get license_dependencies => 'Зависимости';
 	@override String get license_packages => 'пакетов';
+	@override String get last_background_refresh => 'Последнее фоновое обновление';
+	@override String get last_background_refresh_never => 'Фоновых обновлений ещё не было';
+	@override String get background_refresh_error => 'Последняя фоновая ошибка';
 }
 
 /// The flat map containing all translations for locale <ru-RU>.
@@ -667,6 +670,9 @@ extension on TranslationsRuRu {
 			'license_app_summary' => 'Приложение использует ПО с открытым исходным кодом. Нажмите на пакет, чтобы прочитать лицензию.',
 			'license_dependencies' => 'Зависимости',
 			'license_packages' => 'пакетов',
+			'last_background_refresh' => 'Последнее фоновое обновление',
+			'last_background_refresh_never' => 'Фоновых обновлений ещё не было',
+			'background_refresh_error' => 'Последняя фоновая ошибка',
 			_ => null,
 		};
 	}

@@ -348,6 +348,9 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'ミッドナイト';
 	@override String get color_palette_charcoal => 'チャコール';
 	@override String get color_palette_sand => '砂';
+	@override String get last_background_refresh => '最後のバックグラウンド更新';
+	@override String get last_background_refresh_never => 'バックグラウンド更新はまだありません';
+	@override String get background_refresh_error => '最後のバックグラウンドエラー';
 }
 
 /// The flat map containing all translations for locale <ja-JP>.
@@ -667,6 +670,9 @@ extension on TranslationsJaJp {
 			'color_palette_midnight' => 'ミッドナイト',
 			'color_palette_charcoal' => 'チャコール',
 			'color_palette_sand' => '砂',
+			'last_background_refresh' => '最後のバックグラウンド更新',
+			'last_background_refresh_never' => 'バックグラウンド更新はまだありません',
+			'background_refresh_error' => '最後のバックグラウンドエラー',
 			_ => null,
 		};
 	}

@@ -68,7 +68,7 @@ flutter run --flavor floss     # FOSS без Play Services
 
 **Стек:** Flutter, Riverpod, Go Router, Isar, Open-Meteo, flutter_map, home_widget, Workmanager.
 
-**Тесты:** 377 — `flutter test` и `flutter analyze`. Подробности в [CONTRIBUTING.md](./CONTRIBUTING.md).
+**Тесты:** 496 — `flutter test` и `flutter analyze`. Подробности в [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 

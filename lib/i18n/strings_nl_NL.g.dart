@@ -75,7 +75,7 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get notifications => 'Notificaties';
 	@override String get notification_sound => 'Meldingsgeluid';
 	@override String get mph => 'mph';
-	@override String get west => 'West';
+	@override String get west => 'Westen';
 	@override String get validate90 => 'Waarde moet tussen -90 and 90 zijn';
 	@override String get name2 => 'Handig Ontwerp';
 	@override String get feels => 'Voelt';
@@ -185,7 +185,7 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get error_occurred => 'Er is een fout opgetreden';
 	@override String get validate_value => 'Vul een waarde in';
 	@override String get lon => 'Lengtegraad';
-	@override String get wind => 'Wind';
+	@override String get wind => 'Windkracht';
 	@override String get normal => 'Normaal';
 	@override String get dark => 'Donker';
 	@override String get settings => 'Instellingen.';
@@ -314,7 +314,7 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_cyan => 'Cyaan';
 	@override String get color_palette_indigo => 'Indigo';
 	@override String get color_palette_sky => 'Hemel';
-	@override String get color_palette_mint => 'Mint';
+	@override String get color_palette_mint => 'Munt';
 	@override String get color_palette_lime => 'Limoen';
 	@override String get color_palette_amber => 'Amber';
 	@override String get color_palette_coral => 'Koraal';
@@ -341,13 +341,16 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_olive => 'Olijf';
 	@override String get color_palette_sage => 'Salie';
 	@override String get color_palette_emerald => 'Smaragd';
-	@override String get color_palette_jade => 'Jade';
+	@override String get color_palette_jade => 'Jadegroen';
 	@override String get color_palette_aqua => 'Aqua';
 	@override String get color_palette_azure => 'Azuur';
 	@override String get color_palette_cobalt => 'Kobalt';
 	@override String get color_palette_midnight => 'Middernacht';
 	@override String get color_palette_charcoal => 'Houtskool';
 	@override String get color_palette_sand => 'Zand';
+	@override String get last_background_refresh => 'Laatste achtergrondvernieuwing';
+	@override String get last_background_refresh_never => 'Nog geen achtergrondvernieuwing';
+	@override String get background_refresh_error => 'Laatste achtergrondfout';
 }
 
 /// The flat map containing all translations for locale <nl-NL>.
@@ -394,7 +397,7 @@ extension on TranslationsNlNl {
 			'notifications' => 'Notificaties',
 			'notification_sound' => 'Meldingsgeluid',
 			'mph' => 'mph',
-			'west' => 'West',
+			'west' => 'Westen',
 			'validate90' => 'Waarde moet tussen -90 and 90 zijn',
 			'name2' => 'Handig Ontwerp',
 			'feels' => 'Voelt',
@@ -504,7 +507,7 @@ extension on TranslationsNlNl {
 			'error_occurred' => 'Er is een fout opgetreden',
 			'validate_value' => 'Vul een waarde in',
 			'lon' => 'Lengtegraad',
-			'wind' => 'Wind',
+			'wind' => 'Windkracht',
 			'normal' => 'Normaal',
 			'dark' => 'Donker',
 			'settings' => 'Instellingen.',
@@ -633,7 +636,7 @@ extension on TranslationsNlNl {
 			'color_palette_cyan' => 'Cyaan',
 			'color_palette_indigo' => 'Indigo',
 			'color_palette_sky' => 'Hemel',
-			'color_palette_mint' => 'Mint',
+			'color_palette_mint' => 'Munt',
 			'color_palette_lime' => 'Limoen',
 			'color_palette_amber' => 'Amber',
 			'color_palette_coral' => 'Koraal',
@@ -660,13 +663,16 @@ extension on TranslationsNlNl {
 			'color_palette_olive' => 'Olijf',
 			'color_palette_sage' => 'Salie',
 			'color_palette_emerald' => 'Smaragd',
-			'color_palette_jade' => 'Jade',
+			'color_palette_jade' => 'Jadegroen',
 			'color_palette_aqua' => 'Aqua',
 			'color_palette_azure' => 'Azuur',
 			'color_palette_cobalt' => 'Kobalt',
 			'color_palette_midnight' => 'Middernacht',
 			'color_palette_charcoal' => 'Houtskool',
 			'color_palette_sand' => 'Zand',
+			'last_background_refresh' => 'Laatste achtergrondvernieuwing',
+			'last_background_refresh_never' => 'Nog geen achtergrondvernieuwing',
+			'background_refresh_error' => 'Laatste achtergrondfout',
 			_ => null,
 		};
 	}

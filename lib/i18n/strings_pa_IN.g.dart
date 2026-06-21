@@ -348,6 +348,9 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'ਅੱਧੀ ਰਾਤ';
 	@override String get color_palette_charcoal => 'ਕੋਇਲਾ';
 	@override String get color_palette_sand => 'ਰੇਤ';
+	@override String get last_background_refresh => 'ਆਖਰੀ ਬੈਕਗ੍ਰਾਊਂਡ ਰਿਫ੍ਰੈਸ਼';
+	@override String get last_background_refresh_never => 'ਹਾਲੇ ਕੋਈ ਬੈਕਗ੍ਰਾਊਂਡ ਰਿਫ੍ਰੈਸ਼ ਨਹੀਂ';
+	@override String get background_refresh_error => 'ਆਖਰੀ ਬੈਕਗ੍ਰਾਊਂਡ ਗਲਤੀ';
 }
 
 /// The flat map containing all translations for locale <pa-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsPaIn {
 			'color_palette_midnight' => 'ਅੱਧੀ ਰਾਤ',
 			'color_palette_charcoal' => 'ਕੋਇਲਾ',
 			'color_palette_sand' => 'ਰੇਤ',
+			'last_background_refresh' => 'ਆਖਰੀ ਬੈਕਗ੍ਰਾਊਂਡ ਰਿਫ੍ਰੈਸ਼',
+			'last_background_refresh_never' => 'ਹਾਲੇ ਕੋਈ ਬੈਕਗ੍ਰਾਊਂਡ ਰਿਫ੍ਰੈਸ਼ ਨਹੀਂ',
+			'background_refresh_error' => 'ਆਖਰੀ ਬੈਕਗ੍ਰਾਊਂਡ ਗਲਤੀ',
 			_ => null,
 		};
 	}

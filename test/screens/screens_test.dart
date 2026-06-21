@@ -61,7 +61,7 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.byType(MyShimmer), findsWidgets);
+      expect(find.byType(MainWeatherLoadingShimmer), findsOneWidget);
     });
   });
 }

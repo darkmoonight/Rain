@@ -179,6 +179,7 @@ class SettingsListDialogCancelSaveActions extends StatelessWidget {
     super.key,
     required this.onSave,
     this.confirmLabelKey = 'save',
+    this.leading,
   });
 
   final VoidCallback onSave;
@@ -186,11 +187,32 @@ class SettingsListDialogCancelSaveActions extends StatelessWidget {
   /// i18n key for the confirm button (defaults to [save]).
   final String confirmLabelKey;
 
+  /// Optional action before cancel/save (e.g. reset).
+  final Widget? leading;
+
   @override
   Widget build(BuildContext context) {
-    return SettingsListDialogConfirmActions(
-      onConfirm: onSave,
-      confirmLabelKey: confirmLabelKey,
+    if (leading == null) {
+      return SettingsListDialogConfirmActions(
+        onConfirm: onSave,
+        confirmLabelKey: confirmLabelKey,
+      );
+    }
+
+    return SettingsListDialogActionsFooter(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          leading!,
+          const SizedBox(width: AppConstants.spacingS),
+          SettingsListDialogTonalButton(
+            labelKey: confirmLabelKey,
+            onPressed: onSave,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+        ],
+      ),
     );
   }
 }

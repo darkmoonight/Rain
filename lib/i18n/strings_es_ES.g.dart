@@ -180,13 +180,13 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get overcast => 'Cubierto de nubes';
 	@override String get pressure => 'Presión';
 	@override String get inch => 'pulgada';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Sistema imperial';
 	@override String get location => 'Ubicación';
 	@override String get error_occurred => 'Se produjo un error';
 	@override String get validate_value => 'Por favor, introduce un valor';
 	@override String get lon => 'Longitud';
 	@override String get wind => 'Viento';
-	@override String get normal => 'Normal';
+	@override String get normal => 'Normales';
 	@override String get dark => 'Oscuro';
 	@override String get settings => 'Ajustes';
 	@override String get south => 'Sur';
@@ -341,13 +341,16 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_olive => 'Oliva';
 	@override String get color_palette_sage => 'Salvia';
 	@override String get color_palette_emerald => 'Esmeralda';
-	@override String get color_palette_jade => 'Jade';
+	@override String get color_palette_jade => 'Verde jade';
 	@override String get color_palette_aqua => 'Agua';
 	@override String get color_palette_azure => 'Azur';
 	@override String get color_palette_cobalt => 'Cobalto';
 	@override String get color_palette_midnight => 'Medianoche';
 	@override String get color_palette_charcoal => 'Carbón';
 	@override String get color_palette_sand => 'Arena';
+	@override String get last_background_refresh => 'Última actualización en segundo plano';
+	@override String get last_background_refresh_never => 'Aún no hay actualización en segundo plano';
+	@override String get background_refresh_error => 'Último error en segundo plano';
 }
 
 /// The flat map containing all translations for locale <es-ES>.
@@ -499,13 +502,13 @@ extension on TranslationsEsEs {
 			'overcast' => 'Cubierto de nubes',
 			'pressure' => 'Presión',
 			'inch' => 'pulgada',
-			'imperial' => 'Imperial',
+			'imperial' => 'Sistema imperial',
 			'location' => 'Ubicación',
 			'error_occurred' => 'Se produjo un error',
 			'validate_value' => 'Por favor, introduce un valor',
 			'lon' => 'Longitud',
 			'wind' => 'Viento',
-			'normal' => 'Normal',
+			'normal' => 'Normales',
 			'dark' => 'Oscuro',
 			'settings' => 'Ajustes',
 			'south' => 'Sur',
@@ -660,13 +663,16 @@ extension on TranslationsEsEs {
 			'color_palette_olive' => 'Oliva',
 			'color_palette_sage' => 'Salvia',
 			'color_palette_emerald' => 'Esmeralda',
-			'color_palette_jade' => 'Jade',
+			'color_palette_jade' => 'Verde jade',
 			'color_palette_aqua' => 'Agua',
 			'color_palette_azure' => 'Azur',
 			'color_palette_cobalt' => 'Cobalto',
 			'color_palette_midnight' => 'Medianoche',
 			'color_palette_charcoal' => 'Carbón',
 			'color_palette_sand' => 'Arena',
+			'last_background_refresh' => 'Última actualización en segundo plano',
+			'last_background_refresh_never' => 'Aún no hay actualización en segundo plano',
+			'background_refresh_error' => 'Último error en segundo plano',
 			_ => null,
 		};
 	}

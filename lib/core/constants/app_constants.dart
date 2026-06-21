@@ -119,11 +119,16 @@ class AppConstants {
   static const double maxLongitude = 180.0;
 
   // Settings defaults
+  // Notification interval bounds (matches settings picker items 1–5).
+  static const int minNotificationIntervalHours = 1;
+  static const int maxNotificationIntervalHours = 5;
+
   static const int defaultNotificationIntervalHours = 1;
   static const String defaultNotificationTimeStart = '08:00';
   static const String defaultNotificationTimeEnd = '20:00';
 
   // Maps
+  static const String mapTilesCacheDir = 'MapTiles';
   static const String mapTileUrlTemplate =
       'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   static const String openStreetMapCopyrightUrl =

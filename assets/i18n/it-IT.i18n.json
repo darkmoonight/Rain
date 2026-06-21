@@ -275,7 +275,7 @@
   "colorPaletteIndigo": "Indaco",
   "colorPaletteSky": "Celeste",
   "colorPaletteMint": "Menta",
-  "colorPaletteLime": "Lime",
+  "colorPaletteLime": "Verde lime",
   "colorPaletteAmber": "Ambra",
   "colorPaletteCoral": "Corallo",
   "colorPaletteCrimson": "Cremisi",
@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "Cobalto",
   "colorPaletteMidnight": "Mezzanotte",
   "colorPaletteCharcoal": "Carbone",
-  "colorPaletteSand": "Sabbia"
+  "colorPaletteSand": "Sabbia",
+  "lastBackgroundRefresh": "Ultimo aggiornamento in background",
+  "lastBackgroundRefreshNever": "Nessun aggiornamento in background",
+  "backgroundRefreshError": "Ultimo errore in background"
 }

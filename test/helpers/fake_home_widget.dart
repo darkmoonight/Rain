@@ -17,6 +17,9 @@ void installFakeHomeWidget({bool saveResult = true}) {
             final args = call.arguments as Map<Object?, Object?>;
             savedWidgetData[args['id'] as String] = args['data'];
             return saveResult;
+          case 'getWidgetData':
+            final args = call.arguments as Map<Object?, Object?>;
+            return savedWidgetData[args['id'] as String];
           case 'updateWidget':
           case 'setAppGroupId':
           case 'registerBackgroundCallback':

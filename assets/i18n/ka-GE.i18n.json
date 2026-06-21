@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "კობალტი",
   "colorPaletteMidnight": "შუაღამე",
   "colorPaletteCharcoal": "ნახშირისფერი",
-  "colorPaletteSand": "ქვიშისფერი"
+  "colorPaletteSand": "ქვიშისფერი",
+  "lastBackgroundRefresh": "ბოლო ფონური განახლება",
+  "lastBackgroundRefreshNever": "ფონური განახლება ჯერ არ მომხდარა",
+  "backgroundRefreshError": "ბოლო ფონური შეცდომა"
 }

@@ -287,7 +287,7 @@
   "colorPaletteGrape": "Fíonchaor",
   "colorPaletteForest": "Foraois",
   "colorPaletteTurquoise": "Turcóis",
-  "colorPaletteViolet": "Violet",
+  "colorPaletteViolet": "Corcra",
   "colorPaletteLavender": "Labhandar",
   "colorPaletteLilac": "Liolac",
   "colorPaletteOrchid": "Magairlín",
@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "Cóbalt",
   "colorPaletteMidnight": "Meán oíche",
   "colorPaletteCharcoal": "Gualach",
-  "colorPaletteSand": "Gainimh"
+  "colorPaletteSand": "Gainimh",
+  "lastBackgroundRefresh": "An nuashonrú cúlra is déanaí",
+  "lastBackgroundRefreshNever": "Níl aon nuashonrú cúlra fós",
+  "backgroundRefreshError": "An earráid chúlra is déanaí"
 }

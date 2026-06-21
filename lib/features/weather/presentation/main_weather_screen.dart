@@ -106,15 +106,7 @@ class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
   }
 
   /// Shows shimmer placeholders while data is loading or daily min/max temps are missing.
-  Widget _loadingView() => ListView(
-    children: const [
-      MyShimmer(height: 200),
-      MyShimmer(height: 130, margin: EdgeInsets.symmetric(vertical: 15)),
-      MyShimmer(height: 90, margin: EdgeInsets.only(bottom: 15)),
-      MyShimmer(height: 400, margin: EdgeInsets.only(bottom: 15)),
-      MyShimmer(height: 450, margin: EdgeInsets.only(bottom: 15)),
-    ],
-  );
+  Widget _loadingView() => const MainWeatherLoadingShimmer();
 
   /// Shows an offline-style empty state when forecast data is unavailable.
   Widget _emptyView(BuildContext context) => ListView(

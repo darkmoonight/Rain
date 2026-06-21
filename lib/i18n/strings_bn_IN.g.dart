@@ -348,6 +348,9 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'মধ্যরাত্রি';
 	@override String get color_palette_charcoal => 'কয়লা';
 	@override String get color_palette_sand => 'বালি';
+	@override String get last_background_refresh => 'সর্বশেষ ব্যাকগ্রাউন্ড রিফ্রেশ';
+	@override String get last_background_refresh_never => 'এখনও কোনো ব্যাকগ্রাউন্ড রিফ্রেশ নেই';
+	@override String get background_refresh_error => 'সর্বশেষ ব্যাকগ্রাউন্ড ত্রুটি';
 }
 
 /// The flat map containing all translations for locale <bn-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsBnIn {
 			'color_palette_midnight' => 'মধ্যরাত্রি',
 			'color_palette_charcoal' => 'কয়লা',
 			'color_palette_sand' => 'বালি',
+			'last_background_refresh' => 'সর্বশেষ ব্যাকগ্রাউন্ড রিফ্রেশ',
+			'last_background_refresh_never' => 'এখনও কোনো ব্যাকগ্রাউন্ড রিফ্রেশ নেই',
+			'background_refresh_error' => 'সর্বশেষ ব্যাকগ্রাউন্ড ত্রুটি',
 			_ => null,
 		};
 	}

@@ -49,7 +49,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get time_end => 'Endzeit';
 	@override String get search_method => 'Verwenden Sie die Suche oder die Geolokalisierung';
 	@override String get hourly_variables => 'Stündliche Wettervariablen';
-	@override String get uv_index => 'UV-index';
+	@override String get uv_index => 'UV-Index';
 	@override String get clear_sky => 'Klarer Himmel';
 	@override String get k_24 => '24-stunden';
 	@override String get no_weather_card => 'Füge eine Stadt hinzu';
@@ -143,7 +143,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get deleted_cache_store_query => 'Sind Sie sicher, dass Sie den Cache leeren möchten?';
 	@override String get support => 'Unterstützung';
 	@override String get groups => 'Unsere gruppen';
-	@override String get system => 'System';
+	@override String get system => 'Systemmodus';
 	@override String get sunset => 'Sonnenuntergang';
 	@override String get dewpoint => 'Taupunkt';
 	@override String get shortwave_radiation => 'Kurzwellenstrahlung';
@@ -180,13 +180,13 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get overcast => 'Bedeckt';
 	@override String get pressure => 'Druck';
 	@override String get inch => 'Zoll';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Imperiale Einheiten';
 	@override String get location => 'Standort';
 	@override String get error_occurred => 'Ein Fehler ist aufgetreten';
 	@override String get validate_value => 'Bitte geben Sie einen Wert ein';
 	@override String get lon => 'Längengrad';
-	@override String get wind => 'Wind';
-	@override String get normal => 'Normal';
+	@override String get wind => 'Windstärke';
+	@override String get normal => 'Normale';
 	@override String get dark => 'Dunkel';
 	@override String get settings => 'Einstellungen';
 	@override String get south => 'Süden';
@@ -310,8 +310,8 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_green => 'Grün';
 	@override String get color_palette_orange => 'Orange';
 	@override String get color_palette_red => 'Rot';
-	@override String get color_palette_pink => 'Pink';
-	@override String get color_palette_cyan => 'Cyan';
+	@override String get color_palette_pink => 'Rosa';
+	@override String get color_palette_cyan => 'Zyan';
 	@override String get color_palette_indigo => 'Indigo';
 	@override String get color_palette_sky => 'Himmelblau';
 	@override String get color_palette_mint => 'Minze';
@@ -319,7 +319,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_amber => 'Bernstein';
 	@override String get color_palette_coral => 'Koralle';
 	@override String get color_palette_crimson => 'Karmesin';
-	@override String get color_palette_rose => 'Rose';
+	@override String get color_palette_rose => 'Rosenrot';
 	@override String get color_palette_brown => 'Braun';
 	@override String get color_palette_slate => 'Schiefer';
 	@override String get color_palette_navy => 'Marineblau';
@@ -341,13 +341,16 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_olive => 'Oliv';
 	@override String get color_palette_sage => 'Salbei';
 	@override String get color_palette_emerald => 'Smaragd';
-	@override String get color_palette_jade => 'Jade';
+	@override String get color_palette_jade => 'Jadegrün';
 	@override String get color_palette_aqua => 'Aquamarin';
 	@override String get color_palette_azure => 'Azur';
 	@override String get color_palette_cobalt => 'Kobalt';
 	@override String get color_palette_midnight => 'Mitternacht';
 	@override String get color_palette_charcoal => 'Anthrazit';
 	@override String get color_palette_sand => 'Sand';
+	@override String get last_background_refresh => 'Letzte Hintergrundaktualisierung';
+	@override String get last_background_refresh_never => 'Noch keine Hintergrundaktualisierung';
+	@override String get background_refresh_error => 'Letzter Hintergrundfehler';
 }
 
 /// The flat map containing all translations for locale <de-DE>.
@@ -368,7 +371,7 @@ extension on TranslationsDeDe {
 			'time_end' => 'Endzeit',
 			'search_method' => 'Verwenden Sie die Suche oder die Geolokalisierung',
 			'hourly_variables' => 'Stündliche Wettervariablen',
-			'uv_index' => 'UV-index',
+			'uv_index' => 'UV-Index',
 			'clear_sky' => 'Klarer Himmel',
 			'k_24' => '24-stunden',
 			'no_weather_card' => 'Füge eine Stadt hinzu',
@@ -462,7 +465,7 @@ extension on TranslationsDeDe {
 			'deleted_cache_store_query' => 'Sind Sie sicher, dass Sie den Cache leeren möchten?',
 			'support' => 'Unterstützung',
 			'groups' => 'Unsere gruppen',
-			'system' => 'System',
+			'system' => 'Systemmodus',
 			'sunset' => 'Sonnenuntergang',
 			'dewpoint' => 'Taupunkt',
 			'shortwave_radiation' => 'Kurzwellenstrahlung',
@@ -499,13 +502,13 @@ extension on TranslationsDeDe {
 			'overcast' => 'Bedeckt',
 			'pressure' => 'Druck',
 			'inch' => 'Zoll',
-			'imperial' => 'Imperial',
+			'imperial' => 'Imperiale Einheiten',
 			'location' => 'Standort',
 			'error_occurred' => 'Ein Fehler ist aufgetreten',
 			'validate_value' => 'Bitte geben Sie einen Wert ein',
 			'lon' => 'Längengrad',
-			'wind' => 'Wind',
-			'normal' => 'Normal',
+			'wind' => 'Windstärke',
+			'normal' => 'Normale',
 			'dark' => 'Dunkel',
 			'settings' => 'Einstellungen',
 			'south' => 'Süden',
@@ -629,8 +632,8 @@ extension on TranslationsDeDe {
 			'color_palette_green' => 'Grün',
 			'color_palette_orange' => 'Orange',
 			'color_palette_red' => 'Rot',
-			'color_palette_pink' => 'Pink',
-			'color_palette_cyan' => 'Cyan',
+			'color_palette_pink' => 'Rosa',
+			'color_palette_cyan' => 'Zyan',
 			'color_palette_indigo' => 'Indigo',
 			'color_palette_sky' => 'Himmelblau',
 			'color_palette_mint' => 'Minze',
@@ -638,7 +641,7 @@ extension on TranslationsDeDe {
 			'color_palette_amber' => 'Bernstein',
 			'color_palette_coral' => 'Koralle',
 			'color_palette_crimson' => 'Karmesin',
-			'color_palette_rose' => 'Rose',
+			'color_palette_rose' => 'Rosenrot',
 			'color_palette_brown' => 'Braun',
 			'color_palette_slate' => 'Schiefer',
 			'color_palette_navy' => 'Marineblau',
@@ -660,13 +663,16 @@ extension on TranslationsDeDe {
 			'color_palette_olive' => 'Oliv',
 			'color_palette_sage' => 'Salbei',
 			'color_palette_emerald' => 'Smaragd',
-			'color_palette_jade' => 'Jade',
+			'color_palette_jade' => 'Jadegrün',
 			'color_palette_aqua' => 'Aquamarin',
 			'color_palette_azure' => 'Azur',
 			'color_palette_cobalt' => 'Kobalt',
 			'color_palette_midnight' => 'Mitternacht',
 			'color_palette_charcoal' => 'Anthrazit',
 			'color_palette_sand' => 'Sand',
+			'last_background_refresh' => 'Letzte Hintergrundaktualisierung',
+			'last_background_refresh_never' => 'Noch keine Hintergrundaktualisierung',
+			'background_refresh_error' => 'Letzter Hintergrundfehler',
 			_ => null,
 		};
 	}

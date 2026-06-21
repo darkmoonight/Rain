@@ -348,6 +348,9 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'نیمه‌شب';
 	@override String get color_palette_charcoal => 'ذغال';
 	@override String get color_palette_sand => 'شن';
+	@override String get last_background_refresh => 'آخرین به‌روزرسانی پس‌زمینه';
+	@override String get last_background_refresh_never => 'هنوز به‌روزرسانی پس‌زمینه‌ای انجام نشده';
+	@override String get background_refresh_error => 'آخرین خطای پس‌زمینه';
 }
 
 /// The flat map containing all translations for locale <fa-IR>.
@@ -667,6 +670,9 @@ extension on TranslationsFaIr {
 			'color_palette_midnight' => 'نیمه‌شب',
 			'color_palette_charcoal' => 'ذغال',
 			'color_palette_sand' => 'شن',
+			'last_background_refresh' => 'آخرین به‌روزرسانی پس‌زمینه',
+			'last_background_refresh_never' => 'هنوز به‌روزرسانی پس‌زمینه‌ای انجام نشده',
+			'background_refresh_error' => 'آخرین خطای پس‌زمینه',
 			_ => null,
 		};
 	}

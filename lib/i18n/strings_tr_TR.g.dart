@@ -186,7 +186,7 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get validate_value => 'Lütfen bir değer girin';
 	@override String get lon => 'Boylam';
 	@override String get wind => 'Rüzgar';
-	@override String get normal => 'Normal';
+	@override String get normal => 'Standart';
 	@override String get dark => 'Karanlık';
 	@override String get settings => 'Ayarlar';
 	@override String get south => 'Güney';
@@ -348,6 +348,9 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'Gece yarısı';
 	@override String get color_palette_charcoal => 'Antrasit';
 	@override String get color_palette_sand => 'Kum';
+	@override String get last_background_refresh => 'Son arka plan yenilemesi';
+	@override String get last_background_refresh_never => 'Henüz arka plan yenilemesi yok';
+	@override String get background_refresh_error => 'Son arka plan hatası';
 }
 
 /// The flat map containing all translations for locale <tr-TR>.
@@ -505,7 +508,7 @@ extension on TranslationsTrTr {
 			'validate_value' => 'Lütfen bir değer girin',
 			'lon' => 'Boylam',
 			'wind' => 'Rüzgar',
-			'normal' => 'Normal',
+			'normal' => 'Standart',
 			'dark' => 'Karanlık',
 			'settings' => 'Ayarlar',
 			'south' => 'Güney',
@@ -667,6 +670,9 @@ extension on TranslationsTrTr {
 			'color_palette_midnight' => 'Gece yarısı',
 			'color_palette_charcoal' => 'Antrasit',
 			'color_palette_sand' => 'Kum',
+			'last_background_refresh' => 'Son arka plan yenilemesi',
+			'last_background_refresh_never' => 'Henüz arka plan yenilemesi yok',
+			'background_refresh_error' => 'Son arka plan hatası',
 			_ => null,
 		};
 	}

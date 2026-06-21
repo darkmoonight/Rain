@@ -152,7 +152,7 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cancel => '取消';
 	@override String get loading => '載入中……';
 	@override String get timeformat => '時間格式';
-	@override String get lat => '維度';
+	@override String get lat => '緯度';
 	@override String get data => '資料';
 	@override String get visibility => '可見度';
 	@override String get deleted_card_weather => '刪除城市';
@@ -184,7 +184,7 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get location => '位置';
 	@override String get error_occurred => '發生錯誤';
 	@override String get validate_value => '請輸入一個值';
-	@override String get lon => '精度';
+	@override String get lon => '經度';
 	@override String get wind => '風速';
 	@override String get normal => '正常';
 	@override String get dark => '黑暗';
@@ -348,6 +348,9 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => '午夜';
 	@override String get color_palette_charcoal => '炭灰';
 	@override String get color_palette_sand => '沙';
+	@override String get last_background_refresh => '上次背景更新';
+	@override String get last_background_refresh_never => '尚無背景更新';
+	@override String get background_refresh_error => '上次背景錯誤';
 }
 
 /// The flat map containing all translations for locale <zh-TW>.
@@ -471,7 +474,7 @@ extension on TranslationsZhTw {
 			'cancel' => '取消',
 			'loading' => '載入中……',
 			'timeformat' => '時間格式',
-			'lat' => '維度',
+			'lat' => '緯度',
 			'data' => '資料',
 			'visibility' => '可見度',
 			'deleted_card_weather' => '刪除城市',
@@ -503,7 +506,7 @@ extension on TranslationsZhTw {
 			'location' => '位置',
 			'error_occurred' => '發生錯誤',
 			'validate_value' => '請輸入一個值',
-			'lon' => '精度',
+			'lon' => '經度',
 			'wind' => '風速',
 			'normal' => '正常',
 			'dark' => '黑暗',
@@ -667,6 +670,9 @@ extension on TranslationsZhTw {
 			'color_palette_midnight' => '午夜',
 			'color_palette_charcoal' => '炭灰',
 			'color_palette_sand' => '沙',
+			'last_background_refresh' => '上次背景更新',
+			'last_background_refresh_never' => '尚無背景更新',
+			'background_refresh_error' => '上次背景錯誤',
 			_ => null,
 		};
 	}

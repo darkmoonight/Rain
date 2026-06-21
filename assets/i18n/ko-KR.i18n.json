@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "코발트",
   "colorPaletteMidnight": "자정",
   "colorPaletteCharcoal": "차콜",
-  "colorPaletteSand": "모래"
+  "colorPaletteSand": "모래",
+  "lastBackgroundRefresh": "마지막 백그라운드 새로고침",
+  "lastBackgroundRefreshNever": "백그라운드 새로고침 없음",
+  "backgroundRefreshError": "마지막 백그라운드 오류"
 }

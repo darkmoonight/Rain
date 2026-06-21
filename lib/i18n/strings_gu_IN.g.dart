@@ -348,6 +348,9 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'મધરાત';
 	@override String get color_palette_charcoal => 'કોયલો';
 	@override String get color_palette_sand => 'રેત';
+	@override String get last_background_refresh => 'છેલ્લું પૃષ્ઠભૂમિ રિફ્રેશ';
+	@override String get last_background_refresh_never => 'હજી સુધી કોઈ પૃષ્ઠભૂમિ રિફ્રેશ નથી';
+	@override String get background_refresh_error => 'છેલ્લી પૃષ્ઠભૂમિ ભૂલ';
 }
 
 /// The flat map containing all translations for locale <gu-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsGuIn {
 			'color_palette_midnight' => 'મધરાત',
 			'color_palette_charcoal' => 'કોયલો',
 			'color_palette_sand' => 'રેત',
+			'last_background_refresh' => 'છેલ્લું પૃષ્ઠભૂમિ રિફ્રેશ',
+			'last_background_refresh_never' => 'હજી સુધી કોઈ પૃષ્ઠભૂમિ રિફ્રેશ નથી',
+			'background_refresh_error' => 'છેલ્લી પૃષ્ઠભૂમિ ભૂલ',
 			_ => null,
 		};
 	}

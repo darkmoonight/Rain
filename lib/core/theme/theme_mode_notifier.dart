@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/i18n/tr.dart';
 
 /// Provides the persisted theme mode preference as [ThemeMode].
 final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(
   ThemeModeNotifier.new,
 );
+
+/// User-visible label for a persisted theme preference (`system`, `dark`, `light`).
+@visibleForTesting
+String themePreferenceLabel(String? themeKey) => (themeKey ?? 'system').tr;
 
 /// Persists and exposes theme mode; also saves AMOLED and Material You toggles.
 class ThemeModeNotifier extends Notifier<ThemeMode> {
@@ -38,8 +43,8 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
   Future<void> setTheme(String themeMode) async {
     final settings = ref.read(settingsProvider);
     settings.theme = themeMode;
-    await ref.read(settingsRepositoryProvider).save(settings);
     state = _fromSettings(settings);
+    await ref.read(settingsRepositoryProvider).save(settings);
     if (Platform.isAndroid) {
       unawaited(
         ref

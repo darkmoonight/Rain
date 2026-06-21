@@ -136,11 +136,11 @@
   "freezing_rain": "Mroźny deszcz",
   "uvAverage": "Umiarkowany",
   "resetColor": "Przywróc domyślne",
-  "metric": "Metric",
+  "metric": "Metryczne",
   "overcast": "Pochmurnie",
   "pressure": "Ciśnienie",
   "inch": "cal",
-  "imperial": "Imperial",
+  "imperial": "Imperialne",
   "location": "Lokalizacja",
   "error_occurred": "Wystąpił błąd",
   "validateValue": "Proszę wprowadzić wartość",
@@ -291,7 +291,7 @@
   "colorPaletteLavender": "Lawendowy",
   "colorPaletteLilac": "Liliowy",
   "colorPaletteOrchid": "Orchidea",
-  "colorPaletteMagenta": "Magenta",
+  "colorPaletteMagenta": "Amarantowy",
   "colorPaletteRaspberry": "Malinowy",
   "colorPaletteWine": "Winny",
   "colorPaletteMaroon": "Bordowy",
@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "Kobalt",
   "colorPaletteMidnight": "Północ",
   "colorPaletteCharcoal": "Węgiel",
-  "colorPaletteSand": "Piaskowy"
+  "colorPaletteSand": "Piaskowy",
+  "lastBackgroundRefresh": "Ostatnie odświeżenie w tle",
+  "lastBackgroundRefreshNever": "Brak odświeżenia w tle",
+  "backgroundRefreshError": "Ostatni błąd w tle"
 }

@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "コバルト",
   "colorPaletteMidnight": "ミッドナイト",
   "colorPaletteCharcoal": "チャコール",
-  "colorPaletteSand": "砂"
+  "colorPaletteSand": "砂",
+  "lastBackgroundRefresh": "最後のバックグラウンド更新",
+  "lastBackgroundRefreshNever": "バックグラウンド更新はまだありません",
+  "backgroundRefreshError": "最後のバックグラウンドエラー"
 }

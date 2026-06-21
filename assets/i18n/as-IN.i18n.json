@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "কোবাল্ট",
   "colorPaletteMidnight": "মধ্যৰাতি",
   "colorPaletteCharcoal": "কয়লা",
-  "colorPaletteSand": "বালি"
+  "colorPaletteSand": "বালি",
+  "lastBackgroundRefresh": "শেষৰ পটভূমি সতেজকৰণ",
+  "lastBackgroundRefreshNever": "এতিয়ালৈকে কোনো পটভূমি সতেজকৰণ নাই",
+  "backgroundRefreshError": "শেষৰ পটভূমি ত্ৰুটি"
 }

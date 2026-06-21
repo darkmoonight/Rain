@@ -66,13 +66,13 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get uv_low => 'Faible';
 	@override String get name3 => 'Nous contacter';
 	@override String get apparent_temperature_min => 'Température apparente minimale';
-	@override String get direction => 'Direction';
+	@override String get direction => 'Sens';
 	@override String get heavy_rains => 'Averses de pluie';
 	@override String get apparent_temperature_max => 'Température apparente maximale';
 	@override String get k_12 => '12 heures';
 	@override String get discord => 'Discord';
 	@override String get discard_changes => 'Êtes-vous sûr de vouloir annuler vos modifications ?';
-	@override String get notifications => 'Notifications';
+	@override String get notifications => 'Alertes';
 	@override String get notification_sound => 'Son des notifications';
 	@override String get mph => 'mph';
 	@override String get west => 'Ouest';
@@ -130,7 +130,7 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get validate_name => 'Veuillez saisir le nom';
 	@override String get sunrise => 'Lever du soleil';
 	@override String get km => 'km';
-	@override String get district => 'District';
+	@override String get district => 'Région';
 	@override String get southwest => 'Sud-Ouest';
 	@override String get degrees => 'Degrés';
 	@override String get clear_cache_store => 'Effacer le cache';
@@ -152,7 +152,7 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cancel => 'Annuler';
 	@override String get loading => 'Chargement...';
 	@override String get timeformat => 'Format horaire';
-	@override String get lat => 'Latitude';
+	@override String get lat => 'Lat.';
 	@override String get data => 'Données';
 	@override String get visibility => 'Visibilité';
 	@override String get deleted_card_weather => 'Supprimer une ville';
@@ -180,13 +180,13 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get overcast => 'Couvert';
 	@override String get pressure => 'Pression';
 	@override String get inch => 'pouce';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Impérial';
 	@override String get location => 'Localisation';
 	@override String get error_occurred => 'Une erreur s\'est produite';
 	@override String get validate_value => 'Veuillez saisir une valeur';
-	@override String get lon => 'Longitude';
+	@override String get lon => 'Long.';
 	@override String get wind => 'Vent';
-	@override String get normal => 'Normal';
+	@override String get normal => 'Normale';
 	@override String get dark => 'Sombre';
 	@override String get settings => 'Par.';
 	@override String get south => 'Sud';
@@ -300,7 +300,7 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get time_unavailable => '--:--';
 	@override String get license_app_summary => 'Conçu avec des logiciels open source. Appuyez sur un package pour lire sa licence.';
 	@override String get license_dependencies => 'Dépendances';
-	@override String get license_packages => 'packages';
+	@override String get license_packages => 'Paquets';
 	@override String get close => 'Fermer';
 	@override String get color_palette => 'Palette de couleurs';
 	@override String get color_palette_system_hint => 'Couleurs système utilisées';
@@ -348,6 +348,9 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'Minuit';
 	@override String get color_palette_charcoal => 'Anthracite';
 	@override String get color_palette_sand => 'Sable';
+	@override String get last_background_refresh => 'Dernière actualisation en arrière-plan';
+	@override String get last_background_refresh_never => 'Aucune actualisation en arrière-plan';
+	@override String get background_refresh_error => 'Dernière erreur en arrière-plan';
 }
 
 /// The flat map containing all translations for locale <fr-FR>.
@@ -385,13 +388,13 @@ extension on TranslationsFrFr {
 			'uv_low' => 'Faible',
 			'name3' => 'Nous contacter',
 			'apparent_temperature_min' => 'Température apparente minimale',
-			'direction' => 'Direction',
+			'direction' => 'Sens',
 			'heavy_rains' => 'Averses de pluie',
 			'apparent_temperature_max' => 'Température apparente maximale',
 			'k_12' => '12 heures',
 			'discord' => 'Discord',
 			'discard_changes' => 'Êtes-vous sûr de vouloir annuler vos modifications ?',
-			'notifications' => 'Notifications',
+			'notifications' => 'Alertes',
 			'notification_sound' => 'Son des notifications',
 			'mph' => 'mph',
 			'west' => 'Ouest',
@@ -449,7 +452,7 @@ extension on TranslationsFrFr {
 			'validate_name' => 'Veuillez saisir le nom',
 			'sunrise' => 'Lever du soleil',
 			'km' => 'km',
-			'district' => 'District',
+			'district' => 'Région',
 			'southwest' => 'Sud-Ouest',
 			'degrees' => 'Degrés',
 			'clear_cache_store' => 'Effacer le cache',
@@ -471,7 +474,7 @@ extension on TranslationsFrFr {
 			'cancel' => 'Annuler',
 			'loading' => 'Chargement...',
 			'timeformat' => 'Format horaire',
-			'lat' => 'Latitude',
+			'lat' => 'Lat.',
 			'data' => 'Données',
 			'visibility' => 'Visibilité',
 			'deleted_card_weather' => 'Supprimer une ville',
@@ -499,13 +502,13 @@ extension on TranslationsFrFr {
 			'overcast' => 'Couvert',
 			'pressure' => 'Pression',
 			'inch' => 'pouce',
-			'imperial' => 'Imperial',
+			'imperial' => 'Impérial',
 			'location' => 'Localisation',
 			'error_occurred' => 'Une erreur s\'est produite',
 			'validate_value' => 'Veuillez saisir une valeur',
-			'lon' => 'Longitude',
+			'lon' => 'Long.',
 			'wind' => 'Vent',
-			'normal' => 'Normal',
+			'normal' => 'Normale',
 			'dark' => 'Sombre',
 			'settings' => 'Par.',
 			'south' => 'Sud',
@@ -619,7 +622,7 @@ extension on TranslationsFrFr {
 			'time_unavailable' => '--:--',
 			'license_app_summary' => 'Conçu avec des logiciels open source. Appuyez sur un package pour lire sa licence.',
 			'license_dependencies' => 'Dépendances',
-			'license_packages' => 'packages',
+			'license_packages' => 'Paquets',
 			'close' => 'Fermer',
 			'color_palette' => 'Palette de couleurs',
 			'color_palette_system_hint' => 'Couleurs système utilisées',
@@ -667,6 +670,9 @@ extension on TranslationsFrFr {
 			'color_palette_midnight' => 'Minuit',
 			'color_palette_charcoal' => 'Anthracite',
 			'color_palette_sand' => 'Sable',
+			'last_background_refresh' => 'Dernière actualisation en arrière-plan',
+			'last_background_refresh_never' => 'Aucune actualisation en arrière-plan',
+			'background_refresh_error' => 'Dernière erreur en arrière-plan',
 			_ => null,
 		};
 	}

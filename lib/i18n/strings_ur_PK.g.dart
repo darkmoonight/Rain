@@ -348,6 +348,9 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'نصف شب';
 	@override String get color_palette_charcoal => 'کوئلہ';
 	@override String get color_palette_sand => 'ریت';
+	@override String get last_background_refresh => 'آخری پس منظر ریفریش';
+	@override String get last_background_refresh_never => 'ابھی تک کوئی پس منظر ریفریش نہیں';
+	@override String get background_refresh_error => 'آخری پس منظر خرابی';
 }
 
 /// The flat map containing all translations for locale <ur-PK>.
@@ -667,6 +670,9 @@ extension on TranslationsUrPk {
 			'color_palette_midnight' => 'نصف شب',
 			'color_palette_charcoal' => 'کوئلہ',
 			'color_palette_sand' => 'ریت',
+			'last_background_refresh' => 'آخری پس منظر ریفریش',
+			'last_background_refresh_never' => 'ابھی تک کوئی پس منظر ریفریش نہیں',
+			'background_refresh_error' => 'آخری پس منظر خرابی',
 			_ => null,
 		};
 	}

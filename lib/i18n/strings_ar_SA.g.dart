@@ -348,6 +348,9 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'منتصف الليل';
 	@override String get color_palette_charcoal => 'فحم';
 	@override String get color_palette_sand => 'رمل';
+	@override String get last_background_refresh => 'آخر تحديث في الخلفية';
+	@override String get last_background_refresh_never => 'لا يوجد تحديث في الخلفية بعد';
+	@override String get background_refresh_error => 'آخر خطأ في الخلفية';
 }
 
 /// The flat map containing all translations for locale <ar-SA>.
@@ -667,6 +670,9 @@ extension on TranslationsArSa {
 			'color_palette_midnight' => 'منتصف الليل',
 			'color_palette_charcoal' => 'فحم',
 			'color_palette_sand' => 'رمل',
+			'last_background_refresh' => 'آخر تحديث في الخلفية',
+			'last_background_refresh_never' => 'لا يوجد تحديث في الخلفية بعد',
+			'background_refresh_error' => 'آخر خطأ في الخلفية',
 			_ => null,
 		};
 	}

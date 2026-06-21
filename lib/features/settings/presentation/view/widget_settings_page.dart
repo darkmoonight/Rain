@@ -9,6 +9,7 @@ import 'package:rain/core/config/widget_registry.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/services/background_platform_service.dart';
+import 'package:rain/core/services/background_refresh_log.dart';
 import 'package:rain/core/utils/color_converter.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_secondary_app_bar.dart';
@@ -28,6 +29,51 @@ class WidgetSettingsPage extends ConsumerStatefulWidget {
 /// State for [WidgetSettingsPage] managing widget colors and pin actions.
 class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
   WidgetSettingsService get _service => ref.read(widgetSettingsServiceProvider);
+
+  DateTime? _backgroundRefreshAt;
+  String? _backgroundRefreshError;
+  bool _backgroundRefreshLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBackgroundRefresh();
+  }
+
+  Future<void> _loadBackgroundRefresh() async {
+    final at = await readLastBackgroundRefreshAt();
+    final error = await readLastBackgroundRefreshError();
+    if (!mounted) return;
+    setState(() {
+      _backgroundRefreshAt = at;
+      _backgroundRefreshError = error;
+      _backgroundRefreshLoaded = true;
+    });
+  }
+
+  String _formatBackgroundRefreshAt(DateTime at) =>
+      at.toLocal().toString().substring(0, 16);
+
+  List<SettingsTile> _backgroundRefreshTiles() {
+    if (!_backgroundRefreshLoaded) return const [];
+
+    return [
+      SettingsTile(
+        leading: const Icon(IconsaxPlusLinear.clock_1),
+        title: 'lastBackgroundRefresh',
+        subtitle: _backgroundRefreshAt == null
+            ? 'lastBackgroundRefreshNever'
+            : _formatBackgroundRefreshAt(_backgroundRefreshAt!),
+      ),
+      if (_backgroundRefreshError != null &&
+          _backgroundRefreshError!.isNotEmpty)
+        SettingsTile(
+          leading: const Icon(IconsaxPlusLinear.warning_2),
+          title: 'backgroundRefreshError',
+          subtitle: _backgroundRefreshError!,
+        ),
+    ];
+  }
 
   /// Runs a widget action and shows a success or error snackbar.
   Future<void> _runWidgetAction(
@@ -145,7 +191,10 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppConstants.spacingL,
+          vertical: AppConstants.spacingM,
+        ),
         child: Column(
           children: [
             SettingsSection(
@@ -178,6 +227,7 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
                     showSuccess: false,
                   ),
                 ),
+                ..._backgroundRefreshTiles(),
               ],
             ),
             const SizedBox(height: AppConstants.spacingL),

@@ -1,5 +1,5 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 /// Cached Android device capabilities used for theme and layout decisions.
 class DeviceFeature {
@@ -19,9 +19,7 @@ class DeviceFeature {
       _isEdgeToEdgeAvailableCache =
           _androidDeviceInfo != null && _androidDeviceInfo!.version.sdkInt > 28;
     } catch (e) {
-      if (kDebugMode) {
-        print('Error initializing device info: $e');
-      }
+      debugPrint('Error initializing device info: $e');
       _isEdgeToEdgeAvailableCache = false;
     }
   }

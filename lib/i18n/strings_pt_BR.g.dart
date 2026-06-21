@@ -152,7 +152,7 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get cancel => 'Cancelar';
 	@override String get loading => 'Carregando...';
 	@override String get timeformat => 'Formato de hora';
-	@override String get lat => 'Latitude';
+	@override String get lat => 'Lat.';
 	@override String get data => 'Dados';
 	@override String get visibility => 'Visibilidade';
 	@override String get deleted_card_weather => 'Deletando a cidade';
@@ -180,13 +180,13 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get overcast => 'Encoberto';
 	@override String get pressure => 'Pressão';
 	@override String get inch => 'polegada';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Sistema imperial';
 	@override String get location => 'Localização';
 	@override String get error_occurred => 'Ocorreu um erro';
 	@override String get validate_value => 'Por favor escreva um valor';
-	@override String get lon => 'Longitude';
+	@override String get lon => 'Long.';
 	@override String get wind => 'Vento';
-	@override String get normal => 'Normal';
+	@override String get normal => 'Normais';
 	@override String get dark => 'Escuro';
 	@override String get settings => 'Configurações.';
 	@override String get south => 'Sul';
@@ -341,13 +341,16 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_olive => 'Oliva';
 	@override String get color_palette_sage => 'Sálvia';
 	@override String get color_palette_emerald => 'Esmeralda';
-	@override String get color_palette_jade => 'Jade';
+	@override String get color_palette_jade => 'Jadeíta';
 	@override String get color_palette_aqua => 'Água';
 	@override String get color_palette_azure => 'Azul-celeste';
 	@override String get color_palette_cobalt => 'Cobalto';
 	@override String get color_palette_midnight => 'Meia-noite';
 	@override String get color_palette_charcoal => 'Carvão';
 	@override String get color_palette_sand => 'Areia';
+	@override String get last_background_refresh => 'Última atualização em segundo plano';
+	@override String get last_background_refresh_never => 'Nenhuma atualização em segundo plano';
+	@override String get background_refresh_error => 'Último erro em segundo plano';
 }
 
 /// The flat map containing all translations for locale <pt-BR>.
@@ -471,7 +474,7 @@ extension on TranslationsPtBr {
 			'cancel' => 'Cancelar',
 			'loading' => 'Carregando...',
 			'timeformat' => 'Formato de hora',
-			'lat' => 'Latitude',
+			'lat' => 'Lat.',
 			'data' => 'Dados',
 			'visibility' => 'Visibilidade',
 			'deleted_card_weather' => 'Deletando a cidade',
@@ -499,13 +502,13 @@ extension on TranslationsPtBr {
 			'overcast' => 'Encoberto',
 			'pressure' => 'Pressão',
 			'inch' => 'polegada',
-			'imperial' => 'Imperial',
+			'imperial' => 'Sistema imperial',
 			'location' => 'Localização',
 			'error_occurred' => 'Ocorreu um erro',
 			'validate_value' => 'Por favor escreva um valor',
-			'lon' => 'Longitude',
+			'lon' => 'Long.',
 			'wind' => 'Vento',
-			'normal' => 'Normal',
+			'normal' => 'Normais',
 			'dark' => 'Escuro',
 			'settings' => 'Configurações.',
 			'south' => 'Sul',
@@ -660,13 +663,16 @@ extension on TranslationsPtBr {
 			'color_palette_olive' => 'Oliva',
 			'color_palette_sage' => 'Sálvia',
 			'color_palette_emerald' => 'Esmeralda',
-			'color_palette_jade' => 'Jade',
+			'color_palette_jade' => 'Jadeíta',
 			'color_palette_aqua' => 'Água',
 			'color_palette_azure' => 'Azul-celeste',
 			'color_palette_cobalt' => 'Cobalto',
 			'color_palette_midnight' => 'Meia-noite',
 			'color_palette_charcoal' => 'Carvão',
 			'color_palette_sand' => 'Areia',
+			'last_background_refresh' => 'Última atualização em segundo plano',
+			'last_background_refresh_never' => 'Nenhuma atualização em segundo plano',
+			'background_refresh_error' => 'Último erro em segundo plano',
 			_ => null,
 		};
 	}

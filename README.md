@@ -68,7 +68,7 @@ Release APK scripts (`gms` / `floss`), reproducible FOSS builds, and flavor deta
 
 **Stack:** Flutter, Riverpod, Go Router, Isar, Open-Meteo, flutter_map, home_widget, Workmanager.
 
-**Tests:** 377 tests — run `flutter test` and `flutter analyze`. Details in [CONTRIBUTING.md](./CONTRIBUTING.md).
+**Tests:** 496 tests — run `flutter test` and `flutter analyze`. Details in [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 

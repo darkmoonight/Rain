@@ -3,6 +3,7 @@ import '../../helpers/test_bootstrap.dart';
 import '../../helpers/widget_test_harness.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action.dart';
@@ -100,7 +101,8 @@ void main() {
 
       await tester.enterText(searchField, 'Moscow');
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pump(AppConstants.debounceDelay);
+      await tester.pump();
 
       expect(find.textContaining('Moscow'), findsWidgets);
     });

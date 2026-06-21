@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "كوبالت",
   "colorPaletteMidnight": "منتصف الليل",
   "colorPaletteCharcoal": "فحم",
-  "colorPaletteSand": "رمل"
+  "colorPaletteSand": "رمل",
+  "lastBackgroundRefresh": "آخر تحديث في الخلفية",
+  "lastBackgroundRefreshNever": "لا يوجد تحديث في الخلفية بعد",
+  "backgroundRefreshError": "آخر خطأ في الخلفية"
 }

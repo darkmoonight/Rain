@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
@@ -13,7 +15,7 @@ Future<T?> showSelectionDialog<T>({
   required List<T> items,
   required T currentValue,
   required String Function(T) itemBuilder,
-  required void Function(T) onSelected,
+  required FutureOr<void> Function(T) onSelected,
   bool enableSearch = false,
   Widget? Function(T)? leadingBuilder,
 }) async {
@@ -50,7 +52,7 @@ class SelectionDialog<T> extends StatefulWidget {
   final List<T> items;
   final T currentValue;
   final String Function(T) itemBuilder;
-  final void Function(T) onSelected;
+  final FutureOr<void> Function(T) onSelected;
   final bool enableSearch;
   final Widget? Function(T)? leadingBuilder;
 
@@ -113,8 +115,9 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
                     title: widget.itemBuilder(item),
                     isSelected: item == widget.currentValue,
                     leading: widget.leadingBuilder?.call(item),
-                    onTap: () {
-                      widget.onSelected(item);
+                    onTap: () async {
+                      await widget.onSelected(item);
+                      if (!context.mounted) return;
                       NavigationHelper.back(context, result: item);
                     },
                   );

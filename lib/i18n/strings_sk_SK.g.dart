@@ -49,7 +49,7 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get time_end => 'Čas ukončenia';
 	@override String get search_method => 'Použite vyhľadávanie alebo geolokáciu';
 	@override String get hourly_variables => 'Hodinové meteorologické premenné';
-	@override String get uv_index => 'UV-index';
+	@override String get uv_index => 'UV index';
 	@override String get clear_sky => 'Jasno';
 	@override String get k_24 => '24-hodinový';
 	@override String get no_weather_card => 'Pridať mesto';
@@ -312,7 +312,7 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_red => 'Červená';
 	@override String get color_palette_pink => 'Ružová';
 	@override String get color_palette_cyan => 'Azúrová';
-	@override String get color_palette_indigo => 'Indigo';
+	@override String get color_palette_indigo => 'Indigová';
 	@override String get color_palette_sky => 'Nebeská';
 	@override String get color_palette_mint => 'Mätová';
 	@override String get color_palette_lime => 'Limetková';
@@ -342,12 +342,15 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_sage => 'Šalvia';
 	@override String get color_palette_emerald => 'Smaragdová';
 	@override String get color_palette_jade => 'Nefrit';
-	@override String get color_palette_aqua => 'Aqua';
+	@override String get color_palette_aqua => 'Azúrová';
 	@override String get color_palette_azure => 'Azúrová';
 	@override String get color_palette_cobalt => 'Kobalt';
 	@override String get color_palette_midnight => 'Polnoc';
 	@override String get color_palette_charcoal => 'Antracit';
 	@override String get color_palette_sand => 'Piesková';
+	@override String get last_background_refresh => 'Posledná aktualizácia na pozadí';
+	@override String get last_background_refresh_never => 'Zatiaľ žiadna aktualizácia na pozadí';
+	@override String get background_refresh_error => 'Posledná chyba na pozadí';
 }
 
 /// The flat map containing all translations for locale <sk-SK>.
@@ -368,7 +371,7 @@ extension on TranslationsSkSk {
 			'time_end' => 'Čas ukončenia',
 			'search_method' => 'Použite vyhľadávanie alebo geolokáciu',
 			'hourly_variables' => 'Hodinové meteorologické premenné',
-			'uv_index' => 'UV-index',
+			'uv_index' => 'UV index',
 			'clear_sky' => 'Jasno',
 			'k_24' => '24-hodinový',
 			'no_weather_card' => 'Pridať mesto',
@@ -631,7 +634,7 @@ extension on TranslationsSkSk {
 			'color_palette_red' => 'Červená',
 			'color_palette_pink' => 'Ružová',
 			'color_palette_cyan' => 'Azúrová',
-			'color_palette_indigo' => 'Indigo',
+			'color_palette_indigo' => 'Indigová',
 			'color_palette_sky' => 'Nebeská',
 			'color_palette_mint' => 'Mätová',
 			'color_palette_lime' => 'Limetková',
@@ -661,12 +664,15 @@ extension on TranslationsSkSk {
 			'color_palette_sage' => 'Šalvia',
 			'color_palette_emerald' => 'Smaragdová',
 			'color_palette_jade' => 'Nefrit',
-			'color_palette_aqua' => 'Aqua',
+			'color_palette_aqua' => 'Azúrová',
 			'color_palette_azure' => 'Azúrová',
 			'color_palette_cobalt' => 'Kobalt',
 			'color_palette_midnight' => 'Polnoc',
 			'color_palette_charcoal' => 'Antracit',
 			'color_palette_sand' => 'Piesková',
+			'last_background_refresh' => 'Posledná aktualizácia na pozadí',
+			'last_background_refresh_never' => 'Zatiaľ žiadna aktualizácia na pozadí',
+			'background_refresh_error' => 'Posledná chyba na pozadí',
 			_ => null,
 		};
 	}

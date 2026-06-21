@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "钴蓝",
   "colorPaletteMidnight": "午夜",
   "colorPaletteCharcoal": "炭灰",
-  "colorPaletteSand": "沙"
+  "colorPaletteSand": "沙",
+  "lastBackgroundRefresh": "上次后台刷新",
+  "lastBackgroundRefreshNever": "尚无后台刷新",
+  "backgroundRefreshError": "上次后台错误"
 }

@@ -5,6 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rain/core/bootstrap/background_bootstrap.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/forecast_notification_time.dart';
+import 'package:rain/core/services/notification_reschedule_guard.dart';
 import 'package:rain/core/services/notification_weekdays.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/debug_log.dart';
@@ -144,9 +145,15 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
     final notificationTime = TimeIndexHelper.parseForecastDateTime(
       cache.time![i],
     );
+    if (!isForecastNotificationInFuture(
+      notificationTime,
+      cache.timezone,
+      utcOffsetSeconds: cache.utcOffsetSeconds,
+      referenceNowMillis: alarm.nowMillis,
+    )) {
+      continue;
+    }
     final scheduleEpochMillis = forecastAlarmEpoch(notificationTime, cache);
-    // Same rule as [isForecastNotificationInFuture] — hour start must be ahead of location now.
-    if (scheduleEpochMillis <= alarm.nowMillis) continue;
     if (!isHourInNotificationWindow(
       notificationTime.hour,
       startHour,
@@ -255,6 +262,15 @@ class NotificationService {
     }
   }
 
+  static Set<int> _pendingForecastNotificationIds(
+    List<PendingNotificationRequest> pending,
+  ) {
+    return {
+      for (final notification in pending)
+        if (notification.id != persistentNotificationId) notification.id,
+    };
+  }
+
   static const forecastChannelId = 'RainForecastSilent';
   static const forecastChannelName = 'Rain Forecast';
   static const forecastChannelDescription =
@@ -278,24 +294,10 @@ class NotificationService {
   AndroidFlutterLocalNotificationsPlugin? get _android =>
       androidNotificationsPlugin;
 
-  Future<void> scheduleForWeather({
-    required MainWeatherCache cache,
-    required Settings settings,
-    required AppSettingsState appSettings,
-    required String cityLabel,
-  }) async {
-    await _scheduleSlots(
-      plan: buildForecastNotificationPlan(
-        cache: cache,
-        settings: settings,
-        appSettings: appSettings,
-        cityLabel: cityLabel,
-      ),
-      cache: cache,
-      settings: settings,
-    );
-  }
-
+  /// Top-up missing forecast alarms without cancelling the full pending set.
+  ///
+  /// Skipped briefly after [rescheduleForWeather] ([notification_reschedule_guard])
+  /// and waits for an in-flight reschedule on this isolate.
   Future<void> ensureForecastNotificationsScheduled({
     required MainWeatherCache cache,
     required Settings settings,
@@ -303,6 +305,9 @@ class NotificationService {
     required String cityLabel,
   }) async {
     if (!settings.notifications) return;
+
+    await _awaitRescheduleIdle();
+    if (await shouldSkipForecastReplenish()) return;
 
     await cancelExpiredPendingForecastNotifications(
       cache: cache,
@@ -319,10 +324,7 @@ class NotificationService {
 
     final pending = await flutterLocalNotificationsPlugin
         .pendingNotificationRequests();
-    final pendingIds = {
-      for (final notification in pending)
-        if (notification.id != persistentNotificationId) notification.id,
-    };
+    final pendingIds = _pendingForecastNotificationIds(pending);
 
     final missingSlots = plan.slots
         .where((slot) => !pendingIds.contains(notificationIdFor(slot)))
@@ -342,8 +344,10 @@ class NotificationService {
     required Settings settings,
   }) async {
     final slots = plan.slots;
-    lastScheduledSlotCount = slots.length;
-    if (slots.isEmpty) return;
+    if (slots.isEmpty) {
+      lastScheduledSlotCount = 0;
+      return;
+    }
 
     final iconRoot = WeatherIconTheme.assetRoot(settings.weatherIconTheme);
     final scheduleMode = await _androidScheduleMode();
@@ -361,13 +365,15 @@ class NotificationService {
       }
     } catch (e, stackTrace) {
       debugLogError('NotificationService._scheduleSlots', e, stackTrace);
+      lastScheduledSlotCount = 0;
       return;
     }
 
+    var scheduledCount = 0;
     for (var i = 0; i < slots.length; i++) {
       final slot = slots[i];
       // Notifications may be disabled while async asset loading runs.
-      if (!settings.notifications) return;
+      if (!settings.notifications) break;
       final scheduleMillis = resolveAlarmEpochMillis(
         nowMillis: alarm.nowMillis,
         deviceNowMillis: deviceNowMillis,
@@ -386,11 +392,13 @@ class NotificationService {
         deviceNowMillis: deviceNowMillis,
         playSound: settings.notificationSound,
       );
+      scheduledCount++;
       // Yield so long replans do not block input on the main isolate.
       if (i.isOdd) {
         await Future<void>.delayed(Duration.zero);
       }
     }
+    lastScheduledSlotCount = scheduledCount;
   }
 
   /// Cancels pending forecast alarms whose hour start is past the grace window.
@@ -407,10 +415,7 @@ class NotificationService {
         .pendingNotificationRequests();
     if (pending.isEmpty) return;
 
-    final pendingIds = {
-      for (final notification in pending)
-        if (notification.id != persistentNotificationId) notification.id,
-    };
+    final pendingIds = _pendingForecastNotificationIds(pending);
     if (pendingIds.isEmpty) return;
 
     final expiredIds = expiredForecastNotificationIds(
@@ -442,14 +447,11 @@ class NotificationService {
     return notificationIdForEpoch(slot.scheduleEpochMillis);
   }
 
-  /// When notifications are enabled, cancels pending ones and reschedules from the latest cache.
+  /// When notifications are enabled, cancels pending ones and reschedules from cache.
   ///
-  /// Only [cancelScheduled] runs before replanning — delivered alerts stay in the
-  /// shade until the user dismisses them. [cancelForecastNotifications] also clears
-  /// active notifications and is reserved for explicit off/disable flows.
-  ///
-  /// Serialized per isolate via [_rescheduleInFlight] so overlapping UI/background
-  /// calls do not interleave cancel + schedule steps.
+  /// If [plan.slots] is empty but the cache is valid, pending alarms are still
+  /// cancelled (settings now filter every slot). When the cache lacks hourly
+  /// data, existing alarms are kept until fresh forecast data arrives.
   Future<void> rescheduleForWeather({
     required MainWeatherCache cache,
     required Settings settings,
@@ -464,9 +466,24 @@ class NotificationService {
       appSettings: appSettings,
       cityLabel: cityLabel,
     );
-    // Never wipe pending alarms when nothing new can be scheduled (stale cache,
-    // empty window, etc.) — that left users with zero notifications after resume.
-    if (plan.slots.isEmpty) return;
+
+    final hasValidCache = WeatherCacheValidator.hasNotificationSlotData(cache);
+    if (plan.slots.isEmpty) {
+      // Stale/empty cache: keep existing pending alarms until fresh data arrives.
+      if (!hasValidCache) return;
+
+      await _awaitRescheduleIdle();
+      final done = Completer<void>();
+      _rescheduleInFlight = done.future;
+      try {
+        await cancelScheduled();
+      } finally {
+        await markForecastRescheduleCompleted();
+        done.complete();
+        _rescheduleInFlight = null;
+      }
+      return;
+    }
 
     await _awaitRescheduleIdle();
     final done = Completer<void>();
@@ -476,6 +493,7 @@ class NotificationService {
       if (!settings.notifications) return;
       await _scheduleSlots(plan: plan, cache: cache, settings: settings);
     } finally {
+      await markForecastRescheduleCompleted();
       done.complete();
       _rescheduleInFlight = null;
     }
@@ -667,6 +685,7 @@ Future<NotificationIsarPayload> _notificationPayloadFromIsar(Isar isar) async {
   );
 }
 
+/// Background Isar callbacks run outside Riverpod; each call gets a fresh service.
 NotificationService _backgroundNotificationService() =>
     NotificationService(AssetCacheService());
 
@@ -691,10 +710,6 @@ Future<void> replenishForecastNotificationsFromIsar(Isar isar) async {
   final service = _backgroundNotificationService();
   final appSettings = AppSettingsState.fromSettings(payload.settings);
 
-  await service.cancelExpiredPendingForecastNotifications(
-    cache: payload.cache!,
-    settings: payload.settings,
-  );
   await service.ensureForecastNotificationsScheduled(
     cache: payload.cache!,
     settings: payload.settings,

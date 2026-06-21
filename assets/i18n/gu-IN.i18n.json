@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "કોબાલ્ટ",
   "colorPaletteMidnight": "મધરાત",
   "colorPaletteCharcoal": "કોયલો",
-  "colorPaletteSand": "રેત"
+  "colorPaletteSand": "રેત",
+  "lastBackgroundRefresh": "છેલ્લું પૃષ્ઠભૂમિ રિફ્રેશ",
+  "lastBackgroundRefreshNever": "હજી સુધી કોઈ પૃષ્ઠભૂમિ રિફ્રેશ નથી",
+  "backgroundRefreshError": "છેલ્લી પૃષ્ઠભૂમિ ભૂલ"
 }

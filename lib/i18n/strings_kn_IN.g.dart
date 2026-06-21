@@ -348,6 +348,9 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'ಮಧ್ಯರಾತ್ರಿ';
 	@override String get color_palette_charcoal => 'ಕುಲಿ';
 	@override String get color_palette_sand => 'ಮರಳು';
+	@override String get last_background_refresh => 'ಕೊನೆಯ ಹಿನ್ನೆಲೆ ರಿಫ್ರೆಶ್';
+	@override String get last_background_refresh_never => 'ಇನ್ನೂ ಹಿನ್ನೆಲೆ ರಿಫ್ರೆಶ್ ಇಲ್ಲ';
+	@override String get background_refresh_error => 'ಕೊನೆಯ ಹಿನ್ನೆಲೆ ದೋಷ';
 }
 
 /// The flat map containing all translations for locale <kn-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsKnIn {
 			'color_palette_midnight' => 'ಮಧ್ಯರಾತ್ರಿ',
 			'color_palette_charcoal' => 'ಕುಲಿ',
 			'color_palette_sand' => 'ಮರಳು',
+			'last_background_refresh' => 'ಕೊನೆಯ ಹಿನ್ನೆಲೆ ರಿಫ್ರೆಶ್',
+			'last_background_refresh_never' => 'ಇನ್ನೂ ಹಿನ್ನೆಲೆ ರಿಫ್ರೆಶ್ ಇಲ್ಲ',
+			'background_refresh_error' => 'ಕೊನೆಯ ಹಿನ್ನೆಲೆ ದೋಷ',
 			_ => null,
 		};
 	}

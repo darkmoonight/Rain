@@ -35,18 +35,36 @@ void main() {
 
     test('redirects to geolocation when location is incomplete', () {
       expect(
-        resolveAppRedirect(_settings(), _location(city: null), AppRoutes.home),
+        resolveAppRedirect(
+          _settings(),
+          _location(city: null, district: null),
+          AppRoutes.home,
+        ),
         AppRoutes.geolocationStart,
       );
       expect(
         resolveAppRedirect(
           _settings(),
-          _location(city: null),
+          _location(city: null, district: null),
           AppRoutes.geolocation,
         ),
         isNull,
       );
     });
+
+    test(
+      'does not redirect when only city label is missing but district exists',
+      () {
+        expect(
+          resolveAppRedirect(
+            _settings(),
+            _location(city: null),
+            AppRoutes.home,
+          ),
+          isNull,
+        );
+      },
+    );
 
     test('redirects away from onboarding after setup is complete', () {
       expect(

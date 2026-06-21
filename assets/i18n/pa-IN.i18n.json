@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "ਕੋਬਾਲਟ",
   "colorPaletteMidnight": "ਅੱਧੀ ਰਾਤ",
   "colorPaletteCharcoal": "ਕੋਇਲਾ",
-  "colorPaletteSand": "ਰੇਤ"
+  "colorPaletteSand": "ਰੇਤ",
+  "lastBackgroundRefresh": "ਆਖਰੀ ਬੈਕਗ੍ਰਾਊਂਡ ਰਿਫ੍ਰੈਸ਼",
+  "lastBackgroundRefreshNever": "ਹਾਲੇ ਕੋਈ ਬੈਕਗ੍ਰਾਊਂਡ ਰਿਫ੍ਰੈਸ਼ ਨਹੀਂ",
+  "backgroundRefreshError": "ਆਖਰੀ ਬੈਕਗ੍ਰਾਊਂਡ ਗਲਤੀ"
 }

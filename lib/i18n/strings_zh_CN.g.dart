@@ -348,6 +348,9 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => '午夜';
 	@override String get color_palette_charcoal => '炭灰';
 	@override String get color_palette_sand => '沙';
+	@override String get last_background_refresh => '上次后台刷新';
+	@override String get last_background_refresh_never => '尚无后台刷新';
+	@override String get background_refresh_error => '上次后台错误';
 }
 
 /// The flat map containing all translations for locale <zh-CN>.
@@ -667,6 +670,9 @@ extension on TranslationsZhCn {
 			'color_palette_midnight' => '午夜',
 			'color_palette_charcoal' => '炭灰',
 			'color_palette_sand' => '沙',
+			'last_background_refresh' => '上次后台刷新',
+			'last_background_refresh_never' => '尚无后台刷新',
+			'background_refresh_error' => '上次后台错误',
 			_ => null,
 		};
 	}

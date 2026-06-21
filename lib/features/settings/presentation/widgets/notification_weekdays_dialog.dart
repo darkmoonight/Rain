@@ -6,13 +6,24 @@ import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_list_dialog_shell.dart';
 import 'package:rain/i18n/tr.dart';
 
+/// Saved weekday selection from [showNotificationWeekdaysDialog].
+///
+/// [mask] is `null` when every day is enabled — that must not be confused with
+/// dismissing the dialog (which returns no result at all).
+class NotificationWeekdaysDialogResult {
+  const NotificationWeekdaysDialogResult({required this.mask});
+
+  /// Bitmask of enabled days; `null` means all days.
+  final int? mask;
+}
+
 /// Saved weekday mask, or `null` when the dialog is dismissed without saving.
-Future<int?> showNotificationWeekdaysDialog({
+Future<NotificationWeekdaysDialogResult?> showNotificationWeekdaysDialog({
   required BuildContext context,
   required int? currentMask,
   required String languageCode,
 }) async {
-  return NavigationHelper.showAppDialog<int>(
+  return NavigationHelper.showAppDialog<NotificationWeekdaysDialogResult>(
     context: context,
     child: _NotificationWeekdaysDialog(
       currentMask: currentMask,
@@ -61,7 +72,9 @@ class _NotificationWeekdaysDialogState
   void _save() {
     NavigationHelper.back(
       context,
-      result: notificationWeekdaysMaskFromSet(_selected),
+      result: NotificationWeekdaysDialogResult(
+        mask: notificationWeekdaysMaskFromSet(_selected),
+      ),
     );
   }
 

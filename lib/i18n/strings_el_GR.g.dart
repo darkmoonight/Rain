@@ -348,6 +348,9 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'Μεσάνυχτα';
 	@override String get color_palette_charcoal => 'Άνθρακας';
 	@override String get color_palette_sand => 'Άμμος';
+	@override String get last_background_refresh => 'Τελευταία ανανέωση στο παρασκήνιο';
+	@override String get last_background_refresh_never => 'Καμία ανανέωση στο παρασκήνιο ακόμα';
+	@override String get background_refresh_error => 'Τελευταίο σφάλμα παρασκηνίου';
 }
 
 /// The flat map containing all translations for locale <el-GR>.
@@ -667,6 +670,9 @@ extension on TranslationsElGr {
 			'color_palette_midnight' => 'Μεσάνυχτα',
 			'color_palette_charcoal' => 'Άνθρακας',
 			'color_palette_sand' => 'Άμμος',
+			'last_background_refresh' => 'Τελευταία ανανέωση στο παρασκήνιο',
+			'last_background_refresh_never' => 'Καμία ανανέωση στο παρασκήνιο ακόμα',
+			'background_refresh_error' => 'Τελευταίο σφάλμα παρασκηνίου',
 			_ => null,
 		};
 	}

@@ -16,8 +16,9 @@ import 'package:rain/data/models/db.dart';
 import 'package:rain/features/settings/presentation/widgets/notification_weekdays_dialog.dart';
 import 'package:rain/features/settings/presentation/widgets/notification_weekdays_summary.dart';
 import 'package:rain/features/settings/presentation/widgets/selection_dialog.dart';
-import 'package:rain/features/settings/presentation/widgets/settings_save_actions.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_section_state.dart';
+import 'package:rain/features/settings/presentation/widgets/settings_switch_tile.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/i18n/tr.dart';
 
@@ -31,21 +32,14 @@ class SettingsFunctionsSection extends ConsumerStatefulWidget {
 }
 
 class _SettingsFunctionsSectionState
-    extends ConsumerState<SettingsFunctionsSection> {
-  late final SettingsSaveActions _actions;
-
+    extends SettingsSectionConsumerState<SettingsFunctionsSection> {
   Settings get settings => ref.watch(settingsProvider);
 
   AppSettingsState get appSettings => ref.watch(appSettingsProvider);
 
-  @override
-  void initState() {
-    super.initState();
-    _actions = SettingsSaveActions(ref, setState);
-  }
-
   String _safeFormatTime(String? timeStr) {
     if (timeStr == null || timeStr.isEmpty) return 'timeUnavailable'.tr;
+    // Rebuild when settings are persisted so formatted labels stay in sync.
     ref.watch(settingsRevisionProvider);
     return TimeIndexHelper.formatTime(
       timeStr,
@@ -65,51 +59,34 @@ class _SettingsFunctionsSectionState
       title: 'functions',
       icon: IconsaxPlusBold.code_1,
       children: [
-        SettingsTile(
+        SettingsSwitchTile(
           leading: const Icon(IconsaxPlusLinear.map),
           title: 'location',
-          trailing: Transform.scale(
-            scale: 0.8,
-            child: Switch(
-              value: settings.location,
-              onChanged: (value) => _onLocationChanged(value, context),
-            ),
-          ),
+          value: settings.location,
+          onChanged: (value) => _onLocationChanged(value, context),
         ),
-        SettingsTile(
+        SettingsSwitchTile(
           leading: const Icon(IconsaxPlusLinear.notification_1),
           title: 'notifications',
-          trailing: Transform.scale(
-            scale: 0.8,
-            child: Switch(
-              value: settings.notifications,
-              onChanged: _onNotificationsChanged,
-            ),
-          ),
+          value: settings.notifications,
+          onChanged: _onNotificationsChanged,
         ),
         if (Platform.isAndroid)
-          SettingsTile(
+          SettingsSwitchTile(
             leading: const Icon(IconsaxPlusLinear.notification_bing),
             title: 'persistentNotification',
-            trailing: Transform.scale(
-              scale: 0.8,
-              child: Switch(
-                value: settings.persistentNotification,
-                onChanged: _onPersistentNotificationChanged,
-              ),
-            ),
+            value: settings.persistentNotification,
+            onChanged: _onPersistentNotificationChanged,
           ),
         if (settings.notifications) ...[
-          SettingsTile(
+          SettingsSwitchTile(
             leading: const Icon(IconsaxPlusLinear.volume_high),
             title: 'notificationSound',
-            trailing: Transform.scale(
-              scale: 0.8,
-              child: Switch(
-                value: settings.notificationSound,
-                onChanged: _onNotificationSoundChanged,
-              ),
-            ),
+            value: settings.notificationSound,
+            onChanged: (value) async {
+              settings.notificationSound = value;
+              await actions.saveWithForecastReschedule();
+            },
           ),
           SettingsTile(
             leading: const Icon(IconsaxPlusLinear.notification_status),
@@ -149,12 +126,19 @@ class _SettingsFunctionsSectionState
       context: context,
       title: 'timeRange'.tr,
       icon: IconsaxPlusLinear.notification_status,
-      items: const ['1', '2', '3', '4', '5'],
+      items: [
+        for (
+          var i = AppConstants.minNotificationIntervalHours;
+          i <= AppConstants.maxNotificationIntervalHours;
+          i++
+        )
+          '$i',
+      ],
       currentValue: '${appSettings.timeRange}',
       itemBuilder: (value) => value,
       onSelected: (value) async {
         settings.timeRange = int.parse(value);
-        await _actions.saveWithForecastReschedule();
+        await actions.saveWithForecastReschedule();
       },
     );
   }
@@ -167,78 +151,43 @@ class _SettingsFunctionsSectionState
     );
     if (result == null || !mounted) return;
 
-    settings.notificationWeekdaysMask = result;
-    await _actions.saveWithForecastReschedule();
+    settings.notificationWeekdaysMask = result.mask;
+    await actions.saveWithForecastReschedule();
   }
 
   Future<void> _onLocationChanged(bool value, BuildContext context) async {
-    if (value) {
-      final serviceEnabled = await ref
-          .read(locationServiceProvider)
-          .isServiceEnabled();
-      if (!serviceEnabled) {
-        if (!context.mounted) return;
-        await showConfirmationDialog(
-          context: context,
-          title: 'location'.tr,
-          message: 'no_location'.tr,
-          icon: IconsaxPlusBold.location,
-          confirmText: 'settings'.tr,
-          onConfirm: () =>
-              ref.read(locationServiceProvider).openLocationSettings(),
-        );
-        return;
-      }
-    }
-    settings.location = value;
-    await ref.read(settingsRepositoryProvider).save(settings);
-    if (value) {
-      await ref
+    final saved = await actions.saveLocationToggle(
+      enabled: value,
+      refreshGps: () => ref
           .read(mainWeatherNotifierProvider.notifier)
-          .getCurrentLocation(forceLoading: true);
+          .getCurrentLocation(forceLoading: true),
+    );
+    if (!saved && value) {
+      if (!context.mounted) return;
+      await showConfirmationDialog(
+        context: context,
+        title: 'location',
+        message: 'no_location',
+        icon: IconsaxPlusBold.location,
+        confirmText: 'settings',
+        onConfirm: () =>
+            ref.read(locationServiceProvider).openLocationSettings(),
+      );
     }
-    if (!mounted) return;
-    setState(() {});
   }
 
   Future<void> _onNotificationsChanged(bool value) async {
-    if (value && !await requestForecastNotificationPermissions()) return;
-
-    settings.notifications = value;
-    await ref.read(settingsRepositoryProvider).save(settings);
-    if (!mounted) return;
-    setState(() {});
-
-    _actions.runInBackground(
-      value
-          ? _actions.weather.rescheduleNotificationsIfEnabled
-          : ref.read(notificationServiceProvider).cancelForecastNotifications,
+    await actions.saveNotificationsToggle(
+      enabled: value,
+      requestPermissions: requestForecastNotificationPermissions,
     );
   }
 
-  Future<void> _onNotificationSoundChanged(bool value) async {
-    settings.notificationSound = value;
-    await _actions.saveWithForecastReschedule();
-  }
-
   Future<void> _onPersistentNotificationChanged(bool value) async {
-    if (value && !await requestAndroidNotificationPermission()) return;
-
-    settings.persistentNotification = value;
-    await ref.read(settingsRepositoryProvider).save(settings);
-    if (value) {
-      unawaited(
-        ref
-            .read(mainWeatherNotifierProvider.notifier)
-            .refreshPersistentNotification(force: true),
-      );
-    } else {
-      unawaited(
-        ref.read(notificationServiceProvider).cancelPersistentNotification(),
-      );
-    }
-    if (!mounted) return;
-    setState(() {});
+    await actions.savePersistentNotificationToggle(
+      enabled: value,
+      requestPermission: requestAndroidNotificationPermission,
+    );
   }
 
   Future<void> _pickNotificationWindowTime({
@@ -255,7 +204,7 @@ class _SettingsFunctionsSectionState
     if (picked == null) return;
 
     apply(TimeIndexHelper.timeTo24h(picked));
-    await _actions.saveWithForecastReschedule();
+    await actions.saveWithForecastReschedule();
   }
 
   Future<void> _showTimeStartPicker(BuildContext context) async {

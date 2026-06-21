@@ -348,6 +348,9 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'आधी रात';
 	@override String get color_palette_charcoal => 'कोयला';
 	@override String get color_palette_sand => 'रेत';
+	@override String get last_background_refresh => 'अंतिम पृष्ठभूमि रीफ़्रेश';
+	@override String get last_background_refresh_never => 'अभी तक कोई पृष्ठभूमि रीफ़्रेश नहीं';
+	@override String get background_refresh_error => 'अंतिम पृष्ठभूमि त्रुटि';
 }
 
 /// The flat map containing all translations for locale <hi-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsHiIn {
 			'color_palette_midnight' => 'आधी रात',
 			'color_palette_charcoal' => 'कोयला',
 			'color_palette_sand' => 'रेत',
+			'last_background_refresh' => 'अंतिम पृष्ठभूमि रीफ़्रेश',
+			'last_background_refresh_never' => 'अभी तक कोई पृष्ठभूमि रीफ़्रेश नहीं',
+			'background_refresh_error' => 'अंतिम पृष्ठभूमि त्रुटि',
 			_ => null,
 		};
 	}

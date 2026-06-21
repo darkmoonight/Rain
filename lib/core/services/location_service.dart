@@ -4,6 +4,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:rain/core/utils/location_label.dart';
 
 /// Wraps Geolocator and geocoding — the only layer that talks to platform GPS APIs.
+///
+/// Callers enabling location should check [isServiceEnabled] before
+/// [getCurrentPlace] or [determinePosition] so the UI can prompt the user.
 class LocationService {
   /// Returns the current GPS position after requesting permissions if needed.
   Future<Position> determinePosition() async {
@@ -22,7 +25,8 @@ class LocationService {
 
   /// Resolves coordinates and a human-readable city/district label.
   ///
-  /// When platform reverse geocoding fails, [resolveLabels] is tried as a fallback.
+  /// Platform reverse geocoding runs first; when it fails, [resolveLabels] (e.g.
+  /// Nominatim) is used. Returns `null` only when labels cannot be resolved.
   Future<({double lat, double lon, String city, String district})?>
   getCurrentPlace({
     Future<({String city, String district})?> Function(double lat, double lon)?
@@ -95,9 +99,4 @@ class LocationService {
 
   /// Opens the system location settings screen.
   Future<bool> openLocationSettings() => Geolocator.openLocationSettings();
-
-  /// Returns the first trimmed non-empty string from [values].
-  @visibleForTesting
-  static String firstNonEmpty(List<String?> values) =>
-      firstNonEmptyLocationLabel(values);
 }

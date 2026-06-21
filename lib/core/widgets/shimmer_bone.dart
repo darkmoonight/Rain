@@ -15,9 +15,8 @@ class ShimmerBone extends StatelessWidget {
   final Color color;
   final double borderRadius;
 
-  /// Muted fill color for shimmer placeholder shapes.
-  static Color placeholderColor(BuildContext context) =>
-      Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.08);
+  /// Opaque mask for [Shimmer.fromColors]; gradient paints the visible tone.
+  static Color placeholderColor(BuildContext context) => Colors.white;
 
   @override
   Widget build(BuildContext context) => Container(

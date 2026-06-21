@@ -176,11 +176,11 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get freezing_rain => 'Mroźny deszcz';
 	@override String get uv_average => 'Umiarkowany';
 	@override String get reset_color => 'Przywróc domyślne';
-	@override String get metric => 'Metric';
+	@override String get metric => 'Metryczne';
 	@override String get overcast => 'Pochmurnie';
 	@override String get pressure => 'Ciśnienie';
 	@override String get inch => 'cal';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Imperialne';
 	@override String get location => 'Lokalizacja';
 	@override String get error_occurred => 'Wystąpił błąd';
 	@override String get validate_value => 'Proszę wprowadzić wartość';
@@ -331,7 +331,7 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_lavender => 'Lawendowy';
 	@override String get color_palette_lilac => 'Liliowy';
 	@override String get color_palette_orchid => 'Orchidea';
-	@override String get color_palette_magenta => 'Magenta';
+	@override String get color_palette_magenta => 'Amarantowy';
 	@override String get color_palette_raspberry => 'Malinowy';
 	@override String get color_palette_wine => 'Winny';
 	@override String get color_palette_maroon => 'Bordowy';
@@ -348,6 +348,9 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'Północ';
 	@override String get color_palette_charcoal => 'Węgiel';
 	@override String get color_palette_sand => 'Piaskowy';
+	@override String get last_background_refresh => 'Ostatnie odświeżenie w tle';
+	@override String get last_background_refresh_never => 'Brak odświeżenia w tle';
+	@override String get background_refresh_error => 'Ostatni błąd w tle';
 }
 
 /// The flat map containing all translations for locale <pl-PL>.
@@ -495,11 +498,11 @@ extension on TranslationsPlPl {
 			'freezing_rain' => 'Mroźny deszcz',
 			'uv_average' => 'Umiarkowany',
 			'reset_color' => 'Przywróc domyślne',
-			'metric' => 'Metric',
+			'metric' => 'Metryczne',
 			'overcast' => 'Pochmurnie',
 			'pressure' => 'Ciśnienie',
 			'inch' => 'cal',
-			'imperial' => 'Imperial',
+			'imperial' => 'Imperialne',
 			'location' => 'Lokalizacja',
 			'error_occurred' => 'Wystąpił błąd',
 			'validate_value' => 'Proszę wprowadzić wartość',
@@ -650,7 +653,7 @@ extension on TranslationsPlPl {
 			'color_palette_lavender' => 'Lawendowy',
 			'color_palette_lilac' => 'Liliowy',
 			'color_palette_orchid' => 'Orchidea',
-			'color_palette_magenta' => 'Magenta',
+			'color_palette_magenta' => 'Amarantowy',
 			'color_palette_raspberry' => 'Malinowy',
 			'color_palette_wine' => 'Winny',
 			'color_palette_maroon' => 'Bordowy',
@@ -667,6 +670,9 @@ extension on TranslationsPlPl {
 			'color_palette_midnight' => 'Północ',
 			'color_palette_charcoal' => 'Węgiel',
 			'color_palette_sand' => 'Piaskowy',
+			'last_background_refresh' => 'Ostatnie odświeżenie w tle',
+			'last_background_refresh_never' => 'Brak odświeżenia w tle',
+			'background_refresh_error' => 'Ostatni błąd w tle',
 			_ => null,
 		};
 	}

@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "কোবাল্ট",
   "colorPaletteMidnight": "মধ্যরাত্রি",
   "colorPaletteCharcoal": "কয়লা",
-  "colorPaletteSand": "বালি"
+  "colorPaletteSand": "বালি",
+  "lastBackgroundRefresh": "সর্বশেষ ব্যাকগ্রাউন্ড রিফ্রেশ",
+  "lastBackgroundRefreshNever": "এখনও কোনো ব্যাকগ্রাউন্ড রিফ্রেশ নেই",
+  "backgroundRefreshError": "সর্বশেষ ব্যাকগ্রাউন্ড ত্রুটি"
 }

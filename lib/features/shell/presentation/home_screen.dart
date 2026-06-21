@@ -2,21 +2,20 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:isar_community/isar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:isar_community/isar.dart';
 import 'package:rain/core/di/providers.dart';
-import 'package:rain/i18n/tr.dart';
-import 'package:rain/core/services/home_widget_service.dart';
-import 'package:rain/core/navigation/app_router.dart';
-import 'package:rain/core/utils/location_label.dart';
-import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/i18n/tr.dart';
+import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/features/cities/presentation/view/place_list.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action.dart';
 import 'package:rain/features/geolocation/presentation/geolocation_screen.dart';
 import 'package:rain/features/map/presentation/map_screen.dart';
 import 'package:rain/features/settings/presentation/view/settings.dart';
+import 'package:rain/features/shell/presentation/widgets/home_shell_app_bar_title.dart';
+import 'package:rain/features/shell/presentation/widgets/home_weather_tab_search_field.dart';
 import 'package:rain/features/weather/presentation/main_weather_screen.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -64,13 +63,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       ref.read(citiesNotifierProvider.notifier).refresh(all: false);
-      if (Platform.isAndroid) {
-        HomeWidgetService.updateFromDisk();
-        final notifier = ref.read(mainWeatherNotifierProvider.notifier);
-        notifier.refreshPersistentNotification(force: true);
-        unawaited(notifier.replenishForecastNotificationsIfEnabled());
-        unawaited(notifier.refreshIfStale());
-      }
+      unawaited(ref.read(mainWeatherNotifierProvider.notifier).onAppResumed());
     }
   }
 
@@ -87,7 +80,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     tabIndex = tabIndex.clamp(0, newPageCount - 1);
   }
 
-  /// Creates a [TabController] for [pageCount] tabs and syncs selection changes.
   void _setupTabController({required int pageCount}) {
     tabController = TabController(
       initialIndex: tabIndex.clamp(0, pageCount - 1),
@@ -101,12 +93,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     });
   }
 
-  /// Refreshes saved cities on first entry, updating expired cards from the network when possible.
   Future<void> _initData() async {
     await ref.read(citiesNotifierProvider.notifier).refresh(all: false);
   }
 
-  /// Updates whether cached location data exists for the weather app bar title.
   Future<void> _checkLocationCache() async {
     final caches = await ref
         .read(isarProvider)
@@ -116,17 +106,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     if (mounted) setState(() => _hasLocationCache = caches.isNotEmpty);
   }
 
-  /// Removes lifecycle observer and disposes tab, search, and animation controllers.
+  void _closeSearch() {
+    setState(() {
+      visible = false;
+      _controller.clear();
+      _focusNode.unfocus();
+    });
+  }
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _persistentNotificationTimer?.cancel();
     tabController.dispose();
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
-  /// Returns tab pages, omitting [MapPage] when [hideMap] is enabled.
   List<Widget> _pages(bool hideMap) => [
     const MainWeatherScreen(),
     const PlaceList(),
@@ -134,11 +131,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     const SettingsPage(),
   ];
 
-  /// Builds the tabbed shell with app bar, navigation bar, and FAB on cities.
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
-    final weather = ref.watch(mainWeatherNotifierProvider);
+    final weatherAppBar = ref.watch(
+      mainWeatherNotifierProvider.select(homeShellWeatherAppBarData),
+    );
     final pages = _pages(settings.hideMap);
 
     if (tabController.length != pages.length) {
@@ -160,7 +158,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 icon: const Icon(IconsaxPlusLinear.global_search, size: 18),
               )
             : null,
-        title: _buildAppBarTitle(tabIndex, weather, settings),
+        title: HomeShellAppBarTitle(
+          tabIndex: tabIndex,
+          hideMap: settings.hideMap,
+          settingsLocationEnabled: settings.location,
+          hasLocationCache: _hasLocationCache,
+          weatherIsLoading: weatherAppBar.isLoading,
+          weatherCity: weatherAppBar.city,
+          weatherDistrict: weatherAppBar.district,
+          searchVisible: visible,
+          searchField: HomeWeatherTabSearchField(
+            controller: _controller,
+            focusNode: _focusNode,
+            onClose: _closeSearch,
+          ),
+        ),
         actions: tabIndex == 0 ? [_buildSearchButton()] : null,
       ),
       body: SafeArea(
@@ -210,7 +222,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     );
   }
 
-  /// Builds the weather-tab icon that toggles inline city search.
   Widget _buildSearchButton() => IconButton(
     onPressed: () => setState(() {
       if (visible) {
@@ -224,113 +235,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           ? IconsaxPlusLinear.close_circle
           : IconsaxPlusLinear.search_normal_1,
       size: 18,
-    ),
-  );
-
-  /// Builds the app bar title or search field for the active [tab].
-  Widget _buildAppBarTitle(
-    int tab,
-    MainWeatherState weather,
-    Settings settings,
-  ) {
-    final textStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
-      fontWeight: FontWeight.w600,
-      fontSize: 18,
-    );
-    switch (tab) {
-      case 0:
-        if (visible) return _buildSearchField();
-        final location = weather.location;
-        final title = !weather.isLoading
-            ? formatLocationLabel(location.city, location.district)
-            : settings.location
-            ? 'search'.tr
-            : _hasLocationCache
-            ? 'loading'.tr
-            : 'searchCity'.tr;
-        return Text(title, style: textStyle);
-      case 1:
-        return Text('cities'.tr, style: textStyle);
-      case 2:
-        return Text(
-          settings.hideMap ? 'settings_full'.tr : 'map'.tr,
-          style: textStyle,
-        );
-      default:
-        return Text('settings_full'.tr, style: textStyle);
-    }
-  }
-
-  /// Builds the inline [RawAutocomplete] city search on the weather tab.
-  Widget _buildSearchField() => RawAutocomplete<CitySearchResult>(
-    focusNode: _focusNode,
-    textEditingController: _controller,
-    fieldViewBuilder: (context, _, _, _) => TextField(
-      controller: _controller,
-      focusNode: _focusNode,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-        fontWeight: FontWeight.w600,
-        fontSize: 18,
-      ),
-      decoration: InputDecoration(
-        hintText: 'search'.tr,
-        isDense: true,
-        contentPadding: EdgeInsets.zero,
-        border: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        disabledBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
-        focusedErrorBorder: InputBorder.none,
-      ),
-    ),
-    optionsBuilder: (value) async {
-      if (value.text.isEmpty) return const Iterable<CitySearchResult>.empty();
-      final locale = ref.read(localeProvider);
-      return ref
-          .read(weatherRemoteDatasourceProvider)
-          .searchCities(value.text, locale.languageCode);
-    },
-    onSelected: (selection) async {
-      await ref.read(mainWeatherNotifierProvider.notifier).deleteAll(true);
-      await ref
-          .read(mainWeatherNotifierProvider.notifier)
-          .getLocation(
-            selection.latitude!,
-            selection.longitude!,
-            selection.admin1 ?? '',
-            selection.name ?? '',
-          );
-      if (mounted) {
-        setState(() {
-          visible = false;
-          _controller.clear();
-          _focusNode.unfocus();
-        });
-      }
-    },
-    displayStringForOption: (o) => '${o.name}, ${o.admin1}',
-    optionsViewBuilder: (context, onSelected, options) => Align(
-      alignment: Alignment.topLeft,
-      child: Material(
-        borderRadius: BorderRadius.circular(20),
-        elevation: 4,
-        child: SizedBox(
-          width: 250,
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: options.length,
-            itemBuilder: (context, index) {
-              final option = options.elementAt(index);
-              return ListTile(
-                title: Text('${option.name}, ${option.admin1}'),
-                onTap: () => onSelected(option),
-              );
-            },
-          ),
-        ),
-      ),
     ),
   );
 }

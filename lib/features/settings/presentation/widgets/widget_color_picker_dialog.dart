@@ -4,7 +4,6 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/utils/color_converter.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
-import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_list_dialog_shell.dart';
 import 'package:rain/i18n/tr.dart';
 
@@ -49,8 +48,6 @@ class _WidgetColorPickerDialogState extends State<_WidgetColorPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return SettingsListDialogShell(
       maxHeightFraction: 0.85,
       header: SettingsListDialogHeader(
@@ -69,49 +66,20 @@ class _WidgetColorPickerDialogState extends State<_WidgetColorPickerDialog> {
           onChanged: (color) => _pickedColor = color.toHex(),
         ),
       ),
-      footer: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          AppConstants.spacingXXL,
-          AppConstants.spacingS,
-          AppConstants.spacingXXL,
-          AppConstants.spacingXXL,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-              icon: const Icon(IconsaxPlusLinear.rotate_left),
-              tooltip: 'resetToMaterialYou'.tr,
-              onPressed: () async {
-                await widget.onReset();
-                if (context.mounted) NavigationHelper.back(context);
-              },
-            ),
-            const SizedBox(width: AppConstants.spacingS),
-            FilledButton.tonal(
-              onPressed: () async {
-                final color = _pickedColor;
-                if (color == null) return;
-                await widget.onSave(color);
-                if (context.mounted) NavigationHelper.back(context);
-              },
-              style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.spacingXL,
-                  vertical: AppConstants.spacingM,
-                ),
-                backgroundColor: colorScheme.primaryContainer,
-                foregroundColor: colorScheme.onPrimaryContainer,
-              ),
-              child: Text(
-                'save'.tr,
-                style: TextStyle(
-                  fontSize: ResponsiveUtils.getResponsiveFontSize(context, 14),
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
+      footer: SettingsListDialogCancelSaveActions(
+        onSave: () async {
+          final color = _pickedColor;
+          if (color == null) return;
+          await widget.onSave(color);
+          if (context.mounted) NavigationHelper.back(context);
+        },
+        leading: IconButton(
+          icon: const Icon(IconsaxPlusLinear.rotate_left),
+          tooltip: 'resetToMaterialYou'.tr,
+          onPressed: () async {
+            await widget.onReset();
+            if (context.mounted) NavigationHelper.back(context);
+          },
         ),
       ),
     );

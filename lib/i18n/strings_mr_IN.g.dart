@@ -348,6 +348,9 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'मध्यरात्र';
 	@override String get color_palette_charcoal => 'कोळसा';
 	@override String get color_palette_sand => 'वाळू';
+	@override String get last_background_refresh => 'शेवटचे पार्श्वभूमी रिफ्रेश';
+	@override String get last_background_refresh_never => 'अद्याप पार्श्वभूमी रिफ्रेश नाही';
+	@override String get background_refresh_error => 'शेवटची पार्श्वभूमी त्रुटी';
 }
 
 /// The flat map containing all translations for locale <mr-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsMrIn {
 			'color_palette_midnight' => 'मध्यरात्र',
 			'color_palette_charcoal' => 'कोळसा',
 			'color_palette_sand' => 'वाळू',
+			'last_background_refresh' => 'शेवटचे पार्श्वभूमी रिफ्रेश',
+			'last_background_refresh_never' => 'अद्याप पार्श्वभूमी रिफ्रेश नाही',
+			'background_refresh_error' => 'शेवटची पार्श्वभूमी त्रुटी',
 			_ => null,
 		};
 	}

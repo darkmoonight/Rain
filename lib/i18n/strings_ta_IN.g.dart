@@ -348,6 +348,9 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'நள்ளிரவு';
 	@override String get color_palette_charcoal => 'கரி';
 	@override String get color_palette_sand => 'மணல்';
+	@override String get last_background_refresh => 'கடைசி பின்னணி புதுப்பிப்பு';
+	@override String get last_background_refresh_never => 'இன்னும் பின்னணி புதுப்பிப்பு இல்லை';
+	@override String get background_refresh_error => 'கடைசி பின்னணி பிழை';
 }
 
 /// The flat map containing all translations for locale <ta-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsTaIn {
 			'color_palette_midnight' => 'நள்ளிரவு',
 			'color_palette_charcoal' => 'கரி',
 			'color_palette_sand' => 'மணல்',
+			'last_background_refresh' => 'கடைசி பின்னணி புதுப்பிப்பு',
+			'last_background_refresh_never' => 'இன்னும் பின்னணி புதுப்பிப்பு இல்லை',
+			'background_refresh_error' => 'கடைசி பின்னணி பிழை',
 			_ => null,
 		};
 	}

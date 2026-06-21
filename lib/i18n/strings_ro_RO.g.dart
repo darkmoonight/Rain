@@ -176,17 +176,17 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get freezing_rain => 'Ploaie înghețată';
 	@override String get uv_average => 'Moderat';
 	@override String get reset_color => 'Resetează la valorile implicite';
-	@override String get metric => 'Metric';
+	@override String get metric => 'Sistem metric';
 	@override String get overcast => 'Cer acoperit de nori';
 	@override String get pressure => 'Presiune';
 	@override String get inch => 'țol';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Imperial britanic';
 	@override String get location => 'Locație';
 	@override String get error_occurred => 'A apărut o eroare';
 	@override String get validate_value => 'Introdu o valoare';
 	@override String get lon => 'Longitudine';
 	@override String get wind => 'Vânt';
-	@override String get normal => 'Normal';
+	@override String get normal => 'Normale';
 	@override String get dark => 'Întunecat';
 	@override String get settings => 'Setări';
 	@override String get south => 'Sud';
@@ -315,7 +315,7 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_indigo => 'Indigo';
 	@override String get color_palette_sky => 'Cer';
 	@override String get color_palette_mint => 'Mentă';
-	@override String get color_palette_lime => 'Lime';
+	@override String get color_palette_lime => 'Verde lime';
 	@override String get color_palette_amber => 'Chihlimbar';
 	@override String get color_palette_coral => 'Coral';
 	@override String get color_palette_crimson => 'Crimson';
@@ -348,6 +348,9 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'Miezul nopții';
 	@override String get color_palette_charcoal => 'Cărbune';
 	@override String get color_palette_sand => 'Nisip';
+	@override String get last_background_refresh => 'Ultima reîmprospătare în fundal';
+	@override String get last_background_refresh_never => 'Nicio reîmprospătare în fundal';
+	@override String get background_refresh_error => 'Ultima eroare în fundal';
 }
 
 /// The flat map containing all translations for locale <ro-RO>.
@@ -495,17 +498,17 @@ extension on TranslationsRoRo {
 			'freezing_rain' => 'Ploaie înghețată',
 			'uv_average' => 'Moderat',
 			'reset_color' => 'Resetează la valorile implicite',
-			'metric' => 'Metric',
+			'metric' => 'Sistem metric',
 			'overcast' => 'Cer acoperit de nori',
 			'pressure' => 'Presiune',
 			'inch' => 'țol',
-			'imperial' => 'Imperial',
+			'imperial' => 'Imperial britanic',
 			'location' => 'Locație',
 			'error_occurred' => 'A apărut o eroare',
 			'validate_value' => 'Introdu o valoare',
 			'lon' => 'Longitudine',
 			'wind' => 'Vânt',
-			'normal' => 'Normal',
+			'normal' => 'Normale',
 			'dark' => 'Întunecat',
 			'settings' => 'Setări',
 			'south' => 'Sud',
@@ -634,7 +637,7 @@ extension on TranslationsRoRo {
 			'color_palette_indigo' => 'Indigo',
 			'color_palette_sky' => 'Cer',
 			'color_palette_mint' => 'Mentă',
-			'color_palette_lime' => 'Lime',
+			'color_palette_lime' => 'Verde lime',
 			'color_palette_amber' => 'Chihlimbar',
 			'color_palette_coral' => 'Coral',
 			'color_palette_crimson' => 'Crimson',
@@ -667,6 +670,9 @@ extension on TranslationsRoRo {
 			'color_palette_midnight' => 'Miezul nopții',
 			'color_palette_charcoal' => 'Cărbune',
 			'color_palette_sand' => 'Nisip',
+			'last_background_refresh' => 'Ultima reîmprospătare în fundal',
+			'last_background_refresh_never' => 'Nicio reîmprospătare în fundal',
+			'background_refresh_error' => 'Ultima eroare în fundal',
 			_ => null,
 		};
 	}

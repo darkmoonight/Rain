@@ -192,6 +192,53 @@ void main() {
       expect(state.district, 'Central Federal District');
     });
 
+    test(
+      'onAppResumed returns quickly without awaiting side effects',
+      () async {
+        final container = createContainer();
+        final notifier = container.read(mainWeatherNotifierProvider.notifier);
+
+        await notifier.readCache();
+        final stopwatch = Stopwatch()..start();
+        await notifier.onAppResumed();
+        stopwatch.stop();
+
+        expect(stopwatch.elapsedMilliseconds, lessThan(200));
+      },
+    );
+
+    test('onAppResumed keeps fresh cache without network refresh', () async {
+      final container = createContainer();
+      final notifier = container.read(mainWeatherNotifierProvider.notifier);
+
+      await notifier.readCache();
+      final before = container.read(mainWeatherNotifierProvider);
+
+      await notifier.onAppResumed();
+
+      final after = container.read(mainWeatherNotifierProvider);
+      expect(after.mainWeather.timezone, before.mainWeather.timezone);
+      expect(after.isLoading, isFalse);
+    });
+
+    test(
+      'AsyncQueue serializes overlapping readCache and getLocation',
+      () async {
+        final container = createContainer();
+        final notifier = container.read(mainWeatherNotifierProvider.notifier);
+
+        await notifier.readCache();
+        await Future.wait([
+          notifier.getLocation(55.75, 37.62, 'Moscow Oblast', 'Moscow'),
+          notifier.readCache(),
+        ]);
+
+        final state = container.read(mainWeatherNotifierProvider);
+        expect(state.isLoading, isFalse);
+        expect(state.city, 'Moscow');
+      },
+    );
+
     test('refresh loads forecast when online', () async {
       final container = createContainer();
       final notifier = container.read(mainWeatherNotifierProvider.notifier);
@@ -226,6 +273,7 @@ void main() {
         expect(container.read(mainWeatherNotifierProvider).isLoading, isFalse);
 
         final future = notifier.getCurrentLocation(forceLoading: true);
+        await Future<void>.delayed(Duration.zero);
         expect(container.read(mainWeatherNotifierProvider).isLoading, isTrue);
 
         await future;

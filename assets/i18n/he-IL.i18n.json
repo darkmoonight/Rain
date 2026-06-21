@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "קובלט",
   "colorPaletteMidnight": "חצות",
   "colorPaletteCharcoal": "פחם",
-  "colorPaletteSand": "חול"
+  "colorPaletteSand": "חול",
+  "lastBackgroundRefresh": "רענון רקע אחרון",
+  "lastBackgroundRefreshNever": "עדיין אין רענון רקע",
+  "backgroundRefreshError": "שגיאת רקע אחרונה"
 }

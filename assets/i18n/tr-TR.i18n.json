@@ -146,7 +146,7 @@
   "validateValue": "Lütfen bir değer girin",
   "lon": "Boylam",
   "wind": "Rüzgar",
-  "normal": "Normal",
+  "normal": "Standart",
   "dark": "Karanlık",
   "settings": "Ayarlar",
   "south": "Güney",
@@ -307,5 +307,8 @@
   "colorPaletteCobalt": "Kobalt",
   "colorPaletteMidnight": "Gece yarısı",
   "colorPaletteCharcoal": "Antrasit",
-  "colorPaletteSand": "Kum"
+  "colorPaletteSand": "Kum",
+  "lastBackgroundRefresh": "Son arka plan yenilemesi",
+  "lastBackgroundRefreshNever": "Henüz arka plan yenilemesi yok",
+  "backgroundRefreshError": "Son arka plan hatası"
 }

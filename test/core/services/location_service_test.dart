@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rain/core/utils/location_label.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rain/core/services/location_service.dart';
@@ -19,16 +20,16 @@ Position _testPosition({double lat = 55.75, double lon = 37.62}) {
 }
 
 void main() {
-  group('LocationService.firstNonEmpty', () {
+  group('firstNonEmptyLocationLabel', () {
     test('returns first trimmed non-empty value', () {
       expect(
-        LocationService.firstNonEmpty([null, '  ', 'Berlin', 'Moscow']),
+        firstNonEmptyLocationLabel([null, '  ', 'Berlin', 'Moscow']),
         'Berlin',
       );
     });
 
     test('returns empty string when all values are blank', () {
-      expect(LocationService.firstNonEmpty([null, '', '   ']), '');
+      expect(firstNonEmptyLocationLabel([null, '', '   ']), '');
     });
   });
 

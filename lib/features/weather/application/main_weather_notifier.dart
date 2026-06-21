@@ -10,6 +10,8 @@ import 'package:rain/core/services/connectivity_service.dart';
 import 'package:rain/core/services/network_cache_handler.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/core/utils/async_queue.dart';
+import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
@@ -69,6 +71,7 @@ final mainWeatherNotifierProvider =
 
 /// Loads, caches, and refreshes the primary weather location and forecast.
 class MainWeatherNotifier extends Notifier<MainWeatherState> {
+  final _queue = AsyncQueue();
   final itemScrollController = ItemScrollController();
 
   int? _lastPersistentHourIndex;
@@ -107,30 +110,32 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
   }
 
   /// Chooses GPS, cached, or remote fetch based on settings, cache age, and connectivity.
-  Future<void> setLocation() async {
+  Future<void> setLocation() => _queue.enqueue(_setLocationImpl);
+
+  Future<void> _setLocationImpl() async {
     final settings = ref.read(settingsProvider);
     if (settings.location) {
-      await getCurrentLocation();
+      await _getCurrentLocationImpl();
       return;
     }
 
     final cached = await ref.read(weatherRepositoryProvider).readCache();
     if (cached.weather == null || cached.location == null) {
-      await readCache();
+      await _readCacheImpl();
       return;
     }
 
     final loc = cached.location!;
     final repo = ref.read(weatherRepositoryProvider);
     if (loc.lat == null || loc.lon == null) {
-      await readCache();
+      await _readCacheImpl();
       return;
     }
     if (await repo.isCacheExpired(_cacheExpiryThreshold)) {
       // Stale-while-revalidate: keep showing the last forecast instead of a
       // full-screen loader while the 12h refresh runs (or times out).
-      await readCache();
-      await getLocation(
+      await _readCacheImpl();
+      await _getLocationImpl(
         loc.lat!,
         loc.lon!,
         loc.district ?? '',
@@ -138,7 +143,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
         showLoading: !_hasDisplayableForecast,
       );
     } else {
-      await readCache();
+      await _readCacheImpl();
     }
   }
 
@@ -149,30 +154,40 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
   Future<void> getCurrentLocation({
     bool showLoading = true,
     bool forceLoading = false,
+  }) => _queue.enqueue(
+    () => _getCurrentLocationImpl(
+      showLoading: showLoading,
+      forceLoading: forceLoading,
+    ),
+  );
+
+  Future<void> _getCurrentLocationImpl({
+    bool showLoading = true,
+    bool forceLoading = false,
   }) async {
     if (showLoading && (!_hasDisplayableForecast || forceLoading)) {
       state = state.copyWith(isLoading: true);
     }
     if (!await ConnectivityService.hasInternet()) {
       showSnackBar('no_inter'.tr);
-      await readCache();
+      await _readCacheImpl();
       return;
     }
     final locationService = ref.read(locationServiceProvider);
     if (!await locationService.isServiceEnabled()) {
       showSnackBar('no_location'.tr);
-      await readCache();
+      await _readCacheImpl();
       return;
     }
     try {
       await NetworkCacheHandler.fetchOrKeepCache(
         onNetworkFetch: _fetchFromGps,
-        onUseCache: readCache,
+        onUseCache: _readCacheImpl,
         onError: () => showSnackBar('error_occurred'.tr, isError: true),
       );
     } finally {
       if (state.isLoading) {
-        await readCache();
+        await _readCacheImpl();
       }
     }
   }
@@ -184,10 +199,26 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     String district,
     String locality, {
     bool showLoading = true,
+  }) => _queue.enqueue(
+    () => _getLocationImpl(
+      latitude,
+      longitude,
+      district,
+      locality,
+      showLoading: showLoading,
+    ),
+  );
+
+  Future<void> _getLocationImpl(
+    double latitude,
+    double longitude,
+    String district,
+    String locality, {
+    bool showLoading = true,
   }) async {
     if (!await ConnectivityService.hasInternet()) {
       showSnackBar('no_inter'.tr);
-      await readCache();
+      await _readCacheImpl();
       return;
     }
     if (showLoading && !_hasDisplayableForecast) {
@@ -197,12 +228,12 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       await NetworkCacheHandler.fetchOrKeepCache(
         onNetworkFetch: () =>
             _fetchAndSave(latitude, longitude, district, locality),
-        onUseCache: readCache,
+        onUseCache: _readCacheImpl,
         onError: () => showSnackBar('error_occurred'.tr, isError: true),
       );
     } finally {
       if (state.isLoading) {
-        await readCache();
+        await _readCacheImpl();
       }
     }
   }
@@ -214,7 +245,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
         .getCurrentPlace(resolveLabels: _reverseGeocodeLabels);
     if (place == null) {
       showSnackBar('location_not_found'.tr);
-      await readCache();
+      await _readCacheImpl();
       return;
     }
     await _fetchAndSave(place.lat, place.lon, place.district, place.city);
@@ -256,7 +287,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     await persistClockSkew(ref, weather.clockSkewSeconds ?? 0);
     syncBootstrapLocationCache(ref, location);
     refreshAppRouterFromRef(ref);
-    await readCache(rescheduleNotifications: true);
+    await _readCacheImpl(rescheduleNotifications: true);
   }
 
   /// Fills missing city or district labels via reverse geocoding when needed.
@@ -293,7 +324,12 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
   ///
   /// Pass [rescheduleNotifications] after a network fetch so pending alarms pick up
   /// new forecast text; routine loads top up missing slots only.
-  Future<void> readCache({bool rescheduleNotifications = false}) async {
+  Future<void> readCache({bool rescheduleNotifications = false}) =>
+      _queue.enqueue(
+        () => _readCacheImpl(rescheduleNotifications: rescheduleNotifications),
+      );
+
+  Future<void> _readCacheImpl({bool rescheduleNotifications = false}) async {
     final cached = await ref.read(weatherRepositoryProvider).readCache();
     if (cached.weather == null || cached.location == null) {
       state = state.copyWith(isLoading: false);
@@ -530,11 +566,35 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       return;
     }
     state = state.copyWith(hourOfDay: indices.hour, dayOfNow: indices.day);
-    refreshPersistentNotification();
+    unawaited(refreshPersistentNotification());
+  }
+
+  /// Refreshes widgets and notifications after resume without blocking the UI.
+  ///
+  /// Uses the already-open Isar instance and skips [runWidgetBackgroundRefresh]
+  /// (notification plugin re-init, optional network fetch) which caused ANRs
+  /// when awaited on the main isolate during [onAppResumed].
+  Future<void> _syncForegroundSideEffects() async {
+    try {
+      if (Platform.isAndroid) {
+        await ref
+            .read(homeWidgetServiceProvider)
+            .updateFromIsar(ref.read(isarProvider));
+      }
+      await refreshPersistentNotification(force: true);
+      if (ref.read(settingsProvider).notifications) {
+        await replenishForecastNotificationsIfEnabled();
+      }
+    } catch (e, st) {
+      debugLogError('MainWeatherNotifier._syncForegroundSideEffects', e, st);
+    }
   }
 
   /// Cancels notifications and clears main and/or location cache when online before a location change.
-  Future<void> deleteAll(bool changeCity) async {
+  Future<void> deleteAll(bool changeCity) =>
+      _queue.enqueue(() => _deleteAllImpl(changeCity));
+
+  Future<void> _deleteAllImpl(bool changeCity) async {
     if (!await ConnectivityService.hasInternet()) return;
     final settings = ref.read(settingsProvider);
     final serviceEnabled = await ref
@@ -550,27 +610,51 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
   }
 
   /// Pulls fresh forecast data when online, otherwise reloads from cache.
-  Future<void> refresh() async {
+  Future<void> refresh() => _queue.enqueue(_refreshImpl);
+
+  Future<void> _refreshImpl() async {
     await NetworkCacheHandler.fetchOrKeepCache(
       onOffline: () => showSnackBar('no_inter'.tr),
       onError: () => showSnackBar('error_occurred'.tr, isError: true),
       onNetworkFetch: _refreshFromNetwork,
-      onUseCache: readCache,
+      onUseCache: _readCacheImpl,
     );
+  }
+
+  /// Coordinates foreground refresh when the app returns to the foreground.
+  ///
+  /// Refreshes stale forecast data when needed; otherwise syncs time indices and
+  /// runs Android widget/notification side effects once via [HomeWidgetService].
+  Future<void> onAppResumed() => _queue.enqueue(_onAppResumedImpl);
+
+  Future<void> _onAppResumedImpl() async {
+    final repo = ref.read(weatherRepositoryProvider);
+    final cached = await repo.readCache();
+    if (cached.weather == null || cached.location == null) return;
+
+    if (await repo.isCacheExpired(_cacheExpiryThreshold)) {
+      await _refreshIfStaleImpl();
+      return;
+    }
+
+    syncCurrentTimeIndices();
+    // Yield to the event loop so resume touch events are handled first.
+    unawaited(Future<void>.delayed(Duration.zero, _syncForegroundSideEffects));
   }
 
   /// Refreshes the main forecast when the 12h cache window has passed.
   ///
   /// Called on app resume so a cold start or long background stay does not leave
   /// the weather tab stuck on the loading skeleton.
-  Future<void> refreshIfStale() async {
+  Future<void> refreshIfStale() => _queue.enqueue(_refreshIfStaleImpl);
+
+  Future<void> _refreshIfStaleImpl() async {
     final repo = ref.read(weatherRepositoryProvider);
     final cached = await repo.readCache();
     if (cached.weather == null || cached.location == null) return;
 
     if (!await repo.isCacheExpired(_cacheExpiryThreshold)) {
       syncCurrentTimeIndices();
-      unawaited(replenishForecastNotificationsIfEnabled());
       return;
     }
 
@@ -581,15 +665,15 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
     }
 
     if (!_hasDisplayableForecast) {
-      await readCache();
+      await _readCacheImpl();
     }
 
     if (ref.read(settingsProvider).location) {
-      await getCurrentLocation(showLoading: false);
+      await _getCurrentLocationImpl(showLoading: false);
       return;
     }
 
-    await getLocation(
+    await _getLocationImpl(
       loc.lat!,
       loc.lon!,
       loc.district ?? '',
@@ -604,7 +688,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       final locationService = ref.read(locationServiceProvider);
       if (!await locationService.isServiceEnabled()) {
         showSnackBar('no_location'.tr);
-        await readCache();
+        await _readCacheImpl();
         return;
       }
       await _fetchFromGps();
@@ -621,7 +705,7 @@ class MainWeatherNotifier extends Notifier<MainWeatherState> {
       );
       return;
     }
-    await readCache();
+    await _readCacheImpl();
   }
 
   /// Whether [hour]/[day] match the city's current local forecast slot.

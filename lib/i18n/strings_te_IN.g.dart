@@ -348,6 +348,9 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'అధి రాత్రి';
 	@override String get color_palette_charcoal => 'కంగాలు';
 	@override String get color_palette_sand => 'ఇసుక';
+	@override String get last_background_refresh => 'చివరి నేపథ్య రిఫ్రెష్';
+	@override String get last_background_refresh_never => 'ఇంకా నేపథ్య రిఫ్రెష్ లేదు';
+	@override String get background_refresh_error => 'చివరి నేపథ్య లోపం';
 }
 
 /// The flat map containing all translations for locale <te-IN>.
@@ -667,6 +670,9 @@ extension on TranslationsTeIn {
 			'color_palette_midnight' => 'అధి రాత్రి',
 			'color_palette_charcoal' => 'కంగాలు',
 			'color_palette_sand' => 'ఇసుక',
+			'last_background_refresh' => 'చివరి నేపథ్య రిఫ్రెష్',
+			'last_background_refresh_never' => 'ఇంకా నేపథ్య రిఫ్రెష్ లేదు',
+			'background_refresh_error' => 'చివరి నేపథ్య లోపం',
 			_ => null,
 		};
 	}

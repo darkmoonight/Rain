@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:rain/core/utils/place_form_helpers.dart';
+import 'package:rain/core/widgets/place_form_fields.dart';
+import 'package:rain/core/widgets/city_search_field.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
@@ -141,10 +144,10 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
 
     final shouldPop = await showConfirmationDialog(
       context: context,
-      title: 'unsavedChanges'.tr,
-      message: 'discardChanges'.tr,
+      title: 'unsavedChanges',
+      message: 'discardChanges',
       icon: IconsaxPlusBold.warning_2,
-      confirmText: 'discard'.tr,
+      confirmText: 'discard',
       isDestructive: true,
     );
 
@@ -157,24 +160,30 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
   Future<void> _onSavePressed() async {
     if (!_formKey.currentState!.validate()) return;
 
-    _latController.text = _latController.text.trim();
-    _lonController.text = _lonController.text.trim();
-    _cityController.text = _cityController.text.trim();
-    _districtController.text = _districtController.text.trim();
+    trimPlaceController(_latController);
+    trimPlaceController(_lonController);
+    trimPlaceController(_cityController);
+    trimPlaceController(_districtController);
 
     setState(() => _isSaving = true);
-    await _handleSubmit();
-    if (mounted) setState(() => _isSaving = false);
+    try {
+      await _handleSubmit();
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
   }
 
   /// Fills location fields from a [CitySearchResult] autocomplete selection.
   void fillController(CitySearchResult selection) {
-    _latController.text = '${selection.latitude}';
-    _lonController.text = '${selection.longitude}';
-    _cityController.text = selection.name ?? '';
-    _districtController.text = selection.admin1 ?? '';
-    _searchController.clear();
-    _focusNode.unfocus();
+    fillPlaceControllers(
+      selection: selection,
+      latitude: _latController,
+      longitude: _lonController,
+      city: _cityController,
+      district: _districtController,
+      search: _searchController,
+      focusNode: _focusNode,
+    );
 
     _editingController.lat.value = _latController.text;
     _editingController.lon.value = _lonController.text;
@@ -393,9 +402,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
             children: [
               _buildSearchSection(context, padding),
               SizedBox(height: padding * 1.5),
-              _buildLocationSection(context, padding),
-              SizedBox(height: padding * 1.5),
-              _buildInfoSection(context, padding),
+              _buildPlaceFieldsSection(context, padding),
               SizedBox(height: padding * 2),
             ],
           ),
@@ -415,15 +422,13 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
           IconsaxPlusBold.global_search,
         ),
         SizedBox(height: padding),
-        RawAutocomplete<CitySearchResult>(
+        CitySearchAutocomplete(
+          controller: _searchController,
           focusNode: _focusNode,
-          textEditingController: _searchController,
           fieldViewBuilder: _buildSearchField,
-          optionsBuilder: _buildCityOptions,
+          optionsStyle: CitySearchOptionsStyle.paddedCard,
+          optionsMaxHeight: 250,
           onSelected: fillController,
-          displayStringForOption: (CitySearchResult option) =>
-              '${option.name}, ${option.admin1}',
-          optionsViewBuilder: _buildOptionsView,
         ),
       ],
     );
@@ -449,82 +454,8 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
-  /// Fetches matching [CitySearchResult] entries for the current search query.
-  Future<Iterable<CitySearchResult>> _buildCityOptions(
-    TextEditingValue textEditingValue,
-  ) {
-    if (textEditingValue.text.isEmpty) {
-      return Future.value(const Iterable<CitySearchResult>.empty());
-    }
-    final locale = ref.read(localeProvider);
-    return ref
-        .read(weatherRemoteDatasourceProvider)
-        .searchCities(textEditingValue.text, locale.languageCode);
-  }
-
-  /// Builds the dropdown list of city autocomplete suggestions.
-  Widget _buildOptionsView(
-    BuildContext context,
-    AutocompleteOnSelected<CitySearchResult> onSelected,
-    Iterable<CitySearchResult> options,
-  ) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Padding(
-      padding: const EdgeInsets.only(top: AppConstants.spacingXS),
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Material(
-          borderRadius: BorderRadius.circular(AppConstants.borderRadiusLarge),
-          elevation: AppConstants.elevationHigh,
-          shadowColor: colorScheme.shadow.withValues(alpha: 0.2),
-          color: colorScheme.surfaceContainerHigh,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 250),
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppConstants.spacingXS,
-              ),
-              shrinkWrap: true,
-              itemCount: options.length,
-              itemBuilder: (BuildContext context, int index) {
-                final CitySearchResult option = options.elementAt(index);
-                return InkWell(
-                  onTap: () => onSelected(option),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppConstants.spacingL,
-                      vertical: AppConstants.spacingM,
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          IconsaxPlusLinear.location,
-                          color: colorScheme.primary,
-                          size: AppConstants.iconSizeSmall,
-                        ),
-                        SizedBox(width: AppConstants.spacingM),
-                        Expanded(
-                          child: Text(
-                            '${option.name}, ${option.admin1}',
-                            style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Builds the latitude and longitude input fields.
-  Widget _buildLocationSection(BuildContext context, double padding) {
+  /// Builds the latitude, longitude, city, and district input fields.
+  Widget _buildPlaceFieldsSection(BuildContext context, double padding) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
@@ -532,58 +463,33 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
       children: [
         _buildSectionHeader(context, 'location'.tr, IconsaxPlusBold.location),
         SizedBox(height: padding),
-        MyTextForm(
+        PlaceFormFields(
+          latitudeController: _latController,
+          longitudeController: _lonController,
+          cityController: _cityController,
+          districtController: _districtController,
           elevation: kTextFieldElevation,
-          controller: _latController,
-          labelText: 'lat'.tr,
-          type: TextInputType.number,
-          icon: Icon(IconsaxPlusLinear.location, color: colorScheme.primary),
-          onChanged: (value) => _editingController.lat.value = value,
-          validator: _validateLatitude,
-          margin: EdgeInsets.zero,
+          fieldMargin: EdgeInsets.zero,
+          fieldSpacing: padding,
+          iconColor: colorScheme.primary,
+          includeLabels: false,
+          onLatitudeChanged: (value) => _editingController.lat.value = value,
+          onLongitudeChanged: (value) => _editingController.lon.value = value,
         ),
-        SizedBox(height: padding),
-        MyTextForm(
+        SizedBox(height: padding * 1.5),
+        PlaceFormFields(
+          latitudeController: _latController,
+          longitudeController: _lonController,
+          cityController: _cityController,
+          districtController: _districtController,
           elevation: kTextFieldElevation,
-          controller: _lonController,
-          labelText: 'lon'.tr,
-          type: TextInputType.number,
-          icon: Icon(IconsaxPlusLinear.location, color: colorScheme.primary),
-          onChanged: (value) => _editingController.lon.value = value,
-          validator: _validateLongitude,
-          margin: EdgeInsets.zero,
-        ),
-      ],
-    );
-  }
-
-  /// Builds the city and district name input fields.
-  Widget _buildInfoSection(BuildContext context, double padding) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        MyTextForm(
-          elevation: kTextFieldElevation,
-          controller: _cityController,
-          labelText: 'city'.tr,
-          type: TextInputType.name,
-          icon: Icon(IconsaxPlusLinear.building_3, color: colorScheme.primary),
-          onChanged: (value) => _editingController.city.value = value,
-          validator: _validateCity,
-          margin: EdgeInsets.zero,
-        ),
-        SizedBox(height: padding),
-        MyTextForm(
-          elevation: kTextFieldElevation,
-          controller: _districtController,
-          labelText: 'district'.tr,
-          type: TextInputType.streetAddress,
-          icon: Icon(IconsaxPlusLinear.global, color: colorScheme.primary),
-          onChanged: (value) => _editingController.district.value = value,
-          validator: _validateDistrict,
-          margin: EdgeInsets.zero,
+          fieldMargin: EdgeInsets.zero,
+          fieldSpacing: padding,
+          iconColor: colorScheme.primary,
+          includeCoordinates: false,
+          onCityChanged: (value) => _editingController.city.value = value,
+          onDistrictChanged: (value) =>
+              _editingController.district.value = value,
         ),
       ],
     );
@@ -617,52 +523,6 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
-  /// Validates that latitude is a number within [-90, 90].
-  String? _validateLatitude(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'validateValue'.tr;
-    }
-    final numericValue = double.tryParse(value);
-    if (numericValue == null) {
-      return 'validateNumber'.tr;
-    }
-    if (numericValue < -90 || numericValue > 90) {
-      return 'validate90'.tr;
-    }
-    return null;
-  }
-
-  /// Validates that longitude is a number within [-180, 180].
-  String? _validateLongitude(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'validateValue'.tr;
-    }
-    final numericValue = double.tryParse(value);
-    if (numericValue == null) {
-      return 'validateNumber'.tr;
-    }
-    if (numericValue < -180 || numericValue > 180) {
-      return 'validate180'.tr;
-    }
-    return null;
-  }
-
-  /// Validates that the city name is non-empty.
-  String? _validateCity(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'validateName'.tr;
-    }
-    return null;
-  }
-
-  /// Validates that the district name is non-empty.
-  String? _validateDistrict(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'validateName'.tr;
-    }
-    return null;
-  }
-
   /// Persists a new or updated [WeatherCard] via [citiesNotifierProvider].
   Future<void> _handleSubmit() async {
     if (_formKey.currentState!.validate()) {
@@ -692,7 +552,6 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
         if (mounted) {
           showSnackBar('error_occurred'.tr, isError: true);
         }
-        rethrow;
       }
     }
   }

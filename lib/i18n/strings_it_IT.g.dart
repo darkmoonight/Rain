@@ -315,7 +315,7 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_indigo => 'Indaco';
 	@override String get color_palette_sky => 'Celeste';
 	@override String get color_palette_mint => 'Menta';
-	@override String get color_palette_lime => 'Lime';
+	@override String get color_palette_lime => 'Verde lime';
 	@override String get color_palette_amber => 'Ambra';
 	@override String get color_palette_coral => 'Corallo';
 	@override String get color_palette_crimson => 'Cremisi';
@@ -348,6 +348,9 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get color_palette_midnight => 'Mezzanotte';
 	@override String get color_palette_charcoal => 'Carbone';
 	@override String get color_palette_sand => 'Sabbia';
+	@override String get last_background_refresh => 'Ultimo aggiornamento in background';
+	@override String get last_background_refresh_never => 'Nessun aggiornamento in background';
+	@override String get background_refresh_error => 'Ultimo errore in background';
 }
 
 /// The flat map containing all translations for locale <it-IT>.
@@ -634,7 +637,7 @@ extension on TranslationsItIt {
 			'color_palette_indigo' => 'Indaco',
 			'color_palette_sky' => 'Celeste',
 			'color_palette_mint' => 'Menta',
-			'color_palette_lime' => 'Lime',
+			'color_palette_lime' => 'Verde lime',
 			'color_palette_amber' => 'Ambra',
 			'color_palette_coral' => 'Corallo',
 			'color_palette_crimson' => 'Cremisi',
@@ -667,6 +670,9 @@ extension on TranslationsItIt {
 			'color_palette_midnight' => 'Mezzanotte',
 			'color_palette_charcoal' => 'Carbone',
 			'color_palette_sand' => 'Sabbia',
+			'last_background_refresh' => 'Ultimo aggiornamento in background',
+			'last_background_refresh_never' => 'Nessun aggiornamento in background',
+			'background_refresh_error' => 'Ultimo errore in background',
 			_ => null,
 		};
 	}

@@ -69,9 +69,7 @@ Future<void> refreshMainWeatherIfStale(Isar isar) async {
   final location = await local.getLocation();
   if (location?.lat == null || location?.lon == null) return;
 
-  final staleAfter = DateTime.now().subtract(
-    AppConstants.workManagerMinInterval,
-  );
+  final staleAfter = AppConstants.weatherCacheExpiryThreshold();
   if (!await local.isMainWeatherExpired(staleAfter)) return;
   if (!await hasBackgroundInternetAccess()) return;
 
@@ -102,9 +100,9 @@ Future<void> _applyBackgroundLocale(Isar isar) async {
 
 /// Fetches stale main weather when online, then pushes widget data from disk.
 ///
-/// Forecast alarms are not touched here — they are scheduled from the foreground
-/// when the cache loads or notification settings change. Only the persistent
-/// weather notification is refreshed in the background.
+/// Also refreshes the persistent notification and top-up forecast alarms when
+/// Same side effects as a foreground resume with a fresh cache (via
+/// [MainWeatherNotifier._syncForegroundSideEffects], not this entry point).
 Future<bool> runWidgetBackgroundRefresh(
   Future<bool> Function(Isar isar) updateWidgets, {
   Future<void> Function(Isar isar)? refreshStaleWeather,
