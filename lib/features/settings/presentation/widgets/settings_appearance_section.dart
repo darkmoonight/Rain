@@ -5,7 +5,6 @@ import 'package:rain/core/config/setting_appearance_pickers.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/di/settings_revision.dart';
 import 'package:rain/core/theme/color_palette.dart';
-import 'package:rain/core/theme/theme_mode_notifier.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/features/settings/presentation/widgets/selection_dialog.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';

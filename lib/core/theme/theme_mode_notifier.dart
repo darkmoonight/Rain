@@ -12,7 +12,6 @@ final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(
 );
 
 /// User-visible label for a persisted theme preference (`system`, `dark`, `light`).
-@visibleForTesting
 String themePreferenceLabel(String? themeKey) => (themeKey ?? 'system').tr;
 
 /// Persists and exposes theme mode; also saves AMOLED and Material You toggles.

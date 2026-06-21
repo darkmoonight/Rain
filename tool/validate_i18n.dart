@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_printв динамическом режиме н
+// ignore_for_file: avoid_print
 
 import 'dart:convert';
 import 'dart:io';
