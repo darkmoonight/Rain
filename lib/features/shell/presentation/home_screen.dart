@@ -62,7 +62,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      ref.read(citiesNotifierProvider.notifier).refresh(all: false);
+      ref.read(citiesNotifierProvider.notifier).refreshIfStale();
       unawaited(ref.read(mainWeatherNotifierProvider.notifier).onAppResumed());
     }
   }
@@ -94,7 +94,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   }
 
   Future<void> _initData() async {
-    await ref.read(citiesNotifierProvider.notifier).refresh(all: false);
+    await ref.read(citiesNotifierProvider.notifier).refreshIfStale();
   }
 
   Future<void> _checkLocationCache() async {

@@ -169,6 +169,22 @@ void main() {
       expect(find.byType(Shimmer), findsWidgets);
     });
 
+    testWidgets('keeps cached cards visible while loading', (tester) async {
+      await pumpRainWidget(
+        tester,
+        const Scaffold(body: PlaceList()),
+        bootstrap: ctx.bootstrap,
+        overrides: [
+          citiesNotifierProvider.overrideWith(_LoadingWithCardsNotifier.new),
+        ],
+      );
+      await tester.pump();
+
+      expect(find.byType(PlaceCardsLoadingView), findsNothing);
+      expect(find.byType(WeatherCardTile), findsOneWidget);
+      expect(find.textContaining('Moscow'), findsWidgets);
+    });
+
     testWidgets('shows Add a city when list is empty without loadError', (
       tester,
     ) async {
@@ -280,6 +296,12 @@ void main() {
       expect(find.textContaining('Moscow'), findsWidgets);
     });
   });
+}
+
+class _LoadingWithCardsNotifier extends CitiesNotifier {
+  @override
+  CitiesState build() =>
+      CitiesState(cards: [completeWeatherCard()], isLoading: true);
 }
 
 class _TestCitiesNotifier extends CitiesNotifier {

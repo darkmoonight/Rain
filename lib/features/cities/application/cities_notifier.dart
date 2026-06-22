@@ -66,9 +66,15 @@ class CitiesNotifier extends Notifier<CitiesState> {
   bool get _hasDisplayableCards =>
       WeatherCardValidator.filterComplete(state.cards).isNotEmpty;
 
-  /// Initializes loading state; the first load is triggered by [HomeScreen].
+  /// Initializes loading state and schedules a cache read before [HomeScreen] refresh.
   @override
-  CitiesState build() => const CitiesState(isLoading: true);
+  CitiesState build() {
+    Future.microtask(loadFromCache);
+    return const CitiesState(isLoading: true);
+  }
+
+  /// Loads saved cards from local storage into [state].
+  Future<void> loadFromCache() => _queue.enqueue(_loadImpl);
 
   /// Reads cards from the database; DB errors set [loadError] only when cards remain in state.
   Future<void> _loadImpl() async {
@@ -149,6 +155,33 @@ class CitiesNotifier extends Notifier<CitiesState> {
   /// Queues a network refresh for expired cards, or all cards when [all] is true.
   Future<void> refresh({bool all = true}) =>
       _queue.enqueue(() => _refreshImpl(all: all));
+
+  /// Refreshes only expired cards when the 12h cache window has passed.
+  ///
+  /// Used on app start and resume so saved cities keep showing cached forecasts
+  /// while a background refresh runs (or times out).
+  Future<void> refreshIfStale() => _queue.enqueue(_refreshIfStaleImpl);
+
+  Future<void> _refreshIfStaleImpl() async {
+    if (!_hasDisplayableCards) {
+      await _loadImpl();
+    }
+
+    final toUpdate = WeatherCardValidator.filterComplete(
+      await _repo.getExpiredSorted(_cacheExpiryThreshold),
+    );
+    if (toUpdate.isEmpty) return;
+
+    state = state.copyWith(isRefreshing: true, loadError: false);
+    try {
+      await NetworkCacheHandler.fetchOrKeepCache(
+        onNetworkFetch: () => _fetchRemoteUpdates(all: false),
+        onUseCache: _loadImpl,
+      );
+    } finally {
+      state = state.copyWith(isRefreshing: false);
+    }
+  }
 
   /// Refreshes expired or all cards from the network, falling back to cache.
   Future<void> _refreshImpl({required bool all}) async {

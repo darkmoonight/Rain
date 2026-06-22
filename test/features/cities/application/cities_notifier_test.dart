@@ -59,7 +59,7 @@ void main() {
 
         final refreshFuture = container
             .read(citiesNotifierProvider.notifier)
-            .refresh(all: false);
+            .refreshIfStale();
 
         await Future<void>.delayed(Duration.zero);
         await Future<void>.delayed(Duration.zero);
@@ -78,6 +78,19 @@ void main() {
         expect(finalState.cards, hasLength(1));
       },
     );
+
+    test('refreshIfStale skips network when cache is still fresh', () async {
+      await seedWeatherCard(ctx.isarContext.isar, completeWeatherCard());
+
+      final container = createContainer();
+
+      await container.read(citiesNotifierProvider.notifier).refreshIfStale();
+
+      final state = container.read(citiesNotifierProvider);
+      expect(state.isLoading, isFalse);
+      expect(state.cards, hasLength(1));
+      expect(state.isRefreshing, isFalse);
+    });
 
     test('refresh loads cards from database', () async {
       await seedWeatherCard(ctx.isarContext.isar, completeWeatherCard());

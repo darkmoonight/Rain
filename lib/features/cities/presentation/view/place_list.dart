@@ -4,6 +4,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/widgets/async_state_views.dart';
 import 'package:rain/core/widgets/text_form.dart';
+import 'package:rain/features/cities/domain/weather_card_validator.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card_list.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card_shimmer.dart';
@@ -46,8 +47,11 @@ class _PlaceListState extends ConsumerState<PlaceList> {
   @override
   Widget build(BuildContext context) {
     final cities = ref.watch(citiesNotifierProvider);
+    final hasDisplayableCards = WeatherCardValidator.filterComplete(
+      cities.cards,
+    ).isNotEmpty;
 
-    if (cities.isLoading && cities.cards.isEmpty) {
+    if (cities.isLoading && !hasDisplayableCards) {
       return const PlaceCardsLoadingView();
     }
     if (cities.loadError && cities.cards.isEmpty) {

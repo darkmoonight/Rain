@@ -202,4 +202,9 @@ class _RefreshTrackingCitiesNotifier extends CitiesNotifier {
   Future<void> refresh({bool all = true}) async {
     refreshCalls++;
   }
+
+  @override
+  Future<void> refreshIfStale() async {
+    refreshCalls++;
+  }
 }

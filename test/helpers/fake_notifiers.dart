@@ -32,6 +32,9 @@ class NoOpCitiesNotifier extends CitiesNotifier {
 
   @override
   Future<void> refresh({bool all = true}) async {}
+
+  @override
+  Future<void> refreshIfStale() async {}
 }
 
 /// Loading main weather state for shimmer tests.
@@ -58,4 +61,7 @@ class CitiesWithCardsNotifier extends CitiesNotifier {
 
   @override
   Future<void> refresh({bool all = true}) async {}
+
+  @override
+  Future<void> refreshIfStale() async {}
 }
