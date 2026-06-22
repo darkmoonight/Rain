@@ -3,9 +3,12 @@ import '../../../helpers/isar_test_helper.dart';
 import '../../../helpers/test_bootstrap.dart';
 import '../../../helpers/throwing_cities_repository.dart';
 import '../../../helpers/widget_test_harness.dart';
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/data/models/db.dart';
+import 'package:rain/data/repositories/cities_repository.dart';
 import 'package:rain/features/cities/application/cities_notifier.dart';
 
 void main() {
@@ -34,6 +37,47 @@ void main() {
       addTearDown(container.dispose);
       return container;
     }
+
+    test(
+      'refresh shows cached cards while stale network update runs',
+      () async {
+        final card = completeWeatherCard(
+          timestamp: DateTime.now().subtract(const Duration(hours: 24)),
+        );
+        await seedWeatherCard(ctx.isarContext.isar, card);
+
+        final gate = Completer<void>();
+        final delayedRepo = _DelayedCitiesRepository(
+          ctx.isarContext.isar,
+          createFakeWeatherRemoteDatasource(),
+          gate,
+        );
+
+        final container = createContainer(
+          overrides: [citiesRepositoryProvider.overrideWithValue(delayedRepo)],
+        );
+
+        final refreshFuture = container
+            .read(citiesNotifierProvider.notifier)
+            .refresh(all: false);
+
+        await Future<void>.delayed(Duration.zero);
+        await Future<void>.delayed(Duration.zero);
+
+        final midState = container.read(citiesNotifierProvider);
+        expect(midState.isLoading, isFalse);
+        expect(midState.cards, hasLength(1));
+        expect(midState.cards.first.city, 'Moscow');
+        expect(midState.isRefreshing, isTrue);
+
+        gate.complete();
+        await refreshFuture;
+
+        final finalState = container.read(citiesNotifierProvider);
+        expect(finalState.isRefreshing, isFalse);
+        expect(finalState.cards, hasLength(1));
+      },
+    );
 
     test('refresh loads cards from database', () async {
       await seedWeatherCard(ctx.isarContext.isar, completeWeatherCard());
@@ -194,4 +238,21 @@ void main() {
       expect(container.read(citiesNotifierProvider).cards.first.city, 'Moscow');
     });
   });
+}
+
+class _DelayedCitiesRepository extends CitiesRepository {
+  _DelayedCitiesRepository(super.isar, super.remote, this._gate);
+
+  final Completer<void> _gate;
+
+  @override
+  Future<WeatherCard> fetchCard(
+    double lat,
+    double lon,
+    String city,
+    String district,
+  ) async {
+    await _gate.future;
+    return super.fetchCard(lat, lon, city, district);
+  }
 }

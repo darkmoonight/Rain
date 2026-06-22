@@ -62,6 +62,10 @@ class CitiesNotifier extends Notifier<CitiesState> {
   /// Provides access to the cities repository from Riverpod.
   CitiesRepository get _repo => ref.read(citiesRepositoryProvider);
 
+  /// True when [state] already has at least one card that can be rendered.
+  bool get _hasDisplayableCards =>
+      WeatherCardValidator.filterComplete(state.cards).isNotEmpty;
+
   /// Initializes loading state; the first load is triggered by [HomeScreen].
   @override
   CitiesState build() => const CitiesState(isLoading: true);
@@ -148,6 +152,12 @@ class CitiesNotifier extends Notifier<CitiesState> {
 
   /// Refreshes expired or all cards from the network, falling back to cache.
   Future<void> _refreshImpl({required bool all}) async {
+    // Stale-while-revalidate: keep showing cached cards while the 12h refresh
+    // runs (or times out) instead of the full-list shimmer.
+    if (!_hasDisplayableCards) {
+      await _loadImpl();
+    }
+
     state = state.copyWith(isRefreshing: true, loadError: false);
     try {
       await NetworkCacheHandler.fetchOrKeepCache(
