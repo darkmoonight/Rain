@@ -110,9 +110,6 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
   Color _resolvedColor(String hex, Color fallback) =>
       hex.isEmpty ? fallback : HexColor.fromHex(hex);
 
-  Widget _colorSwatch(String hex, Color fallback) =>
-      WidgetColorListSwatch(color: _resolvedColor(hex, fallback));
-
   /// Builds one background or text color tile inside a theme section.
   SettingsTile _colorTile({
     required IconData leading,
@@ -129,7 +126,9 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _colorSwatch(colorHex, previewFallback),
+          WidgetColorListSwatch(
+            color: _resolvedColor(colorHex, previewFallback),
+          ),
           const SizedBox(width: 8),
           Icon(
             IconsaxPlusLinear.arrow_right_3,

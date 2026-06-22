@@ -62,6 +62,7 @@ class _WidgetColorPickerDialogState extends State<_WidgetColorPickerDialog> {
     }
   }
 
+  /// Color shown in the picker when the user has not chosen a custom value yet.
   Color _pickerColor(BuildContext context) {
     if (_pickedColorHex != null) return HexColor.fromHex(_pickedColorHex!);
     if (!_transparentSelected && !widget.initialColor.isFullyTransparent) {

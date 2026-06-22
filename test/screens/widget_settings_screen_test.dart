@@ -69,7 +69,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
 
       expect(find.byType(AppWidgetColorPicker), findsOneWidget);
-      expect(find.byType(PaletteHuePicker), findsOneWidget);
+      expect(find.byType(PalettePicker), findsOneWidget);
       expect(find.text('Widget background (light)'), findsWidgets);
     });
   });
