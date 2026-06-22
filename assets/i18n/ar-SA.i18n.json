@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "تعذر إعادة تحميل الودجات",
   "widgetBackgroundLight": "خلفية الأداة (فاتح)",
   "widgetBackgroundDark": "خلفية الأداة (داكن)",
+  "widgetBackgroundTransparent": "شفاف",
   "widgetTextLight": "نص الأداة (فاتح)",
   "widgetTextDark": "نص الأداة (داكن)",
   "resetToMaterialYou": "إعادة التعيين إلى Material You",

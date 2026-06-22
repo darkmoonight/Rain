@@ -16,5 +16,24 @@ void main() {
       expect(color.toHex(), '#ff112233');
       expect(color.toHex(leadingHashSign: false), 'ff112233');
     });
+
+    test('isFullyTransparent is true only for zero alpha', () {
+      expect(const Color(0x00000000).isFullyTransparent, isTrue);
+      expect(const Color(0xFF000000).isFullyTransparent, isFalse);
+    });
+
+    test('toRgbHex returns uppercase six-digit RGB', () {
+      expect(const Color(0xFF1A2B3C).toRgbHex(), '1A2B3C');
+    });
+
+    test('tryFromRgbHex parses valid input and preserves alpha', () {
+      expect(HexColor.tryFromRgbHex('#1A2B3C'), const Color(0xFF1A2B3C));
+      expect(
+        HexColor.tryFromRgbHex('1A2B3C', alpha: 128),
+        const Color(0x801A2B3C),
+      );
+      expect(HexColor.tryFromRgbHex('GGGGGG'), isNull);
+      expect(HexColor.tryFromRgbHex('12345'), isNull);
+    });
   });
 }

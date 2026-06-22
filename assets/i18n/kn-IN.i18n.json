@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "ವಿಜೆಟ್‌ಗಳನ್ನು ಮರುಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
   "widgetBackgroundLight": "ವಿಜೆಟ್ ಹಿನ್ನೆಲೆ (ತಿಳು)",
   "widgetBackgroundDark": "ವಿಜೆಟ್ ಹಿನ್ನೆಲೆ (ಗಾಢ)",
+  "widgetBackgroundTransparent": "ಪಾರದರ್ಶಕ",
   "widgetTextLight": "ವಿಜೆಟ್ ಪಠ್ಯ (ತಿಳು)",
   "widgetTextDark": "ವಿಜೆಟ್ ಪಠ್ಯ (ಗಾಢ)",
   "resetToMaterialYou": "Material You ಗೆ ಮರುಹೊಂದಿಸಿ",

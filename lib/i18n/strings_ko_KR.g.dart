@@ -86,6 +86,7 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => '위젯을 새로고침할 수 없습니다';
 	@override String get widget_background_light => '위젯 배경(밝음)';
 	@override String get widget_background_dark => '위젯 배경(어두움)';
+	@override String get widget_background_transparent => '투명';
 	@override String get widget_text_light => '위젯 텍스트(밝음)';
 	@override String get widget_text_dark => '위젯 텍스트(어두움)';
 	@override String get reset_to_material_you => 'Material You로 재설정';
@@ -408,6 +409,7 @@ extension on TranslationsKoKr {
 			'reload_widget_failed' => '위젯을 새로고침할 수 없습니다',
 			'widget_background_light' => '위젯 배경(밝음)',
 			'widget_background_dark' => '위젯 배경(어두움)',
+			'widget_background_transparent' => '투명',
 			'widget_text_light' => '위젯 텍스트(밝음)',
 			'widget_text_dark' => '위젯 텍스트(어두움)',
 			'reset_to_material_you' => 'Material You로 재설정',

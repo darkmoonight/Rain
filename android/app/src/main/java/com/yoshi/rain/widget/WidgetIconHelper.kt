@@ -40,11 +40,23 @@ object WidgetIconHelper {
         @DrawableRes shapeDrawable: Int,
         settings: WidgetSettings,
         textIds: IntArray,
+        @IdRes containerViewId: Int = View.NO_ID,
         @DimenRes widthDimen: Int = R.dimen.widget_material_you_default_size,
         @DimenRes heightDimen: Int = R.dimen.widget_material_you_default_size,
     ) {
-        if (settings.themeMode == "system" && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            applyDualToneColors(views, backgroundViewId, shapeDrawable, settings, textIds)
+        // Dual-tone tint drawables are white; a transparent slot would still look white.
+        if (settings.themeMode == "system" &&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+            !hasCustomTransparentBackground(settings)
+        ) {
+            applyDualToneColors(
+                views,
+                backgroundViewId,
+                shapeDrawable,
+                settings,
+                textIds,
+                containerViewId,
+            )
             return
         }
         applyFixedPaletteColors(
@@ -54,6 +66,7 @@ object WidgetIconHelper {
             shapeDrawable,
             settings,
             textIds,
+            containerViewId,
             widthDimen,
             heightDimen,
         )
@@ -69,10 +82,11 @@ object WidgetIconHelper {
         @DrawableRes shapeDrawable: Int,
         settings: WidgetSettings,
         textIds: IntArray,
+        @IdRes containerViewId: Int,
     ) {
         val (lightBg, darkBg) = resolveBackgroundColors(settings)
         if (isFullyTransparent(lightBg) && isFullyTransparent(darkBg)) {
-            setBackgroundVisible(views, backgroundViewId, visible = false)
+            hideWidgetBackground(views, backgroundViewId, containerViewId)
             return
         }
         setBackgroundVisible(views, backgroundViewId, visible = true)
@@ -99,6 +113,7 @@ object WidgetIconHelper {
         @DrawableRes shapeDrawable: Int,
         settings: WidgetSettings,
         textIds: IntArray,
+        @IdRes containerViewId: Int,
         @DimenRes widthDimen: Int,
         @DimenRes heightDimen: Int,
     ) {
@@ -121,6 +136,7 @@ object WidgetIconHelper {
             backgroundViewId,
             shapeDrawable,
             customBackground,
+            containerViewId,
             widthDimen,
             heightDimen,
         )
@@ -153,20 +169,28 @@ object WidgetIconHelper {
             else -> shapeDrawable
         }
 
+    private fun hasCustomTransparentBackground(settings: WidgetSettings): Boolean {
+        val light = parseColorOrNull(settings.backgroundColorLight)
+        val dark = parseColorOrNull(settings.backgroundColorDark)
+        return isFullyTransparent(light) || isFullyTransparent(dark)
+    }
+
     private fun applyShapeBackground(
         context: Context,
         views: RemoteViews,
         @IdRes backgroundViewId: Int,
         @DrawableRes shapeDrawable: Int,
         @ColorInt customColor: Int?,
+        @IdRes containerViewId: Int,
         @DimenRes widthDimen: Int,
         @DimenRes heightDimen: Int,
     ) {
         try {
             if (customColor != null && isFullyTransparent(customColor)) {
-                setBackgroundVisible(views, backgroundViewId, visible = false)
+                hideWidgetBackground(views, backgroundViewId, containerViewId)
                 return
             }
+            clearContainerBackground(views, containerViewId)
             setBackgroundVisible(views, backgroundViewId, visible = true)
             views.setImageViewResource(backgroundViewId, shapeDrawable)
             if (customColor != null) {
@@ -180,6 +204,15 @@ object WidgetIconHelper {
         }
     }
 
+    private fun hideWidgetBackground(
+        views: RemoteViews,
+        @IdRes backgroundViewId: Int,
+        @IdRes containerViewId: Int,
+    ) {
+        setBackgroundVisible(views, backgroundViewId, visible = false)
+        clearContainerBackground(views, containerViewId)
+    }
+
     private fun setBackgroundVisible(
         views: RemoteViews,
         @IdRes backgroundViewId: Int,
@@ -191,7 +224,17 @@ object WidgetIconHelper {
         )
     }
 
-    private fun isFullyTransparent(@ColorInt color: Int): Boolean = Color.alpha(color) == 0
+    private fun clearContainerBackground(views: RemoteViews, @IdRes containerViewId: Int) {
+        if (containerViewId == View.NO_ID) return
+        try {
+            views.setInt(containerViewId, "setBackgroundColor", Color.TRANSPARENT)
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to clear widget container background", e)
+        }
+    }
+
+    private fun isFullyTransparent(@ColorInt color: Int?): Boolean =
+        color != null && Color.alpha(color) == 0
 
     private fun tintedShapeBitmap(
         context: Context,

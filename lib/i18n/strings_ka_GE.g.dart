@@ -86,6 +86,7 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'ვიჯეტების გადატვირთვა ვერ მოხერხდა';
 	@override String get widget_background_light => 'ვიჯეტის ფონი (ღია)';
 	@override String get widget_background_dark => 'ვიჯეტის ფონი (მუქი)';
+	@override String get widget_background_transparent => 'გამჭვირვალე';
 	@override String get widget_text_light => 'ვიჯეტის ტექსტი (ღია)';
 	@override String get widget_text_dark => 'ვიჯეტის ტექსტი (მუქი)';
 	@override String get reset_to_material_you => 'Material You-ზე დაბრუნება';
@@ -408,6 +409,7 @@ extension on TranslationsKaGe {
 			'reload_widget_failed' => 'ვიჯეტების გადატვირთვა ვერ მოხერხდა',
 			'widget_background_light' => 'ვიჯეტის ფონი (ღია)',
 			'widget_background_dark' => 'ვიჯეტის ფონი (მუქი)',
+			'widget_background_transparent' => 'გამჭვირვალე',
 			'widget_text_light' => 'ვიჯეტის ტექსტი (ღია)',
 			'widget_text_dark' => 'ვიჯეტის ტექსტი (მუქი)',
 			'reset_to_material_you' => 'Material You-ზე დაბრუნება',

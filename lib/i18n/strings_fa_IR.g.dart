@@ -86,6 +86,7 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'بارگذاری مجدد ویجت‌ها ممکن نشد';
 	@override String get widget_background_light => 'پس‌زمینه ویجت (روشن)';
 	@override String get widget_background_dark => 'پس‌زمینه ویجت (تیره)';
+	@override String get widget_background_transparent => 'شفاف';
 	@override String get widget_text_light => 'متن ویجت (روشن)';
 	@override String get widget_text_dark => 'متن ویجت (تیره)';
 	@override String get reset_to_material_you => 'بازنشانی به Material You';
@@ -408,6 +409,7 @@ extension on TranslationsFaIr {
 			'reload_widget_failed' => 'بارگذاری مجدد ویجت‌ها ممکن نشد',
 			'widget_background_light' => 'پس‌زمینه ویجت (روشن)',
 			'widget_background_dark' => 'پس‌زمینه ویجت (تیره)',
+			'widget_background_transparent' => 'شفاف',
 			'widget_text_light' => 'متن ویجت (روشن)',
 			'widget_text_dark' => 'متن ویجت (تیره)',
 			'reset_to_material_you' => 'بازنشانی به Material You',

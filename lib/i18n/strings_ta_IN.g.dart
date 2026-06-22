@@ -86,6 +86,7 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'விட்ஜெட்களை மீண்டும் ஏற்ற முடியவில்லை';
 	@override String get widget_background_light => 'விட்ஜெட் பின்னணி (வெளிர்)';
 	@override String get widget_background_dark => 'விட்ஜெட் பின்னணி (இருண்ட)';
+	@override String get widget_background_transparent => 'வெளிப்படையான';
 	@override String get widget_text_light => 'விட்ஜெட் உரை (வெளிர்)';
 	@override String get widget_text_dark => 'விட்ஜெட் உரை (இருண்ட)';
 	@override String get reset_to_material_you => 'Material You க்கு மீட்டமை';
@@ -408,6 +409,7 @@ extension on TranslationsTaIn {
 			'reload_widget_failed' => 'விட்ஜெட்களை மீண்டும் ஏற்ற முடியவில்லை',
 			'widget_background_light' => 'விட்ஜெட் பின்னணி (வெளிர்)',
 			'widget_background_dark' => 'விட்ஜெட் பின்னணி (இருண்ட)',
+			'widget_background_transparent' => 'வெளிப்படையான',
 			'widget_text_light' => 'விட்ஜெட் உரை (வெளிர்)',
 			'widget_text_dark' => 'விட்ஜெட் உரை (இருண்ட)',
 			'reset_to_material_you' => 'Material You க்கு மீட்டமை',

@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Nie udało się przeładować widżetów",
   "widgetBackgroundLight": "Tło widżetu (jasne)",
   "widgetBackgroundDark": "Tło widżetu (ciemne)",
+  "widgetBackgroundTransparent": "Przezroczyste",
   "widgetTextLight": "Tekst widżetu (jasny)",
   "widgetTextDark": "Tekst widżetu (ciemny)",
   "resetToMaterialYou": "Przywróć Material You",

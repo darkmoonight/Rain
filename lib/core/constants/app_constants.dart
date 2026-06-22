@@ -93,6 +93,9 @@ class AppConstants {
   static const double cardPaddingHorizontal = 10.0;
   static const double cardPaddingVertical = 5.0;
 
+  /// Hides the widget shape layer on Android when saved as a custom background.
+  static const String transparentWidgetColorHex = '#00000000';
+
   /// Desc grid cell width inside [DescContainer].
   static const double descGridItemWidth = 100.0;
 

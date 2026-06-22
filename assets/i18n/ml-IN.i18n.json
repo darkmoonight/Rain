@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "വിജറ്റുകൾ വീണ്ടും ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല",
   "widgetBackgroundLight": "വിജറ്റ് പശ്ചാത്തലം (ഇളം)",
   "widgetBackgroundDark": "വിജറ്റ് പശ്ചാത്തലം (ഇരുണ്ട)",
+  "widgetBackgroundTransparent": "പാരദർശ്യം",
   "widgetTextLight": "വിജറ്റ് ടെക്സ്റ്റ് (ഇളം)",
   "widgetTextDark": "വിജറ്റ് ടെക്സ്റ്റ് (ഇരുണ്ട)",
   "resetToMaterialYou": "Material You-ലേക്ക് പുനഃസജ്ജമാക്കുക",

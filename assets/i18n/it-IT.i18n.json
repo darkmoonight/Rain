@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Impossibile ricaricare i widget",
   "widgetBackgroundLight": "Sfondo widget (chiaro)",
   "widgetBackgroundDark": "Sfondo widget (scuro)",
+  "widgetBackgroundTransparent": "Trasparente",
   "widgetTextLight": "Testo widget (chiaro)",
   "widgetTextDark": "Testo widget (scuro)",
   "resetToMaterialYou": "Ripristina Material You",

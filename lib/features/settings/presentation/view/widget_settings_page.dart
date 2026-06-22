@@ -16,6 +16,7 @@ import 'package:rain/features/settings/presentation/widgets/settings_secondary_a
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/features/settings/presentation/widgets/widget_color_picker_dialog.dart';
+import 'package:rain/features/settings/presentation/widgets/widget_color_picker_ui.dart';
 import 'package:rain/i18n/tr.dart';
 
 /// Android home-screen widget configuration and pin-to-home actions.
@@ -109,17 +110,8 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
   Color _resolvedColor(String hex, Color fallback) =>
       hex.isEmpty ? fallback : HexColor.fromHex(hex);
 
-  Widget _colorSwatch(String hex, Color fallback) {
-    final outline = Theme.of(context).colorScheme.outlineVariant;
-    return CircleAvatar(
-      backgroundColor: outline.withValues(alpha: 0.4),
-      radius: 11,
-      child: CircleAvatar(
-        backgroundColor: _resolvedColor(hex, fallback),
-        radius: 10,
-      ),
-    );
-  }
+  Widget _colorSwatch(String hex, Color fallback) =>
+      WidgetColorListSwatch(color: _resolvedColor(hex, fallback));
 
   /// Builds one background or text color tile inside a theme section.
   SettingsTile _colorTile({
@@ -129,6 +121,7 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
     required Color previewFallback,
     required Future<void> Function(String) onSave,
     required Future<void> Function() onReset,
+    bool allowTransparent = false,
   }) {
     return SettingsTile(
       leading: Icon(leading),
@@ -151,6 +144,7 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
         initialColor: _resolvedColor(colorHex, previewFallback),
         onSave: onSave,
         onReset: onReset,
+        allowTransparent: allowTransparent,
       ),
     );
   }
@@ -170,6 +164,7 @@ class _WidgetSettingsPageState extends ConsumerState<WidgetSettingsPage> {
           previewFallback: definition.previewBackground,
           onSave: definition.saveBackground(_service),
           onReset: () => definition.resetBackground(_service)(),
+          allowTransparent: true,
         ),
         _colorTile(
           leading: IconsaxPlusLinear.text_block,

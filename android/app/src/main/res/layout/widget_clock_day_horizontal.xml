@@ -4,6 +4,7 @@
     android:id="@+id/widget_clock_day"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     android:minHeight="@dimen/widget_forecast_bar_height"
     android:theme="@style/Theme.Android.AppWidgetContainer">
 

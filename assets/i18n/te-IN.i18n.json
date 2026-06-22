@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "విడ్జెట్‌లను మళ్లీ లోడ్ చేయలేకపోయాము",
   "widgetBackgroundLight": "విడ్జెట్ నేపథ్యం (వెలుగు)",
   "widgetBackgroundDark": "విడ్జెట్ నేపథ్యం (చీకటి)",
+  "widgetBackgroundTransparent": "పారదర్శకం",
   "widgetTextLight": "విడ్జెట్ టెక్స్ట్ (వెలుగు)",
   "widgetTextDark": "విడ్జెట్ టెక్స్ట్ (చీకటి)",
   "resetToMaterialYou": "Material You కు రీసెట్ చేయండి",

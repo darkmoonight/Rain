@@ -182,6 +182,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Widget background (dark)'
 	String get widget_background_dark => 'Widget background (dark)';
 
+	/// en-US: 'Transparent'
+	String get widget_background_transparent => 'Transparent';
+
 	/// en-US: 'Widget text (light)'
 	String get widget_text_light => 'Widget text (light)';
 
@@ -1033,6 +1036,7 @@ extension on Translations {
 			'reload_widget_failed' => 'Could not reload widgets',
 			'widget_background_light' => 'Widget background (light)',
 			'widget_background_dark' => 'Widget background (dark)',
+			'widget_background_transparent' => 'Transparent',
 			'widget_text_light' => 'Widget text (light)',
 			'widget_text_dark' => 'Widget text (dark)',
 			'reset_to_material_you' => 'Reset to Material You',

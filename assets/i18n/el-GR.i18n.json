@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Αποτυχία επαναφόρτωσης widget",
   "widgetBackgroundLight": "Φόντο widget (ανοιχτό)",
   "widgetBackgroundDark": "Φόντο widget (σκούρο)",
+  "widgetBackgroundTransparent": "Διαφανές",
   "widgetTextLight": "Κείμενο widget (ανοιχτό)",
   "widgetTextDark": "Κείμενο widget (σκούρο)",
   "resetToMaterialYou": "Επαναφορά σε Material You",

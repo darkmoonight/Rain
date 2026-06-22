@@ -86,6 +86,7 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'વિજેટ ફરી લોડ કરી શકાયા નહીં';
 	@override String get widget_background_light => 'વિજેટ બેકગ્રાઉન્ડ (હલકું)';
 	@override String get widget_background_dark => 'વિજેટ બેકગ્રાઉન્ડ (ઘાટું)';
+	@override String get widget_background_transparent => 'પારદર્શક';
 	@override String get widget_text_light => 'વિજેટ ટેક્સ્ટ (હલકું)';
 	@override String get widget_text_dark => 'વિજેટ ટેક્સ્ટ (ઘાટું)';
 	@override String get reset_to_material_you => 'Material You પર રીસેટ કરો';
@@ -408,6 +409,7 @@ extension on TranslationsGuIn {
 			'reload_widget_failed' => 'વિજેટ ફરી લોડ કરી શકાયા નહીં',
 			'widget_background_light' => 'વિજેટ બેકગ્રાઉન્ડ (હલકું)',
 			'widget_background_dark' => 'વિજેટ બેકગ્રાઉન્ડ (ઘાટું)',
+			'widget_background_transparent' => 'પારદર્શક',
 			'widget_text_light' => 'વિજેટ ટેક્સ્ટ (હલકું)',
 			'widget_text_dark' => 'વિજેટ ટેક્સ્ટ (ઘાટું)',
 			'reset_to_material_you' => 'Material You પર રીસેટ કરો',

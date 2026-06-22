@@ -86,6 +86,7 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Widgeturile nu au putut fi reîncărcate';
 	@override String get widget_background_light => 'Fundal widget (deschis)';
 	@override String get widget_background_dark => 'Fundal widget (închis)';
+	@override String get widget_background_transparent => 'Transparent';
 	@override String get widget_text_light => 'Text widget (deschis)';
 	@override String get widget_text_dark => 'Text widget (închis)';
 	@override String get reset_to_material_you => 'Resetează la Material You';
@@ -408,6 +409,7 @@ extension on TranslationsRoRo {
 			'reload_widget_failed' => 'Widgeturile nu au putut fi reîncărcate',
 			'widget_background_light' => 'Fundal widget (deschis)',
 			'widget_background_dark' => 'Fundal widget (închis)',
+			'widget_background_transparent' => 'Transparent',
 			'widget_text_light' => 'Text widget (deschis)',
 			'widget_text_dark' => 'Text widget (închis)',
 			'reset_to_material_you' => 'Resetează la Material You',

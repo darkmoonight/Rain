@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "ウィジェットを再読み込みできませんでした",
   "widgetBackgroundLight": "ウィジェット背景（ライト）",
   "widgetBackgroundDark": "ウィジェット背景（ダーク）",
+  "widgetBackgroundTransparent": "透明",
   "widgetTextLight": "ウィジェット文字（ライト）",
   "widgetTextDark": "ウィジェット文字（ダーク）",
   "resetToMaterialYou": "Material You にリセット",

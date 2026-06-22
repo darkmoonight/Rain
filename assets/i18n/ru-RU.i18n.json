@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Не удалось обновить виджеты",
   "widgetBackgroundLight": "Фон виджета (светлая тема)",
   "widgetBackgroundDark": "Фон виджета (тёмная тема)",
+  "widgetBackgroundTransparent": "Прозрачный",
   "widgetTextLight": "Текст виджета (светлая тема)",
   "widgetTextDark": "Текст виджета (тёмная тема)",
   "resetToMaterialYou": "Сбросить до Material You",

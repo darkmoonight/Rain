@@ -86,6 +86,7 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'ৱিজেট পুনৰ ল\'ড কৰিব পৰা নগ\'ল';
 	@override String get widget_background_light => 'ৱিজেট পটভূমি (পাতল)';
 	@override String get widget_background_dark => 'ৱিজেট পটভূমি (গ\'ধুৰ)';
+	@override String get widget_background_transparent => 'স্বচ্ছ';
 	@override String get widget_text_light => 'ৱিজেট পাঠ (পাতল)';
 	@override String get widget_text_dark => 'ৱিজেট পাঠ (গ\'ধুৰ)';
 	@override String get reset_to_material_you => 'Material You লৈ ৰিছেট কৰক';
@@ -408,6 +409,7 @@ extension on TranslationsAsIn {
 			'reload_widget_failed' => 'ৱিজেট পুনৰ ল\'ড কৰিব পৰা নগ\'ল',
 			'widget_background_light' => 'ৱিজেট পটভূমি (পাতল)',
 			'widget_background_dark' => 'ৱিজেট পটভূমি (গ\'ধুৰ)',
+			'widget_background_transparent' => 'স্বচ্ছ',
 			'widget_text_light' => 'ৱিজেট পাঠ (পাতল)',
 			'widget_text_dark' => 'ৱিজেট পাঠ (গ\'ধুৰ)',
 			'reset_to_material_you' => 'Material You লৈ ৰিছেট কৰক',

@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "ৱিজেট পুনৰ ল'ড কৰিব পৰা নগ'ল",
   "widgetBackgroundLight": "ৱিজেট পটভূমি (পাতল)",
   "widgetBackgroundDark": "ৱিজেট পটভূমি (গ'ধুৰ)",
+  "widgetBackgroundTransparent": "স্বচ্ছ",
   "widgetTextLight": "ৱিজেট পাঠ (পাতল)",
   "widgetTextDark": "ৱিজেট পাঠ (গ'ধুৰ)",
   "resetToMaterialYou": "Material You লৈ ৰিছেট কৰক",

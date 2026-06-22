@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Widgeturile nu au putut fi reîncărcate",
   "widgetBackgroundLight": "Fundal widget (deschis)",
   "widgetBackgroundDark": "Fundal widget (închis)",
+  "widgetBackgroundTransparent": "Transparent",
   "widgetTextLight": "Text widget (deschis)",
   "widgetTextDark": "Text widget (închis)",
   "resetToMaterialYou": "Resetează la Material You",

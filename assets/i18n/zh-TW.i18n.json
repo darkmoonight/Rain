@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "無法重新載入小工具",
   "widgetBackgroundLight": "小工具背景（淺色）",
   "widgetBackgroundDark": "小工具背景（深色）",
+  "widgetBackgroundTransparent": "透明",
   "widgetTextLight": "小工具文字（淺色）",
   "widgetTextDark": "小工具文字（深色）",
   "resetToMaterialYou": "重設為 Material You",

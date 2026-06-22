@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/config/widget_registry.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/features/settings/presentation/view/widget_settings_page.dart';
+import 'package:rain/features/settings/presentation/widgets/app_widget_color_picker.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
 import 'package:rain/i18n/tr.dart';
 
@@ -67,7 +68,8 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
 
-      expect(find.byType(ColorPicker), findsOneWidget);
+      expect(find.byType(AppWidgetColorPicker), findsOneWidget);
+      expect(find.byType(PaletteHuePicker), findsOneWidget);
       expect(find.text('Widget background (light)'), findsWidgets);
     });
   });

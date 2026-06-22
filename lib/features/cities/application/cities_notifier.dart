@@ -66,6 +66,13 @@ class CitiesNotifier extends Notifier<CitiesState> {
   bool get _hasDisplayableCards =>
       WeatherCardValidator.filterComplete(state.cards).isNotEmpty;
 
+  /// Loads cache when the list has nothing renderable yet (stale-while-revalidate).
+  Future<void> _ensureDisplayableCardsLoaded() async {
+    if (!_hasDisplayableCards) {
+      await _loadImpl();
+    }
+  }
+
   /// Initializes loading state and schedules a cache read before [HomeScreen] refresh.
   @override
   CitiesState build() {
@@ -163,9 +170,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
   Future<void> refreshIfStale() => _queue.enqueue(_refreshIfStaleImpl);
 
   Future<void> _refreshIfStaleImpl() async {
-    if (!_hasDisplayableCards) {
-      await _loadImpl();
-    }
+    await _ensureDisplayableCardsLoaded();
 
     final toUpdate = WeatherCardValidator.filterComplete(
       await _repo.getExpiredSorted(_cacheExpiryThreshold),
@@ -187,9 +192,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
   Future<void> _refreshImpl({required bool all}) async {
     // Stale-while-revalidate: keep showing cached cards while the 12h refresh
     // runs (or times out) instead of the full-list shimmer.
-    if (!_hasDisplayableCards) {
-      await _loadImpl();
-    }
+    await _ensureDisplayableCardsLoaded();
 
     state = state.copyWith(isRefreshing: true, loadError: false);
     try {

@@ -86,6 +86,7 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'విడ్జెట్‌లను మళ్లీ లోడ్ చేయలేకపోయాము';
 	@override String get widget_background_light => 'విడ్జెట్ నేపథ్యం (వెలుగు)';
 	@override String get widget_background_dark => 'విడ్జెట్ నేపథ్యం (చీకటి)';
+	@override String get widget_background_transparent => 'పారదర్శకం';
 	@override String get widget_text_light => 'విడ్జెట్ టెక్స్ట్ (వెలుగు)';
 	@override String get widget_text_dark => 'విడ్జెట్ టెక్స్ట్ (చీకటి)';
 	@override String get reset_to_material_you => 'Material You కు రీసెట్ చేయండి';
@@ -408,6 +409,7 @@ extension on TranslationsTeIn {
 			'reload_widget_failed' => 'విడ్జెట్‌లను మళ్లీ లోడ్ చేయలేకపోయాము',
 			'widget_background_light' => 'విడ్జెట్ నేపథ్యం (వెలుగు)',
 			'widget_background_dark' => 'విడ్జెట్ నేపథ్యం (చీకటి)',
+			'widget_background_transparent' => 'పారదర్శకం',
 			'widget_text_light' => 'విడ్జెట్ టెక్స్ట్ (వెలుగు)',
 			'widget_text_dark' => 'విడ్జెట్ టెక్స్ట్ (చీకటి)',
 			'reset_to_material_you' => 'Material You కు రీసెట్ చేయండి',

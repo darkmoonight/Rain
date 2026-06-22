@@ -86,6 +86,7 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Impossible de recharger les widgets';
 	@override String get widget_background_light => 'Fond du widget (clair)';
 	@override String get widget_background_dark => 'Fond du widget (sombre)';
+	@override String get widget_background_transparent => 'Transparent';
 	@override String get widget_text_light => 'Texte du widget (clair)';
 	@override String get widget_text_dark => 'Texte du widget (sombre)';
 	@override String get reset_to_material_you => 'Réinitialiser à Material You';
@@ -408,6 +409,7 @@ extension on TranslationsFrFr {
 			'reload_widget_failed' => 'Impossible de recharger les widgets',
 			'widget_background_light' => 'Fond du widget (clair)',
 			'widget_background_dark' => 'Fond du widget (sombre)',
+			'widget_background_transparent' => 'Transparent',
 			'widget_text_light' => 'Texte du widget (clair)',
 			'widget_text_dark' => 'Texte du widget (sombre)',
 			'reset_to_material_you' => 'Réinitialiser à Material You',

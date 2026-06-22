@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "विजेट पुनः लोड नहीं हो सके",
   "widgetBackgroundLight": "विजेट पृष्ठभूमि (हल्की)",
   "widgetBackgroundDark": "विजेट पृष्ठभूमि (गहरी)",
+  "widgetBackgroundTransparent": "पारदर्शी",
   "widgetTextLight": "विजेट टेक्स्ट (हल्का)",
   "widgetTextDark": "विजेट टेक्स्ट (गहरा)",
   "resetToMaterialYou": "Material You पर रीसेट करें",

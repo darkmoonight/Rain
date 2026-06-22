@@ -86,6 +86,7 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Não foi possível recarregar os widgets';
 	@override String get widget_background_light => 'Fundo do widget (claro)';
 	@override String get widget_background_dark => 'Fundo do widget (escuro)';
+	@override String get widget_background_transparent => 'Transparente';
 	@override String get widget_text_light => 'Texto do widget (claro)';
 	@override String get widget_text_dark => 'Texto do widget (escuro)';
 	@override String get reset_to_material_you => 'Redefinir para Material You';
@@ -408,6 +409,7 @@ extension on TranslationsPtBr {
 			'reload_widget_failed' => 'Não foi possível recarregar os widgets',
 			'widget_background_light' => 'Fundo do widget (claro)',
 			'widget_background_dark' => 'Fundo do widget (escuro)',
+			'widget_background_transparent' => 'Transparente',
 			'widget_text_light' => 'Texto do widget (claro)',
 			'widget_text_dark' => 'Texto do widget (escuro)',
 			'reset_to_material_you' => 'Redefinir para Material You',

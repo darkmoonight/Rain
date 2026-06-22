@@ -86,6 +86,7 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Widgety sa nepodarilo obnoviť';
 	@override String get widget_background_light => 'Pozadie widgetu (svetlé)';
 	@override String get widget_background_dark => 'Pozadie widgetu (tmavé)';
+	@override String get widget_background_transparent => 'Priehľadné';
 	@override String get widget_text_light => 'Text widgetu (svetlý)';
 	@override String get widget_text_dark => 'Text widgetu (tmavý)';
 	@override String get reset_to_material_you => 'Obnoviť Material You';
@@ -408,6 +409,7 @@ extension on TranslationsSkSk {
 			'reload_widget_failed' => 'Widgety sa nepodarilo obnoviť',
 			'widget_background_light' => 'Pozadie widgetu (svetlé)',
 			'widget_background_dark' => 'Pozadie widgetu (tmavé)',
+			'widget_background_transparent' => 'Priehľadné',
 			'widget_text_light' => 'Text widgetu (svetlý)',
 			'widget_text_dark' => 'Text widgetu (tmavý)',
 			'reset_to_material_you' => 'Obnoviť Material You',

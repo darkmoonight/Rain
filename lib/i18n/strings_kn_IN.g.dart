@@ -86,6 +86,7 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'ವಿಜೆಟ್‌ಗಳನ್ನು ಮರುಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ';
 	@override String get widget_background_light => 'ವಿಜೆಟ್ ಹಿನ್ನೆಲೆ (ತಿಳು)';
 	@override String get widget_background_dark => 'ವಿಜೆಟ್ ಹಿನ್ನೆಲೆ (ಗಾಢ)';
+	@override String get widget_background_transparent => 'ಪಾರದರ್ಶಕ';
 	@override String get widget_text_light => 'ವಿಜೆಟ್ ಪಠ್ಯ (ತಿಳು)';
 	@override String get widget_text_dark => 'ವಿಜೆಟ್ ಪಠ್ಯ (ಗಾಢ)';
 	@override String get reset_to_material_you => 'Material You ಗೆ ಮರುಹೊಂದಿಸಿ';
@@ -408,6 +409,7 @@ extension on TranslationsKnIn {
 			'reload_widget_failed' => 'ವಿಜೆಟ್‌ಗಳನ್ನು ಮರುಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ',
 			'widget_background_light' => 'ವಿಜೆಟ್ ಹಿನ್ನೆಲೆ (ತಿಳು)',
 			'widget_background_dark' => 'ವಿಜೆಟ್ ಹಿನ್ನೆಲೆ (ಗಾಢ)',
+			'widget_background_transparent' => 'ಪಾರದರ್ಶಕ',
 			'widget_text_light' => 'ವಿಜೆಟ್ ಪಠ್ಯ (ತಿಳು)',
 			'widget_text_dark' => 'ವಿಜೆಟ್ ಪಠ್ಯ (ಗಾಢ)',
 			'reset_to_material_you' => 'Material You ಗೆ ಮರುಹೊಂದಿಸಿ',

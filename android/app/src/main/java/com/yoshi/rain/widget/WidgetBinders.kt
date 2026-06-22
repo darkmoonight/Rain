@@ -58,6 +58,7 @@ object WidgetBinders {
             R.drawable.widget_m3_background,
             bundle.settings,
             intArrayOf(R.id.widget_material_you_forecast_currentTemperature),
+            containerViewId = android.R.id.background,
             widthDimen = R.dimen.widget_grid_1,
             heightDimen = R.dimen.widget_grid_1,
         )
@@ -85,6 +86,7 @@ object WidgetBinders {
             R.drawable.widget_m3_current_background,
             bundle.settings,
             intArrayOf(R.id.widget_material_you_current_currentTemperature),
+            containerViewId = R.id.widget_material_you_current,
         )
         return views
     }
@@ -123,6 +125,7 @@ object WidgetBinders {
                 R.id.widget_clock_day_title,
                 R.id.widget_clock_day_subtitle,
             ),
+            containerViewId = R.id.widget_clock_day,
             widthDimen = R.dimen.widget_grid_4,
             heightDimen = R.dimen.widget_forecast_bar_height,
         )

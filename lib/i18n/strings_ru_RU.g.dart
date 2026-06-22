@@ -86,6 +86,7 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Не удалось обновить виджеты';
 	@override String get widget_background_light => 'Фон виджета (светлая тема)';
 	@override String get widget_background_dark => 'Фон виджета (тёмная тема)';
+	@override String get widget_background_transparent => 'Прозрачный';
 	@override String get widget_text_light => 'Текст виджета (светлая тема)';
 	@override String get widget_text_dark => 'Текст виджета (тёмная тема)';
 	@override String get reset_to_material_you => 'Сбросить до Material You';
@@ -408,6 +409,7 @@ extension on TranslationsRuRu {
 			'reload_widget_failed' => 'Не удалось обновить виджеты',
 			'widget_background_light' => 'Фон виджета (светлая тема)',
 			'widget_background_dark' => 'Фон виджета (тёмная тема)',
+			'widget_background_transparent' => 'Прозрачный',
 			'widget_text_light' => 'Текст виджета (светлая тема)',
 			'widget_text_dark' => 'Текст виджета (тёмная тема)',
 			'reset_to_material_you' => 'Сбросить до Material You',

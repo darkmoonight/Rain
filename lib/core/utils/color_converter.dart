@@ -24,4 +24,30 @@ extension HexColor on Color {
         '${g.toRadixString(16).padLeft(2, '0')}'
         '${b.toRadixString(16).padLeft(2, '0')}';
   }
+
+  /// Whether the color is fully transparent.
+  bool get isFullyTransparent => a == 0;
+
+  /// Returns a six-digit `RRGGBB` hex string without alpha.
+  String toRgbHex() =>
+      '${red.toRadixString(16).padLeft(2, '0')}'
+              '${green.toRadixString(16).padLeft(2, '0')}'
+              '${blue.toRadixString(16).padLeft(2, '0')}'
+          .toUpperCase();
+
+  /// Parses a six-digit RGB hex string, preserving [alpha] when provided.
+  static Color? tryFromRgbHex(String text, {int alpha = 0xFF}) {
+    final normalized = text.replaceAll('#', '').trim();
+    if (normalized.length != 6) return null;
+
+    final value = int.tryParse(normalized, radix: 16);
+    if (value == null) return null;
+
+    return Color.fromARGB(
+      alpha,
+      (value >> 16) & 0xFF,
+      (value >> 8) & 0xFF,
+      value & 0xFF,
+    );
+  }
 }

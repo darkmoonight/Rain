@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Widgets konnten nicht neu geladen werden",
   "widgetBackgroundLight": "Widget-Hintergrund (hell)",
   "widgetBackgroundDark": "Widget-Hintergrund (dunkel)",
+  "widgetBackgroundTransparent": "Transparent",
   "widgetTextLight": "Widget-Text (hell)",
   "widgetTextDark": "Widget-Text (dunkel)",
   "resetToMaterialYou": "Auf Material You zurücksetzen",

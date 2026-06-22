@@ -86,6 +86,7 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Kunne ikke genindlæse widgets';
 	@override String get widget_background_light => 'Widget-baggrund (lys)';
 	@override String get widget_background_dark => 'Widget-baggrund (mørk)';
+	@override String get widget_background_transparent => 'Gennemsigtig';
 	@override String get widget_text_light => 'Widget-tekst (lys)';
 	@override String get widget_text_dark => 'Widget-tekst (mørk)';
 	@override String get reset_to_material_you => 'Nulstil til Material You';
@@ -408,6 +409,7 @@ extension on TranslationsDaDk {
 			'reload_widget_failed' => 'Kunne ikke genindlæse widgets',
 			'widget_background_light' => 'Widget-baggrund (lys)',
 			'widget_background_dark' => 'Widget-baggrund (mørk)',
+			'widget_background_transparent' => 'Gennemsigtig',
 			'widget_text_light' => 'Widget-tekst (lys)',
 			'widget_text_dark' => 'Widget-tekst (mørk)',
 			'reset_to_material_you' => 'Nulstil til Material You',

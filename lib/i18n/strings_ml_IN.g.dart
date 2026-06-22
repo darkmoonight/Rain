@@ -86,6 +86,7 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'വിജറ്റുകൾ വീണ്ടും ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല';
 	@override String get widget_background_light => 'വിജറ്റ് പശ്ചാത്തലം (ഇളം)';
 	@override String get widget_background_dark => 'വിജറ്റ് പശ്ചാത്തലം (ഇരുണ്ട)';
+	@override String get widget_background_transparent => 'പാരദർശ്യം';
 	@override String get widget_text_light => 'വിജറ്റ് ടെക്സ്റ്റ് (ഇളം)';
 	@override String get widget_text_dark => 'വിജറ്റ് ടെക്സ്റ്റ് (ഇരുണ്ട)';
 	@override String get reset_to_material_you => 'Material You-ലേക്ക് പുനഃസജ്ജമാക്കുക';
@@ -408,6 +409,7 @@ extension on TranslationsMlIn {
 			'reload_widget_failed' => 'വിജറ്റുകൾ വീണ്ടും ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല',
 			'widget_background_light' => 'വിജറ്റ് പശ്ചാത്തലം (ഇളം)',
 			'widget_background_dark' => 'വിജറ്റ് പശ്ചാത്തലം (ഇരുണ്ട)',
+			'widget_background_transparent' => 'പാരദർശ്യം',
 			'widget_text_light' => 'വിജറ്റ് ടെക്സ്റ്റ് (ഇളം)',
 			'widget_text_dark' => 'വിജറ്റ് ടെക്സ്റ്റ് (ഇരുണ്ട)',
 			'reset_to_material_you' => 'Material You-ലേക്ക് പുനഃസജ്ജമാക്കുക',

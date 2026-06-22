@@ -86,6 +86,7 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'לא ניתן לטעון מחדש את הווידג\'טים';
 	@override String get widget_background_light => 'רקע ווידג\'ט (בהיר)';
 	@override String get widget_background_dark => 'רקע ווידג\'ט (כהה)';
+	@override String get widget_background_transparent => 'שקוף';
 	@override String get widget_text_light => 'טקסט ווידג\'ט (בהיר)';
 	@override String get widget_text_dark => 'טקסט ווידג\'ט (כהה)';
 	@override String get reset_to_material_you => 'איפוס ל-Material You';
@@ -408,6 +409,7 @@ extension on TranslationsHeIl {
 			'reload_widget_failed' => 'לא ניתן לטעון מחדש את הווידג\'טים',
 			'widget_background_light' => 'רקע ווידג\'ט (בהיר)',
 			'widget_background_dark' => 'רקע ווידג\'ט (כהה)',
+			'widget_background_transparent' => 'שקוף',
 			'widget_text_light' => 'טקסט ווידג\'ט (בהיר)',
 			'widget_text_dark' => 'טקסט ווידג\'ט (כהה)',
 			'reset_to_material_you' => 'איפוס ל-Material You',

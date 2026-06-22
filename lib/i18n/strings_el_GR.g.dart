@@ -86,6 +86,7 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Αποτυχία επαναφόρτωσης widget';
 	@override String get widget_background_light => 'Φόντο widget (ανοιχτό)';
 	@override String get widget_background_dark => 'Φόντο widget (σκούρο)';
+	@override String get widget_background_transparent => 'Διαφανές';
 	@override String get widget_text_light => 'Κείμενο widget (ανοιχτό)';
 	@override String get widget_text_dark => 'Κείμενο widget (σκούρο)';
 	@override String get reset_to_material_you => 'Επαναφορά σε Material You';
@@ -408,6 +409,7 @@ extension on TranslationsElGr {
 			'reload_widget_failed' => 'Αποτυχία επαναφόρτωσης widget',
 			'widget_background_light' => 'Φόντο widget (ανοιχτό)',
 			'widget_background_dark' => 'Φόντο widget (σκούρο)',
+			'widget_background_transparent' => 'Διαφανές',
 			'widget_text_light' => 'Κείμενο widget (ανοιχτό)',
 			'widget_text_dark' => 'Κείμενο widget (σκούρο)',
 			'reset_to_material_you' => 'Επαναφορά σε Material You',

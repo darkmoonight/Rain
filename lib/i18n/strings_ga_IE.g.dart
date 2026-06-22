@@ -86,6 +86,7 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Níorbh fhéidir na giuirléidí a athlódáil';
 	@override String get widget_background_light => 'Cúlra an ghiuirléid (geal)';
 	@override String get widget_background_dark => 'Cúlra an ghiuirléid (dorcha)';
+	@override String get widget_background_transparent => 'Trédhearcach';
 	@override String get widget_text_light => 'Téacs giuirléid (geal)';
 	@override String get widget_text_dark => 'Téacs giuirléid (dorcha)';
 	@override String get reset_to_material_you => 'Athshocraigh go Material You';
@@ -408,6 +409,7 @@ extension on TranslationsGaIe {
 			'reload_widget_failed' => 'Níorbh fhéidir na giuirléidí a athlódáil',
 			'widget_background_light' => 'Cúlra an ghiuirléid (geal)',
 			'widget_background_dark' => 'Cúlra an ghiuirléid (dorcha)',
+			'widget_background_transparent' => 'Trédhearcach',
 			'widget_text_light' => 'Téacs giuirléid (geal)',
 			'widget_text_dark' => 'Téacs giuirléid (dorcha)',
 			'reset_to_material_you' => 'Athshocraigh go Material You',

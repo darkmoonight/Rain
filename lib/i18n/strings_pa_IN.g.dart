@@ -86,6 +86,7 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'ਵਿਜੇਟ ਦੁਬਾਰਾ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ';
 	@override String get widget_background_light => 'ਵਿਜੇਟ ਬੈਕਗ੍ਰਾਊਂਡ (ਹਲਕਾ)';
 	@override String get widget_background_dark => 'ਵਿਜੇਟ ਬੈਕਗ੍ਰਾਊਂਡ (ਗੂੜ੍ਹਾ)';
+	@override String get widget_background_transparent => 'ਪਾਰਦਰਸ਼ੀ';
 	@override String get widget_text_light => 'ਵਿਜੇਟ ਟੈਕਸਟ (ਹਲਕਾ)';
 	@override String get widget_text_dark => 'ਵਿਜੇਟ ਟੈਕਸਟ (ਗੂੜ੍ਹਾ)';
 	@override String get reset_to_material_you => 'Material You ਤੇ ਰੀਸੈਟ ਕਰੋ';
@@ -408,6 +409,7 @@ extension on TranslationsPaIn {
 			'reload_widget_failed' => 'ਵਿਜੇਟ ਦੁਬਾਰਾ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੇ',
 			'widget_background_light' => 'ਵਿਜੇਟ ਬੈਕਗ੍ਰਾਊਂਡ (ਹਲਕਾ)',
 			'widget_background_dark' => 'ਵਿਜੇਟ ਬੈਕਗ੍ਰਾਊਂਡ (ਗੂੜ੍ਹਾ)',
+			'widget_background_transparent' => 'ਪਾਰਦਰਸ਼ੀ',
 			'widget_text_light' => 'ਵਿਜੇਟ ਟੈਕਸਟ (ਹਲਕਾ)',
 			'widget_text_dark' => 'ਵਿਜੇਟ ਟੈਕਸਟ (ਗੂੜ੍ਹਾ)',
 			'reset_to_material_you' => 'Material You ਤੇ ਰੀਸੈਟ ਕਰੋ',

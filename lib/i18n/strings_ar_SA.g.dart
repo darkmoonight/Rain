@@ -86,6 +86,7 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'تعذر إعادة تحميل الودجات';
 	@override String get widget_background_light => 'خلفية الأداة (فاتح)';
 	@override String get widget_background_dark => 'خلفية الأداة (داكن)';
+	@override String get widget_background_transparent => 'شفاف';
 	@override String get widget_text_light => 'نص الأداة (فاتح)';
 	@override String get widget_text_dark => 'نص الأداة (داكن)';
 	@override String get reset_to_material_you => 'إعادة التعيين إلى Material You';
@@ -408,6 +409,7 @@ extension on TranslationsArSa {
 			'reload_widget_failed' => 'تعذر إعادة تحميل الودجات',
 			'widget_background_light' => 'خلفية الأداة (فاتح)',
 			'widget_background_dark' => 'خلفية الأداة (داكن)',
+			'widget_background_transparent' => 'شفاف',
 			'widget_text_light' => 'نص الأداة (فاتح)',
 			'widget_text_dark' => 'نص الأداة (داكن)',
 			'reset_to_material_you' => 'إعادة التعيين إلى Material You',

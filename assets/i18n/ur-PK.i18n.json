@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "ویجٹ دوبارہ لوڈ نہیں ہو سکے",
   "widgetBackgroundLight": "ویجٹ کا پس منظر (روشن)",
   "widgetBackgroundDark": "ویجٹ کا پس منظر (گہرا)",
+  "widgetBackgroundTransparent": "شفاف",
   "widgetTextLight": "ویجٹ کا مواد (روشن)",
   "widgetTextDark": "ویجٹ کا مواد (گہرا)",
   "resetToMaterialYou": "Material You پر ری سیٹ کریں",

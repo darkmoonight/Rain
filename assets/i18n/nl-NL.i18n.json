@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Widgets konden niet worden herladen",
   "widgetBackgroundLight": "Widget-achtergrond (licht)",
   "widgetBackgroundDark": "Widget-achtergrond (donker)",
+  "widgetBackgroundTransparent": "Transparant",
   "widgetTextLight": "Widget-tekst (licht)",
   "widgetTextDark": "Widget-tekst (donker)",
   "resetToMaterialYou": "Herstellen naar Material You",

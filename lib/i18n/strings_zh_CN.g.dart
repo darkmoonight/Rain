@@ -86,6 +86,7 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => '无法重新加载小组件';
 	@override String get widget_background_light => '小组件背景（浅色）';
 	@override String get widget_background_dark => '小组件背景（深色）';
+	@override String get widget_background_transparent => '透明';
 	@override String get widget_text_light => '小组件文字（浅色）';
 	@override String get widget_text_dark => '小组件文字（深色）';
 	@override String get reset_to_material_you => '重置为 Material You';
@@ -408,6 +409,7 @@ extension on TranslationsZhCn {
 			'reload_widget_failed' => '无法重新加载小组件',
 			'widget_background_light' => '小组件背景（浅色）',
 			'widget_background_dark' => '小组件背景（深色）',
+			'widget_background_transparent' => '透明',
 			'widget_text_light' => '小组件文字（浅色）',
 			'widget_text_dark' => '小组件文字（深色）',
 			'reset_to_material_you' => '重置为 Material You',

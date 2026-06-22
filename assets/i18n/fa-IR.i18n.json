@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "بارگذاری مجدد ویجت‌ها ممکن نشد",
   "widgetBackgroundLight": "پس‌زمینه ویجت (روشن)",
   "widgetBackgroundDark": "پس‌زمینه ویجت (تیره)",
+  "widgetBackgroundTransparent": "شفاف",
   "widgetTextLight": "متن ویجت (روشن)",
   "widgetTextDark": "متن ویجت (تیره)",
   "resetToMaterialYou": "بازنشانی به Material You",

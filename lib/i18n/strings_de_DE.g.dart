@@ -86,6 +86,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Widgets konnten nicht neu geladen werden';
 	@override String get widget_background_light => 'Widget-Hintergrund (hell)';
 	@override String get widget_background_dark => 'Widget-Hintergrund (dunkel)';
+	@override String get widget_background_transparent => 'Transparent';
 	@override String get widget_text_light => 'Widget-Text (hell)';
 	@override String get widget_text_dark => 'Widget-Text (dunkel)';
 	@override String get reset_to_material_you => 'Auf Material You zurücksetzen';
@@ -408,6 +409,7 @@ extension on TranslationsDeDe {
 			'reload_widget_failed' => 'Widgets konnten nicht neu geladen werden',
 			'widget_background_light' => 'Widget-Hintergrund (hell)',
 			'widget_background_dark' => 'Widget-Hintergrund (dunkel)',
+			'widget_background_transparent' => 'Transparent',
 			'widget_text_light' => 'Widget-Text (hell)',
 			'widget_text_dark' => 'Widget-Text (dunkel)',
 			'reset_to_material_you' => 'Auf Material You zurücksetzen',

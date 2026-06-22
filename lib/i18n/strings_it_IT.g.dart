@@ -86,6 +86,7 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Impossibile ricaricare i widget';
 	@override String get widget_background_light => 'Sfondo widget (chiaro)';
 	@override String get widget_background_dark => 'Sfondo widget (scuro)';
+	@override String get widget_background_transparent => 'Trasparente';
 	@override String get widget_text_light => 'Testo widget (chiaro)';
 	@override String get widget_text_dark => 'Testo widget (scuro)';
 	@override String get reset_to_material_you => 'Ripristina Material You';
@@ -408,6 +409,7 @@ extension on TranslationsItIt {
 			'reload_widget_failed' => 'Impossibile ricaricare i widget',
 			'widget_background_light' => 'Sfondo widget (chiaro)',
 			'widget_background_dark' => 'Sfondo widget (scuro)',
+			'widget_background_transparent' => 'Trasparente',
 			'widget_text_light' => 'Testo widget (chiaro)',
 			'widget_text_dark' => 'Testo widget (scuro)',
 			'reset_to_material_you' => 'Ripristina Material You',

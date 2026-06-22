@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Widgety se nepodařilo obnovit",
   "widgetBackgroundLight": "Pozadí widgetu (světlé)",
   "widgetBackgroundDark": "Pozadí widgetu (tmavé)",
+  "widgetBackgroundTransparent": "Průhledné",
   "widgetTextLight": "Text widgetu (světlý)",
   "widgetTextDark": "Text widgetu (tmavý)",
   "resetToMaterialYou": "Obnovit Material You",

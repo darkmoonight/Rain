@@ -86,6 +86,7 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'No se pudieron recargar los widgets';
 	@override String get widget_background_light => 'Fondo del widget (claro)';
 	@override String get widget_background_dark => 'Fondo del widget (oscuro)';
+	@override String get widget_background_transparent => 'Transparente';
 	@override String get widget_text_light => 'Texto del widget (claro)';
 	@override String get widget_text_dark => 'Texto del widget (oscuro)';
 	@override String get reset_to_material_you => 'Restablecer a Material You';
@@ -408,6 +409,7 @@ extension on TranslationsEsEs {
 			'reload_widget_failed' => 'No se pudieron recargar los widgets',
 			'widget_background_light' => 'Fondo del widget (claro)',
 			'widget_background_dark' => 'Fondo del widget (oscuro)',
+			'widget_background_transparent' => 'Transparente',
 			'widget_text_light' => 'Texto del widget (claro)',
 			'widget_text_dark' => 'Texto del widget (oscuro)',
 			'reset_to_material_you' => 'Restablecer a Material You',

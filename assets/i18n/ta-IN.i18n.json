@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "விட்ஜெட்களை மீண்டும் ஏற்ற முடியவில்லை",
   "widgetBackgroundLight": "விட்ஜெட் பின்னணி (வெளிர்)",
   "widgetBackgroundDark": "விட்ஜெட் பின்னணி (இருண்ட)",
+  "widgetBackgroundTransparent": "வெளிப்படையான",
   "widgetTextLight": "விட்ஜெட் உரை (வெளிர்)",
   "widgetTextDark": "விட்ஜெட் உரை (இருண்ட)",
   "resetToMaterialYou": "Material You க்கு மீட்டமை",

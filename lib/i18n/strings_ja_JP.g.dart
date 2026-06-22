@@ -86,6 +86,7 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'ウィジェットを再読み込みできませんでした';
 	@override String get widget_background_light => 'ウィジェット背景（ライト）';
 	@override String get widget_background_dark => 'ウィジェット背景（ダーク）';
+	@override String get widget_background_transparent => '透明';
 	@override String get widget_text_light => 'ウィジェット文字（ライト）';
 	@override String get widget_text_dark => 'ウィジェット文字（ダーク）';
 	@override String get reset_to_material_you => 'Material You にリセット';
@@ -408,6 +409,7 @@ extension on TranslationsJaJp {
 			'reload_widget_failed' => 'ウィジェットを再読み込みできませんでした',
 			'widget_background_light' => 'ウィジェット背景（ライト）',
 			'widget_background_dark' => 'ウィジェット背景（ダーク）',
+			'widget_background_transparent' => '透明',
 			'widget_text_light' => 'ウィジェット文字（ライト）',
 			'widget_text_dark' => 'ウィジェット文字（ダーク）',
 			'reset_to_material_you' => 'Material You にリセット',

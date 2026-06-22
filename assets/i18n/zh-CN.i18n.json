@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "无法重新加载小组件",
   "widgetBackgroundLight": "小组件背景（浅色）",
   "widgetBackgroundDark": "小组件背景（深色）",
+  "widgetBackgroundTransparent": "透明",
   "widgetTextLight": "小组件文字（浅色）",
   "widgetTextDark": "小组件文字（深色）",
   "resetToMaterialYou": "重置为 Material You",

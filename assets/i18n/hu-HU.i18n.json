@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "A widgeteket nem sikerült újratölteni",
   "widgetBackgroundLight": "Widget háttér (világos)",
   "widgetBackgroundDark": "Widget háttér (sötét)",
+  "widgetBackgroundTransparent": "Átlátszó",
   "widgetTextLight": "Widget szöveg (világos)",
   "widgetTextDark": "Widget szöveg (sötét)",
   "resetToMaterialYou": "Visszaállítás Material You-ra",

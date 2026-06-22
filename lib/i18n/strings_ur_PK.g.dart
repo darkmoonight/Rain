@@ -86,6 +86,7 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'ویجٹ دوبارہ لوڈ نہیں ہو سکے';
 	@override String get widget_background_light => 'ویجٹ کا پس منظر (روشن)';
 	@override String get widget_background_dark => 'ویجٹ کا پس منظر (گہرا)';
+	@override String get widget_background_transparent => 'شفاف';
 	@override String get widget_text_light => 'ویجٹ کا مواد (روشن)';
 	@override String get widget_text_dark => 'ویجٹ کا مواد (گہرا)';
 	@override String get reset_to_material_you => 'Material You پر ری سیٹ کریں';
@@ -408,6 +409,7 @@ extension on TranslationsUrPk {
 			'reload_widget_failed' => 'ویجٹ دوبارہ لوڈ نہیں ہو سکے',
 			'widget_background_light' => 'ویجٹ کا پس منظر (روشن)',
 			'widget_background_dark' => 'ویجٹ کا پس منظر (گہرا)',
+			'widget_background_transparent' => 'شفاف',
 			'widget_text_light' => 'ویجٹ کا مواد (روشن)',
 			'widget_text_dark' => 'ویجٹ کا مواد (گہرا)',
 			'reset_to_material_you' => 'Material You پر ری سیٹ کریں',

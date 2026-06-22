@@ -86,6 +86,7 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'विजेट पुनः लोड नहीं हो सके';
 	@override String get widget_background_light => 'विजेट पृष्ठभूमि (हल्की)';
 	@override String get widget_background_dark => 'विजेट पृष्ठभूमि (गहरी)';
+	@override String get widget_background_transparent => 'पारदर्शी';
 	@override String get widget_text_light => 'विजेट टेक्स्ट (हल्का)';
 	@override String get widget_text_dark => 'विजेट टेक्स्ट (गहरा)';
 	@override String get reset_to_material_you => 'Material You पर रीसेट करें';
@@ -408,6 +409,7 @@ extension on TranslationsHiIn {
 			'reload_widget_failed' => 'विजेट पुनः लोड नहीं हो सके',
 			'widget_background_light' => 'विजेट पृष्ठभूमि (हल्की)',
 			'widget_background_dark' => 'विजेट पृष्ठभूमि (गहरी)',
+			'widget_background_transparent' => 'पारदर्शी',
 			'widget_text_light' => 'विजेट टेक्स्ट (हल्का)',
 			'widget_text_dark' => 'विजेट टेक्स्ट (गहरा)',
 			'reset_to_material_you' => 'Material You पर रीसेट करें',

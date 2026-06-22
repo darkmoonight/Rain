@@ -86,6 +86,7 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'विजेट पुन्हा लोड करता आले नाहीत';
 	@override String get widget_background_light => 'विजेट पार्श्वभूमी (फिकट)';
 	@override String get widget_background_dark => 'विजेट पार्श्वभूमी (गडद)';
+	@override String get widget_background_transparent => 'पारदर्शक';
 	@override String get widget_text_light => 'विजेट मजकूर (फिकट)';
 	@override String get widget_text_dark => 'विजेट मजकूर (गडद)';
 	@override String get reset_to_material_you => 'Material You वर रीसेट करा';
@@ -408,6 +409,7 @@ extension on TranslationsMrIn {
 			'reload_widget_failed' => 'विजेट पुन्हा लोड करता आले नाहीत',
 			'widget_background_light' => 'विजेट पार्श्वभूमी (फिकट)',
 			'widget_background_dark' => 'विजेट पार्श्वभूमी (गडद)',
+			'widget_background_transparent' => 'पारदर्शक',
 			'widget_text_light' => 'विजेट मजकूर (फिकट)',
 			'widget_text_dark' => 'विजेट मजकूर (गडद)',
 			'reset_to_material_you' => 'Material You वर रीसेट करा',

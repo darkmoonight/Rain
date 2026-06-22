@@ -86,6 +86,7 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => '無法重新載入小工具';
 	@override String get widget_background_light => '小工具背景（淺色）';
 	@override String get widget_background_dark => '小工具背景（深色）';
+	@override String get widget_background_transparent => '透明';
 	@override String get widget_text_light => '小工具文字（淺色）';
 	@override String get widget_text_dark => '小工具文字（深色）';
 	@override String get reset_to_material_you => '重設為 Material You';
@@ -408,6 +409,7 @@ extension on TranslationsZhTw {
 			'reload_widget_failed' => '無法重新載入小工具',
 			'widget_background_light' => '小工具背景（淺色）',
 			'widget_background_dark' => '小工具背景（深色）',
+			'widget_background_transparent' => '透明',
 			'widget_text_light' => '小工具文字（淺色）',
 			'widget_text_dark' => '小工具文字（深色）',
 			'reset_to_material_you' => '重設為 Material You',

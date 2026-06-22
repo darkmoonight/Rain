@@ -86,6 +86,7 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Widgets konden niet worden herladen';
 	@override String get widget_background_light => 'Widget-achtergrond (licht)';
 	@override String get widget_background_dark => 'Widget-achtergrond (donker)';
+	@override String get widget_background_transparent => 'Transparant';
 	@override String get widget_text_light => 'Widget-tekst (licht)';
 	@override String get widget_text_dark => 'Widget-tekst (donker)';
 	@override String get reset_to_material_you => 'Herstellen naar Material You';
@@ -408,6 +409,7 @@ extension on TranslationsNlNl {
 			'reload_widget_failed' => 'Widgets konden niet worden herladen',
 			'widget_background_light' => 'Widget-achtergrond (licht)',
 			'widget_background_dark' => 'Widget-achtergrond (donker)',
+			'widget_background_transparent' => 'Transparant',
 			'widget_text_light' => 'Widget-tekst (licht)',
 			'widget_text_dark' => 'Widget-tekst (donker)',
 			'reset_to_material_you' => 'Herstellen naar Material You',

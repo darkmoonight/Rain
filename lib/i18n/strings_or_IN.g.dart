@@ -86,6 +86,7 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'ୱିଜେଟ୍ ପୁନଃଲୋଡ୍ ହ\'ଲା ନାହିଁ';
 	@override String get widget_background_light => 'ୱିଜେଟ୍ ପୃଷ୍ଠଭୂମି (ଆଲୋକ)';
 	@override String get widget_background_dark => 'ୱିଜେଟ୍ ପୃଷ୍ଠଭୂମି (ଅନ୍ଧାର)';
+	@override String get widget_background_transparent => 'ସ୍ୱଚ୍ଛ';
 	@override String get widget_text_light => 'ୱିଜେଟ୍ ଟେକ୍ସଟ୍ (ଆଲୋକ)';
 	@override String get widget_text_dark => 'ୱିଜେଟ୍ ଟେକ୍ସଟ୍ (ଅନ୍ଧାର)';
 	@override String get reset_to_material_you => 'Material You କୁ ରିସେଟ୍ କରନ୍ତୁ';
@@ -408,6 +409,7 @@ extension on TranslationsOrIn {
 			'reload_widget_failed' => 'ୱିଜେଟ୍ ପୁନଃଲୋଡ୍ ହ\'ଲା ନାହିଁ',
 			'widget_background_light' => 'ୱିଜେଟ୍ ପୃଷ୍ଠଭୂମି (ଆଲୋକ)',
 			'widget_background_dark' => 'ୱିଜେଟ୍ ପୃଷ୍ଠଭୂମି (ଅନ୍ଧାର)',
+			'widget_background_transparent' => 'ସ୍ୱଚ୍ଛ',
 			'widget_text_light' => 'ୱିଜେଟ୍ ଟେକ୍ସଟ୍ (ଆଲୋକ)',
 			'widget_text_dark' => 'ୱିଜେଟ୍ ଟେକ୍ସଟ୍ (ଅନ୍ଧାର)',
 			'reset_to_material_you' => 'Material You କୁ ରିସେଟ୍ କରନ୍ତୁ',

@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Kunne ikke genindlæse widgets",
   "widgetBackgroundLight": "Widget-baggrund (lys)",
   "widgetBackgroundDark": "Widget-baggrund (mørk)",
+  "widgetBackgroundTransparent": "Gennemsigtig",
   "widgetTextLight": "Widget-tekst (lys)",
   "widgetTextDark": "Widget-tekst (mørk)",
   "resetToMaterialYou": "Nulstil til Material You",

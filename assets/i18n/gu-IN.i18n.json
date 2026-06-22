@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "વિજેટ ફરી લોડ કરી શકાયા નહીં",
   "widgetBackgroundLight": "વિજેટ બેકગ્રાઉન્ડ (હલકું)",
   "widgetBackgroundDark": "વિજેટ બેકગ્રાઉન્ડ (ઘાટું)",
+  "widgetBackgroundTransparent": "પારદર્શક",
   "widgetTextLight": "વિજેટ ટેક્સ્ટ (હલકું)",
   "widgetTextDark": "વિજેટ ટેક્સ્ટ (ઘાટું)",
   "resetToMaterialYou": "Material You પર રીસેટ કરો",

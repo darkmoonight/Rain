@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Níorbh fhéidir na giuirléidí a athlódáil",
   "widgetBackgroundLight": "Cúlra an ghiuirléid (geal)",
   "widgetBackgroundDark": "Cúlra an ghiuirléid (dorcha)",
+  "widgetBackgroundTransparent": "Trédhearcach",
   "widgetTextLight": "Téacs giuirléid (geal)",
   "widgetTextDark": "Téacs giuirléid (dorcha)",
   "resetToMaterialYou": "Athshocraigh go Material You",

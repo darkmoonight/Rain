@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "উইজেট পুনরায় লোড করা যায়নি",
   "widgetBackgroundLight": "উইজেট পটভূমি (হালকা)",
   "widgetBackgroundDark": "উইজেট পটভূমি (গাঢ়)",
+  "widgetBackgroundTransparent": "স্বচ্ছ",
   "widgetTextLight": "উইজেট টেক্সট (হালকা)",
   "widgetTextDark": "উইজেট টেক্সট (গাঢ়)",
   "resetToMaterialYou": "Material You-তে রিসেট করুন",

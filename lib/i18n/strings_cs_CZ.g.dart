@@ -86,6 +86,7 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Widgety se nepodařilo obnovit';
 	@override String get widget_background_light => 'Pozadí widgetu (světlé)';
 	@override String get widget_background_dark => 'Pozadí widgetu (tmavé)';
+	@override String get widget_background_transparent => 'Průhledné';
 	@override String get widget_text_light => 'Text widgetu (světlý)';
 	@override String get widget_text_dark => 'Text widgetu (tmavý)';
 	@override String get reset_to_material_you => 'Obnovit Material You';
@@ -408,6 +409,7 @@ extension on TranslationsCsCz {
 			'reload_widget_failed' => 'Widgety se nepodařilo obnovit',
 			'widget_background_light' => 'Pozadí widgetu (světlé)',
 			'widget_background_dark' => 'Pozadí widgetu (tmavé)',
+			'widget_background_transparent' => 'Průhledné',
 			'widget_text_light' => 'Text widgetu (světlý)',
 			'widget_text_dark' => 'Text widgetu (tmavý)',
 			'reset_to_material_you' => 'Obnovit Material You',

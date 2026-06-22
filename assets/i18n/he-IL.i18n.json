@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "לא ניתן לטעון מחדש את הווידג'טים",
   "widgetBackgroundLight": "רקע ווידג'ט (בהיר)",
   "widgetBackgroundDark": "רקע ווידג'ט (כהה)",
+  "widgetBackgroundTransparent": "שקוף",
   "widgetTextLight": "טקסט ווידג'ט (בהיר)",
   "widgetTextDark": "טקסט ווידג'ט (כהה)",
   "resetToMaterialYou": "איפוס ל-Material You",

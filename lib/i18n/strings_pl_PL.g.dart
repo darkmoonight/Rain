@@ -86,6 +86,7 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Nie udało się przeładować widżetów';
 	@override String get widget_background_light => 'Tło widżetu (jasne)';
 	@override String get widget_background_dark => 'Tło widżetu (ciemne)';
+	@override String get widget_background_transparent => 'Przezroczyste';
 	@override String get widget_text_light => 'Tekst widżetu (jasny)';
 	@override String get widget_text_dark => 'Tekst widżetu (ciemny)';
 	@override String get reset_to_material_you => 'Przywróć Material You';
@@ -408,6 +409,7 @@ extension on TranslationsPlPl {
 			'reload_widget_failed' => 'Nie udało się przeładować widżetów',
 			'widget_background_light' => 'Tło widżetu (jasne)',
 			'widget_background_dark' => 'Tło widżetu (ciemne)',
+			'widget_background_transparent' => 'Przezroczyste',
 			'widget_text_light' => 'Tekst widżetu (jasny)',
 			'widget_text_dark' => 'Tekst widżetu (ciemny)',
 			'reset_to_material_you' => 'Przywróć Material You',

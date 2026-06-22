@@ -86,6 +86,7 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'Widget\'lar yeniden yüklenemedi';
 	@override String get widget_background_light => 'Widget arka planı (açık)';
 	@override String get widget_background_dark => 'Widget arka planı (koyu)';
+	@override String get widget_background_transparent => 'Şeffaf';
 	@override String get widget_text_light => 'Widget metni (açık)';
 	@override String get widget_text_dark => 'Widget metni (koyu)';
 	@override String get reset_to_material_you => 'Material You\'a sıfırla';
@@ -408,6 +409,7 @@ extension on TranslationsTrTr {
 			'reload_widget_failed' => 'Widget\'lar yeniden yüklenemedi',
 			'widget_background_light' => 'Widget arka planı (açık)',
 			'widget_background_dark' => 'Widget arka planı (koyu)',
+			'widget_background_transparent' => 'Şeffaf',
 			'widget_text_light' => 'Widget metni (açık)',
 			'widget_text_dark' => 'Widget metni (koyu)',
 			'reset_to_material_you' => 'Material You\'a sıfırla',

@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "Widget'lar yeniden yüklenemedi",
   "widgetBackgroundLight": "Widget arka planı (açık)",
   "widgetBackgroundDark": "Widget arka planı (koyu)",
+  "widgetBackgroundTransparent": "Şeffaf",
   "widgetTextLight": "Widget metni (açık)",
   "widgetTextDark": "Widget metni (koyu)",
   "resetToMaterialYou": "Material You'a sıfırla",

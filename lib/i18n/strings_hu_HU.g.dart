@@ -86,6 +86,7 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'A widgeteket nem sikerült újratölteni';
 	@override String get widget_background_light => 'Widget háttér (világos)';
 	@override String get widget_background_dark => 'Widget háttér (sötét)';
+	@override String get widget_background_transparent => 'Átlátszó';
 	@override String get widget_text_light => 'Widget szöveg (világos)';
 	@override String get widget_text_dark => 'Widget szöveg (sötét)';
 	@override String get reset_to_material_you => 'Visszaállítás Material You-ra';
@@ -408,6 +409,7 @@ extension on TranslationsHuHu {
 			'reload_widget_failed' => 'A widgeteket nem sikerült újratölteni',
 			'widget_background_light' => 'Widget háttér (világos)',
 			'widget_background_dark' => 'Widget háttér (sötét)',
+			'widget_background_transparent' => 'Átlátszó',
 			'widget_text_light' => 'Widget szöveg (világos)',
 			'widget_text_dark' => 'Widget szöveg (sötét)',
 			'reset_to_material_you' => 'Visszaállítás Material You-ra',

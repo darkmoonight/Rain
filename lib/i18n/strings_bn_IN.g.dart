@@ -86,6 +86,7 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get reload_widget_failed => 'উইজেট পুনরায় লোড করা যায়নি';
 	@override String get widget_background_light => 'উইজেট পটভূমি (হালকা)';
 	@override String get widget_background_dark => 'উইজেট পটভূমি (গাঢ়)';
+	@override String get widget_background_transparent => 'স্বচ্ছ';
 	@override String get widget_text_light => 'উইজেট টেক্সট (হালকা)';
 	@override String get widget_text_dark => 'উইজেট টেক্সট (গাঢ়)';
 	@override String get reset_to_material_you => 'Material You-তে রিসেট করুন';
@@ -408,6 +409,7 @@ extension on TranslationsBnIn {
 			'reload_widget_failed' => 'উইজেট পুনরায় লোড করা যায়নি',
 			'widget_background_light' => 'উইজেট পটভূমি (হালকা)',
 			'widget_background_dark' => 'উইজেট পটভূমি (গাঢ়)',
+			'widget_background_transparent' => 'স্বচ্ছ',
 			'widget_text_light' => 'উইজেট টেক্সট (হালকা)',
 			'widget_text_dark' => 'উইজেট টেক্সট (গাঢ়)',
 			'reset_to_material_you' => 'Material You-তে রিসেট করুন',

@@ -46,6 +46,7 @@
   "reloadWidgetFailed": "ვიჯეტების გადატვირთვა ვერ მოხერხდა",
   "widgetBackgroundLight": "ვიჯეტის ფონი (ღია)",
   "widgetBackgroundDark": "ვიჯეტის ფონი (მუქი)",
+  "widgetBackgroundTransparent": "გამჭვირვალე",
   "widgetTextLight": "ვიჯეტის ტექსტი (ღია)",
   "widgetTextDark": "ვიჯეტის ტექსტი (მუქი)",
   "resetToMaterialYou": "Material You-ზე დაბრუნება",
