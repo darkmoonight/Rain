@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/widgets/shimmer.dart';
 import 'package:rain/data/models/db.dart';
@@ -58,6 +59,8 @@ class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
     MainWeatherState state,
     MainWeatherNotifier notifier,
   ) {
+    // Loading shimmer is controlled by MainWeatherNotifier: isLoading stays
+    // false while stale cached forecast data is still displayable.
     if (state.isLoading) {
       return _loadingView();
     }
@@ -118,7 +121,7 @@ class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
         size: 56,
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
-      const SizedBox(height: 16),
+      const SizedBox(height: AppConstants.spacingL),
       Center(
         child: Text(
           'error_occurred'.tr,

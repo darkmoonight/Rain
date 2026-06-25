@@ -26,6 +26,12 @@ void main() {
       expect(const Color(0xFF1A2B3C).toRgbHex(), '1A2B3C');
     });
 
+    test('alphaChannel returns 0-255 alpha', () {
+      expect(const Color(0x801A2B3C).alphaChannel, 128);
+      expect(const Color(0xFF1A2B3C).alphaChannel, 255);
+      expect(const Color(0x001A2B3C).alphaChannel, 0);
+    });
+
     test('tryFromRgbHex parses valid input and preserves alpha', () {
       expect(HexColor.tryFromRgbHex('#1A2B3C'), const Color(0xFF1A2B3C));
       expect(

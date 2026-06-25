@@ -28,12 +28,19 @@ extension HexColor on Color {
   /// Whether the color is fully transparent.
   bool get isFullyTransparent => a == 0;
 
+  /// Alpha channel as a 0–255 integer.
+  int get alphaChannel => (a * 255.0).round().clamp(0, 255);
+
   /// Returns a six-digit `RRGGBB` hex string without alpha.
-  String toRgbHex() =>
-      '${red.toRadixString(16).padLeft(2, '0')}'
-              '${green.toRadixString(16).padLeft(2, '0')}'
-              '${blue.toRadixString(16).padLeft(2, '0')}'
-          .toUpperCase();
+  String toRgbHex() {
+    final r = (this.r * 255.0).round().clamp(0, 255);
+    final g = (this.g * 255.0).round().clamp(0, 255);
+    final b = (this.b * 255.0).round().clamp(0, 255);
+    return '${r.toRadixString(16).padLeft(2, '0')}'
+            '${g.toRadixString(16).padLeft(2, '0')}'
+            '${b.toRadixString(16).padLeft(2, '0')}'
+        .toUpperCase();
+  }
 
   /// Parses a six-digit RGB hex string, preserving [alpha] when provided.
   static Color? tryFromRgbHex(String text, {int alpha = 0xFF}) {

@@ -18,6 +18,7 @@ import 'package:rain/features/shell/presentation/widgets/home_shell_app_bar_titl
 import 'package:rain/features/shell/presentation/widgets/home_weather_tab_search_field.dart';
 import 'package:rain/features/weather/presentation/main_weather_screen.dart';
 
+/// Root shell with weather, cities, map, and settings tabs.
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 

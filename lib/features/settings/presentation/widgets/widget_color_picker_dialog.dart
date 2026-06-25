@@ -73,8 +73,13 @@ class _WidgetColorPickerDialogState extends State<_WidgetColorPickerDialog> {
 
   Future<void> _saveAndClose(String colorHex) async {
     await widget.onSave(colorHex);
-    if (mounted) NavigationHelper.back(context);
+    if (!mounted) return;
+    NavigationHelper.back(context);
   }
+
+  /// Persists the picked color when transparent is chosen immediately.
+  Future<void> _saveTransparent() =>
+      _saveAndClose(AppConstants.transparentWidgetColorHex);
 
   @override
   Widget build(BuildContext context) {
@@ -85,20 +90,14 @@ class _WidgetColorPickerDialogState extends State<_WidgetColorPickerDialog> {
         icon: IconsaxPlusLinear.colorfilter,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(
-          AppConstants.spacingXXL,
-          0,
-          AppConstants.spacingXXL,
-          AppConstants.spacingS,
-        ),
+        padding: SettingsListDialogShell.dialogBodyPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (widget.allowTransparent) ...[
               WidgetTransparentOption(
                 isSelected: _transparentSelected,
-                onTap: () =>
-                    _saveAndClose(AppConstants.transparentWidgetColorHex),
+                onTap: _saveTransparent,
               ),
               const SizedBox(height: AppConstants.spacingL),
             ],
@@ -125,7 +124,8 @@ class _WidgetColorPickerDialogState extends State<_WidgetColorPickerDialog> {
           tooltip: 'resetToMaterialYou'.tr,
           onPressed: () async {
             await widget.onReset();
-            if (mounted) NavigationHelper.back(context);
+            if (!context.mounted) return;
+            NavigationHelper.back(context);
           },
         ),
       ),

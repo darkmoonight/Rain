@@ -85,7 +85,9 @@ object WidgetIconHelper {
         @IdRes containerViewId: Int,
     ) {
         val (lightBg, darkBg) = resolveBackgroundColors(settings)
-        if (isFullyTransparent(lightBg) && isFullyTransparent(darkBg)) {
+        if (WidgetColorUtils.isFullyTransparent(lightBg) &&
+            WidgetColorUtils.isFullyTransparent(darkBg)
+        ) {
             hideWidgetBackground(views, backgroundViewId, containerViewId)
             return
         }
@@ -118,7 +120,7 @@ object WidgetIconHelper {
         @DimenRes heightDimen: Int,
     ) {
         val customBackground =
-            parseColorOrNull(
+            WidgetColorUtils.parseColorOrNull(
                 if (settings.useDarkPalette) {
                     settings.backgroundColorDark
                 } else {
@@ -126,7 +128,7 @@ object WidgetIconHelper {
                 },
             )
         val customText =
-            parseColorOrNull(
+            WidgetColorUtils.parseColorOrNull(
                 if (settings.useDarkPalette) settings.textColorDark else settings.textColorLight,
             )
 
@@ -150,14 +152,18 @@ object WidgetIconHelper {
 
     private fun resolveBackgroundColors(settings: WidgetSettings): Pair<Int, Int> =
         Pair(
-            parseColorOrNull(settings.backgroundColorLight) ?: WidgetDefaults.BG_LIGHT,
-            parseColorOrNull(settings.backgroundColorDark) ?: WidgetDefaults.BG_DARK,
+            WidgetColorUtils.parseColorOrNull(settings.backgroundColorLight)
+                ?: WidgetDefaults.BG_LIGHT,
+            WidgetColorUtils.parseColorOrNull(settings.backgroundColorDark)
+                ?: WidgetDefaults.BG_DARK,
         )
 
     private fun resolveTextColors(settings: WidgetSettings): Pair<Int, Int> =
         Pair(
-            parseColorOrNull(settings.textColorLight) ?: WidgetDefaults.TEXT_LIGHT,
-            parseColorOrNull(settings.textColorDark) ?: WidgetDefaults.TEXT_DARK,
+            WidgetColorUtils.parseColorOrNull(settings.textColorLight)
+                ?: WidgetDefaults.TEXT_LIGHT,
+            WidgetColorUtils.parseColorOrNull(settings.textColorDark)
+                ?: WidgetDefaults.TEXT_DARK,
         )
 
     @DrawableRes
@@ -170,9 +176,10 @@ object WidgetIconHelper {
         }
 
     private fun hasCustomTransparentBackground(settings: WidgetSettings): Boolean {
-        val light = parseColorOrNull(settings.backgroundColorLight)
-        val dark = parseColorOrNull(settings.backgroundColorDark)
-        return isFullyTransparent(light) || isFullyTransparent(dark)
+        val light = WidgetColorUtils.parseColorOrNull(settings.backgroundColorLight)
+        val dark = WidgetColorUtils.parseColorOrNull(settings.backgroundColorDark)
+        return WidgetColorUtils.isFullyTransparent(light) ||
+            WidgetColorUtils.isFullyTransparent(dark)
     }
 
     private fun applyShapeBackground(
@@ -186,7 +193,7 @@ object WidgetIconHelper {
         @DimenRes heightDimen: Int,
     ) {
         try {
-            if (customColor != null && isFullyTransparent(customColor)) {
+            if (customColor != null && WidgetColorUtils.isFullyTransparent(customColor)) {
                 hideWidgetBackground(views, backgroundViewId, containerViewId)
                 return
             }
@@ -233,9 +240,6 @@ object WidgetIconHelper {
         }
     }
 
-    private fun isFullyTransparent(@ColorInt color: Int?): Boolean =
-        color != null && Color.alpha(color) == 0
-
     private fun tintedShapeBitmap(
         context: Context,
         @DrawableRes drawableRes: Int,
@@ -260,14 +264,5 @@ object WidgetIconHelper {
         drawable.setBounds(0, 0, width, height)
         drawable.draw(canvas)
         return bitmap
-    }
-
-    private fun parseColorOrNull(hex: String?): Int? {
-        if (hex.isNullOrBlank()) return null
-        return try {
-            Color.parseColor(hex)
-        } catch (_: IllegalArgumentException) {
-            null
-        }
     }
 }

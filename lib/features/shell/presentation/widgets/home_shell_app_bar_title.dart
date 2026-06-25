@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/features/weather/application/main_weather_notifier.dart';
 import 'package:rain/i18n/tr.dart';
@@ -30,10 +31,7 @@ class HomeShellAppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
-      fontWeight: FontWeight.w600,
-      fontSize: 18,
-    );
+    final textStyle = ThemeText.appBarTitle(Theme.of(context));
 
     switch (tabIndex) {
       case 0:

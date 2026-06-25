@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
+import 'package:rain/core/weather/cache_display_helper.dart';
 import 'package:rain/core/widgets/async_state_views.dart';
 import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/features/cities/domain/weather_card_validator.dart';
@@ -51,7 +52,10 @@ class _PlaceListState extends ConsumerState<PlaceList> {
       cities.cards,
     ).isNotEmpty;
 
-    if (cities.isLoading && !hasDisplayableCards) {
+    if (shouldShowInitialShimmer(
+      isLoading: cities.isLoading,
+      hasCachedContent: hasDisplayableCards,
+    )) {
       return const PlaceCardsLoadingView();
     }
     if (cities.loadError && cities.cards.isEmpty) {

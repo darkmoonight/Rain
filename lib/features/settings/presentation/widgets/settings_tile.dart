@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
 /// Single row inside a [SettingsSection] card.
@@ -60,10 +61,10 @@ class SettingsTile extends StatelessWidget {
       ),
       title: Text(
         titleText ?? title!.tr,
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-          fontWeight: FontWeight.w500,
+        style: ThemeText.settingsBody(
+          context,
+          weight: FontWeight.w500,
           color: titleColor ?? colorScheme.onSurface,
-          fontSize: ResponsiveUtils.getResponsiveFontSize(context, 15),
         ),
       ),
       subtitle: _buildSubtitle(context, colorScheme),
@@ -76,13 +77,7 @@ class SettingsTile extends StatelessWidget {
     final text = subtitleText ?? subtitle?.tr;
     if (text == null) return null;
 
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-        color: colorScheme.onSurfaceVariant,
-        fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
-      ),
-    );
+    return Text(text, style: ThemeText.settingsLabel(context));
   }
 
   Widget? _buildDefaultTrailing(BuildContext context, ColorScheme colorScheme) {

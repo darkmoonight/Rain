@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
-import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_list_dialog_shell.dart';
 import 'package:rain/i18n/tr.dart';
 
+/// Opens a searchable or plain single-choice settings dialog.
 Future<T?> showSelectionDialog<T>({
   required BuildContext context,
   required String title,
@@ -34,6 +35,7 @@ Future<T?> showSelectionDialog<T>({
   );
 }
 
+/// Scrollable list dialog for picking one value from [items].
 class SelectionDialog<T> extends StatefulWidget {
   const SelectionDialog({
     super.key,
@@ -142,10 +144,7 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
         onChanged: _filterItems,
         decoration: InputDecoration(
           hintText: 'search'.tr,
-          hintStyle: TextStyle(
-            color: colorScheme.onSurfaceVariant,
-            fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
-          ),
+          hintStyle: ThemeText.settingsLabel(context),
           prefixIcon: Icon(
             IconsaxPlusLinear.search_normal_1,
             color: colorScheme.onSurfaceVariant,

@@ -70,6 +70,11 @@ final mainWeatherNotifierProvider =
     );
 
 /// Loads, caches, and refreshes the primary weather location and forecast.
+///
+/// Uses stale-while-revalidate: when cached forecast data is displayable,
+/// [MainWeatherState.isLoading] stays false during refresh so the main tab
+/// does not fall back to shimmer. The cities tab performs the equivalent UI
+/// check in [PlaceList] because its list can be empty independently.
 class MainWeatherNotifier extends Notifier<MainWeatherState> {
   final _queue = AsyncQueue();
   final itemScrollController = ItemScrollController();

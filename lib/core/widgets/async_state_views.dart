@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/i18n/tr.dart';
 
 /// Centered loading indicator with localized status text.
@@ -13,7 +15,7 @@ class LoadingStateView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const CircularProgressIndicator(),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppConstants.spacingL),
         Text('loading'.tr),
       ],
     ),
@@ -38,19 +40,16 @@ class ErrorRetryStateView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Icon(IconsaxPlusLinear.warning_2, size: 48, color: Colors.grey),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppConstants.spacingL),
         SizedBox(
           width: MediaQuery.sizeOf(context).width * 0.8,
           child: Text(
             message,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-            ),
+            style: ThemeText.stateTitle(Theme.of(context)),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppConstants.spacingL),
         FilledButton.icon(
           onPressed: onRetry,
           icon: const Icon(IconsaxPlusLinear.refresh),
@@ -84,10 +83,7 @@ class EmptyMessageStateView extends StatelessWidget {
           child: Text(
             message,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-            ),
+            style: ThemeText.stateTitle(Theme.of(context)),
           ),
         ),
       ],

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/utils/color_converter.dart';
-import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/core/widgets/checkerboard_painter.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_card_shape.dart';
 import 'package:rain/i18n/tr.dart';
@@ -22,7 +22,7 @@ class WidgetColorPickerPanel extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerLow.withValues(alpha: 0.35),
+        color: WidgetColorPickerSliderStyle.panelBackground(colorScheme),
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusLarge),
         border: Border.all(
           color: dividerColor,
@@ -83,6 +83,25 @@ class WidgetColorPreviewSwatch extends StatelessWidget {
   }
 }
 
+/// Eye-slash icon shown on transparent widget color previews.
+class WidgetTransparentIndicator extends StatelessWidget {
+  const WidgetTransparentIndicator({
+    super.key,
+    this.size = WidgetColorPickerSliderStyle.transparentIconSizeLarge,
+  });
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      IconsaxPlusLinear.eye_slash,
+      size: size,
+      color: Theme.of(context).colorScheme.onSurfaceVariant,
+    );
+  }
+}
+
 /// Transparent background preset shown above the custom color picker.
 class WidgetTransparentOption extends StatelessWidget {
   const WidgetTransparentOption({
@@ -101,9 +120,10 @@ class WidgetTransparentOption extends StatelessWidget {
     final borderRadius = BorderRadius.circular(AppConstants.borderRadiusLarge);
 
     return Material(
-      color: isSelected
-          ? colorScheme.primaryContainer.withValues(alpha: 0.35)
-          : colorScheme.surfaceContainerLow.withValues(alpha: 0.45),
+      color: WidgetColorPickerSliderStyle.optionBackground(
+        colorScheme,
+        isSelected: isSelected,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
         side: BorderSide(
@@ -125,27 +145,17 @@ class WidgetTransparentOption extends StatelessWidget {
             children: [
               WidgetColorPreviewSwatch(
                 showCheckerboard: true,
-                overlay: Center(
-                  child: Icon(
-                    IconsaxPlusLinear.eye_slash,
-                    size: 18,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
+                overlay: const Center(child: WidgetTransparentIndicator()),
               ),
               const SizedBox(width: AppConstants.spacingL),
               Expanded(
                 child: Text(
                   'widgetBackgroundTransparent'.tr,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
+                  style: ThemeText.settingsBody(
+                    context,
                     color: isSelected
                         ? colorScheme.primary
                         : colorScheme.onSurface,
-                    fontSize: ResponsiveUtils.getResponsiveFontSize(
-                      context,
-                      15,
-                    ),
                   ),
                 ),
               ),
@@ -175,24 +185,27 @@ class WidgetColorListSwatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final outline = colorScheme.outlineVariant.withValues(alpha: 0.4);
+    final outline = colorScheme.outlineVariant.withValues(
+      alpha: WidgetColorPickerSliderStyle.listSwatchOutlineAlpha,
+    );
 
     if (color.isFullyTransparent) {
       return CircleAvatar(
         backgroundColor: outline,
-        radius: 11,
-        child: Icon(
-          IconsaxPlusLinear.eye_slash,
-          size: 14,
-          color: colorScheme.onSurfaceVariant,
+        radius: WidgetColorPickerSliderStyle.listSwatchOuterRadius,
+        child: const WidgetTransparentIndicator(
+          size: WidgetColorPickerSliderStyle.transparentIconSizeSmall,
         ),
       );
     }
 
     return CircleAvatar(
       backgroundColor: outline,
-      radius: 11,
-      child: CircleAvatar(backgroundColor: color, radius: 10),
+      radius: WidgetColorPickerSliderStyle.listSwatchOuterRadius,
+      child: CircleAvatar(
+        backgroundColor: color,
+        radius: WidgetColorPickerSliderStyle.listSwatchInnerRadius,
+      ),
     );
   }
 }
@@ -222,7 +235,7 @@ class WidgetColorHexField extends StatelessWidget {
     final textStyle = Theme.of(context).textTheme.bodyLarge?.copyWith(
       fontWeight: FontWeight.w600,
       fontFeatures: const [FontFeature.tabularFigures()],
-      fontSize: ResponsiveUtils.getResponsiveFontSize(context, 15),
+      fontSize: ThemeText.settingsBody(context)?.fontSize,
     );
 
     return Row(
@@ -246,9 +259,8 @@ class WidgetColorHexField extends StatelessWidget {
                 color: colorScheme.onSurfaceVariant,
               ),
               hintText: 'RRGGBB',
-              hintStyle: TextStyle(
+              hintStyle: ThemeText.settingsBody(context)?.copyWith(
                 color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
-                fontSize: ResponsiveUtils.getResponsiveFontSize(context, 15),
               ),
               filled: true,
               fillColor: colorScheme.surfaceContainerHighest.withValues(
@@ -371,15 +383,11 @@ class WidgetColorAlphaSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final labelStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
-      color: colorScheme.onSurfaceVariant,
-      fontWeight: FontWeight.w500,
-      fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
-    );
-    final valueStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+    final labelStyle = ThemeText.settingsLabel(context);
+    final valueStyle = ThemeText.settingsLabel(context)?.copyWith(
       fontWeight: FontWeight.w600,
       fontFeatures: const [FontFeature.tabularFigures()],
-      fontSize: ResponsiveUtils.getResponsiveFontSize(context, 13),
+      color: colorScheme.onSurface,
     );
 
     return Column(
@@ -397,7 +405,7 @@ class WidgetColorAlphaSlider extends StatelessWidget {
         ),
         WidgetColorPickerTrack(
           value: alpha.toDouble(),
-          max: 255,
+          max: WidgetColorPickerSliderStyle.alphaMax.toDouble(),
           onChanged: (value) => onChanged(value.round()),
           child: CustomPaint(
             painter: _WidgetAlphaTrackPainter(
@@ -418,13 +426,57 @@ class WidgetColorAlphaSlider extends StatelessWidget {
 class WidgetColorPickerSliderStyle {
   const WidgetColorPickerSliderStyle._();
 
+  /// Default height of the saturation/value palette.
+  static const double defaultPaletteHeight = 200;
+
+  /// Maximum hue value for the hue slider.
+  static const double hueMax = 360;
+
+  /// Maximum alpha value for the alpha slider.
+  static const int alphaMax = 255;
+
   /// Track height that fits the package thumb without clipping.
   static const double trackHeight = 36;
+
+  /// Outer radius of list-row color swatches.
+  static const double listSwatchOuterRadius = 11;
+
+  /// Inner color radius inside list-row swatches.
+  static const double listSwatchInnerRadius = 10;
+
+  /// Outline alpha for list-row swatches.
+  static const double listSwatchOutlineAlpha = 0.4;
+
+  /// Large transparent icon used in the picker preview swatch.
+  static const double transparentIconSizeLarge = 18;
+
+  /// Small transparent icon used in settings list rows.
+  static const double transparentIconSizeSmall = 14;
+
+  /// Checkerboard columns painted inside the alpha slider track.
+  static const int alphaTrackColumns = 8;
+
+  /// Checkerboard rows painted inside the alpha slider track.
+  static const int alphaTrackRows = 2;
+
+  static const double _panelBackgroundAlpha = 0.35;
+  static const double _selectedOptionAlpha = 0.35;
+  static const double _idleOptionAlpha = 0.45;
 
   /// Vertical insets so palette thumbs stay inside the panel bounds.
   static const EdgeInsets paletteInset = EdgeInsets.symmetric(
     vertical: AppConstants.spacingM,
   );
+
+  static Color panelBackground(ColorScheme colorScheme) =>
+      colorScheme.surfaceContainerLow.withValues(alpha: _panelBackgroundAlpha);
+
+  static Color optionBackground(
+    ColorScheme colorScheme, {
+    required bool isSelected,
+  }) => isSelected
+      ? colorScheme.primaryContainer.withValues(alpha: _selectedOptionAlpha)
+      : colorScheme.surfaceContainerLow.withValues(alpha: _idleOptionAlpha);
 
   static Border border(ColorScheme colorScheme) => Border.all(
     color: SettingsCardShape.settingsDividerColor(colorScheme),
@@ -471,8 +523,8 @@ class _WidgetAlphaTrackPainter extends CustomPainter {
       size,
       light: light,
       dark: dark,
-      columns: 8,
-      rows: 2,
+      columns: WidgetColorPickerSliderStyle.alphaTrackColumns,
+      rows: WidgetColorPickerSliderStyle.alphaTrackRows,
     );
 
     final rect = Offset.zero & size;

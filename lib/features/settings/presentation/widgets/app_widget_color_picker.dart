@@ -9,11 +9,16 @@ class AppWidgetColorPicker extends StatefulWidget {
     super.key,
     required this.color,
     required this.onChanged,
-    this.paletteHeight = 200,
+    this.paletteHeight = WidgetColorPickerSliderStyle.defaultPaletteHeight,
   });
 
+  /// Current color shown in the picker controls.
   final Color color;
+
+  /// Called whenever the user changes the picked color.
   final ValueChanged<Color> onChanged;
+
+  /// Height of the saturation/value palette area.
   final double paletteHeight;
 
   @override
@@ -55,7 +60,7 @@ class _AppWidgetColorPickerState extends State<AppWidgetColorPicker> {
   }
 
   /// Converts [hsv] to a [Color], keeping the current alpha channel.
-  Color _toColor(HSVColor hsv) => hsv.toColor().withAlpha(_color.alpha);
+  Color _toColor(HSVColor hsv) => hsv.toColor().withAlpha(_color.alphaChannel);
 
   void _applyColor(Color color, {bool notify = true}) {
     setState(() {
@@ -70,7 +75,7 @@ class _AppWidgetColorPickerState extends State<AppWidgetColorPicker> {
   void _applyHsv(HSVColor hsv) => _applyColor(_toColor(hsv));
 
   void _commitHex(String text) {
-    final parsed = HexColor.tryFromRgbHex(text, alpha: _color.alpha);
+    final parsed = HexColor.tryFromRgbHex(text, alpha: _color.alphaChannel);
     if (parsed == null) {
       _hexController.text = _color.toRgbHex();
       return;
@@ -101,13 +106,13 @@ class _AppWidgetColorPickerState extends State<AppWidgetColorPicker> {
         const SizedBox(height: AppConstants.spacingM),
         WidgetColorPickerTrack(
           value: _hsv.hue,
-          max: 360,
+          max: WidgetColorPickerSliderStyle.hueMax,
           colors: WidgetColorPickerSliderStyle.hueGradient(_hsv),
           onChanged: (hue) => _applyHsv(_hsv.withHue(hue)),
         ),
         const SizedBox(height: AppConstants.spacingL),
         WidgetColorAlphaSlider(
-          alpha: _color.alpha,
+          alpha: _color.alphaChannel,
           color: _color,
           onChanged: (alpha) => _applyColor(_color.withAlpha(alpha)),
         ),

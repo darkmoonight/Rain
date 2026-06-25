@@ -1,6 +1,9 @@
 /// Shared layout, timing, cache, and map constants for the app.
 class AppConstants {
-  // Animation
+  AppConstants._();
+
+  // --- Animation ---
+
   static const Duration animationDuration = Duration(milliseconds: 300);
   static const Duration shortAnimation = Duration(milliseconds: 150);
   static const Duration longAnimation = Duration(milliseconds: 250);
@@ -8,7 +11,8 @@ class AppConstants {
   static const Duration scrollToRetryDelay = Duration(milliseconds: 100);
   static const int maxScrollRetries = 10;
 
-  // Size
+  // --- Size & shape ---
+
   static const double borderRadiusSmall = 8.0;
   static const double borderRadiusMedium = 12.0;
   static const double borderRadiusLarge = 16.0;
@@ -22,13 +26,15 @@ class AppConstants {
   static const double mapSearchZoom = 14.0;
   static const double mapDefaultZoom = 8.0;
 
-  // Elevation
+  // --- Elevation ---
+
   static const double elevationLow = 1.0;
   static const double elevationMedium = 6.0;
   static const double elevationHigh = 8.0;
   static const double cardElevation = 4.0;
 
-  // Spacing
+  // --- Spacing ---
+
   static const double spacingXS = 4.0;
   static const double spacingS = 8.0;
   static const double spacingM = 12.0;
@@ -36,7 +42,8 @@ class AppConstants {
   static const double spacingXL = 20.0;
   static const double spacingXXL = 24.0;
 
-  // Icon sizes
+  // --- Icon sizes ---
+
   static const double iconSizeSmall = 18.0;
   static const double iconSizeMedium = 20.0;
   static const double iconSizeLarge = 24.0;
@@ -48,25 +55,31 @@ class AppConstants {
   /// [Image.asset] scale for icons in the home-screen daily preview rows.
   static const double dailyPreviewIconScale = 3.0;
 
-  // Constraints
+  // --- Layout constraints ---
+
   static const double maxDialogWidth = 400.0;
   static const double maxDesktopWidth = 1200.0;
   static const double maxModalWidth = 500.0;
 
-  // Opacity
+  // --- Opacity ---
+
   static const double opacityLight = 0.3;
   static const double opacityMedium = 0.5;
   static const double opacityHeavy = 0.8;
 
-  // Border width
+  // --- Border width ---
+
   static const double borderWidthThin = 1.0;
   static const double borderWidthMedium = 1.5;
   static const double borderWidthThick = 2.0;
 
-  // Debounce
+  // --- Input debounce ---
+
   static const debounceDelay = Duration(milliseconds: 150);
 
-  // Cache
+  // --- Weather cache ---
+
+  /// How long forecast and city-card data stay fresh before background refresh.
   static const Duration cacheExpiry = Duration(hours: 12);
 
   /// Incremented when forecast cache schema changes; triggers a re-save migration.
@@ -80,7 +93,8 @@ class AppConstants {
       DateTime.now().subtract(cacheExpiry);
   static const Duration mapTileCacheDays = Duration(days: 30);
 
-  // Widget
+  // --- Home-screen widget UI ---
+
   static const double buttonHeight = 52.0;
   static const double buttonHeightSmall = 48.0;
   static const double hourlyWidgetHeight = 135.0;
@@ -96,6 +110,8 @@ class AppConstants {
   /// Hides the widget shape layer on Android when saved as a custom background.
   static const String transparentWidgetColorHex = '#00000000';
 
+  // --- Weather detail grid ---
+
   /// Desc grid cell width inside [DescContainer].
   static const double descGridItemWidth = 100.0;
 
@@ -105,23 +121,27 @@ class AppConstants {
   /// Desc grid row height inside [DescContainer].
   static const double descGridRowHeight = 90.0;
 
-  // Text
+  // --- Typography scale ---
+
   static const double fontSizeSmall = 14.0;
   static const double fontSizeMedium = 16.0;
   static const double fontSizeLarge = 18.0;
   static const double fontSizeXLarge = 20.0;
 
-  // Time
+  // --- Time & background work ---
+
   static const Duration scrollDuration = Duration(seconds: 2);
   static const Duration workManagerMinInterval = Duration(minutes: 15);
 
-  // Latitude/Longitude
+  // --- Coordinates ---
+
   static const double minLatitude = -90.0;
   static const double maxLatitude = 90.0;
   static const double minLongitude = -180.0;
   static const double maxLongitude = 180.0;
 
-  // Settings defaults
+  // --- Notification defaults ---
+
   // Notification interval bounds (matches settings picker items 1–5).
   static const int minNotificationIntervalHours = 1;
   static const int maxNotificationIntervalHours = 5;
@@ -130,7 +150,8 @@ class AppConstants {
   static const String defaultNotificationTimeStart = '08:00';
   static const String defaultNotificationTimeEnd = '20:00';
 
-  // Maps
+  // --- Map tiles & geocoding ---
+
   static const String mapTilesCacheDir = 'MapTiles';
   static const String mapTileUrlTemplate =
       'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -144,7 +165,8 @@ class AppConstants {
   static const String nominatimUserAgent =
       'Rain Weather App (com.yoshi.rain; https://github.com/darkmoonight/Rain)';
 
-  // Map styling
+  // --- Map dark-mode color matrix ---
+
   static const double mapTextFieldElevation = 4.0;
   static const List<double> mapDarkColorFilterMatrix = <double>[
     -0.2,

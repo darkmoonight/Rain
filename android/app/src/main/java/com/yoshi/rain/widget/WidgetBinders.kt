@@ -10,7 +10,9 @@ import com.yoshi.rain.MainActivity
 import com.yoshi.rain.R
 import kotlin.math.roundToInt
 
-/// Binds cached weather data into Material You home-screen widget layouts.
+/**
+ * Binds cached weather data into Material You home-screen widget layouts.
+ */
 object WidgetBinders {
 
     private fun temperatureWithDegreeOnly(raw: String): String {
@@ -40,6 +42,7 @@ object WidgetBinders {
         }
     }
 
+    /** Builds the 1x1 Material You forecast widget. */
     fun materialYouForecast1x1(context: Context, bundle: WidgetBundle): RemoteViews {
         val views = RemoteViews(context.packageName, R.layout.widget_material_you_forecast_1x1)
         applyClick(context, views, android.R.id.background)
@@ -65,6 +68,7 @@ object WidgetBinders {
         return views
     }
 
+    /** Builds the wide Material You current-conditions widget. */
     fun materialYouCurrent(context: Context, bundle: WidgetBundle): RemoteViews {
         val views = RemoteViews(context.packageName, R.layout.widget_material_you_current)
         applyClick(context, views, R.id.widget_material_you_current)

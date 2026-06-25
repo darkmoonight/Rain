@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
+import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_card_shape.dart';
@@ -20,6 +21,14 @@ class SettingsListDialogShell extends StatelessWidget {
   final Widget body;
   final Widget? footer;
   final double maxHeightFraction;
+
+  /// Horizontal body padding used by scrollable settings dialogs.
+  static const EdgeInsets dialogBodyPadding = EdgeInsets.fromLTRB(
+    AppConstants.spacingXXL,
+    0,
+    AppConstants.spacingXXL,
+    AppConstants.spacingS,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -156,10 +165,10 @@ class SettingsDialogListTile extends StatelessWidget {
       leading: leading,
       title: Text(
         title,
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+        style: ThemeText.settingsBody(
+          context,
+          weight: isSelected ? FontWeight.w600 : FontWeight.w500,
           color: isSelected ? colorScheme.primary : colorScheme.onSurface,
-          fontSize: ResponsiveUtils.getResponsiveFontSize(context, 15),
         ),
       ),
       trailing: isSelected

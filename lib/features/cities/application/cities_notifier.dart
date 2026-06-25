@@ -51,6 +51,11 @@ final citiesNotifierProvider = NotifierProvider<CitiesNotifier, CitiesState>(
 );
 
 /// Loads, refreshes, and mutates the user's saved weather cards.
+///
+/// Uses stale-while-revalidate: cached cards stay visible while a 12-hour
+/// background refresh runs. [CitiesState.isLoading] is only meaningful when
+/// there is nothing renderable yet; [PlaceList] mirrors that in UI via
+/// [shouldShowInitialShimmer].
 class CitiesNotifier extends Notifier<CitiesState> {
   final _queue = AsyncQueue();
 
