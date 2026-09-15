@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:rain/core/di/provider_refs.dart';
@@ -99,9 +99,8 @@ class Now extends ConsumerWidget {
                   const Gap(5),
                   Text(
                     statusWeather.getText(weather),
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleLarge?.copyWith(fontSize: 20),
+                    style: Theme.of(context).textTheme.titleLarge
+                        ?.copyWith(fontSize: 20),
                   ),
                   _buildFeelsLikeText(context, statusData),
                   const Gap(30),
@@ -138,10 +137,8 @@ class Now extends ConsumerWidget {
   ) {
     return Text(
       statusData.getDegree(value),
-      style: Theme.of(context).textTheme.displayLarge?.copyWith(
-        fontSize: fontSize,
-        fontWeight: FontWeight.w600,
-      ),
+      style: Theme.of(context).textTheme.displayLarge
+          ?.copyWith(fontSize: fontSize, fontWeight: FontWeight.w600),
     );
   }
 
@@ -154,9 +151,8 @@ class Now extends ConsumerWidget {
       padding: const EdgeInsets.only(top: 5),
       child: Text(
         '${'lastUpdated'.tr}: ${statusData.formatUpdatedAt(updatedAt)}',
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-          color: Theme.of(context).colorScheme.onSurfaceVariant,
-        ),
+        style: Theme.of(context).textTheme.bodySmall
+            ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
     );
   }
@@ -175,9 +171,8 @@ class Now extends ConsumerWidget {
   Widget _buildFeelsLikeText(BuildContext context, StatusData statusData) =>
       Text(
         '${'feels'.tr} ${statusData.getDegree(feels)}',
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          color: Theme.of(context).colorScheme.onSurfaceVariant,
-        ),
+        style: Theme.of(context).textTheme.titleMedium
+            ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       );
 
   /// Displays the current temperature in the compact layout style.
@@ -186,9 +181,8 @@ class Now extends ConsumerWidget {
     StatusData statusData,
   ) => Text(
     statusData.getDegree(degree),
-    style: Theme.of(
-      context,
-    ).textTheme.displayMedium?.copyWith(fontWeight: FontWeight.w600),
+    style: Theme.of(context).textTheme.displayMedium
+        ?.copyWith(fontWeight: FontWeight.w600),
   );
 
   /// Displays the daily high and low temperatures for the selected day.

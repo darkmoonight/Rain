@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/config/setting_appearance_pickers.dart';
@@ -74,9 +74,8 @@ class _SettingsAppearanceSectionState
 
   SettingsTile _buildColorPaletteTile(BuildContext context, Settings settings) {
     final disabled = settings.materialColor;
-    final muted = Theme.of(
-      context,
-    ).colorScheme.onSurface.withValues(alpha: 0.38);
+    final muted = Theme.of(context).colorScheme.onSurface
+        .withValues(alpha: 0.38);
 
     return SettingsTile(
       leading: const Icon(IconsaxPlusLinear.color_swatch),

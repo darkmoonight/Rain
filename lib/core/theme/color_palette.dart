@@ -1,10 +1,5 @@
-import 'package:dynamic_system_colors/dynamic_system_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:material_color_utilities/material_color_utilities.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rain/core/config/settings_catalog.dart';
-
-// Matches tonal mapping in dynamic_system_colors (Android Material You).
-// ignore_for_file: deprecated_member_use
 
 /// One row in the color palette picker ([id] is stored in Isar settings).
 class _PaletteEntry {
@@ -16,15 +11,15 @@ class _PaletteEntry {
 
 /// Built-in accent palettes when dynamic system colors are disabled.
 ///
-/// Schemes use [CorePalette] (same as [dynamic_system_colors]) instead of
-/// [ColorScheme.fromSeed]. To add a palette: register id + seed in [_catalog],
-/// add `colorPalette<Id>` to every `assets/i18n/*.i18n.json`, then run slang.
+/// Schemes use [ColorScheme.fromSeed]. To add a palette: register id + seed in
+/// [_catalog], add `colorPalette<Id>` to every `assets/i18n/*.i18n.json`, then
+/// run slang.
 class AppColorPalette {
   AppColorPalette._({required this.id, required this.seedColor});
 
   final String id;
 
-  /// Tonal seed used to derive a full Material 3 [CorePalette].
+  /// Tonal seed used to derive a full Material 3 color scheme.
   final Color seedColor;
 
   static const String defaultId = 'purple';
@@ -117,11 +112,13 @@ class AppColorPalette {
     );
   }
 
+  /// Material You light color scheme derived from [seedColor].
   ColorScheme lightScheme() => _materialYouScheme(Brightness.light);
 
+  /// Material You dark color scheme derived from [seedColor].
   ColorScheme darkScheme() => _materialYouScheme(Brightness.dark);
 
-  ColorScheme _materialYouScheme(Brightness brightness) => CorePalette.of(
-    seedColor.toARGB32(),
-  ).toColorScheme(brightness: brightness);
+  /// Builds a [ColorScheme] for [brightness] from [seedColor].
+  ColorScheme _materialYouScheme(Brightness brightness) =>
+      ColorScheme.fromSeed(seedColor: seedColor, brightness: brightness);
 }

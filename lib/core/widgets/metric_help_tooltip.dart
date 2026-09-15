@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Long-press tooltip for weather metric help text (theme-aware bubble).
 class MetricHelpTooltip extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/widgets/city_search_field.dart';
@@ -40,10 +40,8 @@ class HomeWeatherTabSearchField extends ConsumerWidget {
       fieldViewBuilder: (context, _, _, _) => TextField(
         controller: controller,
         focusNode: focusNode,
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.w600,
-          fontSize: 18,
-        ),
+        style: Theme.of(context).textTheme.titleMedium
+            ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
         decoration: InputDecoration(
           isDense: true,
           contentPadding: EdgeInsets.zero,

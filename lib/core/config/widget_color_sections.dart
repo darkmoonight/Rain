@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/config/widget_theme_colors.dart';
 import 'package:rain/core/services/widget_settings_service.dart';

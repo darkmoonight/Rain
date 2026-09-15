@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Material You widget preview colors aligned with Android `colors.xml`.
 abstract final class WidgetThemePreviewColors {

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Rectangular placeholder block used inside [MyShimmer.wrap] skeletons.
 class ShimmerBone extends StatelessWidget {

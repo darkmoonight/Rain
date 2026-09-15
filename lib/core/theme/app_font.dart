@@ -1,16 +1,30 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as flutter;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rain/core/config/settings_catalog.dart';
+import 'package:rain/core/theme/material_scheme_bridge.dart';
 
-typedef _TextThemeBuilder = TextTheme Function(TextTheme);
+typedef _GoogleTextThemeBuilder = flutter.TextTheme Function([
+  flutter.TextTheme?,
+]);
 
 /// One row in the app font picker ([id] is stored in Isar settings).
 class _FontEntry {
-  const _FontEntry(this.id, this.textTheme);
+  const _FontEntry.google(this.id, this._googleTextTheme) : _system = false;
+
+  const _FontEntry.system(this.id) : _googleTextTheme = null, _system = true;
 
   final String id;
-  final _TextThemeBuilder textTheme;
+  final _GoogleTextThemeBuilder? _googleTextTheme;
+  final bool _system;
+
+  TextTheme apply(TextTheme base) {
+    if (_system) {
+      return base.apply(fontFamily: AppFont.platformFontFamily());
+    }
+    return textThemeFromFlutter(_googleTextTheme!(textThemeToFlutter(base)));
+  }
 }
 
 /// Built-in app font choices (Google Fonts or platform default).
@@ -18,9 +32,13 @@ class _FontEntry {
 /// To add a font: register an id in [_catalog] (A–Z after [system]), add a
 /// `font<Id>` display name to every `assets/i18n/*.i18n.json`, then run slang.
 class AppFont {
+  /// Private constructor; use static methods only.
   AppFont._();
 
+  /// Ubuntu font id.
   static const String ubuntu = 'ubuntu';
+
+  /// Platform system font id.
   static const String system = 'system';
 
   /// Default font id (current Rain look).
@@ -30,36 +48,36 @@ class AppFont {
 
   /// Ordered catalog: app default and platform default first, then A–Z.
   static final List<_FontEntry> _catalog = [
-    _FontEntry(ubuntu, GoogleFonts.ubuntuTextTheme),
-    _FontEntry(system, _systemTextTheme),
-    _FontEntry('barlowCondensed', GoogleFonts.barlowCondensedTextTheme),
-    _FontEntry('comfortaa', GoogleFonts.comfortaaTextTheme),
-    _FontEntry('dmSans', GoogleFonts.dmSansTextTheme),
-    _FontEntry('figtree', GoogleFonts.figtreeTextTheme),
-    _FontEntry('firaSans', GoogleFonts.firaSansTextTheme),
-    _FontEntry('ibmPlexSans', GoogleFonts.ibmPlexSansTextTheme),
-    _FontEntry('inter', GoogleFonts.interTextTheme),
-    _FontEntry('josefinSans', GoogleFonts.josefinSansTextTheme),
-    _FontEntry('kanit', GoogleFonts.kanitTextTheme),
-    _FontEntry('lato', GoogleFonts.latoTextTheme),
-    _FontEntry('lexend', GoogleFonts.lexendTextTheme),
-    _FontEntry('manrope', GoogleFonts.manropeTextTheme),
-    _FontEntry('montserrat', GoogleFonts.montserratTextTheme),
-    _FontEntry('notoSans', GoogleFonts.notoSansTextTheme),
-    _FontEntry('nunito', GoogleFonts.nunitoTextTheme),
-    _FontEntry('openSans', GoogleFonts.openSansTextTheme),
-    _FontEntry('oswald', GoogleFonts.oswaldTextTheme),
-    _FontEntry('outfit', GoogleFonts.outfitTextTheme),
-    _FontEntry('playfairDisplay', GoogleFonts.playfairDisplayTextTheme),
-    _FontEntry('poppins', GoogleFonts.poppinsTextTheme),
-    _FontEntry('ptSans', GoogleFonts.ptSansTextTheme),
-    _FontEntry('quicksand', GoogleFonts.quicksandTextTheme),
-    _FontEntry('raleway', GoogleFonts.ralewayTextTheme),
-    _FontEntry('roboto', GoogleFonts.robotoTextTheme),
-    _FontEntry('rubik', GoogleFonts.rubikTextTheme),
-    _FontEntry('sourceSans3', GoogleFonts.sourceSans3TextTheme),
-    _FontEntry('spaceGrotesk', GoogleFonts.spaceGroteskTextTheme),
-    _FontEntry('workSans', GoogleFonts.workSansTextTheme),
+    _FontEntry.google(ubuntu, GoogleFonts.ubuntuTextTheme),
+    const _FontEntry.system(system),
+    _FontEntry.google('barlowCondensed', GoogleFonts.barlowCondensedTextTheme),
+    _FontEntry.google('comfortaa', GoogleFonts.comfortaaTextTheme),
+    _FontEntry.google('dmSans', GoogleFonts.dmSansTextTheme),
+    _FontEntry.google('figtree', GoogleFonts.figtreeTextTheme),
+    _FontEntry.google('firaSans', GoogleFonts.firaSansTextTheme),
+    _FontEntry.google('ibmPlexSans', GoogleFonts.ibmPlexSansTextTheme),
+    _FontEntry.google('inter', GoogleFonts.interTextTheme),
+    _FontEntry.google('josefinSans', GoogleFonts.josefinSansTextTheme),
+    _FontEntry.google('kanit', GoogleFonts.kanitTextTheme),
+    _FontEntry.google('lato', GoogleFonts.latoTextTheme),
+    _FontEntry.google('lexend', GoogleFonts.lexendTextTheme),
+    _FontEntry.google('manrope', GoogleFonts.manropeTextTheme),
+    _FontEntry.google('montserrat', GoogleFonts.montserratTextTheme),
+    _FontEntry.google('notoSans', GoogleFonts.notoSansTextTheme),
+    _FontEntry.google('nunito', GoogleFonts.nunitoTextTheme),
+    _FontEntry.google('openSans', GoogleFonts.openSansTextTheme),
+    _FontEntry.google('oswald', GoogleFonts.oswaldTextTheme),
+    _FontEntry.google('outfit', GoogleFonts.outfitTextTheme),
+    _FontEntry.google('playfairDisplay', GoogleFonts.playfairDisplayTextTheme),
+    _FontEntry.google('poppins', GoogleFonts.poppinsTextTheme),
+    _FontEntry.google('ptSans', GoogleFonts.ptSansTextTheme),
+    _FontEntry.google('quicksand', GoogleFonts.quicksandTextTheme),
+    _FontEntry.google('raleway', GoogleFonts.ralewayTextTheme),
+    _FontEntry.google('roboto', GoogleFonts.robotoTextTheme),
+    _FontEntry.google('rubik', GoogleFonts.rubikTextTheme),
+    _FontEntry.google('sourceSans3', GoogleFonts.sourceSans3TextTheme),
+    _FontEntry.google('spaceGrotesk', GoogleFonts.spaceGroteskTextTheme),
+    _FontEntry.google('workSans', GoogleFonts.workSansTextTheme),
   ];
 
   static final Map<String, _FontEntry> _byId = {
@@ -79,7 +97,7 @@ class AppFont {
 
   /// Applies the selected font to [baseTheme].
   static TextTheme textTheme(String? id, TextTheme baseTheme) =>
-      _byId[resolve(id)]!.textTheme(baseTheme);
+      _byId[resolve(id)]!.apply(baseTheme);
 
   /// Platform system font from the engine, with OS-specific fallbacks.
   ///
@@ -100,9 +118,7 @@ class AppFont {
     };
   }
 
+  /// Engine-reported system font family, when available.
   static String? get _engineSystemFontFamily =>
       WidgetsBinding.instance.platformDispatcher.systemFontFamily;
-
-  static TextTheme _systemTextTheme(TextTheme base) =>
-      base.apply(fontFamily: platformFontFamily());
 }

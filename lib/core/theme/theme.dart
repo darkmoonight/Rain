@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:dynamic_system_colors/dynamic_system_colors.dart';
+import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:rain/core/theme/app_font.dart';
 import 'package:rain/core/theme/color_palette.dart';
 import 'package:rain/core/constants/app_constants.dart';
@@ -59,6 +59,19 @@ ThemeData darkTheme(
   appFont: appFont,
 );
 
+/// Harmonizes semantic colors toward [scheme.primary] (Material You).
+ColorScheme _harmonizeColorScheme(ColorScheme scheme) {
+  Color harmonize(Color color) =>
+      Color(Blend.harmonize(color.toARGB32(), scheme.primary.toARGB32()));
+
+  return scheme.copyWith(
+    error: harmonize(scheme.error),
+    onError: harmonize(scheme.onError),
+    errorContainer: harmonize(scheme.errorContainer),
+    onErrorContainer: harmonize(scheme.onErrorContainer),
+  );
+}
+
 /// Assembles a full [ThemeData] from base tokens and optional accent colors.
 ThemeData _buildTheme({
   required ThemeData baseTheme,
@@ -68,9 +81,14 @@ ThemeData _buildTheme({
   required bool edgeToEdgeAvailable,
   required String appFont,
 }) {
-  final harmonizedColorScheme = colorScheme
-      ?.copyWith(brightness: brightness, surface: baseTheme.colorScheme.surface)
-      .harmonized();
+  final harmonizedColorScheme = colorScheme == null
+      ? null
+      : _harmonizeColorScheme(
+          colorScheme.copyWith(
+            brightness: brightness,
+            surface: baseTheme.colorScheme.surface,
+          ),
+        );
 
   return baseTheme.copyWith(
     brightness: brightness,

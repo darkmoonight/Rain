@@ -8,10 +8,15 @@ import 'package:rain/core/utils/location_label.dart';
 /// Callers enabling location should check [isServiceEnabled] before
 /// [getCurrentPlace] or [determinePosition] so the UI can prompt the user.
 class LocationService {
-  LocationService({Geocoding? geocoding})
-    : _geocoding = geocoding ?? Geocoding();
+  /// Creates a location service.
+  ///
+  /// [geocoding] is optional so tests/fakes can avoid constructing the real
+  /// plugin (which requires a platform factory). Production code lazy-inits.
+  LocationService({Geocoding? geocoding}) : _geocodingOrNull = geocoding;
 
-  final Geocoding _geocoding;
+  Geocoding? _geocodingOrNull;
+
+  Geocoding get _geocoding => _geocodingOrNull ??= Geocoding();
 
   /// Returns the current GPS position after requesting permissions if needed.
   Future<Position> determinePosition() async {

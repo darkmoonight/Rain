@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:rain/core/di/provider_refs.dart';
@@ -74,9 +74,8 @@ class PlaceCard extends ConsumerWidget {
                   const Gap(10),
                   Text(
                     formatLocationLabel(card.city!, card.district!),
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: Theme.of(context).textTheme.titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w500),
                   ),
                   const Gap(5),
                   _CityWallClock(clock: clock, statusData: statusData),
@@ -112,10 +111,8 @@ class _CityWallClock extends StatelessWidget {
       stream: Stream.periodic(const Duration(seconds: 1)),
       builder: (context, _) => Text(
         '${'time'.tr}: ${statusData.getWallClockFormat(TimeIndexHelper.wallClockNow(clock))}',
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          color: Colors.grey,
-          fontWeight: FontWeight.w400,
-        ),
+        style: Theme.of(context).textTheme.titleMedium
+            ?.copyWith(color: Colors.grey, fontWeight: FontWeight.w400),
       ),
     );
   }

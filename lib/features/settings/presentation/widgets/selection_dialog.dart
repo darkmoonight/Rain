@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/theme/theme_text.dart';
@@ -189,9 +189,8 @@ class _SelectionDialogState<T> extends State<SelectionDialog<T>> {
           const SizedBox(height: AppConstants.spacingL),
           Text(
             'noResults'.tr,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge
+                ?.copyWith(color: colorScheme.onSurfaceVariant),
           ),
         ],
       ),

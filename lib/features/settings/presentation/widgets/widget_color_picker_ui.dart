@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
@@ -531,9 +531,8 @@ class _WidgetAlphaTrackPainter extends CustomPainter {
     canvas.drawRect(
       rect,
       Paint()
-        ..shader = LinearGradient(
-          colors: [tint.withValues(alpha: 0), tint],
-        ).createShader(rect),
+        ..shader = LinearGradient(colors: [tint.withValues(alpha: 0), tint])
+            .createShader(rect),
     );
   }
 

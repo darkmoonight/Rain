@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
@@ -19,9 +19,8 @@ Future<TimeOfDay?> showAppTimePicker({
       if (child == null) return const SizedBox.shrink();
 
       Widget wrapped = MediaQuery(
-        data: MediaQuery.of(
-          context,
-        ).copyWith(alwaysUse24HourFormat: !use12Hour),
+        data: MediaQuery.of(context)
+            .copyWith(alwaysUse24HourFormat: !use12Hour),
         child: child,
       );
 
@@ -42,9 +41,8 @@ Future<TimeOfDay?> showAppTimePicker({
 
 /// Whether the platform Material localizations default to 24-hour time.
 bool _materialPickerDefaultsTo24h(BuildContext context) {
-  final format = MaterialLocalizations.of(
-    context,
-  ).timeOfDayFormat(alwaysUse24HourFormat: false);
+  final format = MaterialLocalizations.of(context)
+      .timeOfDayFormat(alwaysUse24HourFormat: false);
   return switch (format) {
     TimeOfDayFormat.h_colon_mm_space_a ||
     TimeOfDayFormat.a_space_h_colon_mm => false,

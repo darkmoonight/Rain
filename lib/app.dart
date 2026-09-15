@@ -1,12 +1,11 @@
-import 'package:dynamic_system_colors/dynamic_system_colors.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/i18n/strings.g.dart';
+import 'package:rain/core/theme/material_ui_dynamic_color_builder.dart';
 import 'package:rain/core/theme/theme.dart';
 import 'package:rain/core/utils/device_info.dart';
 import 'package:rain/core/utils/snackbar_overlay.dart';
@@ -56,7 +55,7 @@ class RainApp extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: DynamicColorBuilder(
+      child: MaterialUiDynamicColorBuilder(
         builder: (lightColorScheme, darkColorScheme) {
           final themes = resolveAppThemes(
             materialColor: appSettings.materialColor,
@@ -76,15 +75,19 @@ class RainApp extends ConsumerWidget {
               darkTheme: themes.dark,
               locale: appSettings.locale,
               supportedLocales: AppLocaleUtils.supportedLocales,
-              localizationsDelegates: const [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
+              localizationsDelegates: GlobalMaterialLocalizations.delegates,
               debugShowCheckedModeBanner: false,
               title: 'Rain',
-              builder: (context, child) =>
-                  Stack(children: [?child, const SnackBarOverlayWidget()]),
+              builder: (context, child) {
+                final content = Stack(
+                  children: [?child, const SnackBarOverlayWidget()],
+                );
+                // Required until google_fonts, shimmer, flutter_hsvcolor_picker
+                // (and similar) migrate off package:flutter/material.dart.
+                // Safe to remove once those packages use material_ui.
+                // ignore: deprecated_member_use
+                return MaterialUiCompatibilityBridge(child: content);
+              },
             ),
           );
         },

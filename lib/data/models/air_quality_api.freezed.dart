@@ -498,90 +498,18 @@ return $default(_that.time,_that.europeanAqi,_that.usAqi,_that.pm25,_that.pm10,_
 @JsonSerializable()
 
 class _AirQualityHourly implements AirQualityHourly {
-  const _AirQualityHourly({final  List<String>? time, @JsonKey(name: 'european_aqi') final  List<double?>? europeanAqi, @JsonKey(name: 'us_aqi') final  List<double?>? usAqi, @JsonKey(name: 'pm2_5') final  List<double?>? pm25, @JsonKey(name: 'pm10') final  List<double?>? pm10, final  List<double?>? ozone, @JsonKey(name: 'carbon_monoxide') final  List<double?>? co, @JsonKey(name: 'nitrogen_dioxide') final  List<double?>? no2, @JsonKey(name: 'sulphur_dioxide') final  List<double?>? so2}): _time = time,_europeanAqi = europeanAqi,_usAqi = usAqi,_pm25 = pm25,_pm10 = pm10,_ozone = ozone,_co = co,_no2 = no2,_so2 = so2;
+  const _AirQualityHourly({this.time, @JsonKey(name: 'european_aqi') this.europeanAqi, @JsonKey(name: 'us_aqi') this.usAqi, @JsonKey(name: 'pm2_5') this.pm25, @JsonKey(name: 'pm10') this.pm10, this.ozone, @JsonKey(name: 'carbon_monoxide') this.co, @JsonKey(name: 'nitrogen_dioxide') this.no2, @JsonKey(name: 'sulphur_dioxide') this.so2});
   factory _AirQualityHourly.fromJson(Map<String, dynamic> json) => _$AirQualityHourlyFromJson(json);
 
- final  List<String>? _time;
-@override List<String>? get time {
-  final value = _time;
-  if (value == null) return null;
-  if (_time is EqualUnmodifiableListView) return _time;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
- final  List<double?>? _europeanAqi;
-@override@JsonKey(name: 'european_aqi') List<double?>? get europeanAqi {
-  final value = _europeanAqi;
-  if (value == null) return null;
-  if (_europeanAqi is EqualUnmodifiableListView) return _europeanAqi;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
- final  List<double?>? _usAqi;
-@override@JsonKey(name: 'us_aqi') List<double?>? get usAqi {
-  final value = _usAqi;
-  if (value == null) return null;
-  if (_usAqi is EqualUnmodifiableListView) return _usAqi;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
- final  List<double?>? _pm25;
-@override@JsonKey(name: 'pm2_5') List<double?>? get pm25 {
-  final value = _pm25;
-  if (value == null) return null;
-  if (_pm25 is EqualUnmodifiableListView) return _pm25;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
- final  List<double?>? _pm10;
-@override@JsonKey(name: 'pm10') List<double?>? get pm10 {
-  final value = _pm10;
-  if (value == null) return null;
-  if (_pm10 is EqualUnmodifiableListView) return _pm10;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
- final  List<double?>? _ozone;
-@override List<double?>? get ozone {
-  final value = _ozone;
-  if (value == null) return null;
-  if (_ozone is EqualUnmodifiableListView) return _ozone;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
- final  List<double?>? _co;
-@override@JsonKey(name: 'carbon_monoxide') List<double?>? get co {
-  final value = _co;
-  if (value == null) return null;
-  if (_co is EqualUnmodifiableListView) return _co;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
- final  List<double?>? _no2;
-@override@JsonKey(name: 'nitrogen_dioxide') List<double?>? get no2 {
-  final value = _no2;
-  if (value == null) return null;
-  if (_no2 is EqualUnmodifiableListView) return _no2;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
- final  List<double?>? _so2;
-@override@JsonKey(name: 'sulphur_dioxide') List<double?>? get so2 {
-  final value = _so2;
-  if (value == null) return null;
-  if (_so2 is EqualUnmodifiableListView) return _so2;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
+@override final  List<String>? time;
+@override@JsonKey(name: 'european_aqi') final  List<double?>? europeanAqi;
+@override@JsonKey(name: 'us_aqi') final  List<double?>? usAqi;
+@override@JsonKey(name: 'pm2_5') final  List<double?>? pm25;
+@override@JsonKey(name: 'pm10') final  List<double?>? pm10;
+@override final  List<double?>? ozone;
+@override@JsonKey(name: 'carbon_monoxide') final  List<double?>? co;
+@override@JsonKey(name: 'nitrogen_dioxide') final  List<double?>? no2;
+@override@JsonKey(name: 'sulphur_dioxide') final  List<double?>? so2;
 
 /// Create a copy of AirQualityHourly
 /// with the given fields replaced by the non-null parameter values.
@@ -596,12 +524,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AirQualityHourly&&const DeepCollectionEquality().equals(other._time, _time)&&const DeepCollectionEquality().equals(other._europeanAqi, _europeanAqi)&&const DeepCollectionEquality().equals(other._usAqi, _usAqi)&&const DeepCollectionEquality().equals(other._pm25, _pm25)&&const DeepCollectionEquality().equals(other._pm10, _pm10)&&const DeepCollectionEquality().equals(other._ozone, _ozone)&&const DeepCollectionEquality().equals(other._co, _co)&&const DeepCollectionEquality().equals(other._no2, _no2)&&const DeepCollectionEquality().equals(other._so2, _so2));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AirQualityHourly&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.europeanAqi, europeanAqi)&&const DeepCollectionEquality().equals(other.usAqi, usAqi)&&const DeepCollectionEquality().equals(other.pm25, pm25)&&const DeepCollectionEquality().equals(other.pm10, pm10)&&const DeepCollectionEquality().equals(other.ozone, ozone)&&const DeepCollectionEquality().equals(other.co, co)&&const DeepCollectionEquality().equals(other.no2, no2)&&const DeepCollectionEquality().equals(other.so2, so2));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_time),const DeepCollectionEquality().hash(_europeanAqi),const DeepCollectionEquality().hash(_usAqi),const DeepCollectionEquality().hash(_pm25),const DeepCollectionEquality().hash(_pm10),const DeepCollectionEquality().hash(_ozone),const DeepCollectionEquality().hash(_co),const DeepCollectionEquality().hash(_no2),const DeepCollectionEquality().hash(_so2));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(europeanAqi),const DeepCollectionEquality().hash(usAqi),const DeepCollectionEquality().hash(pm25),const DeepCollectionEquality().hash(pm10),const DeepCollectionEquality().hash(ozone),const DeepCollectionEquality().hash(co),const DeepCollectionEquality().hash(no2),const DeepCollectionEquality().hash(so2));
 
 @override
 String toString() {
@@ -635,15 +563,15 @@ class __$AirQualityHourlyCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? time = freezed,Object? europeanAqi = freezed,Object? usAqi = freezed,Object? pm25 = freezed,Object? pm10 = freezed,Object? ozone = freezed,Object? co = freezed,Object? no2 = freezed,Object? so2 = freezed,}) {
   return _then(_AirQualityHourly(
-time: freezed == time ? _self._time : time // ignore: cast_nullable_to_non_nullable
-as List<String>?,europeanAqi: freezed == europeanAqi ? _self._europeanAqi : europeanAqi // ignore: cast_nullable_to_non_nullable
-as List<double?>?,usAqi: freezed == usAqi ? _self._usAqi : usAqi // ignore: cast_nullable_to_non_nullable
-as List<double?>?,pm25: freezed == pm25 ? _self._pm25 : pm25 // ignore: cast_nullable_to_non_nullable
-as List<double?>?,pm10: freezed == pm10 ? _self._pm10 : pm10 // ignore: cast_nullable_to_non_nullable
-as List<double?>?,ozone: freezed == ozone ? _self._ozone : ozone // ignore: cast_nullable_to_non_nullable
-as List<double?>?,co: freezed == co ? _self._co : co // ignore: cast_nullable_to_non_nullable
-as List<double?>?,no2: freezed == no2 ? _self._no2 : no2 // ignore: cast_nullable_to_non_nullable
-as List<double?>?,so2: freezed == so2 ? _self._so2 : so2 // ignore: cast_nullable_to_non_nullable
+time: freezed == time ? _self.time : time // ignore: cast_nullable_to_non_nullable
+as List<String>?,europeanAqi: freezed == europeanAqi ? _self.europeanAqi : europeanAqi // ignore: cast_nullable_to_non_nullable
+as List<double?>?,usAqi: freezed == usAqi ? _self.usAqi : usAqi // ignore: cast_nullable_to_non_nullable
+as List<double?>?,pm25: freezed == pm25 ? _self.pm25 : pm25 // ignore: cast_nullable_to_non_nullable
+as List<double?>?,pm10: freezed == pm10 ? _self.pm10 : pm10 // ignore: cast_nullable_to_non_nullable
+as List<double?>?,ozone: freezed == ozone ? _self.ozone : ozone // ignore: cast_nullable_to_non_nullable
+as List<double?>?,co: freezed == co ? _self.co : co // ignore: cast_nullable_to_non_nullable
+as List<double?>?,no2: freezed == no2 ? _self.no2 : no2 // ignore: cast_nullable_to_non_nullable
+as List<double?>?,so2: freezed == so2 ? _self.so2 : so2 // ignore: cast_nullable_to_non_nullable
 as List<double?>?,
   ));
 }

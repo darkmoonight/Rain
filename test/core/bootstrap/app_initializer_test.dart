@@ -1,5 +1,5 @@
 import '../../helpers/test_helpers.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/bootstrap/app_initializer.dart';
 import 'package:rain/core/constants/app_constants.dart';

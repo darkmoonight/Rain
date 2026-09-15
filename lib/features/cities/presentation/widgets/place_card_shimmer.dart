@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:gap/gap.dart';
 import 'package:rain/core/widgets/shimmer.dart';
 import 'package:rain/core/widgets/shimmer_bone.dart';

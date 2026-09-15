@@ -1,6 +1,6 @@
 import '../../helpers/test_bootstrap.dart';
 import '../../helpers/widget_test_harness.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/features/settings/presentation/widgets/app_widget_color_picker.dart';

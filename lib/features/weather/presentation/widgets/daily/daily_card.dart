@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/i18n/locale_format_helper.dart';
@@ -69,10 +69,8 @@ class _DailyCardState extends ConsumerState<DailyCard> {
       children: [
         Text(
           '${statusData.getDegree(widget.temperature2MMin)} / ${statusData.getDegree(widget.temperature2MMax)}',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.titleLarge
+              ?.copyWith(fontSize: 22, fontWeight: FontWeight.w600),
         ),
         _buildDateText(context),
         _buildWeatherDescription(context, statusWeather),

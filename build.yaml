@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          # Dart 3.13 forbids `final` on non-declaring constructor params.
+          # freezed 4 fixes this but requires analyzer >=13, incompatible
+          # with isar_community_generator 3.3.x. Keys must be snake_case
+          # (Freezed.fromJson).
+          add_implicit_final: false
+          make_collections_unmodifiable: false

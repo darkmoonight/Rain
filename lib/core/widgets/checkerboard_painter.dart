@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Checkerboard pattern for transparent color previews and alpha sliders.
 class CheckerboardPainter extends CustomPainter {

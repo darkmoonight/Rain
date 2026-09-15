@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Breakpoint helpers and responsive sizing for adaptive layouts.
 class ResponsiveUtils {

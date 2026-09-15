@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import '../../helpers/fixtures.dart';
 import '../../helpers/test_bootstrap.dart';
 import '../../helpers/widget_test_harness.dart';

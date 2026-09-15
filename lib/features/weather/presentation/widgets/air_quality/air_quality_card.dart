@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:gap/gap.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/theme/theme_text.dart';
@@ -174,10 +174,8 @@ class _SeverityBadge extends StatelessWidget {
     ),
     child: Text(
       label,
-      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-        color: color,
-        fontWeight: FontWeight.w600,
-      ),
+      style: Theme.of(context).textTheme.labelSmall
+          ?.copyWith(color: color, fontWeight: FontWeight.w600),
     ),
   );
 }
