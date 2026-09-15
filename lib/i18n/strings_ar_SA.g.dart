@@ -16,22 +16,22 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsArSa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.arSa,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ar-SA>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsArSa _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'مرتفع';
 	@override String get daily_variables => 'متغيرات الطقس اليومية';
 	@override String get low => 'منخفض';
-	@override String get on_inter => 'قم بتشغيل الإنترنت للحصول على البيانات الجوية.';
 	@override String get thunderstorm => 'عاصفة رعدية';
 	@override String get version => 'إصدار التطبيق';
 	@override String get project => 'المشروع على';
@@ -139,10 +138,8 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'هكتوباسكال';
 	@override String get appearance => 'المظهر';
 	@override String get time_start => 'وقت البداية';
-	@override String get ready => 'جاهز';
 	@override String get kph => 'كم/س';
 	@override String get deleted_cache_store_query => 'هل أنت متأكد من أنك تريد مسح التخزين المؤقت؟';
-	@override String get support => 'تبرع';
 	@override String get groups => 'مجموعاتنا';
 	@override String get system => 'النظام';
 	@override String get sunset => 'غروب الشمس';
@@ -436,7 +433,6 @@ extension on TranslationsArSa {
 			'high' => 'مرتفع',
 			'daily_variables' => 'متغيرات الطقس اليومية',
 			'low' => 'منخفض',
-			'on_inter' => 'قم بتشغيل الإنترنت للحصول على البيانات الجوية.',
 			'thunderstorm' => 'عاصفة رعدية',
 			'version' => 'إصدار التطبيق',
 			'project' => 'المشروع على',
@@ -462,10 +458,8 @@ extension on TranslationsArSa {
 			'h_pa' => 'هكتوباسكال',
 			'appearance' => 'المظهر',
 			'time_start' => 'وقت البداية',
-			'ready' => 'جاهز',
 			'kph' => 'كم/س',
 			'deleted_cache_store_query' => 'هل أنت متأكد من أنك تريد مسح التخزين المؤقت؟',
-			'support' => 'تبرع',
 			'groups' => 'مجموعاتنا',
 			'system' => 'النظام',
 			'sunset' => 'غروب الشمس',

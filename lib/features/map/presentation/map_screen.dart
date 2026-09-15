@@ -373,51 +373,13 @@ class _MapPageState extends ConsumerState<MapPage>
                       return MarkerLayer(markers: [mainMarker, ...cardMarkers]);
                     },
                   ),
-                  ExpandableFab(
-                    key: _fabKey,
-                    pos: ExpandableFabPos.right,
-                    type: ExpandableFabType.up,
-                    distance: 70,
-                    openButtonBuilder: RotateFloatingActionButtonBuilder(
-                      child: const Icon(IconsaxPlusLinear.menu),
-                      fabSize: ExpandableFabSize.regular,
-                    ),
-                    closeButtonBuilder: DefaultFloatingActionButtonBuilder(
-                      child: const Icon(Icons.close),
-                      fabSize: ExpandableFabSize.regular,
-                    ),
-                    children: [
-                      FloatingActionButton(
-                        heroTag: null,
-                        child: const Icon(IconsaxPlusLinear.home_2),
-                        onPressed: () => _resetMapOrientation(
-                          center: LatLng(lat, lon),
-                          zoom: AppConstants.mapDefaultZoom,
-                        ),
-                      ),
-                      FloatingActionButton(
-                        heroTag: null,
-                        child: const Icon(IconsaxPlusLinear.search_zoom_out_1),
-                        onPressed: () => _animatedMapController.animatedZoomOut(
-                          customId: _useTransformerId,
-                        ),
-                      ),
-                      FloatingActionButton(
-                        heroTag: null,
-                        child: const Icon(IconsaxPlusLinear.search_zoom_in),
-                        onPressed: () => _animatedMapController.animatedZoomIn(
-                          customId: _useTransformerId,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: _buildWeatherCard(),
-                  ),
                 ],
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: _buildWeatherCard(),
               ),
               _buildSearchField(),
             ],
@@ -425,6 +387,44 @@ class _MapPageState extends ConsumerState<MapPage>
         },
       ),
       floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: ExpandableFab(
+        key: _fabKey,
+        pos: ExpandableFabPos.right,
+        type: ExpandableFabType.up,
+        distance: 70,
+        openButtonBuilder: RotateFloatingActionButtonBuilder(
+          child: const Icon(IconsaxPlusLinear.menu),
+          fabSize: ExpandableFabSize.regular,
+        ),
+        closeButtonBuilder: DefaultFloatingActionButtonBuilder(
+          child: const Icon(Icons.close),
+          fabSize: ExpandableFabSize.regular,
+        ),
+        children: [
+          FloatingActionButton(
+            heroTag: null,
+            child: const Icon(IconsaxPlusLinear.home_2),
+            onPressed: () => _resetMapOrientation(
+              center: LatLng(lat, lon),
+              zoom: AppConstants.mapDefaultZoom,
+            ),
+          ),
+          FloatingActionButton(
+            heroTag: null,
+            child: const Icon(IconsaxPlusLinear.search_zoom_out_1),
+            onPressed: () => _animatedMapController.animatedZoomOut(
+              customId: _useTransformerId,
+            ),
+          ),
+          FloatingActionButton(
+            heroTag: null,
+            child: const Icon(IconsaxPlusLinear.search_zoom_in),
+            onPressed: () => _animatedMapController.animatedZoomIn(
+              customId: _useTransformerId,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

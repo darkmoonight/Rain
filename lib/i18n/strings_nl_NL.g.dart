@@ -16,22 +16,22 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsNlNl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.nlNl,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <nl-NL>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsNlNl _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Hoog';
 	@override String get daily_variables => 'Dagelijkse weervariabelen';
 	@override String get low => 'Laag';
-	@override String get on_inter => 'Schakel Internet in om meteorologische gegevens te ontvangen.';
 	@override String get thunderstorm => 'Onweersbui';
 	@override String get version => 'Applicatieversie';
 	@override String get project => 'Project op';
@@ -139,10 +138,8 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Uiterlijk';
 	@override String get time_start => 'Begintijd';
-	@override String get ready => 'Klaar';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Weet je zeker dat je de cache wilt wissen?';
-	@override String get support => 'Ondersteuning';
 	@override String get groups => 'Onze groepen';
 	@override String get system => 'Systeem';
 	@override String get sunset => 'Zonsondergang';
@@ -436,7 +433,6 @@ extension on TranslationsNlNl {
 			'high' => 'Hoog',
 			'daily_variables' => 'Dagelijkse weervariabelen',
 			'low' => 'Laag',
-			'on_inter' => 'Schakel Internet in om meteorologische gegevens te ontvangen.',
 			'thunderstorm' => 'Onweersbui',
 			'version' => 'Applicatieversie',
 			'project' => 'Project op',
@@ -462,10 +458,8 @@ extension on TranslationsNlNl {
 			'h_pa' => 'hPa',
 			'appearance' => 'Uiterlijk',
 			'time_start' => 'Begintijd',
-			'ready' => 'Klaar',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Weet je zeker dat je de cache wilt wissen?',
-			'support' => 'Ondersteuning',
 			'groups' => 'Onze groepen',
 			'system' => 'Systeem',
 			'sunset' => 'Zonsondergang',

@@ -16,22 +16,22 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsCsCz({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.csCz,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <cs-CZ>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsCsCz _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Vysoký';
 	@override String get daily_variables => 'Denní meteorologické proměnné';
 	@override String get low => 'Nízký';
-	@override String get on_inter => 'Připojte se k internetu a získejte meteorologické údaje.';
 	@override String get thunderstorm => 'Bouřka';
 	@override String get version => 'Verzia aplikace';
 	@override String get project => 'Projekt na';
@@ -139,10 +138,8 @@ class TranslationsCsCz extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Vzhled';
 	@override String get time_start => 'Čas začátku';
-	@override String get ready => 'Připraveno';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Opravdu chcete vymazat mezipaměť?';
-	@override String get support => 'Podpora';
 	@override String get groups => 'Naše skupiny';
 	@override String get system => 'Systém';
 	@override String get sunset => 'Západ slunce';
@@ -436,7 +433,6 @@ extension on TranslationsCsCz {
 			'high' => 'Vysoký',
 			'daily_variables' => 'Denní meteorologické proměnné',
 			'low' => 'Nízký',
-			'on_inter' => 'Připojte se k internetu a získejte meteorologické údaje.',
 			'thunderstorm' => 'Bouřka',
 			'version' => 'Verzia aplikace',
 			'project' => 'Projekt na',
@@ -462,10 +458,8 @@ extension on TranslationsCsCz {
 			'h_pa' => 'hPa',
 			'appearance' => 'Vzhled',
 			'time_start' => 'Čas začátku',
-			'ready' => 'Připraveno',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Opravdu chcete vymazat mezipaměť?',
-			'support' => 'Podpora',
 			'groups' => 'Naše skupiny',
 			'system' => 'Systém',
 			'sunset' => 'Západ slunce',

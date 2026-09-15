@@ -16,22 +16,22 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFaIr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.faIr,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <fa-IR>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsFaIr _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'زیاد';
 	@override String get daily_variables => 'متغیرهای روزانه هواشناسی';
 	@override String get low => 'کم';
-	@override String get on_inter => 'برای دریافت تغییرات جوی اینترنت خود را روشن کنید.';
 	@override String get thunderstorm => 'طوفان';
 	@override String get version => 'نگارش برنامه';
 	@override String get project => 'پروژه در';
@@ -139,10 +138,8 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'ظاهر';
 	@override String get time_start => 'زمان شروع';
-	@override String get ready => 'آماده';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'آیا مطمئن هستید که می‌خواهید حافظه نهان را پاک کنید؟';
-	@override String get support => 'پشتیبانی';
 	@override String get groups => 'گروه‌های ما';
 	@override String get system => 'سیستم';
 	@override String get sunset => 'غروب آفتاب';
@@ -436,7 +433,6 @@ extension on TranslationsFaIr {
 			'high' => 'زیاد',
 			'daily_variables' => 'متغیرهای روزانه هواشناسی',
 			'low' => 'کم',
-			'on_inter' => 'برای دریافت تغییرات جوی اینترنت خود را روشن کنید.',
 			'thunderstorm' => 'طوفان',
 			'version' => 'نگارش برنامه',
 			'project' => 'پروژه در',
@@ -462,10 +458,8 @@ extension on TranslationsFaIr {
 			'h_pa' => 'hPa',
 			'appearance' => 'ظاهر',
 			'time_start' => 'زمان شروع',
-			'ready' => 'آماده',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'آیا مطمئن هستید که می‌خواهید حافظه نهان را پاک کنید؟',
-			'support' => 'پشتیبانی',
 			'groups' => 'گروه‌های ما',
 			'system' => 'سیستم',
 			'sunset' => 'غروب آفتاب',

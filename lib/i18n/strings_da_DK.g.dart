@@ -16,22 +16,22 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsDaDk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.daDk,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <da-DK>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsDaDk _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Høj';
 	@override String get daily_variables => 'Daglige vejrfaktorer';
 	@override String get low => 'Lav';
-	@override String get on_inter => 'Tænd for internettet for at få meteorologisk data.';
 	@override String get thunderstorm => 'Tordenvejr';
 	@override String get version => 'App version';
 	@override String get project => 'Projektet findes på';
@@ -139,10 +138,8 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Udseende';
 	@override String get time_start => 'Start tid';
-	@override String get ready => 'Klar';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Er du sikker på, at du vil rydde cachen?';
-	@override String get support => 'Support';
 	@override String get groups => 'Vores grupper';
 	@override String get system => 'Systemstandard';
 	@override String get sunset => 'Solnedgang';
@@ -436,7 +433,6 @@ extension on TranslationsDaDk {
 			'high' => 'Høj',
 			'daily_variables' => 'Daglige vejrfaktorer',
 			'low' => 'Lav',
-			'on_inter' => 'Tænd for internettet for at få meteorologisk data.',
 			'thunderstorm' => 'Tordenvejr',
 			'version' => 'App version',
 			'project' => 'Projektet findes på',
@@ -462,10 +458,8 @@ extension on TranslationsDaDk {
 			'h_pa' => 'hPa',
 			'appearance' => 'Udseende',
 			'time_start' => 'Start tid',
-			'ready' => 'Klar',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Er du sikker på, at du vil rydde cachen?',
-			'support' => 'Support',
 			'groups' => 'Vores grupper',
 			'system' => 'Systemstandard',
 			'sunset' => 'Solnedgang',

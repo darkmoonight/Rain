@@ -16,22 +16,22 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsPtBr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ptBr,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <pt-BR>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsPtBr _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Alto';
 	@override String get daily_variables => 'Variáveis meteorológicas diárias';
 	@override String get low => 'Baixo';
-	@override String get on_inter => 'Conecte-se a internet para atualizar os dados de clima.';
 	@override String get thunderstorm => 'Tempestade';
 	@override String get version => 'Versão do aplicativo';
 	@override String get project => 'Projeto em';
@@ -139,10 +138,8 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Aparência';
 	@override String get time_start => 'Hora de início';
-	@override String get ready => 'Pronto';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Tem certeza de que deseja limpar o cache?';
-	@override String get support => 'Suporte';
 	@override String get groups => 'Nossos grupos';
 	@override String get system => 'Sistema';
 	@override String get sunset => 'Pôr do sol';
@@ -436,7 +433,6 @@ extension on TranslationsPtBr {
 			'high' => 'Alto',
 			'daily_variables' => 'Variáveis meteorológicas diárias',
 			'low' => 'Baixo',
-			'on_inter' => 'Conecte-se a internet para atualizar os dados de clima.',
 			'thunderstorm' => 'Tempestade',
 			'version' => 'Versão do aplicativo',
 			'project' => 'Projeto em',
@@ -462,10 +458,8 @@ extension on TranslationsPtBr {
 			'h_pa' => 'hPa',
 			'appearance' => 'Aparência',
 			'time_start' => 'Hora de início',
-			'ready' => 'Pronto',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Tem certeza de que deseja limpar o cache?',
-			'support' => 'Suporte',
 			'groups' => 'Nossos grupos',
 			'system' => 'Sistema',
 			'sunset' => 'Pôr do sol',

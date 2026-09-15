@@ -16,22 +16,22 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsZhCn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.zhCn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <zh-CN>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsZhCn _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => '最高';
 	@override String get daily_variables => '每日天气变量';
 	@override String get low => '最低';
-	@override String get on_inter => '打开网络连接以获取气象数据。';
 	@override String get thunderstorm => '雷暴';
 	@override String get version => '应用程序版本';
 	@override String get project => '项目使用';
@@ -139,10 +138,8 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => '百帕';
 	@override String get appearance => '外观';
 	@override String get time_start => '开始时间';
-	@override String get ready => '完成';
 	@override String get kph => '千米/小时';
 	@override String get deleted_cache_store_query => '您确定要清除缓存吗？';
-	@override String get support => '支持';
 	@override String get groups => '我们的组';
 	@override String get system => '系统';
 	@override String get sunset => '日落';
@@ -436,7 +433,6 @@ extension on TranslationsZhCn {
 			'high' => '最高',
 			'daily_variables' => '每日天气变量',
 			'low' => '最低',
-			'on_inter' => '打开网络连接以获取气象数据。',
 			'thunderstorm' => '雷暴',
 			'version' => '应用程序版本',
 			'project' => '项目使用',
@@ -462,10 +458,8 @@ extension on TranslationsZhCn {
 			'h_pa' => '百帕',
 			'appearance' => '外观',
 			'time_start' => '开始时间',
-			'ready' => '完成',
 			'kph' => '千米/小时',
 			'deleted_cache_store_query' => '您确定要清除缓存吗？',
-			'support' => '支持',
 			'groups' => '我们的组',
 			'system' => '系统',
 			'sunset' => '日落',

@@ -61,10 +61,14 @@ void main() {
             .read(citiesNotifierProvider.notifier)
             .refreshIfStale();
 
-        await Future<void>.delayed(Duration.zero);
-        await Future<void>.delayed(Duration.zero);
+        // Wait until cache is visible and the stale network refresh has started.
+        late CitiesState midState;
+        for (var i = 0; i < 50; i++) {
+          await Future<void>.delayed(Duration.zero);
+          midState = container.read(citiesNotifierProvider);
+          if (!midState.isLoading && midState.isRefreshing) break;
+        }
 
-        final midState = container.read(citiesNotifierProvider);
         expect(midState.isLoading, isFalse);
         expect(midState.cards, hasLength(1));
         expect(midState.cards.first.city, 'Moscow');

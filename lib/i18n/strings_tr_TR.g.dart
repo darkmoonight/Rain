@@ -16,22 +16,22 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsTrTr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.trTr,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <tr-TR>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsTrTr _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Yüksek';
 	@override String get daily_variables => 'Günlük hava değişkenleri';
 	@override String get low => 'Düşük';
-	@override String get on_inter => 'Hava durumu verilerini almak için interneti açın.';
 	@override String get thunderstorm => 'Gök Gürültülü Fırtına';
 	@override String get version => 'Uygulama sürümü';
 	@override String get project => 'Proje üzerinde';
@@ -139,10 +138,8 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Görünüm';
 	@override String get time_start => 'Başlangıç zamanı';
-	@override String get ready => 'Hazır';
 	@override String get kph => 'km/sa';
 	@override String get deleted_cache_store_query => 'Önbelleği temizlemek istediğinizden emin misiniz?';
-	@override String get support => 'Destek';
 	@override String get groups => 'Gruplarımız';
 	@override String get system => 'Sistem';
 	@override String get sunset => 'Güneş batışı';
@@ -436,7 +433,6 @@ extension on TranslationsTrTr {
 			'high' => 'Yüksek',
 			'daily_variables' => 'Günlük hava değişkenleri',
 			'low' => 'Düşük',
-			'on_inter' => 'Hava durumu verilerini almak için interneti açın.',
 			'thunderstorm' => 'Gök Gürültülü Fırtına',
 			'version' => 'Uygulama sürümü',
 			'project' => 'Proje üzerinde',
@@ -462,10 +458,8 @@ extension on TranslationsTrTr {
 			'h_pa' => 'hPa',
 			'appearance' => 'Görünüm',
 			'time_start' => 'Başlangıç zamanı',
-			'ready' => 'Hazır',
 			'kph' => 'km/sa',
 			'deleted_cache_store_query' => 'Önbelleği temizlemek istediğinizden emin misiniz?',
-			'support' => 'Destek',
 			'groups' => 'Gruplarımız',
 			'system' => 'Sistem',
 			'sunset' => 'Güneş batışı',

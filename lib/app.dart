@@ -11,12 +11,12 @@ import 'package:rain/core/utils/device_info.dart';
 import 'package:rain/core/utils/snackbar_overlay.dart';
 
 /// Root widget: routing, theming, localization, and global overlays.
-class RainApp extends ConsumerWidget {
+class RainApp extends ConsumerStatefulWidget {
   const RainApp({super.key, required this.bootstrap});
 
   final AppBootstrap bootstrap;
 
-  /// Applies settings changes through [appSettingsProvider].
+  /// Applies settings changes through [appSettingsProvider] (persists via notifier).
   static void updateAppState(
     WidgetRef ref, {
     bool? newAmoledTheme,
@@ -42,16 +42,29 @@ class RainApp extends ConsumerWidget {
         );
   }
 
+  @override
+  ConsumerState<RainApp> createState() => _RainAppState();
+}
+
+class _RainAppState extends ConsumerState<RainApp> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  }
+
   /// Builds the themed, localized router app with global overlays.
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final appSettings = ref.watch(appSettingsProvider);
-    final appFont = ref.watch(settingsProvider).appFont;
-    final colorPalette = ref.watch(settingsProvider).colorPalette;
+    final appearance = ref.watch(
+      settingsProvider.select(
+        (s) => (appFont: s.appFont, colorPalette: s.colorPalette),
+      ),
+    );
     final themeMode = ref.watch(themeModeProvider);
     final router = ref.watch(appRouterProvider);
     final edgeToEdgeAvailable = DeviceFeature().isEdgeToEdgeAvailable();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -60,11 +73,11 @@ class RainApp extends ConsumerWidget {
           final themes = resolveAppThemes(
             materialColor: appSettings.materialColor,
             amoledTheme: appSettings.amoledTheme,
-            colorPalette: colorPalette,
+            colorPalette: appearance.colorPalette,
             lightDynamic: lightColorScheme,
             darkDynamic: darkColorScheme,
             edgeToEdgeAvailable: edgeToEdgeAvailable,
-            appFont: appFont,
+            appFont: appearance.appFont,
           );
 
           return TranslationProvider(

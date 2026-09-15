@@ -16,22 +16,22 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsMrIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.mrIn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <mr-IN>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsMrIn _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'जास्त';
 	@override String get daily_variables => 'दैनंदिन हवामान चल';
 	@override String get low => 'कमी';
-	@override String get on_inter => 'हवामान डेटा मिळविण्यासाठी इंटरनेट चालू करा.';
 	@override String get thunderstorm => 'मेघगर्जना';
 	@override String get version => 'अनुप्रयोग आवृत्ती';
 	@override String get project => 'प्रकल्प चालू';
@@ -139,10 +138,8 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'हेक्टोपास्कल';
 	@override String get appearance => 'दिसणे';
 	@override String get time_start => 'सुरुवातीची वेळ';
-	@override String get ready => 'तयार';
 	@override String get kph => 'किमी/तास';
 	@override String get deleted_cache_store_query => 'तुम्हाला खरोखर कॅशे साफ करायचे आहे का?';
-	@override String get support => 'दान करा';
 	@override String get groups => 'आमचे गट';
 	@override String get system => 'प्रणाली';
 	@override String get sunset => 'सूर्यास्त';
@@ -436,7 +433,6 @@ extension on TranslationsMrIn {
 			'high' => 'जास्त',
 			'daily_variables' => 'दैनंदिन हवामान चल',
 			'low' => 'कमी',
-			'on_inter' => 'हवामान डेटा मिळविण्यासाठी इंटरनेट चालू करा.',
 			'thunderstorm' => 'मेघगर्जना',
 			'version' => 'अनुप्रयोग आवृत्ती',
 			'project' => 'प्रकल्प चालू',
@@ -462,10 +458,8 @@ extension on TranslationsMrIn {
 			'h_pa' => 'हेक्टोपास्कल',
 			'appearance' => 'दिसणे',
 			'time_start' => 'सुरुवातीची वेळ',
-			'ready' => 'तयार',
 			'kph' => 'किमी/तास',
 			'deleted_cache_store_query' => 'तुम्हाला खरोखर कॅशे साफ करायचे आहे का?',
-			'support' => 'दान करा',
 			'groups' => 'आमचे गट',
 			'system' => 'प्रणाली',
 			'sunset' => 'सूर्यास्त',

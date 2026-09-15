@@ -16,22 +16,22 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsAsIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.asIn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <as-IN>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsAsIn _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'বেছি';
 	@override String get daily_variables => 'দৈনিক বতৰৰ চলক';
 	@override String get low => 'কম';
-	@override String get on_inter => 'বতৰৰ তথ্য পাবলৈ ইণ্টাৰনেট অন কৰক।';
 	@override String get thunderstorm => 'বজ্ৰবিদ্যুৎ';
 	@override String get version => 'এপ্লিকেচন সংস্কৰণ';
 	@override String get project => 'প্ৰকল্প চলি আছে';
@@ -139,10 +138,8 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'হেক্টোপাস্কেল';
 	@override String get appearance => 'ৰূপ';
 	@override String get time_start => 'আৰম্ভণিৰ সময়';
-	@override String get ready => 'সাজু';
 	@override String get kph => 'কি.মি./ঘণ্টা';
 	@override String get deleted_cache_store_query => 'আপুনি সঁচাকৈয়ে কেশ্ব পৰিষ্কাৰ কৰিব বিচাৰে নেকি?';
-	@override String get support => 'দান কৰক';
 	@override String get groups => 'আমাৰ গোট';
 	@override String get system => 'ব্যৱস্থা';
 	@override String get sunset => 'সূৰ্যাস্ত';
@@ -436,7 +433,6 @@ extension on TranslationsAsIn {
 			'high' => 'বেছি',
 			'daily_variables' => 'দৈনিক বতৰৰ চলক',
 			'low' => 'কম',
-			'on_inter' => 'বতৰৰ তথ্য পাবলৈ ইণ্টাৰনেট অন কৰক।',
 			'thunderstorm' => 'বজ্ৰবিদ্যুৎ',
 			'version' => 'এপ্লিকেচন সংস্কৰণ',
 			'project' => 'প্ৰকল্প চলি আছে',
@@ -462,10 +458,8 @@ extension on TranslationsAsIn {
 			'h_pa' => 'হেক্টোপাস্কেল',
 			'appearance' => 'ৰূপ',
 			'time_start' => 'আৰম্ভণিৰ সময়',
-			'ready' => 'সাজু',
 			'kph' => 'কি.মি./ঘণ্টা',
 			'deleted_cache_store_query' => 'আপুনি সঁচাকৈয়ে কেশ্ব পৰিষ্কাৰ কৰিব বিচাৰে নেকি?',
-			'support' => 'দান কৰক',
 			'groups' => 'আমাৰ গোট',
 			'system' => 'ব্যৱস্থা',
 			'sunset' => 'সূৰ্যাস্ত',

@@ -16,22 +16,22 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsJaJp({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.jaJp,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ja-JP>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsJaJp _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => '高';
 	@override String get daily_variables => '日別気象変数';
 	@override String get low => '低';
-	@override String get on_inter => '気象データを取得するにはインターネットをオンにしてください。';
 	@override String get thunderstorm => '雷雨';
 	@override String get version => 'アプリバージョン';
 	@override String get project => 'プロジェクト';
@@ -139,10 +138,8 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => '外観';
 	@override String get time_start => '開始時刻';
-	@override String get ready => '完了';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'キャッシュを削除しますか？';
-	@override String get support => '寄付';
 	@override String get groups => 'コミュニティ';
 	@override String get system => 'システム';
 	@override String get sunset => '日の入り';
@@ -436,7 +433,6 @@ extension on TranslationsJaJp {
 			'high' => '高',
 			'daily_variables' => '日別気象変数',
 			'low' => '低',
-			'on_inter' => '気象データを取得するにはインターネットをオンにしてください。',
 			'thunderstorm' => '雷雨',
 			'version' => 'アプリバージョン',
 			'project' => 'プロジェクト',
@@ -462,10 +458,8 @@ extension on TranslationsJaJp {
 			'h_pa' => 'hPa',
 			'appearance' => '外観',
 			'time_start' => '開始時刻',
-			'ready' => '完了',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'キャッシュを削除しますか？',
-			'support' => '寄付',
 			'groups' => 'コミュニティ',
 			'system' => 'システム',
 			'sunset' => '日の入り',

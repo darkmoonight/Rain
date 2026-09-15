@@ -16,22 +16,22 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsMlIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.mlIn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ml-IN>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsMlIn _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'ഉയർന്ന';
 	@override String get daily_variables => 'ദൈനംദിന കാലാവസ്ഥാ വേരിയബിളുകൾ';
 	@override String get low => 'കുറഞ്ഞ';
-	@override String get on_inter => 'കാലാവസ്ഥാ ഡാറ്റ ലഭിക്കാൻ ഇന്റർനെറ്റ് ഓൺ ചെയ്യുക.';
 	@override String get thunderstorm => 'ഇടിമിന്നൽ';
 	@override String get version => 'ആപ്ലിക്കേഷൻ പതിപ്പ്';
 	@override String get project => 'പ്രോജക്റ്റ് ഓൺ';
@@ -139,10 +138,8 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'ഹെക്ടോപാസ്കൽ';
 	@override String get appearance => 'രൂപം';
 	@override String get time_start => 'ആരംഭ സമയം';
-	@override String get ready => 'തയ്യാർ';
 	@override String get kph => 'കി.മീ/മണിക്കൂർ';
 	@override String get deleted_cache_store_query => 'നിങ്ങൾക്ക് ശരിക്കും കാഷെ മായ്ക്കണോ?';
-	@override String get support => 'സംഭാവന ചെയ്യുക';
 	@override String get groups => 'ഞങ്ങളുടെ ഗ്രൂപ്പുകൾ';
 	@override String get system => 'സിസ്റ്റം';
 	@override String get sunset => 'സൂര്യാസ്തമയം';
@@ -436,7 +433,6 @@ extension on TranslationsMlIn {
 			'high' => 'ഉയർന്ന',
 			'daily_variables' => 'ദൈനംദിന കാലാവസ്ഥാ വേരിയബിളുകൾ',
 			'low' => 'കുറഞ്ഞ',
-			'on_inter' => 'കാലാവസ്ഥാ ഡാറ്റ ലഭിക്കാൻ ഇന്റർനെറ്റ് ഓൺ ചെയ്യുക.',
 			'thunderstorm' => 'ഇടിമിന്നൽ',
 			'version' => 'ആപ്ലിക്കേഷൻ പതിപ്പ്',
 			'project' => 'പ്രോജക്റ്റ് ഓൺ',
@@ -462,10 +458,8 @@ extension on TranslationsMlIn {
 			'h_pa' => 'ഹെക്ടോപാസ്കൽ',
 			'appearance' => 'രൂപം',
 			'time_start' => 'ആരംഭ സമയം',
-			'ready' => 'തയ്യാർ',
 			'kph' => 'കി.മീ/മണിക്കൂർ',
 			'deleted_cache_store_query' => 'നിങ്ങൾക്ക് ശരിക്കും കാഷെ മായ്ക്കണോ?',
-			'support' => 'സംഭാവന ചെയ്യുക',
 			'groups' => 'ഞങ്ങളുടെ ഗ്രൂപ്പുകൾ',
 			'system' => 'സിസ്റ്റം',
 			'sunset' => 'സൂര്യാസ്തമയം',

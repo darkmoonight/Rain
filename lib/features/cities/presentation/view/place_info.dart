@@ -174,7 +174,12 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   @override
   Widget build(BuildContext context) {
     final cities = ref.watch(citiesNotifierProvider);
-    ref.watch(mainWeatherNotifierProvider);
+    // Rebuild when main cache identity changes (used by _resolveCard fallback).
+    ref.watch(
+      mainWeatherNotifierProvider.select(
+        (s) => (s.isLoading, s.location.lat, s.location.lon, s.hourOfDay),
+      ),
+    );
     final card = _resolveCard(cities);
 
     // Missing id: spinner while loading, load error on failure, not-found otherwise.

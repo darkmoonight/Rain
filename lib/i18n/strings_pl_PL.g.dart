@@ -16,22 +16,22 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsPlPl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.plPl,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <pl-PL>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsPlPl _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Wysoki';
 	@override String get daily_variables => 'Dzienne zmienne pogodowe';
 	@override String get low => 'Niski';
-	@override String get on_inter => 'Włącz Internet, aby uzyskać dane meteorologiczne.';
 	@override String get thunderstorm => 'Burza z piorunami';
 	@override String get version => 'Wersja aplikacji';
 	@override String get project => 'Projekt na';
@@ -139,10 +138,8 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Wygląd';
 	@override String get time_start => 'Czas rozpoczęcia';
-	@override String get ready => 'Gotowe';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Czy na pewno chcesz wyczyścić pamięć podręczną?';
-	@override String get support => 'Wsparcie';
 	@override String get groups => 'Nasze grupy';
 	@override String get system => 'Systemowy';
 	@override String get sunset => 'Zachód słońca';
@@ -436,7 +433,6 @@ extension on TranslationsPlPl {
 			'high' => 'Wysoki',
 			'daily_variables' => 'Dzienne zmienne pogodowe',
 			'low' => 'Niski',
-			'on_inter' => 'Włącz Internet, aby uzyskać dane meteorologiczne.',
 			'thunderstorm' => 'Burza z piorunami',
 			'version' => 'Wersja aplikacji',
 			'project' => 'Projekt na',
@@ -462,10 +458,8 @@ extension on TranslationsPlPl {
 			'h_pa' => 'hPa',
 			'appearance' => 'Wygląd',
 			'time_start' => 'Czas rozpoczęcia',
-			'ready' => 'Gotowe',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Czy na pewno chcesz wyczyścić pamięć podręczną?',
-			'support' => 'Wsparcie',
 			'groups' => 'Nasze grupy',
 			'system' => 'Systemowy',
 			'sunset' => 'Zachód słońca',

@@ -16,22 +16,22 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsItIt({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.itIt,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <it-IT>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsItIt _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Alto';
 	@override String get daily_variables => 'Variabili meteorologiche giornaliere';
 	@override String get low => 'Basso';
-	@override String get on_inter => 'Attiva la connessione Internet per avere dati meteorologici.';
 	@override String get thunderstorm => 'Temporale';
 	@override String get version => 'Versione dell\'applicazione';
 	@override String get project => 'Progetto su';
@@ -139,10 +138,8 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Aspetto';
 	@override String get time_start => 'Ora di inizio';
-	@override String get ready => 'Pronto';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Sei sicuro di voler cancellare la cache?';
-	@override String get support => 'Supporto';
 	@override String get groups => 'I nostri gruppi';
 	@override String get system => 'Sistema';
 	@override String get sunset => 'Tramonto';
@@ -436,7 +433,6 @@ extension on TranslationsItIt {
 			'high' => 'Alto',
 			'daily_variables' => 'Variabili meteorologiche giornaliere',
 			'low' => 'Basso',
-			'on_inter' => 'Attiva la connessione Internet per avere dati meteorologici.',
 			'thunderstorm' => 'Temporale',
 			'version' => 'Versione dell\'applicazione',
 			'project' => 'Progetto su',
@@ -462,10 +458,8 @@ extension on TranslationsItIt {
 			'h_pa' => 'hPa',
 			'appearance' => 'Aspetto',
 			'time_start' => 'Ora di inizio',
-			'ready' => 'Pronto',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Sei sicuro di voler cancellare la cache?',
-			'support' => 'Supporto',
 			'groups' => 'I nostri gruppi',
 			'system' => 'Sistema',
 			'sunset' => 'Tramonto',

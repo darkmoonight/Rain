@@ -36,7 +36,8 @@ class LocationService {
   /// Resolves coordinates and a human-readable city/district label.
   ///
   /// Platform reverse geocoding runs first; when it fails, [resolveLabels] (e.g.
-  /// Nominatim) is used. Returns `null` only when labels cannot be resolved.
+  /// Nominatim) is used. Falls back to a coordinate label when GPS succeeds but
+  /// labels cannot be resolved, so callers keep a usable place.
   Future<({double lat, double lon, String city, String district})?>
   getCurrentPlace({
     Future<({String city, String district})?> Function(double lat, double lon)?
@@ -72,11 +73,19 @@ class LocationService {
           );
         }
       } catch (_) {
-        // Ignore fallback failures; caller handles unresolved place below.
+        // Ignore fallback failures; use coordinate label below.
       }
     }
 
-    return null;
+    final coordinateLabel =
+        '${position.latitude.toStringAsFixed(3)}, '
+        '${position.longitude.toStringAsFixed(3)}';
+    return (
+      lat: position.latitude,
+      lon: position.longitude,
+      city: coordinateLabel,
+      district: '',
+    );
   }
 
   /// Builds a place record from GPS coordinates and geocoding results.

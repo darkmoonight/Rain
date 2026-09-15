@@ -16,22 +16,22 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsKaGe({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.kaGe,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ka-GE>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsKaGe _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'მაღალი';
 	@override String get daily_variables => 'ყოველდღიური ამინდის ცვლადები';
 	@override String get low => 'დაბალი';
-	@override String get on_inter => 'ჩართეთ ინტერნეტი მეტეოროლოგიური მონაცემების მისაღებად.';
 	@override String get thunderstorm => 'ჭექა-ქუხილი';
 	@override String get version => 'განაცხადის ვერსია';
 	@override String get project => 'პროექტი ჩართულია';
@@ -139,10 +138,8 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'ჰპა';
 	@override String get appearance => 'გარეგნობა';
 	@override String get time_start => 'დაწყების დრო';
-	@override String get ready => 'მზადაა';
 	@override String get kph => 'კმ/სთ';
 	@override String get deleted_cache_store_query => 'დარწმუნებული ხართ, რომ გსურთ ქეშის გასუფთავება?';
-	@override String get support => 'მხარდაჭერა';
 	@override String get groups => 'ჩვენი ჯგუფები';
 	@override String get system => 'სისტემა';
 	@override String get sunset => 'მზის ჩასვლა';
@@ -436,7 +433,6 @@ extension on TranslationsKaGe {
 			'high' => 'მაღალი',
 			'daily_variables' => 'ყოველდღიური ამინდის ცვლადები',
 			'low' => 'დაბალი',
-			'on_inter' => 'ჩართეთ ინტერნეტი მეტეოროლოგიური მონაცემების მისაღებად.',
 			'thunderstorm' => 'ჭექა-ქუხილი',
 			'version' => 'განაცხადის ვერსია',
 			'project' => 'პროექტი ჩართულია',
@@ -462,10 +458,8 @@ extension on TranslationsKaGe {
 			'h_pa' => 'ჰპა',
 			'appearance' => 'გარეგნობა',
 			'time_start' => 'დაწყების დრო',
-			'ready' => 'მზადაა',
 			'kph' => 'კმ/სთ',
 			'deleted_cache_store_query' => 'დარწმუნებული ხართ, რომ გსურთ ქეშის გასუფთავება?',
-			'support' => 'მხარდაჭერა',
 			'groups' => 'ჩვენი ჯგუფები',
 			'system' => 'სისტემა',
 			'sunset' => 'მზის ჩასვლა',

@@ -30,4 +30,14 @@ void main() {
     await queue.enqueue(() async => order.add(1));
     expect(order, [1]);
   });
+
+  test('cancel skips subsequent enqueue work', () async {
+    final queue = AsyncQueue();
+    queue.cancel();
+
+    await expectLater(
+      queue.enqueue(() async => 1),
+      throwsA(isA<AsyncQueueCancelled>()),
+    );
+  });
 }

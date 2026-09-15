@@ -16,22 +16,22 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsGaIe({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.gaIe,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ga-IE>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsGaIe _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Ard';
 	@override String get daily_variables => 'Athrógacha aimsire laethúla';
 	@override String get low => 'Íseal';
-	@override String get on_inter => 'Cuir ar Idirlíon chun sonraí aeráide a fháil.';
 	@override String get thunderstorm => 'Tornaí';
 	@override String get version => 'Leagan Feidhmchláir';
 	@override String get project => 'Tionscadal ar siúl';
@@ -139,10 +138,8 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Amharc';
 	@override String get time_start => 'Tús Am';
-	@override String get ready => 'Réidh';
 	@override String get kph => 'km/u';
 	@override String get deleted_cache_store_query => 'An bhfuil tú cinnte gur mian leat an taisce a ghlanadh?';
-	@override String get support => 'Tacaíocht';
 	@override String get groups => 'Ár ngrúpaí';
 	@override String get system => 'Córas';
 	@override String get sunset => 'Dul faoi na Gréine';
@@ -436,7 +433,6 @@ extension on TranslationsGaIe {
 			'high' => 'Ard',
 			'daily_variables' => 'Athrógacha aimsire laethúla',
 			'low' => 'Íseal',
-			'on_inter' => 'Cuir ar Idirlíon chun sonraí aeráide a fháil.',
 			'thunderstorm' => 'Tornaí',
 			'version' => 'Leagan Feidhmchláir',
 			'project' => 'Tionscadal ar siúl',
@@ -462,10 +458,8 @@ extension on TranslationsGaIe {
 			'h_pa' => 'hPa',
 			'appearance' => 'Amharc',
 			'time_start' => 'Tús Am',
-			'ready' => 'Réidh',
 			'kph' => 'km/u',
 			'deleted_cache_store_query' => 'An bhfuil tú cinnte gur mian leat an taisce a ghlanadh?',
-			'support' => 'Tacaíocht',
 			'groups' => 'Ár ngrúpaí',
 			'system' => 'Córas',
 			'sunset' => 'Dul faoi na Gréine',

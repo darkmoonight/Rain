@@ -16,22 +16,22 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsTaIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.taIn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ta-IN>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsTaIn _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'அதிகம்';
 	@override String get daily_variables => 'தினசரி வானிலை மாறிகள்';
 	@override String get low => 'குறைவு';
-	@override String get on_inter => 'வானிலை தரவைப் பெற இணையத்தை இயக்கவும்.';
 	@override String get thunderstorm => 'இடியுடன் கூடிய மழை';
 	@override String get version => 'பயன்பாட்டு பதிப்பு';
 	@override String get project => 'திட்டம் இயங்குகிறது';
@@ -139,10 +138,8 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'ஹெக்டோபாஸ்கல்';
 	@override String get appearance => 'தோற்றம்';
 	@override String get time_start => 'தொடக்க நேரம்';
-	@override String get ready => 'தயார்';
 	@override String get kph => 'கி.மீ/மணி';
 	@override String get deleted_cache_store_query => 'நீங்கள் உண்மையில் கேச்சை அழிக்க விரும்புகிறீர்களா?';
-	@override String get support => 'நன்கொடை';
 	@override String get groups => 'எங்கள் குழுக்கள்';
 	@override String get system => 'அமைப்பு';
 	@override String get sunset => 'சூரிய அஸ்தமனம்';
@@ -436,7 +433,6 @@ extension on TranslationsTaIn {
 			'high' => 'அதிகம்',
 			'daily_variables' => 'தினசரி வானிலை மாறிகள்',
 			'low' => 'குறைவு',
-			'on_inter' => 'வானிலை தரவைப் பெற இணையத்தை இயக்கவும்.',
 			'thunderstorm' => 'இடியுடன் கூடிய மழை',
 			'version' => 'பயன்பாட்டு பதிப்பு',
 			'project' => 'திட்டம் இயங்குகிறது',
@@ -462,10 +458,8 @@ extension on TranslationsTaIn {
 			'h_pa' => 'ஹெக்டோபாஸ்கல்',
 			'appearance' => 'தோற்றம்',
 			'time_start' => 'தொடக்க நேரம்',
-			'ready' => 'தயார்',
 			'kph' => 'கி.மீ/மணி',
 			'deleted_cache_store_query' => 'நீங்கள் உண்மையில் கேச்சை அழிக்க விரும்புகிறீர்களா?',
-			'support' => 'நன்கொடை',
 			'groups' => 'எங்கள் குழுக்கள்',
 			'system' => 'அமைப்பு',
 			'sunset' => 'சூரிய அஸ்தமனம்',

@@ -16,22 +16,22 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsSkSk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.skSk,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <sk-SK>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsSkSk _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Vysoký';
 	@override String get daily_variables => 'Denné meteorologické premenné';
 	@override String get low => 'Nízky';
-	@override String get on_inter => 'Pripojte sa na internet a získajte meteorologické údaje.';
 	@override String get thunderstorm => 'Búrka';
 	@override String get version => 'Verzia aplikácie';
 	@override String get project => 'Projekt na';
@@ -139,10 +138,8 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Vzhľad';
 	@override String get time_start => 'Čas začiatku';
-	@override String get ready => 'Pripravené';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Ste si istí, že chcete vymazať vyrovnávaciu pamäť?';
-	@override String get support => 'Podpora';
 	@override String get groups => 'Naše skupiny';
 	@override String get system => 'Systém';
 	@override String get sunset => 'Západ slnka';
@@ -436,7 +433,6 @@ extension on TranslationsSkSk {
 			'high' => 'Vysoký',
 			'daily_variables' => 'Denné meteorologické premenné',
 			'low' => 'Nízky',
-			'on_inter' => 'Pripojte sa na internet a získajte meteorologické údaje.',
 			'thunderstorm' => 'Búrka',
 			'version' => 'Verzia aplikácie',
 			'project' => 'Projekt na',
@@ -462,10 +458,8 @@ extension on TranslationsSkSk {
 			'h_pa' => 'hPa',
 			'appearance' => 'Vzhľad',
 			'time_start' => 'Čas začiatku',
-			'ready' => 'Pripravené',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Ste si istí, že chcete vymazať vyrovnávaciu pamäť?',
-			'support' => 'Podpora',
 			'groups' => 'Naše skupiny',
 			'system' => 'Systém',
 			'sunset' => 'Západ slnka',

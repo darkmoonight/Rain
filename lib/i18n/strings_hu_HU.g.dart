@@ -16,22 +16,22 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsHuHu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.huHu,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <hu-HU>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsHuHu _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Magas';
 	@override String get daily_variables => 'Napi időjárási változók';
 	@override String get low => 'Alacsony';
-	@override String get on_inter => 'Kapcsolja be az internetet az időjárási adatok lekéréséhez.';
 	@override String get thunderstorm => 'Zivatar';
 	@override String get version => 'Alkalmazás verzió';
 	@override String get project => 'Projekt';
@@ -139,10 +138,8 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Megjelenés';
 	@override String get time_start => 'Kezdési idő';
-	@override String get ready => 'Kész';
 	@override String get kph => 'km/óra';
 	@override String get deleted_cache_store_query => 'Biztosan törölni szeretné a gyorsítótárat?';
-	@override String get support => 'Támogatás';
 	@override String get groups => 'Csoportjaink';
 	@override String get system => 'Rendszer';
 	@override String get sunset => 'Napnyugta';
@@ -436,7 +433,6 @@ extension on TranslationsHuHu {
 			'high' => 'Magas',
 			'daily_variables' => 'Napi időjárási változók',
 			'low' => 'Alacsony',
-			'on_inter' => 'Kapcsolja be az internetet az időjárási adatok lekéréséhez.',
 			'thunderstorm' => 'Zivatar',
 			'version' => 'Alkalmazás verzió',
 			'project' => 'Projekt',
@@ -462,10 +458,8 @@ extension on TranslationsHuHu {
 			'h_pa' => 'hPa',
 			'appearance' => 'Megjelenés',
 			'time_start' => 'Kezdési idő',
-			'ready' => 'Kész',
 			'kph' => 'km/óra',
 			'deleted_cache_store_query' => 'Biztosan törölni szeretné a gyorsítótárat?',
-			'support' => 'Támogatás',
 			'groups' => 'Csoportjaink',
 			'system' => 'Rendszer',
 			'sunset' => 'Napnyugta',

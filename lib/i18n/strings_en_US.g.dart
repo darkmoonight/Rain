@@ -20,20 +20,21 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.enUs,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <en-US>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
+	dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
@@ -263,9 +264,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Low'
 	String get low => 'Low';
 
-	/// en-US: 'Turn on the Internet to get meteorological data.'
-	String get on_inter => 'Turn on the Internet to get meteorological data.';
-
 	/// en-US: 'Thunderstorm'
 	String get thunderstorm => 'Thunderstorm';
 
@@ -341,17 +339,11 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Start time'
 	String get time_start => 'Start time';
 
-	/// en-US: 'Ready'
-	String get ready => 'Ready';
-
 	/// en-US: 'km/h'
 	String get kph => 'km/h';
 
 	/// en-US: 'Are you sure you want to clear the cache?'
 	String get deleted_cache_store_query => 'Are you sure you want to clear the cache?';
-
-	/// en-US: 'Donate'
-	String get support => 'Donate';
 
 	/// en-US: 'Our groups'
 	String get groups => 'Our groups';
@@ -1063,7 +1055,6 @@ extension on Translations {
 			'high' => 'High',
 			'daily_variables' => 'Daily weather variables',
 			'low' => 'Low',
-			'on_inter' => 'Turn on the Internet to get meteorological data.',
 			'thunderstorm' => 'Thunderstorm',
 			'version' => 'Application version',
 			'project' => 'Project on',
@@ -1089,10 +1080,8 @@ extension on Translations {
 			'h_pa' => 'hPa',
 			'appearance' => 'Appearance',
 			'time_start' => 'Start time',
-			'ready' => 'Ready',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Are you sure you want to clear the cache?',
-			'support' => 'Donate',
 			'groups' => 'Our groups',
 			'system' => 'System',
 			'sunset' => 'Sunset',

@@ -60,8 +60,8 @@ void main() {
       final oldCard = WeatherCard(city: 'Old')..temperature2M = [1.0];
       final updated = WeatherMapper.toWeatherCard(
         _sampleApi(),
-        1,
-        2,
+        55.75,
+        37.62,
         'New',
         'District',
       );

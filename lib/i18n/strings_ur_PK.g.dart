@@ -16,22 +16,22 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsUrPk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.urPk,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ur-PK>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsUrPk _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'زیادہ';
 	@override String get daily_variables => 'روزانہ کے موسمی متغیرات';
 	@override String get low => 'کم';
-	@override String get on_inter => 'موسمی معلومات حاصل کرنے کے لئے انٹرنیٹ کو چالنے دیں۔';
 	@override String get thunderstorm => 'طوفانی بارش';
 	@override String get version => 'ایپ کی ورژن';
 	@override String get project => 'پروجیکٹ';
@@ -139,10 +138,8 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'ہیکٹو پاسکل';
 	@override String get appearance => 'ظاہریت';
 	@override String get time_start => 'شروع کا وقت';
-	@override String get ready => 'تیار';
 	@override String get kph => 'کلومیٹر فی گھنٹہ';
 	@override String get deleted_cache_store_query => 'کیا آپ واقعی کیچ صاف کرنا چاہتے ہیں؟';
-	@override String get support => 'حمایت';
 	@override String get groups => 'ہماری گروپس';
 	@override String get system => 'سسٹم';
 	@override String get sunset => 'غروب آفتاب';
@@ -436,7 +433,6 @@ extension on TranslationsUrPk {
 			'high' => 'زیادہ',
 			'daily_variables' => 'روزانہ کے موسمی متغیرات',
 			'low' => 'کم',
-			'on_inter' => 'موسمی معلومات حاصل کرنے کے لئے انٹرنیٹ کو چالنے دیں۔',
 			'thunderstorm' => 'طوفانی بارش',
 			'version' => 'ایپ کی ورژن',
 			'project' => 'پروجیکٹ',
@@ -462,10 +458,8 @@ extension on TranslationsUrPk {
 			'h_pa' => 'ہیکٹو پاسکل',
 			'appearance' => 'ظاہریت',
 			'time_start' => 'شروع کا وقت',
-			'ready' => 'تیار',
 			'kph' => 'کلومیٹر فی گھنٹہ',
 			'deleted_cache_store_query' => 'کیا آپ واقعی کیچ صاف کرنا چاہتے ہیں؟',
-			'support' => 'حمایت',
 			'groups' => 'ہماری گروپس',
 			'system' => 'سسٹم',
 			'sunset' => 'غروب آفتاب',

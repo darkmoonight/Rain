@@ -63,6 +63,8 @@ class WeatherRemoteDatasource {
       final cache = WeatherMapper.toMainWeatherCache(
         weatherData,
         clockSkewSeconds: skew,
+        lat: lat,
+        lon: lon,
       );
       if (!WeatherCacheValidator.hasMainDisplayData(cache)) {
         throw const FormatException('Incomplete weather API response');

@@ -7,6 +7,7 @@ import 'package:rain/core/services/network_cache_handler.dart';
 import 'package:rain/core/utils/async_queue.dart';
 import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/utils/parallel_runner.dart';
+import 'package:rain/core/weather/location_timezone_helper.dart';
 import 'package:rain/features/cities/domain/cities_load_resolver.dart';
 import 'package:rain/features/cities/domain/weather_card_validator.dart';
 import 'package:rain/i18n/tr.dart';
@@ -71,6 +72,21 @@ class CitiesNotifier extends Notifier<CitiesState> {
   bool get _hasDisplayableCards =>
       WeatherCardValidator.filterComplete(state.cards).isNotEmpty;
 
+  /// Updates [state] only while this notifier is still mounted.
+  void _setState(CitiesState next) {
+    if (!ref.mounted) return;
+    state = next;
+  }
+
+  /// Runs [action] on the queue; ignores [AsyncQueueCancelled] after dispose.
+  Future<void> _enqueue(Future<void> Function() action) async {
+    try {
+      await _queue.enqueue(action);
+    } on AsyncQueueCancelled {
+      // Provider disposed; skip.
+    }
+  }
+
   /// Loads cache when the list has nothing renderable yet (stale-while-revalidate).
   Future<void> _ensureDisplayableCardsLoaded() async {
     if (!_hasDisplayableCards) {
@@ -81,29 +97,36 @@ class CitiesNotifier extends Notifier<CitiesState> {
   /// Initializes loading state and schedules a cache read before [HomeScreen] refresh.
   @override
   CitiesState build() {
+    ref.onDispose(_queue.cancel);
     Future.microtask(loadFromCache);
     return const CitiesState(isLoading: true);
   }
 
   /// Loads saved cards from local storage into [state].
-  Future<void> loadFromCache() => _queue.enqueue(_loadImpl);
+  Future<void> loadFromCache() => _enqueue(_loadImpl);
 
   /// Reads cards from the database; DB errors set [loadError] only when cards remain in state.
   Future<void> _loadImpl() async {
+    if (!ref.mounted || _queue.isCancelled) return;
     try {
-      final result = CitiesLoadResolver.resolve(
-        fromDb: await _repo.getAllSorted(),
-      );
-      state = state.copyWith(
-        cards: result.cards,
-        isLoading: false,
-        loadError: false,
+      final fromDb = await _repo.getAllSorted();
+      if (!ref.mounted || _queue.isCancelled) return;
+
+      for (final card in fromDb) {
+        if (LocationTimezoneHelper.repairCardTimezone(card)) {
+          await _repo.updateCard(card);
+          if (!ref.mounted || _queue.isCancelled) return;
+        }
+      }
+
+      final result = CitiesLoadResolver.resolve(fromDb: fromDb);
+      _setState(
+        state.copyWith(cards: result.cards, isLoading: false, loadError: false),
       );
     } catch (error, stackTrace) {
       debugLogError('CitiesNotifier._loadImpl', error, stackTrace);
-      state = state.copyWith(
-        isLoading: false,
-        loadError: state.cards.isNotEmpty,
+      _setState(
+        state.copyWith(isLoading: false, loadError: state.cards.isNotEmpty),
       );
     }
   }
@@ -111,6 +134,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
   /// Returns false and shows a snackbar when the device is offline.
   Future<bool> _requireInternet() async {
     if (await ConnectivityService.hasInternet()) return true;
+    if (!ref.mounted) return false;
     showSnackBar('no_inter'.tr);
     return false;
   }
@@ -121,12 +145,14 @@ class CitiesNotifier extends Notifier<CitiesState> {
     Future<void> Function() action,
   ) async {
     if (!await _requireInternet()) return;
+    if (!ref.mounted || _queue.isCancelled) return;
     try {
       await action();
+      if (!ref.mounted || _queue.isCancelled) return;
       await _loadImpl();
     } catch (error, stackTrace) {
       debugLogError('CitiesNotifier.$context', error, stackTrace);
-      showSnackBar('error_occurred'.tr, isError: true);
+      if (ref.mounted) showSnackBar('error_occurred'.tr, isError: true);
     }
   }
 
@@ -151,6 +177,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
     }
 
     final updated = await _repo.fetchCard(lat, lon, cityName, districtName);
+    if (!ref.mounted || _queue.isCancelled) return;
 
     if (latitude != null && longitude != null) {
       target
@@ -159,37 +186,41 @@ class CitiesNotifier extends Notifier<CitiesState> {
         ..city = city
         ..district = district;
     }
+    LocationTimezoneHelper.repairCardTimezone(updated);
 
     await _repo.applyRemoteUpdate(target, updated);
+    if (!ref.mounted || _queue.isCancelled) return;
     await persistClockSkew(ref, updated.clockSkewSeconds ?? 0);
   }
 
   /// Queues a network refresh for expired cards, or all cards when [all] is true.
   Future<void> refresh({bool all = true}) =>
-      _queue.enqueue(() => _refreshImpl(all: all));
+      _enqueue(() => _refreshImpl(all: all));
 
   /// Refreshes only expired cards when the 12h cache window has passed.
   ///
   /// Used on app start and resume so saved cities keep showing cached forecasts
   /// while a background refresh runs (or times out).
-  Future<void> refreshIfStale() => _queue.enqueue(_refreshIfStaleImpl);
+  Future<void> refreshIfStale() => _enqueue(_refreshIfStaleImpl);
 
   Future<void> _refreshIfStaleImpl() async {
     await _ensureDisplayableCardsLoaded();
+    if (!ref.mounted || _queue.isCancelled) return;
 
     final toUpdate = WeatherCardValidator.filterComplete(
       await _repo.getExpiredSorted(_cacheExpiryThreshold),
     );
+    if (!ref.mounted || _queue.isCancelled) return;
     if (toUpdate.isEmpty) return;
 
-    state = state.copyWith(isRefreshing: true, loadError: false);
+    _setState(state.copyWith(isRefreshing: true, loadError: false));
     try {
       await NetworkCacheHandler.fetchOrKeepCache(
         onNetworkFetch: () => _fetchRemoteUpdates(all: false),
         onUseCache: _loadImpl,
       );
     } finally {
-      state = state.copyWith(isRefreshing: false);
+      _setState(state.copyWith(isRefreshing: false));
     }
   }
 
@@ -198,18 +229,21 @@ class CitiesNotifier extends Notifier<CitiesState> {
     // Stale-while-revalidate: keep showing cached cards while the 12h refresh
     // runs (or times out) instead of the full-list shimmer.
     await _ensureDisplayableCardsLoaded();
+    if (!ref.mounted || _queue.isCancelled) return;
 
-    state = state.copyWith(isRefreshing: true, loadError: false);
+    _setState(state.copyWith(isRefreshing: true, loadError: false));
     try {
       await NetworkCacheHandler.fetchOrKeepCache(
         onNetworkFetch: () => _fetchRemoteUpdates(all: all),
         onUseCache: _loadImpl,
         onError: () {
-          if (all) showSnackBar('error_occurred'.tr, isError: true);
+          if (all && ref.mounted) {
+            showSnackBar('error_occurred'.tr, isError: true);
+          }
         },
       );
     } finally {
-      state = state.copyWith(isRefreshing: false);
+      _setState(state.copyWith(isRefreshing: false));
     }
   }
 
@@ -220,6 +254,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
           ? await _repo.getAllSorted()
           : await _repo.getExpiredSorted(_cacheExpiryThreshold),
     );
+    if (!ref.mounted || _queue.isCancelled) return;
 
     if (toUpdate.isEmpty) {
       await _loadImpl();
@@ -231,10 +266,11 @@ class CitiesNotifier extends Notifier<CitiesState> {
       concurrency: _refreshConcurrency,
       run: (oldCard) => _updateSingleCard(oldCard),
     );
+    if (!ref.mounted || _queue.isCancelled) return;
 
     await _loadImpl();
 
-    if (results.contains(false) && all) {
+    if (results.contains(false) && all && ref.mounted) {
       showSnackBar('error_occurred'.tr, isError: true);
     }
   }
@@ -256,10 +292,13 @@ class CitiesNotifier extends Notifier<CitiesState> {
     double longitude,
     String city,
     String district,
-  ) => _queue.enqueue(
+  ) => _enqueue(
     () => _runOnlineAction('addCard', () async {
       final card = await _repo.fetchCard(latitude, longitude, city, district);
+      if (!ref.mounted || _queue.isCancelled) return;
+      LocationTimezoneHelper.repairCardTimezone(card);
       await _repo.addCard(card);
+      if (!ref.mounted || _queue.isCancelled) return;
       await persistClockSkew(ref, card.clockSkewSeconds ?? 0);
     }),
   );
@@ -271,7 +310,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
     double longitude,
     String city,
     String district,
-  ) => _queue.enqueue(
+  ) => _enqueue(
     () => _runOnlineAction(
       'updateCardLocation',
       () => _fetchAndApplyRemote(
@@ -285,32 +324,37 @@ class CitiesNotifier extends Notifier<CitiesState> {
   );
 
   /// Re-fetches and persists fresh forecast data for an existing card.
-  Future<void> updateCard(WeatherCard card) => _queue.enqueue(
+  Future<void> updateCard(WeatherCard card) => _enqueue(
     () => _runOnlineAction('updateCard', () => _fetchAndApplyRemote(card)),
   );
 
   /// Removes [card] from storage and reloads the list.
-  Future<void> deleteCard(WeatherCard card) {
+  ///
+  /// Optimistic UI update runs inside the queue so concurrent loads cannot
+  /// restore the card before the delete is applied.
+  Future<void> deleteCard(WeatherCard card) => _enqueue(() async {
     final previousCards = state.cards;
-    state = state.copyWith(
-      cards: state.cards.where((c) => c.id != card.id).toList(),
-      loadError: false,
+    _setState(
+      state.copyWith(
+        cards: state.cards.where((c) => c.id != card.id).toList(),
+        loadError: false,
+      ),
     );
-    return _queue.enqueue(() async {
-      try {
-        await _repo.deleteCard(card);
-        await _loadImpl();
-      } catch (error, stackTrace) {
-        debugLogError('CitiesNotifier.deleteCard', error, stackTrace);
-        state = state.copyWith(cards: previousCards, loadError: false);
-        rethrow;
-      }
-    });
-  }
+    try {
+      await _repo.deleteCard(card);
+      if (!ref.mounted || _queue.isCancelled) return;
+      await _loadImpl();
+    } catch (error, stackTrace) {
+      debugLogError('CitiesNotifier.deleteCard', error, stackTrace);
+      _setState(state.copyWith(cards: previousCards, loadError: false));
+      rethrow;
+    }
+  });
 
   /// Persists a new card order after drag-and-drop reordering.
-  Future<void> reorder(int oldIndex, int newIndex) => _queue.enqueue(() async {
+  Future<void> reorder(int oldIndex, int newIndex) => _enqueue(() async {
     await _repo.reorder(oldIndex, newIndex);
+    if (!ref.mounted || _queue.isCancelled) return;
     await _loadImpl();
   });
 }

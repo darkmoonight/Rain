@@ -16,22 +16,22 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsRuRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ruRu,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ru-RU>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsRuRu _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Высокое';
 	@override String get daily_variables => 'Ежедневные погодные условия';
 	@override String get low => 'Низкое';
-	@override String get on_inter => 'Включите интернет для получения метеорологических данных.';
 	@override String get thunderstorm => 'Гроза';
 	@override String get version => 'Версия приложения';
 	@override String get project => 'Проект на';
@@ -139,10 +138,8 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'гПа';
 	@override String get appearance => 'Внешний вид';
 	@override String get time_start => 'Время начала';
-	@override String get ready => 'Готово';
 	@override String get kph => 'км/ч';
 	@override String get deleted_cache_store_query => 'Вы уверены, что хотите очистить кэш?';
-	@override String get support => 'Поддержка';
 	@override String get groups => 'Наши группы';
 	@override String get system => 'Системная';
 	@override String get sunset => 'Закат';
@@ -436,7 +433,6 @@ extension on TranslationsRuRu {
 			'high' => 'Высокое',
 			'daily_variables' => 'Ежедневные погодные условия',
 			'low' => 'Низкое',
-			'on_inter' => 'Включите интернет для получения метеорологических данных.',
 			'thunderstorm' => 'Гроза',
 			'version' => 'Версия приложения',
 			'project' => 'Проект на',
@@ -462,10 +458,8 @@ extension on TranslationsRuRu {
 			'h_pa' => 'гПа',
 			'appearance' => 'Внешний вид',
 			'time_start' => 'Время начала',
-			'ready' => 'Готово',
 			'kph' => 'км/ч',
 			'deleted_cache_store_query' => 'Вы уверены, что хотите очистить кэш?',
-			'support' => 'Поддержка',
 			'groups' => 'Наши группы',
 			'system' => 'Системная',
 			'sunset' => 'Закат',

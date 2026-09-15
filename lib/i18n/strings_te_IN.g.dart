@@ -16,22 +16,22 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsTeIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.teIn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <te-IN>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsTeIn _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'ఎక్కువ';
 	@override String get daily_variables => 'రోజువారీ వాతావరణ వేరియబుల్స్';
 	@override String get low => 'తక్కువ';
-	@override String get on_inter => 'వాతావరణ డేటాను పొందడానికి ఇంటర్నెట్‌ను ఆన్ చేయండి.';
 	@override String get thunderstorm => 'ఉరుములతో కూడిన వర్షం';
 	@override String get version => 'అప్లికేషన్ వెర్షన్';
 	@override String get project => 'ప్రాజెక్ట్ ఆన్';
@@ -139,10 +138,8 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'హెక్టోపాస్కల్';
 	@override String get appearance => 'రూపం';
 	@override String get time_start => 'ప్రారంభ సమయం';
-	@override String get ready => 'సిద్ధం';
 	@override String get kph => 'కి.మీ/గం';
 	@override String get deleted_cache_store_query => 'మీరు నిజంగా కాష్‌ను క్లియర్ చేయాలనుకుంటున్నారా?';
-	@override String get support => 'దానం చేయండి';
 	@override String get groups => 'మా గ్రూపులు';
 	@override String get system => 'సిస్టమ్';
 	@override String get sunset => 'సూర్యాస్తమయం';
@@ -436,7 +433,6 @@ extension on TranslationsTeIn {
 			'high' => 'ఎక్కువ',
 			'daily_variables' => 'రోజువారీ వాతావరణ వేరియబుల్స్',
 			'low' => 'తక్కువ',
-			'on_inter' => 'వాతావరణ డేటాను పొందడానికి ఇంటర్నెట్‌ను ఆన్ చేయండి.',
 			'thunderstorm' => 'ఉరుములతో కూడిన వర్షం',
 			'version' => 'అప్లికేషన్ వెర్షన్',
 			'project' => 'ప్రాజెక్ట్ ఆన్',
@@ -462,10 +458,8 @@ extension on TranslationsTeIn {
 			'h_pa' => 'హెక్టోపాస్కల్',
 			'appearance' => 'రూపం',
 			'time_start' => 'ప్రారంభ సమయం',
-			'ready' => 'సిద్ధం',
 			'kph' => 'కి.మీ/గం',
 			'deleted_cache_store_query' => 'మీరు నిజంగా కాష్‌ను క్లియర్ చేయాలనుకుంటున్నారా?',
-			'support' => 'దానం చేయండి',
 			'groups' => 'మా గ్రూపులు',
 			'system' => 'సిస్టమ్',
 			'sunset' => 'సూర్యాస్తమయం',

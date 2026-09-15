@@ -16,22 +16,22 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsElGr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.elGr,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <el-GR>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsElGr _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Υψηλή';
 	@override String get daily_variables => 'Ημερήσιες μεταβλητές καιρού';
 	@override String get low => 'Χαμηλή';
-	@override String get on_inter => 'Ενεργοποιήστε το Internet για να λάβετε μετεωρολογικά δεδομένα.';
 	@override String get thunderstorm => 'Καταιγίδα';
 	@override String get version => 'Έκδοση εφαρμογής';
 	@override String get project => 'Έργο στο';
@@ -139,10 +138,8 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Εμφάνιση';
 	@override String get time_start => 'Ώρα εκκίνησης';
-	@override String get ready => 'Έτοιμο';
 	@override String get kph => 'χλμ/ω';
 	@override String get deleted_cache_store_query => 'Είστε σίγουροι ότι θέλετε να εκκαθαρίσετε την προσωρινή μνήμη;';
-	@override String get support => 'Δωρεά';
 	@override String get groups => 'Οι ομάδες μας';
 	@override String get system => 'Σύστημα';
 	@override String get sunset => 'Ηλιοβασίλεμα';
@@ -436,7 +433,6 @@ extension on TranslationsElGr {
 			'high' => 'Υψηλή',
 			'daily_variables' => 'Ημερήσιες μεταβλητές καιρού',
 			'low' => 'Χαμηλή',
-			'on_inter' => 'Ενεργοποιήστε το Internet για να λάβετε μετεωρολογικά δεδομένα.',
 			'thunderstorm' => 'Καταιγίδα',
 			'version' => 'Έκδοση εφαρμογής',
 			'project' => 'Έργο στο',
@@ -462,10 +458,8 @@ extension on TranslationsElGr {
 			'h_pa' => 'hPa',
 			'appearance' => 'Εμφάνιση',
 			'time_start' => 'Ώρα εκκίνησης',
-			'ready' => 'Έτοιμο',
 			'kph' => 'χλμ/ω',
 			'deleted_cache_store_query' => 'Είστε σίγουροι ότι θέλετε να εκκαθαρίσετε την προσωρινή μνήμη;',
-			'support' => 'Δωρεά',
 			'groups' => 'Οι ομάδες μας',
 			'system' => 'Σύστημα',
 			'sunset' => 'Ηλιοβασίλεμα',

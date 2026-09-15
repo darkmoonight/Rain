@@ -16,22 +16,22 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFrFr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.frFr,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <fr-FR>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsFrFr _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Haut';
 	@override String get daily_variables => 'Variables météorologiques quotidiennes';
 	@override String get low => 'Bas';
-	@override String get on_inter => 'Connectez-vous à internet pour obtenir des données météorologiques.';
 	@override String get thunderstorm => 'Orage';
 	@override String get version => 'Version de l\'application';
 	@override String get project => 'Projet sur';
@@ -139,10 +138,8 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Apparence';
 	@override String get time_start => 'Heure de début';
-	@override String get ready => 'Prêt';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Êtes-vous sûr de vouloir effacer le cache?';
-	@override String get support => 'Support';
 	@override String get groups => 'Nos groupes';
 	@override String get system => 'Système';
 	@override String get sunset => 'Coucher du soleil';
@@ -436,7 +433,6 @@ extension on TranslationsFrFr {
 			'high' => 'Haut',
 			'daily_variables' => 'Variables météorologiques quotidiennes',
 			'low' => 'Bas',
-			'on_inter' => 'Connectez-vous à internet pour obtenir des données météorologiques.',
 			'thunderstorm' => 'Orage',
 			'version' => 'Version de l\'application',
 			'project' => 'Projet sur',
@@ -462,10 +458,8 @@ extension on TranslationsFrFr {
 			'h_pa' => 'hPa',
 			'appearance' => 'Apparence',
 			'time_start' => 'Heure de début',
-			'ready' => 'Prêt',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Êtes-vous sûr de vouloir effacer le cache?',
-			'support' => 'Support',
 			'groups' => 'Nos groupes',
 			'system' => 'Système',
 			'sunset' => 'Coucher du soleil',

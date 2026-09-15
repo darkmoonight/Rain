@@ -16,22 +16,22 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsHeIl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.heIl,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <he-IL>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsHeIl _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'גבוה';
 	@override String get daily_variables => 'משתני מזג אויר יומיים';
 	@override String get low => 'נמוך';
-	@override String get on_inter => 'הפעל את האינטרנט כדי לקבל נתוני מזג אויר.';
 	@override String get thunderstorm => 'סופת רעמים';
 	@override String get version => 'גרסת האפליקציה';
 	@override String get project => 'פרויקט ב';
@@ -139,10 +138,8 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'הקטופסקל';
 	@override String get appearance => 'מראה';
 	@override String get time_start => 'זמן התחלה';
-	@override String get ready => 'מוכן';
 	@override String get kph => 'קמ"ש';
 	@override String get deleted_cache_store_query => 'האם אתה בטוח שברצונך לנקות את המטמון?';
-	@override String get support => 'תרום';
 	@override String get groups => 'הקבוצות שלנו';
 	@override String get system => 'מערכת';
 	@override String get sunset => 'שקיעה';
@@ -436,7 +433,6 @@ extension on TranslationsHeIl {
 			'high' => 'גבוה',
 			'daily_variables' => 'משתני מזג אויר יומיים',
 			'low' => 'נמוך',
-			'on_inter' => 'הפעל את האינטרנט כדי לקבל נתוני מזג אויר.',
 			'thunderstorm' => 'סופת רעמים',
 			'version' => 'גרסת האפליקציה',
 			'project' => 'פרויקט ב',
@@ -462,10 +458,8 @@ extension on TranslationsHeIl {
 			'h_pa' => 'הקטופסקל',
 			'appearance' => 'מראה',
 			'time_start' => 'זמן התחלה',
-			'ready' => 'מוכן',
 			'kph' => 'קמ"ש',
 			'deleted_cache_store_query' => 'האם אתה בטוח שברצונך לנקות את המטמון?',
-			'support' => 'תרום',
 			'groups' => 'הקבוצות שלנו',
 			'system' => 'מערכת',
 			'sunset' => 'שקיעה',

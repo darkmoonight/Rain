@@ -16,22 +16,22 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsKoKr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.koKr,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ko-KR>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsKoKr _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => '높음';
 	@override String get daily_variables => '일별 날씨 변수';
 	@override String get low => '낮음';
-	@override String get on_inter => '현재 위치에 대한 정보를 얻기 위해서는 인터넷이 필요합니다.';
 	@override String get thunderstorm => '천둥번개';
 	@override String get version => '버전';
 	@override String get project => '프로젝트 위치:';
@@ -139,10 +138,8 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => '디자인';
 	@override String get time_start => '시작 시간';
-	@override String get ready => '준비됨';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => '캐시를 정말로 지우시겠습니까?';
-	@override String get support => '후원하기';
 	@override String get groups => '우리 그룹';
 	@override String get system => '시스템';
 	@override String get sunset => '일몰';
@@ -436,7 +433,6 @@ extension on TranslationsKoKr {
 			'high' => '높음',
 			'daily_variables' => '일별 날씨 변수',
 			'low' => '낮음',
-			'on_inter' => '현재 위치에 대한 정보를 얻기 위해서는 인터넷이 필요합니다.',
 			'thunderstorm' => '천둥번개',
 			'version' => '버전',
 			'project' => '프로젝트 위치:',
@@ -462,10 +458,8 @@ extension on TranslationsKoKr {
 			'h_pa' => 'hPa',
 			'appearance' => '디자인',
 			'time_start' => '시작 시간',
-			'ready' => '준비됨',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => '캐시를 정말로 지우시겠습니까?',
-			'support' => '후원하기',
 			'groups' => '우리 그룹',
 			'system' => '시스템',
 			'sunset' => '일몰',

@@ -16,22 +16,22 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsRoRo({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.roRo,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ro-RO>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsRoRo _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Ridicat';
 	@override String get daily_variables => 'Variabile meteorologice zilnice';
 	@override String get low => 'Scăzut';
-	@override String get on_inter => 'Pornește Internetul pentru a obține date meteorologice.';
 	@override String get thunderstorm => 'Furtună';
 	@override String get version => 'Versiunea aplicației';
 	@override String get project => 'Proiectul pe';
@@ -139,10 +138,8 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Aspect';
 	@override String get time_start => 'Ora de început';
-	@override String get ready => 'Gata';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Ești sigur că vrei să ștergi cache-ul?';
-	@override String get support => 'Suport';
 	@override String get groups => 'Grupurile noastre';
 	@override String get system => 'Sistem';
 	@override String get sunset => 'Apus';
@@ -436,7 +433,6 @@ extension on TranslationsRoRo {
 			'high' => 'Ridicat',
 			'daily_variables' => 'Variabile meteorologice zilnice',
 			'low' => 'Scăzut',
-			'on_inter' => 'Pornește Internetul pentru a obține date meteorologice.',
 			'thunderstorm' => 'Furtună',
 			'version' => 'Versiunea aplicației',
 			'project' => 'Proiectul pe',
@@ -462,10 +458,8 @@ extension on TranslationsRoRo {
 			'h_pa' => 'hPa',
 			'appearance' => 'Aspect',
 			'time_start' => 'Ora de început',
-			'ready' => 'Gata',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Ești sigur că vrei să ștergi cache-ul?',
-			'support' => 'Suport',
 			'groups' => 'Grupurile noastre',
 			'system' => 'Sistem',
 			'sunset' => 'Apus',

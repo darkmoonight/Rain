@@ -16,22 +16,22 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsDeDe({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.deDe,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <de-DE>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsDeDe _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'Hoch';
 	@override String get daily_variables => 'Tägliche Wettervariablen';
 	@override String get low => 'Niedrig';
-	@override String get on_inter => 'Schalte das Internet ein, um meteorologische Daten zu erhalten.';
 	@override String get thunderstorm => 'Gewitter';
 	@override String get version => 'Anwendungsversion';
 	@override String get project => 'Projekt auf';
@@ -139,10 +138,8 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'hPa';
 	@override String get appearance => 'Erscheinungsbild';
 	@override String get time_start => 'Startzeit';
-	@override String get ready => 'Fertig';
 	@override String get kph => 'km/h';
 	@override String get deleted_cache_store_query => 'Sind Sie sicher, dass Sie den Cache leeren möchten?';
-	@override String get support => 'Unterstützung';
 	@override String get groups => 'Unsere gruppen';
 	@override String get system => 'Systemmodus';
 	@override String get sunset => 'Sonnenuntergang';
@@ -436,7 +433,6 @@ extension on TranslationsDeDe {
 			'high' => 'Hoch',
 			'daily_variables' => 'Tägliche Wettervariablen',
 			'low' => 'Niedrig',
-			'on_inter' => 'Schalte das Internet ein, um meteorologische Daten zu erhalten.',
 			'thunderstorm' => 'Gewitter',
 			'version' => 'Anwendungsversion',
 			'project' => 'Projekt auf',
@@ -462,10 +458,8 @@ extension on TranslationsDeDe {
 			'h_pa' => 'hPa',
 			'appearance' => 'Erscheinungsbild',
 			'time_start' => 'Startzeit',
-			'ready' => 'Fertig',
 			'kph' => 'km/h',
 			'deleted_cache_store_query' => 'Sind Sie sicher, dass Sie den Cache leeren möchten?',
-			'support' => 'Unterstützung',
 			'groups' => 'Unsere gruppen',
 			'system' => 'Systemmodus',
 			'sunset' => 'Sonnenuntergang',

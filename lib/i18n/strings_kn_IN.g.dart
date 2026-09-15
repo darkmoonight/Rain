@@ -16,22 +16,22 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsKnIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.knIn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <kn-IN>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsKnIn _root = this; // ignore: unused_field
 
@@ -113,7 +113,6 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get high => 'ಹೆಚ್ಚು';
 	@override String get daily_variables => 'ದೈನಂದಿನ ಹವಾಮಾನ ಅಸ್ಥಿರಗಳು';
 	@override String get low => 'ಕಡಿಮೆ';
-	@override String get on_inter => 'ಹವಾಮಾನ ಡೇಟಾವನ್ನು ಪಡೆಯಲು ಇಂಟರ್ನೆಟ್ ಆನ್ ಮಾಡಿ.';
 	@override String get thunderstorm => 'ಗುಡುಗು ಸಹಿತ ಮಳೆ';
 	@override String get version => 'ಅಪ್ಲಿಕೇಶನ್ ಆವೃತ್ತಿ';
 	@override String get project => 'ಪ್ರಾಜೆಕ್ಟ್ ಆನ್';
@@ -139,10 +138,8 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get h_pa => 'ಹೆಕ್ಟೋಪಾಸ್ಕಲ್';
 	@override String get appearance => 'ನೋಟ';
 	@override String get time_start => 'ಪ್ರಾರಂಭ ಸಮಯ';
-	@override String get ready => 'ಸಿದ್ಧ';
 	@override String get kph => 'ಕಿ.ಮೀ/ಗಂ';
 	@override String get deleted_cache_store_query => 'ನೀವು ನಿಜವಾಗಿಯೂ ಕ್ಯಾಶ್ ತೆರವುಗೊಳಿಸಲು ಬಯಸುವಿರಾ?';
-	@override String get support => 'ದಾನ ಮಾಡಿ';
 	@override String get groups => 'ನಮ್ಮ ಗುಂಪುಗಳು';
 	@override String get system => 'ವ್ಯವಸ್ಥೆ';
 	@override String get sunset => 'ಸೂರ್ಯಾಸ್ತ';
@@ -436,7 +433,6 @@ extension on TranslationsKnIn {
 			'high' => 'ಹೆಚ್ಚು',
 			'daily_variables' => 'ದೈನಂದಿನ ಹವಾಮಾನ ಅಸ್ಥಿರಗಳು',
 			'low' => 'ಕಡಿಮೆ',
-			'on_inter' => 'ಹವಾಮಾನ ಡೇಟಾವನ್ನು ಪಡೆಯಲು ಇಂಟರ್ನೆಟ್ ಆನ್ ಮಾಡಿ.',
 			'thunderstorm' => 'ಗುಡುಗು ಸಹಿತ ಮಳೆ',
 			'version' => 'ಅಪ್ಲಿಕೇಶನ್ ಆವೃತ್ತಿ',
 			'project' => 'ಪ್ರಾಜೆಕ್ಟ್ ಆನ್',
@@ -462,10 +458,8 @@ extension on TranslationsKnIn {
 			'h_pa' => 'ಹೆಕ್ಟೋಪಾಸ್ಕಲ್',
 			'appearance' => 'ನೋಟ',
 			'time_start' => 'ಪ್ರಾರಂಭ ಸಮಯ',
-			'ready' => 'ಸಿದ್ಧ',
 			'kph' => 'ಕಿ.ಮೀ/ಗಂ',
 			'deleted_cache_store_query' => 'ನೀವು ನಿಜವಾಗಿಯೂ ಕ್ಯಾಶ್ ತೆರವುಗೊಳಿಸಲು ಬಯಸುವಿರಾ?',
-			'support' => 'ದಾನ ಮಾಡಿ',
 			'groups' => 'ನಮ್ಮ ಗುಂಪುಗಳು',
 			'system' => 'ವ್ಯವಸ್ಥೆ',
 			'sunset' => 'ಸೂರ್ಯಾಸ್ತ',
