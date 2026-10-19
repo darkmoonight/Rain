@@ -3,13 +3,14 @@ import '../../../helpers/isar_test_helper.dart';
 import '../../../helpers/test_bootstrap.dart';
 import '../../../helpers/throwing_cities_repository.dart';
 import '../../../helpers/widget_test_harness.dart';
+
 import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/data/repositories/cities_repository.dart';
 import 'package:rain/domain/entities/entities.dart';
-import 'package:rain/domain/repositories/cities_repository.dart';
 import 'package:rain/features/cities/application/cities_notifier.dart';
 
 void main() {
@@ -39,50 +40,47 @@ void main() {
       return container;
     }
 
-    test(
-      'refresh shows cached cards while stale network update runs',
-      () async {
-        final card = completeSavedPlace(
-          timestamp: DateTime.now().subtract(const Duration(hours: 24)),
-        );
-        await seedSavedPlace(ctx.isarContext.isar, card);
+    test('refresh shows cached cards while stale network update runs', () async {
+      final card = completeSavedPlace(
+        timestamp: DateTime.now().subtract(const Duration(hours: 24)),
+      );
+      await seedSavedPlace(ctx.isarContext.isar, card);
 
-        final gate = Completer<void>();
-        final delayedRepo = _DelayedCitiesRepository(
-          ctx.isarContext.isar,
-          createFakeWeatherRemoteDatasource(),
-          gate,
-        );
+      final gate = Completer<void>();
+      final delayedRepo = _DelayedCitiesRepository(
+        ctx.isarContext.isar,
+        createFakeWeatherRemoteDatasource(),
+        gate,
+      );
 
-        final container = createContainer(
-          overrides: [citiesRepositoryProvider.overrideWithValue(delayedRepo)],
-        );
+      final container = createContainer(
+        overrides: [citiesRepositoryProvider.overrideWithValue(delayedRepo)],
+      );
 
-        final refreshFuture = container
-            .read(citiesNotifierProvider.notifier)
-            .refreshIfStale();
+      final refreshFuture = container
+          .read(citiesNotifierProvider.notifier)
+          .refreshIfStale();
 
-        // Wait until cache is visible and the stale network refresh has started.
-        late CitiesState midState;
-        for (var i = 0; i < 50; i++) {
-          await Future<void>.delayed(Duration.zero);
-          midState = container.read(citiesNotifierProvider);
-          if (!midState.isLoading && midState.isRefreshing) break;
-        }
+      // Wait until cache is visible and the stale network refresh has started.
+      late CitiesState midState;
+      for (var i = 0; i < 50; i++) {
+        await Future<void>.delayed(Duration.zero);
+        midState = container.read(citiesNotifierProvider);
+        if (!midState.isLoading && midState.isRefreshing) break;
+      }
 
-        expect(midState.isLoading, isFalse);
-        expect(midState.cards, hasLength(1));
-        expect(midState.cards.first.city, 'Moscow');
-        expect(midState.isRefreshing, isTrue);
+      expect(midState.isLoading, isFalse);
+      expect(midState.cards, hasLength(1));
+      expect(midState.cards.first.city, 'Moscow');
+      expect(midState.isRefreshing, isTrue);
 
-        gate.complete();
-        await refreshFuture;
+      gate.complete();
+      await refreshFuture;
 
-        final finalState = container.read(citiesNotifierProvider);
-        expect(finalState.isRefreshing, isFalse);
-        expect(finalState.cards, hasLength(1));
-      },
-    );
+      final finalState = container.read(citiesNotifierProvider);
+      expect(finalState.isRefreshing, isFalse);
+      expect(finalState.cards, hasLength(1));
+    });
 
     test('refreshIfStale skips network when cache is still fresh', () async {
       await seedSavedPlace(ctx.isarContext.isar, completeSavedPlace());
@@ -213,10 +211,10 @@ void main() {
       );
       await seedSavedPlace(
         ctx.isarContext.isar,
-        completeSavedPlace(id: 2, index: 1).copyWith(
-          city: 'Berlin',
-          district: 'Berlin',
-        ),
+        completeSavedPlace(
+          id: 2,
+          index: 1,
+        ).copyWith(city: 'Berlin', district: 'Berlin'),
       );
 
       final container = createContainer();

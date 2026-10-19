@@ -1,6 +1,7 @@
 import '../../helpers/fixtures.dart';
-import 'package:rain/domain/entities/entities.dart';
+
 import '../../helpers/isar_test_helper.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/datasources/weather_local_datasource.dart';
 import 'package:rain/data/repositories/weather_repository.dart';
@@ -48,10 +49,7 @@ void main() {
     });
 
     test('clearMainAndLocation removes both caches', () async {
-      await repository.writeCache(
-        sampleWeatherForecast(),
-        sampleGeoPlace(),
-      );
+      await repository.writeCache(sampleWeatherForecast(), sampleGeoPlace());
 
       await repository.clearMainAndLocation();
       final cached = await repository.readCache();
@@ -61,10 +59,7 @@ void main() {
     });
 
     test('clearMainOnly keeps location', () async {
-      await repository.writeCache(
-        sampleWeatherForecast(),
-        sampleGeoPlace(),
-      );
+      await repository.writeCache(sampleWeatherForecast(), sampleGeoPlace());
 
       await repository.clearMainOnly();
       final cached = await repository.readCache();

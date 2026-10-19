@@ -46,4 +46,3 @@ class WeatherCardValidator {
     for (var i = 0; i < cards.length; i++) cards[i].copyWith(index: i),
   ];
 }
-

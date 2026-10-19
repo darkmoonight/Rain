@@ -233,5 +233,4 @@ mixin _MainWeatherLocationOps on _MainWeatherNotifierCore {
           : district,
     );
   }
-
 }

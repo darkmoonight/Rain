@@ -45,7 +45,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final location = cached.location ?? container.read(locationCacheProvider);
       return resolveAppRedirect(
         settings,
-        location ?? GeoPlace(),
+        location ?? const GeoPlace(),
         state.uri.path,
       );
     },

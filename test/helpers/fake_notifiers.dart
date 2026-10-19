@@ -1,7 +1,7 @@
-import 'package:rain/data/models/db.dart';
 import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/cities/application/cities_notifier.dart';
 import 'package:rain/features/weather/application/main_weather_notifier.dart';
+
 import 'fixtures.dart';
 
 /// Main weather notifier with fixture data and no background init.

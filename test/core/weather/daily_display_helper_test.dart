@@ -3,6 +3,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/domain/entities/entities.dart';
+
 import '../../helpers/test_helpers.dart';
 
 SavedPlace _card({List<int?> daily = const [61, 0, 0]}) =>

@@ -46,7 +46,10 @@ class AppFont {
   static final List<_FontEntry> _catalog = [
     const _FontEntry.google(ubuntu, GoogleFonts.ubuntuTextTheme),
     const _FontEntry.system(system),
-    const _FontEntry.google('barlowCondensed', GoogleFonts.barlowCondensedTextTheme),
+    const _FontEntry.google(
+      'barlowCondensed',
+      GoogleFonts.barlowCondensedTextTheme,
+    ),
     const _FontEntry.google('comfortaa', GoogleFonts.comfortaaTextTheme),
     const _FontEntry.google('dmSans', GoogleFonts.dmSansTextTheme),
     const _FontEntry.google('figtree', GoogleFonts.figtreeTextTheme),
@@ -64,7 +67,10 @@ class AppFont {
     const _FontEntry.google('openSans', GoogleFonts.openSansTextTheme),
     const _FontEntry.google('oswald', GoogleFonts.oswaldTextTheme),
     const _FontEntry.google('outfit', GoogleFonts.outfitTextTheme),
-    const _FontEntry.google('playfairDisplay', GoogleFonts.playfairDisplayTextTheme),
+    const _FontEntry.google(
+      'playfairDisplay',
+      GoogleFonts.playfairDisplayTextTheme,
+    ),
     const _FontEntry.google('poppins', GoogleFonts.poppinsTextTheme),
     const _FontEntry.google('ptSans', GoogleFonts.ptSansTextTheme),
     const _FontEntry.google('quicksand', GoogleFonts.quicksandTextTheme),

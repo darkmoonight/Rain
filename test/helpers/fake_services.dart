@@ -4,7 +4,6 @@ import 'package:rain/core/services/home_widget_service.dart';
 import 'package:rain/core/services/location_service.dart';
 import 'package:rain/core/services/notification_service.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/domain/entities/entities.dart';
 
 /// Fake location service with configurable behavior for tests.

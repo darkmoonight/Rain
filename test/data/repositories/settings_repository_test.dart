@@ -1,6 +1,7 @@
 import '../../helpers/fixtures.dart';
-import 'package:rain/domain/entities/entities.dart';
+
 import '../../helpers/isar_test_helper.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/repositories/settings_repository.dart';
@@ -26,9 +27,8 @@ void main() {
     });
 
     test('save persists settings and invokes onSaved', () async {
-      final settings = DomainMapper.settingsToDomain(
-        onboardedSettings(),
-      ).copyWith(theme: 'dark');
+      final settings = DomainMapper.settingsToDomain(onboardedSettings())
+          .copyWith(theme: 'dark');
 
       await repository.save(settings);
 

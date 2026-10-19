@@ -99,7 +99,9 @@ class SettingsSaveActions {
   }) async {
     if (enabled && !await requestPermission()) return;
 
-    await ref.persistSettings((s) => s.copyWith(persistentNotification: enabled));
+    await ref.persistSettings(
+      (s) => s.copyWith(persistentNotification: enabled),
+    );
     if (enabled) {
       unawaited(weather.refreshPersistentNotification(force: true));
     } else {

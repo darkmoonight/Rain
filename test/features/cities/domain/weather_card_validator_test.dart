@@ -105,10 +105,7 @@ void main() {
 
   group('WeatherCardValidator.filterComplete', () {
     test('keeps only complete cards', () {
-      final cards = [
-        _completeCard(),
-        _completeCard().copyWith(city: null),
-      ];
+      final cards = [_completeCard(), _completeCard().copyWith(city: null)];
 
       final complete = WeatherCardValidator.filterComplete(cards);
       expect(complete, hasLength(1));

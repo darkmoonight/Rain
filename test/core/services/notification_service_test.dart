@@ -1,5 +1,6 @@
 import '../../helpers/fixtures.dart';
 import '../../helpers/test_helpers.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/forecast_notification_time.dart';
@@ -39,7 +40,9 @@ void main() {
       () async {
         await service.rescheduleForWeather(
           cache: sampleWeatherForecast(),
-          settings: DomainMapper.settingsToDomain(Settings()..notifications = false),
+          settings: DomainMapper.settingsToDomain(
+            Settings()..notifications = false,
+          ),
           appSettings: const AppSettingsState(),
           cityLabel: 'Moscow',
         );
@@ -113,8 +116,10 @@ void main() {
       'rescheduleForWeather does not cancel when cache lacks notification data',
       () async {
         await service.rescheduleForWeather(
-          cache: WeatherForecast(),
-          settings: DomainMapper.settingsToDomain(Settings()..notifications = true),
+          cache: const WeatherForecast(),
+          settings: DomainMapper.settingsToDomain(
+            Settings()..notifications = true,
+          ),
           appSettings: const AppSettingsState(),
           cityLabel: 'Moscow',
         );
@@ -128,9 +133,11 @@ void main() {
       () async {
         await service.rescheduleForWeather(
           cache: sampleFutureWeatherForecast(),
-          settings: DomainMapper.settingsToDomain(Settings()
-            ..notifications = true
-            ..notificationWeekdaysMask = 0),
+          settings: DomainMapper.settingsToDomain(
+            Settings()
+              ..notifications = true
+              ..notificationWeekdaysMask = 0,
+          ),
           appSettings: const AppSettingsState(
             timeStart: '00:00',
             timeEnd: '23:59',
@@ -146,7 +153,9 @@ void main() {
       final cache = sampleWeatherForecast();
       final content = buildPersistentNotificationContent(
         cache: cache,
-        settings: DomainMapper.settingsToDomain(Settings()..degrees = 'celsius'),
+        settings: DomainMapper.settingsToDomain(
+          Settings()..degrees = 'celsius',
+        ),
         cityLabel: 'Moscow',
       );
 
@@ -158,7 +167,9 @@ void main() {
     test('updatePersistentNotification is a no-op when disabled', () async {
       await service.updatePersistentNotification(
         cache: sampleWeatherForecast(),
-        settings: DomainMapper.settingsToDomain(Settings()..persistentNotification = false),
+        settings: DomainMapper.settingsToDomain(
+          Settings()..persistentNotification = false,
+        ),
         cityLabel: 'Moscow',
       );
     });

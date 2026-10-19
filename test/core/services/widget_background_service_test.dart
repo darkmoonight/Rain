@@ -1,7 +1,8 @@
 import '../../helpers/fake_path_provider.dart';
-import 'package:rain/domain/entities/entities.dart';
+
 import '../../helpers/fixtures.dart';
 import '../../helpers/isar_test_helper.dart';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/constants/app_constants.dart';

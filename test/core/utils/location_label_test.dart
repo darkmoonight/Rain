@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/utils/location_label.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/domain/entities/entities.dart';
 
 void main() {
@@ -15,19 +14,19 @@ void main() {
   test('hasResolvedLocation requires coordinates and a label', () {
     expect(
       hasResolvedLocation(
-        GeoPlace(lat: 55.75, lon: 37.62, city: 'Moscow', district: ''),
+        const GeoPlace(lat: 55.75, lon: 37.62, city: 'Moscow', district: ''),
       ),
       isTrue,
     );
     expect(
       hasResolvedLocation(
-        GeoPlace(lat: 55.75, lon: 37.62, city: '', district: ''),
+        const GeoPlace(lat: 55.75, lon: 37.62, city: '', district: ''),
       ),
       isFalse,
     );
     expect(
       hasResolvedLocation(
-        GeoPlace(lat: null, lon: 37.62, city: 'Moscow', district: ''),
+        const GeoPlace(lat: null, lon: 37.62, city: 'Moscow', district: ''),
       ),
       isFalse,
     );

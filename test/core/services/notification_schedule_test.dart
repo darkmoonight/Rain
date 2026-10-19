@@ -1,5 +1,6 @@
 import '../../helpers/fixtures.dart';
 import '../../helpers/test_helpers.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/services/forecast_notification_time.dart';
 import 'package:rain/core/services/notification_content_builder.dart';
@@ -208,7 +209,9 @@ void main() {
     });
 
     test('includes hours at the end of the notification window', () {
-      final cache = sampleWeatherForecast().copyWith(time: ['2026-06-05T20:00']);
+      final cache = sampleWeatherForecast().copyWith(
+        time: ['2026-06-05T20:00'],
+      );
 
       final slots = buildWeatherNotificationSlots(
         cache: cache,
@@ -228,11 +231,11 @@ void main() {
     test('includes upcoming hourly slots when cache uses utc offset', () {
       final cache = sampleWeatherForecast().copyWith(
         time: [
-                  '2026-06-17T15:00',
-                  '2026-06-17T16:00',
-                  '2026-06-17T17:00',
-                  '2026-06-17T18:00',
-                ],
+          '2026-06-17T15:00',
+          '2026-06-17T16:00',
+          '2026-06-17T17:00',
+          '2026-06-17T18:00',
+        ],
         timeDaily: [DateTime(2026, 6, 17)],
         sunrise: ['06:00'],
         sunset: ['18:00'],
@@ -258,12 +261,12 @@ void main() {
     test('skips past hours when rescheduling at 16:00', () {
       final cache = sampleWeatherForecast().copyWith(
         time: [
-                  '2026-06-17T12:00',
-                  '2026-06-17T13:00',
-                  '2026-06-17T15:00',
-                  '2026-06-17T16:00',
-                  '2026-06-17T17:00',
-                ],
+          '2026-06-17T12:00',
+          '2026-06-17T13:00',
+          '2026-06-17T15:00',
+          '2026-06-17T16:00',
+          '2026-06-17T17:00',
+        ],
         timeDaily: [DateTime(2026, 6, 17)],
         sunrise: ['06:00'],
         sunset: ['18:00'],
@@ -359,10 +362,10 @@ void main() {
       final cache = sampleWeatherForecast().copyWith(
         time: ['2026-06-17T12:00', '2026-06-18T12:00', '2026-06-19T12:00'],
         timeDaily: [
-                  DateTime(2026, 6, 17),
-                  DateTime(2026, 6, 18),
-                  DateTime(2026, 6, 19),
-                ],
+          DateTime(2026, 6, 17),
+          DateTime(2026, 6, 18),
+          DateTime(2026, 6, 19),
+        ],
         sunrise: ['06:00', '06:00', '06:00'],
         sunset: ['18:00', '18:00', '18:00'],
         temperature2M: [20.0, 21.0, 22.0],

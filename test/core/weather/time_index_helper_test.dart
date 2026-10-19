@@ -169,22 +169,30 @@ void main() {
   group('TimeIndexHelper clock formatting', () {
     test('detects 12h preference from settings', () {
       expect(
-        TimeIndexHelper.is12HourFormat(DomainMapper.settingsToDomain(Settings()..timeformat = '12')),
+        TimeIndexHelper.is12HourFormat(
+          DomainMapper.settingsToDomain(Settings()..timeformat = '12'),
+        ),
         isTrue,
       );
       expect(
-        TimeIndexHelper.is12HourFormat(DomainMapper.settingsToDomain(Settings()..timeformat = '24')),
+        TimeIndexHelper.is12HourFormat(
+          DomainMapper.settingsToDomain(Settings()..timeformat = '24'),
+        ),
         isFalse,
       );
     });
 
     test('formatTime respects 24h settings', () {
-      final settings = DomainMapper.settingsToDomain(Settings()..timeformat = '24');
+      final settings = DomainMapper.settingsToDomain(
+        Settings()..timeformat = '24',
+      );
       expect(TimeIndexHelper.formatTime('13:35', settings, 'en'), '13:35');
     });
 
     test('formatUpdatedAt formats date and time', () {
-      final settings = DomainMapper.settingsToDomain(Settings()..timeformat = '24');
+      final settings = DomainMapper.settingsToDomain(
+        Settings()..timeformat = '24',
+      );
       final formatted = TimeIndexHelper.formatUpdatedAt(
         DateTime(2026, 6, 9, 14, 30),
         settings,

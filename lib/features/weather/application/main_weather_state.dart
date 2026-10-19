@@ -1,5 +1,5 @@
-
 import 'package:rain/domain/entities/entities.dart';
+
 /// One-shot user-facing feedback for the main weather tab (shown as a snackbar).
 class MainWeatherUserMessage {
   const MainWeatherUserMessage(this.key, {this.isError = false});
@@ -20,8 +20,8 @@ class MainWeatherState {
     this.dayOfNow = 0,
     this.userMessage,
     this.userMessageId = 0,
-  }) : mainWeather = mainWeather ?? WeatherForecast(),
-       location = location ?? GeoPlace();
+  }) : mainWeather = mainWeather ?? const WeatherForecast(),
+       location = location ?? const GeoPlace();
 
   final bool isLoading;
   final WeatherForecast mainWeather;
@@ -60,10 +60,7 @@ class MainWeatherState {
     location: location ?? this.location,
     hourOfDay: hourOfDay ?? this.hourOfDay,
     dayOfNow: dayOfNow ?? this.dayOfNow,
-    userMessage: clearUserMessage
-        ? null
-        : (userMessage ?? this.userMessage),
+    userMessage: clearUserMessage ? null : (userMessage ?? this.userMessage),
     userMessageId: userMessageId ?? this.userMessageId,
   );
 }
-

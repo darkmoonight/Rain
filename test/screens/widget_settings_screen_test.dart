@@ -1,6 +1,7 @@
 import '../helpers/test_bootstrap.dart';
 import '../helpers/fake_services.dart';
 import '../helpers/widget_test_harness.dart';
+
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/config/widget_registry.dart';

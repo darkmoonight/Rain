@@ -16,18 +16,25 @@ class AirQualityRemoteDatasource {
       '?hourly=european_aqi,us_aqi,pm2_5,pm10,ozone,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide'
       '&forecast_days=7&timezone=auto';
 
-  /// Returns a 7-day hourly forecast for [lat]/[lon], or null on network failure.
+  /// Returns a 7-day hourly forecast for [lat]/[lon], or null on any failure.
+  ///
+  /// Air quality is optional: connection errors must never fail the weather fetch.
   Future<AirQualityDataApi?> fetchAirQuality(double lat, double lon) async {
     try {
       final response = await _dio.get('$_baseUrl&latitude=$lat&longitude=$lon');
       final json = asJsonMap(response.data);
       return await Isolate.run(() => parseAirQualityDataApiJson(json));
-    } on DioException catch (e, stackTrace) {
-      debugLogError(
-        'AirQualityRemoteDatasource.fetchAirQuality',
-        e,
-        stackTrace,
-      );
+    } catch (e, stackTrace) {
+      // Soft-fail: log without stack spam for expected offline / refused hosts.
+      if (e is DioException) {
+        debugLogError('AirQualityRemoteDatasource.fetchAirQuality', e);
+      } else {
+        debugLogError(
+          'AirQualityRemoteDatasource.fetchAirQuality',
+          e,
+          stackTrace,
+        );
+      }
       return null;
     }
   }

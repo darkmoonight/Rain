@@ -42,7 +42,10 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
 
   /// Persists the selected theme mode string and refreshes state.
   Future<void> setTheme(String themeMode) async {
-    await persistSettings(ref, (settings) => settings.copyWith(theme: themeMode));
+    await persistSettings(
+      ref,
+      (settings) => settings.copyWith(theme: themeMode),
+    );
     state = _fromSettings(ref.read(settingsProvider));
     if (Platform.isAndroid) {
       unawaited(
@@ -55,11 +58,17 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
 
   /// Persists the AMOLED (pure black) theme toggle.
   Future<void> saveOledTheme(bool isOled) async {
-    await persistSettings(ref, (settings) => settings.copyWith(amoledTheme: isOled));
+    await persistSettings(
+      ref,
+      (settings) => settings.copyWith(amoledTheme: isOled),
+    );
   }
 
   /// Persists the Material You dynamic color toggle.
   Future<void> saveMaterialTheme(bool isMaterial) async {
-    await persistSettings(ref, (settings) => settings.copyWith(materialColor: isMaterial));
+    await persistSettings(
+      ref,
+      (settings) => settings.copyWith(materialColor: isMaterial),
+    );
   }
 }

@@ -1,9 +1,10 @@
 import '../helpers/fake_services.dart';
-import 'package:rain/domain/entities/entities.dart';
+
 import '../helpers/fixtures.dart';
 import '../helpers/isar_test_helper.dart';
 import '../helpers/test_bootstrap.dart';
 import '../helpers/widget_test_harness.dart';
+
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_test/flutter_test.dart';

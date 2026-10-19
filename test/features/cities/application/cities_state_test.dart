@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/features/cities/application/cities_notifier.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/domain/entities/entities.dart';
 
 SavedPlace _card(int id) => SavedPlace(city: 'City $id', id: id);

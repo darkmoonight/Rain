@@ -1,6 +1,7 @@
 import '../../helpers/fixtures.dart';
 import '../../helpers/test_bootstrap.dart';
 import '../../helpers/test_helpers.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/provider_refs.dart';
@@ -18,7 +19,7 @@ void main() {
       () async {
         final ctx = await createTestBootstrap(
           settings: onboardedSettings(),
-          locationCache: GeoPlace(),
+          locationCache: const GeoPlace(),
         );
         final container = createTestContainer(bootstrap: ctx.bootstrap);
         addTearDown(container.dispose);

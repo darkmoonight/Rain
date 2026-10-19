@@ -73,7 +73,10 @@ class _SettingsAppearanceSectionState
     );
   }
 
-  SettingsTile _buildColorPaletteTile(BuildContext context, AppSettings settings) {
+  SettingsTile _buildColorPaletteTile(
+    BuildContext context,
+    AppSettings settings,
+  ) {
     final disabled = settings.materialColor;
     final muted = Theme.of(context).colorScheme.onSurface
         .withValues(alpha: 0.38);

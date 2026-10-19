@@ -10,8 +10,7 @@ String sanitizeErrorCode(Object error) {
       DioExceptionType.connectionTimeout ||
       DioExceptionType.sendTimeout ||
       DioExceptionType.receiveTimeout ||
-      DioExceptionType.transformTimeout =>
-        'timeout',
+      DioExceptionType.transformTimeout => 'timeout',
       DioExceptionType.connectionError => 'network_error',
       DioExceptionType.badResponse => 'http_error',
       DioExceptionType.cancel => 'cancelled',

@@ -63,30 +63,26 @@ void main() {
     );
   });
 
-  test(
-    'features and non-adapter core must not import data/repositories/*',
-    () {
-      expect(Directory('lib').existsSync(), isTrue);
+  test('features and non-adapter core must not import data/repositories/*', () {
+    expect(Directory('lib').existsSync(), isTrue);
 
-      final violations = <String>[];
-      for (final relative in _dartFilesUnderLib()) {
-        if (!_isFeatureOrCore(relative)) continue;
-        if (_allowsPrefix(relative, _allowedDataRepositoryImportPrefixes)) {
-          continue;
-        }
-
-        final content = File(relative).readAsStringSync();
-        if (content.contains('package:rain/data/repositories/')) {
-          violations.add(relative);
-        }
+    final violations = <String>[];
+    for (final relative in _dartFilesUnderLib()) {
+      if (!_isFeatureOrCore(relative)) continue;
+      if (_allowsPrefix(relative, _allowedDataRepositoryImportPrefixes)) {
+        continue;
       }
 
-      expect(
-        violations,
-        isEmpty,
-        reason:
-            'Unexpected data/repositories imports:\n${violations.join('\n')}',
-      );
-    },
-  );
+      final content = File(relative).readAsStringSync();
+      if (content.contains('package:rain/data/repositories/')) {
+        violations.add(relative);
+      }
+    }
+
+    expect(
+      violations,
+      isEmpty,
+      reason: 'Unexpected data/repositories imports:\n${violations.join('\n')}',
+    );
+  });
 }

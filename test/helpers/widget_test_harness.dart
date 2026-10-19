@@ -7,6 +7,7 @@ import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/core/services/connectivity_service.dart';
 import 'package:rain/i18n/strings.g.dart';
+
 import 'test_helpers.dart';
 
 /// Sets whether tests treat the device as online.

@@ -49,19 +49,21 @@ void main() {
 
   group('WeatherCacheValidator.isLikelyFahrenheit', () {
     test('detects legacy Fahrenheit cache values', () {
-      final cache = WeatherForecast(temperature2M: [72.5, 81.5, 82.2]);
+      final cache = const WeatherForecast(temperature2M: [72.5, 81.5, 82.2]);
       expect(WeatherCacheValidator.isLikelyFahrenheit(cache), isTrue);
     });
 
     test('accepts normal Celsius cache values', () {
-      final cache = WeatherForecast(temperature2M: [18.2, 27.5, 31.0]);
+      final cache = const WeatherForecast(temperature2M: [18.2, 27.5, 31.0]);
       expect(WeatherCacheValidator.isLikelyFahrenheit(cache), isFalse);
     });
   });
 
   test('legacy Fahrenheit cache double-converts like the reported bug', () {
     const legacyFahrenheitStored = 82.2;
-    final settings = DomainMapper.settingsToDomain(Settings()..degrees = 'fahrenheit');
+    final settings = DomainMapper.settingsToDomain(
+      Settings()..degrees = 'fahrenheit',
+    );
 
     final wrong = UnitConverter.convertTemperature(
       legacyFahrenheitStored,

@@ -257,7 +257,8 @@ class TimeIndexHelper {
       '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 
   /// Whether the user prefers 12-hour clock display.
-  static bool is12HourFormat(AppSettings settings) => settings.timeformat == '12';
+  static bool is12HourFormat(AppSettings settings) =>
+      settings.timeformat == '12';
 
   /// Returns the [DateFormat] for app time display in [languageCode].
   static DateFormat appTimeFormat(AppSettings settings, String languageCode) {

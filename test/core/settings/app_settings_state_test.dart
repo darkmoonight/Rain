@@ -4,7 +4,6 @@ import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
-import 'package:rain/domain/entities/entities.dart';
 
 void main() {
   group('AppSettingsState.fromAppSettings', () {
@@ -16,7 +15,9 @@ void main() {
         ..timeEnd = '21:00'
         ..amoledTheme = true;
 
-      final state = AppSettingsState.fromAppSettings(DomainMapper.settingsToDomain(settings));
+      final state = AppSettingsState.fromAppSettings(
+        DomainMapper.settingsToDomain(settings),
+      );
 
       expect(state.locale, const Locale('ru', 'RU'));
       expect(state.timeRange, 2);
@@ -26,7 +27,9 @@ void main() {
     });
 
     test('uses notification defaults when settings omit optional fields', () {
-      final state = AppSettingsState.fromAppSettings(DomainMapper.settingsToDomain(Settings()));
+      final state = AppSettingsState.fromAppSettings(
+        DomainMapper.settingsToDomain(Settings()),
+      );
 
       expect(state.timeRange, AppConstants.defaultNotificationIntervalHours);
       expect(state.timeStart, AppConstants.defaultNotificationTimeStart);

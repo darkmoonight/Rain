@@ -41,7 +41,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     WidgetsBinding.instance.addObserver(this);
     unawaited(
       _initData().catchError(
-        (Object e, StackTrace st) => debugLogError('HomeScreen._initData', e, st),
+        (Object e, StackTrace st) =>
+            debugLogError('HomeScreen._initData', e, st),
       ),
     );
     _setupTabController(pageCount: ref.read(settingsProvider).hideMap ? 3 : 4);

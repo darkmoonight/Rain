@@ -2,10 +2,10 @@ import '../../helpers/fake_notifiers.dart';
 import '../../helpers/fixtures.dart';
 import '../../helpers/test_bootstrap.dart';
 import '../../helpers/widget_test_harness.dart';
+
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/cities/application/cities_notifier.dart';
 import 'package:rain/features/cities/presentation/view/place_list.dart';
@@ -25,7 +25,7 @@ void main() {
 
   group('PlaceCard', () {
     test('tryFromSavedPlace returns null for incomplete card', () {
-      expect(PlaceCard.tryFromSavedPlace(SavedPlace(city: 'X')), isNull);
+      expect(PlaceCard.tryFromSavedPlace(const SavedPlace(city: 'X')), isNull);
     });
 
     test('tryFromSavedPlace builds widget for complete card', () {
@@ -57,7 +57,7 @@ void main() {
     testWidgets('renders invalid tile for incomplete card', (tester) async {
       await pumpRainWidget(
         tester,
-        WeatherCardTile(card: SavedPlace(city: 'Broken')),
+        const WeatherCardTile(card: SavedPlace(city: 'Broken')),
         bootstrap: ctx.bootstrap,
       );
 
@@ -141,7 +141,7 @@ void main() {
     testWidgets('renders cards from notifier state', (tester) async {
       await pumpRainWidget(
         tester,
-        const Scaffold(body: const PlaceCardList(searchCity: '')),
+        const Scaffold(body: PlaceCardList(searchCity: '')),
         bootstrap: ctx.bootstrap,
         overrides: [
           citiesNotifierProvider.overrideWith(_TestCitiesNotifier.new),

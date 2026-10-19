@@ -192,8 +192,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
         district: district,
       );
     }
-    updated =
-        LocationTimezoneHelper.repairCardTimezone(updated) ?? updated;
+    updated = LocationTimezoneHelper.repairCardTimezone(updated) ?? updated;
 
     await _repo.applyRemoteUpdate(base, updated);
     if (!ref.mounted || _queue.isCancelled) return;

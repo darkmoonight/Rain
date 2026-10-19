@@ -29,6 +29,7 @@ class WeatherRemoteDatasource {
   }) : _dio = dio ?? Dio()
          ..options.baseUrl = 'https://api.open-meteo.com/v1/forecast?',
        _dioLocation = dioLocation ?? dio ?? Dio(),
+       // When [dio] is omitted (prod), AQ uses its own client; tests may share [dio].
        _airQuality = airQuality ?? AirQualityRemoteDatasource(dio: dio);
 
   final Dio _dio;
@@ -45,24 +46,21 @@ class WeatherRemoteDatasource {
       'latitude=$lat&longitude=$lon&$_weatherParams';
 
   /// Fetches weather and air quality in parallel.
+  ///
+  /// Air quality failures are ignored so the main forecast still loads.
   Future<(WeatherDataApi, AirQualityDataApi?, int clockSkewSeconds)>
   _fetchWeatherAndAq(double lat, double lon) async {
-    final results = await Future.wait<dynamic>([
-      _dio.get(_buildWeatherUrl(lat, lon)),
-      _airQuality.fetchAirQuality(lat, lon),
-    ]);
-    final weatherResponse = results[0] as Response<dynamic>;
+    final weatherFuture = _dio.get(_buildWeatherUrl(lat, lon));
+    final aqFuture = _airQuality.fetchAirQuality(lat, lon);
+    final weatherResponse = await weatherFuture;
+    final aqData = await aqFuture;
     final serverUtc = parseHttpDate(weatherResponse.headers.value('date'));
     final skew = serverUtc == null ? 0 : clockSkewSeconds(serverUtc);
     final weatherJson = asJsonMap(weatherResponse.data);
     final weatherData = await Isolate.run(
       () => parseWeatherDataApiJson(weatherJson),
     );
-    return (
-      weatherData,
-      results[1] as AirQualityDataApi?,
-      skew,
-    );
+    return (weatherData, aqData, skew);
   }
 
   /// Fetches a 12-day forecast and maps it to a main weather cache model.

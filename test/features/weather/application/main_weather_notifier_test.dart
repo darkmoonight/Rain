@@ -3,10 +3,10 @@ import '../../../helpers/fixtures.dart';
 import '../../../helpers/isar_test_helper.dart';
 import '../../../helpers/test_bootstrap.dart';
 import '../../../helpers/widget_test_harness.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/provider_refs.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/weather/application/main_weather_notifier.dart';
 
@@ -163,7 +163,7 @@ void main() {
         await seedWeatherForecast(
           ctx.isarContext.isar,
           weather: staleWeather,
-          location: GeoPlace(
+          location: const GeoPlace(
             lat: 55.75,
             lon: 37.62,
             city: '',
@@ -291,10 +291,7 @@ void main() {
         temperature2M: [82.0, 83.0],
         apparentTemperature: [80.0, 81.0],
       );
-      await seedWeatherForecast(
-        ctx.isarContext.isar,
-        weather: fahrenheitCache,
-      );
+      await seedWeatherForecast(ctx.isarContext.isar, weather: fahrenheitCache);
 
       final container = createContainer();
       final notifier = container.read(mainWeatherNotifierProvider.notifier);
@@ -439,7 +436,7 @@ class _TestMainWeatherNotifier extends MainWeatherNotifier {
   @override
   MainWeatherState build() => MainWeatherState(
     isLoading: true,
-    mainWeather: WeatherForecast(),
-    location: GeoPlace(),
+    mainWeather: const WeatherForecast(),
+    location: const GeoPlace(),
   );
 }

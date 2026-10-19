@@ -85,7 +85,10 @@ class _SearchSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PlaceActionSectionHeader(title: 'search'.tr, icon: IconsaxPlusBold.global_search),
+        PlaceActionSectionHeader(
+          title: 'search'.tr,
+          icon: IconsaxPlusBold.global_search,
+        ),
         SizedBox(height: padding),
         CitySearchAutocomplete(
           controller: searchController,
@@ -168,7 +171,8 @@ class _PlaceFieldsSection extends StatelessWidget {
           iconColor: colorScheme.primary,
           includeCoordinates: false,
           onCityChanged: (value) => editingController.city.value = value,
-          onDistrictChanged: (value) => editingController.district.value = value,
+          onDistrictChanged: (value) =>
+              editingController.district.value = value,
         ),
       ],
     );

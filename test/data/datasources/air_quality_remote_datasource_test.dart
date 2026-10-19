@@ -55,5 +55,21 @@ void main() {
 
       expect(result, isNull);
     });
+
+    test('fetchAirQuality returns null on malformed payload', () async {
+      final dio = Dio()
+        ..interceptors.add(
+          InterceptorsWrapper(
+            onRequest: (options, handler) => handler.resolve(
+              Response(requestOptions: options, data: 'not-a-map'),
+            ),
+          ),
+        );
+
+      final datasource = AirQualityRemoteDatasource(dio: dio);
+      final result = await datasource.fetchAirQuality(55.75, 37.62);
+
+      expect(result, isNull);
+    });
   });
 }

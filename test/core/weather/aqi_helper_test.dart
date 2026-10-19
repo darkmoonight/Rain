@@ -1,7 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/i18n/strings.g.dart';
 
@@ -80,26 +79,26 @@ void main() {
     });
 
     test('pollutantValue reads card fields', () {
-      final card = SavedPlace(pm25: [8.4], no2: [22.0]);
+      const card = SavedPlace(pm25: [8.4], no2: [22.0]);
       expect(AqiHelper.pollutantValue(card, 0, 'pm25'), 8.4);
       expect(AqiHelper.pollutantValue(card, 0, 'no2'), 22.0);
       expect(AqiHelper.pollutantValue(card, 0, 'co'), isNull);
     });
 
     test('hasData returns false when AQI is missing', () {
-      final card = SavedPlace(time: ['2026-06-05T12:00']);
+      const card = SavedPlace(time: ['2026-06-05T12:00']);
       expect(AqiHelper.hasData(card, 0, AqiHelper.european), isFalse);
       expect(AqiHelper.aqiAt(card, 0, AqiHelper.european), isNull);
     });
 
     test('aqiAt reads consolidated index from card', () {
-      final card = SavedPlace(europeanAqi: [26], usAqi: [45]);
+      const card = SavedPlace(europeanAqi: [26], usAqi: [45]);
       expect(AqiHelper.aqiAt(card, 0, AqiHelper.european), 26);
       expect(AqiHelper.aqiAt(card, 0, AqiHelper.american), 45);
     });
 
     test('buildHelpText includes index, pollutants, and advice', () {
-      final card = SavedPlace(
+      const card = SavedPlace(
         europeanAqi: [45],
         pm25: [18],
         pm10: [32],

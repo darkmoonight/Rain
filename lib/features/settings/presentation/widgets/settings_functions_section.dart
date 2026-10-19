@@ -207,9 +207,7 @@ class _SettingsFunctionsSectionState
     if (picked == null) return;
 
     final value = TimeIndexHelper.timeTo24h(picked);
-    await actions.saveWithForecastReschedule(
-      mutate: (s) => apply(s, value),
-    );
+    await actions.saveWithForecastReschedule(mutate: (s) => apply(s, value));
   }
 
   Future<void> _showTimeStartPicker(BuildContext context) async {

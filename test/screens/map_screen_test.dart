@@ -1,8 +1,9 @@
 import '../helpers/fake_notifiers.dart';
-import 'package:rain/domain/entities/entities.dart';
+
 import '../helpers/fixtures.dart';
 import '../helpers/test_bootstrap.dart';
 import '../helpers/widget_test_harness.dart';
+
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/providers.dart';

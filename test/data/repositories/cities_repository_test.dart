@@ -1,6 +1,7 @@
 import '../../helpers/fixtures.dart';
-import 'package:rain/domain/entities/entities.dart';
+
 import '../../helpers/isar_test_helper.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/repositories/cities_repository.dart';
 import 'package:rain/domain/repositories/cities_repository.dart';
@@ -72,10 +73,10 @@ void main() {
     test('reorder moves card and reindexes', () async {
       await repository.addCard(completeSavedPlace(id: 1, index: 0));
       await repository.addCard(
-        completeSavedPlace(id: 2, index: 1).copyWith(
-          city: 'Berlin',
-          district: 'Berlin',
-        ),
+        completeSavedPlace(
+          id: 2,
+          index: 1,
+        ).copyWith(city: 'Berlin', district: 'Berlin'),
       );
 
       await repository.reorder(0, 2);

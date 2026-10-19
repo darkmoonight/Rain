@@ -36,7 +36,10 @@ void main() {
   group('LocationService.parsePlaceFromPlacemarks', () {
     test('builds city and district from placemark fields', () {
       final place = LocationService.parsePlaceFromPlacemarks(_testPosition(), [
-        const Placemark(locality: 'Moscow', administrativeArea: 'Moscow Oblast'),
+        const Placemark(
+          locality: 'Moscow',
+          administrativeArea: 'Moscow Oblast',
+        ),
       ]);
 
       expect(place, isNotNull);

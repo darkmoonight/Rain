@@ -41,8 +41,8 @@ void main() {
     testWidgets('shows message', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: const Scaffold(
-            body: const EmptyMessageStateView(
+          home: Scaffold(
+            body: EmptyMessageStateView(
               message: 'No cities yet',
               imageAsset: 'assets/icons/City.png',
             ),

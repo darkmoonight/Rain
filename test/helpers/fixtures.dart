@@ -93,55 +93,52 @@ WeatherDataApi sampleWeatherApi() =>
     WeatherDataApi.fromJson(sampleWeatherJson());
 
 /// A complete saved-city card with all required forecast fields.
-SavedPlace completeSavedPlace({
-  DateTime? timestamp,
-  int? index,
-  int id = 1,
-}) => SavedPlace(
-  time: ['2026-06-05T12:00', '2026-06-05T13:00'],
-  timeDaily: [DateTime(2026, 6, 5), DateTime(2026, 6, 6)],
-  sunrise: ['06:00', '06:01'],
-  sunset: ['18:00', '18:01'],
-  weathercode: [0, 1],
-  temperature2M: [20.0, 21.0],
-  apparentTemperature: [19.0, 20.0],
-  relativehumidity2M: [50, 55],
-  precipitation: [0.0, 0.0],
-  rain: [0.0, 0.0],
-  surfacePressure: [1013.0, 1013.0],
-  visibility: [10000.0, 10000.0],
-  evapotranspiration: [0.1, 0.1],
-  windspeed10M: [5.0, 6.0],
-  winddirection10M: [180, 190],
-  windgusts10M: [10.0, 11.0],
-  cloudcover: [20, 30],
-  uvIndex: [3.0, 4.0],
-  dewpoint2M: [10.0, 11.0],
-  precipitationProbability: [0, 10],
-  shortwaveRadiation: [500.0, 520.0],
-  weathercodeDaily: [0, 1],
-  temperature2MMax: [25.0, 26.0],
-  temperature2MMin: [15.0, 16.0],
-  apparentTemperatureMax: [24.0, 25.0],
-  apparentTemperatureMin: [14.0, 15.0],
-  windspeed10MMax: [15.0, 16.0],
-  windgusts10MMax: [25.0, 26.0],
-  uvIndexMax: [5.0, 6.0],
-  rainSum: [0.0, 0.0],
-  winddirection10MDominant: [180, 190],
-  precipitationSum: [0.0, 0.0],
-  precipitationProbabilityMax: [10, 20],
-  city: 'Moscow',
-  district: 'Moscow Oblast',
-  timezone: 'Europe/Moscow',
-  utcOffsetSeconds: 10800,
-  clockSkewSeconds: 0,
-  lat: 55.75,
-  lon: 37.62,
-  timestamp: timestamp ?? DateTime(2026, 6, 5, 12),
-  index: index ?? 0,
-  id: id,
-);
+SavedPlace completeSavedPlace({DateTime? timestamp, int? index, int id = 1}) =>
+    SavedPlace(
+      time: ['2026-06-05T12:00', '2026-06-05T13:00'],
+      timeDaily: [DateTime(2026, 6, 5), DateTime(2026, 6, 6)],
+      sunrise: ['06:00', '06:01'],
+      sunset: ['18:00', '18:01'],
+      weathercode: [0, 1],
+      temperature2M: [20.0, 21.0],
+      apparentTemperature: [19.0, 20.0],
+      relativehumidity2M: [50, 55],
+      precipitation: [0.0, 0.0],
+      rain: [0.0, 0.0],
+      surfacePressure: [1013.0, 1013.0],
+      visibility: [10000.0, 10000.0],
+      evapotranspiration: [0.1, 0.1],
+      windspeed10M: [5.0, 6.0],
+      winddirection10M: [180, 190],
+      windgusts10M: [10.0, 11.0],
+      cloudcover: [20, 30],
+      uvIndex: [3.0, 4.0],
+      dewpoint2M: [10.0, 11.0],
+      precipitationProbability: [0, 10],
+      shortwaveRadiation: [500.0, 520.0],
+      weathercodeDaily: [0, 1],
+      temperature2MMax: [25.0, 26.0],
+      temperature2MMin: [15.0, 16.0],
+      apparentTemperatureMax: [24.0, 25.0],
+      apparentTemperatureMin: [14.0, 15.0],
+      windspeed10MMax: [15.0, 16.0],
+      windgusts10MMax: [25.0, 26.0],
+      uvIndexMax: [5.0, 6.0],
+      rainSum: [0.0, 0.0],
+      winddirection10MDominant: [180, 190],
+      precipitationSum: [0.0, 0.0],
+      precipitationProbabilityMax: [10, 20],
+      city: 'Moscow',
+      district: 'Moscow Oblast',
+      timezone: 'Europe/Moscow',
+      utcOffsetSeconds: 10800,
+      clockSkewSeconds: 0,
+      lat: 55.75,
+      lon: 37.62,
+      timestamp: timestamp ?? DateTime(2026, 6, 5, 12),
+      index: index ?? 0,
+      id: id,
+    );
 
 WeatherForecast sampleWeatherForecast() => WeatherForecast(
   time: ['2026-06-05T12:00', '2026-06-05T13:00'],
@@ -195,7 +192,7 @@ WeatherForecast sampleFutureWeatherForecast() {
   );
 }
 
-GeoPlace sampleGeoPlace() => GeoPlace(
+GeoPlace sampleGeoPlace() => const GeoPlace(
   lat: 55.75,
   lon: 37.62,
   city: 'Moscow',
@@ -417,7 +414,11 @@ Dio createFakeWeatherDio({
 }
 
 /// Isar persistence forms of domain fixtures (for data-layer tests).
-WeatherCard completeSavedPlaceIsar({DateTime? timestamp, int? index, int id = 1}) {
+WeatherCard completeSavedPlaceIsar({
+  DateTime? timestamp,
+  int? index,
+  int id = 1,
+}) {
   final place = completeSavedPlace(timestamp: timestamp, index: index, id: id);
   return DomainMapper.cardToIsar(place);
 }
@@ -431,8 +432,11 @@ LocationCache sampleGeoPlaceIsar() =>
 /// Back-compat aliases used by data-layer tests.
 MainWeatherCache sampleMainWeatherCache() => sampleWeatherForecastIsar();
 LocationCache sampleLocationCache() => sampleGeoPlaceIsar();
-WeatherCard completeWeatherCard({DateTime? timestamp, int? index, int id = 1}) =>
-    completeSavedPlaceIsar(timestamp: timestamp, index: index, id: id);
+WeatherCard completeWeatherCard({
+  DateTime? timestamp,
+  int? index,
+  int id = 1,
+}) => completeSavedPlaceIsar(timestamp: timestamp, index: index, id: id);
 MainWeatherCache sampleFutureMainWeatherCache() =>
     DomainMapper.forecastToIsar(sampleFutureWeatherForecast());
 MainWeatherCache weeklyMainWeatherCache() =>

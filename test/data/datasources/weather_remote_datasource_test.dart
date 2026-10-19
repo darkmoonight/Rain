@@ -1,5 +1,5 @@
 import '../../helpers/fixtures.dart';
-import 'package:rain/domain/entities/entities.dart';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/datasources/air_quality_remote_datasource.dart';

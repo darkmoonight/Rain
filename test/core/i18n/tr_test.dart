@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/i18n/tr.dart';
 
 import '../../helpers/test_helpers.dart';

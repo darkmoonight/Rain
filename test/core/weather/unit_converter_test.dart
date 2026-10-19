@@ -10,12 +10,14 @@ AppSettings _settings({
   String wind = 'kph',
   String pressure = 'hPa',
   bool roundDegree = false,
-}) => DomainMapper.settingsToDomain(Settings()
-  ..degrees = degrees
-  ..measurements = measurements
-  ..wind = wind
-  ..pressure = pressure
-  ..roundDegree = roundDegree);
+}) => DomainMapper.settingsToDomain(
+  Settings()
+    ..degrees = degrees
+    ..measurements = measurements
+    ..wind = wind
+    ..pressure = pressure
+    ..roundDegree = roundDegree,
+);
 
 void main() {
   group('UnitConverter conversions', () {
