@@ -191,6 +191,7 @@ class TranslationsMrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'वाऱ्याचे झुळके';
 	@override String get northwest => 'वायव्य';
 	@override String get open_meteo => 'Open-Meteo कडून डेटा (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'पाऊस';
 	@override String get mm_hg => 'मिमी पारा';
 	@override String get validate180 => 'मूल्य -180 आणि 180 दरम्यान असावे';
@@ -511,6 +512,7 @@ extension on TranslationsMrIn {
 			'windgusts' => 'वाऱ्याचे झुळके',
 			'northwest' => 'वायव्य',
 			'open_meteo' => 'Open-Meteo कडून डेटा (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'पाऊस',
 			'mm_hg' => 'मिमी पारा',
 			'validate180' => 'मूल्य -180 आणि 180 दरम्यान असावे',

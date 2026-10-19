@@ -51,8 +51,9 @@ class InvalidWeatherCard extends ConsumerWidget {
                   const SizedBox(height: 4),
                   Text(
                     'citiesLoadError'.tr,
-                    style: Theme.of(context).textTheme.bodyMedium
-                        ?.copyWith(color: Colors.grey),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),

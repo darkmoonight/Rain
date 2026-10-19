@@ -191,6 +191,7 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => '陣風';
 	@override String get northwest => '西北';
 	@override String get open_meteo => '來自Open-Meteo的數據 (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap 貢獻者';
 	@override String get rain => '雨';
 	@override String get mm_hg => '毫米汞柱';
 	@override String get validate180 => '數值必須在-180和180之間';
@@ -511,6 +512,7 @@ extension on TranslationsZhTw {
 			'windgusts' => '陣風',
 			'northwest' => '西北',
 			'open_meteo' => '來自Open-Meteo的數據 (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap 貢獻者',
 			'rain' => '雨',
 			'mm_hg' => '毫米汞柱',
 			'validate180' => '數值必須在-180和180之間',

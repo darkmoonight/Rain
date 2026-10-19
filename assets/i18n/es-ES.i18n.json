@@ -151,6 +151,7 @@
   "windgusts": "Ráfagas",
   "northwest": "Noroeste",
   "openMeteo": "Datos de Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "Colaboradores de OpenStreetMap",
   "rain": "Lluvia",
   "mmHg": "mmHg",
   "validate180": "El valor tiene que estar entre -180 y 180",

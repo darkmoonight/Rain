@@ -151,6 +151,7 @@
   "windgusts": "هبات الرياح",
   "northwest": "شمال غرب",
   "openMeteo": "البيانات من Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "مساهمو OpenStreetMap",
   "rain": "المطر",
   "mmHg": "مم زئبق",
   "validate180": "يجب أن تكون القيمة بين -180 و 180",

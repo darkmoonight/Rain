@@ -152,6 +152,7 @@
   "windgusts": "Шквал",
   "northwest": "Северо-запад",
   "openMeteo": "Данные от Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "Участники OpenStreetMap",
   "rain": "Дождь",
   "mmHg": "мм рт. ст.",
   "validate180": "Значение должно быть в диапазоне от -180 до 180",

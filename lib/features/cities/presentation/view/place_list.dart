@@ -88,9 +88,9 @@ class _PlaceListState extends ConsumerState<PlaceList> {
           iconButton: filter.isNotEmpty
               ? IconButton(
                   onPressed: clearSearch,
-                  icon: const Icon(
+                  icon: Icon(
                     IconsaxPlusLinear.close_circle,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     size: 20,
                   ),
                 )

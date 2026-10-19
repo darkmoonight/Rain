@@ -60,6 +60,7 @@ class PlaceActionEditingController extends ChangeNotifier {
     lon.dispose();
     city.dispose();
     district.dispose();
+    _canCompose.dispose();
     super.dispose();
   }
 }

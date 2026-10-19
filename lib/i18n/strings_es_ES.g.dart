@@ -191,6 +191,7 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Ráfagas';
 	@override String get northwest => 'Noroeste';
 	@override String get open_meteo => 'Datos de Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Colaboradores de OpenStreetMap';
 	@override String get rain => 'Lluvia';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'El valor tiene que estar entre -180 y 180';
@@ -511,6 +512,7 @@ extension on TranslationsEsEs {
 			'windgusts' => 'Ráfagas',
 			'northwest' => 'Noroeste',
 			'open_meteo' => 'Datos de Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Colaboradores de OpenStreetMap',
 			'rain' => 'Lluvia',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'El valor tiene que estar entre -180 y 180',

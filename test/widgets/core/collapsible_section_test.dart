@@ -5,11 +5,11 @@ import 'package:rain/core/widgets/collapsible_section.dart';
 void main() {
   testWidgets('CollapsibleSection hides child while collapsed', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: CollapsibleSection(
-            title: const Text('Section title'),
-            child: const Text('Section content'),
+            title: Text('Section title'),
+            child: Text('Section content'),
           ),
         ),
       ),
@@ -27,12 +27,12 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: CollapsibleSection(
-            title: const Text('Section title'),
+            title: Text('Section title'),
             initiallyExpanded: true,
-            child: const Text('Section content'),
+            child: Text('Section content'),
           ),
         ),
       ),
@@ -48,11 +48,11 @@ void main() {
 
   testWidgets('CollapsibleSection toggles expand chevron', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: CollapsibleSection(
-            title: const Text('Section title'),
-            child: const Text('Section content'),
+            title: Text('Section title'),
+            child: Text('Section content'),
           ),
         ),
       ),

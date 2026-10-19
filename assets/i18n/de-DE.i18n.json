@@ -151,6 +151,7 @@
   "windgusts": "Böe",
   "northwest": "Nordwesten",
   "openMeteo": "Daten von Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMap-Mitwirkende",
   "rain": "Regen",
   "mmHg": "mmHg",
   "validate180": "Der Wert muss zwischen -180 und 180 liegen",

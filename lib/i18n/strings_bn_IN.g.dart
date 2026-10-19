@@ -191,6 +191,7 @@ class TranslationsBnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'ঝংকার';
 	@override String get northwest => 'উত্তরপশ্চিম';
 	@override String get open_meteo => 'Open-Meteo থেকে ডেটা (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'বৃষ্টি';
 	@override String get mm_hg => 'মিমি Hg';
 	@override String get validate180 => 'মান -১৮০ থেকে ১৮০ মধ্যে হতে হবে';
@@ -511,6 +512,7 @@ extension on TranslationsBnIn {
 			'windgusts' => 'ঝংকার',
 			'northwest' => 'উত্তরপশ্চিম',
 			'open_meteo' => 'Open-Meteo থেকে ডেটা (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'বৃষ্টি',
 			'mm_hg' => 'মিমি Hg',
 			'validate180' => 'মান -১৮০ থেকে ১৮০ মধ্যে হতে হবে',

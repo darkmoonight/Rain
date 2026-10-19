@@ -191,6 +191,7 @@ class TranslationsPaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'ਹਵਾ ਦੇ ਝੱਕੜ';
 	@override String get northwest => 'ਉੱਤਰ-ਪੱਛਮ';
 	@override String get open_meteo => 'Open-Meteo ਤੋਂ ਡੇਟਾ (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'ਮੀਂਹ';
 	@override String get mm_hg => 'ਮਿ.ਮੀ ਪਾਰਾ';
 	@override String get validate180 => 'ਮੁੱਲ -180 ਅਤੇ 180 ਦੇ ਵਿਚਕਾਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ';
@@ -511,6 +512,7 @@ extension on TranslationsPaIn {
 			'windgusts' => 'ਹਵਾ ਦੇ ਝੱਕੜ',
 			'northwest' => 'ਉੱਤਰ-ਪੱਛਮ',
 			'open_meteo' => 'Open-Meteo ਤੋਂ ਡੇਟਾ (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'ਮੀਂਹ',
 			'mm_hg' => 'ਮਿ.ਮੀ ਪਾਰਾ',
 			'validate180' => 'ਮੁੱਲ -180 ਅਤੇ 180 ਦੇ ਵਿਚਕਾਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ',

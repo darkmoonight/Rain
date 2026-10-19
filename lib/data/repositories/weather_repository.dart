@@ -13,6 +13,22 @@ class WeatherRepository {
   Future<MainWeatherCache> fetchWeather(double lat, double lon) =>
       _remote.fetchWeather(lat, lon);
 
+  /// Searches cities via the geocoding API.
+  Future<Iterable<CitySearchResult>> searchCities(
+    String query,
+    String? languageCode,
+  ) => _remote.searchCities(query, languageCode);
+
+  /// Reverse-geocodes coordinates to city/district labels.
+  Future<({String city, String district})?> reverseGeocode(
+    double lat,
+    double lon, {
+    String? languageCode,
+  }) => _remote.reverseGeocode(lat, lon, languageCode: languageCode);
+
+  /// Whether any primary location cache row exists.
+  Future<bool> hasLocationCache() => _local.hasLocationCache();
+
   /// Reads the locally stored main weather and location caches.
   Future<({MainWeatherCache? weather, LocationCache? location})>
   readCache() async {

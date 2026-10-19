@@ -191,6 +191,7 @@ class TranslationsRoRo extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Rafale de vânt';
 	@override String get northwest => 'Nord-vest';
 	@override String get open_meteo => 'Date de la Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Contribuitori OpenStreetMap';
 	@override String get rain => 'Ploaie';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Valoarea trebuie să fie între -180 și 180';
@@ -511,6 +512,7 @@ extension on TranslationsRoRo {
 			'windgusts' => 'Rafale de vânt',
 			'northwest' => 'Nord-vest',
 			'open_meteo' => 'Date de la Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Contribuitori OpenStreetMap',
 			'rain' => 'Ploaie',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Valoarea trebuie să fie între -180 și 180',

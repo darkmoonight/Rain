@@ -191,6 +191,7 @@ class TranslationsTeIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'గాలి వేగం';
 	@override String get northwest => 'వాయవ్యం';
 	@override String get open_meteo => 'Open-Meteo నుండి డేటా (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'వర్షం';
 	@override String get mm_hg => 'మి.మీ పాదరసం';
 	@override String get validate180 => 'విలువ -180 మరియు 180 మధ్య ఉండాలి';
@@ -511,6 +512,7 @@ extension on TranslationsTeIn {
 			'windgusts' => 'గాలి వేగం',
 			'northwest' => 'వాయవ్యం',
 			'open_meteo' => 'Open-Meteo నుండి డేటా (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'వర్షం',
 			'mm_hg' => 'మి.మీ పాదరసం',
 			'validate180' => 'విలువ -180 మరియు 180 మధ్య ఉండాలి',

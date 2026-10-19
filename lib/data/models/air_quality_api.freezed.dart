@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'air_quality_api.dart';
@@ -9,6 +9,7 @@ part of 'air_quality_api.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $AirQualityDataApiCopyWith<AirQualityDataApi> get copyWith => _$AirQualityDataAp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AirQualityDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly));
+  final _this = this as AirQualityDataApi;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AirQualityDataApi&&(identical(other.hourly, _this.hourly) || other.hourly == _this.hourly));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hourly);
+int get hashCode {
+  final _this = this as AirQualityDataApi;
+  return Object.hash(runtimeType,_this.hourly);
+}
 
 @override
 String toString() {
-  return 'AirQualityDataApi(hourly: $hourly)';
+  final _this = this as AirQualityDataApi;
+  return 'AirQualityDataApi(hourly: ${_this.hourly})';
 }
 
 
@@ -66,7 +72,7 @@ class _$AirQualityDataApiCopyWithImpl<$Res>
 /// Create a copy of AirQualityDataApi
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? hourly = null,}) {
-  return _then(_self.copyWith(
+  return _then(AirQualityDataApi(
 hourly: null == hourly ? _self.hourly : hourly // ignore: cast_nullable_to_non_nullable
 as AirQualityHourly,
   ));
@@ -236,16 +242,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AirQualityDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AirQualityDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hourly);
+int get hashCode {
+    return Object.hash(runtimeType,hourly);
+}
 
 @override
 String toString() {
-  return 'AirQualityDataApi(hourly: $hourly)';
+    return 'AirQualityDataApi(hourly: $hourly)';
 }
 
 
@@ -309,16 +317,21 @@ $AirQualityHourlyCopyWith<AirQualityHourly> get copyWith => _$AirQualityHourlyCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AirQualityHourly&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.europeanAqi, europeanAqi)&&const DeepCollectionEquality().equals(other.usAqi, usAqi)&&const DeepCollectionEquality().equals(other.pm25, pm25)&&const DeepCollectionEquality().equals(other.pm10, pm10)&&const DeepCollectionEquality().equals(other.ozone, ozone)&&const DeepCollectionEquality().equals(other.co, co)&&const DeepCollectionEquality().equals(other.no2, no2)&&const DeepCollectionEquality().equals(other.so2, so2));
+  final _this = this as AirQualityHourly;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AirQualityHourly&&const DeepCollectionEquality().equals(other.time, _this.time)&&const DeepCollectionEquality().equals(other.europeanAqi, _this.europeanAqi)&&const DeepCollectionEquality().equals(other.usAqi, _this.usAqi)&&const DeepCollectionEquality().equals(other.pm25, _this.pm25)&&const DeepCollectionEquality().equals(other.pm10, _this.pm10)&&const DeepCollectionEquality().equals(other.ozone, _this.ozone)&&const DeepCollectionEquality().equals(other.co, _this.co)&&const DeepCollectionEquality().equals(other.no2, _this.no2)&&const DeepCollectionEquality().equals(other.so2, _this.so2));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(europeanAqi),const DeepCollectionEquality().hash(usAqi),const DeepCollectionEquality().hash(pm25),const DeepCollectionEquality().hash(pm10),const DeepCollectionEquality().hash(ozone),const DeepCollectionEquality().hash(co),const DeepCollectionEquality().hash(no2),const DeepCollectionEquality().hash(so2));
+int get hashCode {
+  final _this = this as AirQualityHourly;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.time),const DeepCollectionEquality().hash(_this.europeanAqi),const DeepCollectionEquality().hash(_this.usAqi),const DeepCollectionEquality().hash(_this.pm25),const DeepCollectionEquality().hash(_this.pm10),const DeepCollectionEquality().hash(_this.ozone),const DeepCollectionEquality().hash(_this.co),const DeepCollectionEquality().hash(_this.no2),const DeepCollectionEquality().hash(_this.so2));
+}
 
 @override
 String toString() {
-  return 'AirQualityHourly(time: $time, europeanAqi: $europeanAqi, usAqi: $usAqi, pm25: $pm25, pm10: $pm10, ozone: $ozone, co: $co, no2: $no2, so2: $so2)';
+  final _this = this as AirQualityHourly;
+  return 'AirQualityHourly(time: ${_this.time}, europeanAqi: ${_this.europeanAqi}, usAqi: ${_this.usAqi}, pm25: ${_this.pm25}, pm10: ${_this.pm10}, ozone: ${_this.ozone}, co: ${_this.co}, no2: ${_this.no2}, so2: ${_this.so2})';
 }
 
 
@@ -347,7 +360,7 @@ class _$AirQualityHourlyCopyWithImpl<$Res>
 /// Create a copy of AirQualityHourly
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? time = freezed,Object? europeanAqi = freezed,Object? usAqi = freezed,Object? pm25 = freezed,Object? pm10 = freezed,Object? ozone = freezed,Object? co = freezed,Object? no2 = freezed,Object? so2 = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(AirQualityHourly(
 time: freezed == time ? _self.time : time // ignore: cast_nullable_to_non_nullable
 as List<String>?,europeanAqi: freezed == europeanAqi ? _self.europeanAqi : europeanAqi // ignore: cast_nullable_to_non_nullable
 as List<double?>?,usAqi: freezed == usAqi ? _self.usAqi : usAqi // ignore: cast_nullable_to_non_nullable
@@ -524,16 +537,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AirQualityHourly&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.europeanAqi, europeanAqi)&&const DeepCollectionEquality().equals(other.usAqi, usAqi)&&const DeepCollectionEquality().equals(other.pm25, pm25)&&const DeepCollectionEquality().equals(other.pm10, pm10)&&const DeepCollectionEquality().equals(other.ozone, ozone)&&const DeepCollectionEquality().equals(other.co, co)&&const DeepCollectionEquality().equals(other.no2, no2)&&const DeepCollectionEquality().equals(other.so2, so2));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AirQualityHourly&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.europeanAqi, europeanAqi)&&const DeepCollectionEquality().equals(other.usAqi, usAqi)&&const DeepCollectionEquality().equals(other.pm25, pm25)&&const DeepCollectionEquality().equals(other.pm10, pm10)&&const DeepCollectionEquality().equals(other.ozone, ozone)&&const DeepCollectionEquality().equals(other.co, co)&&const DeepCollectionEquality().equals(other.no2, no2)&&const DeepCollectionEquality().equals(other.so2, so2));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(europeanAqi),const DeepCollectionEquality().hash(usAqi),const DeepCollectionEquality().hash(pm25),const DeepCollectionEquality().hash(pm10),const DeepCollectionEquality().hash(ozone),const DeepCollectionEquality().hash(co),const DeepCollectionEquality().hash(no2),const DeepCollectionEquality().hash(so2));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(europeanAqi),const DeepCollectionEquality().hash(usAqi),const DeepCollectionEquality().hash(pm25),const DeepCollectionEquality().hash(pm10),const DeepCollectionEquality().hash(ozone),const DeepCollectionEquality().hash(co),const DeepCollectionEquality().hash(no2),const DeepCollectionEquality().hash(so2));
+}
 
 @override
 String toString() {
-  return 'AirQualityHourly(time: $time, europeanAqi: $europeanAqi, usAqi: $usAqi, pm25: $pm25, pm10: $pm10, ozone: $ozone, co: $co, no2: $no2, so2: $so2)';
+    return 'AirQualityHourly(time: $time, europeanAqi: $europeanAqi, usAqi: $usAqi, pm25: $pm25, pm10: $pm10, ozone: $ozone, co: $co, no2: $no2, so2: $so2)';
 }
 
 

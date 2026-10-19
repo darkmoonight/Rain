@@ -10,9 +10,11 @@ import 'package:rain/core/utils/place_form_helpers.dart';
 import 'package:rain/core/widgets/city_search_field.dart';
 import 'package:rain/core/widgets/map_tiles.dart';
 import 'package:rain/core/widgets/place_form_fields.dart';
-import 'package:rain/data/datasources/weather_remote_datasource.dart';
+import 'package:rain/data/datasources/weather_remote_datasource.dart'
+    show CitySearchResult;
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
+import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/navigation/app_routes.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/utils/url_launcher_util.dart';
@@ -49,6 +51,18 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
   final _controllerDistrict = TextEditingController();
 
   final mapController = MapController();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    _controller.dispose();
+    _controllerLat.dispose();
+    _controllerLon.dispose();
+    _controllerCity.dispose();
+    _controllerDistrict.dispose();
+    mapController.dispose();
+    super.dispose();
+  }
 
   /// Fills coordinate and label fields from a [CitySearchResult].
   void fillController(CitySearchResult selection) {
@@ -116,7 +130,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
               animationConfig: const ScaleRAWA(),
               attributions: [
                 TextSourceAttribution(
-                  'OpenStreetMap contributors',
+                  'openStreetMapContributors'.tr,
                   onTap: () => openUrl(AppConstants.openStreetMapCopyrightUrl),
                 ),
               ],
@@ -186,7 +200,7 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
           .read(locationServiceProvider)
           .getCurrentPlace(
             resolveLabels: (lat, lon) => ref
-                .read(weatherRemoteDatasourceProvider)
+                .read(weatherRepositoryProvider)
                 .reverseGeocode(
                   lat,
                   lon,
@@ -203,7 +217,8 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
         'city': place.city,
         'district': place.district,
       });
-    } catch (_) {
+    } catch (e, st) {
+      debugLogError('SelectGeolocation._handleLocationButtonPress', e, st);
       if (mounted) showSnackBar('no_location'.tr, isError: true);
     } finally {
       if (mounted) setState(() => isLoading = false);
@@ -261,7 +276,8 @@ class _SelectGeolocationState extends ConsumerState<SelectGeolocation> {
       } else {
         NavigationHelper.back(context);
       }
-    } catch (error) {
+    } catch (error, stackTrace) {
+      debugLogError('SelectGeolocation._handleSubmit', error, stackTrace);
       if (mounted) {
         showSnackBar('error_occurred'.tr, isError: true);
       }

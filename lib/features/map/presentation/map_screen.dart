@@ -19,6 +19,7 @@ import 'package:rain/features/cities/presentation/widgets/weather_card_tile.dart
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/url_launcher_util.dart';
+import 'package:rain/i18n/tr.dart';
 
 /// Interactive map showing the main location and saved city markers.
 class MapPage extends ConsumerStatefulWidget {
@@ -46,6 +47,28 @@ class _MapPageState extends ConsumerState<MapPage>
 
   final _focusNode = FocusNode();
   late final TextEditingController _controllerSearch = TextEditingController();
+
+  MainWeatherCache? _cachedMainWeather;
+  LocationCache? _cachedMainLocation;
+  WeatherCard? _cachedMainMarkerCard;
+
+  /// Memoizes [WeatherCard.fromMainAndLocation] across map rebuilds.
+  WeatherCard _mainMarkerCard(
+    MainWeatherCache mainWeather,
+    LocationCache mainLocation,
+  ) {
+    if (identical(_cachedMainWeather, mainWeather) &&
+        identical(_cachedMainLocation, mainLocation) &&
+        _cachedMainMarkerCard != null) {
+      return _cachedMainMarkerCard!;
+    }
+    _cachedMainWeather = mainWeather;
+    _cachedMainLocation = mainLocation;
+    return _cachedMainMarkerCard = WeatherCard.fromMainAndLocation(
+      mainWeather,
+      mainLocation,
+    );
+  }
 
   /// Initializes slide animation for the selected weather card overlay.
   @override
@@ -99,12 +122,13 @@ class _MapPageState extends ConsumerState<MapPage>
 
   /// Hides the selected weather card overlay and clears search focus.
   void _hideCard() {
-    _animationController.reverse().then(
-      (_) => setState(() {
+    _animationController.reverse().then((_) {
+      if (!mounted) return;
+      setState(() {
         _isCardVisible = false;
         _selectedWeatherCard = null;
-      }),
-    );
+      });
+    });
     _focusNode.unfocus();
   }
 
@@ -243,9 +267,9 @@ class _MapPageState extends ConsumerState<MapPage>
       iconButton: _controllerSearch.text.isNotEmpty
           ? IconButton(
               onPressed: () => _controllerSearch.clear(),
-              icon: const Icon(
+              icon: Icon(
                 IconsaxPlusLinear.close_circle,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 size: 20,
               ),
             )
@@ -297,7 +321,7 @@ class _MapPageState extends ConsumerState<MapPage>
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()));
+            return Center(child: Text('error_occurred'.tr));
           }
 
           final cacheStore = snapshot.data!;
@@ -341,7 +365,7 @@ class _MapPageState extends ConsumerState<MapPage>
                     alignment: AttributionAlignment.bottomLeft,
                     attributions: [
                       TextSourceAttribution(
-                        'OpenStreetMap contributors',
+                        'openStreetMapContributors'.tr,
                         onTap: () =>
                             openUrl(AppConstants.openStreetMapCopyrightUrl),
                       ),
@@ -350,10 +374,7 @@ class _MapPageState extends ConsumerState<MapPage>
                   Consumer(
                     builder: (context, ref, _) {
                       final mainMarker = _buildMainLocationMarker(
-                        WeatherCard.fromMainAndLocation(
-                          mainWeather,
-                          mainLocation,
-                        ),
+                        _mainMarkerCard(mainWeather, mainLocation),
                         hourOfDay,
                         dayOfNow,
                         statusData: statusData,

@@ -192,6 +192,7 @@ class TranslationsRuRu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Шквал';
 	@override String get northwest => 'Северо-запад';
 	@override String get open_meteo => 'Данные от Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Участники OpenStreetMap';
 	@override String get rain => 'Дождь';
 	@override String get mm_hg => 'мм рт. ст.';
 	@override String get validate180 => 'Значение должно быть в диапазоне от -180 до 180';
@@ -512,6 +513,7 @@ extension on TranslationsRuRu {
 			'windgusts' => 'Шквал',
 			'northwest' => 'Северо-запад',
 			'open_meteo' => 'Данные от Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Участники OpenStreetMap',
 			'rain' => 'Дождь',
 			'mm_hg' => 'мм рт. ст.',
 			'validate180' => 'Значение должно быть в диапазоне от -180 до 180',

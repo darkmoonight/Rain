@@ -243,7 +243,9 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
               weatherCard: card,
               hourIndex: timeNow,
               dayIndex: dayNow,
-              aqiStandard: ref.watch(settingsProvider).aqiStandard,
+              aqiStandard: ref.watch(
+                settingsProvider.select((s) => s.aqiStandard),
+              ),
               itemScrollController: itemScrollController,
               onHourSelected: (h, d) => setState(() {
                 timeNow = h;

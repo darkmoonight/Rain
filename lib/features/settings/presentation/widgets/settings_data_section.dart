@@ -35,8 +35,8 @@ class _SettingsDataSectionState
           title: 'roundDegree',
           value: settings.roundDegree,
           onChanged: (value) async {
-            settings.roundDegree = value;
             await actions.saveSettings(
+              mutate: (s) => s.roundDegree = value,
               afterSave: actions.syncWidgetsAndNotificationContent,
               backgroundAfterSave: true,
             );
@@ -67,8 +67,8 @@ class _SettingsDataSectionState
       currentValue: def.read(settings),
       itemBuilder: (value) => value.tr,
       onSelected: (value) async {
-        def.write(settings, value);
         await actions.saveSettings(
+          mutate: (s) => def.write(s, value),
           afterSave: actions.afterSaveForEnumPicker(def),
           backgroundAfterSave: actions.backgroundAfterSaveForEnumPicker(def),
         );

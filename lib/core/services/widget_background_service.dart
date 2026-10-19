@@ -7,7 +7,8 @@ import 'package:isar_community/isar.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/database/isar_schemas.dart';
 import 'package:rain/core/services/background_refresh_log.dart';
-import 'package:rain/core/services/notification_service.dart';
+import 'package:rain/core/services/notification_isar_bridge.dart';
+import 'package:rain/core/utils/error_sanitizer.dart';
 import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
 import 'package:rain/data/datasources/weather_local_datasource.dart';
@@ -128,14 +129,14 @@ Future<bool> runWidgetBackgroundRefresh(
       await (refreshStaleWeather ?? refreshMainWeatherIfStale)(isar);
     } catch (e, st) {
       logBackgroundError('refreshMainWeatherIfStale', e, st);
-      failureError ??= e.toString();
+      failureError ??= sanitizeErrorCode(e);
     }
 
     try {
       widgetUpdated = await updateWidgets(isar);
     } catch (e, st) {
       logBackgroundError('updateWidgets', e, st);
-      failureError ??= e.toString();
+      failureError ??= sanitizeErrorCode(e);
     }
 
     try {
@@ -143,14 +144,14 @@ Future<bool> runWidgetBackgroundRefresh(
       notificationUpdated = true;
     } catch (e, st) {
       logBackgroundError('updatePersistentNotificationFromIsar', e, st);
-      failureError ??= e.toString();
+      failureError ??= sanitizeErrorCode(e);
     }
 
     try {
       await replenishForecastNotificationsFromIsar(isar);
     } catch (e, st) {
       logBackgroundError('replenishForecastNotificationsFromIsar', e, st);
-      failureError ??= e.toString();
+      failureError ??= sanitizeErrorCode(e);
     }
 
     final success = widgetUpdated || notificationUpdated;
@@ -161,7 +162,10 @@ Future<bool> runWidgetBackgroundRefresh(
     return success;
   } catch (e, st) {
     logBackgroundError('runWidgetBackgroundRefresh', e, st);
-    await recordBackgroundRefreshResult(success: false, error: e.toString());
+    await recordBackgroundRefreshResult(
+      success: false,
+      error: sanitizeErrorCode(e),
+    );
     return false;
   } finally {
     if (ownsIsar) {

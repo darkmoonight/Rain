@@ -137,7 +137,7 @@ void main() {
   testWidgets('DescContainer renders expandable section', (tester) async {
     await pumpRainWidget(
       tester,
-      DescContainer(
+      const DescContainer(
         humidity: 50,
         wind: 5,
         initiallyExpanded: true,

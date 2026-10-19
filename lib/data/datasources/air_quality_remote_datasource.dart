@@ -1,5 +1,8 @@
+import 'dart:isolate';
+
 import 'package:dio/dio.dart';
 import 'package:rain/core/utils/debug_log.dart';
+import 'package:rain/data/datasources/json_isolate_parsers.dart';
 import 'package:rain/data/models/air_quality_api.dart';
 
 /// Fetches air quality forecast data from the Open-Meteo Air Quality API.
@@ -17,7 +20,8 @@ class AirQualityRemoteDatasource {
   Future<AirQualityDataApi?> fetchAirQuality(double lat, double lon) async {
     try {
       final response = await _dio.get('$_baseUrl&latitude=$lat&longitude=$lon');
-      return AirQualityDataApi.fromJson(response.data);
+      final json = asJsonMap(response.data);
+      return await Isolate.run(() => parseAirQualityDataApiJson(json));
     } on DioException catch (e, stackTrace) {
       debugLogError(
         'AirQualityRemoteDatasource.fetchAirQuality',

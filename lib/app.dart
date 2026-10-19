@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/navigation/app_router.dart';
-import 'package:rain/i18n/strings.g.dart';
+import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/theme/material_ui_dynamic_color_builder.dart';
 import 'package:rain/core/theme/theme.dart';
 import 'package:rain/core/utils/device_info.dart';
@@ -15,32 +15,6 @@ class RainApp extends ConsumerStatefulWidget {
   const RainApp({super.key, required this.bootstrap});
 
   final AppBootstrap bootstrap;
-
-  /// Applies settings changes through [appSettingsProvider] (persists via notifier).
-  static void updateAppState(
-    WidgetRef ref, {
-    bool? newAmoledTheme,
-    bool? newMaterialColor,
-    bool? newRoundDegree,
-    bool? newLargeElement,
-    Locale? newLocale,
-    int? newTimeRange,
-    String? newTimeStart,
-    String? newTimeEnd,
-  }) {
-    ref
-        .read(appSettingsProvider.notifier)
-        .update(
-          amoledTheme: newAmoledTheme,
-          materialColor: newMaterialColor,
-          roundDegree: newRoundDegree,
-          largeElement: newLargeElement,
-          locale: newLocale,
-          timeRange: newTimeRange,
-          timeStart: newTimeStart,
-          timeEnd: newTimeEnd,
-        );
-  }
 
   @override
   ConsumerState<RainApp> createState() => _RainAppState();
@@ -90,7 +64,7 @@ class _RainAppState extends ConsumerState<RainApp> {
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: GlobalMaterialLocalizations.delegates,
               debugShowCheckedModeBanner: false,
-              title: 'Rain',
+              title: 'rain'.tr,
               builder: (context, child) {
                 final content = Stack(
                   children: [?child, const SnackBarOverlayWidget()],

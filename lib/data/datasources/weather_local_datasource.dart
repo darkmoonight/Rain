@@ -46,6 +46,10 @@ class WeatherLocalDatasource {
   Future<bool> isMainWeatherEmpty() =>
       _isar.mainWeatherCaches.where().isEmpty();
 
+  /// Returns true when at least one location cache row exists.
+  Future<bool> hasLocationCache() async =>
+      !(await _isar.locationCaches.where().isEmpty());
+
   /// Deletes all rows from the main weather cache collection.
   Future<void> deleteMainWeather() async {
     await _isar.writeTxn(() => _isar.mainWeatherCaches.where().deleteAll());

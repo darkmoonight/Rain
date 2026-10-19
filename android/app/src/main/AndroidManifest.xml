@@ -10,7 +10,9 @@
     <application
         android:label="Rain"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:fullBackupContent="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -65,6 +67,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_clock_day_horizontal" />
         </receiver>
+        <!-- home_widget requires exported=true for BACKGROUND widget refresh.
+             Constraint of the plugin; see CONTRIBUTING.md "Known package risks". -->
         <receiver android:name="es.antonborri.home_widget.HomeWidgetBackgroundReceiver"
             android:exported="true">
             <intent-filter>

@@ -191,6 +191,7 @@ class TranslationsKoKr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => '돌풍';
 	@override String get northwest => '북서';
 	@override String get open_meteo => 'Open-Meteo의 데이터 (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap 기여자';
 	@override String get rain => '비';
 	@override String get mm_hg => '밀리미터 수은주';
 	@override String get validate180 => '-180과 180 사이의 값만 가능합니다';
@@ -511,6 +512,7 @@ extension on TranslationsKoKr {
 			'windgusts' => '돌풍',
 			'northwest' => '북서',
 			'open_meteo' => 'Open-Meteo의 데이터 (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap 기여자',
 			'rain' => '비',
 			'mm_hg' => '밀리미터 수은주',
 			'validate180' => '-180과 180 사이의 값만 가능합니다',

@@ -151,6 +151,7 @@
   "windgusts": "Szélrohamok",
   "northwest": "Északnyugat",
   "openMeteo": "Adatok az Open-Meteo-tól (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMap közreműködők",
   "rain": "Eső",
   "mmHg": "mmHg",
   "validate180": "Az érték -180 és 180 közötti kell legyen",

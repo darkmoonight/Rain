@@ -1,3 +1,4 @@
+import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -58,7 +59,9 @@ int forecastScheduleEpochMillis(
         naive.hour,
         naive.minute,
       ).millisecondsSinceEpoch;
-    } catch (_) {}
+    } catch (e, st) {
+      debugLogError('forecastScheduleEpochMillis', e, st);
+    }
   }
   return tz.TZDateTime.from(naive, tz.local).millisecondsSinceEpoch;
 }
@@ -217,7 +220,9 @@ tz.Location notificationTzLocation(String? timezone) {
   if (timezone != null) {
     try {
       return tz.getLocation(timezone);
-    } catch (_) {}
+    } catch (e, st) {
+      debugLogError('notificationTzLocation', e, st);
+    }
   }
   return tz.local;
 }

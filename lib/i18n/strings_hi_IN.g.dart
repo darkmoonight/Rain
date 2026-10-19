@@ -191,6 +191,7 @@ class TranslationsHiIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'गुस्त';
 	@override String get northwest => 'उत्तर-पश्चिम';
 	@override String get open_meteo => 'Open-Meteo से डेटा (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap योगदानकर्ता';
 	@override String get rain => 'बारिश';
 	@override String get mm_hg => 'मिमी एचजी';
 	@override String get validate180 => 'मान -१८० और १८० के बीच होना चाहिए';
@@ -511,6 +512,7 @@ extension on TranslationsHiIn {
 			'windgusts' => 'गुस्त',
 			'northwest' => 'उत्तर-पश्चिम',
 			'open_meteo' => 'Open-Meteo से डेटा (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap योगदानकर्ता',
 			'rain' => 'बारिश',
 			'mm_hg' => 'मिमी एचजी',
 			'validate180' => 'मान -१८० और १८० के बीच होना चाहिए',

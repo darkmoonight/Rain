@@ -146,8 +146,9 @@ void logBackgroundError(
   Object error, [
   StackTrace? stackTrace,
 ]) {
+  if (!kDebugMode) return;
   debugPrint('RainBackground[$context]: $error');
-  if (kDebugMode && stackTrace != null) {
+  if (stackTrace != null) {
     debugPrint(stackTrace.toString());
   }
 }

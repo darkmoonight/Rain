@@ -191,6 +191,7 @@ class TranslationsOrIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'ପବନର ଝଟକା';
 	@override String get northwest => 'ଉତ୍ତର-ପଶ୍ଚିମ';
 	@override String get open_meteo => 'Open-Meteo ରୁ ତଥ୍ୟ (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'ବର୍ଷା';
 	@override String get mm_hg => 'ମି.ମି. ପାରଦ';
 	@override String get validate180 => 'ମୂଲ୍ୟ -180 ଏବଂ 180 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ';
@@ -511,6 +512,7 @@ extension on TranslationsOrIn {
 			'windgusts' => 'ପବନର ଝଟକା',
 			'northwest' => 'ଉତ୍ତର-ପଶ୍ଚିମ',
 			'open_meteo' => 'Open-Meteo ରୁ ତଥ୍ୟ (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'ବର୍ଷା',
 			'mm_hg' => 'ମି.ମି. ପାରଦ',
 			'validate180' => 'ମୂଲ୍ୟ -180 ଏବଂ 180 ମଧ୍ୟରେ ହେବା ଆବଶ୍ୟକ',

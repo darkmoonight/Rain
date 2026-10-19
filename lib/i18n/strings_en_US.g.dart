@@ -501,6 +501,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en-US: 'Data by Open-Meteo (CC-BY 4.0)'
 	String get open_meteo => 'Data by Open-Meteo (CC-BY 4.0)';
 
+	/// en-US: 'OpenStreetMap contributors'
+	String get open_street_map_contributors => 'OpenStreetMap contributors';
+
 	/// en-US: 'Rain'
 	String get rain => 'Rain';
 
@@ -1134,6 +1137,7 @@ extension on Translations {
 			'windgusts' => 'Gust',
 			'northwest' => 'Northwest',
 			'open_meteo' => 'Data by Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'Rain',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Value must be between -180 and 180',

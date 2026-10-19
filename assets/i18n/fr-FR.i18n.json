@@ -151,6 +151,7 @@
   "windgusts": "Rafale",
   "northwest": "Nord-Ouest",
   "openMeteo": "Données de Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "Contributeurs OpenStreetMap",
   "rain": "Pluie",
   "mmHg": "mmHg",
   "validate180": "La valeur doit être comprise entre -180 et 180",

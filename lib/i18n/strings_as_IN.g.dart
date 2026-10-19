@@ -191,6 +191,7 @@ class TranslationsAsIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'বতাহৰ ঝাপটা';
 	@override String get northwest => 'উত্তৰ-পশ্চিম';
 	@override String get open_meteo => 'Open-Meteo ৰ পৰা তথ্য (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'বৰষুণ';
 	@override String get mm_hg => 'মি.মি. পাৰা';
 	@override String get validate180 => 'মান -180 আৰু 180 ৰ মাজত হ\'ব লাগিব';
@@ -511,6 +512,7 @@ extension on TranslationsAsIn {
 			'windgusts' => 'বতাহৰ ঝাপটা',
 			'northwest' => 'উত্তৰ-পশ্চিম',
 			'open_meteo' => 'Open-Meteo ৰ পৰা তথ্য (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'বৰষুণ',
 			'mm_hg' => 'মি.মি. পাৰা',
 			'validate180' => 'মান -180 আৰু 180 ৰ মাজত হ\'ব লাগিব',

@@ -191,6 +191,7 @@ class TranslationsKaGe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'ნაკადი';
 	@override String get northwest => 'ჩრდილო-დასავლეთი';
 	@override String get open_meteo => 'მონაცემები Open-Meteo-დან (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'წვიმა';
 	@override String get mm_hg => 'მმHg';
 	@override String get validate180 => 'მნიშვნელობა უნდა იყოს -180-დან 180-მდე';
@@ -511,6 +512,7 @@ extension on TranslationsKaGe {
 			'windgusts' => 'ნაკადი',
 			'northwest' => 'ჩრდილო-დასავლეთი',
 			'open_meteo' => 'მონაცემები Open-Meteo-დან (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'წვიმა',
 			'mm_hg' => 'მმHg',
 			'validate180' => 'მნიშვნელობა უნდა იყოს -180-დან 180-მდე',

@@ -29,5 +29,11 @@ flutter pub get
 dart run slang
 dart run build_runner build --delete-conflicting-outputs
 
-flutter build apk --release --flavor "$variant" "$@"
+debug_info_dir="$root/build/app/outputs/symbols"
+mkdir -p "$debug_info_dir"
+
+flutter build apk --release --flavor "$variant" \
+  --obfuscate \
+  --split-debug-info="$debug_info_dir" \
+  "$@"
 "$scripts/rename_apk_outputs.sh" "$variant"

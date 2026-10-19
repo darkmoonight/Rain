@@ -35,7 +35,7 @@ Widget buildRainMapDarkModeFilter({
 }) {
   if (!isDark) return child;
   return ColorFiltered(
-    colorFilter: ColorFilter.matrix(AppConstants.mapDarkColorFilterMatrix),
+    colorFilter: const ColorFilter.matrix(AppConstants.mapDarkColorFilterMatrix),
     child: child,
   );
 }

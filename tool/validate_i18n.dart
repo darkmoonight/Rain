@@ -31,6 +31,8 @@ const allowedEnglishI18nKeys = {
   'W/m2',
   // Same word in EN/DE/FR/RO (and often other locales).
   'widgetBackgroundTransparent',
+  // Proper-name attribution; English is acceptable in many locales.
+  'openStreetMapContributors',
 };
 
 /// Whether [key] may legitimately match the base locale in translated files.

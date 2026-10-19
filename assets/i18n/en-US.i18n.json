@@ -152,6 +152,7 @@
   "windgusts": "Gust",
   "northwest": "Northwest",
   "openMeteo": "Data by Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMap contributors",
   "rain": "Rain",
   "mmHg": "mmHg",
   "validate180": "Value must be between -180 and 180",

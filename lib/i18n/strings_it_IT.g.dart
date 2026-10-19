@@ -191,6 +191,7 @@ class TranslationsItIt extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Raffica';
 	@override String get northwest => 'Nord-ovest';
 	@override String get open_meteo => 'Dati da Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Collaboratori di OpenStreetMap';
 	@override String get rain => 'Pioggia';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Il valore deve essere compreso tra -180 e 180';
@@ -511,6 +512,7 @@ extension on TranslationsItIt {
 			'windgusts' => 'Raffica',
 			'northwest' => 'Nord-ovest',
 			'open_meteo' => 'Dati da Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Collaboratori di OpenStreetMap',
 			'rain' => 'Pioggia',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Il valore deve essere compreso tra -180 e 180',

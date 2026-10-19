@@ -39,7 +39,11 @@ class ErrorRetryStateView extends StatelessWidget {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(IconsaxPlusLinear.warning_2, size: 48, color: Colors.grey),
+        Icon(
+          IconsaxPlusLinear.warning_2,
+          size: 48,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
         const SizedBox(height: AppConstants.spacingL),
         SizedBox(
           width: MediaQuery.sizeOf(context).width * 0.8,

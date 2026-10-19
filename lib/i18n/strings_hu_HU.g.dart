@@ -191,6 +191,7 @@ class TranslationsHuHu extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Szélrohamok';
 	@override String get northwest => 'Északnyugat';
 	@override String get open_meteo => 'Adatok az Open-Meteo-tól (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap közreműködők';
 	@override String get rain => 'Eső';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Az érték -180 és 180 közötti kell legyen';
@@ -511,6 +512,7 @@ extension on TranslationsHuHu {
 			'windgusts' => 'Szélrohamok',
 			'northwest' => 'Északnyugat',
 			'open_meteo' => 'Adatok az Open-Meteo-tól (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap közreműködők',
 			'rain' => 'Eső',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Az érték -180 és 180 közötti kell legyen',

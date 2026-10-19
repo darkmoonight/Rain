@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/config/setting_enum_pickers.dart';
 import 'package:rain/core/di/providers.dart';
+import 'package:rain/core/settings/settings_persistence.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:restart_app/restart_app.dart';
 
@@ -22,11 +23,17 @@ class SettingsSaveActions {
   Future<void> Function()? forecastRescheduleAfterSave() =>
       settings.notifications ? weather.rescheduleNotificationsIfEnabled : null;
 
+  /// Persists after [mutate] (or current in-memory fields when [mutate] is null).
   Future<void> saveSettings({
+    void Function(Settings settings)? mutate,
     Future<void> Function()? afterSave,
     bool backgroundAfterSave = false,
   }) async {
-    await ref.read(settingsRepositoryProvider).save(settings);
+    if (mutate != null) {
+      await ref.persistSettings(mutate);
+    } else {
+      await ref.read(settingsRepositoryProvider).save(settings);
+    }
     if (afterSave != null) {
       if (backgroundAfterSave) {
         unawaited(afterSave());
@@ -37,7 +44,10 @@ class SettingsSaveActions {
     _setState(() {});
   }
 
-  Future<void> saveWithForecastReschedule() => saveSettings(
+  Future<void> saveWithForecastReschedule({
+    void Function(Settings settings)? mutate,
+  }) => saveSettings(
+    mutate: mutate,
     afterSave: forecastRescheduleAfterSave(),
     backgroundAfterSave: true,
   );
@@ -59,8 +69,7 @@ class SettingsSaveActions {
           .isServiceEnabled();
       if (!serviceEnabled) return false;
     }
-    settings.location = enabled;
-    await ref.read(settingsRepositoryProvider).save(settings);
+    await ref.persistSettings((s) => s.location = enabled);
     if (enabled) await refreshGps();
     _setState(() {});
     return true;
@@ -73,8 +82,7 @@ class SettingsSaveActions {
   }) async {
     if (enabled && !await requestPermissions()) return;
 
-    settings.notifications = enabled;
-    await ref.read(settingsRepositoryProvider).save(settings);
+    await ref.persistSettings((s) => s.notifications = enabled);
     _setState(() {});
 
     runInBackground(
@@ -91,8 +99,7 @@ class SettingsSaveActions {
   }) async {
     if (enabled && !await requestPermission()) return;
 
-    settings.persistentNotification = enabled;
-    await ref.read(settingsRepositoryProvider).save(settings);
+    await ref.persistSettings((s) => s.persistentNotification = enabled);
     if (enabled) {
       unawaited(weather.refreshPersistentNotification(force: true));
     } else {
@@ -105,8 +112,7 @@ class SettingsSaveActions {
 
   /// Persists hide-map and restarts the app after a short delay.
   Future<void> saveHideMapToggle(bool enabled) async {
-    settings.hideMap = enabled;
-    await ref.read(settingsRepositoryProvider).save(settings);
+    await ref.persistSettings((s) => s.hideMap = enabled);
     _setState(() {});
     if (Platform.isAndroid || Platform.isIOS) {
       Future.delayed(

@@ -151,6 +151,7 @@
   "windgusts": "突風",
   "northwest": "北西",
   "openMeteo": "データ提供: Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMapの貢献者",
   "rain": "雨",
   "mmHg": "mmHg",
   "validate180": "値は -180 〜 180 の範囲で入力してください",

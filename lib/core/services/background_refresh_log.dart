@@ -22,6 +22,7 @@ Future<void> recordBackgroundRefreshResult({
     logBackgroundError('recordBackgroundRefreshResult', e, st);
   }
 
+  if (!kDebugMode) return;
   if (success) {
     debugPrint('RainBackground: refresh succeeded at $now');
   } else {

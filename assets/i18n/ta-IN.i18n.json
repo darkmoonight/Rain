@@ -151,6 +151,7 @@
   "windgusts": "காற்றின் வேகம்",
   "northwest": "வடமேற்கு",
   "openMeteo": "Open-Meteo இலிருந்து தரவு (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMap contributors",
   "rain": "மழை",
   "mmHg": "மி.மீ பாதரசம்",
   "validate180": "மதிப்பு -180 மற்றும் 180 க்கு இடையில் இருக்க வேண்டும்",

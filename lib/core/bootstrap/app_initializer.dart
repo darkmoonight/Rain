@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
@@ -31,13 +32,13 @@ class AppInitializer {
     await initializeNotificationsPlugin();
     if (Platform.isAndroid) {
       await _setOptimalDisplayMode();
-      Workmanager().initialize(callbackDispatcher);
+      unawaited(Workmanager().initialize(callbackDispatcher));
       await ensureWidgetBackgroundTaskScheduled();
       registerWidgetBootUpdateTask();
-      Future.microtask(HomeWidgetService.updateFromDisk);
+      unawaited(Future.microtask(HomeWidgetService.updateFromDisk));
     }
     if (Platform.isIOS) {
-      HomeWidget.setAppGroupId(appGroupId);
+      unawaited(HomeWidget.setAppGroupId(appGroupId));
     }
     await DeviceFeature().init();
     return bootstrap;

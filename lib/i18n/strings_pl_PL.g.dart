@@ -191,6 +191,7 @@ class TranslationsPlPl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Porywy wiatru';
 	@override String get northwest => 'Północny zachód';
 	@override String get open_meteo => 'Dane z Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Współtwórcy OpenStreetMap';
 	@override String get rain => 'Deszcz';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Wartość musi mieścić się w przedziale od -180 do 180';
@@ -511,6 +512,7 @@ extension on TranslationsPlPl {
 			'windgusts' => 'Porywy wiatru',
 			'northwest' => 'Północny zachód',
 			'open_meteo' => 'Dane z Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Współtwórcy OpenStreetMap',
 			'rain' => 'Deszcz',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Wartość musi mieścić się w przedziale od -180 do 180',

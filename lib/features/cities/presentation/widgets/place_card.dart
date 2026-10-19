@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:rain/core/di/city_clock_provider.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/data/models/db.dart';
@@ -65,7 +66,9 @@ class PlaceCard extends ConsumerWidget {
                         ),
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
-                              color: Colors.grey,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
                               fontWeight: FontWeight.w400,
                             ),
                       ),
@@ -98,21 +101,21 @@ class PlaceCard extends ConsumerWidget {
   }
 }
 
-/// Live wall-clock label for a city card (ticks every second).
-class _CityWallClock extends StatelessWidget {
+/// Live wall-clock label for a city card (shared 30s ticker).
+class _CityWallClock extends ConsumerWidget {
   const _CityWallClock({required this.clock, required this.statusData});
 
   final LocationClock clock;
   final StatusData statusData;
 
   @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Stream.periodic(const Duration(seconds: 1)),
-      builder: (context, _) => Text(
-        '${'time'.tr}: ${statusData.getWallClockFormat(TimeIndexHelper.wallClockNow(clock))}',
-        style: Theme.of(context).textTheme.titleMedium
-            ?.copyWith(color: Colors.grey, fontWeight: FontWeight.w400),
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(cityWallClockTickProvider);
+    return Text(
+      '${'time'.tr}: ${statusData.getWallClockFormat(TimeIndexHelper.wallClockNow(clock))}',
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+        fontWeight: FontWeight.w400,
       ),
     );
   }

@@ -191,6 +191,7 @@ class TranslationsDaDk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Vindstød';
 	@override String get northwest => 'Nordvest';
 	@override String get open_meteo => 'Data fra Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap-bidragydere';
 	@override String get rain => 'Regn';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Værdien skal være mellem -180 og 180';
@@ -511,6 +512,7 @@ extension on TranslationsDaDk {
 			'windgusts' => 'Vindstød',
 			'northwest' => 'Nordvest',
 			'open_meteo' => 'Data fra Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap-bidragydere',
 			'rain' => 'Regn',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Værdien skal være mellem -180 og 180',

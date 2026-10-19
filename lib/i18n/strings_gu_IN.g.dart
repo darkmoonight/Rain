@@ -191,6 +191,7 @@ class TranslationsGuIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'પવનના ઝાપટા';
 	@override String get northwest => 'ઉત્તર પશ્ચિમ';
 	@override String get open_meteo => 'Open-Meteo દ્વારા ડેટા (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'વરસાદ';
 	@override String get mm_hg => 'મિમી પારો';
 	@override String get validate180 => 'મૂલ્ય -180 અને 180 વચ્ચે હોવું જોઈએ';
@@ -511,6 +512,7 @@ extension on TranslationsGuIn {
 			'windgusts' => 'પવનના ઝાપટા',
 			'northwest' => 'ઉત્તર પશ્ચિમ',
 			'open_meteo' => 'Open-Meteo દ્વારા ડેટા (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'વરસાદ',
 			'mm_hg' => 'મિમી પારો',
 			'validate180' => 'મૂલ્ય -180 અને 180 વચ્ચે હોવું જોઈએ',

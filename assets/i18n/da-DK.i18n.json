@@ -151,6 +151,7 @@
   "windgusts": "Vindstød",
   "northwest": "Nordvest",
   "openMeteo": "Data fra Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMap-bidragydere",
   "rain": "Regn",
   "mmHg": "mmHg",
   "validate180": "Værdien skal være mellem -180 og 180",

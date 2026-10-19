@@ -191,6 +191,7 @@ class TranslationsJaJp extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => '突風';
 	@override String get northwest => '北西';
 	@override String get open_meteo => 'データ提供: Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMapの貢献者';
 	@override String get rain => '雨';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => '値は -180 〜 180 の範囲で入力してください';
@@ -511,6 +512,7 @@ extension on TranslationsJaJp {
 			'windgusts' => '突風',
 			'northwest' => '北西',
 			'open_meteo' => 'データ提供: Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMapの貢献者',
 			'rain' => '雨',
 			'mm_hg' => 'mmHg',
 			'validate180' => '値は -180 〜 180 の範囲で入力してください',

@@ -151,6 +151,7 @@
   "windgusts": "돌풍",
   "northwest": "북서",
   "openMeteo": "Open-Meteo의 데이터 (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMap 기여자",
   "rain": "비",
   "mmHg": "밀리미터 수은주",
   "validate180": "-180과 180 사이의 값만 가능합니다",

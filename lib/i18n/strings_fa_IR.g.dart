@@ -191,6 +191,7 @@ class TranslationsFaIr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'وزش باد';
 	@override String get northwest => 'شمال غربی';
 	@override String get open_meteo => 'داده‌ها از Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'مشارکت‌کنندگان OpenStreetMap';
 	@override String get rain => 'باران';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'مقدار شما باید بین -۱۸۰ و ۱۸۰ باشد.';
@@ -511,6 +512,7 @@ extension on TranslationsFaIr {
 			'windgusts' => 'وزش باد',
 			'northwest' => 'شمال غربی',
 			'open_meteo' => 'داده‌ها از Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'مشارکت‌کنندگان OpenStreetMap',
 			'rain' => 'باران',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'مقدار شما باید بین -۱۸۰ و ۱۸۰ باشد.',

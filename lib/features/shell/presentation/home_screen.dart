@@ -4,9 +4,8 @@ import 'dart:io';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:isar_community/isar.dart';
 import 'package:rain/core/di/providers.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/features/cities/presentation/view/place_list.dart';
@@ -40,10 +39,31 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _initData();
+    unawaited(
+      _initData().catchError(
+        (Object e, StackTrace st) => debugLogError('HomeScreen._initData', e, st),
+      ),
+    );
     _setupTabController(pageCount: ref.read(settingsProvider).hideMap ? 3 : 4);
-    _checkLocationCache();
+    unawaited(
+      _checkLocationCache().catchError(
+        (Object e, StackTrace st) =>
+            debugLogError('HomeScreen._checkLocationCache', e, st),
+      ),
+    );
     _startPersistentNotificationTimer();
+  }
+
+  void _syncTabControllerLength(int pageCount) {
+    if (tabController.length == pageCount) return;
+    final oldPageCount = tabController.length;
+    final previousIndex = tabIndex;
+    tabController.dispose();
+    _syncTabIndexAfterPageCountChange(oldPageCount, pageCount);
+    _setupTabController(pageCount: pageCount);
+    if (tabIndex != previousIndex && mounted) {
+      setState(() {});
+    }
   }
 
   void _startPersistentNotificationTimer() {
@@ -99,12 +119,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   }
 
   Future<void> _checkLocationCache() async {
-    final caches = await ref
-        .read(isarProvider)
-        .locationCaches
-        .where()
-        .findAll();
-    if (mounted) setState(() => _hasLocationCache = caches.isNotEmpty);
+    final hasCache = await ref
+        .read(weatherRepositoryProvider)
+        .hasLocationCache();
+    if (mounted) setState(() => _hasLocationCache = hasCache);
   }
 
   void _closeSearch() {
@@ -134,18 +152,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    final settings = ref.watch(settingsProvider);
+    final shellSettings = ref.watch(
+      settingsProvider.select(
+        (s) => (hideMap: s.hideMap, location: s.location),
+      ),
+    );
     final weatherAppBar = ref.watch(
       mainWeatherNotifierProvider.select(homeShellWeatherAppBarData),
     );
-    final pages = _pages(settings.hideMap);
+    final pages = _pages(shellSettings.hideMap);
 
-    if (tabController.length != pages.length) {
-      final oldPageCount = tabController.length;
-      tabController.dispose();
-      _syncTabIndexAfterPageCountChange(oldPageCount, pages.length);
-      _setupTabController(pageCount: pages.length);
-    }
+    // Listeners run before rebuild, so the controller length matches pages.
+    ref.listen(
+      settingsProvider.select((s) => s.hideMap),
+      (previous, next) => _syncTabControllerLength(next ? 3 : 4),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -161,8 +182,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             : null,
         title: HomeShellAppBarTitle(
           tabIndex: tabIndex,
-          hideMap: settings.hideMap,
-          settingsLocationEnabled: settings.location,
+          hideMap: shellSettings.hideMap,
+          settingsLocationEnabled: shellSettings.location,
           hasLocationCache: _hasLocationCache,
           weatherIsLoading: weatherAppBar.isLoading,
           weatherCity: weatherAppBar.city,
@@ -196,7 +217,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             selectedIcon: const Icon(IconsaxPlusBold.buildings),
             label: 'cities'.tr,
           ),
-          if (!settings.hideMap)
+          if (!shellSettings.hideMap)
             NavigationDestination(
               icon: const Icon(IconsaxPlusLinear.map),
               selectedIcon: const Icon(IconsaxPlusBold.map),

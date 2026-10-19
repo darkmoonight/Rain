@@ -191,6 +191,7 @@ class TranslationsSkSk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Nárazy vetra';
 	@override String get northwest => 'Severo-Západ';
 	@override String get open_meteo => 'Údaje od Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Prispievatelia OpenStreetMap';
 	@override String get rain => 'Dážď';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Hodnota musí byť medzi -180 a 180';
@@ -511,6 +512,7 @@ extension on TranslationsSkSk {
 			'windgusts' => 'Nárazy vetra',
 			'northwest' => 'Severo-Západ',
 			'open_meteo' => 'Údaje od Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Prispievatelia OpenStreetMap',
 			'rain' => 'Dážď',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Hodnota musí byť medzi -180 a 180',

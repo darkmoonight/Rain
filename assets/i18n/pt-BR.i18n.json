@@ -151,6 +151,7 @@
   "windgusts": "Rajadas",
   "northwest": "Noroeste",
   "openMeteo": "Dados do Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "Colaboradores do OpenStreetMap",
   "rain": "Chuva",
   "mmHg": "mmHg",
   "validate180": "Valor deve estar entre -180 and 180",

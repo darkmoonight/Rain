@@ -32,7 +32,7 @@ class HourlyStripSeparator extends StatelessWidget {
   const HourlyStripSeparator({super.key});
 
   @override
-  Widget build(BuildContext context) => VerticalDivider(
+  Widget build(BuildContext context) => const VerticalDivider(
     width: AppConstants.cardPaddingHorizontal,
     indent: AppConstants.hourlySeparatorIndent,
     endIndent: AppConstants.hourlySeparatorIndent,

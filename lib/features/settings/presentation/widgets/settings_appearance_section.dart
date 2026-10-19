@@ -62,8 +62,9 @@ class _SettingsAppearanceSectionState
           title: 'largeElement',
           value: settings.largeElement,
           onChanged: (value) async {
-            settings.largeElement = value;
-            await actions.saveSettings();
+            await actions.saveSettings(
+              mutate: (s) => s.largeElement = value,
+            );
           },
         ),
         for (final def in settingAppearanceCatalogPickers)
@@ -139,8 +140,8 @@ class _SettingsAppearanceSectionState
       leadingBuilder: def.leadingBuilder,
       enableSearch: def.enableSearch,
       onSelected: (value) async {
-        def.write(settings, value);
         await actions.saveSettings(
+          mutate: (s) => def.write(s, value),
           afterSave: _afterSaveForPicker(def),
           backgroundAfterSave: def.syncNotificationContent,
         );

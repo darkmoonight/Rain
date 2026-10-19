@@ -191,6 +191,7 @@ class TranslationsFrFr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Rafale';
 	@override String get northwest => 'Nord-Ouest';
 	@override String get open_meteo => 'Données de Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Contributeurs OpenStreetMap';
 	@override String get rain => 'Pluie';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'La valeur doit être comprise entre -180 et 180';
@@ -511,6 +512,7 @@ extension on TranslationsFrFr {
 			'windgusts' => 'Rafale',
 			'northwest' => 'Nord-Ouest',
 			'open_meteo' => 'Données de Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Contributeurs OpenStreetMap',
 			'rain' => 'Pluie',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'La valeur doit être comprise entre -180 et 180',

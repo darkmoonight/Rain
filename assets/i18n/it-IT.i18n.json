@@ -151,6 +151,7 @@
   "windgusts": "Raffica",
   "northwest": "Nord-ovest",
   "openMeteo": "Dati da Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "Collaboratori di OpenStreetMap",
   "rain": "Pioggia",
   "mmHg": "mmHg",
   "validate180": "Il valore deve essere compreso tra -180 e 180",

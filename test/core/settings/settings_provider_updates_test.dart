@@ -25,7 +25,7 @@ void main() {
       final container = createTestContainer(bootstrap: ctx.bootstrap);
       addTearDown(container.dispose);
 
-      container
+      await container
           .read(appSettingsProvider.notifier)
           .update(locale: const Locale('de', 'DE'));
 
@@ -33,6 +33,7 @@ void main() {
         container.read(appSettingsProvider).locale,
         const Locale('de', 'DE'),
       );
+      expect(container.read(settingsProvider).language, 'de_DE');
     });
 
     test('settingsProvider reflects wind unit changes', () async {

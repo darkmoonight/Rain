@@ -191,6 +191,7 @@ class TranslationsNlNl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Windstoten';
 	@override String get northwest => 'Noordwest';
 	@override String get open_meteo => 'Gegevens van Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap-bijdragers';
 	@override String get rain => 'Regen';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Waarde moet tussen -180 and 180 zijn';
@@ -511,6 +512,7 @@ extension on TranslationsNlNl {
 			'windgusts' => 'Windstoten',
 			'northwest' => 'Noordwest',
 			'open_meteo' => 'Gegevens van Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap-bijdragers',
 			'rain' => 'Regen',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Waarde moet tussen -180 and 180 zijn',

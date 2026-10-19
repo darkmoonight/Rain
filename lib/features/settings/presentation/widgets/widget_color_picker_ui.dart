@@ -143,9 +143,9 @@ class WidgetTransparentOption extends StatelessWidget {
           ),
           child: Row(
             children: [
-              WidgetColorPreviewSwatch(
+              const WidgetColorPreviewSwatch(
                 showCheckerboard: true,
-                overlay: const Center(child: WidgetTransparentIndicator()),
+                overlay: Center(child: WidgetTransparentIndicator()),
               ),
               const SizedBox(width: AppConstants.spacingL),
               Expanded(

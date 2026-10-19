@@ -191,6 +191,7 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Rajadas';
 	@override String get northwest => 'Noroeste';
 	@override String get open_meteo => 'Dados do Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Colaboradores do OpenStreetMap';
 	@override String get rain => 'Chuva';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Valor deve estar entre -180 and 180';
@@ -511,6 +512,7 @@ extension on TranslationsPtBr {
 			'windgusts' => 'Rajadas',
 			'northwest' => 'Noroeste',
 			'open_meteo' => 'Dados do Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Colaboradores do OpenStreetMap',
 			'rain' => 'Chuva',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Valor deve estar entre -180 and 180',

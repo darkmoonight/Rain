@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'weather_api.dart';
@@ -9,6 +9,7 @@ part of 'weather_api.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -28,16 +29,21 @@ $WeatherDataApiCopyWith<WeatherDataApi> get copyWith => _$WeatherDataApiCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly)&&(identical(other.daily, daily) || other.daily == daily)&&(identical(other.timezone, timezone) || other.timezone == timezone)&&(identical(other.utcOffsetSeconds, utcOffsetSeconds) || other.utcOffsetSeconds == utcOffsetSeconds));
+  final _this = this as WeatherDataApi;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherDataApi&&(identical(other.hourly, _this.hourly) || other.hourly == _this.hourly)&&(identical(other.daily, _this.daily) || other.daily == _this.daily)&&(identical(other.timezone, _this.timezone) || other.timezone == _this.timezone)&&(identical(other.utcOffsetSeconds, _this.utcOffsetSeconds) || other.utcOffsetSeconds == _this.utcOffsetSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hourly,daily,timezone,utcOffsetSeconds);
+int get hashCode {
+  final _this = this as WeatherDataApi;
+  return Object.hash(runtimeType,_this.hourly,_this.daily,_this.timezone,_this.utcOffsetSeconds);
+}
 
 @override
 String toString() {
-  return 'WeatherDataApi(hourly: $hourly, daily: $daily, timezone: $timezone, utcOffsetSeconds: $utcOffsetSeconds)';
+  final _this = this as WeatherDataApi;
+  return 'WeatherDataApi(hourly: ${_this.hourly}, daily: ${_this.daily}, timezone: ${_this.timezone}, utcOffsetSeconds: ${_this.utcOffsetSeconds})';
 }
 
 
@@ -66,7 +72,7 @@ class _$WeatherDataApiCopyWithImpl<$Res>
 /// Create a copy of WeatherDataApi
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? hourly = null,Object? daily = null,Object? timezone = null,Object? utcOffsetSeconds = null,}) {
-  return _then(_self.copyWith(
+  return _then(WeatherDataApi(
 hourly: null == hourly ? _self.hourly : hourly // ignore: cast_nullable_to_non_nullable
 as Hourly,daily: null == daily ? _self.daily : daily // ignore: cast_nullable_to_non_nullable
 as Daily,timezone: null == timezone ? _self.timezone : timezone // ignore: cast_nullable_to_non_nullable
@@ -251,16 +257,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly)&&(identical(other.daily, daily) || other.daily == daily)&&(identical(other.timezone, timezone) || other.timezone == timezone)&&(identical(other.utcOffsetSeconds, utcOffsetSeconds) || other.utcOffsetSeconds == utcOffsetSeconds));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherDataApi&&(identical(other.hourly, hourly) || other.hourly == hourly)&&(identical(other.daily, daily) || other.daily == daily)&&(identical(other.timezone, timezone) || other.timezone == timezone)&&(identical(other.utcOffsetSeconds, utcOffsetSeconds) || other.utcOffsetSeconds == utcOffsetSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hourly,daily,timezone,utcOffsetSeconds);
+int get hashCode {
+    return Object.hash(runtimeType,hourly,daily,timezone,utcOffsetSeconds);
+}
 
 @override
 String toString() {
-  return 'WeatherDataApi(hourly: $hourly, daily: $daily, timezone: $timezone, utcOffsetSeconds: $utcOffsetSeconds)';
+    return 'WeatherDataApi(hourly: $hourly, daily: $daily, timezone: $timezone, utcOffsetSeconds: $utcOffsetSeconds)';
 }
 
 
@@ -336,16 +344,21 @@ $HourlyCopyWith<Hourly> get copyWith => _$HourlyCopyWithImpl<Hourly>(this as Hou
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Hourly&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.weatherCode, weatherCode)&&const DeepCollectionEquality().equals(other.temperature2M, temperature2M)&&const DeepCollectionEquality().equals(other.apparentTemperature, apparentTemperature)&&const DeepCollectionEquality().equals(other.precipitation, precipitation)&&const DeepCollectionEquality().equals(other.rain, rain)&&const DeepCollectionEquality().equals(other.relativeHumidity2M, relativeHumidity2M)&&const DeepCollectionEquality().equals(other.surfacePressure, surfacePressure)&&const DeepCollectionEquality().equals(other.visibility, visibility)&&const DeepCollectionEquality().equals(other.evapotranspiration, evapotranspiration)&&const DeepCollectionEquality().equals(other.windSpeed10M, windSpeed10M)&&const DeepCollectionEquality().equals(other.windDirection10M, windDirection10M)&&const DeepCollectionEquality().equals(other.windGusts10M, windGusts10M)&&const DeepCollectionEquality().equals(other.cloudCover, cloudCover)&&const DeepCollectionEquality().equals(other.uvIndex, uvIndex)&&const DeepCollectionEquality().equals(other.dewpoint2M, dewpoint2M)&&const DeepCollectionEquality().equals(other.precipitationProbability, precipitationProbability)&&const DeepCollectionEquality().equals(other.shortwaveRadiation, shortwaveRadiation));
+  final _this = this as Hourly;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Hourly&&const DeepCollectionEquality().equals(other.time, _this.time)&&const DeepCollectionEquality().equals(other.weatherCode, _this.weatherCode)&&const DeepCollectionEquality().equals(other.temperature2M, _this.temperature2M)&&const DeepCollectionEquality().equals(other.apparentTemperature, _this.apparentTemperature)&&const DeepCollectionEquality().equals(other.precipitation, _this.precipitation)&&const DeepCollectionEquality().equals(other.rain, _this.rain)&&const DeepCollectionEquality().equals(other.relativeHumidity2M, _this.relativeHumidity2M)&&const DeepCollectionEquality().equals(other.surfacePressure, _this.surfacePressure)&&const DeepCollectionEquality().equals(other.visibility, _this.visibility)&&const DeepCollectionEquality().equals(other.evapotranspiration, _this.evapotranspiration)&&const DeepCollectionEquality().equals(other.windSpeed10M, _this.windSpeed10M)&&const DeepCollectionEquality().equals(other.windDirection10M, _this.windDirection10M)&&const DeepCollectionEquality().equals(other.windGusts10M, _this.windGusts10M)&&const DeepCollectionEquality().equals(other.cloudCover, _this.cloudCover)&&const DeepCollectionEquality().equals(other.uvIndex, _this.uvIndex)&&const DeepCollectionEquality().equals(other.dewpoint2M, _this.dewpoint2M)&&const DeepCollectionEquality().equals(other.precipitationProbability, _this.precipitationProbability)&&const DeepCollectionEquality().equals(other.shortwaveRadiation, _this.shortwaveRadiation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(weatherCode),const DeepCollectionEquality().hash(temperature2M),const DeepCollectionEquality().hash(apparentTemperature),const DeepCollectionEquality().hash(precipitation),const DeepCollectionEquality().hash(rain),const DeepCollectionEquality().hash(relativeHumidity2M),const DeepCollectionEquality().hash(surfacePressure),const DeepCollectionEquality().hash(visibility),const DeepCollectionEquality().hash(evapotranspiration),const DeepCollectionEquality().hash(windSpeed10M),const DeepCollectionEquality().hash(windDirection10M),const DeepCollectionEquality().hash(windGusts10M),const DeepCollectionEquality().hash(cloudCover),const DeepCollectionEquality().hash(uvIndex),const DeepCollectionEquality().hash(dewpoint2M),const DeepCollectionEquality().hash(precipitationProbability),const DeepCollectionEquality().hash(shortwaveRadiation));
+int get hashCode {
+  final _this = this as Hourly;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.time),const DeepCollectionEquality().hash(_this.weatherCode),const DeepCollectionEquality().hash(_this.temperature2M),const DeepCollectionEquality().hash(_this.apparentTemperature),const DeepCollectionEquality().hash(_this.precipitation),const DeepCollectionEquality().hash(_this.rain),const DeepCollectionEquality().hash(_this.relativeHumidity2M),const DeepCollectionEquality().hash(_this.surfacePressure),const DeepCollectionEquality().hash(_this.visibility),const DeepCollectionEquality().hash(_this.evapotranspiration),const DeepCollectionEquality().hash(_this.windSpeed10M),const DeepCollectionEquality().hash(_this.windDirection10M),const DeepCollectionEquality().hash(_this.windGusts10M),const DeepCollectionEquality().hash(_this.cloudCover),const DeepCollectionEquality().hash(_this.uvIndex),const DeepCollectionEquality().hash(_this.dewpoint2M),const DeepCollectionEquality().hash(_this.precipitationProbability),const DeepCollectionEquality().hash(_this.shortwaveRadiation));
+}
 
 @override
 String toString() {
-  return 'Hourly(time: $time, weatherCode: $weatherCode, temperature2M: $temperature2M, apparentTemperature: $apparentTemperature, precipitation: $precipitation, rain: $rain, relativeHumidity2M: $relativeHumidity2M, surfacePressure: $surfacePressure, visibility: $visibility, evapotranspiration: $evapotranspiration, windSpeed10M: $windSpeed10M, windDirection10M: $windDirection10M, windGusts10M: $windGusts10M, cloudCover: $cloudCover, uvIndex: $uvIndex, dewpoint2M: $dewpoint2M, precipitationProbability: $precipitationProbability, shortwaveRadiation: $shortwaveRadiation)';
+  final _this = this as Hourly;
+  return 'Hourly(time: ${_this.time}, weatherCode: ${_this.weatherCode}, temperature2M: ${_this.temperature2M}, apparentTemperature: ${_this.apparentTemperature}, precipitation: ${_this.precipitation}, rain: ${_this.rain}, relativeHumidity2M: ${_this.relativeHumidity2M}, surfacePressure: ${_this.surfacePressure}, visibility: ${_this.visibility}, evapotranspiration: ${_this.evapotranspiration}, windSpeed10M: ${_this.windSpeed10M}, windDirection10M: ${_this.windDirection10M}, windGusts10M: ${_this.windGusts10M}, cloudCover: ${_this.cloudCover}, uvIndex: ${_this.uvIndex}, dewpoint2M: ${_this.dewpoint2M}, precipitationProbability: ${_this.precipitationProbability}, shortwaveRadiation: ${_this.shortwaveRadiation})';
 }
 
 
@@ -374,7 +387,7 @@ class _$HourlyCopyWithImpl<$Res>
 /// Create a copy of Hourly
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? time = freezed,Object? weatherCode = freezed,Object? temperature2M = freezed,Object? apparentTemperature = freezed,Object? precipitation = freezed,Object? rain = freezed,Object? relativeHumidity2M = freezed,Object? surfacePressure = freezed,Object? visibility = freezed,Object? evapotranspiration = freezed,Object? windSpeed10M = freezed,Object? windDirection10M = freezed,Object? windGusts10M = freezed,Object? cloudCover = freezed,Object? uvIndex = freezed,Object? dewpoint2M = freezed,Object? precipitationProbability = freezed,Object? shortwaveRadiation = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Hourly(
 time: freezed == time ? _self.time : time // ignore: cast_nullable_to_non_nullable
 as List<String>?,weatherCode: freezed == weatherCode ? _self.weatherCode : weatherCode // ignore: cast_nullable_to_non_nullable
 as List<int>?,temperature2M: freezed == temperature2M ? _self.temperature2M : temperature2M // ignore: cast_nullable_to_non_nullable
@@ -569,16 +582,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Hourly&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.weatherCode, weatherCode)&&const DeepCollectionEquality().equals(other.temperature2M, temperature2M)&&const DeepCollectionEquality().equals(other.apparentTemperature, apparentTemperature)&&const DeepCollectionEquality().equals(other.precipitation, precipitation)&&const DeepCollectionEquality().equals(other.rain, rain)&&const DeepCollectionEquality().equals(other.relativeHumidity2M, relativeHumidity2M)&&const DeepCollectionEquality().equals(other.surfacePressure, surfacePressure)&&const DeepCollectionEquality().equals(other.visibility, visibility)&&const DeepCollectionEquality().equals(other.evapotranspiration, evapotranspiration)&&const DeepCollectionEquality().equals(other.windSpeed10M, windSpeed10M)&&const DeepCollectionEquality().equals(other.windDirection10M, windDirection10M)&&const DeepCollectionEquality().equals(other.windGusts10M, windGusts10M)&&const DeepCollectionEquality().equals(other.cloudCover, cloudCover)&&const DeepCollectionEquality().equals(other.uvIndex, uvIndex)&&const DeepCollectionEquality().equals(other.dewpoint2M, dewpoint2M)&&const DeepCollectionEquality().equals(other.precipitationProbability, precipitationProbability)&&const DeepCollectionEquality().equals(other.shortwaveRadiation, shortwaveRadiation));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Hourly&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.weatherCode, weatherCode)&&const DeepCollectionEquality().equals(other.temperature2M, temperature2M)&&const DeepCollectionEquality().equals(other.apparentTemperature, apparentTemperature)&&const DeepCollectionEquality().equals(other.precipitation, precipitation)&&const DeepCollectionEquality().equals(other.rain, rain)&&const DeepCollectionEquality().equals(other.relativeHumidity2M, relativeHumidity2M)&&const DeepCollectionEquality().equals(other.surfacePressure, surfacePressure)&&const DeepCollectionEquality().equals(other.visibility, visibility)&&const DeepCollectionEquality().equals(other.evapotranspiration, evapotranspiration)&&const DeepCollectionEquality().equals(other.windSpeed10M, windSpeed10M)&&const DeepCollectionEquality().equals(other.windDirection10M, windDirection10M)&&const DeepCollectionEquality().equals(other.windGusts10M, windGusts10M)&&const DeepCollectionEquality().equals(other.cloudCover, cloudCover)&&const DeepCollectionEquality().equals(other.uvIndex, uvIndex)&&const DeepCollectionEquality().equals(other.dewpoint2M, dewpoint2M)&&const DeepCollectionEquality().equals(other.precipitationProbability, precipitationProbability)&&const DeepCollectionEquality().equals(other.shortwaveRadiation, shortwaveRadiation));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(weatherCode),const DeepCollectionEquality().hash(temperature2M),const DeepCollectionEquality().hash(apparentTemperature),const DeepCollectionEquality().hash(precipitation),const DeepCollectionEquality().hash(rain),const DeepCollectionEquality().hash(relativeHumidity2M),const DeepCollectionEquality().hash(surfacePressure),const DeepCollectionEquality().hash(visibility),const DeepCollectionEquality().hash(evapotranspiration),const DeepCollectionEquality().hash(windSpeed10M),const DeepCollectionEquality().hash(windDirection10M),const DeepCollectionEquality().hash(windGusts10M),const DeepCollectionEquality().hash(cloudCover),const DeepCollectionEquality().hash(uvIndex),const DeepCollectionEquality().hash(dewpoint2M),const DeepCollectionEquality().hash(precipitationProbability),const DeepCollectionEquality().hash(shortwaveRadiation));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(weatherCode),const DeepCollectionEquality().hash(temperature2M),const DeepCollectionEquality().hash(apparentTemperature),const DeepCollectionEquality().hash(precipitation),const DeepCollectionEquality().hash(rain),const DeepCollectionEquality().hash(relativeHumidity2M),const DeepCollectionEquality().hash(surfacePressure),const DeepCollectionEquality().hash(visibility),const DeepCollectionEquality().hash(evapotranspiration),const DeepCollectionEquality().hash(windSpeed10M),const DeepCollectionEquality().hash(windDirection10M),const DeepCollectionEquality().hash(windGusts10M),const DeepCollectionEquality().hash(cloudCover),const DeepCollectionEquality().hash(uvIndex),const DeepCollectionEquality().hash(dewpoint2M),const DeepCollectionEquality().hash(precipitationProbability),const DeepCollectionEquality().hash(shortwaveRadiation));
+}
 
 @override
 String toString() {
-  return 'Hourly(time: $time, weatherCode: $weatherCode, temperature2M: $temperature2M, apparentTemperature: $apparentTemperature, precipitation: $precipitation, rain: $rain, relativeHumidity2M: $relativeHumidity2M, surfacePressure: $surfacePressure, visibility: $visibility, evapotranspiration: $evapotranspiration, windSpeed10M: $windSpeed10M, windDirection10M: $windDirection10M, windGusts10M: $windGusts10M, cloudCover: $cloudCover, uvIndex: $uvIndex, dewpoint2M: $dewpoint2M, precipitationProbability: $precipitationProbability, shortwaveRadiation: $shortwaveRadiation)';
+    return 'Hourly(time: $time, weatherCode: $weatherCode, temperature2M: $temperature2M, apparentTemperature: $apparentTemperature, precipitation: $precipitation, rain: $rain, relativeHumidity2M: $relativeHumidity2M, surfacePressure: $surfacePressure, visibility: $visibility, evapotranspiration: $evapotranspiration, windSpeed10M: $windSpeed10M, windDirection10M: $windDirection10M, windGusts10M: $windGusts10M, cloudCover: $cloudCover, uvIndex: $uvIndex, dewpoint2M: $dewpoint2M, precipitationProbability: $precipitationProbability, shortwaveRadiation: $shortwaveRadiation)';
 }
 
 
@@ -650,16 +665,21 @@ $DailyCopyWith<Daily> get copyWith => _$DailyCopyWithImpl<Daily>(this as Daily, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Daily&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.weatherCode, weatherCode)&&const DeepCollectionEquality().equals(other.temperature2MMax, temperature2MMax)&&const DeepCollectionEquality().equals(other.temperature2MMin, temperature2MMin)&&const DeepCollectionEquality().equals(other.apparentTemperatureMax, apparentTemperatureMax)&&const DeepCollectionEquality().equals(other.apparentTemperatureMin, apparentTemperatureMin)&&const DeepCollectionEquality().equals(other.precipitationSum, precipitationSum)&&const DeepCollectionEquality().equals(other.sunrise, sunrise)&&const DeepCollectionEquality().equals(other.sunset, sunset)&&const DeepCollectionEquality().equals(other.precipitationProbabilityMax, precipitationProbabilityMax)&&const DeepCollectionEquality().equals(other.windSpeed10MMax, windSpeed10MMax)&&const DeepCollectionEquality().equals(other.windGusts10MMax, windGusts10MMax)&&const DeepCollectionEquality().equals(other.uvIndexMax, uvIndexMax)&&const DeepCollectionEquality().equals(other.rainSum, rainSum)&&const DeepCollectionEquality().equals(other.windDirection10MDominant, windDirection10MDominant));
+  final _this = this as Daily;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Daily&&const DeepCollectionEquality().equals(other.time, _this.time)&&const DeepCollectionEquality().equals(other.weatherCode, _this.weatherCode)&&const DeepCollectionEquality().equals(other.temperature2MMax, _this.temperature2MMax)&&const DeepCollectionEquality().equals(other.temperature2MMin, _this.temperature2MMin)&&const DeepCollectionEquality().equals(other.apparentTemperatureMax, _this.apparentTemperatureMax)&&const DeepCollectionEquality().equals(other.apparentTemperatureMin, _this.apparentTemperatureMin)&&const DeepCollectionEquality().equals(other.precipitationSum, _this.precipitationSum)&&const DeepCollectionEquality().equals(other.sunrise, _this.sunrise)&&const DeepCollectionEquality().equals(other.sunset, _this.sunset)&&const DeepCollectionEquality().equals(other.precipitationProbabilityMax, _this.precipitationProbabilityMax)&&const DeepCollectionEquality().equals(other.windSpeed10MMax, _this.windSpeed10MMax)&&const DeepCollectionEquality().equals(other.windGusts10MMax, _this.windGusts10MMax)&&const DeepCollectionEquality().equals(other.uvIndexMax, _this.uvIndexMax)&&const DeepCollectionEquality().equals(other.rainSum, _this.rainSum)&&const DeepCollectionEquality().equals(other.windDirection10MDominant, _this.windDirection10MDominant));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(weatherCode),const DeepCollectionEquality().hash(temperature2MMax),const DeepCollectionEquality().hash(temperature2MMin),const DeepCollectionEquality().hash(apparentTemperatureMax),const DeepCollectionEquality().hash(apparentTemperatureMin),const DeepCollectionEquality().hash(precipitationSum),const DeepCollectionEquality().hash(sunrise),const DeepCollectionEquality().hash(sunset),const DeepCollectionEquality().hash(precipitationProbabilityMax),const DeepCollectionEquality().hash(windSpeed10MMax),const DeepCollectionEquality().hash(windGusts10MMax),const DeepCollectionEquality().hash(uvIndexMax),const DeepCollectionEquality().hash(rainSum),const DeepCollectionEquality().hash(windDirection10MDominant));
+int get hashCode {
+  final _this = this as Daily;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.time),const DeepCollectionEquality().hash(_this.weatherCode),const DeepCollectionEquality().hash(_this.temperature2MMax),const DeepCollectionEquality().hash(_this.temperature2MMin),const DeepCollectionEquality().hash(_this.apparentTemperatureMax),const DeepCollectionEquality().hash(_this.apparentTemperatureMin),const DeepCollectionEquality().hash(_this.precipitationSum),const DeepCollectionEquality().hash(_this.sunrise),const DeepCollectionEquality().hash(_this.sunset),const DeepCollectionEquality().hash(_this.precipitationProbabilityMax),const DeepCollectionEquality().hash(_this.windSpeed10MMax),const DeepCollectionEquality().hash(_this.windGusts10MMax),const DeepCollectionEquality().hash(_this.uvIndexMax),const DeepCollectionEquality().hash(_this.rainSum),const DeepCollectionEquality().hash(_this.windDirection10MDominant));
+}
 
 @override
 String toString() {
-  return 'Daily(time: $time, weatherCode: $weatherCode, temperature2MMax: $temperature2MMax, temperature2MMin: $temperature2MMin, apparentTemperatureMax: $apparentTemperatureMax, apparentTemperatureMin: $apparentTemperatureMin, precipitationSum: $precipitationSum, sunrise: $sunrise, sunset: $sunset, precipitationProbabilityMax: $precipitationProbabilityMax, windSpeed10MMax: $windSpeed10MMax, windGusts10MMax: $windGusts10MMax, uvIndexMax: $uvIndexMax, rainSum: $rainSum, windDirection10MDominant: $windDirection10MDominant)';
+  final _this = this as Daily;
+  return 'Daily(time: ${_this.time}, weatherCode: ${_this.weatherCode}, temperature2MMax: ${_this.temperature2MMax}, temperature2MMin: ${_this.temperature2MMin}, apparentTemperatureMax: ${_this.apparentTemperatureMax}, apparentTemperatureMin: ${_this.apparentTemperatureMin}, precipitationSum: ${_this.precipitationSum}, sunrise: ${_this.sunrise}, sunset: ${_this.sunset}, precipitationProbabilityMax: ${_this.precipitationProbabilityMax}, windSpeed10MMax: ${_this.windSpeed10MMax}, windGusts10MMax: ${_this.windGusts10MMax}, uvIndexMax: ${_this.uvIndexMax}, rainSum: ${_this.rainSum}, windDirection10MDominant: ${_this.windDirection10MDominant})';
 }
 
 
@@ -688,7 +708,7 @@ class _$DailyCopyWithImpl<$Res>
 /// Create a copy of Daily
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? time = freezed,Object? weatherCode = freezed,Object? temperature2MMax = freezed,Object? temperature2MMin = freezed,Object? apparentTemperatureMax = freezed,Object? apparentTemperatureMin = freezed,Object? precipitationSum = freezed,Object? sunrise = freezed,Object? sunset = freezed,Object? precipitationProbabilityMax = freezed,Object? windSpeed10MMax = freezed,Object? windGusts10MMax = freezed,Object? uvIndexMax = freezed,Object? rainSum = freezed,Object? windDirection10MDominant = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Daily(
 time: freezed == time ? _self.time : time // ignore: cast_nullable_to_non_nullable
 as List<DateTime>?,weatherCode: freezed == weatherCode ? _self.weatherCode : weatherCode // ignore: cast_nullable_to_non_nullable
 as List<int?>?,temperature2MMax: freezed == temperature2MMax ? _self.temperature2MMax : temperature2MMax // ignore: cast_nullable_to_non_nullable
@@ -877,16 +897,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Daily&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.weatherCode, weatherCode)&&const DeepCollectionEquality().equals(other.temperature2MMax, temperature2MMax)&&const DeepCollectionEquality().equals(other.temperature2MMin, temperature2MMin)&&const DeepCollectionEquality().equals(other.apparentTemperatureMax, apparentTemperatureMax)&&const DeepCollectionEquality().equals(other.apparentTemperatureMin, apparentTemperatureMin)&&const DeepCollectionEquality().equals(other.precipitationSum, precipitationSum)&&const DeepCollectionEquality().equals(other.sunrise, sunrise)&&const DeepCollectionEquality().equals(other.sunset, sunset)&&const DeepCollectionEquality().equals(other.precipitationProbabilityMax, precipitationProbabilityMax)&&const DeepCollectionEquality().equals(other.windSpeed10MMax, windSpeed10MMax)&&const DeepCollectionEquality().equals(other.windGusts10MMax, windGusts10MMax)&&const DeepCollectionEquality().equals(other.uvIndexMax, uvIndexMax)&&const DeepCollectionEquality().equals(other.rainSum, rainSum)&&const DeepCollectionEquality().equals(other.windDirection10MDominant, windDirection10MDominant));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Daily&&const DeepCollectionEquality().equals(other.time, time)&&const DeepCollectionEquality().equals(other.weatherCode, weatherCode)&&const DeepCollectionEquality().equals(other.temperature2MMax, temperature2MMax)&&const DeepCollectionEquality().equals(other.temperature2MMin, temperature2MMin)&&const DeepCollectionEquality().equals(other.apparentTemperatureMax, apparentTemperatureMax)&&const DeepCollectionEquality().equals(other.apparentTemperatureMin, apparentTemperatureMin)&&const DeepCollectionEquality().equals(other.precipitationSum, precipitationSum)&&const DeepCollectionEquality().equals(other.sunrise, sunrise)&&const DeepCollectionEquality().equals(other.sunset, sunset)&&const DeepCollectionEquality().equals(other.precipitationProbabilityMax, precipitationProbabilityMax)&&const DeepCollectionEquality().equals(other.windSpeed10MMax, windSpeed10MMax)&&const DeepCollectionEquality().equals(other.windGusts10MMax, windGusts10MMax)&&const DeepCollectionEquality().equals(other.uvIndexMax, uvIndexMax)&&const DeepCollectionEquality().equals(other.rainSum, rainSum)&&const DeepCollectionEquality().equals(other.windDirection10MDominant, windDirection10MDominant));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(weatherCode),const DeepCollectionEquality().hash(temperature2MMax),const DeepCollectionEquality().hash(temperature2MMin),const DeepCollectionEquality().hash(apparentTemperatureMax),const DeepCollectionEquality().hash(apparentTemperatureMin),const DeepCollectionEquality().hash(precipitationSum),const DeepCollectionEquality().hash(sunrise),const DeepCollectionEquality().hash(sunset),const DeepCollectionEquality().hash(precipitationProbabilityMax),const DeepCollectionEquality().hash(windSpeed10MMax),const DeepCollectionEquality().hash(windGusts10MMax),const DeepCollectionEquality().hash(uvIndexMax),const DeepCollectionEquality().hash(rainSum),const DeepCollectionEquality().hash(windDirection10MDominant));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(time),const DeepCollectionEquality().hash(weatherCode),const DeepCollectionEquality().hash(temperature2MMax),const DeepCollectionEquality().hash(temperature2MMin),const DeepCollectionEquality().hash(apparentTemperatureMax),const DeepCollectionEquality().hash(apparentTemperatureMin),const DeepCollectionEquality().hash(precipitationSum),const DeepCollectionEquality().hash(sunrise),const DeepCollectionEquality().hash(sunset),const DeepCollectionEquality().hash(precipitationProbabilityMax),const DeepCollectionEquality().hash(windSpeed10MMax),const DeepCollectionEquality().hash(windGusts10MMax),const DeepCollectionEquality().hash(uvIndexMax),const DeepCollectionEquality().hash(rainSum),const DeepCollectionEquality().hash(windDirection10MDominant));
+}
 
 @override
 String toString() {
-  return 'Daily(time: $time, weatherCode: $weatherCode, temperature2MMax: $temperature2MMax, temperature2MMin: $temperature2MMin, apparentTemperatureMax: $apparentTemperatureMax, apparentTemperatureMin: $apparentTemperatureMin, precipitationSum: $precipitationSum, sunrise: $sunrise, sunset: $sunset, precipitationProbabilityMax: $precipitationProbabilityMax, windSpeed10MMax: $windSpeed10MMax, windGusts10MMax: $windGusts10MMax, uvIndexMax: $uvIndexMax, rainSum: $rainSum, windDirection10MDominant: $windDirection10MDominant)';
+    return 'Daily(time: $time, weatherCode: $weatherCode, temperature2MMax: $temperature2MMax, temperature2MMin: $temperature2MMin, apparentTemperatureMax: $apparentTemperatureMax, apparentTemperatureMin: $apparentTemperatureMin, precipitationSum: $precipitationSum, sunrise: $sunrise, sunset: $sunset, precipitationProbabilityMax: $precipitationProbabilityMax, windSpeed10MMax: $windSpeed10MMax, windGusts10MMax: $windGusts10MMax, uvIndexMax: $uvIndexMax, rainSum: $rainSum, windDirection10MDominant: $windDirection10MDominant)';
 }
 
 

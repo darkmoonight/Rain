@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/core/navigation/app_routes.dart';
 import 'package:rain/core/constants/app_constants.dart';
-import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/core/settings/settings_persistence.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
@@ -80,9 +80,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
 
   /// Marks onboarding complete and navigates to geolocation setup.
   Future<void> _completeOnboarding() async {
-    final settings = ref.read(settingsProvider);
-    settings.onboard = true;
-    await ref.read(settingsRepositoryProvider).save(settings);
+    await ref.persistSettings((s) => s.onboard = true);
     refreshAppRouter(ref);
     if (!mounted) return;
     context.go(AppRoutes.geolocationStart);

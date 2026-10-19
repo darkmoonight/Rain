@@ -191,6 +191,7 @@ class TranslationsTaIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'காற்றின் வேகம்';
 	@override String get northwest => 'வடமேற்கு';
 	@override String get open_meteo => 'Open-Meteo இலிருந்து தரவு (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'மழை';
 	@override String get mm_hg => 'மி.மீ பாதரசம்';
 	@override String get validate180 => 'மதிப்பு -180 மற்றும் 180 க்கு இடையில் இருக்க வேண்டும்';
@@ -511,6 +512,7 @@ extension on TranslationsTaIn {
 			'windgusts' => 'காற்றின் வேகம்',
 			'northwest' => 'வடமேற்கு',
 			'open_meteo' => 'Open-Meteo இலிருந்து தரவு (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'மழை',
 			'mm_hg' => 'மி.மீ பாதரசம்',
 			'validate180' => 'மதிப்பு -180 மற்றும் 180 க்கு இடையில் இருக்க வேண்டும்',

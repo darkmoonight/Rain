@@ -191,6 +191,7 @@ class TranslationsGaIe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Tonna Gaoithe';
 	@override String get northwest => 'Tuaisceart-Iarthar';
 	@override String get open_meteo => 'Sonraí ó Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Rannpháirtithe OpenStreetMap';
 	@override String get rain => 'Fearthainn';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Caithfidh luach a bheith idir -180 agus 180';
@@ -511,6 +512,7 @@ extension on TranslationsGaIe {
 			'windgusts' => 'Tonna Gaoithe',
 			'northwest' => 'Tuaisceart-Iarthar',
 			'open_meteo' => 'Sonraí ó Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Rannpháirtithe OpenStreetMap',
 			'rain' => 'Fearthainn',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Caithfidh luach a bheith idir -180 agus 180',

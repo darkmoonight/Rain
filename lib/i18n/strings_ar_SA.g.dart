@@ -191,6 +191,7 @@ class TranslationsArSa extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'هبات الرياح';
 	@override String get northwest => 'شمال غرب';
 	@override String get open_meteo => 'البيانات من Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'مساهمو OpenStreetMap';
 	@override String get rain => 'المطر';
 	@override String get mm_hg => 'مم زئبق';
 	@override String get validate180 => 'يجب أن تكون القيمة بين -180 و 180';
@@ -511,6 +512,7 @@ extension on TranslationsArSa {
 			'windgusts' => 'هبات الرياح',
 			'northwest' => 'شمال غرب',
 			'open_meteo' => 'البيانات من Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'مساهمو OpenStreetMap',
 			'rain' => 'المطر',
 			'mm_hg' => 'مم زئبق',
 			'validate180' => 'يجب أن تكون القيمة بين -180 و 180',

@@ -19,7 +19,9 @@ class DeviceFeature {
       _isEdgeToEdgeAvailableCache =
           _androidDeviceInfo != null && _androidDeviceInfo!.version.sdkInt > 28;
     } catch (e) {
-      debugPrint('Error initializing device info: $e');
+      if (kDebugMode) {
+        debugPrint('Error initializing device info: $e');
+      }
       _isEdgeToEdgeAvailableCache = false;
     }
   }

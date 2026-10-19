@@ -6,9 +6,8 @@ import '../helpers/widget_test_harness.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rain/app.dart';
 import 'package:rain/core/di/providers.dart';
-import 'package:rain/core/navigation/app_router.dart';
+import 'package:rain/core/theme/theme_mode_notifier.dart';
 
 void main() {
   late TestBootstrapContext ctx;
@@ -17,89 +16,30 @@ void main() {
     ctx = await createTestBootstrap();
   });
 
-  group('RainApp.updateAppState', () {
-    testWidgets('updates app settings through provider', (tester) async {
-      await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            bootstrapProvider.overrideWithValue(ctx.bootstrap),
-            mainWeatherNotifierProvider.overrideWith(
-              LoadedMainWeatherNotifier.new,
-            ),
-            citiesNotifierProvider.overrideWith(IdleCitiesNotifier.new),
-            notificationServiceProvider.overrideWithValue(
-              FakeNotificationService(),
-            ),
-            homeWidgetServiceProvider.overrideWithValue(
-              FakeHomeWidgetService(),
-            ),
-            weatherRemoteDatasourceProvider.overrideWithValue(
-              createFakeWeatherRemoteDatasource(),
-            ),
-          ],
-          child: Consumer(
-            builder: (context, ref, _) {
-              return MaterialApp(
-                home: Builder(
-                  builder: (context) => ElevatedButton(
-                    onPressed: () => RainApp.updateAppState(
-                      ref,
-                      newRoundDegree: true,
-                      newLargeElement: true,
-                    ),
-                    child: const Text('Apply'),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      );
-      await tester.pump();
+  group('AppSettingsNotifier.update', () {
+    test('persists settings through provider', () async {
+      final container = createTestContainer(bootstrap: ctx.bootstrap);
+      addTearDown(container.dispose);
 
-      await tester.tap(find.text('Apply'));
-      await tester.pump();
+      await container
+          .read(appSettingsProvider.notifier)
+          .update(roundDegree: true, largeElement: true);
 
-      final container = ProviderScope.containerOf(
-        tester.element(find.text('Apply')),
-      );
       final state = container.read(appSettingsProvider);
       expect(state.roundDegree, isTrue);
       expect(state.largeElement, isTrue);
+      expect(container.read(settingsProvider).roundDegree, isTrue);
+      expect(container.read(settingsProvider).largeElement, isTrue);
     });
   });
 
-  group('RainApp.build', () {
-    testWidgets('applies dark theme from settings', (tester) async {
+  group('themeModeProvider', () {
+    test('applies dark theme from settings', () async {
       ctx.bootstrap.settings.theme = 'dark';
-      final router = createTestRouter(ctx.bootstrap);
+      final container = createTestContainer(bootstrap: ctx.bootstrap);
+      addTearDown(container.dispose);
 
-      await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            bootstrapProvider.overrideWithValue(ctx.bootstrap),
-            appRouterProvider.overrideWithValue(router),
-            mainWeatherNotifierProvider.overrideWith(
-              LoadedMainWeatherNotifier.new,
-            ),
-            citiesNotifierProvider.overrideWith(IdleCitiesNotifier.new),
-            notificationServiceProvider.overrideWithValue(
-              FakeNotificationService(),
-            ),
-            homeWidgetServiceProvider.overrideWithValue(
-              FakeHomeWidgetService(),
-            ),
-            weatherRemoteDatasourceProvider.overrideWithValue(
-              createFakeWeatherRemoteDatasource(),
-            ),
-          ],
-          child: RainApp(bootstrap: ctx.bootstrap),
-        ),
-      );
-      await tester.pump();
-
-      final materialApp = tester.widget<MaterialApp>(find.byType(MaterialApp));
-      expect(materialApp.themeMode, ThemeMode.dark);
+      expect(container.read(themeModeProvider), ThemeMode.dark);
     });
   });
 }

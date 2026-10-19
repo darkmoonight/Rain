@@ -151,6 +151,7 @@
   "windgusts": "Porywy wiatru",
   "northwest": "Północny zachód",
   "openMeteo": "Dane z Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "Współtwórcy OpenStreetMap",
   "rain": "Deszcz",
   "mmHg": "mmHg",
   "validate180": "Wartość musi mieścić się w przedziale od -180 do 180",

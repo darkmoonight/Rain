@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/core/settings/settings_persistence.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/i18n/tr.dart';
 
@@ -41,30 +42,27 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
 
   /// Persists the selected theme mode string and refreshes state.
   Future<void> setTheme(String themeMode) async {
-    final settings = ref.read(settingsProvider);
-    settings.theme = themeMode;
-    state = _fromSettings(settings);
-    await ref.read(settingsRepositoryProvider).save(settings);
+    await persistSettings(ref, (settings) => settings.theme = themeMode);
+    state = _fromSettings(ref.read(settingsProvider));
     if (Platform.isAndroid) {
       unawaited(
         ref
             .read(widgetSettingsServiceProvider)
-            .refreshWidgets(settings: settings),
+            .refreshWidgets(settings: ref.read(settingsProvider)),
       );
     }
   }
 
   /// Persists the AMOLED (pure black) theme toggle.
   Future<void> saveOledTheme(bool isOled) async {
-    final settings = ref.read(settingsProvider);
-    settings.amoledTheme = isOled;
-    await ref.read(settingsRepositoryProvider).save(settings);
+    await persistSettings(ref, (settings) => settings.amoledTheme = isOled);
   }
 
   /// Persists the Material You dynamic color toggle.
   Future<void> saveMaterialTheme(bool isMaterial) async {
-    final settings = ref.read(settingsProvider);
-    settings.materialColor = isMaterial;
-    await ref.read(settingsRepositoryProvider).save(settings);
+    await persistSettings(
+      ref,
+      (settings) => settings.materialColor = isMaterial,
+    );
   }
 }

@@ -3,17 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/utils/place_form_helpers.dart';
 import 'package:rain/core/widgets/place_form_fields.dart';
-import 'package:rain/core/widgets/city_search_field.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
-import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action_editing_controller.dart';
+import 'package:rain/features/cities/presentation/widgets/place_action_form_sections.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
 
 /// Bottom sheet for creating or editing a saved city card.
@@ -292,7 +291,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
                     letterSpacing: -0.5,
                   ),
                 ),
-                SizedBox(height: AppConstants.spacingXS),
+                const SizedBox(height: AppConstants.spacingXS),
                 Text(
                   widget.edit ? 'editCityHint'.tr : 'createCityHint'.tr,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -362,7 +361,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
                                 ? colorScheme.onPrimary
                                 : colorScheme.onSurfaceVariant,
                           ),
-                          SizedBox(width: AppConstants.spacingXS + 2),
+                          const SizedBox(width: AppConstants.spacingXS + 2),
                           Text(
                             widget.edit ? 'save'.tr : 'done'.tr,
                             style: TextStyle(
@@ -397,129 +396,20 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
         key: _formKey,
         child: SingleChildScrollView(
           padding: EdgeInsets.all(padding * 1.5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildSearchSection(context, padding),
-              SizedBox(height: padding * 1.5),
-              _buildPlaceFieldsSection(context, padding),
-              SizedBox(height: padding * 2),
-            ],
+          child: PlaceActionFormSections(
+            padding: padding,
+            textFieldElevation: kTextFieldElevation,
+            searchController: _searchController,
+            focusNode: _focusNode,
+            latController: _latController,
+            lonController: _lonController,
+            cityController: _cityController,
+            districtController: _districtController,
+            editingController: _editingController,
+            onCitySelected: fillController,
           ),
         ),
       ),
-    );
-  }
-
-  /// Builds the city search autocomplete section.
-  Widget _buildSearchSection(BuildContext context, double padding) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionHeader(
-          context,
-          'search'.tr,
-          IconsaxPlusBold.global_search,
-        ),
-        SizedBox(height: padding),
-        CitySearchAutocomplete(
-          controller: _searchController,
-          focusNode: _focusNode,
-          fieldViewBuilder: _buildSearchField,
-          optionsStyle: CitySearchOptionsStyle.paddedCard,
-          optionsMaxHeight: 250,
-          onSelected: fillController,
-        ),
-      ],
-    );
-  }
-
-  /// Builds the search text field for the city autocomplete.
-  Widget _buildSearchField(
-    BuildContext context,
-    TextEditingController fieldTextEditingController,
-    FocusNode fieldFocusNode,
-    VoidCallback onFieldSubmitted,
-  ) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return MyTextForm(
-      elevation: kTextFieldElevation,
-      labelText: 'searchCity'.tr,
-      type: TextInputType.text,
-      icon: Icon(IconsaxPlusLinear.global_search, color: colorScheme.primary),
-      controller: _searchController,
-      focusNode: _focusNode,
-      margin: EdgeInsets.zero,
-    );
-  }
-
-  /// Builds the latitude, longitude, city, and district input fields.
-  Widget _buildPlaceFieldsSection(BuildContext context, double padding) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionHeader(context, 'location'.tr, IconsaxPlusBold.location),
-        SizedBox(height: padding),
-        PlaceFormFields(
-          latitudeController: _latController,
-          longitudeController: _lonController,
-          cityController: _cityController,
-          districtController: _districtController,
-          elevation: kTextFieldElevation,
-          fieldMargin: EdgeInsets.zero,
-          fieldSpacing: padding,
-          iconColor: colorScheme.primary,
-          includeLabels: false,
-          onLatitudeChanged: (value) => _editingController.lat.value = value,
-          onLongitudeChanged: (value) => _editingController.lon.value = value,
-        ),
-        SizedBox(height: padding * 1.5),
-        PlaceFormFields(
-          latitudeController: _latController,
-          longitudeController: _lonController,
-          cityController: _cityController,
-          districtController: _districtController,
-          elevation: kTextFieldElevation,
-          fieldMargin: EdgeInsets.zero,
-          fieldSpacing: padding,
-          iconColor: colorScheme.primary,
-          includeCoordinates: false,
-          onCityChanged: (value) => _editingController.city.value = value,
-          onDistrictChanged: (value) =>
-              _editingController.district.value = value,
-        ),
-      ],
-    );
-  }
-
-  /// Builds a labeled section header with an icon and title.
-  Widget _buildSectionHeader(
-    BuildContext context,
-    String title,
-    IconData icon,
-  ) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: AppConstants.iconSizeSmall + 2,
-          color: colorScheme.primary,
-        ),
-        SizedBox(width: AppConstants.spacingS),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: colorScheme.onSurface,
-            fontWeight: FontWeight.w600,
-            fontSize: ResponsiveUtils.getResponsiveFontSize(context, 16),
-          ),
-        ),
-      ],
     );
   }
 

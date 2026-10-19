@@ -84,8 +84,9 @@ class _SettingsFunctionsSectionState
             title: 'notificationSound',
             value: settings.notificationSound,
             onChanged: (value) async {
-              settings.notificationSound = value;
-              await actions.saveWithForecastReschedule();
+              await actions.saveWithForecastReschedule(
+                mutate: (s) => s.notificationSound = value,
+              );
             },
           ),
           SettingsTile(
@@ -137,8 +138,9 @@ class _SettingsFunctionsSectionState
       currentValue: '${appSettings.timeRange}',
       itemBuilder: (value) => value,
       onSelected: (value) async {
-        settings.timeRange = int.parse(value);
-        await actions.saveWithForecastReschedule();
+        await actions.saveWithForecastReschedule(
+          mutate: (s) => s.timeRange = int.parse(value),
+        );
       },
     );
   }
@@ -151,8 +153,9 @@ class _SettingsFunctionsSectionState
     );
     if (result == null || !mounted) return;
 
-    settings.notificationWeekdaysMask = result.mask;
-    await actions.saveWithForecastReschedule();
+    await actions.saveWithForecastReschedule(
+      mutate: (s) => s.notificationWeekdaysMask = result.mask,
+    );
   }
 
   Future<void> _onLocationChanged(bool value, BuildContext context) async {
@@ -194,7 +197,7 @@ class _SettingsFunctionsSectionState
     required BuildContext context,
     required String? stored,
     required String defaultTime,
-    required void Function(String value) apply,
+    required void Function(Settings settings, String value) apply,
   }) async {
     final picked = await showAppTimePicker(
       context: context,
@@ -203,8 +206,10 @@ class _SettingsFunctionsSectionState
     );
     if (picked == null) return;
 
-    apply(TimeIndexHelper.timeTo24h(picked));
-    await actions.saveWithForecastReschedule();
+    final value = TimeIndexHelper.timeTo24h(picked);
+    await actions.saveWithForecastReschedule(
+      mutate: (s) => apply(s, value),
+    );
   }
 
   Future<void> _showTimeStartPicker(BuildContext context) async {
@@ -212,7 +217,7 @@ class _SettingsFunctionsSectionState
       context: context,
       stored: settings.timeStart,
       defaultTime: AppConstants.defaultNotificationTimeStart,
-      apply: (value) => settings.timeStart = value,
+      apply: (s, value) => s.timeStart = value,
     );
   }
 
@@ -221,7 +226,7 @@ class _SettingsFunctionsSectionState
       context: context,
       stored: settings.timeEnd,
       defaultTime: AppConstants.defaultNotificationTimeEnd,
-      apply: (value) => settings.timeEnd = value,
+      apply: (s, value) => s.timeEnd = value,
     );
   }
 }

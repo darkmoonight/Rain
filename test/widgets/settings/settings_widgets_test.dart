@@ -36,10 +36,10 @@ void main() {
     testWidgets('renders section title and children', (tester) async {
       await pumpRainWidget(
         tester,
-        SettingsSection(
+        const SettingsSection(
           title: 'general',
           icon: IconsaxPlusLinear.setting_2,
-          children: const [ListTile(title: Text('Child tile'))],
+          children: [ListTile(title: Text('Child tile'))],
         ),
         bootstrap: ctx.bootstrap,
       );

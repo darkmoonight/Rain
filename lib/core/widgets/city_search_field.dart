@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
+import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/core/widgets/text_form.dart';
 import 'package:rain/i18n/tr.dart';
@@ -91,9 +92,10 @@ class _CitySearchAutocompleteState
       final locale = ref.read(localeProvider);
       try {
         return await ref
-            .read(weatherRemoteDatasourceProvider)
+            .read(weatherRepositoryProvider)
             .searchCities(query, locale.languageCode);
-      } catch (_) {
+      } catch (e, st) {
+        debugLogError('CitySearchAutocomplete.searchCities', e, st);
         return const Iterable<CitySearchResult>.empty();
       }
     }

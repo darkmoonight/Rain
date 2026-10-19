@@ -55,9 +55,12 @@ class _DismissibleCard extends ConsumerWidget {
     direction: DismissDirection.endToStart,
     background: Container(
       alignment: Alignment.centerRight,
-      child: const Padding(
-        padding: EdgeInsets.only(right: 15),
-        child: Icon(IconsaxPlusLinear.trash_square, color: Colors.red),
+      child: Padding(
+        padding: const EdgeInsets.only(right: 15),
+        child: Icon(
+          IconsaxPlusLinear.trash_square,
+          color: Theme.of(context).colorScheme.error,
+        ),
       ),
     ),
     confirmDismiss: (_) async {

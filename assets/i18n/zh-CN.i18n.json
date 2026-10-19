@@ -151,6 +151,7 @@
   "windgusts": "阵风",
   "northwest": "西北",
   "openMeteo": "来自Open-Meteo的数据 (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMap 贡献者",
   "rain": "雨",
   "mmHg": "毫米汞柱",
   "validate180": "值必须介于-180和180之间",

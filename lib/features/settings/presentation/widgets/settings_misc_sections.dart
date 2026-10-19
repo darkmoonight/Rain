@@ -118,10 +118,7 @@ class _SettingsMiscSectionsState
   }
 
   Future<void> _updateLanguage(Locale locale) async {
-    final settings = ref.read(settingsProvider);
-    settings.language = '${locale.languageCode}_${locale.countryCode}';
-    await ref.read(settingsRepositoryProvider).save(settings);
-    ref.read(appSettingsProvider.notifier).update(locale: locale);
+    await ref.read(appSettingsProvider.notifier).update(locale: locale);
     await applyAppLocale(appLocaleFromFlutterLocale(locale));
     await actions.refreshWidgets();
     actions.runInBackground(

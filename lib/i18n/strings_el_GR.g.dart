@@ -191,6 +191,7 @@ class TranslationsElGr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Ριπή';
 	@override String get northwest => 'Βορειοδυτικά';
 	@override String get open_meteo => 'Δεδομένα από Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'Συνεισφέροντες OpenStreetMap';
 	@override String get rain => 'Βροχή';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Η τιμή πρέπει να είναι μεταξύ -180 και 180';
@@ -511,6 +512,7 @@ extension on TranslationsElGr {
 			'windgusts' => 'Ριπή',
 			'northwest' => 'Βορειοδυτικά',
 			'open_meteo' => 'Δεδομένα από Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'Συνεισφέροντες OpenStreetMap',
 			'rain' => 'Βροχή',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Η τιμή πρέπει να είναι μεταξύ -180 και 180',

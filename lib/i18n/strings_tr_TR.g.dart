@@ -191,6 +191,7 @@ class TranslationsTrTr extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Bir telaş';
 	@override String get northwest => 'Kuzeybatı';
 	@override String get open_meteo => 'Open-Meteo\'dan veriler (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap katkıda bulunanları';
 	@override String get rain => 'Yağmur';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Değer -180 ile 180 arasında olmalıdır';
@@ -511,6 +512,7 @@ extension on TranslationsTrTr {
 			'windgusts' => 'Bir telaş',
 			'northwest' => 'Kuzeybatı',
 			'open_meteo' => 'Open-Meteo\'dan veriler (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap katkıda bulunanları',
 			'rain' => 'Yağmur',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Değer -180 ile 180 arasında olmalıdır',

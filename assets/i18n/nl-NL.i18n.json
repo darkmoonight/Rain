@@ -151,6 +151,7 @@
   "windgusts": "Windstoten",
   "northwest": "Noordwest",
   "openMeteo": "Gegevens van Open-Meteo (CC-BY 4.0)",
+  "openStreetMapContributors": "OpenStreetMap-bijdragers",
   "rain": "Regen",
   "mmHg": "mmHg",
   "validate180": "Waarde moet tussen -180 and 180 zijn",

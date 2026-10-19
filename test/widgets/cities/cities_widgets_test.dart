@@ -139,7 +139,7 @@ void main() {
     testWidgets('renders cards from notifier state', (tester) async {
       await pumpRainWidget(
         tester,
-        Scaffold(body: PlaceCardList(searchCity: '')),
+        const Scaffold(body: const PlaceCardList(searchCity: '')),
         bootstrap: ctx.bootstrap,
         overrides: [
           citiesNotifierProvider.overrideWith(_TestCitiesNotifier.new),

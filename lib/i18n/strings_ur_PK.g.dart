@@ -191,6 +191,7 @@ class TranslationsUrPk extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'گرج';
 	@override String get northwest => 'شمال مغرب';
 	@override String get open_meteo => 'Open-Meteo سے ڈیٹا (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'بارش';
 	@override String get mm_hg => 'ملی میٹر مرکری';
 	@override String get validate180 => 'قدر -180 سے 180 کے اندر ہونی چاہئے';
@@ -511,6 +512,7 @@ extension on TranslationsUrPk {
 			'windgusts' => 'گرج',
 			'northwest' => 'شمال مغرب',
 			'open_meteo' => 'Open-Meteo سے ڈیٹا (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'بارش',
 			'mm_hg' => 'ملی میٹر مرکری',
 			'validate180' => 'قدر -180 سے 180 کے اندر ہونی چاہئے',

@@ -5,6 +5,7 @@
 /// notifier exports.
 library;
 
+export 'package:rain/core/di/city_clock_provider.dart';
 export 'package:rain/core/di/provider_refs.dart';
 export 'package:rain/core/services/widget_settings_service.dart'
     show WidgetSettingsService;

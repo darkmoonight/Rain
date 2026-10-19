@@ -14,25 +14,25 @@ class SettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(
           horizontal: AppConstants.spacingL,
           vertical: AppConstants.spacingM,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SettingsAppearanceSection(),
-            const Gap(AppConstants.spacingXXL),
-            const SettingsFunctionsSection(),
-            const Gap(AppConstants.spacingXXL),
-            const SettingsDataSection(),
-            const Gap(AppConstants.spacingXXL),
-            const SettingsMiscSections(),
-            const Gap(AppConstants.spacingXXL),
-            const SettingsAboutSection(),
-            const Gap(AppConstants.spacingL),
+            SettingsAppearanceSection(),
+            Gap(AppConstants.spacingXXL),
+            SettingsFunctionsSection(),
+            Gap(AppConstants.spacingXXL),
+            SettingsDataSection(),
+            Gap(AppConstants.spacingXXL),
+            SettingsMiscSections(),
+            Gap(AppConstants.spacingXXL),
+            SettingsAboutSection(),
+            Gap(AppConstants.spacingL),
           ],
         ),
       ),

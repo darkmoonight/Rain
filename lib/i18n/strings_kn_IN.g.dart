@@ -191,6 +191,7 @@ class TranslationsKnIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'ಗಾಳಿಯ ಝಾಪಟೆ';
 	@override String get northwest => 'ವಾಯವ್ಯ';
 	@override String get open_meteo => 'Open-Meteo ನಿಂದ ಡೇಟಾ (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'ಮಳೆ';
 	@override String get mm_hg => 'ಮಿ.ಮೀ ಪಾದರಸ';
 	@override String get validate180 => 'ಮೌಲ್ಯವು -180 ಮತ್ತು 180 ರ ನಡುವೆ ಇರಬೇಕು';
@@ -511,6 +512,7 @@ extension on TranslationsKnIn {
 			'windgusts' => 'ಗಾಳಿಯ ಝಾಪಟೆ',
 			'northwest' => 'ವಾಯವ್ಯ',
 			'open_meteo' => 'Open-Meteo ನಿಂದ ಡೇಟಾ (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'ಮಳೆ',
 			'mm_hg' => 'ಮಿ.ಮೀ ಪಾದರಸ',
 			'validate180' => 'ಮೌಲ್ಯವು -180 ಮತ್ತು 180 ರ ನಡುವೆ ಇರಬೇಕು',

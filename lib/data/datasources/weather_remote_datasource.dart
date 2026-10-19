@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rain/core/constants/app_constants.dart';
@@ -5,6 +7,7 @@ import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/utils/http_date_parser.dart';
 import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/data/datasources/air_quality_remote_datasource.dart';
+import 'package:rain/data/datasources/json_isolate_parsers.dart';
 import 'package:rain/data/mappers/air_quality_mapper.dart';
 import 'package:rain/data/models/air_quality_api.dart';
 import 'package:rain/data/models/city_api.dart';
@@ -49,8 +52,12 @@ class WeatherRemoteDatasource {
     final weatherResponse = results[0] as Response<dynamic>;
     final serverUtc = parseHttpDate(weatherResponse.headers.value('date'));
     final skew = serverUtc == null ? 0 : clockSkewSeconds(serverUtc);
+    final weatherJson = asJsonMap(weatherResponse.data);
+    final weatherData = await Isolate.run(
+      () => parseWeatherDataApiJson(weatherJson),
+    );
     return (
-      WeatherDataApi.fromJson(weatherResponse.data),
+      weatherData,
       results[1] as AirQualityDataApi?,
       skew,
     );
@@ -114,10 +121,15 @@ class WeatherRemoteDatasource {
     String query,
     String? languageCode,
   ) async {
-    final url =
-        'https://geocoding-api.open-meteo.com/v1/search?name=$query&count=5&language=$languageCode&format=json';
+    final uri = Uri.https('geocoding-api.open-meteo.com', '/v1/search', {
+      'name': query,
+      'count': '5',
+      if (languageCode != null && languageCode.isNotEmpty)
+        'language': languageCode,
+      'format': 'json',
+    });
     try {
-      final response = await _dioLocation.get(url);
+      final response = await _dioLocation.getUri(uri);
       if (response.statusCode == 200) {
         final cityData = CityApi.fromJson(response.data);
         return cityData.results.map(
@@ -142,14 +154,20 @@ class WeatherRemoteDatasource {
     double lon, {
     String? languageCode,
   }) async {
-    final languageParam = languageCode != null && languageCode.isNotEmpty
-        ? '&accept-language=$languageCode'
-        : '';
-    final url =
-        '${AppConstants.nominatimReverseUrl}?lat=$lat&lon=$lon&format=json&addressdetails=1$languageParam';
+    final nominatimUri = Uri.parse(AppConstants.nominatimReverseUrl);
+    final uri = nominatimUri.replace(
+      queryParameters: {
+        'lat': '$lat',
+        'lon': '$lon',
+        'format': 'json',
+        'addressdetails': '1',
+        if (languageCode != null && languageCode.isNotEmpty)
+          'accept-language': languageCode,
+      },
+    );
     try {
-      final response = await _dioLocation.get(
-        url,
+      final response = await _dioLocation.getUri(
+        uri,
         options: Options(
           headers: {'User-Agent': AppConstants.nominatimUserAgent},
         ),

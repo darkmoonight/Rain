@@ -191,6 +191,7 @@ class TranslationsHeIl extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'משבי רוח';
 	@override String get northwest => 'צפון מערב';
 	@override String get open_meteo => 'נתונים מ-Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'תורמי OpenStreetMap';
 	@override String get rain => 'גשם';
 	@override String get mm_hg => 'מ"מ כספית';
 	@override String get validate180 => 'הערך חייב להיות בין -180 ל-180';
@@ -511,6 +512,7 @@ extension on TranslationsHeIl {
 			'windgusts' => 'משבי רוח',
 			'northwest' => 'צפון מערב',
 			'open_meteo' => 'נתונים מ-Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'תורמי OpenStreetMap',
 			'rain' => 'גשם',
 			'mm_hg' => 'מ"מ כספית',
 			'validate180' => 'הערך חייב להיות בין -180 ל-180',

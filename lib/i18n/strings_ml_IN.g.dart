@@ -191,6 +191,7 @@ class TranslationsMlIn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'കാറ്റിന്റെ കുത്തൊഴുക്ക്';
 	@override String get northwest => 'വടക്കുപടിഞ്ഞാറ്';
 	@override String get open_meteo => 'Open-Meteo യിൽ നിന്നുള്ള ഡാറ്റ (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap contributors';
 	@override String get rain => 'മഴ';
 	@override String get mm_hg => 'മി.മീ മെർക്കുറി';
 	@override String get validate180 => 'മൂല്യം -180 നും 180 നും ഇടയിൽ ആയിരിക്കണം';
@@ -511,6 +512,7 @@ extension on TranslationsMlIn {
 			'windgusts' => 'കാറ്റിന്റെ കുത്തൊഴുക്ക്',
 			'northwest' => 'വടക്കുപടിഞ്ഞാറ്',
 			'open_meteo' => 'Open-Meteo യിൽ നിന്നുള്ള ഡാറ്റ (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap contributors',
 			'rain' => 'മഴ',
 			'mm_hg' => 'മി.മീ മെർക്കുറി',
 			'validate180' => 'മൂല്യം -180 നും 180 നും ഇടയിൽ ആയിരിക്കണം',

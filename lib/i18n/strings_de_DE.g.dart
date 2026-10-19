@@ -191,6 +191,7 @@ class TranslationsDeDe extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => 'Böe';
 	@override String get northwest => 'Nordwesten';
 	@override String get open_meteo => 'Daten von Open-Meteo (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap-Mitwirkende';
 	@override String get rain => 'Regen';
 	@override String get mm_hg => 'mmHg';
 	@override String get validate180 => 'Der Wert muss zwischen -180 und 180 liegen';
@@ -511,6 +512,7 @@ extension on TranslationsDeDe {
 			'windgusts' => 'Böe',
 			'northwest' => 'Nordwesten',
 			'open_meteo' => 'Daten von Open-Meteo (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap-Mitwirkende',
 			'rain' => 'Regen',
 			'mm_hg' => 'mmHg',
 			'validate180' => 'Der Wert muss zwischen -180 und 180 liegen',

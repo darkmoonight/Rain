@@ -101,7 +101,9 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
 
     final startIndex = dayIndex * 24;
     final hourlyIndex = startIndex + hourOfDay;
-    final aqiStandard = ref.watch(settingsProvider).aqiStandard;
+    final aqiStandard = ref.watch(
+      settingsProvider.select((s) => s.aqiStandard),
+    );
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),

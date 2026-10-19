@@ -191,6 +191,7 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 	@override String get windgusts => '阵风';
 	@override String get northwest => '西北';
 	@override String get open_meteo => '来自Open-Meteo的数据 (CC-BY 4.0)';
+	@override String get open_street_map_contributors => 'OpenStreetMap 贡献者';
 	@override String get rain => '雨';
 	@override String get mm_hg => '毫米汞柱';
 	@override String get validate180 => '值必须介于-180和180之间';
@@ -511,6 +512,7 @@ extension on TranslationsZhCn {
 			'windgusts' => '阵风',
 			'northwest' => '西北',
 			'open_meteo' => '来自Open-Meteo的数据 (CC-BY 4.0)',
+			'open_street_map_contributors' => 'OpenStreetMap 贡献者',
 			'rain' => '雨',
 			'mm_hg' => '毫米汞柱',
 			'validate180' => '值必须介于-180和180之间',

@@ -4,12 +4,14 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
+import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/core/widgets/shimmer.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_card_list.dart';
 import 'package:rain/features/weather/presentation/widgets/weather_detail_view.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 /// Main tab showing the current location's full weather detail view.
 class MainWeatherScreen extends ConsumerStatefulWidget {
@@ -21,6 +23,7 @@ class MainWeatherScreen extends ConsumerStatefulWidget {
 
 class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
   Timer? _clockTimer;
+  final _itemScrollController = ItemScrollController();
 
   @override
   void initState() {
@@ -37,11 +40,43 @@ class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
     super.dispose();
   }
 
+  void _scrollToCurrentHour({int retryCount = 0}) {
+    if (!mounted) return;
+    final hour = ref.read(mainWeatherNotifierProvider).hourOfDay;
+    if (_itemScrollController.isAttached) {
+      _itemScrollController.scrollTo(
+        index: hour,
+        duration: AppConstants.scrollDuration,
+        curve: Curves.easeInOutCubic,
+      );
+    } else if (retryCount < AppConstants.maxScrollRetries) {
+      Future.delayed(
+        AppConstants.scrollToRetryDelay,
+        () => _scrollToCurrentHour(retryCount: retryCount + 1),
+      );
+    }
+  }
+
   /// Builds the refreshable main weather screen from [MainWeatherState].
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(mainWeatherNotifierProvider);
     final notifier = ref.read(mainWeatherNotifierProvider.notifier);
+
+    ref.listen(mainWeatherNotifierProvider, (previous, next) {
+      if (notifier.takeScrollToCurrentHourRequest()) {
+        Future.delayed(
+          AppConstants.scrollToCurrentHourDelay,
+          _scrollToCurrentHour,
+        );
+      }
+      if (next.userMessage != null &&
+          next.userMessageId != previous?.userMessageId) {
+        final message = next.userMessage!;
+        showSnackBar(message.key.tr, isError: message.isError);
+        notifier.clearUserMessage();
+      }
+    });
 
     return RefreshIndicator(
       onRefresh: notifier.refresh,
@@ -95,8 +130,10 @@ class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
       weatherCard: weatherCard,
       hourIndex: hourOfDay,
       dayIndex: dayOfNow,
-      aqiStandard: ref.watch(settingsProvider).aqiStandard,
-      itemScrollController: notifier.itemScrollController,
+      aqiStandard: ref.watch(
+        settingsProvider.select((s) => s.aqiStandard),
+      ),
+      itemScrollController: _itemScrollController,
       onHourSelected: notifier.setHourAndDay,
       showDailyTap: () => context.pushRouteUp(
         DailyCardList(
