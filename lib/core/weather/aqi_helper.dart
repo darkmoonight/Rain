@@ -1,6 +1,6 @@
 import 'package:material_ui/material_ui.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// European and United States AQI thresholds, colors, and formatting.
 class AqiHelper {
@@ -118,7 +118,7 @@ class AqiHelper {
   ) => _isAmerican(standard) ? usAqi : europeanAqi;
 
   /// Consolidated AQI for [card] at [hourIndex] under [standard].
-  static double? aqiAt(WeatherCard card, int hourIndex, String standard) {
+  static double? aqiAt(SavedPlace card, int hourIndex, String standard) {
     if (!hasData(card, hourIndex, standard)) return null;
     return resolveAqi(
       standard,
@@ -159,7 +159,7 @@ class AqiHelper {
 
   /// Reads a pollutant concentration from [card] at [index].
   static double? pollutantValue(
-    WeatherCard card,
+    SavedPlace card,
     int index,
     String pollutantKey,
   ) {
@@ -189,7 +189,7 @@ class AqiHelper {
   /// Pass [aqi] when the caller already resolved it (e.g. [AirQualityCard]).
   static String buildHelpText({
     required String standard,
-    required WeatherCard card,
+    required SavedPlace card,
     required int hourIndex,
     double? aqi,
   }) {
@@ -249,7 +249,7 @@ class AqiHelper {
   }
 
   /// Whether [card] has a non-null AQI value at [index] for [standard].
-  static bool hasData(WeatherCard card, int index, String standard) {
+  static bool hasData(SavedPlace card, int index, String standard) {
     if (index < 0) return false;
     final values = _isAmerican(standard) ? card.usAqi : card.europeanAqi;
     return values != null && index < values.length && values[index] != null;
@@ -272,7 +272,7 @@ class AqiHelper {
 
   /// One pass over [pollutantKeys]: help lines and the highest EEA band.
   static ({List<String> lines, ({String key, double value})? dominant})
-  _pollutantSummaries(WeatherCard card, int hourIndex) {
+  _pollutantSummaries(SavedPlace card, int hourIndex) {
     final lines = <String>[];
     String? dominantKey;
     double? dominantValue;

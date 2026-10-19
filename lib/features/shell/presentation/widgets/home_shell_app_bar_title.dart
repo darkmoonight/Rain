@@ -11,7 +11,7 @@ class HomeShellAppBarTitle extends StatelessWidget {
     required this.tabIndex,
     required this.hideMap,
     required this.settingsLocationEnabled,
-    required this.hasLocationCache,
+    required this.hasGeoPlace,
     required this.weatherIsLoading,
     required this.weatherCity,
     required this.weatherDistrict,
@@ -22,7 +22,7 @@ class HomeShellAppBarTitle extends StatelessWidget {
   final int tabIndex;
   final bool hideMap;
   final bool settingsLocationEnabled;
-  final bool hasLocationCache;
+  final bool hasGeoPlace;
   final bool weatherIsLoading;
   final String? weatherCity;
   final String? weatherDistrict;
@@ -40,7 +40,7 @@ class HomeShellAppBarTitle extends StatelessWidget {
             ? formatLocationLabel(weatherCity, weatherDistrict)
             : settingsLocationEnabled
             ? 'search'.tr
-            : hasLocationCache
+            : hasGeoPlace
             ? 'loading'.tr
             : 'searchCity'.tr;
         return Text(title, style: textStyle);

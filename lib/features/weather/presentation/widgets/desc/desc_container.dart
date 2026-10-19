@@ -6,8 +6,8 @@ import 'package:rain/core/widgets/collapsible_section.dart';
 import 'package:rain/core/weather/desc_metrics_catalog.dart';
 import 'package:rain/core/weather/message.dart';
 import 'package:rain/core/weather/status_data.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/desc/desc.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Expandable grid of hourly or daily weather variables.
 class DescContainer extends ConsumerWidget {
@@ -71,7 +71,7 @@ class DescContainer extends ConsumerWidget {
   /// Hourly variable grid for one slot in [card].time.
   factory DescContainer.fromHourlySlot({
     Key? key,
-    required WeatherCard card,
+    required SavedPlace card,
     required int hourIndex,
     required bool initiallyExpanded,
     required String title,
@@ -99,7 +99,7 @@ class DescContainer extends ConsumerWidget {
   /// Daily aggregate variable grid for one slot in [card].timeDaily.
   factory DescContainer.fromDailySlot({
     Key? key,
-    required WeatherCard card,
+    required SavedPlace card,
     required int dayIndex,
     required bool initiallyExpanded,
     required String title,

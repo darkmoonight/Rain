@@ -1,6 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:rain/core/constants/app_constants.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
 
@@ -65,8 +65,8 @@ class AppSettingsState {
     widgetTextColorDark: widgetTextColorDark ?? this.widgetTextColorDark,
   );
 
-  /// Builds the live snapshot from persisted [Settings].
-  factory AppSettingsState.fromSettings(Settings settings) {
+  /// Builds the live snapshot from domain [AppSettings].
+  factory AppSettingsState.fromAppSettings(AppSettings settings) {
     final locale = appLocaleFromLanguageCode(settings.language).flutterLocale;
     final rawRange =
         settings.timeRange ?? AppConstants.defaultNotificationIntervalHours;

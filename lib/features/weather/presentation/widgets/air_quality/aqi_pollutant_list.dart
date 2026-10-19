@@ -1,8 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:gap/gap.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/air_quality/aqi_pollutant_bar.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Vertical list of pollutant concentration bars for one forecast hour.
 class AqiPollutantList extends StatelessWidget {
@@ -14,7 +14,7 @@ class AqiPollutantList extends StatelessWidget {
     this.rowGap = 6,
   });
 
-  final WeatherCard weatherCard;
+  final SavedPlace weatherCard;
   final int hourIndex;
   final TextStyle? labelStyle;
   final double rowGap;

@@ -1,4 +1,5 @@
 import '../helpers/fake_services.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../helpers/fixtures.dart';
 import '../helpers/isar_test_helper.dart';
 import '../helpers/test_bootstrap.dart';
@@ -45,7 +46,7 @@ void main() {
   setUp(() async {
     ctx = await createTestBootstrap();
     setTestConnectivity(true);
-    await seedMainWeatherCache(ctx.isarContext.isar);
+    await seedWeatherForecast(ctx.isarContext.isar);
   });
 
   group('SelectGeolocation', () {
@@ -276,7 +277,7 @@ void main() {
 class _GeolocationSubmitMainWeatherNotifier extends MainWeatherNotifier {
   @override
   MainWeatherState build() =>
-      MainWeatherState(isLoading: false, location: sampleLocationCache());
+      MainWeatherState(isLoading: false, location: sampleGeoPlace());
 
   @override
   Future<void> deleteAll(bool changeCity) async {}

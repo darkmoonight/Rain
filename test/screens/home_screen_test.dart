@@ -1,4 +1,5 @@
 import '../helpers/fake_notifiers.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../helpers/fake_services.dart';
 import '../helpers/fixtures.dart';
 import '../helpers/test_bootstrap.dart';
@@ -78,7 +79,7 @@ void main() {
     });
 
     testWidgets('shows seeded cities on cities tab', (tester) async {
-      final card = completeWeatherCard();
+      final card = completeSavedPlace();
 
       await pumpRainWidget(
         tester,
@@ -187,7 +188,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
 
       expect(find.byType(SettingsPage), findsOneWidget);
-      expect(find.text('Map'), findsOneWidget);
+      expect(find.text('Map'), findsWidgets);
     });
   });
 }

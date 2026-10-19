@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/config/setting_enum_pickers.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/settings/settings_persistence.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:restart_app/restart_app.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
 /// Shared save and notification side-effect helpers for settings sections.
 class SettingsSaveActions {
@@ -15,7 +15,7 @@ class SettingsSaveActions {
   final WidgetRef ref;
   final void Function(void Function()) _setState;
 
-  Settings get settings => ref.read(settingsProvider);
+  AppSettings get settings => ref.read(settingsProvider);
 
   MainWeatherNotifier get weather =>
       ref.read(mainWeatherNotifierProvider.notifier);
@@ -23,16 +23,16 @@ class SettingsSaveActions {
   Future<void> Function()? forecastRescheduleAfterSave() =>
       settings.notifications ? weather.rescheduleNotificationsIfEnabled : null;
 
-  /// Persists after [mutate] (or current in-memory fields when [mutate] is null).
+  /// Persists after [mutate] (or no-op persist of current settings when null).
   Future<void> saveSettings({
-    void Function(Settings settings)? mutate,
+    AppSettings Function(AppSettings settings)? mutate,
     Future<void> Function()? afterSave,
     bool backgroundAfterSave = false,
   }) async {
     if (mutate != null) {
       await ref.persistSettings(mutate);
     } else {
-      await ref.read(settingsRepositoryProvider).save(settings);
+      await ref.persistSettings((s) => s);
     }
     if (afterSave != null) {
       if (backgroundAfterSave) {
@@ -45,7 +45,7 @@ class SettingsSaveActions {
   }
 
   Future<void> saveWithForecastReschedule({
-    void Function(Settings settings)? mutate,
+    AppSettings Function(AppSettings settings)? mutate,
   }) => saveSettings(
     mutate: mutate,
     afterSave: forecastRescheduleAfterSave(),
@@ -69,7 +69,7 @@ class SettingsSaveActions {
           .isServiceEnabled();
       if (!serviceEnabled) return false;
     }
-    await ref.persistSettings((s) => s.location = enabled);
+    await ref.persistSettings((s) => s.copyWith(location: enabled));
     if (enabled) await refreshGps();
     _setState(() {});
     return true;
@@ -82,7 +82,7 @@ class SettingsSaveActions {
   }) async {
     if (enabled && !await requestPermissions()) return;
 
-    await ref.persistSettings((s) => s.notifications = enabled);
+    await ref.persistSettings((s) => s.copyWith(notifications: enabled));
     _setState(() {});
 
     runInBackground(
@@ -99,7 +99,7 @@ class SettingsSaveActions {
   }) async {
     if (enabled && !await requestPermission()) return;
 
-    await ref.persistSettings((s) => s.persistentNotification = enabled);
+    await ref.persistSettings((s) => s.copyWith(persistentNotification: enabled));
     if (enabled) {
       unawaited(weather.refreshPersistentNotification(force: true));
     } else {
@@ -112,7 +112,7 @@ class SettingsSaveActions {
 
   /// Persists hide-map and restarts the app after a short delay.
   Future<void> saveHideMapToggle(bool enabled) async {
-    await ref.persistSettings((s) => s.hideMap = enabled);
+    await ref.persistSettings((s) => s.copyWith(hideMap: enabled));
     _setState(() {});
     if (Platform.isAndroid || Platform.isIOS) {
       Future.delayed(

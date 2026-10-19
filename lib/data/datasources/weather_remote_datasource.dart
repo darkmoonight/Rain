@@ -13,8 +13,10 @@ import 'package:rain/data/models/air_quality_api.dart';
 import 'package:rain/data/models/city_api.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/data/models/weather_api.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/mappers/weather_mapper.dart';
 import 'package:rain/core/weather/weather_cache_validator.dart';
+import 'package:rain/domain/entities/city_search_result.dart';
 
 /// Fetches forecast data from Open-Meteo and city suggestions from its geocoding API.
 class WeatherRemoteDatasource {
@@ -73,7 +75,9 @@ class WeatherRemoteDatasource {
         lat: lat,
         lon: lon,
       );
-      if (!WeatherCacheValidator.hasMainDisplayData(cache)) {
+      if (!WeatherCacheValidator.hasMainDisplayData(
+        DomainMapper.forecastToDomain(cache),
+      )) {
         throw const FormatException('Incomplete weather API response');
       }
       if (aqData != null) {
@@ -209,19 +213,4 @@ class WeatherRemoteDatasource {
 
   ({String city, String district})? _parseNominatimLabels(dynamic data) =>
       parseNominatimLabels(data);
-}
-
-/// A normalized city match returned from geocoding search.
-class CitySearchResult {
-  const CitySearchResult({
-    required this.admin1,
-    required this.name,
-    required this.latitude,
-    required this.longitude,
-  });
-
-  final String? admin1;
-  final String? name;
-  final double? latitude;
-  final double? longitude;
 }

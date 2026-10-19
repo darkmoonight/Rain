@@ -3,6 +3,7 @@ import 'isar_test_helper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 void main() {
   group('FakeLocationService', () {
@@ -40,8 +41,8 @@ void main() {
     test('rescheduleForWeather increments counter', () async {
       final service = FakeNotificationService();
       await service.rescheduleForWeather(
-        cache: MainWeatherCache(),
-        settings: Settings(),
+        cache: WeatherForecast(),
+        settings: AppSettings(),
         appSettings: const AppSettingsState(),
         cityLabel: 'Moscow',
       );

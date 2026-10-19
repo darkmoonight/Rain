@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 void main() {
   group('syncBootstrapLocationCache', () {
@@ -17,7 +18,7 @@ void main() {
         Provider<void>((ref) {
           syncBootstrapLocationCache(
             ref,
-            LocationCache(
+            GeoPlace(
               city: 'Berlin',
               district: 'Berlin',
               lat: 52.52,

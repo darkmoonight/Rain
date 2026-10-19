@@ -2,6 +2,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/weather/presentation/widgets/air_quality/air_quality_card.dart';
 import 'package:rain/features/weather/presentation/widgets/air_quality/aqi_pollutant_bar.dart';
 import 'package:rain/i18n/strings.g.dart';
@@ -10,7 +11,7 @@ void main() {
   setUpAll(() => LocaleSettings.setLocaleSync(AppLocale.enUs));
 
   testWidgets('AirQualityCard renders pollutant rows', (tester) async {
-    final card = WeatherCard(
+    final card = SavedPlace(
       time: ['2026-06-05T12:00'],
       europeanAqi: [26],
       usAqi: [45],

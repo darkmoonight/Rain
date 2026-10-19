@@ -9,7 +9,9 @@ import 'package:rain/core/services/widget_background_service.dart';
 import 'package:rain/core/weather/unit_converter.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
 /// Pushes current weather and styling into native home screen widgets.
 class HomeWidgetService {
@@ -18,17 +20,20 @@ class HomeWidgetService {
   final AssetCacheService _assets;
 
   /// Formats [temp] for widget display using user unit preferences.
-  String _widgetTemperature(double temp, Settings settings) {
+  String _widgetTemperature(double temp, AppSettings settings) {
     final converted = UnitConverter.convertTemperature(temp, settings);
     if (converted == null) return '--°';
     return '$converted${UnitConverter.temperatureSuffix(settings)}';
   }
 
   /// Reads Isar and writes widget data for all registered widget providers.
-  Future<bool> updateFromIsar(Isar isar, {Settings? settings}) async {
+  Future<bool> updateFromIsar(Isar isar, {AppSettings? settings}) async {
     try {
       final resolved =
-          settings ?? await isar.settings.where().findFirst() ?? Settings();
+          settings ??
+          DomainMapper.settingsToDomain(
+            await isar.settings.where().findFirst() ?? Settings(),
+          );
       final bundle = await _buildWidgetBundle(isar, resolved);
 
       final dataResults = await Future.wait<bool?>([
@@ -57,7 +62,7 @@ class HomeWidgetService {
     }
   }
 
-  List<Future<bool?>> _colorSaveTasks(Settings settings) => [
+  List<Future<bool?>> _colorSaveTasks(AppSettings settings) => [
     _saveColorPref(
       'background_color_light',
       settings.widgetBackgroundColorLight,
@@ -77,17 +82,18 @@ class HomeWidgetService {
   /// Builds the JSON payload for the current hour from main weather cache.
   Future<Map<String, dynamic>?> _buildWidgetBundle(
     Isar isar,
-    Settings settings,
+    AppSettings settings,
   ) async {
-    final cache = await isar.mainWeatherCaches.where().findFirst();
-    if (cache == null ||
-        cache.time == null ||
-        cache.time!.isEmpty ||
-        cache.timezone == null ||
-        cache.weathercode == null ||
-        cache.temperature2M == null) {
+    final isarCache = await isar.mainWeatherCaches.where().findFirst();
+    if (isarCache == null ||
+        isarCache.time == null ||
+        isarCache.time!.isEmpty ||
+        isarCache.timezone == null ||
+        isarCache.weathercode == null ||
+        isarCache.temperature2M == null) {
       return null;
     }
+    final cache = DomainMapper.forecastToDomain(isarCache);
 
     final clock = LocationClock.fromMainWeather(
       cache,

@@ -1,7 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/utils/place_form_helpers.dart';
-import 'package:rain/data/datasources/weather_remote_datasource.dart';
+import 'package:rain/domain/entities/city_search_result.dart';
 
 void main() {
   group('fillPlaceControllers', () {

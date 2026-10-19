@@ -1,5 +1,5 @@
 import 'package:lat_lng_to_timezone/lat_lng_to_timezone.dart' as tzmap;
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Resolves the IANA timezone for a saved weather location.
 class LocationTimezoneHelper {
@@ -31,16 +31,15 @@ class LocationTimezoneHelper {
   }
 
   /// Resolves the timezone for a main-weather or city-card row.
-  static String forWeatherCard(WeatherCard card) =>
+  static String forSavedPlace(SavedPlace card) =>
       resolve(cached: card.timezone, lat: card.lat, lon: card.lon);
 
-  /// Writes [timezone] onto [card] when it differs from the resolved value.
+  /// Returns [card] with a repaired timezone when it differs from the resolved value.
   ///
-  /// Returns `true` when the card was modified.
-  static bool repairCardTimezone(WeatherCard card) {
-    final timezone = forWeatherCard(card);
-    if (card.timezone == timezone) return false;
-    card.timezone = timezone;
-    return true;
+  /// Returns `null` when no change is needed.
+  static SavedPlace? repairCardTimezone(SavedPlace card) {
+    final timezone = forSavedPlace(card);
+    if (card.timezone == timezone) return null;
+    return card.copyWith(timezone: timezone);
   }
 }

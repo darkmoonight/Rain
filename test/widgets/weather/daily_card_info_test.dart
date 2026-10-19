@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/fixtures.dart';
 import '../../helpers/test_bootstrap.dart';
 import '../../helpers/widget_test_harness.dart';
@@ -18,7 +19,7 @@ void main() {
   testWidgets('DailyCardInfo renders paged daily detail', (tester) async {
     await pumpRainWidget(
       tester,
-      DailyCardInfo(weatherData: dailyDetailWeatherCard(), index: 0),
+      DailyCardInfo(weatherData: dailyDetailSavedPlace(), index: 0),
       bootstrap: ctx.bootstrap,
     );
     await tester.pump();
@@ -41,7 +42,7 @@ void main() {
                   onPressed: () => NavigationHelper.toDownToUp(
                     context,
                     () => DailyCardInfo(
-                      weatherData: dailyDetailWeatherCard(),
+                      weatherData: dailyDetailSavedPlace(),
                       index: 0,
                     ),
                   ),

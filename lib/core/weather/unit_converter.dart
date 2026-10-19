@@ -1,5 +1,5 @@
-import 'package:rain/data/models/db.dart';
 
+import 'package:rain/domain/entities/app_settings.dart';
 /// Converts and formats weather units according to user settings.
 class UnitConverter {
   const UnitConverter._();
@@ -36,7 +36,7 @@ class UnitConverter {
   }
 
   /// Converts Celsius to the user's preferred scale and rounding.
-  static num? convertTemperature(dynamic celsius, Settings settings) {
+  static num? convertTemperature(dynamic celsius, AppSettings settings) {
     final value = parseValue(celsius);
     if (value == null) return null;
 
@@ -48,7 +48,7 @@ class UnitConverter {
   }
 
   /// Formats wind speed from API kph into the user's preferred unit.
-  static String? formatWindSpeed(num? kph, Settings settings) {
+  static String? formatWindSpeed(num? kph, AppSettings settings) {
     if (kph == null) return null;
 
     if (settings.measurements == 'imperial') {
@@ -61,14 +61,14 @@ class UnitConverter {
   }
 
   /// i18n key for the active wind speed unit label.
-  static String windSpeedUnitKey(Settings settings) {
+  static String windSpeedUnitKey(AppSettings settings) {
     if (settings.measurements == 'imperial') return 'mph';
     if (settings.wind == 'm/s') return 'm/s';
     return 'kph';
   }
 
   /// Formats surface pressure into hPa or mmHg per user settings.
-  static String? formatPressure(num? hpa, Settings settings) {
+  static String? formatPressure(num? hpa, AppSettings settings) {
     if (hpa == null) return null;
 
     if (settings.pressure == 'mmHg') {
@@ -78,11 +78,11 @@ class UnitConverter {
   }
 
   /// i18n key for the active pressure unit label.
-  static String pressureUnitKey(Settings settings) =>
+  static String pressureUnitKey(AppSettings settings) =>
       settings.pressure == 'mmHg' ? 'mmHg' : 'hPa';
 
   /// Formats visibility from meters into km or miles per user settings.
-  static String? formatVisibility(num? meters, Settings settings) {
+  static String? formatVisibility(num? meters, AppSettings settings) {
     if (meters == null) return null;
 
     if (settings.measurements == 'imperial') {
@@ -95,11 +95,11 @@ class UnitConverter {
   }
 
   /// i18n key for the active visibility unit label.
-  static String visibilityUnitKey(Settings settings) =>
+  static String visibilityUnitKey(AppSettings settings) =>
       settings.measurements == 'imperial' ? 'mi' : 'km';
 
   /// Formats precipitation from millimeters into mm or inches.
-  static String? formatPrecipitation(num? mm, Settings settings) {
+  static String? formatPrecipitation(num? mm, AppSettings settings) {
     if (mm == null) return null;
 
     if (settings.measurements == 'imperial') {
@@ -109,10 +109,10 @@ class UnitConverter {
   }
 
   /// i18n key for the active precipitation unit label.
-  static String precipitationUnitKey(Settings settings) =>
+  static String precipitationUnitKey(AppSettings settings) =>
       settings.measurements == 'imperial' ? 'inch' : 'mm';
 
   /// Degree symbol suffix for the user's temperature scale.
-  static String temperatureSuffix(Settings settings) =>
+  static String temperatureSuffix(AppSettings settings) =>
       settings.degrees == 'fahrenheit' ? '°F' : '°C';
 }

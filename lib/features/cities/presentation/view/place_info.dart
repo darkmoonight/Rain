@@ -9,13 +9,13 @@ import 'package:rain/core/widgets/app_back_button.dart';
 import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/domain/weather_card_validator.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_card_list.dart';
 import 'package:rain/features/weather/presentation/widgets/weather_detail_view.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Full weather detail screen for a single saved city card.
 class PlaceInfo extends ConsumerStatefulWidget {
@@ -26,7 +26,7 @@ class PlaceInfo extends ConsumerStatefulWidget {
   final int? cardId;
 
   /// In-memory card when the location is not saved (e.g. main weather on the map).
-  final WeatherCard? card;
+  final SavedPlace? card;
 
   @override
   ConsumerState<PlaceInfo> createState() => _PlaceInfoState();
@@ -60,7 +60,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   }
 
   /// Resets hour/day to "now" only when forecast [card.timestamp] changes.
-  void _syncTimeFor(WeatherCard card) {
+  void _syncTimeFor(SavedPlace card) {
     if (!WeatherCardValidator.isComplete(card)) return;
     if (_lastSyncedTimestamp == card.timestamp) return;
 
@@ -73,14 +73,14 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   }
 
   /// Recomputes [timeNow] and [dayNow] from the city's timezone-aware clock.
-  void _refreshTimeIndices(WeatherCard card, {required bool scrollToHour}) {
+  void _refreshTimeIndices(SavedPlace card, {required bool scrollToHour}) {
     if (!_followCurrentTime) return;
 
     final time = card.time;
     final timeDaily = card.timeDaily;
     if (time == null || timeDaily == null || card.timezone == null) return;
 
-    final clock = LocationClock.fromWeatherCard(
+    final clock = LocationClock.fromSavedPlace(
       card,
       settingsClockSkewSeconds: ref.read(settingsProvider).clockSkewSeconds,
     );
@@ -109,7 +109,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   }
 
   /// Whether [hour]/[day] match the city's current local forecast slot.
-  bool _isCurrentTimeSlot(WeatherCard card, int hour, int day) {
+  bool _isCurrentTimeSlot(SavedPlace card, int hour, int day) {
     final time = card.time;
     final timeDaily = card.timeDaily;
     if (time == null ||
@@ -123,7 +123,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
     return TimeIndexHelper.isCurrentTimeSlot(
       hourly: time,
       daily: timeDaily,
-      clock: LocationClock.fromWeatherCard(
+      clock: LocationClock.fromSavedPlace(
         card,
         settingsClockSkewSeconds: ref.read(settingsProvider).clockSkewSeconds,
       ),
@@ -133,7 +133,7 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
   }
 
   /// Resolves the card from the cities list, optional [card] fallback, or main weather.
-  WeatherCard? _resolveCard(CitiesState cities) {
+  SavedPlace? _resolveCard(CitiesState cities) {
     if (widget.cardId != null) {
       final fromList = cities.cardById(widget.cardId!);
       if (fromList != null) return fromList;
@@ -148,18 +148,20 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
         fallback.lat == loc.lat &&
         fallback.lon == loc.lon &&
         !main.isLoading) {
-      return WeatherCard.fromMainAndLocation(main.mainWeather, loc);
+      return SavedPlace.fromForecastAndPlace(main.mainWeather, loc);
     }
     return fallback;
   }
 
   /// Returns true when [card] is stored in the saved-cities list.
-  bool _isPersistedCity(CitiesState cities, WeatherCard card) {
+  bool _isPersistedCity(CitiesState cities, SavedPlace card) {
     if (widget.cardId != null && cities.cardById(widget.cardId!) != null) {
       return true;
     }
     for (final saved in cities.cards) {
-      if (saved.id == card.id && card.id > 0) return true;
+      if (saved.id != null && saved.id == card.id && card.id! > 0) {
+        return true;
+      }
       if (saved.lat == card.lat &&
           saved.lon == card.lon &&
           card.lat != null &&

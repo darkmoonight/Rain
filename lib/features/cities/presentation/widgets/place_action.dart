@@ -3,17 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/utils/place_form_helpers.dart';
 import 'package:rain/core/widgets/place_form_fields.dart';
-import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/i18n/tr.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action_editing_controller.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action_form_sections.dart';
 import 'package:rain/core/utils/responsive_utils.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Bottom sheet for creating or editing a saved city card.
 class PlaceAction extends ConsumerStatefulWidget {
@@ -28,7 +27,7 @@ class PlaceAction extends ConsumerStatefulWidget {
   final String? latitude;
   final String? longitude;
   final bool edit;
-  final WeatherCard? card;
+  final SavedPlace? card;
 
   @override
   ConsumerState<PlaceAction> createState() => _PlaceActionState();
@@ -75,7 +74,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     _districtController = TextEditingController();
   }
 
-  /// Pre-fills form fields when editing an existing [WeatherCard].
+  /// Pre-fills form fields when editing an existing [SavedPlace].
   void _initializeEditMode() {
     if (widget.edit && widget.card != null) {
       _latController.text = '${widget.card!.lat}';
@@ -413,7 +412,7 @@ class _PlaceActionState extends ConsumerState<PlaceAction>
     );
   }
 
-  /// Persists a new or updated [WeatherCard] via [citiesNotifierProvider].
+  /// Persists a new or updated [SavedPlace] via [citiesNotifierProvider].
   Future<void> _handleSubmit() async {
     if (_formKey.currentState!.validate()) {
       try {

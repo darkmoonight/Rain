@@ -3,20 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/utils/location_label.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Renders a saved card as [PlaceCard] or a retry placeholder when incomplete.
 class WeatherCardTile extends ConsumerWidget {
   const WeatherCardTile({super.key, required this.card});
 
-  final WeatherCard card;
+  final SavedPlace card;
 
   /// Builds a [PlaceCard] or [InvalidWeatherCard] for the given [card].
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final placeCard = PlaceCard.tryFromWeatherCard(card);
+    final placeCard = PlaceCard.tryFromSavedPlace(card);
     if (placeCard != null) return placeCard;
     return InvalidWeatherCard(card: card);
   }
@@ -26,7 +26,7 @@ class WeatherCardTile extends ConsumerWidget {
 class InvalidWeatherCard extends ConsumerWidget {
   const InvalidWeatherCard({super.key, required this.card});
 
-  final WeatherCard card;
+  final SavedPlace card;
 
   /// Builds an error tile with location label and a refresh action.
   @override

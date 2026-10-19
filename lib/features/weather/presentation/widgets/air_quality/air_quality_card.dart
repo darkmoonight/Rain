@@ -5,10 +5,10 @@ import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/widgets/collapsible_section.dart';
 import 'package:rain/core/widgets/metric_help_tooltip.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/air_quality/aqi_pollutant_list.dart';
 import 'package:rain/features/weather/presentation/widgets/air_quality/aqi_scale_bar.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Summary air quality card: AQI core on top, collapsible pollutant bars below.
 class AirQualityCard extends StatelessWidget {
@@ -19,7 +19,7 @@ class AirQualityCard extends StatelessWidget {
     required this.aqiStandard,
   });
 
-  final WeatherCard weatherCard;
+  final SavedPlace weatherCard;
   final int hourIndex;
   final String aqiStandard;
 

@@ -7,8 +7,9 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/provider_refs.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/data/repositories/cities_repository.dart';
+import 'package:rain/domain/entities/entities.dart';
+import 'package:rain/domain/repositories/cities_repository.dart';
 import 'package:rain/features/cities/application/cities_notifier.dart';
 
 void main() {
@@ -41,10 +42,10 @@ void main() {
     test(
       'refresh shows cached cards while stale network update runs',
       () async {
-        final card = completeWeatherCard(
+        final card = completeSavedPlace(
           timestamp: DateTime.now().subtract(const Duration(hours: 24)),
         );
-        await seedWeatherCard(ctx.isarContext.isar, card);
+        await seedSavedPlace(ctx.isarContext.isar, card);
 
         final gate = Completer<void>();
         final delayedRepo = _DelayedCitiesRepository(
@@ -84,7 +85,7 @@ void main() {
     );
 
     test('refreshIfStale skips network when cache is still fresh', () async {
-      await seedWeatherCard(ctx.isarContext.isar, completeWeatherCard());
+      await seedSavedPlace(ctx.isarContext.isar, completeSavedPlace());
 
       final container = createContainer();
 
@@ -97,7 +98,7 @@ void main() {
     });
 
     test('refresh loads cards from database', () async {
-      await seedWeatherCard(ctx.isarContext.isar, completeWeatherCard());
+      await seedSavedPlace(ctx.isarContext.isar, completeSavedPlace());
 
       final container = createContainer();
 
@@ -110,9 +111,9 @@ void main() {
     });
 
     test('deleteCard removes card from state', () async {
-      final card = await seedWeatherCard(
+      final card = await seedSavedPlace(
         ctx.isarContext.isar,
-        completeWeatherCard(),
+        completeSavedPlace(),
       );
 
       final container = createContainer();
@@ -131,9 +132,9 @@ void main() {
     test(
       'refresh sets loadError when database read fails with cards',
       () async {
-        final card = await seedWeatherCard(
+        final card = await seedSavedPlace(
           ctx.isarContext.isar,
-          completeWeatherCard(),
+          completeSavedPlace(),
         );
 
         final throwingRepo = ThrowingCitiesRepository(
@@ -166,9 +167,9 @@ void main() {
     test(
       'deleteCard keeps loadError false when reload fails on empty list',
       () async {
-        final card = await seedWeatherCard(
+        final card = await seedSavedPlace(
           ctx.isarContext.isar,
-          completeWeatherCard(),
+          completeSavedPlace(),
         );
 
         final throwingRepo = ThrowingCitiesRepository(
@@ -206,15 +207,16 @@ void main() {
     });
 
     test('reorder updates card order in state', () async {
-      await seedWeatherCard(
+      await seedSavedPlace(
         ctx.isarContext.isar,
-        completeWeatherCard(id: 1, index: 0),
+        completeSavedPlace(id: 1, index: 0),
       );
-      await seedWeatherCard(
+      await seedSavedPlace(
         ctx.isarContext.isar,
-        completeWeatherCard(id: 2, index: 1)
-          ..city = 'Berlin'
-          ..district = 'Berlin',
+        completeSavedPlace(id: 2, index: 1).copyWith(
+          city: 'Berlin',
+          district: 'Berlin',
+        ),
       );
 
       final container = createContainer();
@@ -242,9 +244,9 @@ void main() {
     });
 
     test('updateCard refreshes card from remote', () async {
-      final card = await seedWeatherCard(
+      final card = await seedSavedPlace(
         ctx.isarContext.isar,
-        completeWeatherCard(),
+        completeSavedPlace(),
       );
 
       final container = createContainer();
@@ -257,13 +259,13 @@ void main() {
   });
 }
 
-class _DelayedCitiesRepository extends CitiesRepository {
+class _DelayedCitiesRepository extends IsarCitiesRepository {
   _DelayedCitiesRepository(super.isar, super.remote, this._gate);
 
   final Completer<void> _gate;
 
   @override
-  Future<WeatherCard> fetchCard(
+  Future<SavedPlace> fetchCard(
     double lat,
     double lon,
     String city,

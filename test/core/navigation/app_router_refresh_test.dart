@@ -6,7 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/core/navigation/app_routes.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 void main() {
   setUpAll(initTestEnvironment);
@@ -17,14 +18,14 @@ void main() {
       () async {
         final ctx = await createTestBootstrap(
           settings: onboardedSettings(),
-          locationCache: LocationCache(),
+          locationCache: GeoPlace(),
         );
         final container = createTestContainer(bootstrap: ctx.bootstrap);
         addTearDown(container.dispose);
 
         expect(
           resolveAppRedirect(
-            ctx.bootstrap.settings,
+            DomainMapper.settingsToDomain(ctx.bootstrap.settings),
             container.read(locationCacheProvider),
             AppRoutes.home,
           ),
@@ -33,13 +34,13 @@ void main() {
 
         container.read(
           Provider<void>((ref) {
-            syncBootstrapLocationCache(ref, sampleLocationCache());
+            syncBootstrapLocationCache(ref, sampleGeoPlace());
           }),
         );
 
         expect(
           resolveAppRedirect(
-            ctx.bootstrap.settings,
+            DomainMapper.settingsToDomain(ctx.bootstrap.settings),
             container.read(locationCacheProvider),
             AppRoutes.home,
           ),

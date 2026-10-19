@@ -2,9 +2,9 @@ import 'package:material_ui/material_ui.dart';
 import 'package:rain/core/i18n/locale_format_helper.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/weather/status_weather.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_card_info.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Resolves day/hour context for preview rows and navigation into [DailyCardInfo].
 class DailyForecastAnchor {
@@ -14,13 +14,13 @@ class DailyForecastAnchor {
   final int hourIndex;
 
   /// Open-Meteo daily weather code for [listIndex].
-  int? weatherCode(WeatherCard card, int listIndex) =>
+  int? weatherCode(SavedPlace card, int listIndex) =>
       DailyDisplayHelper.dailyWeatherCode(card, listIndex);
 
   /// Preview-row icon path for [listIndex].
   String? previewImagePath(
     StatusWeather statusWeather,
-    WeatherCard card,
+    SavedPlace card,
     int listIndex,
   ) => DailyDisplayHelper.previewImagePath(
     statusWeather: statusWeather,
@@ -37,7 +37,7 @@ class DailyForecastAnchor {
       );
 
   /// Pushes [DailyCardInfo] for [listIndex] with the correct initial hour.
-  void openDetail(BuildContext context, WeatherCard card, int listIndex) {
+  void openDetail(BuildContext context, SavedPlace card, int listIndex) {
     NavigationHelper.toDownToUp(
       context,
       () => DailyCardInfo(
@@ -59,13 +59,13 @@ class DailyDisplayHelper {
   DailyDisplayHelper._();
 
   /// Open-Meteo daily weather code for [listIndex].
-  static int? dailyWeatherCode(WeatherCard card, int listIndex) =>
+  static int? dailyWeatherCode(SavedPlace card, int listIndex) =>
       card.weathercodeDaily?[listIndex];
 
   /// Preview-row icon path (day variant) for [listIndex].
   static String? previewImagePath({
     required StatusWeather statusWeather,
-    required WeatherCard card,
+    required SavedPlace card,
     required int listIndex,
   }) {
     final code = dailyWeatherCode(card, listIndex);

@@ -1,7 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/weather/aqi_helper.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
 /// Definition for a string-enum settings picker shown via [showSelectionDialog].
 class SettingEnumPickerDefinition {
@@ -18,8 +18,8 @@ class SettingEnumPickerDefinition {
   final String titleKey;
   final IconData icon;
   final List<String> items;
-  final String Function(Settings settings) read;
-  final void Function(Settings settings, String value) write;
+  final String Function(AppSettings settings) read;
+  final AppSettings Function(AppSettings settings, String value) write;
 
   /// After save, refresh home-screen widgets.
   final bool refreshWidgets;
@@ -79,20 +79,23 @@ const settingDataEnumPickers = [
   ),
 ];
 
-String _readDegrees(Settings s) => s.degrees;
-void _writeDegrees(Settings s, String v) => s.degrees = v;
+String _readDegrees(AppSettings s) => s.degrees;
+AppSettings _writeDegrees(AppSettings s, String v) => s.copyWith(degrees: v);
 
-String _readMeasurements(Settings s) => s.measurements;
-void _writeMeasurements(Settings s, String v) => s.measurements = v;
+String _readMeasurements(AppSettings s) => s.measurements;
+AppSettings _writeMeasurements(AppSettings s, String v) =>
+    s.copyWith(measurements: v);
 
-String _readWind(Settings s) => s.wind;
-void _writeWind(Settings s, String v) => s.wind = v;
+String _readWind(AppSettings s) => s.wind;
+AppSettings _writeWind(AppSettings s, String v) => s.copyWith(wind: v);
 
-String _readPressure(Settings s) => s.pressure;
-void _writePressure(Settings s, String v) => s.pressure = v;
+String _readPressure(AppSettings s) => s.pressure;
+AppSettings _writePressure(AppSettings s, String v) => s.copyWith(pressure: v);
 
-String _readAqiStandard(Settings s) => s.aqiStandard;
-void _writeAqiStandard(Settings s, String v) => s.aqiStandard = v;
+String _readAqiStandard(AppSettings s) => s.aqiStandard;
+AppSettings _writeAqiStandard(AppSettings s, String v) =>
+    s.copyWith(aqiStandard: v);
 
-String _readTimeformat(Settings s) => s.timeformat;
-void _writeTimeformat(Settings s, String v) => s.timeformat = v;
+String _readTimeformat(AppSettings s) => s.timeformat;
+AppSettings _writeTimeformat(AppSettings s, String v) =>
+    s.copyWith(timeformat: v);

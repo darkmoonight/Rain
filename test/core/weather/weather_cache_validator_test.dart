@@ -1,10 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/weather/unit_converter.dart';
 import 'package:rain/core/weather/weather_cache_validator.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 void main() {
-  MainWeatherCache validMainCache() => MainWeatherCache(
+  WeatherForecast validMainCache() => WeatherForecast(
     time: ['2026-06-05T12:00'],
     weathercode: [0],
     temperature2M: [20.0],
@@ -35,31 +37,31 @@ void main() {
     });
 
     test('rejects cache missing daily min/max', () {
-      final cache = validMainCache()..temperature2MMin = null;
+      final cache = validMainCache().copyWith(temperature2MMin: null);
       expect(WeatherCacheValidator.hasMainDisplayData(cache), isFalse);
     });
 
     test('rejects cache missing hourly timestamps', () {
-      final cache = validMainCache()..time = [];
+      final cache = validMainCache().copyWith(time: []);
       expect(WeatherCacheValidator.hasMainDisplayData(cache), isFalse);
     });
   });
 
   group('WeatherCacheValidator.isLikelyFahrenheit', () {
     test('detects legacy Fahrenheit cache values', () {
-      final cache = MainWeatherCache(temperature2M: [72.5, 81.5, 82.2]);
+      final cache = WeatherForecast(temperature2M: [72.5, 81.5, 82.2]);
       expect(WeatherCacheValidator.isLikelyFahrenheit(cache), isTrue);
     });
 
     test('accepts normal Celsius cache values', () {
-      final cache = MainWeatherCache(temperature2M: [18.2, 27.5, 31.0]);
+      final cache = WeatherForecast(temperature2M: [18.2, 27.5, 31.0]);
       expect(WeatherCacheValidator.isLikelyFahrenheit(cache), isFalse);
     });
   });
 
   test('legacy Fahrenheit cache double-converts like the reported bug', () {
     const legacyFahrenheitStored = 82.2;
-    final settings = Settings()..degrees = 'fahrenheit';
+    final settings = DomainMapper.settingsToDomain(Settings()..degrees = 'fahrenheit');
 
     final wrong = UnitConverter.convertTemperature(
       legacyFahrenheitStored,

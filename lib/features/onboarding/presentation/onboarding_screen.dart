@@ -80,7 +80,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
 
   /// Marks onboarding complete and navigates to geolocation setup.
   Future<void> _completeOnboarding() async {
-    await ref.persistSettings((s) => s.onboard = true);
+    await ref.persistSettings((s) => s.copyWith(onboard: true));
     refreshAppRouter(ref);
     if (!mounted) return;
     context.go(AppRoutes.geolocationStart);

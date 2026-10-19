@@ -184,16 +184,18 @@ mixin _MainWeatherLocationOps on _MainWeatherNotifierCore {
       district,
     );
     if (!ref.mounted || _queue.isCancelled) return;
-    final weather = await ref
+    var weather = await ref
         .read(weatherRepositoryProvider)
         .fetchWeather(lat, lon);
     if (!ref.mounted || _queue.isCancelled) return;
-    weather.timezone = LocationTimezoneHelper.resolve(
-      cached: weather.timezone,
-      lat: lat,
-      lon: lon,
+    weather = weather.copyWith(
+      timezone: LocationTimezoneHelper.resolve(
+        cached: weather.timezone,
+        lat: lat,
+        lon: lon,
+      ),
     );
-    final location = LocationCache(
+    final location = GeoPlace(
       lat: lat,
       lon: lon,
       city: resolvedLabels.city,

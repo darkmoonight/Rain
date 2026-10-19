@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/fixtures.dart';
 import '../../helpers/test_bootstrap.dart';
 import '../../helpers/widget_test_harness.dart';
@@ -15,7 +16,7 @@ void main() {
   testWidgets('DailyCardList renders daily rows', (tester) async {
     await pumpRainWidget(
       tester,
-      DailyCardList(weatherData: weeklyWeatherCard()),
+      DailyCardList(weatherData: weeklySavedPlace()),
       bootstrap: ctx.bootstrap,
     );
     await tester.pump();

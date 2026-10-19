@@ -1,8 +1,10 @@
 import '../../helpers/fixtures.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/isar_test_helper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/datasources/weather_local_datasource.dart';
 import 'package:rain/data/repositories/weather_repository.dart';
+import 'package:rain/domain/repositories/weather_repository.dart';
 
 void main() {
   late TestIsarContext ctx;
@@ -12,7 +14,7 @@ void main() {
     ctx = await openTestIsar();
     final remote = createFakeWeatherRemoteDatasource();
     final local = WeatherLocalDatasource(ctx.isar);
-    repository = WeatherRepository(remote, local);
+    repository = IsarWeatherRepository(remote, local);
   });
 
   tearDown(() async {});
@@ -26,8 +28,8 @@ void main() {
     });
 
     test('writeCache and readCache round-trip', () async {
-      final weather = sampleMainWeatherCache();
-      final location = sampleLocationCache();
+      final weather = sampleWeatherForecast();
+      final location = sampleGeoPlace();
 
       await repository.writeCache(weather, location);
       final cached = await repository.readCache();
@@ -38,8 +40,8 @@ void main() {
 
     test('isCacheExpired reflects local datasource state', () async {
       await repository.writeCache(
-        sampleMainWeatherCache()..timestamp = DateTime(2026, 6, 4),
-        sampleLocationCache(),
+        sampleWeatherForecast().copyWith(timestamp: DateTime(2026, 6, 4)),
+        sampleGeoPlace(),
       );
 
       expect(await repository.isCacheExpired(DateTime(2026, 6, 5)), isTrue);
@@ -47,8 +49,8 @@ void main() {
 
     test('clearMainAndLocation removes both caches', () async {
       await repository.writeCache(
-        sampleMainWeatherCache(),
-        sampleLocationCache(),
+        sampleWeatherForecast(),
+        sampleGeoPlace(),
       );
 
       await repository.clearMainAndLocation();
@@ -60,8 +62,8 @@ void main() {
 
     test('clearMainOnly keeps location', () async {
       await repository.writeCache(
-        sampleMainWeatherCache(),
-        sampleLocationCache(),
+        sampleWeatherForecast(),
+        sampleGeoPlace(),
       );
 
       await repository.clearMainOnly();

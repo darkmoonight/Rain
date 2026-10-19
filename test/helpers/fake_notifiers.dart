@@ -1,4 +1,5 @@
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/cities/application/cities_notifier.dart';
 import 'package:rain/features/weather/application/main_weather_notifier.dart';
 import 'fixtures.dart';
@@ -8,8 +9,8 @@ class LoadedMainWeatherNotifier extends MainWeatherNotifier {
   @override
   MainWeatherState build() => MainWeatherState(
     isLoading: false,
-    mainWeather: weeklyMainWeatherCache(),
-    location: sampleLocationCache(),
+    mainWeather: weeklyWeatherForecast(),
+    location: sampleGeoPlace(),
   );
 }
 
@@ -47,14 +48,14 @@ class LoadingMainWeatherNotifier extends MainWeatherNotifier {
 class EmptyMainWeatherNotifier extends MainWeatherNotifier {
   @override
   MainWeatherState build() =>
-      MainWeatherState(isLoading: false, location: sampleLocationCache());
+      MainWeatherState(isLoading: false, location: sampleGeoPlace());
 }
 
 /// Cities notifier exposing a fixed card list.
 class CitiesWithCardsNotifier extends CitiesNotifier {
   CitiesWithCardsNotifier(this.cards);
 
-  final List<WeatherCard> cards;
+  final List<SavedPlace> cards;
 
   @override
   CitiesState build() => CitiesState(cards: cards, isLoading: false);

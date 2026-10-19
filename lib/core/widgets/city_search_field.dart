@@ -4,8 +4,8 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/utils/debug_log.dart';
-import 'package:rain/data/datasources/weather_remote_datasource.dart';
 import 'package:rain/core/widgets/text_form.dart';
+import 'package:rain/domain/entities/city_search_result.dart';
 import 'package:rain/i18n/tr.dart';
 
 /// Layout preset for the city search suggestion dropdown.

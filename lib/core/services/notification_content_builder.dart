@@ -5,7 +5,7 @@ import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/weather/status_weather.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/weather/weather_cache_validator.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 class WeatherNotificationSlot {
   const WeatherNotificationSlot({
@@ -47,7 +47,7 @@ typedef ForecastNotificationPlan = ({
 
 /// Shared [StatusWeather] / [StatusData] formatters for notification text.
 ({StatusWeather weather, StatusData data}) _notificationFormatters(
-  Settings settings,
+  AppSettings settings,
 ) => (
   weather: StatusWeather.forTheme(settings.weatherIconTheme),
   data: StatusData(settings: settings),
@@ -61,7 +61,7 @@ String _weatherNotificationTitle(
 
 String _weatherNotificationIcon({
   required StatusWeather weather,
-  required MainWeatherCache cache,
+  required WeatherForecast cache,
   required int hourIndex,
   required int dayIndex,
 }) => weather.getImageNotification(
@@ -72,7 +72,7 @@ String _weatherNotificationIcon({
 );
 
 WeatherNotificationSlot _buildNotificationSlot({
-  required MainWeatherCache cache,
+  required WeatherForecast cache,
   required int hourIndex,
   required int dayIndex,
   required DateTime notificationTime,
@@ -106,8 +106,8 @@ WeatherNotificationSlot _buildNotificationSlot({
 /// Only forecast hours whose start is still in the future are included — enabling
 /// notifications mid-hour does not fire a catch-up alert for that hour.
 List<WeatherNotificationSlot> buildWeatherNotificationSlots({
-  required MainWeatherCache cache,
-  required Settings settings,
+  required WeatherForecast cache,
+  required AppSettings settings,
   required AppSettingsState appSettings,
   required String cityLabel,
   ForecastAlarmContext? alarmContext,
@@ -178,8 +178,8 @@ List<WeatherNotificationSlot> buildWeatherNotificationSlots({
 
 /// Builds the alarm context and notification slots for the current cache.
 ForecastNotificationPlan buildForecastNotificationPlan({
-  required MainWeatherCache cache,
-  required Settings settings,
+  required WeatherForecast cache,
+  required AppSettings settings,
   required AppSettingsState appSettings,
   required String cityLabel,
 }) {
@@ -195,8 +195,8 @@ ForecastNotificationPlan buildForecastNotificationPlan({
 }
 
 PersistentNotificationContent? buildPersistentNotificationContent({
-  required MainWeatherCache cache,
-  required Settings settings,
+  required WeatherForecast cache,
+  required AppSettings settings,
   required String cityLabel,
 }) {
   if (!WeatherCacheValidator.hasPersistentNotificationData(cache)) return null;

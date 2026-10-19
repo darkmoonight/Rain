@@ -1,22 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
-/// Applies [mutate] to the shared [Settings] row and persists via repository.
+/// Applies [update] to domain settings and persists via the settings repository.
 Future<void> persistSettings(
   Ref ref,
-  void Function(Settings settings) mutate,
+  AppSettings Function(AppSettings settings) update,
 ) async {
-  final settings = ref.read(settingsProvider);
-  mutate(settings);
-  await ref.read(settingsRepositoryProvider).save(settings);
+  final isarSettings = ref.read(bootstrapProvider).settings;
+  final updated = update(DomainMapper.settingsToDomain(isarSettings));
+  DomainMapper.applySettingsToIsar(updated, isarSettings);
+  await ref.read(settingsRepositoryProvider).save(updated);
 }
 
 /// Widget-layer helper mirroring [persistSettings].
 extension PersistSettingsOnWidgetRef on WidgetRef {
-  Future<void> persistSettings(void Function(Settings settings) mutate) async {
-    final settings = read(settingsProvider);
-    mutate(settings);
-    await read(settingsRepositoryProvider).save(settings);
+  Future<void> persistSettings(
+    AppSettings Function(AppSettings settings) update,
+  ) async {
+    final isarSettings = read(bootstrapProvider).settings;
+    final updated = update(DomainMapper.settingsToDomain(isarSettings));
+    DomainMapper.applySettingsToIsar(updated, isarSettings);
+    await read(settingsRepositoryProvider).save(updated);
   }
 }

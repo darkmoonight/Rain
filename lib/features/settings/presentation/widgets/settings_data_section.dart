@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/config/setting_enum_pickers.dart';
 import 'package:rain/core/di/providers.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/settings/presentation/widgets/selection_dialog.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section_state.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_switch_tile.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
 /// Units, formats, and display data settings.
 class SettingsDataSection extends ConsumerStatefulWidget {
@@ -36,7 +36,7 @@ class _SettingsDataSectionState
           value: settings.roundDegree,
           onChanged: (value) async {
             await actions.saveSettings(
-              mutate: (s) => s.roundDegree = value,
+              mutate: (s) => s.copyWith(roundDegree: value),
               afterSave: actions.syncWidgetsAndNotificationContent,
               backgroundAfterSave: true,
             );
@@ -56,7 +56,7 @@ class _SettingsDataSectionState
   /// Shows an enum picker and runs widget/notification side-effects per [def] flags.
   void _showDataEnumPicker(
     BuildContext context,
-    Settings settings,
+    AppSettings settings,
     SettingEnumPickerDefinition def,
   ) {
     showSelectionDialog<String>(

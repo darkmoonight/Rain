@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/core/navigation/app_routes.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
-Settings _settings({bool onboard = true}) => Settings()..onboard = onboard;
+AppSettings _settings({bool onboard = true}) => AppSettings(onboard: onboard);
 
-LocationCache _location({
+GeoPlace _location({
   String? city = 'Moscow',
   String? district = 'Moscow',
   double? lat = 55.75,
   double? lon = 37.62,
-}) => LocationCache(city: city, district: district, lat: lat, lon: lon);
+}) => GeoPlace(city: city, district: district, lat: lat, lon: lon);
 
 void main() {
   group('resolveAppRedirect', () {

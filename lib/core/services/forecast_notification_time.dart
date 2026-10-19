@@ -1,7 +1,7 @@
 import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:rain/domain/entities/entities.dart';
 
 /// Wall-clock context shared when filtering and scheduling forecast alarms.
 typedef ForecastAlarmContext = ({
@@ -114,8 +114,8 @@ bool isForecastNotificationInFuture(
 
 /// Builds [ForecastAlarmContext] for [cache] using the location wall clock.
 ForecastAlarmContext forecastAlarmContext(
-  MainWeatherCache cache,
-  Settings settings, {
+  WeatherForecast cache,
+  AppSettings settings, {
   DateTime? wallNow,
 }) {
   final clock = LocationClock.fromMainWeather(
@@ -136,7 +136,7 @@ ForecastAlarmContext forecastAlarmContext(
 }
 
 /// Epoch for a forecast hour in [cache]'s timezone metadata.
-int forecastAlarmEpoch(DateTime naive, MainWeatherCache cache) =>
+int forecastAlarmEpoch(DateTime naive, WeatherForecast cache) =>
     forecastScheduleEpochMillis(
       naive,
       cache.timezone,
@@ -194,8 +194,8 @@ bool isForecastNotificationExpired(
 
 /// Pending notification ids for forecast hours that are past the delivery grace window.
 Set<int> expiredForecastNotificationIds({
-  required MainWeatherCache cache,
-  required Settings settings,
+  required WeatherForecast cache,
+  required AppSettings settings,
   required int Function(int scheduleEpochMillis) notificationIdForEpoch,
   int? referenceNowMillis,
 }) {

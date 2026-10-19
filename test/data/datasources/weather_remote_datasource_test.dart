@@ -1,4 +1,5 @@
 import '../../helpers/fixtures.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/datasources/air_quality_remote_datasource.dart';
@@ -13,7 +14,7 @@ void main() {
       datasource = WeatherRemoteDatasource(dio: dio, dioLocation: dio);
     });
 
-    test('fetchWeather maps API response to MainWeatherCache', () async {
+    test('fetchWeather maps API response to WeatherForecast', () async {
       final cache = await datasource.fetchWeather(55.75, 37.62);
       expect(cache.timezone, 'Europe/Moscow');
       expect(cache.temperature2M, [20.0, 21.0]);

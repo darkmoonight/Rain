@@ -1,7 +1,10 @@
 import '../../helpers/fixtures.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/isar_test_helper.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/repositories/settings_repository.dart';
+import 'package:rain/domain/repositories/settings_repository.dart';
 
 void main() {
   late TestIsarContext ctx;
@@ -11,7 +14,7 @@ void main() {
   setUp(() async {
     ctx = await openTestIsar();
     savedCount = 0;
-    repository = SettingsRepository(ctx.isar, onSaved: () => savedCount++);
+    repository = IsarSettingsRepository(ctx.isar, onSaved: () => savedCount++);
   });
 
   tearDown(() async {});
@@ -23,7 +26,9 @@ void main() {
     });
 
     test('save persists settings and invokes onSaved', () async {
-      final settings = onboardedSettings()..theme = 'dark';
+      final settings = DomainMapper.settingsToDomain(
+        onboardedSettings(),
+      ).copyWith(theme: 'dark');
 
       await repository.save(settings);
 

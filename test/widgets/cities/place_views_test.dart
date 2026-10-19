@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/features/cities/presentation/view/place_info.dart';
@@ -21,7 +22,7 @@ void main() {
 
   group('PlaceInfo', () {
     testWidgets('renders weather detail for saved card', (tester) async {
-      final card = weeklyWeatherCard()..id = 1;
+      final card = weeklySavedPlace().copyWith(id: 1);
 
       await pumpRainWidget(
         tester,
@@ -40,7 +41,7 @@ void main() {
     testWidgets('renders detail from card fallback for main weather on map', (
       tester,
     ) async {
-      final card = weeklyWeatherCard();
+      final card = weeklySavedPlace();
 
       await pumpRainWidget(
         tester,
@@ -61,7 +62,7 @@ void main() {
     });
 
     testWidgets('shows city not found when card id is missing', (tester) async {
-      final card = weeklyWeatherCard()..id = 1;
+      final card = weeklySavedPlace().copyWith(id: 1);
 
       await pumpRainWidget(
         tester,
@@ -109,7 +110,7 @@ void main() {
     });
 
     testWidgets('back button closes place info without error', (tester) async {
-      final card = weeklyWeatherCard()..id = 1;
+      final card = weeklySavedPlace().copyWith(id: 1);
 
       await pumpRainRouter(
         tester,
@@ -166,7 +167,7 @@ class _LoadErrorCitiesNotifier extends CitiesNotifier {
 class _CardCitiesNotifier extends CitiesNotifier {
   _CardCitiesNotifier(this.card);
 
-  final WeatherCard card;
+  final SavedPlace card;
 
   @override
   CitiesState build() => CitiesState(cards: [card]);

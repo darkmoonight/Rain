@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/core/utils/debug_log.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Android widget and notification side effects for the main weather session.
 ///
@@ -28,7 +28,7 @@ class WeatherSideEffects {
 
   /// Schedules or tops up forecast alarms from [cache].
   Future<void> syncForecastNotifications({
-    MainWeatherCache? cache,
+    WeatherForecast? cache,
     String? cityLabel,
     required bool notificationsEnabled,
     bool reschedulePending = false,
@@ -70,7 +70,7 @@ class WeatherSideEffects {
 
   /// Updates the ongoing notification when enabled.
   Future<void> updatePersistentNotification({
-    required MainWeatherCache cache,
+    required WeatherForecast cache,
     required String cityLabel,
     required bool enabled,
   }) async {

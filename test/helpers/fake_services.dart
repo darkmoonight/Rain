@@ -5,6 +5,7 @@ import 'package:rain/core/services/location_service.dart';
 import 'package:rain/core/services/notification_service.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Fake location service with configurable behavior for tests.
 class FakeLocationService extends LocationService {
@@ -70,8 +71,8 @@ class FakeNotificationService extends NotificationService {
 
   @override
   Future<void> ensureForecastNotificationsScheduled({
-    required MainWeatherCache cache,
-    required Settings settings,
+    required WeatherForecast cache,
+    required AppSettings settings,
     required AppSettingsState appSettings,
     required String cityLabel,
   }) async {
@@ -80,8 +81,8 @@ class FakeNotificationService extends NotificationService {
 
   @override
   Future<void> rescheduleForWeather({
-    required MainWeatherCache cache,
-    required Settings settings,
+    required WeatherForecast cache,
+    required AppSettings settings,
     required AppSettingsState appSettings,
     required String cityLabel,
   }) async {
@@ -96,7 +97,7 @@ class FakeHomeWidgetService extends HomeWidgetService {
   int updateCalls = 0;
 
   @override
-  Future<bool> updateFromIsar(Isar isar, {Settings? settings}) async {
+  Future<bool> updateFromIsar(Isar isar, {AppSettings? settings}) async {
     updateCalls++;
     return true;
   }

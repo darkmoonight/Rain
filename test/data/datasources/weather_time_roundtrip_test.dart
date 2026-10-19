@@ -14,8 +14,8 @@ void main() {
   });
 
   test('MainWeatherCache.time survives Isar round-trip', () async {
-    final weather = sampleMainWeatherCache();
-    await datasource.saveMainWeather(weather, sampleLocationCache());
+    final weather = sampleWeatherForecastIsar();
+    await datasource.saveMainWeather(weather, sampleGeoPlaceIsar());
 
     final loaded = await datasource.getMainWeather();
     expect(loaded?.time, ['2026-06-05T12:00', '2026-06-05T13:00']);
@@ -27,7 +27,7 @@ void main() {
 
     expect(cache.time, isNotEmpty);
 
-    await datasource.saveMainWeather(cache, sampleLocationCache());
+    await datasource.saveMainWeather(cache, sampleGeoPlaceIsar());
     final loaded = await datasource.getMainWeather();
 
     expect(loaded?.time, isNotEmpty);

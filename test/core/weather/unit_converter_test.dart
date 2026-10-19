@@ -1,19 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/weather/unit_converter.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
-Settings _settings({
+AppSettings _settings({
   String degrees = 'celsius',
   String measurements = 'metric',
   String wind = 'kph',
   String pressure = 'hPa',
   bool roundDegree = false,
-}) => Settings()
+}) => DomainMapper.settingsToDomain(Settings()
   ..degrees = degrees
   ..measurements = measurements
   ..wind = wind
   ..pressure = pressure
-  ..roundDegree = roundDegree;
+  ..roundDegree = roundDegree);
 
 void main() {
   group('UnitConverter conversions', () {

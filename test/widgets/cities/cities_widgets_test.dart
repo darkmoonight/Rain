@@ -6,6 +6,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/cities/application/cities_notifier.dart';
 import 'package:rain/features/cities/presentation/view/place_list.dart';
 import 'package:rain/features/cities/presentation/widgets/place_card.dart';
@@ -23,18 +24,18 @@ void main() {
   });
 
   group('PlaceCard', () {
-    test('tryFromWeatherCard returns null for incomplete card', () {
-      expect(PlaceCard.tryFromWeatherCard(WeatherCard(city: 'X')), isNull);
+    test('tryFromSavedPlace returns null for incomplete card', () {
+      expect(PlaceCard.tryFromSavedPlace(SavedPlace(city: 'X')), isNull);
     });
 
-    test('tryFromWeatherCard builds widget for complete card', () {
-      final widget = PlaceCard.tryFromWeatherCard(completeWeatherCard());
+    test('tryFromSavedPlace builds widget for complete card', () {
+      final widget = PlaceCard.tryFromSavedPlace(completeSavedPlace());
       expect(widget, isNotNull);
       expect(widget!.card.city, 'Moscow');
     });
 
     testWidgets('renders city and temperature', (tester) async {
-      final cardWidget = PlaceCard.tryFromWeatherCard(completeWeatherCard())!;
+      final cardWidget = PlaceCard.tryFromSavedPlace(completeSavedPlace())!;
 
       await pumpRainWidget(tester, cardWidget, bootstrap: ctx.bootstrap);
 
@@ -46,7 +47,7 @@ void main() {
     testWidgets('renders complete card tile', (tester) async {
       await pumpRainWidget(
         tester,
-        WeatherCardTile(card: completeWeatherCard()),
+        WeatherCardTile(card: completeSavedPlace()),
         bootstrap: ctx.bootstrap,
       );
 
@@ -56,7 +57,7 @@ void main() {
     testWidgets('renders invalid tile for incomplete card', (tester) async {
       await pumpRainWidget(
         tester,
-        WeatherCardTile(card: WeatherCard(city: 'Broken')),
+        WeatherCardTile(card: SavedPlace(city: 'Broken')),
         bootstrap: ctx.bootstrap,
       );
 
@@ -68,7 +69,7 @@ void main() {
     testWidgets('confirm dismiss removes card without error banner', (
       tester,
     ) async {
-      final card = completeWeatherCard();
+      final card = completeSavedPlace();
 
       await pumpRainWidget(
         tester,
@@ -115,10 +116,11 @@ void main() {
     // Dismissible UI path covered by _DeletableCitiesNotifier test above.
 
     testWidgets('filters cards by search query', (tester) async {
-      final moscow = completeWeatherCard()..city = 'Moscow';
-      final berlin = completeWeatherCard()
-        ..city = 'Berlin'
-        ..district = 'Berlin';
+      final moscow = completeSavedPlace().copyWith(city: 'Moscow');
+      final berlin = completeSavedPlace().copyWith(
+        city: 'Berlin',
+        district: 'Berlin',
+      );
 
       await pumpRainWidget(
         tester,
@@ -220,10 +222,11 @@ void main() {
     });
 
     testWidgets('filters cards via search field', (tester) async {
-      final moscow = completeWeatherCard()..city = 'Moscow';
-      final berlin = completeWeatherCard()
-        ..city = 'Berlin'
-        ..district = 'Berlin';
+      final moscow = completeSavedPlace().copyWith(city: 'Moscow');
+      final berlin = completeSavedPlace().copyWith(
+        city: 'Berlin',
+        district: 'Berlin',
+      );
 
       await pumpRainWidget(
         tester,
@@ -245,7 +248,7 @@ void main() {
     });
 
     testWidgets('pull-to-refresh calls notifier refresh', (tester) async {
-      final tracking = _RefreshTrackingCitiesNotifier([completeWeatherCard()]);
+      final tracking = _RefreshTrackingCitiesNotifier([completeSavedPlace()]);
 
       await pumpRainWidget(
         tester,
@@ -286,7 +289,7 @@ void main() {
         bootstrap: ctx.bootstrap,
         overrides: [
           citiesNotifierProvider.overrideWith(
-            () => CitiesWithCardsNotifier([completeWeatherCard()]),
+            () => CitiesWithCardsNotifier([completeSavedPlace()]),
           ),
         ],
       );
@@ -301,18 +304,18 @@ void main() {
 class _LoadingWithCardsNotifier extends CitiesNotifier {
   @override
   CitiesState build() =>
-      CitiesState(cards: [completeWeatherCard()], isLoading: true);
+      CitiesState(cards: [completeSavedPlace()], isLoading: true);
 }
 
 class _TestCitiesNotifier extends CitiesNotifier {
   @override
-  CitiesState build() => CitiesState(cards: [completeWeatherCard()]);
+  CitiesState build() => CitiesState(cards: [completeSavedPlace()]);
 }
 
 class _CitiesWithErrorNotifier extends CitiesNotifier {
   @override
   CitiesState build() =>
-      CitiesState(cards: [completeWeatherCard()], loadError: true);
+      CitiesState(cards: [completeSavedPlace()], loadError: true);
 }
 
 class _EmptyLoadErrorNotifier extends CitiesNotifier {
@@ -323,13 +326,13 @@ class _EmptyLoadErrorNotifier extends CitiesNotifier {
 class _DeletableCitiesNotifier extends CitiesNotifier {
   _DeletableCitiesNotifier(this.initialCards);
 
-  final List<WeatherCard> initialCards;
+  final List<SavedPlace> initialCards;
 
   @override
   CitiesState build() => CitiesState(cards: initialCards, isLoading: false);
 
   @override
-  Future<void> deleteCard(WeatherCard card) async {
+  Future<void> deleteCard(SavedPlace card) async {
     state = state.copyWith(
       cards: state.cards.where((c) => c.id != card.id).toList(),
       loadError: false,
@@ -340,7 +343,7 @@ class _DeletableCitiesNotifier extends CitiesNotifier {
 class _RefreshTrackingCitiesNotifier extends CitiesNotifier {
   _RefreshTrackingCitiesNotifier(this.cards);
 
-  final List<WeatherCard> cards;
+  final List<SavedPlace> cards;
   int refreshCalls = 0;
 
   @override

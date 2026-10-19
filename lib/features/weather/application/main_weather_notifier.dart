@@ -15,10 +15,10 @@ import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/core/weather/location_timezone_helper.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/weather/weather_cache_validator.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/core/services/widget_background_service.dart';
 import 'package:rain/features/weather/application/weather_side_effects.dart';
 import 'package:rain/features/weather/application/main_weather_state.dart';
+import 'package:rain/domain/entities/entities.dart';
 export 'package:rain/features/weather/application/main_weather_state.dart';
 part 'main_weather_location.dart';
 part 'main_weather_refresh.dart';
@@ -53,13 +53,7 @@ abstract class _MainWeatherNotifierCore extends Notifier<MainWeatherState> {
       AppConstants.weatherCacheExpiryThreshold();
 
   /// True when [state] already has enough forecast data to render the main screen.
-  bool get _hasDisplayableForecast {
-    final cache = state.mainWeather;
-    return cache.time != null &&
-        cache.time!.isNotEmpty &&
-        cache.timeDaily != null &&
-        cache.timeDaily!.isNotEmpty;
-  }
+  bool get _hasDisplayableForecast => state.mainWeather.hasSeriesData;
 
   /// Updates [state] only while this notifier is still mounted.
   void _setState(MainWeatherState next) {
@@ -133,7 +127,7 @@ abstract class _MainWeatherNotifierCore extends Notifier<MainWeatherState> {
     await setLocation();
   }
 
-  LocationClock _mainClock(MainWeatherCache cache) =>
+  LocationClock _mainClock(WeatherForecast cache) =>
       LocationClock.fromMainWeather(
         cache,
         settingsClockSkewSeconds: ref.read(settingsProvider).clockSkewSeconds,
@@ -156,7 +150,7 @@ abstract class _MainWeatherNotifierCore extends Notifier<MainWeatherState> {
       return;
     }
 
-    final weather = cached.weather!;
+    var weather = cached.weather!;
     final location = cached.location!;
     final repairedTimezone = LocationTimezoneHelper.resolve(
       cached: weather.timezone,
@@ -164,7 +158,7 @@ abstract class _MainWeatherNotifierCore extends Notifier<MainWeatherState> {
       lon: location.lon,
     );
     if (weather.timezone != repairedTimezone) {
-      weather.timezone = repairedTimezone;
+      weather = weather.copyWith(timezone: repairedTimezone);
       await ref.read(weatherRepositoryProvider).writeCache(weather, location);
       if (!ref.mounted || _queue.isCancelled) return;
     }
@@ -301,7 +295,7 @@ abstract class _MainWeatherNotifierCore extends Notifier<MainWeatherState> {
   /// [reschedulePending] is false on routine [readCache] (top-up missing slots);
   /// true when notification settings change ([rescheduleForWeather]).
   Future<void> _syncForecastNotifications({
-    MainWeatherCache? cache,
+    WeatherForecast? cache,
     String? cityLabel,
     bool reschedulePending = false,
   }) async {

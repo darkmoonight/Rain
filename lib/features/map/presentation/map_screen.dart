@@ -12,7 +12,6 @@ import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/widgets/city_search_field.dart';
 import 'package:rain/core/widgets/map_tiles.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/presentation/view/place_info.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action.dart';
 import 'package:rain/features/cities/presentation/widgets/weather_card_tile.dart';
@@ -20,6 +19,7 @@ import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/utils/url_launcher_util.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Interactive map showing the main location and saved city markers.
 class MapPage extends ConsumerStatefulWidget {
@@ -39,7 +39,7 @@ class _MapPageState extends ConsumerState<MapPage>
 
   final GlobalKey<ExpandableFabState> _fabKey = GlobalKey<ExpandableFabState>();
 
-  WeatherCard? _selectedWeatherCard;
+  SavedPlace? _selectedSavedPlace;
   bool _isCardVisible = false;
   late final AnimationController _animationController;
   late final Animation<Offset> _offsetAnimation;
@@ -48,14 +48,14 @@ class _MapPageState extends ConsumerState<MapPage>
   final _focusNode = FocusNode();
   late final TextEditingController _controllerSearch = TextEditingController();
 
-  MainWeatherCache? _cachedMainWeather;
-  LocationCache? _cachedMainLocation;
-  WeatherCard? _cachedMainMarkerCard;
+  WeatherForecast? _cachedMainWeather;
+  GeoPlace? _cachedMainLocation;
+  SavedPlace? _cachedMainMarkerCard;
 
-  /// Memoizes [WeatherCard.fromMainAndLocation] across map rebuilds.
-  WeatherCard _mainMarkerCard(
-    MainWeatherCache mainWeather,
-    LocationCache mainLocation,
+  /// Memoizes [SavedPlace.fromForecastAndPlace] across map rebuilds.
+  SavedPlace _mainMarkerCard(
+    WeatherForecast mainWeather,
+    GeoPlace mainLocation,
   ) {
     if (identical(_cachedMainWeather, mainWeather) &&
         identical(_cachedMainLocation, mainLocation) &&
@@ -64,7 +64,7 @@ class _MapPageState extends ConsumerState<MapPage>
     }
     _cachedMainWeather = mainWeather;
     _cachedMainLocation = mainLocation;
-    return _cachedMainMarkerCard = WeatherCard.fromMainAndLocation(
+    return _cachedMainMarkerCard = SavedPlace.fromForecastAndPlace(
       mainWeather,
       mainLocation,
     );
@@ -110,8 +110,8 @@ class _MapPageState extends ConsumerState<MapPage>
       );
 
   /// Shows the weather card overlay for the tapped [weatherCard] marker.
-  void _onMarkerTap(WeatherCard weatherCard) {
-    setState(() => _selectedWeatherCard = weatherCard);
+  void _onMarkerTap(SavedPlace weatherCard) {
+    setState(() => _selectedSavedPlace = weatherCard);
     _animationController.forward();
     _isCardVisible = true;
 
@@ -126,7 +126,7 @@ class _MapPageState extends ConsumerState<MapPage>
       if (!mounted) return;
       setState(() {
         _isCardVisible = false;
-        _selectedWeatherCard = null;
+        _selectedSavedPlace = null;
       });
     });
     _focusNode.unfocus();
@@ -173,7 +173,7 @@ class _MapPageState extends ConsumerState<MapPage>
 
   /// Builds the primary-location [Marker] for [weatherCard].
   Marker _buildMainLocationMarker(
-    WeatherCard weatherCard,
+    SavedPlace weatherCard,
     int hourOfDay,
     int dayOfNow, {
     required StatusData statusData,
@@ -196,10 +196,10 @@ class _MapPageState extends ConsumerState<MapPage>
 
   /// Builds a saved-city [Marker] for [weatherCardList].
   Marker _buildCardMarker(
-    WeatherCard weatherCardList, {
+    SavedPlace weatherCardList, {
     required StatusData statusData,
   }) {
-    final clock = LocationClock.fromWeatherCard(
+    final clock = LocationClock.fromSavedPlace(
       weatherCardList,
       settingsClockSkewSeconds: statusData.settings.clockSkewSeconds,
     );
@@ -229,18 +229,18 @@ class _MapPageState extends ConsumerState<MapPage>
       buildRainMapTileLayer(cacheStore: cacheStore);
 
   /// Builds the sliding [WeatherCardTile] overlay for the selected marker.
-  Widget _buildWeatherCard() => _isCardVisible && _selectedWeatherCard != null
+  Widget _buildSavedPlace() => _isCardVisible && _selectedSavedPlace != null
       ? SlideTransition(
           position: _offsetAnimation,
           child: GestureDetector(
             onTap: () => NavigationHelper.toDownToUp(
               context,
               () => PlaceInfo(
-                cardId: _selectedWeatherCard!.id,
-                card: _selectedWeatherCard,
+                cardId: _selectedSavedPlace!.id,
+                card: _selectedSavedPlace,
               ),
             ),
-            child: WeatherCardTile(card: _selectedWeatherCard!),
+            child: WeatherCardTile(card: _selectedSavedPlace!),
           ),
         )
       : const SizedBox.shrink();
@@ -275,7 +275,7 @@ class _MapPageState extends ConsumerState<MapPage>
             )
           : null,
       onSelected: (selection) {
-        if (selection.latitude == null || selection.longitude == null) return;
+        if (!selection.hasCoordinates) return;
         _animatedMapController.mapController.move(
           LatLng(selection.latitude!, selection.longitude!),
           AppConstants.mapSearchZoom,
@@ -400,7 +400,7 @@ class _MapPageState extends ConsumerState<MapPage>
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: _buildWeatherCard(),
+                child: _buildSavedPlace(),
               ),
               _buildSearchField(),
             ],

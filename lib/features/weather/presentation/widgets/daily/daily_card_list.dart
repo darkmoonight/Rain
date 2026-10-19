@@ -3,8 +3,8 @@ import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';
 import 'package:rain/core/widgets/app_back_button.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_card.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Scrollable list of all daily forecast summary cards.
 class DailyCardList extends StatefulWidget {
@@ -15,7 +15,7 @@ class DailyCardList extends StatefulWidget {
     this.hourIndex = 0,
   });
 
-  final WeatherCard weatherData;
+  final SavedPlace weatherData;
   final int dayIndex;
   final int hourIndex;
 
@@ -62,7 +62,7 @@ class _DailyCardListState extends State<DailyCardList> {
   /// Builds one tappable [DailyCard] that opens [DailyCardInfo] at [index].
   Widget _buildDailyCardItem(
     BuildContext context,
-    WeatherCard weatherData,
+    SavedPlace weatherData,
     int index,
   ) {
     final timeDaily = weatherData.timeDaily?[index];

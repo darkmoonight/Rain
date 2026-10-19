@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/cities/domain/weather_card_validator.dart';
 
-WeatherCard _completeCard({DateTime? timestamp, int? index}) => WeatherCard(
+SavedPlace _completeCard({DateTime? timestamp, int? index}) => SavedPlace(
   time: ['2026-06-05T12:00'],
   timeDaily: [DateTime(2026, 6, 5)],
   sunrise: ['06:00'],
@@ -25,7 +25,7 @@ void main() {
     });
 
     test('returns false when weather data is missing', () {
-      final card = _completeCard()..time = null;
+      final card = _completeCard().copyWith(time: null);
       expect(WeatherCardValidator.isComplete(card), isFalse);
     });
   });
@@ -66,14 +66,14 @@ void main() {
 
     test('repairs indices sequentially', () {
       final cards = [_completeCard(index: 5), _completeCard(index: 1)];
-      WeatherCardValidator.applyRepairedIndices(cards);
-      expect(cards.map((c) => c.index).toList(), [0, 1]);
+      final repaired = WeatherCardValidator.applyRepairedIndices(cards);
+      expect(repaired.map((c) => c.index).toList(), [0, 1]);
     });
   });
 
   group('WeatherCardValidator.matchesSearch', () {
     test('matches city and district case-insensitively', () {
-      final card = _completeCard()..city = 'Moscow';
+      final card = _completeCard().copyWith(city: 'Moscow');
       expect(WeatherCardValidator.matchesSearch(card, ''), isTrue);
       expect(WeatherCardValidator.matchesSearch(card, 'mos'), isTrue);
       expect(WeatherCardValidator.matchesSearch(card, 'berlin'), isFalse);
@@ -82,7 +82,7 @@ void main() {
 
   group('WeatherCardValidator.findById', () {
     test('returns card with matching id', () {
-      final card = _completeCard()..id = 42;
+      final card = _completeCard().copyWith(id: 42);
       expect(WeatherCardValidator.findById([card], 42), same(card));
       expect(WeatherCardValidator.findById([card], 1), isNull);
     });
@@ -105,7 +105,10 @@ void main() {
 
   group('WeatherCardValidator.filterComplete', () {
     test('keeps only complete cards', () {
-      final cards = [_completeCard(), _completeCard()..city = null];
+      final cards = [
+        _completeCard(),
+        _completeCard().copyWith(city: null),
+      ];
 
       final complete = WeatherCardValidator.filterComplete(cards);
       expect(complete, hasLength(1));

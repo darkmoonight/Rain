@@ -29,7 +29,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   int tabIndex = 0;
   bool visible = false;
-  bool _hasLocationCache = false;
+  bool _hasGeoPlace = false;
   final _focusNode = FocusNode();
   late TabController tabController;
   final _controller = TextEditingController();
@@ -46,9 +46,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     );
     _setupTabController(pageCount: ref.read(settingsProvider).hideMap ? 3 : 4);
     unawaited(
-      _checkLocationCache().catchError(
+      _checkGeoPlace().catchError(
         (Object e, StackTrace st) =>
-            debugLogError('HomeScreen._checkLocationCache', e, st),
+            debugLogError('HomeScreen._checkGeoPlace', e, st),
       ),
     );
     _startPersistentNotificationTimer();
@@ -118,11 +118,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     await ref.read(citiesNotifierProvider.notifier).refreshIfStale();
   }
 
-  Future<void> _checkLocationCache() async {
+  Future<void> _checkGeoPlace() async {
     final hasCache = await ref
         .read(weatherRepositoryProvider)
         .hasLocationCache();
-    if (mounted) setState(() => _hasLocationCache = hasCache);
+    if (mounted) setState(() => _hasGeoPlace = hasCache);
   }
 
   void _closeSearch() {
@@ -184,7 +184,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           tabIndex: tabIndex,
           hideMap: shellSettings.hideMap,
           settingsLocationEnabled: shellSettings.location,
-          hasLocationCache: _hasLocationCache,
+          hasGeoPlace: _hasGeoPlace,
           weatherIsLoading: weatherAppBar.isLoading,
           weatherCity: weatherAppBar.city,
           weatherDistrict: weatherAppBar.district,

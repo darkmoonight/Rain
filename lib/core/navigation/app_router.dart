@@ -5,10 +5,10 @@ import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/navigation/app_routes.dart';
 import 'package:rain/core/navigation/route_transitions.dart';
 import 'package:rain/core/utils/location_label.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/geolocation/presentation/geolocation_screen.dart';
 import 'package:rain/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:rain/features/shell/presentation/home_screen.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Forces [appRouterProvider] to re-evaluate redirects from a [WidgetRef].
 void refreshAppRouter(WidgetRef ref) {
@@ -45,7 +45,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final location = cached.location ?? container.read(locationCacheProvider);
       return resolveAppRedirect(
         settings,
-        location ?? LocationCache(),
+        location ?? GeoPlace(),
         state.uri.path,
       );
     },
@@ -71,8 +71,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
 /// Returns a redirect when setup is incomplete or when setup routes should be skipped.
 String? resolveAppRedirect(
-  Settings settings,
-  LocationCache location,
+  AppSettings settings,
+  GeoPlace location,
   String path,
 ) {
   if (!settings.onboard) {

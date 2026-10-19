@@ -1,31 +1,44 @@
 import 'package:isar_community/isar.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/app_settings.dart';
+import 'package:rain/domain/entities/geo_place.dart';
+import 'package:rain/domain/repositories/settings_repository.dart';
 
-/// Reads and writes app settings and reads the primary location cache from Isar.
-class SettingsRepository {
-  SettingsRepository(this._isar, {this.onSaved});
+/// Isar implementation of [SettingsRepository].
+class IsarSettingsRepository implements SettingsRepository {
+  IsarSettingsRepository(this._isar, {this.onSaved});
 
   final Isar _isar;
   final void Function()? onSaved;
 
-  /// Returns stored settings, or defaults when no row exists yet.
-  Future<Settings> getSettings() async =>
-      await _isar.settings.where().findFirst() ?? Settings();
+  @override
+  Future<AppSettings> getSettings() async {
+    final settings = await _isar.settings.where().findFirst() ?? Settings();
+    return DomainMapper.settingsToDomain(settings);
+  }
 
-  /// Persists settings and invokes [onSaved] when provided.
-  Future<void> save(Settings settings) async {
-    await _isar.writeTxn(() => _isar.settings.put(settings));
+  @override
+  Future<void> save(AppSettings settings) async {
+    final existing = await _isar.settings.where().findFirst();
+    final isar = DomainMapper.settingsToIsar(settings, existing: existing);
+    await _isar.writeTxn(() => _isar.settings.put(isar));
     onSaved?.call();
   }
 
-  /// Updates [clockSkewSeconds] on [settings] when the value changed.
-  Future<void> persistClockSkew(Settings settings, int clockSkewSeconds) async {
-    if (settings.clockSkewSeconds == clockSkewSeconds) return;
-    settings.clockSkewSeconds = clockSkewSeconds;
-    await save(settings);
+  @override
+  Future<void> persistClockSkew(int clockSkewSeconds) async {
+    final existing = await _isar.settings.where().findFirst() ?? Settings();
+    if (existing.clockSkewSeconds == clockSkewSeconds) return;
+    existing.clockSkewSeconds = clockSkewSeconds;
+    await _isar.writeTxn(() => _isar.settings.put(existing));
+    onSaved?.call();
   }
 
-  /// Returns the stored location cache, or an empty model if none exists.
-  Future<LocationCache> getLocationCache() async =>
-      await _isar.locationCaches.where().findFirst() ?? LocationCache();
+  @override
+  Future<GeoPlace> getLocationCache() async {
+    final location =
+        await _isar.locationCaches.where().findFirst() ?? LocationCache();
+    return DomainMapper.placeToDomain(location);
+  }
 }

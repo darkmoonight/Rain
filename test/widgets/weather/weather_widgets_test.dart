@@ -4,6 +4,7 @@ import '../../helpers/widget_test_harness.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/weather/presentation/widgets/desc/desc.dart';
 import 'package:rain/features/weather/presentation/widgets/desc/desc_container.dart';
 import 'package:rain/features/weather/presentation/widgets/hourly.dart';
@@ -17,11 +18,11 @@ import 'package:rain/features/weather/presentation/widgets/weather_detail_view.d
 
 void main() {
   late TestBootstrapContext ctx;
-  late WeatherCard card;
+  late SavedPlace card;
 
   setUp(() async {
     ctx = await createTestBootstrap();
-    card = completeWeatherCard();
+    card = completeSavedPlace();
   });
 
   double req(double? v) => v!;
@@ -160,7 +161,7 @@ void main() {
   });
 
   testWidgets('DailyContainer renders preview and more button', (tester) async {
-    final weekly = weeklyWeatherCard();
+    final weekly = weeklySavedPlace();
     await pumpRainWidget(
       tester,
       DailyContainer(
@@ -178,7 +179,7 @@ void main() {
   });
 
   testWidgets('WeatherDetailView renders main sections', (tester) async {
-    final weekly = weeklyWeatherCard();
+    final weekly = weeklySavedPlace();
     final scrollController = ItemScrollController();
     await pumpRainWidget(
       tester,

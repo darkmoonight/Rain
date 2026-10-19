@@ -1,11 +1,11 @@
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/geo_place.dart';
 
 /// True when [value] contains non-whitespace text.
 bool hasNonEmptyLocationText(String? value) =>
     value != null && value.trim().isNotEmpty;
 
 /// True when [location] has coordinates and at least one human-readable label.
-bool hasResolvedLocation(LocationCache location) =>
+bool hasResolvedLocation(GeoPlace location) =>
     location.lat != null &&
     location.lon != null &&
     (hasNonEmptyLocationText(location.city) ||

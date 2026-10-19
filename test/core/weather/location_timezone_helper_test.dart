@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/weather/location_timezone_helper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 void main() {
   group('LocationTimezoneHelper', () {
@@ -41,14 +42,16 @@ void main() {
     });
 
     test('repairCardTimezone fixes mismatched card timezone', () {
-      final card = WeatherCard(
+      const card = SavedPlace(
         lat: 55.75,
         lon: 37.62,
         timezone: 'America/Los_Angeles',
       );
 
-      expect(LocationTimezoneHelper.repairCardTimezone(card), isTrue);
-      expect(card.timezone, 'Europe/Moscow');
+      final repaired = LocationTimezoneHelper.repairCardTimezone(card);
+      expect(repaired, isNotNull);
+      expect(repaired!.timezone, 'Europe/Moscow');
+      expect(LocationTimezoneHelper.repairCardTimezone(repaired), isNull);
     });
   });
 }

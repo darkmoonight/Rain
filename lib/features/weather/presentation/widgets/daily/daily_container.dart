@@ -6,8 +6,8 @@ import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/settings/app_settings_notifier.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';
 import 'package:rain/core/weather/status_data.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Seven-day forecast preview embedded in the main weather detail view.
 class DailyContainer extends ConsumerStatefulWidget {
@@ -19,7 +19,7 @@ class DailyContainer extends ConsumerStatefulWidget {
     required this.onTap,
   });
 
-  final WeatherCard weatherData;
+  final SavedPlace weatherData;
   final int dayIndex;
   final int hourIndex;
   final VoidCallback onTap;
@@ -80,7 +80,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
 
   /// Builds one tappable daily row that opens [DailyCardInfo] at [index].
   Widget _buildDailyItem(
-    WeatherCard weatherData,
+    SavedPlace weatherData,
     int index,
     String languageCode,
     StatusData statusData,
@@ -122,7 +122,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
 
   /// Displays the weather icon and description for the day at [index].
   Widget _buildWeatherInfo(
-    WeatherCard weatherData,
+    SavedPlace weatherData,
     int index,
     TextStyle? labelLarge,
   ) {
@@ -155,7 +155,7 @@ class _DailyContainerState extends ConsumerState<DailyContainer> {
 
   /// Displays the formatted high and low temperatures for the day at [index].
   Widget _buildTemperatureRange(
-    WeatherCard weatherData,
+    SavedPlace weatherData,
     int index,
     StatusData statusData,
     TextStyle? labelLarge,

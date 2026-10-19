@@ -5,13 +5,13 @@ import 'package:rain/core/config/setting_appearance_pickers.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/di/settings_revision.dart';
 import 'package:rain/core/theme/color_palette.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/settings/presentation/widgets/selection_dialog.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_section_state.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_switch_tile.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
 /// Theme, palette, font, and icon appearance settings.
 class SettingsAppearanceSection extends ConsumerStatefulWidget {
@@ -63,7 +63,7 @@ class _SettingsAppearanceSectionState
           value: settings.largeElement,
           onChanged: (value) async {
             await actions.saveSettings(
-              mutate: (s) => s.largeElement = value,
+              mutate: (s) => s.copyWith(largeElement: value),
             );
           },
         ),
@@ -73,7 +73,7 @@ class _SettingsAppearanceSectionState
     );
   }
 
-  SettingsTile _buildColorPaletteTile(BuildContext context, Settings settings) {
+  SettingsTile _buildColorPaletteTile(BuildContext context, AppSettings settings) {
     final disabled = settings.materialColor;
     final muted = Theme.of(context).colorScheme.onSurface
         .withValues(alpha: 0.38);
@@ -100,7 +100,7 @@ class _SettingsAppearanceSectionState
   }
 
   SettingsTile _buildCatalogTile(
-    Settings settings,
+    AppSettings settings,
     SettingAppearancePickerDefinition def,
   ) {
     return SettingsTile(
@@ -128,7 +128,7 @@ class _SettingsAppearanceSectionState
   void _showCatalogDialog(
     BuildContext context,
     SettingAppearancePickerDefinition def,
-    Settings settings,
+    AppSettings settings,
   ) {
     showSelectionDialog<String>(
       context: context,

@@ -10,8 +10,7 @@ import 'package:rain/core/utils/place_form_helpers.dart';
 import 'package:rain/core/widgets/city_search_field.dart';
 import 'package:rain/core/widgets/map_tiles.dart';
 import 'package:rain/core/widgets/place_form_fields.dart';
-import 'package:rain/data/datasources/weather_remote_datasource.dart'
-    show CitySearchResult;
+import 'package:rain/domain/entities/city_search_result.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/utils/debug_log.dart';

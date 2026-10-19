@@ -2,6 +2,7 @@ import '../../helpers/test_bootstrap.dart';
 import '../../helpers/widget_test_harness.dart';
 import 'package:rain/core/navigation/app_routes.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/fixtures.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,7 +16,7 @@ void main() {
   setUp(() async {
     ctx = await createTestBootstrap(
       settings: onboardedSettings()..onboard = false,
-      locationCache: LocationCache(),
+      locationCache: GeoPlace(),
     );
   });
 

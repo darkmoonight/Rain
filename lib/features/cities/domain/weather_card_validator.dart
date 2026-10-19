@@ -1,42 +1,28 @@
-import 'package:rain/core/weather/weather_cache_validator.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/saved_place.dart';
 
 /// Validates completeness, expiry, and searchability of saved weather cards.
 class WeatherCardValidator {
   const WeatherCardValidator._();
 
   /// Returns true when [card] has forecast and location fields required for network refresh.
-  static bool isComplete(WeatherCard card) =>
-      WeatherCacheValidator.hasHourlyTimestamps(card.time) &&
-      card.timeDaily != null &&
-      card.timeDaily!.isNotEmpty &&
-      card.sunrise != null &&
-      card.sunset != null &&
-      card.weathercode != null &&
-      card.weathercode!.isNotEmpty &&
-      card.temperature2M != null &&
-      card.temperature2M!.isNotEmpty &&
-      card.city != null &&
-      card.timezone != null &&
-      card.lat != null &&
-      card.lon != null;
+  static bool isComplete(SavedPlace card) => card.isTileReady;
 
   /// Returns true when [card] has no timestamp or was last updated before [expiry].
-  static bool isExpired(WeatherCard card, DateTime expiry) =>
+  static bool isExpired(SavedPlace card, DateTime expiry) =>
       card.timestamp == null || card.timestamp!.isBefore(expiry);
 
   /// Keeps only cards that pass [isComplete].
-  static List<WeatherCard> filterComplete(Iterable<WeatherCard> cards) =>
+  static List<SavedPlace> filterComplete(Iterable<SavedPlace> cards) =>
       cards.where(isComplete).toList();
 
   /// Keeps only cards that pass [isExpired].
-  static List<WeatherCard> filterExpired(
-    Iterable<WeatherCard> cards,
+  static List<SavedPlace> filterExpired(
+    Iterable<SavedPlace> cards,
     DateTime expiry,
   ) => cards.where((card) => isExpired(card, expiry)).toList();
 
   /// Matches [card] against a lowercased city or district [query].
-  static bool matchesSearch(WeatherCard card, String query) {
+  static bool matchesSearch(SavedPlace card, String query) {
     if (query.isEmpty) return true;
     final city = card.city?.toLowerCase() ?? '';
     final district = card.district?.toLowerCase() ?? '';
@@ -44,7 +30,7 @@ class WeatherCardValidator {
   }
 
   /// Finds a card by [id] in [cards], or returns null.
-  static WeatherCard? findById(List<WeatherCard> cards, int id) {
+  static SavedPlace? findById(List<SavedPlace> cards, int id) {
     for (final card in cards) {
       if (card.id == id) return card;
     }
@@ -52,13 +38,12 @@ class WeatherCardValidator {
   }
 
   /// Returns true when list indices no longer match each card's stored index.
-  static bool needsIndexRepair(List<WeatherCard> cards) =>
+  static bool needsIndexRepair(List<SavedPlace> cards) =>
       cards.asMap().entries.any((e) => e.value.index != e.key);
 
-  /// Rewrites each card's index to match its position in [cards].
-  static void applyRepairedIndices(List<WeatherCard> cards) {
-    for (var i = 0; i < cards.length; i++) {
-      cards[i].index = i;
-    }
-  }
+  /// Returns a copy of [cards] with each index matching list position.
+  static List<SavedPlace> applyRepairedIndices(List<SavedPlace> cards) => [
+    for (var i = 0; i < cards.length; i++) cards[i].copyWith(index: i),
+  ];
 }
+

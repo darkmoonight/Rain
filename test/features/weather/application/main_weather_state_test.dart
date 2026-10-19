@@ -1,12 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/features/weather/application/main_weather_notifier.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 void main() {
   group('MainWeatherState', () {
     test('exposes city and district labels', () {
       final state = MainWeatherState(
-        location: LocationCache(city: 'Moscow', district: 'Moscow Oblast'),
+        location: GeoPlace(city: 'Moscow', district: 'Moscow Oblast'),
       );
       expect(state.city, 'Moscow');
       expect(state.district, 'Moscow Oblast');

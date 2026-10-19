@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/bootstrap/app_bootstrap.dart';
 import 'package:rain/core/di/provider_refs.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'isar_test_helper.dart';
 import 'fixtures.dart';
 
@@ -20,18 +22,18 @@ class TestBootstrapContext {
 /// Creates an [AppBootstrap] backed by a temporary Isar database.
 Future<TestBootstrapContext> createTestBootstrap({
   Settings? settings,
-  LocationCache? locationCache,
+  GeoPlace? locationCache,
 }) async {
   final isarContext = await openTestIsar();
   final settingsObj = settings ?? onboardedSettings();
   await seedSettings(isarContext.isar, settingsObj);
 
-  final location = locationCache ?? sampleLocationCache();
+  final location = locationCache ?? sampleGeoPlace();
   return TestBootstrapContext(
     bootstrap: AppBootstrap(
       isar: isarContext.isar,
       settings: settingsObj,
-      locationCache: location,
+      locationCache: DomainMapper.placeToIsar(location),
     ),
     isarContext: isarContext,
   );

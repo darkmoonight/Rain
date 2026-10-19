@@ -11,8 +11,8 @@ import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/weather/weather_cache_validator.dart';
 import 'package:rain/core/weather/weather_icon_theme.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:rain/domain/entities/entities.dart';
 
 export 'package:rain/core/services/notification_content_builder.dart';
 
@@ -69,8 +69,8 @@ class NotificationService {
   /// Skipped briefly after [rescheduleForWeather] ([notification_reschedule_guard])
   /// and waits for an in-flight reschedule on this isolate.
   Future<void> ensureForecastNotificationsScheduled({
-    required MainWeatherCache cache,
-    required Settings settings,
+    required WeatherForecast cache,
+    required AppSettings settings,
     required AppSettingsState appSettings,
     required String cityLabel,
   }) async {
@@ -110,8 +110,8 @@ class NotificationService {
 
   Future<void> _scheduleSlots({
     required ForecastNotificationPlan plan,
-    required MainWeatherCache cache,
-    required Settings settings,
+    required WeatherForecast cache,
+    required AppSettings settings,
   }) async {
     final slots = plan.slots;
     if (slots.isEmpty) {
@@ -175,8 +175,8 @@ class NotificationService {
   ///
   /// Prevents Doze-delayed alarms from firing hours late (e.g. a 23:00 alert at 01:00).
   Future<void> cancelExpiredPendingForecastNotifications({
-    required MainWeatherCache cache,
-    required Settings settings,
+    required WeatherForecast cache,
+    required AppSettings settings,
     int? referenceNowMillis,
   }) async {
     if (!settings.notifications) return;
@@ -223,8 +223,8 @@ class NotificationService {
   /// cancelled (settings now filter every slot). When the cache lacks hourly
   /// data, existing alarms are kept until fresh forecast data arrives.
   Future<void> rescheduleForWeather({
-    required MainWeatherCache cache,
-    required Settings settings,
+    required WeatherForecast cache,
+    required AppSettings settings,
     required AppSettingsState appSettings,
     required String cityLabel,
   }) async {
@@ -270,8 +270,8 @@ class NotificationService {
   }
 
   Future<void> updatePersistentNotification({
-    required MainWeatherCache cache,
-    required Settings settings,
+    required WeatherForecast cache,
+    required AppSettings settings,
     required String cityLabel,
   }) async {
     if (!settings.persistentNotification) return;

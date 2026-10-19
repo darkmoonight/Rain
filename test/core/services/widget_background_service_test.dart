@@ -1,4 +1,5 @@
 import '../../helpers/fake_path_provider.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/fixtures.dart';
 import '../../helpers/isar_test_helper.dart';
 import 'package:flutter/services.dart';
@@ -42,8 +43,8 @@ void main() {
     test('returns early when cache is still fresh', () async {
       final local = WeatherLocalDatasource(ctx.isar);
       await local.saveMainWeather(
-        sampleMainWeatherCache()..timestamp = DateTime.now(),
-        sampleLocationCache(),
+        sampleWeatherForecastIsar()..timestamp = DateTime.now(),
+        sampleGeoPlaceIsar(),
       );
 
       await refreshMainWeatherIfStale(ctx.isar);
@@ -54,11 +55,11 @@ void main() {
     test('does not throw when cache is stale but offline', () async {
       final local = WeatherLocalDatasource(ctx.isar);
       await local.saveMainWeather(
-        sampleMainWeatherCache()
+        sampleWeatherForecastIsar()
           ..timestamp = DateTime.now().subtract(
             AppConstants.workManagerMinInterval + const Duration(minutes: 1),
           ),
-        sampleLocationCache(),
+        sampleGeoPlaceIsar(),
       );
 
       await expectLater(refreshMainWeatherIfStale(ctx.isar), completes);

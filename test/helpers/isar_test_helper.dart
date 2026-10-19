@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:isar_community/isar.dart';
 import 'package:rain/core/database/isar_schemas.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'fixtures.dart';
 import 'test_helpers.dart';
 
@@ -60,22 +62,34 @@ Future<Settings> seedSettings(Isar isar, Settings settings) async {
   return settings;
 }
 
-/// Persists [card] and returns it with an assigned id.
-Future<WeatherCard> seedWeatherCard(Isar isar, WeatherCard card) async {
+/// Persists [place] and returns it with an assigned Isar id.
+Future<SavedPlace> seedSavedPlace(Isar isar, SavedPlace place) async {
+  final card = DomainMapper.cardToIsar(place);
   await isar.writeTxn(() => isar.weatherCards.put(card));
-  return card;
+  return place.copyWith(id: card.id, index: card.index);
 }
 
-/// Persists main weather and location caches.
-Future<void> seedMainWeatherCache(
+/// Alias for older call sites.
+Future<SavedPlace> seedWeatherCard(Isar isar, SavedPlace place) =>
+    seedSavedPlace(isar, place);
+
+/// Persists main weather and location caches from domain entities.
+Future<void> seedWeatherForecast(
   Isar isar, {
-  MainWeatherCache? weather,
-  LocationCache? location,
+  WeatherForecast? weather,
+  GeoPlace? location,
 }) async {
-  final w = weather ?? sampleMainWeatherCache();
-  final l = location ?? sampleLocationCache();
+  final w = DomainMapper.forecastToIsar(weather ?? sampleWeatherForecast());
+  final l = DomainMapper.placeToIsar(location ?? sampleGeoPlace());
   await isar.writeTxn(() async {
     await isar.mainWeatherCaches.put(w);
     await isar.locationCaches.put(l);
   });
 }
+
+/// Alias for older call sites.
+Future<void> seedMainWeatherCache(
+  Isar isar, {
+  WeatherForecast? weather,
+  GeoPlace? location,
+}) => seedWeatherForecast(isar, weather: weather, location: location);

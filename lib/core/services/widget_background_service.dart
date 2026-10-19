@@ -13,6 +13,7 @@ import 'package:rain/i18n/locale_utils.dart';
 import 'package:rain/i18n/strings.g.dart';
 import 'package:rain/data/datasources/weather_local_datasource.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
 import 'package:rain/data/repositories/weather_repository.dart';
 import 'package:workmanager/workmanager.dart';
@@ -74,9 +75,9 @@ Future<void> refreshMainWeatherIfStale(Isar isar) async {
   if (!await local.isMainWeatherExpired(staleAfter)) return;
   if (!await hasBackgroundInternetAccess()) return;
 
-  final repo = WeatherRepository(WeatherRemoteDatasource(), local);
+  final repo = IsarWeatherRepository(WeatherRemoteDatasource(), local);
   final weather = await repo.fetchWeather(location!.lat!, location.lon!);
-  await repo.writeCache(weather, location);
+  await repo.writeCache(weather, DomainMapper.placeToDomain(location));
   if (weather.clockSkewSeconds != null) {
     await persistClockSkewInIsar(isar, weather.clockSkewSeconds!);
   }

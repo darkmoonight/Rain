@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -168,22 +169,22 @@ void main() {
   group('TimeIndexHelper clock formatting', () {
     test('detects 12h preference from settings', () {
       expect(
-        TimeIndexHelper.is12HourFormat(Settings()..timeformat = '12'),
+        TimeIndexHelper.is12HourFormat(DomainMapper.settingsToDomain(Settings()..timeformat = '12')),
         isTrue,
       );
       expect(
-        TimeIndexHelper.is12HourFormat(Settings()..timeformat = '24'),
+        TimeIndexHelper.is12HourFormat(DomainMapper.settingsToDomain(Settings()..timeformat = '24')),
         isFalse,
       );
     });
 
     test('formatTime respects 24h settings', () {
-      final settings = Settings()..timeformat = '24';
+      final settings = DomainMapper.settingsToDomain(Settings()..timeformat = '24');
       expect(TimeIndexHelper.formatTime('13:35', settings, 'en'), '13:35');
     });
 
     test('formatUpdatedAt formats date and time', () {
-      final settings = Settings()..timeformat = '24';
+      final settings = DomainMapper.settingsToDomain(Settings()..timeformat = '24');
       final formatted = TimeIndexHelper.formatUpdatedAt(
         DateTime(2026, 6, 9, 14, 30),
         settings,

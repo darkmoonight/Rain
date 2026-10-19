@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/weather/application/main_weather_notifier.dart';
 
 void main() {
@@ -18,7 +19,7 @@ void main() {
         settings: onboardedSettings()..notifications = false,
       );
       setTestConnectivity(true);
-      await seedMainWeatherCache(ctx.isarContext.isar);
+      await seedWeatherForecast(ctx.isarContext.isar);
     });
 
     tearDown(() async {
@@ -156,12 +157,13 @@ void main() {
     test(
       'refreshIfStale uses GPS refresh when location mode is enabled',
       () async {
-        final staleWeather = sampleMainWeatherCache()
-          ..timestamp = DateTime.now().subtract(const Duration(hours: 24));
-        await seedMainWeatherCache(
+        final staleWeather = sampleWeatherForecast().copyWith(
+          timestamp: DateTime.now().subtract(const Duration(hours: 24)),
+        );
+        await seedWeatherForecast(
           ctx.isarContext.isar,
           weather: staleWeather,
-          location: LocationCache(
+          location: GeoPlace(
             lat: 55.75,
             lon: 37.62,
             city: '',
@@ -285,10 +287,11 @@ void main() {
     );
 
     test('readCache refetches legacy Fahrenheit cache when online', () async {
-      final fahrenheitCache = sampleMainWeatherCache()
-        ..temperature2M = [82.0, 83.0]
-        ..apparentTemperature = [80.0, 81.0];
-      await seedMainWeatherCache(
+      final fahrenheitCache = sampleWeatherForecast().copyWith(
+        temperature2M: [82.0, 83.0],
+        apparentTemperature: [80.0, 81.0],
+      );
+      await seedWeatherForecast(
         ctx.isarContext.isar,
         weather: fahrenheitCache,
       );
@@ -436,7 +439,7 @@ class _TestMainWeatherNotifier extends MainWeatherNotifier {
   @override
   MainWeatherState build() => MainWeatherState(
     isLoading: true,
-    mainWeather: MainWeatherCache(),
-    location: LocationCache(),
+    mainWeather: WeatherForecast(),
+    location: GeoPlace(),
   );
 }

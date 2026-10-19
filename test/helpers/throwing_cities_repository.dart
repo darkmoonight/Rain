@@ -1,14 +1,14 @@
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/data/repositories/cities_repository.dart';
 
 /// Test double that can simulate [getAllSorted] failures.
-class ThrowingCitiesRepository extends CitiesRepository {
+class ThrowingCitiesRepository extends IsarCitiesRepository {
   ThrowingCitiesRepository(super.isar, super.remote);
 
   bool throwOnGetAllSorted = false;
 
   @override
-  Future<List<WeatherCard>> getAllSorted() async {
+  Future<List<SavedPlace>> getAllSorted() async {
     if (throwOnGetAllSorted) {
       throw StateError('simulated db read failure');
     }

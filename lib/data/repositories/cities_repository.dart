@@ -1,87 +1,109 @@
 import 'package:isar_community/isar.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
-import 'package:rain/data/mappers/weather_mapper.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/saved_place.dart';
+import 'package:rain/domain/repositories/cities_repository.dart';
 import 'package:rain/features/cities/domain/weather_card_validator.dart';
 
-/// Manages saved city weather cards in Isar and refreshes them from the remote API.
-class CitiesRepository {
-  CitiesRepository(this._isar, this._remote);
+/// Isar + remote implementation of [CitiesRepository].
+class IsarCitiesRepository implements CitiesRepository {
+  IsarCitiesRepository(this._isar, this._remote);
 
   final Isar _isar;
   final WeatherRemoteDatasource _remote;
 
-  /// Returns all weather cards sorted by display index, repairing gaps first.
-  Future<List<WeatherCard>> getAllSorted() async {
+  @override
+  Future<List<SavedPlace>> getAllSorted() async {
     await repairIndices();
-    return _isar.weatherCards.where().sortByIndex().findAll();
+    final cards = await _isar.weatherCards.where().sortByIndex().findAll();
+    return cards.map(DomainMapper.cardToDomain).toList();
   }
 
-  /// Reassigns sequential indices when stored card order has gaps or duplicates.
+  @override
   Future<void> repairIndices() async {
     final cards = await _isar.weatherCards.where().findAll();
     if (cards.isEmpty) return;
     cards.sort((a, b) => (a.index ?? 1 << 30).compareTo(b.index ?? 1 << 30));
-    if (!WeatherCardValidator.needsIndexRepair(cards)) return;
-    WeatherCardValidator.applyRepairedIndices(cards);
+    final places = cards.map(DomainMapper.cardToDomain).toList();
+    if (!WeatherCardValidator.needsIndexRepair(places)) return;
+    final repaired = WeatherCardValidator.applyRepairedIndices(places);
     await _isar.writeTxn(() async {
-      for (final card in cards) {
-        await _isar.weatherCards.put(card);
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].index = repaired[i].index;
+        await _isar.weatherCards.put(cards[i]);
       }
     });
   }
 
-  /// Returns sorted cards whose cached forecast is older than [expiry].
-  Future<List<WeatherCard>> getExpiredSorted(DateTime expiry) async {
+  @override
+  Future<List<SavedPlace>> getExpiredSorted(DateTime expiry) async {
     final cards = await getAllSorted();
     return WeatherCardValidator.filterExpired(cards, expiry);
   }
 
-  /// Fetches fresh forecast data for a city and returns it as a weather card.
-  Future<WeatherCard> fetchCard(
+  @override
+  Future<SavedPlace> fetchCard(
     double lat,
     double lon,
     String city,
     String district,
-  ) => _remote.fetchWeatherCard(lat, lon, city, district);
+  ) async {
+    final card = await _remote.fetchWeatherCard(lat, lon, city, district);
+    return DomainMapper.cardToDomain(card);
+  }
 
-  /// Appends a new weather card at the end of the saved list.
-  Future<void> addCard(WeatherCard card) async {
+  @override
+  Future<SavedPlace> addCard(SavedPlace place) async {
+    late SavedPlace saved;
     await _isar.writeTxn(() async {
       final cards = await _isar.weatherCards.where().sortByIndex().findAll();
-      card.index = cards.length;
+      final card = DomainMapper.cardToIsar(place.copyWith(index: cards.length));
       await _isar.weatherCards.put(card);
+      saved = DomainMapper.cardToDomain(card);
     });
+    return saved;
   }
 
-  /// Persists changes to an existing weather card.
-  Future<void> updateCard(WeatherCard card) async {
+  @override
+  Future<SavedPlace> updateCard(SavedPlace place) async {
+    final existing = place.id == null
+        ? null
+        : await _isar.weatherCards.get(place.id!);
+    final card = DomainMapper.cardToIsar(place, existing: existing);
     await _isar.writeTxn(() => _isar.weatherCards.put(card));
+    return DomainMapper.cardToDomain(card);
   }
 
-  /// Removes a weather card from local storage.
-  Future<void> deleteCard(WeatherCard card) async {
-    await _isar.writeTxn(() => _isar.weatherCards.delete(card.id));
+  @override
+  Future<void> deleteCard(SavedPlace place) async {
+    final id = place.id;
+    if (id == null) return;
+    await _isar.writeTxn(() => _isar.weatherCards.delete(id));
   }
 
-  /// Copies refreshed forecast fields onto [oldCard] and saves it in place.
-  Future<void> applyRemoteUpdate(
-    WeatherCard oldCard,
-    WeatherCard updated,
+  @override
+  Future<SavedPlace> applyRemoteUpdate(
+    SavedPlace oldPlace,
+    SavedPlace updated,
   ) async {
-    WeatherMapper.copyWeatherCardFields(oldCard, updated);
-    await _isar.writeTxn(() => _isar.weatherCards.put(oldCard));
+    final merged = DomainMapper.mergeSavedPlaceForecast(oldPlace, updated);
+    return updateCard(merged);
   }
 
-  /// Moves a card from [oldIndex] to [newIndex] and rewrites display indices.
+  @override
   Future<void> reorder(int oldIndex, int newIndex) async {
-    final cards = await getAllSorted();
+    final places = await getAllSorted();
     if (newIndex > oldIndex) newIndex -= 1;
-    final element = cards.removeAt(oldIndex);
-    cards.insert(newIndex, element);
-    WeatherCardValidator.applyRepairedIndices(cards);
+    final element = places.removeAt(oldIndex);
+    places.insert(newIndex, element);
+    final repaired = WeatherCardValidator.applyRepairedIndices(places);
     await _isar.writeTxn(() async {
-      for (final card in cards) {
+      for (final place in repaired) {
+        final existing = place.id == null
+            ? null
+            : await _isar.weatherCards.get(place.id!);
+        final card = DomainMapper.cardToIsar(place, existing: existing);
         await _isar.weatherCards.put(card);
       }
     });

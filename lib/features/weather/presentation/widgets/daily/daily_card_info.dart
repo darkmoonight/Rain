@@ -4,7 +4,6 @@ import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/i18n/locale_format_helper.dart';
 import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/widgets/app_back_button.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/desc/desc_container.dart';
 import 'package:rain/features/weather/presentation/widgets/weather_hourly_sections.dart';
 import 'package:rain/features/weather/presentation/widgets/hourly.dart';
@@ -13,6 +12,7 @@ import 'package:rain/features/weather/presentation/widgets/now.dart';
 import 'package:rain/features/weather/presentation/widgets/sunset_sunrise.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Paged full-day weather detail opened from the daily forecast list or preview.
 class DailyCardInfo extends ConsumerStatefulWidget {
@@ -23,7 +23,7 @@ class DailyCardInfo extends ConsumerStatefulWidget {
     this.initialHourOfDay = 0,
   });
 
-  final WeatherCard weatherData;
+  final SavedPlace weatherData;
   final int index;
   final int initialHourOfDay;
 
@@ -91,7 +91,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
   );
 
   /// One day: now header, hourly strip, sun times, AQI, variable grids.
-  Widget _buildPageContent(WeatherCard weatherData, int dayIndex) {
+  Widget _buildPageContent(SavedPlace weatherData, int dayIndex) {
     final weatherCodeDaily = weatherData.weathercodeDaily?[dayIndex];
     final sunrise = weatherData.sunrise?[dayIndex];
     final sunset = weatherData.sunset?[dayIndex];
@@ -137,7 +137,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
   }
 
   Widget _buildNowWidget(
-    WeatherCard weatherData,
+    SavedPlace weatherData,
     int dayIndex,
     int startIndex,
     int hourOfDay,
@@ -176,7 +176,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
 
   /// 24-hour strip for the current page; updates [hourOfDay] on tap.
   Widget _buildHourlyList(
-    WeatherCard weatherData,
+    SavedPlace weatherData,
     int startIndex,
     String sunrise,
     String sunset,
@@ -191,7 +191,7 @@ class _DailyCardInfoState extends ConsumerState<DailyCardInfo> {
   );
 
   Widget _buildHourlyItem(
-    WeatherCard weatherData,
+    SavedPlace weatherData,
     int startIndex,
     int i,
     String sunrise,

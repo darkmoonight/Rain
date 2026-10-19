@@ -1,4 +1,5 @@
 import '../../helpers/fixtures.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/test_bootstrap.dart';
 import '../../helpers/widget_test_harness.dart';
 import 'package:material_ui/material_ui.dart';
@@ -31,7 +32,7 @@ void main() {
 
   group('PlaceAction save flow', () {
     testWidgets('edit mode prefills coordinates and labels', (tester) async {
-      final card = completeWeatherCard();
+      final card = completeSavedPlace();
 
       await pumpRainWidget(
         tester,

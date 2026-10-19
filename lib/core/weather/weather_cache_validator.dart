@@ -1,5 +1,5 @@
-import 'package:rain/data/models/db.dart';
 
+import 'package:rain/domain/entities/entities.dart';
 /// Validates persisted main-weather cache rows.
 class WeatherCacheValidator {
   const WeatherCacheValidator._();
@@ -9,30 +9,11 @@ class WeatherCacheValidator {
       time != null && time.isNotEmpty;
 
   /// True when [cache] has the hourly and daily fields required by the main screen.
-  static bool hasMainDisplayData(MainWeatherCache cache) {
-    if (!hasHourlyTimestamps(cache.time)) return false;
-    final daily = cache.timeDaily;
-    if (daily == null || daily.isEmpty) return false;
-    if (cache.temperature2M == null || cache.temperature2M!.isEmpty) {
-      return false;
-    }
-    if (cache.temperature2MMax == null || cache.temperature2MMax!.isEmpty) {
-      return false;
-    }
-    if (cache.temperature2MMin == null || cache.temperature2MMin!.isEmpty) {
-      return false;
-    }
-    if (cache.sunrise == null ||
-        cache.sunset == null ||
-        cache.weathercode == null ||
-        cache.weathercode!.isEmpty) {
-      return false;
-    }
-    return true;
-  }
+  static bool hasMainDisplayData(WeatherForecast cache) =>
+      cache.hasDisplayableForecast;
 
   /// True when [cache] has the fields required to build forecast notification slots.
-  static bool hasNotificationSlotData(MainWeatherCache cache) {
+  static bool hasNotificationSlotData(WeatherForecast cache) {
     if (!hasHourlyTimestamps(cache.time)) return false;
     final daily = cache.timeDaily;
     if (daily == null || daily.isEmpty) return false;
@@ -45,11 +26,11 @@ class WeatherCacheValidator {
   }
 
   /// True when [cache] can drive the ongoing current-weather notification.
-  static bool hasPersistentNotificationData(MainWeatherCache cache) =>
+  static bool hasPersistentNotificationData(WeatherForecast cache) =>
       hasNotificationSlotData(cache) && cache.timezone != null;
 
   /// True when max temperature suggests values were stored as Fahrenheit, not Celsius.
-  static bool isLikelyFahrenheit(MainWeatherCache cache) {
+  static bool isLikelyFahrenheit(WeatherForecast cache) {
     final temps = cache.temperature2M;
     if (temps == null || temps.isEmpty) return false;
 

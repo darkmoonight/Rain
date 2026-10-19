@@ -32,8 +32,8 @@ void main() {
       final settings = Settings()..weatherCacheVersion = 2;
       await ctx.isar.writeTxn(() => ctx.isar.settings.put(settings));
 
-      final valid = sampleMainWeatherCache();
-      final corrupted = sampleMainWeatherCache()
+      final valid = sampleWeatherForecastIsar();
+      final corrupted = sampleWeatherForecastIsar()
         ..time = []
         ..id = 2;
       await ctx.isar.writeTxn(() async {
@@ -61,8 +61,8 @@ void main() {
     final settings = Settings()..weatherCacheVersion = 2;
     await ctx.isar.writeTxn(() => ctx.isar.settings.put(settings));
 
-    final valid = completeWeatherCard();
-    final corrupted = completeWeatherCard()
+    final valid = completeSavedPlaceIsar();
+    final corrupted = completeSavedPlaceIsar()
       ..time = []
       ..id = 2;
     await ctx.isar.writeTxn(() async {

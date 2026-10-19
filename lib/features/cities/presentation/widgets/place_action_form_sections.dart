@@ -5,7 +5,7 @@ import 'package:rain/core/utils/responsive_utils.dart';
 import 'package:rain/core/widgets/city_search_field.dart';
 import 'package:rain/core/widgets/place_form_fields.dart';
 import 'package:rain/core/widgets/text_form.dart';
-import 'package:rain/data/datasources/weather_remote_datasource.dart';
+import 'package:rain/domain/entities/city_search_result.dart';
 import 'package:rain/features/cities/presentation/widgets/place_action_editing_controller.dart';
 import 'package:rain/i18n/tr.dart';
 

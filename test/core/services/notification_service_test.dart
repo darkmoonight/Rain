@@ -5,7 +5,9 @@ import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/forecast_notification_time.dart';
 import 'package:rain/core/services/notification_service.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Tracks [cancelScheduled] while exercising real reschedule logic.
 class _CancelTrackingNotificationService extends NotificationService {
@@ -36,8 +38,8 @@ void main() {
       'rescheduleForWeather skips when notifications are disabled',
       () async {
         await service.rescheduleForWeather(
-          cache: sampleMainWeatherCache(),
-          settings: Settings()..notifications = false,
+          cache: sampleWeatherForecast(),
+          settings: DomainMapper.settingsToDomain(Settings()..notifications = false),
           appSettings: const AppSettingsState(),
           cityLabel: 'Moscow',
         );
@@ -111,8 +113,8 @@ void main() {
       'rescheduleForWeather does not cancel when cache lacks notification data',
       () async {
         await service.rescheduleForWeather(
-          cache: MainWeatherCache(),
-          settings: Settings()..notifications = true,
+          cache: WeatherForecast(),
+          settings: DomainMapper.settingsToDomain(Settings()..notifications = true),
           appSettings: const AppSettingsState(),
           cityLabel: 'Moscow',
         );
@@ -125,10 +127,10 @@ void main() {
       'rescheduleForWeather cancels when valid cache has no matching slots',
       () async {
         await service.rescheduleForWeather(
-          cache: sampleFutureMainWeatherCache(),
-          settings: Settings()
+          cache: sampleFutureWeatherForecast(),
+          settings: DomainMapper.settingsToDomain(Settings()
             ..notifications = true
-            ..notificationWeekdaysMask = 0,
+            ..notificationWeekdaysMask = 0),
           appSettings: const AppSettingsState(
             timeStart: '00:00',
             timeEnd: '23:59',
@@ -141,10 +143,10 @@ void main() {
     );
 
     test('buildPersistentNotificationContent uses current hour', () {
-      final cache = sampleMainWeatherCache();
+      final cache = sampleWeatherForecast();
       final content = buildPersistentNotificationContent(
         cache: cache,
-        settings: Settings()..degrees = 'celsius',
+        settings: DomainMapper.settingsToDomain(Settings()..degrees = 'celsius'),
         cityLabel: 'Moscow',
       );
 
@@ -155,8 +157,8 @@ void main() {
 
     test('updatePersistentNotification is a no-op when disabled', () async {
       await service.updatePersistentNotification(
-        cache: sampleMainWeatherCache(),
-        settings: Settings()..persistentNotification = false,
+        cache: sampleWeatherForecast(),
+        settings: DomainMapper.settingsToDomain(Settings()..persistentNotification = false),
         cityLabel: 'Moscow',
       );
     });

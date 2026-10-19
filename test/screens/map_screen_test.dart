@@ -1,4 +1,5 @@
 import '../helpers/fake_notifiers.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../helpers/fixtures.dart';
 import '../helpers/test_bootstrap.dart';
 import '../helpers/widget_test_harness.dart';
@@ -40,7 +41,7 @@ void main() {
       overrides: [
         mainWeatherNotifierProvider.overrideWith(LoadedMainWeatherNotifier.new),
         citiesNotifierProvider.overrideWith(
-          () => CitiesWithCardsNotifier([completeWeatherCard()]),
+          () => CitiesWithCardsNotifier([completeSavedPlace()]),
         ),
         weatherRemoteDatasourceProvider.overrideWithValue(
           createFakeWeatherRemoteDatasource(),
@@ -62,7 +63,7 @@ void main() {
       overrides: [
         mainWeatherNotifierProvider.overrideWith(LoadedMainWeatherNotifier.new),
         citiesNotifierProvider.overrideWith(
-          () => CitiesWithCardsNotifier([completeWeatherCard()]),
+          () => CitiesWithCardsNotifier([completeSavedPlace()]),
         ),
         weatherRemoteDatasourceProvider.overrideWithValue(
           createFakeWeatherRemoteDatasource(),

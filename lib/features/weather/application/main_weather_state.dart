@@ -1,5 +1,5 @@
-import 'package:rain/data/models/db.dart';
 
+import 'package:rain/domain/entities/entities.dart';
 /// One-shot user-facing feedback for the main weather tab (shown as a snackbar).
 class MainWeatherUserMessage {
   const MainWeatherUserMessage(this.key, {this.isError = false});
@@ -14,18 +14,18 @@ class MainWeatherState {
   /// Creates state with optional cache, location, and selected time indices.
   MainWeatherState({
     this.isLoading = true,
-    MainWeatherCache? mainWeather,
-    LocationCache? location,
+    WeatherForecast? mainWeather,
+    GeoPlace? location,
     this.hourOfDay = 0,
     this.dayOfNow = 0,
     this.userMessage,
     this.userMessageId = 0,
-  }) : mainWeather = mainWeather ?? MainWeatherCache(),
-       location = location ?? LocationCache();
+  }) : mainWeather = mainWeather ?? WeatherForecast(),
+       location = location ?? GeoPlace();
 
   final bool isLoading;
-  final MainWeatherCache mainWeather;
-  final LocationCache location;
+  final WeatherForecast mainWeather;
+  final GeoPlace location;
   final int hourOfDay;
   final int dayOfNow;
 
@@ -47,8 +47,8 @@ class MainWeatherState {
   /// Returns a copy with selectively replaced forecast and index fields.
   MainWeatherState copyWith({
     bool? isLoading,
-    MainWeatherCache? mainWeather,
-    LocationCache? location,
+    WeatherForecast? mainWeather,
+    GeoPlace? location,
     int? hourOfDay,
     int? dayOfNow,
     MainWeatherUserMessage? userMessage,

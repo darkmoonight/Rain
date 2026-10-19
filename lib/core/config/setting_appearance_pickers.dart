@@ -3,7 +3,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/theme/app_font.dart';
 import 'package:rain/core/theme/color_palette.dart';
 import 'package:rain/core/weather/weather_icon_theme.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
 /// Catalog-driven appearance picker saved via [SettingsSaveActions].
 class SettingAppearancePickerDefinition {
@@ -23,8 +23,8 @@ class SettingAppearancePickerDefinition {
   final String titleKey;
   final IconData icon;
   final List<String> items;
-  final String Function(Settings settings) read;
-  final void Function(Settings settings, String value) write;
+  final String Function(AppSettings settings) read;
+  final AppSettings Function(AppSettings settings, String value) write;
   final String Function(String value) itemBuilder;
   final Widget? Function(String value)? leadingBuilder;
   final bool enableSearch;
@@ -65,12 +65,15 @@ final settingAppearanceCatalogPickers = [
   ),
 ];
 
-String _readColorPalette(Settings s) => AppColorPalette.resolve(s.colorPalette);
-void _writeColorPalette(Settings s, String v) => s.colorPalette = v;
+String _readColorPalette(AppSettings s) =>
+    AppColorPalette.resolve(s.colorPalette);
+AppSettings _writeColorPalette(AppSettings s, String v) =>
+    s.copyWith(colorPalette: v);
 
-String _readAppFont(Settings s) => AppFont.resolve(s.appFont);
-void _writeAppFont(Settings s, String v) => s.appFont = v;
+String _readAppFont(AppSettings s) => AppFont.resolve(s.appFont);
+AppSettings _writeAppFont(AppSettings s, String v) => s.copyWith(appFont: v);
 
-String _readWeatherIconTheme(Settings s) =>
+String _readWeatherIconTheme(AppSettings s) =>
     WeatherIconTheme.resolve(s.weatherIconTheme);
-void _writeWeatherIconTheme(Settings s, String v) => s.weatherIconTheme = v;
+AppSettings _writeWeatherIconTheme(AppSettings s, String v) =>
+    s.copyWith(weatherIconTheme: v);

@@ -5,8 +5,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/settings/settings_persistence.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
 /// Provides the persisted theme mode preference as [ThemeMode].
 final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(
@@ -18,12 +18,12 @@ String themePreferenceLabel(String? themeKey) => (themeKey ?? 'system').tr;
 
 /// Persists and exposes theme mode; also saves AMOLED and Material You toggles.
 class ThemeModeNotifier extends Notifier<ThemeMode> {
-  /// Initializes theme mode from persisted [Settings].
+  /// Initializes theme mode from persisted [AppSettings].
   @override
   ThemeMode build() => _fromSettings(ref.watch(settingsProvider));
 
   /// Maps stored theme string to [ThemeMode].
-  ThemeMode _fromSettings(Settings settings) {
+  ThemeMode _fromSettings(AppSettings settings) {
     switch (settings.theme) {
       case 'system':
         return ThemeMode.system;
@@ -42,7 +42,7 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
 
   /// Persists the selected theme mode string and refreshes state.
   Future<void> setTheme(String themeMode) async {
-    await persistSettings(ref, (settings) => settings.theme = themeMode);
+    await persistSettings(ref, (settings) => settings.copyWith(theme: themeMode));
     state = _fromSettings(ref.read(settingsProvider));
     if (Platform.isAndroid) {
       unawaited(
@@ -55,14 +55,11 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
 
   /// Persists the AMOLED (pure black) theme toggle.
   Future<void> saveOledTheme(bool isOled) async {
-    await persistSettings(ref, (settings) => settings.amoledTheme = isOled);
+    await persistSettings(ref, (settings) => settings.copyWith(amoledTheme: isOled));
   }
 
   /// Persists the Material You dynamic color toggle.
   Future<void> saveMaterialTheme(bool isMaterial) async {
-    await persistSettings(
-      ref,
-      (settings) => settings.materialColor = isMaterial,
-    );
+    await persistSettings(ref, (settings) => settings.copyWith(materialColor: isMaterial));
   }
 }

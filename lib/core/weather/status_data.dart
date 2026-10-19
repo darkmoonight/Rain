@@ -2,14 +2,14 @@ import 'package:material_ui/material_ui.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/weather/unit_converter.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
-/// Formats cached weather values for display using [Settings] and locale.
+/// Formats cached weather values for display using [AppSettings] and locale.
 class StatusData {
   StatusData({required this.settings, Locale? locale})
     : _locale = locale ?? LocaleSettings.instance.currentLocale.flutterLocale;
 
-  final Settings settings;
+  final AppSettings settings;
   final Locale _locale;
 
   /// Looks up a dynamic i18n string by key.

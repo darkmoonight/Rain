@@ -6,12 +6,12 @@ import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
 import 'package:rain/core/widgets/shimmer.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/weather/presentation/widgets/daily/daily_card_list.dart';
 import 'package:rain/features/weather/presentation/widgets/weather_detail_view.dart';
 import 'package:rain/core/navigation/app_router.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Main tab showing the current location's full weather detail view.
 class MainWeatherScreen extends ConsumerStatefulWidget {
@@ -101,30 +101,18 @@ class _MainWeatherScreenState extends ConsumerState<MainWeatherScreen> {
     }
 
     final mainWeather = state.mainWeather;
-    final hasForecast =
-        mainWeather.time != null &&
-        mainWeather.time!.isNotEmpty &&
-        mainWeather.timeDaily != null &&
-        mainWeather.timeDaily!.isNotEmpty;
-
-    if (!hasForecast) {
+    if (!mainWeather.hasDisplayableForecast) {
       return _emptyView(context);
     }
 
-    final weatherCard = WeatherCard.fromMainWeatherCache(mainWeather);
+    // Adapter: screen → detail widgets consume [SavedPlace], not raw Isar.
+    final weatherCard = SavedPlace.fromForecast(mainWeather);
     final hourOfDay = state.hourOfDay.clamp(0, mainWeather.time!.length - 1);
     final dayOfNow = state.dayOfNow.clamp(0, mainWeather.timeDaily!.length - 1);
 
-    if (mainWeather.sunrise == null ||
-        mainWeather.sunset == null ||
-        mainWeather.temperature2MMax == null ||
-        mainWeather.temperature2MMin == null) {
+    if (mainWeather.dailyTempRangeAt(dayOfNow) == null) {
       return _emptyView(context);
     }
-
-    final tempMax = mainWeather.temperature2MMax![dayOfNow];
-    final tempMin = mainWeather.temperature2MMin![dayOfNow];
-    if (tempMax == null || tempMin == null) return _emptyView(context);
 
     return WeatherDetailView(
       weatherCard: weatherCard,

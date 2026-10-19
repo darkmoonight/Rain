@@ -2,7 +2,7 @@ import '../../helpers/fixtures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/services/forecast_notification_time.dart';
 import 'package:rain/core/services/notification_service.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 void main() {
   group('resolveAlarmEpochMillis', () {
@@ -85,13 +85,14 @@ void main() {
     test('returns ids for past hours still pending', () {
       const timezone = 'Europe/Moscow';
       const offset = 10800;
-      final cache = sampleMainWeatherCache()
-        ..time = ['2026-06-17T22:00', '2026-06-17T23:00', '2026-06-18T00:00']
-        ..timeDaily = [DateTime(2026, 6, 17), DateTime(2026, 6, 18)]
-        ..sunrise = ['06:00', '06:00']
-        ..sunset = ['21:00', '21:00']
-        ..temperature2M = [20.0, 21.0, 22.0]
-        ..weathercode = [0, 1, 2];
+      final cache = sampleWeatherForecast().copyWith(
+        time: ['2026-06-17T22:00', '2026-06-17T23:00', '2026-06-18T00:00'],
+        timeDaily: [DateTime(2026, 6, 17), DateTime(2026, 6, 18)],
+        sunrise: ['06:00', '06:00'],
+        sunset: ['21:00', '21:00'],
+        temperature2M: [20.0, 21.0, 22.0],
+        weathercode: [0, 1, 2],
+      );
       final nowMillis = forecastScheduleEpochMillis(
         DateTime(2026, 6, 18, 0, 10),
         timezone,
@@ -100,7 +101,7 @@ void main() {
 
       final expired = expiredForecastNotificationIds(
         cache: cache,
-        settings: Settings(),
+        settings: const AppSettings(),
         notificationIdForEpoch: NotificationService.notificationIdForEpoch,
         referenceNowMillis: nowMillis,
       );

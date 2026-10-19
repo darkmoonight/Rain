@@ -1,8 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/features/cities/domain/cities_load_resolver.dart';
 
-WeatherCard _card(int id) => WeatherCard(city: 'City $id')..id = id;
+SavedPlace _card(int id) => SavedPlace(city: 'City $id', id: id);
 
 void main() {
   group('CitiesLoadResolver.resolve', () {

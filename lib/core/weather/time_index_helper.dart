@@ -1,8 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:rain/core/i18n/locale_format_helper.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:rain/domain/entities/entities.dart';
 
 /// Open-Meteo timezone metadata used for wall-clock calculations.
 ///
@@ -35,8 +35,8 @@ class LocationClock {
     clockSkewSeconds: clockSkewSeconds ?? settingsClockSkewSeconds,
   );
 
-  factory LocationClock.fromWeatherCard(
-    WeatherCard card, {
+  factory LocationClock.fromSavedPlace(
+    SavedPlace card, {
     int settingsClockSkewSeconds = 0,
   }) => LocationClock.fromCache(
     timezone: card.timezone,
@@ -46,7 +46,7 @@ class LocationClock {
   );
 
   factory LocationClock.fromMainWeather(
-    MainWeatherCache cache, {
+    WeatherForecast cache, {
     int settingsClockSkewSeconds = 0,
   }) => LocationClock.fromCache(
     timezone: cache.timezone,
@@ -215,7 +215,7 @@ class TimeIndexHelper {
   /// Formats when forecast data was last saved to cache (date + clock time).
   static String formatUpdatedAt(
     DateTime updatedAt,
-    Settings settings,
+    AppSettings settings,
     String languageCode,
   ) {
     final date = DateFormat.yMMMd(languageCode).format(updatedAt);
@@ -257,10 +257,10 @@ class TimeIndexHelper {
       '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 
   /// Whether the user prefers 12-hour clock display.
-  static bool is12HourFormat(Settings settings) => settings.timeformat == '12';
+  static bool is12HourFormat(AppSettings settings) => settings.timeformat == '12';
 
   /// Returns the [DateFormat] for app time display in [languageCode].
-  static DateFormat appTimeFormat(Settings settings, String languageCode) {
+  static DateFormat appTimeFormat(AppSettings settings, String languageCode) {
     if (is12HourFormat(settings)) {
       return DateFormat('h:mm a', languageCode);
     }
@@ -270,7 +270,7 @@ class TimeIndexHelper {
   /// Formats [dateTime] using the user's 12/24-hour preference.
   static String formatDateTime(
     DateTime dateTime,
-    Settings settings,
+    AppSettings settings,
     String languageCode,
   ) => appTimeFormat(settings, languageCode).format(dateTime);
 
@@ -279,7 +279,7 @@ class TimeIndexHelper {
   /// Uses a fixed calendar date so only the clock components affect formatting.
   static String formatWallClock(
     DateTime wallClock,
-    Settings settings,
+    AppSettings settings,
     String languageCode,
   ) => formatDateTime(
     DateTime(2000, 1, 1, wallClock.hour, wallClock.minute),
@@ -299,7 +299,7 @@ class TimeIndexHelper {
   static String formatForecastSlotLabel({
     required DateTime notificationTime,
     required DateTime wallNow,
-    required Settings settings,
+    required AppSettings settings,
     required String languageCode,
   }) {
     final time = formatWallClock(notificationTime, settings, languageCode);
@@ -312,7 +312,7 @@ class TimeIndexHelper {
   /// Uses a dummy date so [DateFormat] only formats hours and minutes.
   static String formatTime(
     String? timeStr,
-    Settings settings,
+    AppSettings settings,
     String languageCode,
   ) {
     final time = parseTime(timeStr);

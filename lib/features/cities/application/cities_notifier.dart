@@ -12,8 +12,8 @@ import 'package:rain/features/cities/domain/cities_load_resolver.dart';
 import 'package:rain/features/cities/domain/weather_card_validator.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/utils/show_snack_bar.dart';
-import 'package:rain/data/models/db.dart';
-import 'package:rain/data/repositories/cities_repository.dart';
+import 'package:rain/domain/entities/entities.dart';
+import 'package:rain/domain/repositories/cities_repository.dart';
 
 /// Immutable state for the saved-cities list and its load/refresh flags.
 class CitiesState {
@@ -24,14 +24,14 @@ class CitiesState {
     this.loadError = false,
   });
 
-  final List<WeatherCard> cards;
+  final List<SavedPlace> cards;
   final bool isLoading;
   final bool isRefreshing;
   final bool loadError;
 
   /// Returns a copy with selectively replaced cards, loading flags, and error state.
   CitiesState copyWith({
-    List<WeatherCard>? cards,
+    List<SavedPlace>? cards,
     bool? isLoading,
     bool? isRefreshing,
     bool? loadError,
@@ -43,7 +43,7 @@ class CitiesState {
   );
 
   /// Returns the card with [id], or null when it is not in [cards].
-  WeatherCard? cardById(int id) => WeatherCardValidator.findById(cards, id);
+  SavedPlace? cardById(int id) => WeatherCardValidator.findById(cards, id);
 }
 
 /// Riverpod provider for [CitiesNotifier].
@@ -112,14 +112,18 @@ class CitiesNotifier extends Notifier<CitiesState> {
       final fromDb = await _repo.getAllSorted();
       if (!ref.mounted || _queue.isCancelled) return;
 
+      final repairedCards = <SavedPlace>[];
       for (final card in fromDb) {
-        if (LocationTimezoneHelper.repairCardTimezone(card)) {
-          await _repo.updateCard(card);
+        final repaired = LocationTimezoneHelper.repairCardTimezone(card);
+        if (repaired != null) {
+          repairedCards.add(await _repo.updateCard(repaired));
           if (!ref.mounted || _queue.isCancelled) return;
+        } else {
+          repairedCards.add(card);
         }
       }
 
-      final result = CitiesLoadResolver.resolve(fromDb: fromDb);
+      final result = CitiesLoadResolver.resolve(fromDb: repairedCards);
       _setState(
         state.copyWith(cards: result.cards, isLoading: false, loadError: false),
       );
@@ -158,7 +162,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
 
   /// Fetches fresh forecast data for [target] and persists the update.
   Future<void> _fetchAndApplyRemote(
-    WeatherCard target, {
+    SavedPlace target, {
     double? latitude,
     double? longitude,
     String? city,
@@ -173,22 +177,25 @@ class CitiesNotifier extends Notifier<CitiesState> {
         lon == null ||
         cityName == null ||
         districtName == null) {
-      throw StateError('WeatherCard ${target.id} is missing location metadata');
+      throw StateError('SavedPlace ${target.id} is missing location metadata');
     }
 
-    final updated = await _repo.fetchCard(lat, lon, cityName, districtName);
+    var updated = await _repo.fetchCard(lat, lon, cityName, districtName);
     if (!ref.mounted || _queue.isCancelled) return;
 
+    var base = target;
     if (latitude != null && longitude != null) {
-      target
-        ..lat = latitude
-        ..lon = longitude
-        ..city = city
-        ..district = district;
+      base = base.copyWith(
+        lat: latitude,
+        lon: longitude,
+        city: city,
+        district: district,
+      );
     }
-    LocationTimezoneHelper.repairCardTimezone(updated);
+    updated =
+        LocationTimezoneHelper.repairCardTimezone(updated) ?? updated;
 
-    await _repo.applyRemoteUpdate(target, updated);
+    await _repo.applyRemoteUpdate(base, updated);
     if (!ref.mounted || _queue.isCancelled) return;
     await persistClockSkew(ref, updated.clockSkewSeconds ?? 0);
   }
@@ -276,7 +283,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
   }
 
   /// Updates a single card from the network; returns false on failure.
-  Future<bool> _updateSingleCard(WeatherCard oldCard) async {
+  Future<bool> _updateSingleCard(SavedPlace oldCard) async {
     try {
       await _fetchAndApplyRemote(oldCard);
       return true;
@@ -294,10 +301,10 @@ class CitiesNotifier extends Notifier<CitiesState> {
     String district,
   ) => _enqueue(
     () => _runOnlineAction('addCard', () async {
-      final card = await _repo.fetchCard(latitude, longitude, city, district);
+      var card = await _repo.fetchCard(latitude, longitude, city, district);
       if (!ref.mounted || _queue.isCancelled) return;
-      LocationTimezoneHelper.repairCardTimezone(card);
-      await _repo.addCard(card);
+      card = LocationTimezoneHelper.repairCardTimezone(card) ?? card;
+      card = await _repo.addCard(card);
       if (!ref.mounted || _queue.isCancelled) return;
       await persistClockSkew(ref, card.clockSkewSeconds ?? 0);
     }),
@@ -305,7 +312,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
 
   /// Re-fetches forecast data after the card's location label or coordinates change.
   Future<void> updateCardLocation(
-    WeatherCard card,
+    SavedPlace card,
     double latitude,
     double longitude,
     String city,
@@ -324,7 +331,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
   );
 
   /// Re-fetches and persists fresh forecast data for an existing card.
-  Future<void> updateCard(WeatherCard card) => _enqueue(
+  Future<void> updateCard(SavedPlace card) => _enqueue(
     () => _runOnlineAction('updateCard', () => _fetchAndApplyRemote(card)),
   );
 
@@ -332,7 +339,7 @@ class CitiesNotifier extends Notifier<CitiesState> {
   ///
   /// Optimistic UI update runs inside the queue so concurrent loads cannot
   /// restore the card before the delete is applied.
-  Future<void> deleteCard(WeatherCard card) => _enqueue(() async {
+  Future<void> deleteCard(SavedPlace card) => _enqueue(() async {
     final previousCards = state.cards;
     _setState(
       state.copyWith(

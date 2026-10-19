@@ -7,9 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/config/setting_enum_pickers.dart';
 import 'package:rain/core/di/provider_refs.dart';
-import 'package:isar_community/isar.dart';
-import 'package:rain/data/models/db.dart';
-import 'package:rain/data/repositories/settings_repository.dart';
+import 'package:rain/domain/entities/entities.dart';
+import 'package:rain/domain/repositories/settings_repository.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_save_actions.dart';
 
 void main() {
@@ -53,10 +52,7 @@ void main() {
       tester,
       overrides: [
         settingsRepositoryProvider.overrideWith(
-          (ref) => _FakeSettingsRepository(
-            isar: ctx.isarContext.isar,
-            onSaveCallback: () => saveCalls++,
-          ),
+          (ref) => _FakeSettingsRepository(onSaveCallback: () => saveCalls++),
         ),
       ],
     );
@@ -88,10 +84,7 @@ void main() {
       overrides: [
         locationServiceProvider.overrideWithValue(FakeLocationService()),
         settingsRepositoryProvider.overrideWith(
-          (ref) => _FakeSettingsRepository(
-            isar: ctx.isarContext.isar,
-            onSaveCallback: () {},
-          ),
+          (ref) => _FakeSettingsRepository(onSaveCallback: () {}),
         ),
       ],
     );
@@ -114,16 +107,24 @@ void main() {
   });
 }
 
-class _FakeSettingsRepository extends SettingsRepository {
-  _FakeSettingsRepository({required Isar isar, required this.onSaveCallback})
-    : super(isar);
+class _FakeSettingsRepository implements SettingsRepository {
+  _FakeSettingsRepository({required this.onSaveCallback});
 
   final void Function() onSaveCallback;
 
   @override
-  Future<void> save(Settings settings) async {
+  Future<AppSettings> getSettings() async => const AppSettings();
+
+  @override
+  Future<void> save(AppSettings settings) async {
     onSaveCallback();
   }
+
+  @override
+  Future<void> persistClockSkew(int clockSkewSeconds) async {}
+
+  @override
+  Future<GeoPlace> getLocationCache() async => const GeoPlace();
 }
 
 class _ActionsProbe extends ConsumerStatefulWidget {

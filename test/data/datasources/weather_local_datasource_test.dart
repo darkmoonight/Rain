@@ -20,8 +20,8 @@ void main() {
     });
 
     test('saveMainWeather persists weather and location', () async {
-      final weather = sampleMainWeatherCache();
-      final location = sampleLocationCache();
+      final weather = sampleWeatherForecastIsar();
+      final location = sampleGeoPlaceIsar();
 
       await datasource.saveMainWeather(weather, location);
 
@@ -37,8 +37,8 @@ void main() {
 
     test('isMainWeatherExpired returns true for stale timestamp', () async {
       await datasource.saveMainWeather(
-        sampleMainWeatherCache()..timestamp = DateTime(2026, 6, 4),
-        sampleLocationCache(),
+        sampleWeatherForecastIsar()..timestamp = DateTime(2026, 6, 4),
+        sampleGeoPlaceIsar(),
       );
 
       expect(
@@ -49,8 +49,8 @@ void main() {
 
     test('deleteMainWeather clears weather but keeps location', () async {
       await datasource.saveMainWeather(
-        sampleMainWeatherCache(),
-        sampleLocationCache(),
+        sampleWeatherForecastIsar(),
+        sampleGeoPlaceIsar(),
       );
 
       await datasource.deleteMainWeather();
@@ -61,8 +61,8 @@ void main() {
 
     test('deleteLocation removes location cache', () async {
       await datasource.saveMainWeather(
-        sampleMainWeatherCache(),
-        sampleLocationCache(),
+        sampleWeatherForecastIsar(),
+        sampleGeoPlaceIsar(),
       );
 
       await datasource.deleteLocation();

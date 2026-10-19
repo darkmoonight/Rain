@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:rain/data/datasources/weather_remote_datasource.dart';
+import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import 'package:rain/data/models/weather_api.dart';
 
 String _fixtureIsoTime(int dayOffset, {int hour = 12}) =>
@@ -91,11 +93,11 @@ WeatherDataApi sampleWeatherApi() =>
     WeatherDataApi.fromJson(sampleWeatherJson());
 
 /// A complete saved-city card with all required forecast fields.
-WeatherCard completeWeatherCard({
+SavedPlace completeSavedPlace({
   DateTime? timestamp,
   int? index,
   int id = 1,
-}) => WeatherCard(
+}) => SavedPlace(
   time: ['2026-06-05T12:00', '2026-06-05T13:00'],
   timeDaily: [DateTime(2026, 6, 5), DateTime(2026, 6, 6)],
   sunrise: ['06:00', '06:01'],
@@ -138,9 +140,10 @@ WeatherCard completeWeatherCard({
   lon: 37.62,
   timestamp: timestamp ?? DateTime(2026, 6, 5, 12),
   index: index ?? 0,
-)..id = id;
+  id: id,
+);
 
-MainWeatherCache sampleMainWeatherCache() => MainWeatherCache(
+WeatherForecast sampleWeatherForecast() => WeatherForecast(
   time: ['2026-06-05T12:00', '2026-06-05T13:00'],
   timeDaily: [DateTime(2026, 6, 5), DateTime(2026, 6, 6)],
   sunrise: ['06:00', '06:01'],
@@ -180,18 +183,19 @@ MainWeatherCache sampleMainWeatherCache() => MainWeatherCache(
   timestamp: DateTime(2026, 6, 5, 12),
 );
 
-/// [sampleMainWeatherCache] with hourly rows guaranteed to be in the future.
-MainWeatherCache sampleFutureMainWeatherCache() {
+/// [sampleWeatherForecast] with hourly rows guaranteed to be in the future.
+WeatherForecast sampleFutureWeatherForecast() {
   final day = DateTime.now().add(const Duration(days: 2));
   final y = day.year;
   final m = day.month.toString().padLeft(2, '0');
   final d = day.day.toString().padLeft(2, '0');
-  return sampleMainWeatherCache()
-    ..time = ['$y-$m-${d}T12:00', '$y-$m-${d}T13:00']
-    ..timeDaily = [DateTime(y, day.month, day.day)];
+  return sampleWeatherForecast().copyWith(
+    time: ['$y-$m-${d}T12:00', '$y-$m-${d}T13:00'],
+    timeDaily: [DateTime(y, day.month, day.day)],
+  );
 }
 
-LocationCache sampleLocationCache() => LocationCache(
+GeoPlace sampleGeoPlace() => GeoPlace(
   lat: 55.75,
   lon: 37.62,
   city: 'Moscow',
@@ -199,12 +203,12 @@ LocationCache sampleLocationCache() => LocationCache(
 );
 
 /// Main weather cache with seven daily entries for detail screens.
-MainWeatherCache weeklyMainWeatherCache() {
-  final base = sampleMainWeatherCache();
+WeatherForecast weeklyWeatherForecast() {
+  final base = sampleWeatherForecast();
   List<T> repeat<T>(List<T> values, int count) =>
       List.generate(count, (i) => values[i % values.length]);
 
-  return MainWeatherCache(
+  return WeatherForecast(
     time: List.generate(7, (i) => _fixtureIsoTime(i)),
     timeDaily: List.generate(7, (i) => DateTime(2026, 6, 5 + i)),
     sunrise: repeat(base.sunrise!, 7),
@@ -244,13 +248,13 @@ MainWeatherCache weeklyMainWeatherCache() {
 }
 
 /// Weather card with seven days and 24 hourly slots per day for [DailyCardInfo].
-WeatherCard dailyDetailWeatherCard() {
-  final base = completeWeatherCard();
+SavedPlace dailyDetailSavedPlace() {
+  final base = completeSavedPlace();
   List<T> repeat<T>(List<T> values, int count) =>
       List.generate(count, (i) => values[i % values.length]);
 
   const hours = 24 * 7;
-  return WeatherCard(
+  return SavedPlace(
     time: List.generate(hours, (i) {
       final day = i ~/ 24;
       final hour = i % 24;
@@ -295,16 +299,17 @@ WeatherCard dailyDetailWeatherCard() {
     lon: base.lon,
     timestamp: base.timestamp,
     index: base.index,
-  )..id = base.id;
+    id: base.id,
+  );
 }
 
 /// Weather card with seven daily entries for preview widgets.
-WeatherCard weeklyWeatherCard() {
-  final base = completeWeatherCard();
+SavedPlace weeklySavedPlace() {
+  final base = completeSavedPlace();
   List<T> repeat<T>(List<T> values, int count) =>
       List.generate(count, (i) => values[i % values.length]);
 
-  return WeatherCard(
+  return SavedPlace(
     time: List.generate(7, (i) => _fixtureIsoTime(i)),
     timeDaily: List.generate(7, (i) => DateTime(2026, 6, 5 + i)),
     sunrise: repeat(base.sunrise!, 7),
@@ -345,7 +350,8 @@ WeatherCard weeklyWeatherCard() {
     lon: base.lon,
     timestamp: base.timestamp,
     index: base.index,
-  )..id = base.id;
+    id: base.id,
+  );
 }
 
 Settings onboardedSettings({
@@ -409,3 +415,28 @@ Dio createFakeWeatherDio({
   );
   return dio;
 }
+
+/// Isar persistence forms of domain fixtures (for data-layer tests).
+WeatherCard completeSavedPlaceIsar({DateTime? timestamp, int? index, int id = 1}) {
+  final place = completeSavedPlace(timestamp: timestamp, index: index, id: id);
+  return DomainMapper.cardToIsar(place);
+}
+
+MainWeatherCache sampleWeatherForecastIsar() =>
+    DomainMapper.forecastToIsar(sampleWeatherForecast());
+
+LocationCache sampleGeoPlaceIsar() =>
+    DomainMapper.placeToIsar(sampleGeoPlace());
+
+/// Back-compat aliases used by data-layer tests.
+MainWeatherCache sampleMainWeatherCache() => sampleWeatherForecastIsar();
+LocationCache sampleLocationCache() => sampleGeoPlaceIsar();
+WeatherCard completeWeatherCard({DateTime? timestamp, int? index, int id = 1}) =>
+    completeSavedPlaceIsar(timestamp: timestamp, index: index, id: id);
+MainWeatherCache sampleFutureMainWeatherCache() =>
+    DomainMapper.forecastToIsar(sampleFutureWeatherForecast());
+MainWeatherCache weeklyMainWeatherCache() =>
+    DomainMapper.forecastToIsar(weeklyWeatherForecast());
+WeatherCard weeklyWeatherCard() => DomainMapper.cardToIsar(weeklySavedPlace());
+WeatherCard dailyDetailWeatherCard() =>
+    DomainMapper.cardToIsar(dailyDetailSavedPlace());

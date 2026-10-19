@@ -1,4 +1,5 @@
 import '../../helpers/fake_home_widget.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/fake_path_provider.dart';
 import '../../helpers/fixtures.dart';
 import '../../helpers/isar_test_helper.dart';
@@ -31,10 +32,10 @@ void main() {
     });
 
     test('updateFromIsar handles seeded weather cache', () async {
-      await seedMainWeatherCache(
+      await seedWeatherForecast(
         ctx.isarContext.isar,
-        weather: sampleMainWeatherCache(),
-        location: sampleLocationCache(),
+        weather: sampleWeatherForecast(),
+        location: sampleGeoPlace(),
       );
 
       final result = await service.updateFromIsar(ctx.isarContext.isar);
@@ -73,10 +74,10 @@ void main() {
     test(
       'updateFromIsar writes widget data before requesting widget refresh',
       () async {
-        await seedMainWeatherCache(
+        await seedWeatherForecast(
           ctx.isarContext.isar,
-          weather: sampleMainWeatherCache(),
-          location: sampleLocationCache(),
+          weather: sampleWeatherForecast(),
+          location: sampleGeoPlace(),
         );
 
         homeWidgetCallLog.clear();

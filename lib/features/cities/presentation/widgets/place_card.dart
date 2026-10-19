@@ -4,24 +4,24 @@ import 'package:gap/gap.dart';
 import 'package:rain/core/di/city_clock_provider.dart';
 import 'package:rain/core/di/provider_refs.dart';
 import 'package:rain/core/utils/location_label.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/cities/domain/weather_card_validator.dart';
 import 'package:rain/i18n/tr.dart';
 import 'package:rain/core/weather/status_data.dart';
 import 'package:rain/core/constants/app_constants.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
+import 'package:rain/domain/entities/entities.dart';
 
 /// Compact summary card for a complete saved city weather entry.
 class PlaceCard extends ConsumerWidget {
   const PlaceCard({super.key, required this.card});
 
   /// Builds a [PlaceCard] from [card], or null when required data is missing.
-  static PlaceCard? tryFromWeatherCard(WeatherCard card) {
+  static PlaceCard? tryFromSavedPlace(SavedPlace card) {
     if (!WeatherCardValidator.isComplete(card)) return null;
     return PlaceCard(card: card);
   }
 
-  final WeatherCard card;
+  final SavedPlace card;
 
   /// Builds the card showing current temperature, conditions, location, and time.
   @override
@@ -29,7 +29,7 @@ class PlaceCard extends ConsumerWidget {
     final settings = ref.watch(settingsProvider);
     final statusWeather = ref.watch(statusWeatherProvider);
     final statusData = StatusData(settings: settings);
-    final clock = LocationClock.fromWeatherCard(
+    final clock = LocationClock.fromSavedPlace(
       card,
       settingsClockSkewSeconds: settings.clockSkewSeconds,
     );

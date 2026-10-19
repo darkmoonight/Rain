@@ -12,7 +12,6 @@ import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/app_time_picker.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
 import 'package:rain/core/widgets/confirmation_dialog.dart';
-import 'package:rain/data/models/db.dart';
 import 'package:rain/features/settings/presentation/widgets/notification_weekdays_dialog.dart';
 import 'package:rain/features/settings/presentation/widgets/notification_weekdays_summary.dart';
 import 'package:rain/features/settings/presentation/widgets/selection_dialog.dart';
@@ -21,6 +20,7 @@ import 'package:rain/features/settings/presentation/widgets/settings_section_sta
 import 'package:rain/features/settings/presentation/widgets/settings_switch_tile.dart';
 import 'package:rain/features/settings/presentation/widgets/settings_tile.dart';
 import 'package:rain/i18n/tr.dart';
+import 'package:rain/domain/entities/app_settings.dart';
 
 /// Location and notification settings.
 class SettingsFunctionsSection extends ConsumerStatefulWidget {
@@ -33,7 +33,7 @@ class SettingsFunctionsSection extends ConsumerStatefulWidget {
 
 class _SettingsFunctionsSectionState
     extends SettingsSectionConsumerState<SettingsFunctionsSection> {
-  Settings get settings => ref.watch(settingsProvider);
+  AppSettings get settings => ref.watch(settingsProvider);
 
   AppSettingsState get appSettings => ref.watch(appSettingsProvider);
 
@@ -85,7 +85,7 @@ class _SettingsFunctionsSectionState
             value: settings.notificationSound,
             onChanged: (value) async {
               await actions.saveWithForecastReschedule(
-                mutate: (s) => s.notificationSound = value,
+                mutate: (s) => s.copyWith(notificationSound: value),
               );
             },
           ),
@@ -139,7 +139,7 @@ class _SettingsFunctionsSectionState
       itemBuilder: (value) => value,
       onSelected: (value) async {
         await actions.saveWithForecastReschedule(
-          mutate: (s) => s.timeRange = int.parse(value),
+          mutate: (s) => s.copyWith(timeRange: int.parse(value)),
         );
       },
     );
@@ -154,7 +154,7 @@ class _SettingsFunctionsSectionState
     if (result == null || !mounted) return;
 
     await actions.saveWithForecastReschedule(
-      mutate: (s) => s.notificationWeekdaysMask = result.mask,
+      mutate: (s) => s.copyWith(notificationWeekdaysMask: result.mask),
     );
   }
 
@@ -197,7 +197,7 @@ class _SettingsFunctionsSectionState
     required BuildContext context,
     required String? stored,
     required String defaultTime,
-    required void Function(Settings settings, String value) apply,
+    required AppSettings Function(AppSettings settings, String value) apply,
   }) async {
     final picked = await showAppTimePicker(
       context: context,
@@ -217,7 +217,7 @@ class _SettingsFunctionsSectionState
       context: context,
       stored: settings.timeStart,
       defaultTime: AppConstants.defaultNotificationTimeStart,
-      apply: (s, value) => s.timeStart = value,
+      apply: (s, value) => s.copyWith(timeStart: value),
     );
   }
 
@@ -226,7 +226,7 @@ class _SettingsFunctionsSectionState
       context: context,
       stored: settings.timeEnd,
       defaultTime: AppConstants.defaultNotificationTimeEnd,
-      apply: (s, value) => s.timeEnd = value,
+      apply: (s, value) => s.copyWith(timeEnd: value),
     );
   }
 }

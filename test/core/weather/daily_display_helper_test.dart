@@ -2,11 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:rain/core/weather/daily_display_helper.dart';
 import 'package:rain/core/weather/status_weather.dart';
-import 'package:rain/data/models/db.dart';
+import 'package:rain/domain/entities/entities.dart';
 import '../../helpers/test_helpers.dart';
 
-WeatherCard _card({List<int?> daily = const [61, 0, 0]}) =>
-    WeatherCard()..weathercodeDaily = daily;
+SavedPlace _card({List<int?> daily = const [61, 0, 0]}) =>
+    SavedPlace(weathercodeDaily: daily);
 
 void main() {
   setUpAll(() async {
