@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
-import 'package:display_mode/display_mode.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:rain/core/bootstrap/background_bootstrap.dart';
 import 'package:rain/core/bootstrap/timezone_bootstrap.dart';
 import 'package:home_widget/home_widget.dart';

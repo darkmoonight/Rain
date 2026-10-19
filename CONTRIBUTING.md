@@ -73,7 +73,6 @@ FOSS reproducible build: see `tool/pubspec_overrides.floss.yaml` and `scripts/pa
 | Package | Risk | Guidance |
 |---------|------|----------|
 | `isar_community` | Community fork of unmaintained Isar; schema/migration risk | Stick until a clear successor (e.g. Drift/ObjectBox) is chosen |
-| `display_mode` `^0.0.2` | Pre-1.0 API surface | Keep usage isolated in bootstrap; revisit when a stable alternative exists |
 | `material_ui` + compatibility bridge | Temporary bridge for packages still on `package:flutter/material` | Remove `MaterialUiCompatibilityBridge` once google_fonts / shimmer / hsv picker migrate |
 | `line_awesome_flutter` | Overlaps Iconsax usage | Prefer Iconsax for new icons; drop when remaining usages are gone |
 | `home_widget` BACKGROUND receiver | `android:exported="true"` on `HomeWidgetBackgroundReceiver` / service | Required by the plugin for widget refresh intents; other apps can trigger background work. Monitor package updates; do not set `exported=false` without verifying widgets still update |

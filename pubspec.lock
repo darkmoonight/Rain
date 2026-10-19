@@ -289,14 +289,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
-  display_mode:
-    dependency: "direct main"
-    description:
-      name: display_mode
-      sha256: "8a381f3602a09dc4e96140a0df30808631468d6d0dfff7722f67b1f83757a7cc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
   dynamic_system_colors:
     dependency: "direct main"
     description:
@@ -358,6 +350,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_displaymode:
+    dependency: "direct main"
+    description:
+      name: flutter_displaymode
+      sha256: ecd44b1e902b0073b42ff5b55bf283f38e088270724cdbb7f7065ccf54aa60a8
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   flutter_expandable_fab:
     dependency: "direct main"
     description:
@@ -569,18 +569,18 @@ packages:
     dependency: transitive
     description:
       name: geolocator_android
-      sha256: "1be90ea8aaaf9db8e7816b4fe0387f082ee8b5cf03355912dad90fb0a75717fa"
+      sha256: b2132744a8454dd01cd6f9588171a86a0181e3a411dc81d29bbe67453d75f806
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.1+1"
+    version: "5.2.0"
   geolocator_apple:
     dependency: transitive
     description:
       name: geolocator_apple
-      sha256: "3b3189beba8b59b2a0eee970b466e991e4ac1564a9034f82a825a3c45c4be1fa"
+      sha256: "3d26d5e7c02cd50320649e702260fa7a8eed823f62d8de7af362943d08b65c01"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.15"
+    version: "2.4.0"
   geolocator_linux:
     dependency: transitive
     description:

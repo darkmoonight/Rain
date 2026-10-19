@@ -13,6 +13,33 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
+// Plugins (e.g. geolocator_android) still default to Java 8; force 17 everywhere.
+// Skip afterEvaluate when already evaluated (evaluationDependsOn(':app')).
+subprojects { project ->
+    def forceJvm17 = {
+        if (project.hasProperty('android')) {
+            project.android {
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_17
+                    targetCompatibility JavaVersion.VERSION_17
+                }
+            }
+        }
+        project.tasks.withType(JavaCompile).configureEach {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
+        project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
+    }
+    if (project.state.executed) {
+        forceJvm17()
+    } else {
+        project.afterEvaluate(forceJvm17)
+    }
+}
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
