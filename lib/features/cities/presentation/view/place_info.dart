@@ -6,6 +6,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:rain/core/di/providers.dart';
 import 'package:rain/core/theme/theme_text.dart';
 import 'package:rain/core/widgets/app_back_button.dart';
+import 'package:rain/core/widgets/confirmation_dialog.dart';
 import 'package:rain/core/utils/location_label.dart';
 import 'package:rain/core/utils/navigation_helper.dart';
 import 'package:rain/core/weather/time_index_helper.dart';
@@ -141,6 +142,9 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
     final fallback = widget.card;
     if (fallback == null) return null;
 
+    final savedMatch = _matchSavedCity(cities, fallback);
+    if (savedMatch != null) return savedMatch;
+
     final main = ref.read(mainWeatherNotifierProvider);
     final loc = main.location;
     if (loc.lat != null &&
@@ -153,23 +157,44 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
     return fallback;
   }
 
-  /// Returns true when [card] is stored in the saved-cities list.
-  bool _isPersistedCity(CitiesState cities, SavedPlace card) {
-    if (widget.cardId != null && cities.cardById(widget.cardId!) != null) {
-      return true;
+  /// Saved city with the same id or coordinates as [card], if any.
+  SavedPlace? _matchSavedCity(CitiesState cities, SavedPlace card) {
+    if (card.id != null) {
+      final byId = cities.cardById(card.id!);
+      if (byId != null) return byId;
     }
+    final lat = card.lat;
+    final lon = card.lon;
+    if (lat == null || lon == null) return null;
     for (final saved in cities.cards) {
-      if (saved.id != null && saved.id == card.id && card.id! > 0) {
-        return true;
-      }
-      if (saved.lat == card.lat &&
-          saved.lon == card.lon &&
-          card.lat != null &&
-          card.lon != null) {
-        return true;
-      }
+      if (saved.lat == lat && saved.lon == lon) return saved;
     }
-    return false;
+    return null;
+  }
+
+  /// True when [card] is stored in the saved-cities list.
+  bool _isPersistedCity(CitiesState cities, SavedPlace card) =>
+      card.id != null && cities.cardById(card.id!) != null;
+
+  Future<void> _editCard(SavedPlace card) async {
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      enableDrag: false,
+      builder: (_) => PlaceAction(edit: true, card: card),
+    );
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _deleteCard(SavedPlace card) async {
+    final confirmed = await showDeleteConfirmation(
+      context: context,
+      title: 'deletedCardWeather',
+      message: 'deletedCardWeatherQuery',
+    );
+    if (!confirmed || !mounted) return;
+    await ref.read(citiesNotifierProvider.notifier).deleteCard(card);
+    if (mounted) NavigationHelper.back(context);
   }
 
   /// Builds the weather detail scaffold with refresh and edit actions.
@@ -223,19 +248,20 @@ class _PlaceInfoState extends ConsumerState<PlaceInfo> {
             style: ThemeText.appBarTitle(Theme.of(context)),
           ),
           actions: [
-            if (persisted)
+            if (persisted) ...[
               IconButton(
-                onPressed: () async {
-                  await showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    enableDrag: false,
-                    builder: (_) => PlaceAction(edit: true, card: card),
-                  );
-                  if (mounted) setState(() {});
-                },
+                onPressed: () => _editCard(card),
                 icon: const Icon(IconsaxPlusLinear.edit, size: 18),
               ),
+              IconButton(
+                onPressed: () => _deleteCard(card),
+                icon: Icon(
+                  IconsaxPlusLinear.trash_square,
+                  size: 18,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+            ],
           ],
         ),
         body: SafeArea(

@@ -42,8 +42,11 @@ class _MapPageState extends ConsumerState<MapPage>
   SavedPlace? _selectedSavedPlace;
   bool _isCardVisible = false;
   late final AnimationController _animationController;
+  late final CurvedAnimation _cardCurve;
   late final Animation<Offset> _offsetAnimation;
+  late final Animation<double> _fabClearanceAnimation;
   static const _useTransformerId = 'useTransformerId';
+  static const _cardFabClearance = 128.0;
 
   final _focusNode = FocusNode();
   late final TextEditingController _controllerSearch = TextEditingController();
@@ -73,19 +76,23 @@ class _MapPageState extends ConsumerState<MapPage>
   /// Initializes slide animation for the selected weather card overlay.
   @override
   void initState() {
+    super.initState();
     _animationController = AnimationController(
       duration: AppConstants.animationDuration,
       vsync: this,
     );
-
-    _offsetAnimation =
-        Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero).animate(
-          CurvedAnimation(
-            parent: _animationController,
-            curve: Curves.easeInOut,
-          ),
-        );
-    super.initState();
+    _cardCurve = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(_cardCurve);
+    _fabClearanceAnimation = Tween<double>(
+      begin: 0,
+      end: _cardFabClearance,
+    ).animate(_cardCurve);
   }
 
   /// Disposes map, search, and animation controllers.
@@ -94,6 +101,7 @@ class _MapPageState extends ConsumerState<MapPage>
     _animatedMapController.dispose();
     _controllerSearch.dispose();
     _focusNode.dispose();
+    _cardCurve.dispose();
     _animationController.dispose();
     super.dispose();
   }
@@ -111,12 +119,27 @@ class _MapPageState extends ConsumerState<MapPage>
 
   /// Shows the weather card overlay for the tapped [weatherCard] marker.
   void _onMarkerTap(SavedPlace weatherCard) {
-    setState(() => _selectedSavedPlace = weatherCard);
+    setState(() {
+      _selectedSavedPlace = weatherCard;
+      _isCardVisible = true;
+    });
     _animationController.forward();
-    _isCardVisible = true;
-
     if (_fabKey.currentState?.isOpen == true) {
       _fabKey.currentState?.toggle();
+    }
+  }
+
+  Future<void> _openSelectedPlace() async {
+    final place = _selectedSavedPlace;
+    if (place == null) return;
+    final id = place.id;
+    await NavigationHelper.toDownToUp(
+      context,
+      () => id != null ? PlaceInfo(cardId: id) : PlaceInfo(card: place),
+    );
+    if (!mounted) return;
+    if (id != null && ref.read(citiesNotifierProvider).cardById(id) == null) {
+      _hideCard();
     }
   }
 
@@ -229,21 +252,61 @@ class _MapPageState extends ConsumerState<MapPage>
       buildRainMapTileLayer(cacheStore: cacheStore);
 
   /// Builds the sliding [WeatherCardTile] overlay for the selected marker.
-  Widget _buildSavedPlace() => _isCardVisible && _selectedSavedPlace != null
-      ? SlideTransition(
-          position: _offsetAnimation,
-          child: GestureDetector(
-            onTap: () => NavigationHelper.toDownToUp(
-              context,
-              () => PlaceInfo(
-                cardId: _selectedSavedPlace!.id,
-                card: _selectedSavedPlace,
+  Widget _buildSavedPlace() {
+    final place = _selectedSavedPlace;
+    if (!_isCardVisible || place == null) return const SizedBox.shrink();
+    return SlideTransition(
+      position: _offsetAnimation,
+      child: GestureDetector(
+        onTap: _openSelectedPlace,
+        child: WeatherCardTile(card: place),
+      ),
+    );
+  }
+
+  Widget _buildMapFab({required double lat, required double lon}) =>
+      AnimatedBuilder(
+        animation: _fabClearanceAnimation,
+        builder: (context, _) => ExpandableFab(
+          key: _fabKey,
+          pos: ExpandableFabPos.right,
+          type: ExpandableFabType.up,
+          distance: 70,
+          margin: EdgeInsets.only(bottom: _fabClearanceAnimation.value),
+          openButtonBuilder: RotateFloatingActionButtonBuilder(
+            child: const Icon(IconsaxPlusLinear.menu),
+            fabSize: ExpandableFabSize.regular,
+          ),
+          closeButtonBuilder: DefaultFloatingActionButtonBuilder(
+            child: const Icon(Icons.close),
+            fabSize: ExpandableFabSize.regular,
+          ),
+          children: [
+            FloatingActionButton(
+              heroTag: null,
+              child: const Icon(IconsaxPlusLinear.home_2),
+              onPressed: () => _resetMapOrientation(
+                center: LatLng(lat, lon),
+                zoom: AppConstants.mapDefaultZoom,
               ),
             ),
-            child: WeatherCardTile(card: _selectedSavedPlace!),
-          ),
-        )
-      : const SizedBox.shrink();
+            FloatingActionButton(
+              heroTag: null,
+              child: const Icon(IconsaxPlusLinear.search_zoom_out_1),
+              onPressed: () => _animatedMapController.animatedZoomOut(
+                customId: _useTransformerId,
+              ),
+            ),
+            FloatingActionButton(
+              heroTag: null,
+              child: const Icon(IconsaxPlusLinear.search_zoom_in),
+              onPressed: () => _animatedMapController.animatedZoomIn(
+                customId: _useTransformerId,
+              ),
+            ),
+          ],
+        ),
+      );
 
   /// City search field that pans the map to a selected result.
   Widget _buildSearchField() {
@@ -408,44 +471,7 @@ class _MapPageState extends ConsumerState<MapPage>
         },
       ),
       floatingActionButtonLocation: ExpandableFab.location,
-      floatingActionButton: ExpandableFab(
-        key: _fabKey,
-        pos: ExpandableFabPos.right,
-        type: ExpandableFabType.up,
-        distance: 70,
-        openButtonBuilder: RotateFloatingActionButtonBuilder(
-          child: const Icon(IconsaxPlusLinear.menu),
-          fabSize: ExpandableFabSize.regular,
-        ),
-        closeButtonBuilder: DefaultFloatingActionButtonBuilder(
-          child: const Icon(Icons.close),
-          fabSize: ExpandableFabSize.regular,
-        ),
-        children: [
-          FloatingActionButton(
-            heroTag: null,
-            child: const Icon(IconsaxPlusLinear.home_2),
-            onPressed: () => _resetMapOrientation(
-              center: LatLng(lat, lon),
-              zoom: AppConstants.mapDefaultZoom,
-            ),
-          ),
-          FloatingActionButton(
-            heroTag: null,
-            child: const Icon(IconsaxPlusLinear.search_zoom_out_1),
-            onPressed: () => _animatedMapController.animatedZoomOut(
-              customId: _useTransformerId,
-            ),
-          ),
-          FloatingActionButton(
-            heroTag: null,
-            child: const Icon(IconsaxPlusLinear.search_zoom_in),
-            onPressed: () => _animatedMapController.animatedZoomIn(
-              customId: _useTransformerId,
-            ),
-          ),
-        ],
-      ),
+      floatingActionButton: _buildMapFab(lat: lat, lon: lon),
     );
   }
 }
