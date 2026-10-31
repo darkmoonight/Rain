@@ -16,7 +16,7 @@ android {
             minorApiLevel = 0
         }
     }
-    ndkVersion = '30.0.14904198'
+    ndkVersion = '30.0.16248370'
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
