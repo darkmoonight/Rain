@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  dynamic_system_colors
+  dynamic_color
   flutter_timezone
   isar_community_flutter_libs
   restart_app
