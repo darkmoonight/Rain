@@ -55,6 +55,20 @@ class NotificationService {
     };
   }
 
+  /// Active forecast ids to drop so at most the newest (max id) remains in the shade.
+  ///
+  /// Ids are derived from schedule epochs, so the maximum id is the latest hour.
+  /// Never includes [persistentNotificationId].
+  @visibleForTesting
+  static Set<int> olderActiveForecastIdsToCancel(Iterable<int> activeIds) {
+    final forecastIds = [
+      for (final id in activeIds)
+        if (id != persistentNotificationId) id,
+    ]..sort();
+    if (forecastIds.length <= 1) return {};
+    return forecastIds.sublist(0, forecastIds.length - 1).toSet();
+  }
+
   static const forecastChannelId = 'RainForecastSilent';
   static const forecastChannelName = 'Rain Forecast';
   static const forecastChannelDescription =
@@ -110,7 +124,38 @@ class NotificationService {
     }
   }
 
-  /// Top-up missing forecast alarms and drop stale ids outside the current plan.
+  Future<void> _cancelPendingOutsidePlan(Set<int> planIds) async {
+    if (planIds.isEmpty) {
+      await cancelScheduled();
+      return;
+    }
+    final pending = await flutterLocalNotificationsPlugin
+        .pendingNotificationRequests();
+    final pendingToCancel = forecastNotificationIdsToCancel(
+      candidateIds: _pendingForecastNotificationIds(pending),
+      keepIds: planIds,
+    );
+    for (final id in pendingToCancel) {
+      await flutterLocalNotificationsPlugin.cancel(id: id);
+    }
+  }
+
+  Future<List<int>> _activeNotificationIds() async {
+    final active = await _android?.getActiveNotifications() ?? [];
+    return [
+      for (final notification in active)
+        if (notification.id != null) notification.id!,
+    ];
+  }
+
+  Future<void> _cancelActiveForecastIds(Set<int> ids) async {
+    for (final id in ids) {
+      await flutterLocalNotificationsPlugin.cancel(id: id);
+    }
+  }
+
+  /// Top-up missing forecast alarms; prune pending outside the plan and collapse
+  /// the shade to the newest delivered forecast alert.
   ///
   /// Skipped briefly after [rescheduleForWeather] ([notification_reschedule_guard])
   /// and waits for an in-flight reschedule on this isolate.
@@ -135,9 +180,22 @@ class NotificationService {
     // Stale/empty cache: keep existing pending alarms until fresh data arrives.
     if (plan.slots.isEmpty && !hasValidCache) return;
 
-    final keepIds = {for (final slot in plan.slots) notificationIdFor(slot)};
-    await _cancelForecastNotificationsExcept(keepIds);
-    if (plan.slots.isEmpty) return;
+    final planIds = {for (final slot in plan.slots) notificationIdFor(slot)};
+    await _cancelPendingOutsidePlan(planIds);
+
+    final activeIds = await _activeNotificationIds();
+    if (plan.slots.isEmpty) {
+      // Valid cache but nothing to schedule: clear shade forecast alerts too.
+      await _cancelActiveForecastIds(
+        forecastNotificationIdsToCancel(
+          candidateIds: activeIds,
+          keepIds: const {},
+        ),
+      );
+      return;
+    }
+
+    await _cancelActiveForecastIds(olderActiveForecastIdsToCancel(activeIds));
 
     final pending = await flutterLocalNotificationsPlugin
         .pendingNotificationRequests();

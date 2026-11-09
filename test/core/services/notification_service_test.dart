@@ -152,6 +152,28 @@ void main() {
       },
     );
 
+    test('olderActiveForecastIdsToCancel keeps only the newest id', () {
+      const persistent = NotificationService.persistentNotificationId;
+
+      expect(NotificationService.olderActiveForecastIdsToCancel([10, 20, 30]), {
+        10,
+        20,
+      });
+      expect(NotificationService.olderActiveForecastIdsToCancel([42]), isEmpty);
+      expect(
+        NotificationService.olderActiveForecastIdsToCancel([
+          persistent,
+          10,
+          30,
+        ]),
+        {10},
+      );
+      expect(
+        NotificationService.olderActiveForecastIdsToCancel([persistent]),
+        isEmpty,
+      );
+    });
+
     test(
       'rescheduleForWeather does not cancel when cache lacks notification data',
       () async {
