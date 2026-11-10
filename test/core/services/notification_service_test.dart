@@ -3,6 +3,7 @@ import 'dart:io';
 import '../../helpers/fixtures.dart';
 import '../../helpers/test_helpers.dart';
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/forecast_notification_time.dart';
@@ -171,6 +172,73 @@ void main() {
       expect(
         NotificationService.olderActiveForecastIdsToCancel([persistent]),
         isEmpty,
+      );
+    });
+
+    test(
+      'isForecastActiveNotification filters by channel and skips persistent',
+      () {
+        const persistent = NotificationService.persistentNotificationId;
+
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
+              id: 10,
+              channelId: NotificationService.forecastChannelId,
+            ),
+          ),
+          isTrue,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
+              id: 11,
+              channelId: NotificationService.forecastSoundChannelId,
+            ),
+          ),
+          isTrue,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
+              id: persistent,
+              channelId: NotificationService.persistentChannelId,
+            ),
+          ),
+          isFalse,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
+              id: 12,
+              channelId: NotificationService.persistentChannelId,
+            ),
+          ),
+          isFalse,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            const ActiveNotification(id: 13),
+          ),
+          isTrue,
+        );
+      },
+    );
+
+    test('activeForecastIdsToCancel clearAll vs keep-newest', () {
+      expect(
+        NotificationService.activeForecastIdsToCancel(
+          activeForecastIds: [10, 20, 30],
+          clearAll: true,
+        ),
+        {10, 20, 30},
+      );
+      expect(
+        NotificationService.activeForecastIdsToCancel(
+          activeForecastIds: [10, 20, 30],
+          clearAll: false,
+        ),
+        {10, 20},
       );
     });
 
