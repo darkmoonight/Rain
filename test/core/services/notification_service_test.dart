@@ -201,6 +201,15 @@ void main() {
         expect(
           NotificationService.isForecastActiveNotification(
             ActiveNotification(
+              id: 14,
+              channelId: NotificationService.legacyForecastSoundChannelId,
+            ),
+          ),
+          isTrue,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
               id: persistent,
               channelId: NotificationService.persistentChannelId,
             ),
@@ -224,6 +233,32 @@ void main() {
         );
       },
     );
+
+    test('sound channel is V2 and sound details use it', () {
+      expect(NotificationService.forecastSoundChannelId, 'RainForecastSoundV2');
+      expect(
+        NotificationService.legacyForecastSoundChannelId,
+        'RainForecastSound',
+      );
+
+      final details = NotificationService.forecastAndroidDetails(
+        '/tmp/icon.png',
+        playSound: true,
+      );
+      expect(details.channelId, NotificationService.forecastSoundChannelId);
+      expect(details.playSound, isTrue);
+      expect(
+        details.audioAttributesUsage,
+        AudioAttributesUsage.notificationRingtone,
+      );
+
+      final silent = NotificationService.forecastAndroidDetails(
+        '/tmp/icon.png',
+        playSound: false,
+      );
+      expect(silent.channelId, NotificationService.forecastChannelId);
+      expect(silent.playSound, isFalse);
+    });
 
     test('activeForecastIdsToCancel clearAll vs keep-newest', () {
       expect(

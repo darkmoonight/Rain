@@ -22,9 +22,16 @@ class NotificationService {
   final AssetCacheService _assets;
   static Future<void>? _rescheduleInFlight;
 
+  /// Last [AppSettings.notificationSound] used when slots were scheduled on this isolate.
+  bool? _scheduledWithSound;
+
   /// Last slot count passed to [_scheduleSlots]; for tests only.
   @visibleForTesting
   int lastScheduledSlotCount = 0;
+
+  /// Whether the last successful schedule used the sound channel; for tests only.
+  @visibleForTesting
+  bool? get scheduledWithSound => _scheduledWithSound;
 
   static Future<void> _awaitRescheduleIdle() async {
     while (_rescheduleInFlight != null) {
@@ -71,15 +78,18 @@ class NotificationService {
 
   /// Whether [notification] is a delivered hourly forecast alert (not persistent).
   ///
-  /// Matches forecast channels; if [ActiveNotification.channelId] is null (older
-  /// Android), falls back to any id other than [persistentNotificationId].
+  /// Matches forecast channels (including the pre-v2 sound id); if
+  /// [ActiveNotification.channelId] is null (older Android), falls back to any
+  /// id other than [persistentNotificationId].
   @visibleForTesting
   static bool isForecastActiveNotification(ActiveNotification notification) {
     final id = notification.id;
     if (id == null || id == persistentNotificationId) return false;
     final channel = notification.channelId;
     if (channel == null) return true;
-    return channel == forecastChannelId || channel == forecastSoundChannelId;
+    return channel == forecastChannelId ||
+        channel == forecastSoundChannelId ||
+        channel == legacyForecastSoundChannelId;
   }
 
   /// Ids of delivered forecast alerts from [active].
@@ -110,7 +120,11 @@ class NotificationService {
   static const forecastChannelName = 'Rain Forecast';
   static const forecastChannelDescription =
       'Weather forecast alerts without sound';
-  static const forecastSoundChannelId = 'RainForecastSound';
+
+  /// Pre-schema-v2 sound channel; deleted on migration (Android locks channel sound).
+  static const legacyForecastSoundChannelId = 'RainForecastSound';
+
+  static const forecastSoundChannelId = 'RainForecastSoundV2';
   static const forecastSoundChannelName = 'Rain Forecast (sound)';
   static const forecastSoundChannelDescription =
       'Weather forecast alerts with sound';
@@ -216,6 +230,9 @@ class NotificationService {
   /// alerts are cleared so the shade shows only the ongoing persistent card.
   /// Otherwise at most the newest delivered forecast remains.
   ///
+  /// If pending alarms exist but were scheduled with a different sound setting,
+  /// performs a full [rescheduleForWeather] so channel ids match (silent↔sound).
+  ///
   /// Skipped briefly after [rescheduleForWeather] ([notification_reschedule_guard])
   /// and waits for an in-flight reschedule on this isolate.
   Future<void> ensureForecastNotificationsScheduled({
@@ -238,6 +255,23 @@ class NotificationService {
     final hasValidCache = WeatherCacheValidator.hasNotificationSlotData(cache);
     // Stale/empty cache: keep existing pending alarms until fresh data arrives.
     if (plan.slots.isEmpty && !hasValidCache) return;
+
+    // Silent↔sound must rebuild pending on the matching channel (top-up keeps ids).
+    if (plan.slots.isNotEmpty &&
+        _scheduledWithSound != null &&
+        _scheduledWithSound != settings.notificationSound) {
+      final existingPending = await flutterLocalNotificationsPlugin
+          .pendingNotificationRequests();
+      if (_pendingForecastNotificationIds(existingPending).isNotEmpty) {
+        await rescheduleForWeather(
+          cache: cache,
+          settings: settings,
+          appSettings: appSettings,
+          cityLabel: cityLabel,
+        );
+        return;
+      }
+    }
 
     final planIds = {for (final slot in plan.slots) notificationIdFor(slot)};
     await _cancelPendingOutsidePlan(planIds);
@@ -324,6 +358,9 @@ class NotificationService {
       }
     }
     lastScheduledSlotCount = scheduledCount;
+    if (scheduledCount > 0) {
+      _scheduledWithSound = settings.notificationSound;
+    }
   }
 
   /// Cancels pending forecast alarms whose hour start is past the grace window.
@@ -403,6 +440,7 @@ class NotificationService {
       try {
         // Empty keep set: drop pending and shade forecast alerts (not persistent).
         await _cancelForecastNotificationsExcept(const {});
+        _scheduledWithSound = null;
       } finally {
         await markForecastRescheduleCompleted();
         done.complete();
@@ -500,6 +538,7 @@ class NotificationService {
     await _awaitRescheduleIdle();
     try {
       await _cancelForecastNotificationsExcept(const {});
+      _scheduledWithSound = null;
     } catch (e, stackTrace) {
       debugLogError(
         'NotificationService.cancelForecastNotifications',
@@ -511,7 +550,9 @@ class NotificationService {
 
   Future<void> cancelAll() => flutterLocalNotificationsPlugin.cancelAll();
 
-  AndroidNotificationDetails _forecastAndroidDetails(
+  /// Android details for a forecast alert; sound uses [forecastSoundChannelId].
+  @visibleForTesting
+  static AndroidNotificationDetails forecastAndroidDetails(
     String imagePath, {
     required bool playSound,
   }) {
@@ -525,6 +566,7 @@ class NotificationService {
         importance: Importance.max,
         playSound: true,
         enableVibration: true,
+        audioAttributesUsage: AudioAttributesUsage.notificationRingtone,
         largeIcon: FilePathAndroidBitmap(imagePath),
       );
     }
@@ -570,8 +612,11 @@ class NotificationService {
           aligned,
         ),
         notificationDetails: NotificationDetails(
-          android: _forecastAndroidDetails(imagePath, playSound: playSound),
-          iOS: DarwinNotificationDetails(presentSound: playSound),
+          android: forecastAndroidDetails(imagePath, playSound: playSound),
+          iOS: DarwinNotificationDetails(
+            presentSound: playSound,
+            sound: playSound ? 'default' : null,
+          ),
         ),
         androidScheduleMode: scheduleMode,
         payload: imagePath,

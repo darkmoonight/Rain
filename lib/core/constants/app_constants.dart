@@ -86,7 +86,7 @@ class AppConstants {
   static const int weatherCacheSchemaVersion = 3;
 
   /// Bumped when Android forecast notification channels change (requires reschedule).
-  static const int notificationChannelSchemaVersion = 1;
+  static const int notificationChannelSchemaVersion = 2;
 
   /// Cutoff before which persisted forecast rows are treated as stale.
   static DateTime weatherCacheExpiryThreshold() =>

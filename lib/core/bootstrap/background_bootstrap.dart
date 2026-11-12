@@ -24,10 +24,14 @@ AndroidFlutterLocalNotificationsPlugin? get androidNotificationsPlugin {
   }
 }
 
-/// Legacy forecast channel ids before silent/sound split was enforced.
-const _legacyForecastChannelIds = ['Rain', 'RainSound'];
+/// Legacy forecast channel ids (pre-split and pre-sound-channel rotation).
+const _legacyForecastChannelIds = [
+  'Rain',
+  'RainSound',
+  NotificationService.legacyForecastSoundChannelId,
+];
 
-/// Removes obsolete Android channels so users are not stuck with sound-enabled [Rain].
+/// Removes obsolete Android channels so users are not stuck with muted/legacy ids.
 ///
 /// Called on every plugin init (fresh installs) and during channel schema migration
 /// (upgrades) before recreating forecast channels.
@@ -86,6 +90,7 @@ Future<void> _ensureAndroidNotificationChannels() async {
       importance: Importance.max,
       playSound: true,
       enableVibration: true,
+      audioAttributesUsage: AudioAttributesUsage.notificationRingtone,
     ),
   );
   await android.createNotificationChannel(
