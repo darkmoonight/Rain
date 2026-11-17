@@ -417,16 +417,16 @@ void main() {
       () async {
         final fakeNotifications = await pumpInit(notificationsEnabled: true);
 
-        expect(fakeNotifications.cancelScheduledCalls, 0);
+        expect(fakeNotifications.cancelForecastCalls, 0);
       },
     );
 
     test(
-      'cancels scheduled notifications when cache is empty and disabled',
+      'cancels forecast notifications when cache is empty and disabled',
       () async {
         final fakeNotifications = await pumpInit(notificationsEnabled: false);
 
-        expect(fakeNotifications.cancelScheduledCalls, 1);
+        expect(fakeNotifications.cancelForecastCalls, 1);
       },
     );
   });

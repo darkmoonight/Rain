@@ -55,6 +55,7 @@ class FakeNotificationService extends NotificationService {
 
   int cancelAllCalls = 0;
   int cancelScheduledCalls = 0;
+  int cancelForecastCalls = 0;
   int rescheduleCalls = 0;
   int ensureForecastCalls = 0;
 
@@ -66,6 +67,11 @@ class FakeNotificationService extends NotificationService {
   @override
   Future<void> cancelScheduled() async {
     cancelScheduledCalls++;
+  }
+
+  @override
+  Future<void> cancelForecastNotifications() async {
+    cancelForecastCalls++;
   }
 
   @override

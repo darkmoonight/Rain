@@ -121,7 +121,7 @@ abstract class _MainWeatherNotifierCore extends Notifier<MainWeatherState> {
         await ref.read(weatherLocalDatasourceProvider).isMainWeatherEmpty() &&
         !ref.read(settingsProvider).notifications) {
       if (!ref.mounted || _queue.isCancelled) return;
-      await ref.read(notificationServiceProvider).cancelScheduled();
+      await ref.read(notificationServiceProvider).cancelForecastNotifications();
     }
     if (!ref.mounted || _queue.isCancelled) return;
     await setLocation();

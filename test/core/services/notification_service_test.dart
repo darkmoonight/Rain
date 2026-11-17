@@ -9,6 +9,7 @@ import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/forecast_notification_time.dart';
 import 'package:rain/core/services/notification_reschedule_guard.dart';
 import 'package:rain/core/services/notification_service.dart';
+import 'package:rain/core/services/notification_sound_schedule.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/data/mappers/domain_mapper.dart';
 import 'package:rain/data/models/db.dart';
@@ -19,10 +20,21 @@ class _CancelTrackingNotificationService extends NotificationService {
   _CancelTrackingNotificationService() : super(AssetCacheService());
 
   int cancelScheduledCalls = 0;
+  int cancelExpiredCalls = 0;
 
   @override
   Future<void> cancelScheduled() async {
     cancelScheduledCalls++;
+  }
+
+  @override
+  Future<void> cancelExpiredPendingForecastNotifications({
+    required WeatherForecast cache,
+    required AppSettings settings,
+    int? referenceNowMillis,
+  }) async {
+    cancelExpiredCalls++;
+    // No notifications plugin in unit tests.
   }
 }
 
@@ -52,10 +64,16 @@ void main() {
       setForecastRescheduleGuardTestDependencies(
         guardFileFactory: () async => guardFile,
       );
+      setNotificationSoundScheduleTestDependencies(
+        fileFactory: () async =>
+            File('${tempDir.path}/forecast_sound_schedule.txt'),
+      );
     });
 
     tearDown(() async {
       resetForecastRescheduleGuardTestDependencies();
+      resetNotificationSoundScheduleTestDependencies();
+      NotificationService.resetActiveForecastSoundChannelId();
       if (await tempDir.exists()) {
         await tempDir.delete(recursive: true);
       }
@@ -210,6 +228,42 @@ void main() {
         expect(
           NotificationService.isForecastActiveNotification(
             ActiveNotification(
+              id: 15,
+              channelId: NotificationService.legacyForecastSoundChannelIdV2,
+            ),
+          ),
+          isTrue,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
+              id: 16,
+              channelId: NotificationService.forecastSoundChannelIdFallback,
+            ),
+          ),
+          isTrue,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
+              id: 17,
+              channelId: NotificationService.legacyForecastChannelId,
+            ),
+          ),
+          isTrue,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
+              id: 18,
+              channelId: NotificationService.legacyPreSplitSoundChannelId,
+            ),
+          ),
+          isTrue,
+        );
+        expect(
+          NotificationService.isForecastActiveNotification(
+            ActiveNotification(
               id: persistent,
               channelId: NotificationService.persistentChannelId,
             ),
@@ -234,30 +288,125 @@ void main() {
       },
     );
 
-    test('sound channel is V2 and sound details use it', () {
-      expect(NotificationService.forecastSoundChannelId, 'RainForecastSoundV2');
+    test(
+      'sound channel is V3 and sound details use URI + notification usage',
+      () {
+        expect(
+          NotificationService.forecastSoundChannelId,
+          NotificationService.forecastSoundChannelIdPrimary,
+        );
+        expect(
+          NotificationService.legacyForecastSoundChannelId,
+          'RainForecastSound',
+        );
+        expect(
+          NotificationService.legacyForecastSoundChannelIdV2,
+          'RainForecastSoundV2',
+        );
+
+        final details = NotificationService.forecastAndroidDetails(
+          '/tmp/icon.png',
+          playSound: true,
+        );
+        expect(details.channelId, NotificationService.forecastSoundChannelId);
+        expect(details.playSound, isTrue);
+        expect(details.audioAttributesUsage, AudioAttributesUsage.notification);
+        expect(
+          details.sound,
+          isA<UriAndroidNotificationSound>().having(
+            (s) => s.sound,
+            'sound',
+            NotificationService.defaultNotificationSoundUri,
+          ),
+        );
+
+        final silent = NotificationService.forecastAndroidDetails(
+          '/tmp/icon.png',
+          playSound: false,
+        );
+        expect(silent.channelId, NotificationService.forecastChannelId);
+        expect(silent.playSound, isFalse);
+      },
+    );
+
+    test('persisted sound schedule round-trips with channel id', () async {
+      expect(await readScheduledNotificationSoundState(), isNull);
+
+      await writeScheduledNotificationSound(
+        true,
+        channelId: 'RainForecastSoundV3',
+      );
+      final withSound = await readScheduledNotificationSoundState();
+      expect(withSound?.withSound, isTrue);
+      expect(withSound?.channelId, 'RainForecastSoundV3');
+      expect(await readScheduledNotificationSound(), isTrue);
+
+      await writeScheduledNotificationSound(false);
+      final silent = await readScheduledNotificationSoundState();
+      expect(silent?.withSound, isFalse);
+      expect(silent?.channelId, isNull);
+
+      // Legacy one-char rows still parse.
+      expect(parseScheduledNotificationSound('1')?.withSound, isTrue);
+      expect(parseScheduledNotificationSound('1')?.channelId, isNull);
       expect(
-        NotificationService.legacyForecastSoundChannelId,
-        'RainForecastSound',
+        parseScheduledNotificationSound('1|RainForecastSoundV3b')?.channelId,
+        'RainForecastSoundV3b',
       );
 
-      final details = NotificationService.forecastAndroidDetails(
-        '/tmp/icon.png',
-        playSound: true,
-      );
-      expect(details.channelId, NotificationService.forecastSoundChannelId);
-      expect(details.playSound, isTrue);
-      expect(
-        details.audioAttributesUsage,
-        AudioAttributesUsage.notificationRingtone,
-      );
+      await clearScheduledNotificationSound();
+      expect(await readScheduledNotificationSoundState(), isNull);
+    });
 
-      final silent = NotificationService.forecastAndroidDetails(
-        '/tmp/icon.png',
-        playSound: false,
+    test('scheduledSoundStateMismatchesSettings detects sound and channel', () {
+      const settingsSoundOn = AppSettings(notificationSound: true);
+      const settingsSoundOff = AppSettings(notificationSound: false);
+
+      expect(
+        NotificationService.scheduledSoundStateMismatchesSettings(
+          const ScheduledNotificationSoundState(withSound: false),
+          settingsSoundOn,
+        ),
+        isTrue,
       );
-      expect(silent.channelId, NotificationService.forecastChannelId);
-      expect(silent.playSound, isFalse);
+      expect(
+        NotificationService.scheduledSoundStateMismatchesSettings(
+          const ScheduledNotificationSoundState(withSound: true),
+          settingsSoundOff,
+        ),
+        isTrue,
+      );
+      expect(
+        NotificationService.scheduledSoundStateMismatchesSettings(
+          const ScheduledNotificationSoundState(
+            withSound: true,
+            channelId: 'RainForecastSoundV3',
+          ),
+          settingsSoundOn,
+          activeSoundChannelId: 'RainForecastSoundV3b',
+        ),
+        isTrue,
+      );
+      expect(
+        NotificationService.scheduledSoundStateMismatchesSettings(
+          const ScheduledNotificationSoundState(
+            withSound: true,
+            channelId: 'RainForecastSoundV3',
+          ),
+          settingsSoundOn,
+          activeSoundChannelId: 'RainForecastSoundV3',
+        ),
+        isFalse,
+      );
+      // Legacy rows without channel id do not force channel mismatch.
+      expect(
+        NotificationService.scheduledSoundStateMismatchesSettings(
+          const ScheduledNotificationSoundState(withSound: true),
+          settingsSoundOn,
+          activeSoundChannelId: 'RainForecastSoundV3b',
+        ),
+        isFalse,
+      );
     });
 
     test('activeForecastIdsToCancel clearAll vs keep-newest', () {
@@ -338,6 +487,7 @@ void main() {
           cityLabel: 'Moscow',
         );
 
+        expect(service.cancelExpiredCalls, 1);
         expect(service.cancelScheduledCalls, 1);
       },
     );

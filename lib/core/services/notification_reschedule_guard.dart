@@ -3,13 +3,15 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
-/// Cooldown after a full forecast reschedule before background replenish runs.
+/// Cooldown around a full forecast reschedule before background replenish runs.
 ///
-/// Prevents [ensureForecastNotificationsScheduled] from re-adding stale slots
-/// while a foreground cancel+schedule (settings change) is in flight.
+/// [NotificationService.rescheduleForWeather] stamps this guard at the **start**
+/// of cancel+schedule (and again in `finally`) so Workmanager /
+/// [ensureForecastNotificationsScheduled] on another isolate skips while
+/// reschedule is in flight — `_rescheduleInFlight` is isolate-local only.
 ///
 /// 45 seconds covers typical cancel+schedule on slow devices plus a short
-/// buffer so background replenish does not race with in-flight reschedule.
+/// buffer after completion.
 const forecastRescheduleReplenishCooldown = Duration(seconds: 45);
 
 const _guardFileName = 'forecast_reschedule_guard.txt';
@@ -45,7 +47,10 @@ Future<File> _guardFile() async {
   return File('${dir.path}${Platform.pathSeparator}$_guardFileName');
 }
 
-/// Records that a full reschedule completed (main or background isolate).
+/// Records that a full reschedule started or finished (main or background isolate).
+///
+/// Called at the start of cancel+schedule and again when it finishes so the
+/// cooldown covers the in-flight window across isolates.
 Future<void> markForecastRescheduleCompleted([DateTime? at]) async {
   final millis = _currentTime(at).millisecondsSinceEpoch;
   try {

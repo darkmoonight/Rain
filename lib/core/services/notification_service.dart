@@ -7,6 +7,7 @@ import 'package:rain/core/services/asset_cache_service.dart';
 import 'package:rain/core/services/forecast_notification_time.dart';
 import 'package:rain/core/services/notification_content_builder.dart';
 import 'package:rain/core/services/notification_reschedule_guard.dart';
+import 'package:rain/core/services/notification_sound_schedule.dart';
 import 'package:rain/core/settings/app_settings_state.dart';
 import 'package:rain/core/utils/debug_log.dart';
 import 'package:rain/core/weather/weather_cache_validator.dart';
@@ -25,6 +26,9 @@ class NotificationService {
   /// Last [AppSettings.notificationSound] used when slots were scheduled on this isolate.
   bool? _scheduledWithSound;
 
+  /// Last sound channel id used when slots were scheduled on this isolate.
+  String? _scheduledSoundChannelId;
+
   /// Last slot count passed to [_scheduleSlots]; for tests only.
   @visibleForTesting
   int lastScheduledSlotCount = 0;
@@ -32,6 +36,10 @@ class NotificationService {
   /// Whether the last successful schedule used the sound channel; for tests only.
   @visibleForTesting
   bool? get scheduledWithSound => _scheduledWithSound;
+
+  /// Sound channel id from the last successful schedule; for tests only.
+  @visibleForTesting
+  String? get scheduledSoundChannelId => _scheduledSoundChannelId;
 
   static Future<void> _awaitRescheduleIdle() async {
     while (_rescheduleInFlight != null) {
@@ -78,7 +86,7 @@ class NotificationService {
 
   /// Whether [notification] is a delivered hourly forecast alert (not persistent).
   ///
-  /// Matches forecast channels (including the pre-v2 sound id); if
+  /// Matches forecast channels (including ultra-legacy and sound ids); if
   /// [ActiveNotification.channelId] is null (older Android), falls back to any
   /// id other than [persistentNotificationId].
   @visibleForTesting
@@ -88,9 +96,14 @@ class NotificationService {
     final channel = notification.channelId;
     if (channel == null) return true;
     return channel == forecastChannelId ||
-        channel == forecastSoundChannelId ||
-        channel == legacyForecastSoundChannelId;
+        channel == legacyForecastChannelId ||
+        isForecastSoundChannelId(channel);
   }
+
+  /// Whether [channelId] is a current or legacy forecast sound channel.
+  @visibleForTesting
+  static bool isForecastSoundChannelId(String channelId) =>
+      forecastSoundChannelIds.contains(channelId);
 
   /// Ids of delivered forecast alerts from [active].
   @visibleForTesting
@@ -121,10 +134,54 @@ class NotificationService {
   static const forecastChannelDescription =
       'Weather forecast alerts without sound';
 
+  /// Ultra-legacy pre-split silent channel; deleted on init/migration.
+  static const legacyForecastChannelId = 'Rain';
+
+  /// Ultra-legacy pre-split sound channel; deleted on init/migration.
+  static const legacyPreSplitSoundChannelId = 'RainSound';
+
   /// Pre-schema-v2 sound channel; deleted on migration (Android locks channel sound).
   static const legacyForecastSoundChannelId = 'RainForecastSound';
 
-  static const forecastSoundChannelId = 'RainForecastSoundV2';
+  /// Schema-v2 sound channel; deleted on migration to v3.
+  static const legacyForecastSoundChannelIdV2 = 'RainForecastSoundV2';
+
+  /// Primary schema-v3 sound channel (explicit default notification URI).
+  static const forecastSoundChannelIdPrimary = 'RainForecastSoundV3';
+
+  /// Fallback if [forecastSoundChannelIdPrimary] is created without sound on OEM.
+  static const forecastSoundChannelIdFallback = 'RainForecastSoundV3b';
+
+  /// Active sound channel id for scheduling (may switch to fallback after verify).
+  static String _activeForecastSoundChannelId = forecastSoundChannelIdPrimary;
+
+  /// Channel id used when scheduling sounding forecast alerts.
+  static String get forecastSoundChannelId => _activeForecastSoundChannelId;
+
+  /// Sets the runtime sound channel after create/verify (main or background isolate).
+  static void setActiveForecastSoundChannelId(String channelId) {
+    _activeForecastSoundChannelId = channelId;
+  }
+
+  /// Resets runtime sound channel to the primary id (tests).
+  @visibleForTesting
+  static void resetActiveForecastSoundChannelId() {
+    _activeForecastSoundChannelId = forecastSoundChannelIdPrimary;
+  }
+
+  /// All known sound channel ids (current + legacy) for shade cleanup.
+  static const forecastSoundChannelIds = {
+    legacyPreSplitSoundChannelId,
+    legacyForecastSoundChannelId,
+    legacyForecastSoundChannelIdV2,
+    forecastSoundChannelIdPrimary,
+    forecastSoundChannelIdFallback,
+  };
+
+  /// Default system notification sound URI for Android channel create/details.
+  static const defaultNotificationSoundUri =
+      'content://settings/system/notification_sound';
+
   static const forecastSoundChannelName = 'Rain Forecast (sound)';
   static const forecastSoundChannelDescription =
       'Weather forecast alerts with sound';
@@ -256,10 +313,18 @@ class NotificationService {
     // Stale/empty cache: keep existing pending alarms until fresh data arrives.
     if (plan.slots.isEmpty && !hasValidCache) return;
 
-    // Silent↔sound must rebuild pending on the matching channel (top-up keeps ids).
+    // Drop Doze-late pending before top-up / shade reconcile.
+    await cancelExpiredPendingForecastNotifications(
+      cache: cache,
+      settings: settings,
+    );
+
+    // Silent↔sound or V3↔V3b must rebuild pending (top-up keeps ids/channels).
+    // Prefer in-memory flag; fall back to disk so cold starts still reschedule.
+    final scheduled = await _resolvedScheduledSoundState();
     if (plan.slots.isNotEmpty &&
-        _scheduledWithSound != null &&
-        _scheduledWithSound != settings.notificationSound) {
+        scheduled != null &&
+        _scheduledSoundStateMismatchesSettings(scheduled, settings)) {
       final existingPending = await flutterLocalNotificationsPlugin
           .pendingNotificationRequests();
       if (_pendingForecastNotificationIds(existingPending).isNotEmpty) {
@@ -359,9 +424,44 @@ class NotificationService {
     }
     lastScheduledSlotCount = scheduledCount;
     if (scheduledCount > 0) {
-      _scheduledWithSound = settings.notificationSound;
+      final withSound = settings.notificationSound;
+      final channelId = withSound ? forecastSoundChannelId : null;
+      _scheduledWithSound = withSound;
+      _scheduledSoundChannelId = channelId;
+      await writeScheduledNotificationSound(withSound, channelId: channelId);
     }
   }
+
+  Future<ScheduledNotificationSoundState?>
+  _resolvedScheduledSoundState() async {
+    if (_scheduledWithSound != null) {
+      return ScheduledNotificationSoundState(
+        withSound: _scheduledWithSound!,
+        channelId: _scheduledSoundChannelId,
+      );
+    }
+    return readScheduledNotificationSoundState();
+  }
+
+  /// True when persisted/in-memory schedule disagrees with current settings/channel.
+  @visibleForTesting
+  static bool scheduledSoundStateMismatchesSettings(
+    ScheduledNotificationSoundState scheduled,
+    AppSettings settings, {
+    String? activeSoundChannelId,
+  }) {
+    if (scheduled.withSound != settings.notificationSound) return true;
+    if (!settings.notificationSound) return false;
+    final channelId = scheduled.channelId;
+    if (channelId == null || channelId.isEmpty) return false;
+    final active = activeSoundChannelId ?? forecastSoundChannelId;
+    return channelId != active;
+  }
+
+  bool _scheduledSoundStateMismatchesSettings(
+    ScheduledNotificationSoundState scheduled,
+    AppSettings settings,
+  ) => scheduledSoundStateMismatchesSettings(scheduled, settings);
 
   /// Cancels pending forecast alarms whose hour start is past the grace window.
   ///
@@ -438,9 +538,11 @@ class NotificationService {
       final done = Completer<void>();
       _rescheduleInFlight = done.future;
       try {
+        // Stamp early so other isolates skip ensure during cancel.
+        await markForecastRescheduleCompleted();
         // Empty keep set: drop pending and shade forecast alerts (not persistent).
         await _cancelForecastNotificationsExcept(const {});
-        _scheduledWithSound = null;
+        await _clearScheduledSoundFlag();
       } finally {
         await markForecastRescheduleCompleted();
         done.complete();
@@ -453,9 +555,10 @@ class NotificationService {
     final done = Completer<void>();
     _rescheduleInFlight = done.future;
     try {
+      // Stamp early so other isolates skip ensure during cancel+schedule.
+      await markForecastRescheduleCompleted();
       // Clear pending + shade before scheduling the new plan.
       await _cancelForecastNotificationsExcept(const {});
-      if (!settings.notifications) return;
       await _scheduleSlots(plan: plan, cache: cache, settings: settings);
     } finally {
       await markForecastRescheduleCompleted();
@@ -538,7 +641,7 @@ class NotificationService {
     await _awaitRescheduleIdle();
     try {
       await _cancelForecastNotificationsExcept(const {});
-      _scheduledWithSound = null;
+      await _clearScheduledSoundFlag();
     } catch (e, stackTrace) {
       debugLogError(
         'NotificationService.cancelForecastNotifications',
@@ -546,6 +649,12 @@ class NotificationService {
         stackTrace,
       );
     }
+  }
+
+  Future<void> _clearScheduledSoundFlag() async {
+    _scheduledWithSound = null;
+    _scheduledSoundChannelId = null;
+    await clearScheduledNotificationSound();
   }
 
   Future<void> cancelAll() => flutterLocalNotificationsPlugin.cancelAll();
@@ -566,7 +675,8 @@ class NotificationService {
         importance: Importance.max,
         playSound: true,
         enableVibration: true,
-        audioAttributesUsage: AudioAttributesUsage.notificationRingtone,
+        sound: const UriAndroidNotificationSound(defaultNotificationSoundUri),
+        audioAttributesUsage: AudioAttributesUsage.notification,
         largeIcon: FilePathAndroidBitmap(imagePath),
       );
     }

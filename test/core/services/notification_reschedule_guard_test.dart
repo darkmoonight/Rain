@@ -31,6 +31,8 @@ void main() {
   );
 
   test('shouldSkipForecastReplenish is true inside cooldown window', () async {
+    // Reschedule stamps the guard at start (and again in finally) so ensure on
+    // another isolate skips during the in-flight cancel+schedule window.
     await markForecastRescheduleCompleted();
 
     expect(await shouldSkipForecastReplenish(), isTrue);

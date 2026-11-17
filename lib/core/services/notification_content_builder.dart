@@ -226,5 +226,3 @@ PersistentNotificationContent? buildPersistentNotificationContent({
     ),
   );
 }
-
-/// Schedules, reschedules, and cancels local weather notifications.
