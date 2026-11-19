@@ -200,7 +200,7 @@ void main() {
 
         expect(
           NotificationService.isForecastActiveNotification(
-            ActiveNotification(
+            const ActiveNotification(
               id: 10,
               channelId: NotificationService.forecastChannelId,
             ),
@@ -218,7 +218,7 @@ void main() {
         );
         expect(
           NotificationService.isForecastActiveNotification(
-            ActiveNotification(
+            const ActiveNotification(
               id: 14,
               channelId: NotificationService.legacyForecastSoundChannelId,
             ),
@@ -227,7 +227,7 @@ void main() {
         );
         expect(
           NotificationService.isForecastActiveNotification(
-            ActiveNotification(
+            const ActiveNotification(
               id: 15,
               channelId: NotificationService.legacyForecastSoundChannelIdV2,
             ),
@@ -236,7 +236,7 @@ void main() {
         );
         expect(
           NotificationService.isForecastActiveNotification(
-            ActiveNotification(
+            const ActiveNotification(
               id: 16,
               channelId: NotificationService.forecastSoundChannelIdFallback,
             ),
@@ -245,7 +245,7 @@ void main() {
         );
         expect(
           NotificationService.isForecastActiveNotification(
-            ActiveNotification(
+            const ActiveNotification(
               id: 17,
               channelId: NotificationService.legacyForecastChannelId,
             ),
@@ -254,7 +254,7 @@ void main() {
         );
         expect(
           NotificationService.isForecastActiveNotification(
-            ActiveNotification(
+            const ActiveNotification(
               id: 18,
               channelId: NotificationService.legacyPreSplitSoundChannelId,
             ),
@@ -263,7 +263,7 @@ void main() {
         );
         expect(
           NotificationService.isForecastActiveNotification(
-            ActiveNotification(
+            const ActiveNotification(
               id: persistent,
               channelId: NotificationService.persistentChannelId,
             ),
@@ -272,7 +272,7 @@ void main() {
         );
         expect(
           NotificationService.isForecastActiveNotification(
-            ActiveNotification(
+            const ActiveNotification(
               id: 12,
               channelId: NotificationService.persistentChannelId,
             ),

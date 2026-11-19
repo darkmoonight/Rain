@@ -59,7 +59,7 @@ dependencies:
   workmanager: ^0.10.10
 
   # Notifications
-  flutter_local_notifications: ^23.0.2
+  flutter_local_notifications: ^23.0.3
 
   # UI & theming
   gap: ^3.1.0
@@ -81,6 +81,12 @@ dependencies:
   flutter_displaymode: ^0.7.0
   device_info_plus: ^13.3.0
   package_info_plus: ^10.2.2
+
+# path_provider_android 2.3.x (JNI) breaks with jni 1.2.0: Context.type has no
+# className, so FindClass gets "Landroid/content/Context;" and crashes at startup
+# when opening Isar via getApplicationSupportDirectory().
+dependency_overrides:
+  path_provider_android: 2.2.23
 
 dev_dependencies:
   # Testing

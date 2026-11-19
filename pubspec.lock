@@ -394,10 +394,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_local_notifications
-      sha256: fac349e7361f80591a0cedff03548f807282c9faee9fc6192763166e5f81def2
+      sha256: "7d37d69ded3028af4f22531a0097a3baa478a384dff2e23e873707c93df3b704"
       url: "https://pub.dev"
     source: hosted
-    version: "23.0.2"
+    version: "23.0.3"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
@@ -781,30 +781,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.1"
-  jni:
-    dependency: transitive
-    description:
-      name: jni
-      sha256: "2e91e6087291affd10b31b6c872f3e3ac7dc5d93b51b5ba485d930c8f08bde6c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2"
-  jni_flutter:
-    dependency: transitive
-    description:
-      name: jni_flutter
-      sha256: "0dd33d67797560f66e961a6053882d4df54bd345bf063b8fe7ea133f7ad8b191"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.4+1"
-  jni_util:
-    dependency: transitive
-    description:
-      name: jni_util
-      sha256: "1ba86da04a5f2bf18fde2edb235587e70c5b0fc5bd4ba955f46b00942c3fc35f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   js:
     dependency: transitive
     description:
@@ -1006,13 +982,13 @@ packages:
     source: hosted
     version: "2.1.6"
   path_provider_android:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: path_provider_android
-      sha256: "69cbd515a62b94d32a7944f086b2f82b4ac40a1d45bebfc00813a430ab2dabcd"
+      sha256: "149441ca6e4f38193b2e004c0ca6376a3d11f51fa5a77552d8bd4d2b0c0912ba"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.2.23"
   path_provider_foundation:
     dependency: transitive
     description:
